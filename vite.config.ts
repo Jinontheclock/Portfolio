@@ -61,10 +61,11 @@
         '@': path.resolve(__dirname, './src'),
       },
     },
-    build: {
-      target: 'esnext',
-      outDir: 'build',
-    },
+  build: {
+    target: 'esnext',
+    // Use Vite default output directory so hosting (e.g. Vercel) finds it automatically.
+    outDir: 'dist',
+  },
     server: {
       port: 3000,
       open: true,
