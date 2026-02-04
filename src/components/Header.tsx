@@ -1,4 +1,5 @@
-import imgLogoDark1 from '../assets/c0ff9b06a95d08b684f7bb2cd6d1ffad12acf27c.png';
+import { useEffect, useRef, useState } from 'react';
+import imgLogoGif from '../assets/hajin_icon.gif';
 import { Language, Page } from '../types';
 
 type HeaderProps = {
@@ -14,17 +15,94 @@ const navBase =
 const activeUnderline = 'underline [text-decoration-skip-ink:none] decoration-solid';
 
 export default function Header({ currentPage, language, onNavigate, onLanguageChange }: HeaderProps) {
+  const [staticSrc, setStaticSrc] = useState<string>(imgLogoGif); // first frame
+  const [lastFrameSrc, setLastFrameSrc] = useState<string>(imgLogoGif); // will be updated
+  const [logoSrc, setLogoSrc] = useState<string>(imgLogoGif);
+  const captureRef = useRef<number | null>(null);
+  const hoverStopRef = useRef<number | null>(null);
+  const navigateRef = useRef<number | null>(null);
+  const GIF_DURATION_MS = 1000; // actual gif length ~1s
+
+  // Capture first and last frames
+  useEffect(() => {
+    const img = new Image();
+    img.src = imgLogoGif;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      // first frame
+      ctx.drawImage(img, 0, 0);
+      const first = canvas.toDataURL('image/png');
+      setStaticSrc(first);
+      setLogoSrc(first);
+      // capture near end (best effort)
+      captureRef.current = window.setTimeout(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+        const last = canvas.toDataURL('image/png');
+        setLastFrameSrc(last);
+      }, GIF_DURATION_MS - 50);
+    };
+    return () => {
+      if (captureRef.current) window.clearTimeout(captureRef.current);
+    };
+  }, []);
+
+  const startLooping = (forceRestart = false) => {
+    if (hoverStopRef.current) {
+      window.clearTimeout(hoverStopRef.current);
+      hoverStopRef.current = null;
+    }
+    // If not forcing, only restart when currently frozen on a frame
+    if (!forceRestart && logoSrc.endsWith('.gif') && logoSrc.includes('cb=')) {
+      return;
+    }
+    setLogoSrc(`${imgLogoGif}?cb=${Date.now()}`); // restart GIF; it will loop while displayed
+  };
+
+  const stopAfterOne = () => {
+    if (hoverStopRef.current) window.clearTimeout(hoverStopRef.current);
+    hoverStopRef.current = window.setTimeout(() => {
+      setLogoSrc(lastFrameSrc || staticSrc);
+      hoverStopRef.current = null;
+    }, GIF_DURATION_MS);
+  };
+
+  const handleLogoClick = () => {
+    startLooping(true); // always restart animation on click
+    if (navigateRef.current) window.clearTimeout(navigateRef.current);
+    navigateRef.current = window.setTimeout(() => {
+      setLogoSrc(lastFrameSrc || staticSrc);
+      onNavigate('home');
+      navigateRef.current = null;
+    }, GIF_DURATION_MS);
+  };
+
+  useEffect(
+    () => () => {
+      if (captureRef.current) window.clearTimeout(captureRef.current);
+      if (hoverStopRef.current) window.clearTimeout(hoverStopRef.current);
+      if (navigateRef.current) window.clearTimeout(navigateRef.current);
+    },
+    []
+  );
+
   const languageButtonClass = (lang: Language) =>
     `cursor-pointer bg-transparent border-none leading-[normal] ${language === lang ? activeUnderline : ''}`;
 
   return (
     <header className="relative h-[96px]">
       <button
-        onClick={() => onNavigate('home')}
+        onClick={handleLogoClick}
         className="absolute left-[24px] size-[48px] top-[24px] cursor-pointer z-10"
         aria-label="Go to home"
+        onMouseEnter={() => startLooping(false)}
+        onMouseLeave={stopAfterOne}
       >
-        <img alt="Logo" className="size-full object-cover" src={imgLogoDark1} />
+        <img alt="Logo" className="size-full object-cover" src={logoSrc} />
       </button>
 
       <button

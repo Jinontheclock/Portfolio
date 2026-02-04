@@ -66,6 +66,18 @@
   --color-grey-dark-hover: #828280;
   --color-grey-dark-active: #626160;
   --color-grey-darker: #4c4c4b;
+
+  /* Blue palette */
+  --color-blue-light: #e9f1ff;
+  --color-blue-light-hover: #dee9ff;
+  --color-blue-light-active: #bbd2ff;
+  --color-blue-normal: #256eff;
+  --color-blue-normal-hover: #2163e6;
+  --color-blue-normal-active: #1e58cc;
+  --color-blue-dark: #1c53bf;
+  --color-blue-dark-hover: #164299;
+  --color-blue-dark-active: #113173;
+  --color-blue-darker: #0d2759;
 }
 
 .dark {

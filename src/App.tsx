@@ -5,14 +5,19 @@ import imgRei2 from "./assets/a771b976b8e33ee1454d01fb5f620ea74b08d172.png";
 import imgRick2 from "./assets/10c445b9937ff5886d511a0c35dbd90450f6791a.png";
 import imgTadao2 from "./assets/94ec395168fd9eb207275e6762f7f0ff0360fdf8.png";
 import imgVirgil2 from "./assets/f0aa54e2232b7229379c44b76f3517073a2390bf.png";
-import imgImage24 from "./assets/f5f3648e3c8bf02d20f4eebcc327b882c530c8e0.png";
-import imgImage33 from "./assets/71366fd793e8dcc9f9d377373114ab8fc484685c.png";
-import imgImage19 from "./assets/dffa3d2509ebe6453bde8f2706e53406fb383812.png";
-import imgImg26161 from "./assets/428c04dfe841133da2e66210a87c2e0aa90ad763.png";
+import imgProjTinyGrey from "./assets/homepage_projects_tinypaws_gray.png";
+import imgProjTinyColor from "./assets/homepage_projects_tinypaws_color.png";
+import imgProjIcelandGrey from "./assets/homepage_projects_bestoficeland_gray.png";
+import imgProjIcelandColor from "./assets/homepage_projects_bestoficeland_color.png";
+import imgProjPrologGrey from "./assets/homepage_projects_prolog_gray.png";
+import imgProjPrologColor from "./assets/homepage_projects_prolog_color.png";
+import imgImg26161 from "./assets/hajin_homepage_about.png";
 import imgArrow from "./assets/arrow.png";
 import { useState } from 'react';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ProjectsPage from "./components/ProjectsPage";
+import AboutPage from "./components/AboutPage";
 import { Language, Page } from "./types";
 
 function Group() {
@@ -103,26 +108,51 @@ function Virgil() {
 
 function Image1() {
   return (
-    <div className="absolute h-[180px] right-[24px] top-[2034px] w-[244px] transition-transform duration-300 ease-out hover:scale-[1.6] origin-center" data-name="image 24">
-      <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage24} />
+    <div className="absolute right-[24px] top-[1992px] size-[264px] group" data-name="image 24">
+      <img
+        alt=""
+        className="pointer-events-none absolute inset-0 object-cover size-full transition duration-300 opacity-100 group-hover:opacity-0"
+        src={imgProjTinyGrey}
+      />
+      <img
+        alt=""
+        className="pointer-events-none absolute inset-0 object-cover size-full transition duration-300 opacity-0 group-hover:opacity-100"
+        src={imgProjTinyColor}
+      />
     </div>
   );
 }
 
 function Image2() {
   return (
-    <div className="absolute right-[24px] size-[264px] top-[2304px] transition-transform duration-300 ease-out hover:scale-[1.6] origin-center" data-name="image 33">
-      <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage33} />
+    <div className="absolute right-[24px] top-[2304px] size-[264px] group" data-name="image 33">
+      <img
+        alt=""
+        className="pointer-events-none absolute inset-0 object-cover size-full transition duration-300 opacity-100 group-hover:opacity-0"
+        src={imgProjIcelandGrey}
+      />
+      <img
+        alt=""
+        className="pointer-events-none absolute inset-0 object-cover size-full transition duration-300 opacity-0 group-hover:opacity-100"
+        src={imgProjIcelandColor}
+      />
     </div>
   );
 }
 
 function Image() {
   return (
-    <div className="absolute h-[194px] right-[24px] top-[1715px] w-[233px] transition-transform duration-300 ease-out hover:scale-[1.6] origin-center" data-name="image 21">
-      <div className="absolute h-[194px] left-0 top-0 w-[233px]" data-name="image 19">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage19} />
-      </div>
+    <div className="absolute right-[24px] top-[1680px] size-[264px] group" data-name="image 21">
+      <img
+        alt=""
+        className="pointer-events-none absolute inset-0 object-cover size-full transition duration-300 opacity-100 group-hover:opacity-0"
+        src={imgProjPrologGrey}
+      />
+      <img
+        alt=""
+        className="pointer-events-none absolute inset-0 object-cover size-full transition duration-300 opacity-0 group-hover:opacity-100"
+        src={imgProjPrologColor}
+      />
     </div>
   );
 }
@@ -133,45 +163,23 @@ export default function App() {
 
   if (currentPage === 'projects') {
     return (
-      <div className="layout-viewport hide-scrollbar">
-        <div className="layout-canvas">
-          <div className="layout-canvas-inner">
-            <div className="relative min-h-screen">
-              <Header
-                currentPage={currentPage}
-                language={language}
-                onNavigate={(page) => setCurrentPage(page)}
-                onLanguageChange={(lang) => setLanguage(lang)}
-              />
-              <div className="flex items-center justify-center h-screen">
-                <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[64px] text-black-normal">Projects Page</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ProjectsPage
+        currentPage={currentPage}
+        language={language}
+        onNavigate={(page) => setCurrentPage(page)}
+        onLanguageChange={(lang) => setLanguage(lang)}
+      />
     );
   }
 
   if (currentPage === 'about') {
     return (
-      <div className="layout-viewport hide-scrollbar">
-        <div className="layout-canvas">
-          <div className="layout-canvas-inner">
-            <div className="relative min-h-screen">
-              <Header
-                currentPage={currentPage}
-                language={language}
-                onNavigate={(page) => setCurrentPage(page)}
-                onLanguageChange={(lang) => setLanguage(lang)}
-              />
-              <div className="flex items-center justify-center h-screen">
-                <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[64px] text-black-normal">About Page</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AboutPage
+        currentPage={currentPage}
+        language={language}
+        onNavigate={(page) => setCurrentPage(page)}
+        onLanguageChange={(lang) => setLanguage(lang)}
+      />
     );
   }
 
@@ -179,7 +187,7 @@ export default function App() {
     <div className="layout-viewport hide-scrollbar">
         <div className="layout-canvas">
           <div className="layout-canvas-inner">
-            <div className="relative min-h-[3780px]">
+            <div className="relative min-h-[3850px]">
         <Header
           currentPage={currentPage}
           language={language}
@@ -242,19 +250,41 @@ export default function App() {
           <p className="mb-0">Visual storytelling</p>
           <p>Print-ready composition</p>
         </div>
-        <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(37.5%-9px)] right-[calc(37.5%+15px)] not-italic text-black-normal text-[0px] top-[1680px]">
-          <p className="type-heading-3 text-black-normal mb-0">ProLog</p>
-          <p className="text-[18px]">Skilled trades apprenticeship app for progress tracking</p>
+        {/* Project 1 group */}
+        <div className="absolute left-0 right-0 top-[1680px] h-[200px] group cursor-pointer">
+          <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(25%+18px)] not-italic text-black-normal text-[18px] transition-colors duration-200 group-hover:text-[#256EFF]">
+            (1)
+          </p>
+          <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(37.5%-9px)] right-[calc(37.5%+15px)] not-italic text-black-normal text-[0px] transition-colors duration-200 group-hover:text-[#256EFF]">
+            <p className="type-heading-3 mb-0">ProLog</p>
+            <p className="text-[18px] mb-0">Skilled trades apprenticeship app</p>
+            <p className="text-[18px]">for progress tracking</p>
+          </div>
         </div>
-        <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(37.5%-9px)] right-[calc(37.5%+15px)] not-italic text-black-normal text-[0px] top-[1992px]">
-          <p className="type-heading-3 text-black-normal mb-0">TinyPaws</p>
-          <p className="text-[18px]">Cat adoption website for a rescue nonprofit</p>
+
+        {/* Project 2 group */}
+        <div className="absolute left-0 right-0 top-[1992px] h-[200px] group cursor-pointer">
+          <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(25%+18px)] not-italic text-black-normal text-[18px] transition-colors duration-200 group-hover:text-[#256EFF]">
+            (2)
+          </p>
+          <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(37.5%-9px)] right-[calc(37.5%+15px)] not-italic text-black-normal text-[0px] transition-colors duration-200 group-hover:text-[#256EFF]">
+            <p className="type-heading-3 mb-0">TinyPaws</p>
+            <p className="text-[18px] mb-0">Cat adoption website</p>
+            <p className="text-[18px]">for a rescue nonprofit</p>
+          </div>
         </div>
-        <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(37.5%-9px)] right-[calc(37.5%+15px)] not-italic text-black-normal text-[0px] top-[2304px]">
-          <p className="type-heading-3 text-black-normal mb-0">{` Best of Iceland`}</p>
-          <p className="text-[18px]">G Adventure itinerary redesigned as a magazine</p>
+
+        {/* Project 3 group */}
+        <div className="absolute left-0 right-0 top-[2304px] h-[200px] group cursor-pointer">
+          <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(25%+18px)] not-italic text-black-normal text-[18px] transition-colors duration-200 group-hover:text-[#256EFF]">
+            (3)
+          </p>
+          <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(37.5%-9px)] right-[calc(37.5%+15px)] not-italic text-black-normal text-[0px] transition-colors duration-200 group-hover:text-[#256EFF]">
+            <p className="type-heading-3 mb-0">{` Best of Iceland`}</p>
+            <p className="text-[18px] mb-0">G Adventure itinerary</p>
+            <p className="text-[18px]">redesigned as a magazine</p>
+          </div>
         </div>
-        <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(25%+18px)] not-italic text-black-normal text-[18px] top-[2304px]">(3)</p>
         <div className="absolute h-0 left-[calc(25%+18px)] right-[24px] top-[1656px]">
           <div className="absolute inset-[-1px_0_0_0]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1038 1">
@@ -308,8 +338,6 @@ export default function App() {
             </div>
           </div>
         </div>
-        <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(25%+18px)] not-italic text-black-normal text-[18px] top-[1680px]">(1)</p>
-        <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(25%+18px)] not-italic text-black-normal text-[18px] top-[1992px]">(2)</p>
         <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(25%+18px)] not-italic text-black-normal text-[18px] top-[2784px] w-[531px] whitespace-pre-wrap">
           <p className="mb-0">Grounded in visual clarity and practical usability,</p>
           <p className="mb-0">design is approached as a way to simplify digital experiences.</p>
@@ -323,11 +351,12 @@ export default function App() {
         </div>
         <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] h-[37px] leading-[normal] left-[calc(75%-6px)] not-italic text-black-normal text-[18px] top-[2952px] w-[483px] whitespace-pre-wrap">{`Graphic Design & Layout Composition`}</p>
         <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] h-[37px] leading-[normal] left-[calc(75%-6px)] not-italic text-black-normal text-[18px] top-[3000px] w-[483px] whitespace-pre-wrap">{`Brand Identity & Visual Systems`}</p>
-        <div className="absolute h-[583px] left-[24px] right-[calc(37.5%-15px)] top-[2904px]" data-name="IMG_2616 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none grayscale">
-            <img alt="" className="absolute inset-0 object-cover size-full" src={imgImg26161} />
-          </div>
-        </div>
+        <img
+          alt=""
+          src={imgImg26161}
+          className="absolute left-[24px] top-[2904px] grayscale pointer-events-none"
+          style={{ transform: 'scale(0.56)', transformOrigin: 'top left' }}
+        />
         <InspirationLines />
         <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[24px] not-italic text-black-normal text-[24px] top-[844px]">inspirations</p>
         <Bauhaus />
@@ -337,15 +366,13 @@ export default function App() {
         <Rick />
         <Tadao />
         <Virgil />
-        <div className="absolute bg-grey-normal-active right-[24px] size-[264px] top-[1680px]" />
-        <div className="absolute bg-grey-normal-active right-[24px] size-[264px] top-[1992px]" />
         <Image1 />
-        <div className="absolute bg-grey-normal-active right-[24px] size-[264px] top-[2304px]" />
         <Image2 />
         <Image />
         <Footer
           onNavigate={(page) => setCurrentPage(page)}
           onArchiveClick={() => {}}
+          top={3560}
         />
           </div>
         </div>
