@@ -88,28 +88,32 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
             {rows.map((row) => {
               const top = ROW_START + row.offset * ROW_GAP;
               return (
-              <React.Fragment key={row.top}>
+              <React.Fragment key={row.offset}>
                 <p
                   className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.workType}`}
-                  style={{ top }}
+                  style={{ top, cursor: row.title.includes('Iceland') ? 'pointer' : 'default' }}
+                  onClick={() => row.title.includes('Iceland') && onNavigate('iceland')}
                 >
                   {row.workType}
                 </p>
                 <p
                   className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.title}`}
-                  style={{ top }}
+                  style={{ top, cursor: row.title.includes('Iceland') ? 'pointer' : 'default' }}
+                  onClick={() => row.title.includes('Iceland') && onNavigate('iceland')}
                 >
                   {row.title}
                 </p>
                 <p
                   className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.role}`}
-                  style={{ top }}
+                  style={{ top, cursor: row.title.includes('Iceland') ? 'pointer' : 'default' }}
+                  onClick={() => row.title.includes('Iceland') && onNavigate('iceland')}
                 >
                   {row.role}
                 </p>
                 <p
                   className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.year}`}
-                  style={{ top }}
+                  style={{ top, cursor: row.title.includes('Iceland') ? 'pointer' : 'default' }}
+                  onClick={() => row.title.includes('Iceland') && onNavigate('iceland')}
                 >
                   {row.year}
                 </p>

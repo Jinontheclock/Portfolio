@@ -167,7 +167,7 @@
 
   body {
     color: var(--color-foreground);
-    background-color: var(--color-grey-normal);
+    background-color: var(--color-grey-light-active);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -235,6 +235,7 @@ html {
   --heading-1-size: 56px;
   --heading-2-size: 32px;
   --heading-3-size: 24px;
+  --category-size: 12px;
   --body-lg-size: 18px;
   --body-size: 16px;
   --caption-size: 10px;
@@ -306,6 +307,13 @@ body::-webkit-scrollbar {
   line-height: 1.3;
 }
 
+.type-category {
+  font-size: var(--category-size);
+  font-weight: var(--weight-medium);
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
 .type-body-lg {
   font-size: var(--body-lg-size);
   font-weight: var(--weight-medium);
@@ -340,7 +348,7 @@ body::-webkit-scrollbar {
 }
 
 .bg-grey-normal {
-  background-color: var(--color-grey-normal);
+  background-color: var(--color-grey-light-active);
 }
 
 .bg-grey-normal-active {
@@ -432,7 +440,7 @@ body::-webkit-scrollbar {
   );
   /* 높이는 확대하지 않고 축소만 허용 (큰 화면에서 과도한 세로 여백 방지) */
   --layout-scale-height: min(var(--layout-scale), 1);
-  background-color: var(--color-grey-normal);
+  background-color: var(--color-grey-light-active);
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
