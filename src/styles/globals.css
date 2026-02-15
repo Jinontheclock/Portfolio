@@ -343,6 +343,13 @@ body::-webkit-scrollbar {
   color: var(--color-black-normal);
 }
 
+.iceland-fluid {
+  --iceland-scale: clamp(0.7, calc(100vw / 1440), 1);
+  transform: scale(var(--iceland-scale));
+  transform-origin: top left;
+  width: calc(100% / var(--iceland-scale));
+}
+
 .bg-black-normal {
   background-color: var(--color-black-normal);
 }
