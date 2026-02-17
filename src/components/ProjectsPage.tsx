@@ -91,29 +91,41 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
               <React.Fragment key={row.offset}>
                 <p
                   className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.workType}`}
-                  style={{ top, cursor: row.title.includes('Iceland') ? 'pointer' : 'default' }}
-                  onClick={() => row.title.includes('Iceland') && onNavigate('iceland')}
+                  style={{ top, cursor: row.title.includes('Iceland') || row.title.includes('TinyPaws') ? 'pointer' : 'default' }}
+                  onClick={() => {
+                    if (row.title.includes('Iceland')) onNavigate('iceland');
+                    if (row.title.includes('TinyPaws')) onNavigate('tinypaws');
+                  }}
                 >
                   {row.workType}
                 </p>
                 <p
                   className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.title}`}
-                  style={{ top, cursor: row.title.includes('Iceland') ? 'pointer' : 'default' }}
-                  onClick={() => row.title.includes('Iceland') && onNavigate('iceland')}
+                  style={{ top, cursor: row.title.includes('Iceland') || row.title.includes('TinyPaws') ? 'pointer' : 'default' }}
+                  onClick={() => {
+                    if (row.title.includes('Iceland')) onNavigate('iceland');
+                    if (row.title.includes('TinyPaws')) onNavigate('tinypaws');
+                  }}
                 >
                   {row.title}
                 </p>
                 <p
                   className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.role}`}
-                  style={{ top, cursor: row.title.includes('Iceland') ? 'pointer' : 'default' }}
-                  onClick={() => row.title.includes('Iceland') && onNavigate('iceland')}
+                  style={{ top, cursor: row.title.includes('Iceland') || row.title.includes('TinyPaws') ? 'pointer' : 'default' }}
+                  onClick={() => {
+                    if (row.title.includes('Iceland')) onNavigate('iceland');
+                    if (row.title.includes('TinyPaws')) onNavigate('tinypaws');
+                  }}
                 >
                   {row.role}
                 </p>
                 <p
                   className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.year}`}
-                  style={{ top, cursor: row.title.includes('Iceland') ? 'pointer' : 'default' }}
-                  onClick={() => row.title.includes('Iceland') && onNavigate('iceland')}
+                  style={{ top, cursor: row.title.includes('Iceland') || row.title.includes('TinyPaws') ? 'pointer' : 'default' }}
+                  onClick={() => {
+                    if (row.title.includes('Iceland')) onNavigate('iceland');
+                    if (row.title.includes('TinyPaws')) onNavigate('tinypaws');
+                  }}
                 >
                   {row.year}
                 </p>

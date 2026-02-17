@@ -1,24 +1,25 @@
-import imgBauhaus2 from "./assets/98248a16c49e0cee4b6b97d80c1ae3025468b5d7.png";
-import imgDieterRams2 from "./assets/1e560d605ce3de7651e4f03fa05a25201a37af02.png";
-import imgHomepageEstablishHierarchy2X2 from "./assets/a522343bdbee9e5fe1cfac41b370f3ffaeb11481.png";
-import imgRei2 from "./assets/a771b976b8e33ee1454d01fb5f620ea74b08d172.png";
-import imgRick2 from "./assets/10c445b9937ff5886d511a0c35dbd90450f6791a.png";
-import imgTadao2 from "./assets/94ec395168fd9eb207275e6762f7f0ff0360fdf8.png";
-import imgVirgil2 from "./assets/f0aa54e2232b7229379c44b76f3517073a2390bf.png";
-import imgProjTinyGrey from "./assets/homepage_projects_tinypaws_gray.png";
-import imgProjTinyColor from "./assets/homepage_projects_tinypaws_color.png";
-import imgProjIcelandGrey from "./assets/homepage_projects_bestoficeland_gray.png";
-import imgProjIcelandColor from "./assets/homepage_projects_bestoficeland_color.png";
-import imgProjPrologGrey from "./assets/homepage_projects_prolog_gray.png";
-import imgProjPrologColor from "./assets/homepage_projects_prolog_color.png";
-import imgImg26161 from "./assets/hajin_homepage_about.png";
-import imgArrow from "./assets/arrow.png";
+import imgBauhaus2 from "./assets/home/inspirations/98248a16c49e0cee4b6b97d80c1ae3025468b5d7.png";
+import imgDieterRams2 from "./assets/home/inspirations/1e560d605ce3de7651e4f03fa05a25201a37af02.png";
+import imgHomepageEstablishHierarchy2X2 from "./assets/home/inspirations/a522343bdbee9e5fe1cfac41b370f3ffaeb11481.png";
+import imgRei2 from "./assets/home/inspirations/a771b976b8e33ee1454d01fb5f620ea74b08d172.png";
+import imgRick2 from "./assets/home/inspirations/10c445b9937ff5886d511a0c35dbd90450f6791a.png";
+import imgTadao2 from "./assets/home/inspirations/94ec395168fd9eb207275e6762f7f0ff0360fdf8.png";
+import imgVirgil2 from "./assets/home/inspirations/f0aa54e2232b7229379c44b76f3517073a2390bf.png";
+import imgProjTinyGrey from "./assets/home/projects/homepage_projects_tinypaws_gray.png";
+import imgProjTinyColor from "./assets/home/projects/homepage_projects_tinypaws_color.png";
+import imgProjIcelandGrey from "./assets/home/projects/homepage_projects_bestoficeland_gray.png";
+import imgProjIcelandColor from "./assets/home/projects/homepage_projects_bestoficeland_color.png";
+import imgProjPrologGrey from "./assets/home/projects/homepage_projects_prolog_gray.png";
+import imgProjPrologColor from "./assets/home/projects/homepage_projects_prolog_color.png";
+import imgImg26161 from "./assets/home/about/hajin_homepage_about.png";
+import imgArrow from "./assets/common/arrow.png";
 import { useState, type CSSProperties } from 'react';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProjectsPage from "./components/ProjectsPage";
 import AboutPage from "./components/AboutPage";
 import ProjectIceland from "./components/ProjectIceland";
+import ProjectTinyPaws from "./components/ProjectTinyPaws";
 import { Language, Page } from "./types";
 import RevealLine, { RevealHLine } from "./components/RevealLine";
 
@@ -156,7 +157,14 @@ function ProjectBlocks({ onNavigate }: { onNavigate: (page: Page) => void }) {
     <>
       {PROJECTS.map((proj) => (
         <div key={proj.id}>
-          <div className="absolute left-0 right-0 group cursor-pointer" style={{ top: proj.top, height: 200 }} onClick={() => proj.id === 3 ? onNavigate('iceland') : null}>
+          <div
+            className="absolute left-0 right-0 group cursor-pointer"
+            style={{ top: proj.top, height: 200 }}
+            onClick={() => {
+              if (proj.id === 3) onNavigate('iceland');
+              if (proj.id === 2) onNavigate('tinypaws');
+            }}
+          >
             <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(25%+18px)] not-italic text-black-normal text-[18px] transition-colors duration-200 group-hover:text-[#256EFF]">
               ({proj.id})
             </p>
@@ -181,7 +189,14 @@ function ProjectBlocks({ onNavigate }: { onNavigate: (page: Page) => void }) {
             ))}
           </div>
 
-          <div className="absolute right-[24px] size-[264px] group" style={{ top: proj.top }} onClick={() => proj.id === 3 ? onNavigate('iceland') : null}>
+          <div
+            className="absolute right-[24px] size-[264px] group"
+            style={{ top: proj.top }}
+            onClick={() => {
+              if (proj.id === 3) onNavigate('iceland');
+              if (proj.id === 2) onNavigate('tinypaws');
+            }}
+          >
             <img
               alt=""
               className="pointer-events-none absolute inset-0 object-cover size-full transition duration-300 opacity-100 group-hover:opacity-0"
@@ -217,6 +232,17 @@ export default function App() {
   if (currentPage === 'iceland') {
     return (
       <ProjectIceland
+        currentPage={currentPage}
+        language={language}
+        onNavigate={(page) => setCurrentPage(page)}
+        onLanguageChange={(lang) => setLanguage(lang)}
+      />
+    );
+  }
+
+  if (currentPage === 'tinypaws') {
+    return (
+      <ProjectTinyPaws
         currentPage={currentPage}
         language={language}
         onNavigate={(page) => setCurrentPage(page)}

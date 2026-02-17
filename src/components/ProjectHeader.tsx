@@ -6,6 +6,8 @@ type ProjectHeaderProps = {
   tools: string[];
   role: string;
   reference?: string;
+  category?: string;
+  link?: string;
   description: string[];
 };
 
@@ -13,7 +15,7 @@ type ProjectHeaderProps = {
  * Reusable project hero/header block.
  * Layout: large title on left, meta columns below, description on right.
  */
-export default function ProjectHeader({ title, timeline, tools, role, reference, description }: ProjectHeaderProps) {
+export default function ProjectHeader({ title, timeline, tools, role, reference, category, link, description }: ProjectHeaderProps) {
   return (
     <section className="relative px-3 tablet:px-5 desktop:px-7 pt-48 pb-12 text-black-normal">
       <h1
@@ -26,6 +28,12 @@ export default function ProjectHeader({ title, timeline, tools, role, reference,
       <div className="grid gap-6 desktop:gap-8 desktop:grid-cols-[220px_1px_220px_1fr] items-start">
         {/* Left meta column */}
         <div className="grid gap-6">
+          {category && (
+            <div>
+              <p className="m-0 type-category text-black-normal">Category</p>
+              <p className="m-0 type-body-lg text-black-normal">{category}</p>
+            </div>
+          )}
           <div>
             <p className="m-0 type-category text-black-normal">Timeline</p>
             <p className="m-0 type-body-lg text-black-normal">{timeline}</p>
@@ -40,10 +48,16 @@ export default function ProjectHeader({ title, timeline, tools, role, reference,
               <p className="m-0 type-body-lg text-black-normal">{reference}</p>
             </div>
           )}
+          {link && (
+            <div>
+              <p className="m-0 type-category text-black-normal">Link</p>
+              <p className="m-0 type-body-lg text-black-normal">{link}</p>
+            </div>
+          )}
         </div>
 
         {/* Divider */}
-        <div className="hidden desktop:block h-full border-l border-black/60 translate-x-[-56px]" />
+        <div className="hidden desktop:block h-[200px] border-l border-black/60 translate-x-[-56px]" />
 
         {/* Tools column */}
         <div className="text-[12px] leading-[1.6] desktop:-ml-16">

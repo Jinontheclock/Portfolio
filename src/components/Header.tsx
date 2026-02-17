@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import imgLogoGif from '../assets/hajin_icon.gif';
+import imgLogoGif from '../assets/common/hajin_icon.gif';
 import { Language, Page } from '../types';
 
 type HeaderProps = {
