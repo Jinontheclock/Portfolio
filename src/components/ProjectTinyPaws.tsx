@@ -15,6 +15,7 @@ import UserTestAfter from '../assets/projects/tinypaws/tinypaws_user2.png';
 import UserTestBeforeSecond from '../assets/projects/tinypaws/tinypaws_user3.png';
 import UserTestAfterSecond from '../assets/projects/tinypaws/tinypaws_user4.png';
 import TinypawsPromotionalVideo from '../assets/projects/tinypaws/TinypawsPromotionalVideo.mp4';
+import TinypawsMockup from '../assets/projects/tinypaws/tinypaws_mockup.png';
 
 type Props = {
   currentPage: Page;
@@ -193,7 +194,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                       </p>
                     </div>
 
-                    <div className="grid gap-3">
+                    <div className="grid gap-2">
                       <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">Secondary Research</p>
                       <p className="type-body text-black-normal m-0 leading-[1.6]">
                         Reviewed broader cat adoption and ownership studies in Canada to expand beyond our survey demographic.
@@ -207,8 +208,13 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                     </div>
 
                     {/* User Persona */}
-                    <div className="grid gap-4">
+                    <div className="grid gap-2">
                       <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">User Persona</p>
+                      <p className="type-body text-black-normal m-0 leading-[1.5]">
+                        User personas were developed based on research insights to represent key adopter types and their goals, behaviors, and concerns.
+                        <br />
+                        They guided design decisions by highlighting user needs, pain points, and expectations throughout the adoption journey.
+                      </p>
                       <div className="grid desktop:grid-cols-2 gap-6">
                         <img
                           src={Persona1}
@@ -231,8 +237,15 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                 <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
                   <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">03 Design Process</h2>
                   <div className="grid gap-6 pl-8 tablet:pl-12 desktop:pl-48 max-w-[1280px]">
-                    <div className="flex items-center">
+                    <div className="grid gap-2">
                       <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">Site Map</p>
+                      <p className="type-body text-black-normal m-0 leading-[1.5]">
+                        The site map was developed by mapping key user goals such as adoption, fostering, and donations identified during research.
+                        <br />
+                        Content was grouped into logical categories based on user needs and common navigation patterns.
+                        <br />
+                        User flows were then structured to support different goals, such as exploring available cats, learning about adoption, and completing applications.
+                      </p>
                     </div>
                     <div className="w-full border border-black/10 rounded-[4px] overflow-hidden">
                       <iframe
@@ -255,6 +268,9 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                     <div className="grid gap-2">
                       <p className="type-heading-3 text-black-normal m-0 leading-[1]">Branding</p>
                       <p className="type-body text-black-normal m-0 leading-[1.5]">Logo Design</p>
+                      <p className="type-body text-black-normal m-0 leading-[1.5]">
+                        The logo combines playful, rounded forms with a cat-inspired silhouette to create a friendly and approachable identity that reflects the warmth of the adoption experience.
+                      </p>
                     </div>
                     <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-[2.2fr_1fr_1fr_1fr] gap-4 desktop:gap-6 items-end">
                       <img
@@ -272,8 +288,11 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                       ))}
                     </div>
 
-                    <div className="grid gap-4 mt-12">
+                    <div className="grid gap-2 mt-12">
                       <p className="type-body text-black-normal m-0 leading-[1.5]">Colors</p>
+                      <p className="type-body text-black-normal m-0 leading-[1.5]">
+                        A warm orange is used as the primary color to convey friendliness and energy, supported by deep brown and neutral tones to maintain balance, readability, and trust.
+                      </p>
                       <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-5 gap-4 desktop:gap-6">
                         {brandPalette.map(({ hex, textClass }) => (
                           <div
@@ -287,8 +306,11 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                       </div>
                     </div>
 
-                    <div className="grid gap-4 mt-12">
+                    <div className="grid gap-2 mt-12">
                       <p className="type-body text-black-normal m-0 leading-[1.5]">Typography</p>
+                      <p className="type-body text-black-normal m-0 leading-[1.5]">
+                        Nexa Round is used across all typography to maintain a consistent, approachable tone, with clear weight contrast and structured sizing enhancing readability and a clean, modern aesthetic.
+                      </p>
                       <div className="grid desktop:grid-cols-[260px_1fr] gap-10 items-start">
                         <div className="text-[12px] leading-[1.5] text-black-normal space-y-3">
                           {typographyScale.map(({ label, value, style }) => (
@@ -305,12 +327,16 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                             </div>
                           ))}
                         </div>
-                      </div>
+                      </div>    
                     </div>
 
-                    <div className="grid gap-8 mt-16">
-                      <p className="type-heading-3 text-black-normal m-0 leading-[1]">Wireframes &amp;Prototyping</p>
-                      <p className="type-body text-black-normal m-0 leading-[1.5]">Low Fidelity</p>
+                    <div className="grid gap-2 mt-16">
+                      <p className="type-heading-3 text-black-normal m-0 leading-[1]">Low Fidelity Wireframes</p>
+                      <p className="type-body text-black-normal m-0 leading-[1.5]">
+                        Low-fidelity wireframes were created to explore layout structures and define core user flows.
+                        <br />
+                        This stage focused on content hierarchy, navigation clarity, and early interaction concepts.
+                      </p>
                       <div className="w-full border border-black/10 rounded-[4px] overflow-hidden">
                         <iframe
                           title="TinyPaws low fidelity wireframes"
@@ -323,7 +349,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                       </div>
                     </div>
 
-                    <div className="grid gap-8 mt-16">
+                    <div className="grid gap-2 mt-16">
                       <p className="type-heading-3 text-black-normal m-0 leading-[1]">Usability Test</p>
                       <p className="type-body text-black-normal m-0 leading-[1.5]">
                         Participants tested TinyPaws&apos; low-fidelity website mockup to evaluate core adoption and support flows.
@@ -388,7 +414,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                         </button>
                       </div>
 
-                      <div className="relative min-h-[126px]">
+                      <div className="relative min-h-[96px]">
                         <div
                           className={`absolute inset-0 transition-all duration-300 ${
                             activeUsabilitySide === 'left'
@@ -425,7 +451,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                       </div>
                     </div>
 
-                    <div className="grid gap-8 mt-14">
+                    <div className="grid gap-8 mt-2">
                       <div
                         className="grid desktop:grid-cols-2 gap-8 items-start justify-items-center"
                         style={{ perspective: '1800px' }}
@@ -522,9 +548,13 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                       </div>
                     </div>
 
-                    <div className="grid gap-8 mt-16">
-                      <p className="type-heading-3 text-black-normal m-0 leading-[1]">Wireframes &amp;Prototyping</p>
-                      <p className="type-body text-black-normal m-0 leading-[1.5]">High Fidelity Wireframe</p>
+                    <div className="grid gap-2 mt-16">
+                      <p className="type-heading-3 text-black-normal m-0 leading-[1]">High Fidelity Wireframes</p>
+                      <p className="type-body text-black-normal m-0 leading-[1.5]">
+                        High-fidelity wireframes were developed based on user testing insights and the established brand design system.
+                        <br />
+                        This stage refined usability, visual consistency, and interaction details aligned with the final product experience.
+                      </p>
                       <div className="w-full border border-black/10 rounded-[4px] overflow-hidden">
                         <iframe
                           title="TinyPaws high fidelity wireframes"
@@ -544,10 +574,17 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
               <section className="px-3 tablet:px-5 desktop:px-7 pb-16 mt-12">
                 <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
                   <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">04 Promotional Material</h2>
-                  <div className="grid gap-6 pl-8 tablet:pl-12 desktop:pl-48 max-w-[1280px]">
+                  <div className="grid gap-2 pl-8 tablet:pl-12 desktop:pl-48 max-w-[1280px]">
                     <div className="flex items-center">
                       <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">Promotional Video</p>
                     </div>
+                    <p className="type-body text-black-normal m-0 leading-[1.5]">
+                      This promotional video was created to introduce the project and encourage user engagement with the platform.
+                      <br />
+                      Through a bright and welcoming tone, it highlights the experience of discovering and adopting rescue cats.
+                      <br />
+                      The video focuses on building an emotional connection while reinforcing the project&apos;s purpose and accessibility.
+                    </p>
                     <div className="w-full border border-black/10 rounded-[4px] overflow-hidden bg-black">
                       <video className="w-full h-auto block" controls playsInline preload="metadata">
                         <source src={TinypawsPromotionalVideo} type="video/mp4" />
@@ -561,15 +598,36 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
               <section className="px-3 tablet:px-5 desktop:px-7 pb-16 mt-12">
                 <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
                   <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">05 Final Results</h2>
-                  <div className="grid gap-6 pl-8 tablet:pl-12 desktop:pl-48 max-w-[1280px]">
+                  <div className="grid gap-2 pl-8 tablet:pl-12 desktop:pl-48 max-w-[1280px]">
                     <div className="flex items-center">
-                      <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">Final Results</p>
+                      <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">Mockup</p>
+                    </div>
+                    <div className="w-full border border-black/10 rounded-[4px] overflow-hidden">
+                      <img
+                        src={TinypawsMockup}
+                        alt="TinyPaws final mockup"
+                        className="w-full h-auto block object-cover"
+                      />
+                    </div>
+
+                    <div className="flex items-center mt-6">
+                      <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">Prototyping</p>
+                    </div>
+                    <div className="w-full border border-black/10 rounded-[4px] overflow-hidden">
+                      <iframe
+                        title="TinyPaws prototype"
+                        style={{ border: '0' }}
+                        width="100%"
+                        height="560"
+                        src="https://www.figma.com/embed?embed_host=share&hide-ui=1&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGLajfqOV2gqeDneSml8bE5%2FFi-Models%3Fpage-id%3D1%253A3%26node-id%3D191-1127%26viewport%3D2287%252C1347%252C0.16%26t%3D38Qt52GW30ibo8Rk-1%26scaling%3Dscale-down-width%26content-scaling%3Dfixed%26starting-point-node-id%3D191%253A1127"
+                        allowFullScreen
+                      />
                     </div>
                   </div>
                 </div>
               </section>
 
-              <Footer onNavigate={onNavigate} top={11400} />
+              <Footer onNavigate={onNavigate} top={10600} />
             </div>
           </div>
         </div>

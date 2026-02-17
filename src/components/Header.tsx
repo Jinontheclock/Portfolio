@@ -95,6 +95,7 @@ export default function Header({ currentPage, language, onNavigate, onLanguageCh
 
   const languageButtonClass = (lang: Language) =>
     `cursor-pointer bg-transparent border-none leading-[normal] ${language === lang ? activeUnderline : ''}`;
+  const isProjectsActive = currentPage === 'projects' || currentPage === 'iceland' || currentPage === 'tinypaws';
 
   return (
     <header className="relative h-[96px]">
@@ -110,10 +111,10 @@ export default function Header({ currentPage, language, onNavigate, onLanguageCh
 
       <button
         onClick={() => onNavigate('projects')}
-        className={`${navBase} ${currentPage === 'projects' ? activeUnderline : ''}`}
+        className={`${navBase} ${isProjectsActive ? activeUnderline : ''}`}
         style={{ left: NAV_LEFT_BASE as string, top: NAV_TOP }}
       >
-        <span className={`nav-underline ${currentPage === 'projects' ? 'is-active' : ''}`}>Projects</span>
+        <span className={`nav-underline ${isProjectsActive ? 'is-active' : ''}`}>Projects</span>
       </button>
 
       <button
