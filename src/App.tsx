@@ -1,19 +1,9 @@
-import imgBauhaus2 from "./assets/home/inspirations/98248a16c49e0cee4b6b97d80c1ae3025468b5d7.png";
-import imgDieterRams2 from "./assets/home/inspirations/1e560d605ce3de7651e4f03fa05a25201a37af02.png";
-import imgHomepageEstablishHierarchy2X2 from "./assets/home/inspirations/a522343bdbee9e5fe1cfac41b370f3ffaeb11481.png";
-import imgRei2 from "./assets/home/inspirations/a771b976b8e33ee1454d01fb5f620ea74b08d172.png";
-import imgRick2 from "./assets/home/inspirations/10c445b9937ff5886d511a0c35dbd90450f6791a.png";
-import imgTadao2 from "./assets/home/inspirations/94ec395168fd9eb207275e6762f7f0ff0360fdf8.png";
-import imgVirgil2 from "./assets/home/inspirations/f0aa54e2232b7229379c44b76f3517073a2390bf.png";
-import imgProjTinyGrey from "./assets/home/projects/homepage_projects_tinypaws_gray.png";
-import imgProjTinyColor from "./assets/home/projects/homepage_projects_tinypaws_color.png";
-import imgProjIcelandGrey from "./assets/home/projects/homepage_projects_bestoficeland_gray.png";
-import imgProjIcelandColor from "./assets/home/projects/homepage_projects_bestoficeland_color.png";
-import imgProjPrologGrey from "./assets/home/projects/homepage_projects_prolog_gray.png";
-import imgProjPrologColor from "./assets/home/projects/homepage_projects_prolog_color.png";
+import imgPrologMockup1 from "./assets/projects/prolog/prolog_mockup1.png";
+import imgTinypawsMockup from "./assets/projects/tinypaws/tinypaws_mockup.png";
+import imgIcelandMockup4 from "./assets/projects/iceland/BestofIceland_mockup4.png";
 import imgImg26161 from "./assets/home/about/hajin_homepage_about.png";
 import imgArrow from "./assets/common/arrow.png";
-import { useState, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProjectsPage from "./components/ProjectsPage";
@@ -42,23 +32,100 @@ const HERO_POS = {
 
 type InspirationItem = {
   img: string;
-  href: string;
+  href?: string;
   label: string;
-  top: number;
-  left: string | number;
+  top: number | string;
+  left: number | string;
   width?: number;
   height?: number;
 };
 
-const INSPIRATION_ITEMS: InspirationItem[] = [
-  { img: imgBauhaus2, href: "https://www.bauhaus.de/en/", label: "Bauhaus", top: 792, left: 'calc(12.5% + 9px)' },
-  { img: imgDieterRams2, href: "https://rams-foundation.org", label: "Dieter Rams", top: 960, left: 'calc(25% + 133px)' },
-  { img: imgHomepageEstablishHierarchy2X2, href: "https://developer.apple.com/design/human-interface-guidelines", label: "Apple HIG", top: 1120, left: 'calc(50% + 65px)', width: 100, height: 63 },
-  { img: imgRei2, href: "https://www.comme-des-garcons.com", label: "Rei", top: 1102, left: 'calc(87.5% - 10px)' },
-  { img: imgRick2, href: "https://www.rickowens.eu/en/CA", label: "Rick", top: 1056, left: 43, width: 100, height: 67 },
-  { img: imgTadao2, href: "https://tadaoandoo.tilda.ws", label: "Tadao", top: 840, left: 'calc(75% + 41px)', width: 100, height: 66 },
-  { img: imgVirgil2, href: "https://www.youtube.com/watch?v=qie5VITX6eQ", label: "Virgil", top: 744, left: 'calc(50% + 36px)' },
-];
+const inspirationModules = import.meta.glob("./assets/home/inspirations/*.{png,jpg,jpeg,webp}", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
+
+const inspirationSources = Object.entries(inspirationModules)
+  .map(([path, src]) => ({
+    src,
+    filename: path.split("/").pop() ?? path,
+  }))
+  .sort((a, b) => a.filename.localeCompare(b.filename));
+
+const INSPIRATION_FILENAME_ORDER = [
+  "apple.png",
+  "Bauhaus.png",
+  "dieterRams.png",
+  "donaldJudd.png",
+  "ghibli.png",
+  "helvetica.png",
+  "paf.png",
+  "ReiKawakubo.png",
+  "RickOwens.png",
+  "sakamotoRyuichi.png",
+  "spacex.png",
+  "tadaoando.png",
+  "VirgilAbloh.png",
+  "WesAnderson.png",
+] as const;
+
+const inspirationSourceMap = new Map(inspirationSources.map((item) => [item.filename, item]));
+
+const orderedInspirationSources = INSPIRATION_FILENAME_ORDER
+  .map((filename) => inspirationSourceMap.get(filename))
+  .filter((item): item is { src: string; filename: string } => Boolean(item));
+
+function resolveInspirationLink(filename: string) {
+  const lower = filename.toLowerCase();
+
+  if (lower.includes("bauhaus") || lower.startsWith("98248")) return "https://www.bauhaus.de/en/";
+  if (lower.includes("dieterrams") || lower.startsWith("1e560")) return "https://rams-foundation.org/";
+  if (lower.includes("apple") || lower.startsWith("a52234")) return "https://developer.apple.com/design/human-interface-guidelines";
+  if (lower.includes("rei") || lower.startsWith("a771")) return "https://www.comme-des-garcons.com";
+  if (lower.includes("rick") || lower.startsWith("10c445")) return "https://www.rickowens.eu/en/CA";
+  if (lower.includes("tadao") || lower.startsWith("94ec39")) return "https://tadaoandoo.tilda.ws";
+  if (lower.includes("virgil") || lower.startsWith("f0aa54")) return "https://www.youtube.com/watch?v=qie5VITX6eQ";
+  if (lower.includes("spacex")) return "https://www.spacex.com/";
+  if (lower.includes("donaldjudd")) return "https://juddfoundation.org/";
+
+  return undefined;
+}
+
+const inspirationSizePattern = [96, 108, 102, 114, 100, 110, 104, 112, 98, 116, 106, 109, 103, 111];
+const inspirationMaxRight = 1440 - 24;
+
+const inspirationLayoutSlots = [
+  { left: 74, top: 760 },
+  { left: 332, top: 808 },
+  { left: 596, top: 750 },
+  { left: 878, top: 820 },
+  { left: 1152, top: 764 },
+  { left: 182, top: 914 },
+  { left: 474, top: 972 },
+  { left: 780, top: 928 },
+  { left: 1072, top: 988 },
+  { left: 88, top: 1048 },
+  { left: 350, top: 1098 },
+  { left: 640, top: 1042 },
+  { left: 930, top: 1104 },
+  { left: 1208, top: 1062 },
+] as const;
+
+const INSPIRATION_ITEMS: InspirationItem[] = orderedInspirationSources.map((item, index) => {
+  const size = inspirationSizePattern[index % inspirationSizePattern.length];
+  const slot = inspirationLayoutSlots[index] ?? inspirationLayoutSlots[index % inspirationLayoutSlots.length];
+  const left = Math.max(24, Math.min(inspirationMaxRight - size, slot.left));
+
+  return {
+    img: item.src,
+    href: resolveInspirationLink(item.filename),
+    label: item.filename.replace(/\.[^.]+$/, ""),
+    top: slot.top,
+    left,
+    width: size,
+    height: size,
+  };
+});
 
 type ProjectEntry = {
   id: number;
@@ -78,7 +145,7 @@ const PROJECTS: ProjectEntry[] = [
     desc: ['Skilled trades apprenticeship app', 'for progress tracking'],
     skills: ['Product design', 'Mobile UX/UI design', 'Interface development'],
     skillsWidth: 262,
-    image: { grey: imgProjPrologGrey, color: imgProjPrologColor },
+    image: { grey: imgPrologMockup1, color: imgPrologMockup1 },
   },
   {
     id: 2,
@@ -87,7 +154,7 @@ const PROJECTS: ProjectEntry[] = [
     desc: ['Cat adoption website', 'for a rescue nonprofit'],
     skills: ['Product design', 'WordPress Web design', 'Brand identity'],
     skillsWidth: 248,
-    image: { grey: imgProjTinyGrey, color: imgProjTinyColor },
+    image: { grey: imgTinypawsMockup, color: imgTinypawsMockup },
   },
   {
     id: 3,
@@ -96,9 +163,33 @@ const PROJECTS: ProjectEntry[] = [
     desc: ['G Adventure itinerary', 'redesigned as a magazine'],
     skills: ['Editorial design', 'Visual storytelling', 'Print-ready composition'],
     skillsWidth: 217,
-    image: { grey: imgProjIcelandGrey, color: imgProjIcelandColor },
+    image: { grey: imgIcelandMockup4, color: imgIcelandMockup4 },
   },
 ];
+
+const PAGE_PATHS: Record<Page, string> = {
+  home: '/',
+  projects: '/projects',
+  about: '/about',
+  iceland: '/projects/best-of-iceland',
+  tinypaws: '/projects/tinypaws',
+};
+
+function normalizePath(pathname: string) {
+  const trimmed = pathname.replace(/\/+$/, '');
+  return trimmed === '' ? '/' : trimmed;
+}
+
+function pageFromPath(pathname: string): Page {
+  const path = normalizePath(pathname);
+
+  if (path === '/projects') return 'projects';
+  if (path === '/about') return 'about';
+  if (path === '/projects/best-of-iceland' || path === '/iceland') return 'iceland';
+  if (path === '/projects/tinypaws' || path === '/tinypaws') return 'tinypaws';
+
+  return 'home';
+}
 
 function InspirationLines() {
   return (
@@ -136,18 +227,39 @@ function InspirationLines() {
 function InspirationImages() {
   return (
     <>
-      {INSPIRATION_ITEMS.map((item) => (
-        <a
-          key={item.label}
-          className="absolute block cursor-pointer transition-transform duration-300 ease-out hover:scale-[1.6] origin-center"
-          href={item.href}
-          target="_blank"
-          rel="noreferrer"
-          style={{ top: item.top, left: item.left, width: item.width ?? 100, height: item.height ?? 100 }}
-        >
-          <img alt={item.label} className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={item.img} />
-        </a>
-      ))}
+      {INSPIRATION_ITEMS.map((item) => {
+        const baseClass = "group absolute block transition-transform duration-300 ease-out hover:scale-[1.6] origin-center";
+        const baseStyle = { top: item.top, left: item.left, width: item.width ?? 100, height: item.height ?? 100 };
+
+        if (item.href) {
+          return (
+            <a
+              key={item.label}
+              className={`${baseClass} cursor-pointer`}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              style={baseStyle}
+            >
+              <img
+                alt={item.label}
+                className="absolute inset-0 max-w-none object-cover pointer-events-none size-full grayscale transition-[filter] duration-300 ease-out group-hover:grayscale-0"
+                src={item.img}
+              />
+            </a>
+          );
+        }
+
+        return (
+          <div key={item.label} className={`${baseClass} cursor-default`} style={baseStyle}>
+            <img
+              alt={item.label}
+              className="absolute inset-0 max-w-none object-cover pointer-events-none size-full grayscale transition-[filter] duration-300 ease-out group-hover:grayscale-0"
+              src={item.img}
+            />
+          </div>
+        );
+      })}
     </>
   );
 }
@@ -156,9 +268,9 @@ function ProjectBlocks({ onNavigate }: { onNavigate: (page: Page) => void }) {
   return (
     <>
       {PROJECTS.map((proj) => (
-        <div key={proj.id}>
+        <div key={proj.id} className="group">
           <div
-            className="absolute left-0 right-0 group cursor-pointer"
+            className="absolute left-0 right-0 cursor-pointer"
             style={{ top: proj.top, height: 200 }}
             onClick={() => {
               if (proj.id === 3) onNavigate('iceland');
@@ -190,7 +302,7 @@ function ProjectBlocks({ onNavigate }: { onNavigate: (page: Page) => void }) {
           </div>
 
           <div
-            className="absolute right-[24px] size-[264px] group"
+            className="absolute right-[24px] size-[264px]"
             style={{ top: proj.top }}
             onClick={() => {
               if (proj.id === 3) onNavigate('iceland');
@@ -199,12 +311,14 @@ function ProjectBlocks({ onNavigate }: { onNavigate: (page: Page) => void }) {
           >
             <img
               alt=""
-              className="pointer-events-none absolute inset-0 object-cover size-full transition duration-300 opacity-100 group-hover:opacity-0"
+              className={`pointer-events-none absolute inset-0 object-cover object-center size-full transition duration-300 opacity-100 group-hover:opacity-0 ${
+                proj.id === 1 || proj.id === 2 || proj.id === 3 ? 'grayscale' : ''
+              }`}
               src={proj.image.grey}
             />
             <img
               alt=""
-              className="pointer-events-none absolute inset-0 object-cover size-full transition duration-300 opacity-0 group-hover:opacity-100"
+              className="pointer-events-none absolute inset-0 object-cover object-center size-full transition duration-300 opacity-0 group-hover:opacity-100"
               src={proj.image.color}
             />
           </div>
@@ -215,15 +329,56 @@ function ProjectBlocks({ onNavigate }: { onNavigate: (page: Page) => void }) {
 }
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const heroRoles = ['UI/UX', 'PRODUCT', 'GRAPHIC'] as const;
+  const [currentPage, setCurrentPage] = useState<Page>(() => {
+    if (typeof window === 'undefined') return 'home';
+    return pageFromPath(window.location.pathname);
+  });
   const [language, setLanguage] = useState<Language>('EN');
+  const [heroRoleIndex, setHeroRoleIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setHeroRoleIndex((prev) => (prev + 1) % heroRoles.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, [heroRoles.length]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const syncFromLocation = () => {
+      setCurrentPage(pageFromPath(window.location.pathname));
+    };
+
+    const canonicalPath = PAGE_PATHS[pageFromPath(window.location.pathname)];
+    if (normalizePath(window.location.pathname) !== canonicalPath) {
+      window.history.replaceState(window.history.state, '', canonicalPath);
+    }
+
+    window.addEventListener('popstate', syncFromLocation);
+    return () => window.removeEventListener('popstate', syncFromLocation);
+  }, []);
+
+  const navigateTo = (page: Page) => {
+    setCurrentPage(page);
+
+    if (typeof window !== 'undefined') {
+      const nextPath = PAGE_PATHS[page];
+      if (normalizePath(window.location.pathname) !== nextPath) {
+        window.history.pushState({ page }, '', nextPath);
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+  };
 
   if (currentPage === 'projects') {
     return (
       <ProjectsPage
         currentPage={currentPage}
         language={language}
-        onNavigate={(page) => setCurrentPage(page)}
+        onNavigate={navigateTo}
         onLanguageChange={(lang) => setLanguage(lang)}
       />
     );
@@ -234,7 +389,7 @@ export default function App() {
       <ProjectIceland
         currentPage={currentPage}
         language={language}
-        onNavigate={(page) => setCurrentPage(page)}
+        onNavigate={navigateTo}
         onLanguageChange={(lang) => setLanguage(lang)}
       />
     );
@@ -245,7 +400,7 @@ export default function App() {
       <ProjectTinyPaws
         currentPage={currentPage}
         language={language}
-        onNavigate={(page) => setCurrentPage(page)}
+        onNavigate={navigateTo}
         onLanguageChange={(lang) => setLanguage(lang)}
       />
     );
@@ -256,7 +411,7 @@ export default function App() {
       <AboutPage
         currentPage={currentPage}
         language={language}
-        onNavigate={(page) => setCurrentPage(page)}
+        onNavigate={navigateTo}
         onLanguageChange={(lang) => setLanguage(lang)}
       />
     );
@@ -275,7 +430,7 @@ export default function App() {
         <Header
           currentPage={currentPage}
           language={language}
-          onNavigate={(page) => setCurrentPage(page)}
+          onNavigate={navigateTo}
           onLanguageChange={(lang) => setLanguage(lang)}
         />
 
@@ -290,14 +445,22 @@ export default function App() {
           className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] not-italic text-black-normal text-[18px] whitespace-nowrap"
           style={HERO_POS.subtitle}
         >
-          <p className="mb-0">VANCOUVER BASED</p>
-          <p>UI/UX DESINGER</p>
+          <div className="grid grid-cols-[80px_100px] items-start gap-x-[12px] gap-y-[2px]">
+            <p className="m-0">VANCOUVER</p>
+            <p className="m-0 text-right">BASED</p>
+            <div className="relative h-[26px] overflow-visible">
+              <span key={heroRoles[heroRoleIndex]} className="inline-block hero-role-word whitespace-nowrap">
+                {heroRoles[heroRoleIndex]}
+              </span>
+            </div>
+            <p className="m-0 text-right">DESIGNER</p>
+          </div>
         </div>
         
         {/* Removed arrow icon as requested */}
         
         <button
-          onClick={() => setCurrentPage('projects')}
+          onClick={() => navigateTo('projects')}
           className="absolute left-[24px] top-[1560px] flex items-center gap-[12px] cursor-pointer bg-transparent border-none p-0"
           aria-label="Go to Projects"
         >
@@ -306,7 +469,7 @@ export default function App() {
         </button>
         <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(25%+18px)] not-italic text-black-normal text-[18px] top-[1571px] w-[916px] whitespace-pre-wrap">A selection of highlighted projects showcasing recent work across UX/UI, web, and visual design.</p>
         <button
-          onClick={() => setCurrentPage('about')}
+          onClick={() => navigateTo('about')}
           className="absolute left-[24px] top-[2784px] flex items-center gap-[12px] cursor-pointer bg-transparent border-none p-0"
           aria-label="Go to About"
         >
@@ -329,7 +492,7 @@ export default function App() {
           <p>Print-ready composition</p>
         </div>
         {/* Project 1 group */}
-        <ProjectBlocks onNavigate={setCurrentPage} />
+        <ProjectBlocks onNavigate={navigateTo} />
         {projectSeparators.map((top, idx) => (
           <RevealHLine
             key={top}
@@ -369,7 +532,7 @@ export default function App() {
         <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[24px] not-italic text-black-normal text-[24px] top-[724px]">inspirations</p>
         <InspirationImages />
         <Footer
-          onNavigate={(page) => setCurrentPage(page)}
+          onNavigate={navigateTo}
           onArchiveClick={() => {}}
           top={3560}
         />

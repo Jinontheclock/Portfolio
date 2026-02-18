@@ -1,7 +1,9 @@
 import Header from './Header';
 import Footer from './Footer';
 import { Language, Page } from '../types';
-import React, { type CSSProperties } from 'react';
+import React, { useRef, useState, type CSSProperties } from 'react';
+import BestOfIcelandMockup5 from '../assets/projects/iceland/BestofIceland_mockup5.png';
+import TinypawsMockup from '../assets/projects/tinypaws/tinypaws_mockup.png';
 
 type ProjectsPageProps = {
   currentPage: Page;
@@ -14,28 +16,98 @@ const columnLeft = {
   workType: 'left-[24px]',
   title: 'left-[calc(25%+18px)]',
   role: 'left-[calc(75%+6px)]',
-  year: 'left-[calc(87.5%+94px)]',
+  year: 'right-[32px]',
 };
 
 const ROW_START = 696;
-const ROW_GAP = 48;
-const rows = [
+const ROW_GAP_WITHIN_CATEGORY = 40;
+const ROW_GAP_BETWEEN_CATEGORIES = 80;
+const FIRST_CATEGORY_LAST_OFFSET = 2;
+const columnWidths = {
+  workType: 'calc(25% - 14px)',
+  title: 'calc(50% - 20px)',
+  role: 'calc(25% - 130px)',
+  year: 84,
+};
+type ProjectRow = {
+  offset: number;
+  workType: string;
+  title: string;
+  role: string;
+  year: string;
+  thumbnail?: string;
+};
+
+const rows: ProjectRow[] = [
   { offset: 0, workType: 'App & Website', title: 'Individual Project', role: 'Independent', year: '2026' },
   { offset: 1, workType: 'App', title: 'ProLog', role: 'UI Developer', year: '2025' },
-  { offset: 2, workType: 'Website', title: 'TinyPaws', role: 'UI/UX Designer', year: '2025' },
-  { offset: 3, workType: 'Magazine', title: 'Best of Iceland', role: 'Independent', year: '2025' },
+  { offset: 2, workType: 'Website', title: 'TinyPaws', role: 'UI/UX Designer', year: '2025', thumbnail: TinypawsMockup },
+  { offset: 3, workType: 'Brochure', title: 'Best of Iceland', role: 'Independent', year: '2025', thumbnail: BestOfIcelandMockup5 },
   { offset: 4, workType: 'Package', title: 'Matcha Drinks', role: 'Independent', year: '2025' },
   { offset: 5, workType: 'Motion', title: 'StarLink', role: 'Independent', year: '2025' },
   { offset: 6, workType: 'Poster', title: 'Ikea', role: 'Independent', year: '2025' },
   { offset: 7, workType: 'Promotional Material', title: 'MUJI', role: 'VMD', year: '2024' },
 ];
 
+function getRowTop(offset: number) {
+  if (offset <= FIRST_CATEGORY_LAST_OFFSET) {
+    return ROW_START + offset * ROW_GAP_WITHIN_CATEGORY;
+  }
+
+  const firstCategoryCount = FIRST_CATEGORY_LAST_OFFSET + 1;
+  return (
+    ROW_START +
+    FIRST_CATEGORY_LAST_OFFSET * ROW_GAP_WITHIN_CATEGORY +
+    ROW_GAP_BETWEEN_CATEGORIES +
+    (offset - firstCategoryCount) * ROW_GAP_WITHIN_CATEGORY
+  );
+}
+
 export default function ProjectsPage({ currentPage, language, onNavigate, onLanguageChange }: ProjectsPageProps) {
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const activeThumbnail = rows.find((row) => row.offset === hoveredRow)?.thumbnail;
+
+  const handleRowClick = (title: string) => {
+    if (title.includes('Iceland')) onNavigate('iceland');
+    if (title.includes('TinyPaws')) onNavigate('tinypaws');
+  };
+
+  const thumbnailWidth = 360;
+  const thumbnailHeightEstimate = 500;
+  const thumbOffsetX = 28;
+  const thumbOffsetY = 24;
+  const frameWidth = frameRef.current?.offsetWidth ?? 1440;
+  const frameHeight = frameRef.current?.offsetHeight ?? 1480;
+  const thumbnailLeft = Math.max(
+    24,
+    Math.min(cursorPosition.x + thumbOffsetX, frameWidth - thumbnailWidth - 24)
+  );
+  const thumbnailTop = Math.max(
+    24,
+    Math.min(cursorPosition.y - thumbOffsetY, frameHeight - thumbnailHeightEstimate - 24)
+  );
+
+  const updateCursorPosition = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!frameRef.current) return;
+
+    const rect = frameRef.current.getBoundingClientRect();
+    const scaleX = rect.width / frameRef.current.offsetWidth || 1;
+    const scaleY = rect.height / frameRef.current.offsetHeight || 1;
+
+    const localX = (event.clientX - rect.left) / scaleX;
+    const localY = (event.clientY - rect.top) / scaleY;
+
+    setCursorPosition({ x: localX, y: localY });
+  };
+
   return (
     <div className="layout-viewport hide-scrollbar">
       <div className="layout-canvas">
         <div className="layout-canvas-inner">
           <div
+            ref={frameRef}
             className="relative bg-grey-normal"
             style={{ "--layout-base-height-projects": "1480px", minHeight: "calc(var(--layout-base-height-projects) * var(--layout-scale-height))" } as CSSProperties}
           >
@@ -47,13 +119,13 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
             />
 
             <p
-              className="absolute type-title-2 left-[24px] text-black-normal top-[169px]"
+              className="absolute type-title-2 left-[24px] text-black-normal top-[205px]"
               data-node-id="117:406"
             >
               Select work
             </p>
             <p
-              className="absolute type-title-2 left-[24px] text-black-normal top-[337px]"
+              className="absolute type-title-2 left-[24px] text-black-normal top-[373px]"
               data-node-id="117:458"
             >
               2024/current
@@ -61,76 +133,95 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
 
             {/* Column headers */}
             <p
-              className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-medium leading-[normal] text-black-normal text-[18px] top-[648px] ${columnLeft.workType}`}
+              className={`absolute z-[30] font-['Plus_Jakarta_Sans',sans-serif] font-medium leading-[normal] text-black-normal text-[18px] top-[648px] ${columnLeft.workType}`}
+              style={{ width: columnWidths.workType, paddingLeft: 8 }}
               data-node-id="117:409"
             >
               work type
             </p>
             <p
-              className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-medium leading-[normal] text-black-normal text-[18px] top-[648px] ${columnLeft.title}`}
+              className={`absolute z-[30] font-['Plus_Jakarta_Sans',sans-serif] font-medium leading-[normal] text-black-normal text-[18px] top-[648px] ${columnLeft.title}`}
+              style={{ width: columnWidths.title, paddingLeft: 8 }}
               data-node-id="117:407"
             >
               title
             </p>
             <p
-              className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-medium leading-[normal] text-black-normal text-[18px] top-[648px] ${columnLeft.role}`}
+              className={`absolute z-[30] font-['Plus_Jakarta_Sans',sans-serif] font-medium leading-[normal] text-black-normal text-[18px] top-[648px] ${columnLeft.role}`}
+              style={{ width: columnWidths.role, paddingLeft: 8 }}
               data-node-id="117:408"
             >
               role
             </p>
             <p
-              className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-medium leading-[normal] text-black-normal text-[18px] top-[648px] ${columnLeft.year}`}
+              className={`absolute z-[30] font-['Plus_Jakarta_Sans',sans-serif] font-medium leading-[normal] text-black-normal text-[18px] top-[648px] text-right ${columnLeft.year}`}
+              style={{ width: columnWidths.year, paddingRight: 8 }}
               data-node-id="117:410"
             >
               year
             </p>
 
+            {activeThumbnail && (
+              <div
+                className="pointer-events-none absolute z-[20] transition-opacity duration-150 opacity-100"
+                style={{ left: thumbnailLeft, top: thumbnailTop, width: thumbnailWidth }}
+                aria-hidden
+              >
+                <img
+                  src={activeThumbnail}
+                  alt=""
+                  className="w-full h-auto object-contain rounded-[2px] shadow-[0_8px_28px_rgba(0,0,0,0.08)]"
+                />
+              </div>
+            )}
+
             {rows.map((row) => {
-              const top = ROW_START + row.offset * ROW_GAP;
+              const top = getRowTop(row.offset);
+              const isInteractive = row.title.includes('Iceland') || row.title.includes('TinyPaws');
+              const isActive = hoveredRow === row.offset;
+
               return (
-              <React.Fragment key={row.offset}>
-                <p
-                  className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.workType}`}
-                  style={{ top, cursor: row.title.includes('Iceland') || row.title.includes('TinyPaws') ? 'pointer' : 'default' }}
-                  onClick={() => {
-                    if (row.title.includes('Iceland')) onNavigate('iceland');
-                    if (row.title.includes('TinyPaws')) onNavigate('tinypaws');
+                <div
+                  key={row.offset}
+                  className="absolute left-0 right-0 h-[32px] z-[30]"
+                  style={{ top }}
+                  onMouseEnter={(event) => {
+                    setHoveredRow(row.offset);
+                    updateCursorPosition(event);
                   }}
+                  onMouseMove={updateCursorPosition}
+                  onMouseLeave={() => setHoveredRow((value) => (value === row.offset ? null : value))}
                 >
-                  {row.workType}
-                </p>
-                <p
-                  className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.title}`}
-                  style={{ top, cursor: row.title.includes('Iceland') || row.title.includes('TinyPaws') ? 'pointer' : 'default' }}
-                  onClick={() => {
-                    if (row.title.includes('Iceland')) onNavigate('iceland');
-                    if (row.title.includes('TinyPaws')) onNavigate('tinypaws');
-                  }}
-                >
-                  {row.title}
-                </p>
-                <p
-                  className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.role}`}
-                  style={{ top, cursor: row.title.includes('Iceland') || row.title.includes('TinyPaws') ? 'pointer' : 'default' }}
-                  onClick={() => {
-                    if (row.title.includes('Iceland')) onNavigate('iceland');
-                    if (row.title.includes('TinyPaws')) onNavigate('tinypaws');
-                  }}
-                >
-                  {row.role}
-                </p>
-                <p
-                  className={`absolute font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-black-normal text-[24px] ${columnLeft.year}`}
-                  style={{ top, cursor: row.title.includes('Iceland') || row.title.includes('TinyPaws') ? 'pointer' : 'default' }}
-                  onClick={() => {
-                    if (row.title.includes('Iceland')) onNavigate('iceland');
-                    if (row.title.includes('TinyPaws')) onNavigate('tinypaws');
-                  }}
-                >
-                  {row.year}
-                </p>
-              </React.Fragment>
-            );
+                  <p
+                    className={`absolute projects-hover-cell ${columnLeft.workType} ${isActive ? 'is-active' : ''} font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-[24px]`}
+                    style={{ width: columnWidths.workType, cursor: isInteractive ? 'pointer' : 'default' }}
+                    onClick={() => handleRowClick(row.title)}
+                  >
+                    <span>{row.workType}</span>
+                  </p>
+                  <p
+                    className={`absolute projects-hover-cell ${columnLeft.title} ${isActive ? 'is-active' : ''} font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-[24px]`}
+                    style={{ width: columnWidths.title, cursor: isInteractive ? 'pointer' : 'default' }}
+                    onClick={() => handleRowClick(row.title)}
+                  >
+                    <span>{row.title}</span>
+                  </p>
+                  <p
+                    className={`absolute projects-hover-cell ${columnLeft.role} ${isActive ? 'is-active' : ''} font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-[24px]`}
+                    style={{ width: columnWidths.role, cursor: isInteractive ? 'pointer' : 'default' }}
+                    onClick={() => handleRowClick(row.title)}
+                  >
+                    <span>{row.role}</span>
+                  </p>
+                  <p
+                    className={`absolute projects-hover-cell projects-hover-cell-year ${columnLeft.year} ${isActive ? 'is-active' : ''} font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-[24px]`}
+                    style={{ width: columnWidths.year, cursor: isInteractive ? 'pointer' : 'default' }}
+                    onClick={() => handleRowClick(row.title)}
+                  >
+                    <span>{row.year}</span>
+                  </p>
+                </div>
+              );
             })}
 
             {/* Footer for this page sits near the bottom of the list */}
