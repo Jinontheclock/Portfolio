@@ -495,6 +495,79 @@ body::-webkit-scrollbar {
   }
 }
 
+.about-photo-layer {
+  position: absolute;
+  left: 0;
+  top: -20.84%;
+  width: 100%;
+  height: 124.56%;
+  object-fit: cover;
+  transform: translateX(0);
+  opacity: 1;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.about-photo-enter-next {
+  animation: aboutPhotoEnterNext 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.about-photo-enter-prev {
+  animation: aboutPhotoEnterPrev 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.about-photo-exit-next {
+  animation: aboutPhotoExitNext 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.about-photo-exit-prev {
+  animation: aboutPhotoExitPrev 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes aboutPhotoEnterNext {
+  0% {
+    transform: translateX(16%);
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes aboutPhotoEnterPrev {
+  0% {
+    transform: translateX(-16%);
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes aboutPhotoExitNext {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-16%);
+    opacity: 0.15;
+  }
+}
+
+@keyframes aboutPhotoExitPrev {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(16%);
+    opacity: 0.15;
+  }
+}
+
 /* Layout scaling */
 .layout-viewport {
   /* 캔버스를 뷰포트 폭에 맞게 확장 */
@@ -526,11 +599,16 @@ body::-webkit-scrollbar {
 
 .layout-canvas {
   width: calc(var(--layout-base-width) * var(--layout-scale));
+  height: calc(var(--layout-base-height, 100vh) * var(--layout-scale));
+  min-height: calc(var(--layout-base-height, 100vh) * var(--layout-scale));
   position: relative;
   overflow: visible;
 }
 
 .layout-canvas-inner {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: var(--layout-base-width);
   transform: scale(var(--layout-scale));
   transform-origin: top left;

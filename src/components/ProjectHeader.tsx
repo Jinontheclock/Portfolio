@@ -17,15 +17,15 @@ type ProjectHeaderProps = {
  */
 export default function ProjectHeader({ title, timeline, tools, role, reference, category, link, description }: ProjectHeaderProps) {
   return (
-    <section className="relative px-3 tablet:px-5 desktop:px-7 pt-48 pb-12 text-black-normal">
+    <section className="relative px-7 pt-48 pb-12 text-black-normal">
       <h1
-        className="type-title-1 mb-12 leading-[0.9] -ml-1 tablet:-ml-2 desktop:-ml-3"
+        className="type-title-1 mb-12 leading-[0.9] -ml-3"
         style={{ fontSize: 160 }}
       >
         {title}
       </h1>
 
-      <div className="grid gap-6 desktop:gap-8 desktop:grid-cols-[220px_1px_220px_1fr] items-start">
+      <div className="grid gap-8 grid-cols-[220px_1px_220px_1fr] items-start">
         {/* Left meta column */}
         <div className="grid gap-6">
           {category && (
@@ -57,10 +57,10 @@ export default function ProjectHeader({ title, timeline, tools, role, reference,
         </div>
 
         {/* Divider */}
-        <div className="hidden desktop:block h-[200px] border-l border-black/60 translate-x-[-56px]" />
+        <div className="h-[200px] border-l border-black/60 translate-x-[-56px]" />
 
         {/* Tools column */}
-        <div className="text-[12px] leading-[1.6] desktop:-ml-16">
+        <div className="text-[12px] leading-[1.6] -ml-16">
           {tools.map((tool) => (
             <p key={tool} className="m-0 type-body text-black-normal">
               {tool}
@@ -68,7 +68,7 @@ export default function ProjectHeader({ title, timeline, tools, role, reference,
           ))}
         </div>
         {/* Description column */}
-        <div className="type-body-lg leading-[1.6] text-black-normal max-w-3xl desktop:max-w-[640px] desktop:ml-56">
+        <div className="type-body-lg leading-[1.6] text-black-normal max-w-[640px] ml-56">
           {description.map((line) => (
             <p key={line} className="m-0 mb-0 last:mb-0">
               {line}

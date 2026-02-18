@@ -82,11 +82,16 @@ function resolveInspirationLink(filename: string) {
   if (lower.includes("dieterrams") || lower.startsWith("1e560")) return "https://rams-foundation.org/";
   if (lower.includes("apple") || lower.startsWith("a52234")) return "https://developer.apple.com/design/human-interface-guidelines";
   if (lower.includes("rei") || lower.startsWith("a771")) return "https://www.comme-des-garcons.com";
-  if (lower.includes("rick") || lower.startsWith("10c445")) return "https://www.rickowens.eu/en/CA";
+  if (lower.includes("rick") || lower.startsWith("10c445")) return "https://www.rickowens.eu/en-ca/pages/product-guide";
   if (lower.includes("tadao") || lower.startsWith("94ec39")) return "https://tadaoandoo.tilda.ws";
   if (lower.includes("virgil") || lower.startsWith("f0aa54")) return "https://www.youtube.com/watch?v=qie5VITX6eQ";
   if (lower.includes("spacex")) return "https://www.spacex.com/";
   if (lower.includes("donaldjudd")) return "https://juddfoundation.org/";
+  if (lower.includes("sakamoto")) return "https://www.sitesakamoto.com";
+  if (lower.includes("ghibli")) return "https://www.ghibli.jp";
+  if (lower.includes("helvetica")) return "https://www.pixartprinting.co.uk/blog/history-font-helvetica/?srsltid=AfmBOoq2sCZ2P3jC3C27WcVplzPJiPjTJyajZgxfifOSbv49jcUJixSk";
+  if (lower.includes("paf")) return "https://www.instagram.com/postarchivefaction/?hl=en";
+  if (lower.includes("wesanderson")) return "https://accidentallywesanderson.com";
 
   return undefined;
 }
@@ -421,11 +426,11 @@ export default function App() {
 
   return (
     <div className="layout-viewport hide-scrollbar">
-      <div className="layout-canvas">
+      <div className="layout-canvas" style={{ "--layout-base-height": "3850px" } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div
             className="relative"
-            style={{ "--layout-base-height-home": "3850px", minHeight: "calc(var(--layout-base-height-home) * var(--layout-scale-height))" } as CSSProperties}
+            style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}
           >
         <Header
           currentPage={currentPage}

@@ -1,11 +1,36 @@
-import { useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import { Language, Page } from '../types';
 import RevealLine from './RevealLine';
 
-// Remote asset from Figma (valid ~7 days). Replace with local if needed.
-const heroImage = "https://www.figma.com/api/mcp/asset/54595635-ee19-4eb0-ab84-23945735eca3";
+const aboutPhotoModules = import.meta.glob('../assets/aboutme/aboutme*.{png,jpg,jpeg,webp}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
+
+const photos = Object.entries(aboutPhotoModules)
+  .sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true, sensitivity: 'base' }))
+  .map(([path, src]) => ({
+    src,
+    filename: path.split('/').pop() ?? path,
+  }));
+
+function resolveAboutCaption(filename: string) {
+  const lower = filename.toLowerCase();
+
+  if (lower.includes('aboutme2')) {
+    return {
+      title: 'Thomas Demand at TFAM',
+      year: '2025',
+    };
+  }
+
+  return {
+    title: 'Christian Boltanski at MOT',
+    year: '2019',
+  };
+}
 
 type AboutPageProps = {
   currentPage: Page;
@@ -14,22 +39,77 @@ type AboutPageProps = {
   onLanguageChange: (language: Language) => void;
 };
 
-export default function AboutPage({ currentPage, language, onNavigate, onLanguageChange }: AboutPageProps) {
-  const photos = [heroImage];
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const currentImage = photos[photoIndex] ?? heroImage;
-  const total = photos.length;
+type PhotoDirection = 'prev' | 'next';
 
-  const goPrev = () => setPhotoIndex((i) => (i - 1 + total) % total);
-  const goNext = () => setPhotoIndex((i) => (i + 1) % total);
+export default function AboutPage({ currentPage, language, onNavigate, onLanguageChange }: AboutPageProps) {
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [leavingPhotoIndex, setLeavingPhotoIndex] = useState<number | null>(null);
+  const [photoDirection, setPhotoDirection] = useState<PhotoDirection>('next');
+  const transitionTimerRef = useRef<number | null>(null);
+  const currentPhoto = photos[photoIndex] ?? photos[0];
+  const currentImage = currentPhoto?.src ?? '';
+  const currentCaption = resolveAboutCaption(currentPhoto?.filename ?? '');
+  const leavingImage = leavingPhotoIndex !== null ? (photos[leavingPhotoIndex]?.src ?? '') : '';
+  const total = photos.length;
+  const isTransitioning = leavingPhotoIndex !== null;
+  const PHOTO_TRANSITION_MS = 520;
+  const heroImageFrame = {
+    top: 839,
+    left: 'calc(25% + 190px)',
+    right: 24,
+    height: 625,
+    maxWidth: 1038,
+  } as const;
+  const captionTop = 1470;
+
+  useEffect(() => {
+    if (total === 0) {
+      setPhotoIndex(0);
+      setLeavingPhotoIndex(null);
+      return;
+    }
+
+    setPhotoIndex((prev) => Math.min(prev, total - 1));
+  }, [total]);
+
+  useEffect(() => {
+    return () => {
+      if (transitionTimerRef.current) {
+        window.clearTimeout(transitionTimerRef.current);
+      }
+    };
+  }, []);
+
+  const changePhoto = (direction: PhotoDirection) => {
+    if (total <= 1 || isTransitioning) return;
+
+    setPhotoDirection(direction);
+    setLeavingPhotoIndex(photoIndex);
+    setPhotoIndex((current) => {
+      if (direction === 'next') return (current + 1) % total;
+      return (current - 1 + total) % total;
+    });
+
+    if (transitionTimerRef.current) {
+      window.clearTimeout(transitionTimerRef.current);
+    }
+
+    transitionTimerRef.current = window.setTimeout(() => {
+      setLeavingPhotoIndex(null);
+      transitionTimerRef.current = null;
+    }, PHOTO_TRANSITION_MS);
+  };
+
+  const goPrev = () => changePhoto('prev');
+  const goNext = () => changePhoto('next');
 
   return (
     <div className="layout-viewport hide-scrollbar">
-      <div className="layout-canvas">
+      <div className="layout-canvas" style={{ "--layout-base-height": "2800px" } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div
             className="relative bg-grey-normal text-black-normal"
-            style={{ "--layout-base-height-about": "2800px", minHeight: "calc(var(--layout-base-height-about) * var(--layout-scale-height))" } as CSSProperties}
+            style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}
           >
             <Header
               currentPage={currentPage}
@@ -61,31 +141,48 @@ export default function AboutPage({ currentPage, language, onNavigate, onLanguag
             {/* Hero image */}
             <div
               className="absolute overflow-hidden"
-              style={{
-                top: 839,
-                left: 'calc(25% + 190px)',
-                right: 24,
-                height: 625,
-                maxWidth: 1038,
-              }}
+              style={heroImageFrame}
             >
-              <img src={currentImage} alt="Exhibit" className="absolute h-[124.56%] w-full left-0 top-[-20.84%] object-cover" />
+              {leavingImage && (
+                <img
+                  src={leavingImage}
+                  alt=""
+                  aria-hidden
+                  className={`about-photo-layer ${
+                    photoDirection === 'next' ? 'about-photo-exit-next' : 'about-photo-exit-prev'
+                  }`}
+                />
+              )}
+              {currentImage && (
+                <img
+                  src={currentImage}
+                  alt={currentCaption.title}
+                  className={`about-photo-layer ${
+                    isTransitioning
+                      ? photoDirection === 'next'
+                        ? 'about-photo-enter-next'
+                        : 'about-photo-enter-prev'
+                      : ''
+                  }`}
+                />
+              )}
             </div>
             {/* Image captions */}
-            <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] text-[10px] text-black" style={{ left: 'calc(37.5% + 15px)', top: 1481 }}>
-              Christian Boltanski at MOT
+            <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] text-[10px] text-black" style={{ left: heroImageFrame.left, top: captionTop }}>
+              {currentCaption.title}
             </p>
-            <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] text-[10px] text-black" style={{ left: 'calc(37.5% + 15px)', top: 1492 }}>
-              2019
+            <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] text-[10px] text-black" style={{ left: heroImageFrame.left, top: captionTop + 11 }}>
+              {currentCaption.year}
             </p>
-            <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] text-[10px] text-black" style={{ left: 'calc(62.5% + 9px)', top: 1481 }}>
-              {String(photoIndex + 1).padStart(2, '0')}/{String(total).padStart(2, '0')}
+            <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] text-[10px] text-black" style={{ left: 'calc(62.5% + 9px)', top: captionTop }}>
+              {String(total === 0 ? 0 : photoIndex + 1).padStart(2, '0')}/{String(total).padStart(2, '0')}
             </p>
             <button
               type="button"
               onClick={goPrev}
-              className="absolute font-['Plus_Jakarta_Sans',sans-serif] text-[10px] text-black bg-transparent border-none cursor-pointer"
-              style={{ left: 'calc(75% + 137px)', top: 1476 }}
+              disabled={total <= 1 || isTransitioning}
+              className="absolute font-['Plus_Jakarta_Sans',sans-serif] text-[10px] text-black bg-transparent border-none cursor-pointer disabled:opacity-50 disabled:cursor-default"
+              style={{ left: 'calc(75% + 137px)', top: captionTop - 4 }}
               aria-label="Previous photo"
             >
               prev
@@ -93,8 +190,9 @@ export default function AboutPage({ currentPage, language, onNavigate, onLanguag
             <button
               type="button"
               onClick={goNext}
-              className="absolute font-['Plus_Jakarta_Sans',sans-serif] text-[10px] text-black bg-transparent border-none cursor-pointer"
-              style={{ left: 'calc(87.5% + 3px)', top: 1476 }}
+              disabled={total <= 1 || isTransitioning}
+              className="absolute font-['Plus_Jakarta_Sans',sans-serif] text-[10px] text-black bg-transparent border-none cursor-pointer disabled:opacity-50 disabled:cursor-default"
+              style={{ left: 'calc(87.5% + 3px)', top: captionTop - 4 }}
               aria-label="Next photo"
             >
               next

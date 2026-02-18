@@ -81,9 +81,9 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
 
   return (
     <div className="layout-viewport hide-scrollbar bg-grey-normal">
-      <div className="layout-canvas">
+      <div className="layout-canvas" style={{ "--layout-base-height": "10900px" } as CSSProperties}>
         <div className="layout-canvas-inner">
-          <div className="relative">
+          <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
             <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
 
             <div className="flex flex-col gap-0 mt-12">
@@ -100,7 +100,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
               />
 
               {/* Hero image */}
-              <section className="px-3 tablet:px-5 desktop:px-7">
+              <section className="px-7">
                 <div className="flex justify-center">
                   <img
                     src={TinyBanner}
@@ -111,12 +111,12 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
               </section>
             </div>
 
-            <div className="iceland-fluid">
+            <div>
               {/* 01 Why ProLog was created */}
-              <section className="px-3 tablet:px-5 desktop:px-7 pb-16 mt-16">
-                <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
+              <section className="px-7 pb-16 mt-16">
+                <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
                   <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">01 Why ProLog was created</h2>
-                  <div className="grid gap-6 pl-8 tablet:pl-12 desktop:pl-48 max-w-[1280px]">
+                  <div className="grid gap-6 pl-48 max-w-[1280px]">
                     <div>
                       <p className="type-body-lg m-0 text-black-normal font-semibold">Outdated First Impression</p>
                       <p className="type-body m-0 text-black-normal leading-[1.5]">
@@ -148,10 +148,10 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
               </section>
 
               {/* 02 Research & Analysis */}
-              <section className="px-3 tablet:px-5 desktop:px-7 pb-16 mt-12">
-                <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
+              <section className="px-7 pb-16 mt-12">
+                <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
                   <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">02 Research & Analysis</h2>
-                  <div className="grid gap-6 pl-4 tablet:pl-8 desktop:pl-48 max-w-[1280px]">
+                  <div className="grid gap-6 pl-48 max-w-[1280px]">
                     <div>
                       <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">User Interview</p>
                       <p className="type-body text-black-normal m-0 leading-[1.5] mt-1">
@@ -215,7 +215,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                         <br />
                         They guided design decisions by highlighting user needs, pain points, and expectations throughout the adoption journey.
                       </p>
-                      <div className="grid desktop:grid-cols-2 gap-6">
+                      <div className="grid grid-cols-2 gap-6">
                         <img
                           src={Persona1}
                           alt="User persona Emily Green"
@@ -233,10 +233,10 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
               </section>
 
               {/* 03 Design Process */}
-              <section className="px-3 tablet:px-5 desktop:px-7 pb-16 mt-12">
-                <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
+              <section className="px-7 pb-16 mt-12">
+                <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
                   <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">03 Design Process</h2>
-                  <div className="grid gap-6 pl-8 tablet:pl-12 desktop:pl-48 max-w-[1280px]">
+                  <div className="grid gap-6 pl-48 max-w-[1280px]">
                     <div className="grid gap-2">
                       <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">Site Map</p>
                       <p className="type-body text-black-normal m-0 leading-[1.5]">
@@ -262,9 +262,9 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
               </section>
 
               {/* Branding */}
-              <section className="px-3 tablet:px-5 desktop:px-7 pb-20 mt-0">
-                <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
-                  <div className="grid gap-6 pl-8 tablet:pl-12 desktop:pl-48 max-w-[1280px] desktop:col-start-2">
+              <section className="px-7 pb-20 mt-0">
+                <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
+                  <div className="grid gap-6 pl-48 max-w-[1280px] col-start-2">
                     <div className="grid gap-2">
                       <p className="type-heading-3 text-black-normal m-0 leading-[1]">Branding</p>
                       <p className="type-body text-black-normal m-0 leading-[1.5]">Logo Design</p>
@@ -272,11 +272,11 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                         The logo combines playful, rounded forms with a cat-inspired silhouette to create a friendly and approachable identity that reflects the warmth of the adoption experience.
                       </p>
                     </div>
-                    <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-[2.2fr_1fr_1fr_1fr] gap-4 desktop:gap-6 items-end">
+                    <div className="grid grid-cols-[2.2fr_1fr_1fr_1fr] gap-6 items-end">
                       <img
                         src={LogoBig}
                         alt="TinyPaws primary logo"
-                        className="w-full h-auto object-contain tablet:col-span-2 desktop:col-span-1"
+                        className="w-full h-auto object-contain col-span-1"
                       />
                       {[Logo1, Logo2, Logo3].map((src, idx) => (
                         <img
@@ -293,7 +293,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                       <p className="type-body text-black-normal m-0 leading-[1.5]">
                         A warm orange is used as the primary color to convey friendliness and energy, supported by deep brown and neutral tones to maintain balance, readability, and trust.
                       </p>
-                      <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-5 gap-4 desktop:gap-6">
+                      <div className="grid grid-cols-5 gap-6">
                         {brandPalette.map(({ hex, textClass }) => (
                           <div
                             key={hex}
@@ -311,7 +311,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                       <p className="type-body text-black-normal m-0 leading-[1.5]">
                         Nexa Round is used across all typography to maintain a consistent, approachable tone, with clear weight contrast and structured sizing enhancing readability and a clean, modern aesthetic.
                       </p>
-                      <div className="grid desktop:grid-cols-[260px_1fr] gap-10 items-start">
+                      <div className="grid grid-cols-[260px_1fr] gap-10 items-start">
                         <div className="text-[12px] leading-[1.5] text-black-normal space-y-3">
                           {typographyScale.map(({ label, value, style }) => (
                             <div key={label} className="grid grid-cols-[140px_1fr] items-start gap-6">
@@ -319,7 +319,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                                 <p className="m-0 text-[16px] font-normal leading-[1.3]">{label}</p>
                                 <p className="m-0 text-[12px] font-normal leading-[1.3] whitespace-nowrap">{value}</p>
                               </div>
-                              <div className="flex items-center min-h-[44px] pl-6 tablet:pl-10 desktop:pl-14">
+                              <div className="flex items-center min-h-[44px] pl-14">
                                 <p className="m-0 text-black-normal whitespace-nowrap" style={style}>
                                   Small paws, safe homes.
                                 </p>
@@ -356,7 +356,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                       </p>
 
                       <div
-                        className="grid desktop:grid-cols-2 gap-8 items-start justify-items-center"
+                        className="grid grid-cols-2 gap-8 items-start justify-items-center"
                         style={{ perspective: '1800px' }}
                       >
                         <button
@@ -364,7 +364,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                           onMouseEnter={() => setActiveUsabilitySide('left')}
                           onFocus={() => setActiveUsabilitySide('left')}
                           onClick={() => setActiveUsabilitySide('left')}
-                          className="w-[96%] desktop:w-[94%] p-0 border border-black/10 rounded-[4px] overflow-hidden bg-white cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
+                          className="w-[94%] p-0 border border-black/10 rounded-[4px] overflow-hidden bg-white cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
                           style={{
                             transformOrigin: 'left center',
                             transform:
@@ -391,7 +391,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                           onMouseEnter={() => setActiveUsabilitySide('right')}
                           onFocus={() => setActiveUsabilitySide('right')}
                           onClick={() => setActiveUsabilitySide('right')}
-                          className="w-[96%] desktop:w-[94%] p-0 border border-black/10 rounded-[4px] overflow-hidden bg-white cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
+                          className="w-[94%] p-0 border border-black/10 rounded-[4px] overflow-hidden bg-white cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
                           style={{
                             transformOrigin: 'right center',
                             transform:
@@ -453,7 +453,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
 
                     <div className="grid gap-8 mt-2">
                       <div
-                        className="grid desktop:grid-cols-2 gap-8 items-start justify-items-center"
+                        className="grid grid-cols-2 gap-8 items-start justify-items-center"
                         style={{ perspective: '1800px' }}
                       >
                         <button
@@ -461,7 +461,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                           onMouseEnter={() => setActiveUsabilitySideSecond('left')}
                           onFocus={() => setActiveUsabilitySideSecond('left')}
                           onClick={() => setActiveUsabilitySideSecond('left')}
-                          className="w-[96%] desktop:w-[94%] p-0 border border-black/10 rounded-[4px] overflow-hidden bg-white cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
+                          className="w-[94%] p-0 border border-black/10 rounded-[4px] overflow-hidden bg-white cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
                           style={{
                             transformOrigin: 'left center',
                             transform:
@@ -488,7 +488,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                           onMouseEnter={() => setActiveUsabilitySideSecond('right')}
                           onFocus={() => setActiveUsabilitySideSecond('right')}
                           onClick={() => setActiveUsabilitySideSecond('right')}
-                          className="w-[96%] desktop:w-[94%] p-0 border border-black/10 rounded-[4px] overflow-hidden bg-white cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
+                          className="w-[94%] p-0 border border-black/10 rounded-[4px] overflow-hidden bg-white cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
                           style={{
                             transformOrigin: 'right center',
                             transform:
@@ -571,10 +571,10 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
               </section>
 
               {/* 04 Promotional Material */}
-              <section className="px-3 tablet:px-5 desktop:px-7 pb-16 mt-12">
-                <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
+              <section className="px-7 pb-16 mt-12">
+                <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
                   <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">04 Promotional Material</h2>
-                  <div className="grid gap-2 pl-8 tablet:pl-12 desktop:pl-48 max-w-[1280px]">
+                  <div className="grid gap-2 pl-48 max-w-[1280px]">
                     <div className="flex items-center">
                       <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">Promotional Video</p>
                     </div>
@@ -595,10 +595,10 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
               </section>
 
               {/* 05 Final Results */}
-              <section className="px-3 tablet:px-5 desktop:px-7 pb-16 mt-12">
-                <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
+              <section className="px-7 pb-16 mt-12">
+                <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
                   <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">05 Final Results</h2>
-                  <div className="grid gap-2 pl-8 tablet:pl-12 desktop:pl-48 max-w-[1280px]">
+                  <div className="grid gap-2 pl-48 max-w-[1280px]">
                     <div className="flex items-center">
                       <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">Mockup</p>
                     </div>

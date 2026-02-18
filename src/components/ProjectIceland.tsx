@@ -25,9 +25,9 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
 
   return (
     <div className="layout-viewport hide-scrollbar bg-grey-normal">
-      <div className="layout-canvas">
+      <div className="layout-canvas" style={{ "--layout-base-height": "5300px" } as CSSProperties}>
         <div className="layout-canvas-inner">
-          <div className="relative">
+          <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
             <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
 
             <div className="flex flex-col gap-0 mt-12">
@@ -44,7 +44,7 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
               />
 
               {/* Hero image */}
-              <section className="px-3 tablet:px-5 desktop:px-7">
+              <section className="px-7">
                 <div className="flex justify-center">
                   <img
                     src={IcelandHero}
@@ -55,14 +55,14 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
               </section>
             </div>
 
-            <div className="iceland-fluid">
+            <div>
 
             {/* Typography block */}
-            <section className="px-3 tablet:px-5 desktop:px-7 pb-16 mt-20">
-              <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
+            <section className="px-7 pb-16 mt-20">
+              <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
                 <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">01 Design Process</h2>
 
-                <div className="grid gap-6 pl-4 tablet:pl-8 desktop:pl-48">
+                <div className="grid gap-6 pl-48">
                   <div>
                     <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">Typography</p>
                     <p className="type-body text-black-normal m-0 mt-2 leading-[1.6]">
@@ -72,7 +72,7 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
                     </p>
                   </div>
 
-                  <div className="grid desktop:grid-cols-[260px_1fr] gap-10 items-start">
+                  <div className="grid grid-cols-[260px_1fr] gap-10 items-start">
                     <div className="text-[12px] leading-[1.5] text-black-normal space-y-3">
                       {[
                         ['Title', '40px Bold HelveticaNeue', { fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif', fontSize: 40, fontWeight: 700, lineHeight: 1.1 }],
@@ -89,7 +89,7 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
                             <p className="m-0 text-[16px] font-normal leading-[1.3]">{label as string}</p>
                             <p className="m-0 text-[12px] font-normal leading-[1.3] whitespace-nowrap">{value as string}</p>
                           </div>
-                          <div className="flex items-center min-h-[44px] pl-6 tablet:pl-10 desktop:pl-14">
+                          <div className="flex items-center min-h-[44px] pl-14">
                             <p className="m-0 text-black-normal whitespace-nowrap" style={style as React.CSSProperties}>
                               A journey through fire and ice.
                             </p>
@@ -103,11 +103,11 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
             </section>
 
             {/* Grid System */}
-            <section className="px-3 tablet:px-5 desktop:px-7 pb-16 mt-8">
-              <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
+            <section className="px-7 pb-16 mt-8">
+              <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
                 <div className="h-0" />
 
-                <div className="grid gap-6 pl-4 tablet:pl-8 desktop:pl-48">
+                <div className="grid gap-6 pl-48">
                   <div>
                   <h3 className="type-heading-3 text-black-normal m-0 leading-[1.3]">Grid System</h3>
                   <p className="type-body text-black-normal m-0 mt-2 leading-[1.6]">
@@ -116,7 +116,7 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
                   </div>
 
 
-                  <div className="grid desktop:grid-cols-2 gap-8 items-start">
+                  <div className="grid grid-cols-2 gap-8 items-start">
                     <figure className="p-0 m-0 text-left">
                       <img src={layout2col} alt="2-column grid layout" className="w-full h-auto block" />
                       <figcaption className="mt-1 text-[13px] font-medium text-black-normal text-left">
@@ -140,11 +140,11 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
             </section>
 
             {/* Graphics */}
-            <section className="px-3 tablet:px-5 desktop:px-7 pb-16 mt-8">
-              <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
+            <section className="px-7 pb-16 mt-8">
+              <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
                 <div className="h-0" />
 
-                <div className="grid gap-6 pl-4 tablet:pl-8 desktop:pl-48">
+                <div className="grid gap-6 pl-48">
                   <div>
                   <h3 className="type-heading-3 text-black-normal m-0 leading-[1.3]">Graphics</h3>
                   <p className="type-body text-black-normal m-0 mt-2 leading-[1.6]">
@@ -154,7 +154,7 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
 
                   <div className="flex flex-wrap gap-4 justify-start">
                     {[Map1, Map2, Map3].map((src, idx) => (
-                      <figure key={src} className="p-0 m-0 text-left w-full desktop:w-[32%]">
+                      <figure key={src} className="p-0 m-0 text-left w-[32%]">
                         <img src={src} alt={`Map visual ${idx + 1}`} className="w-full h-auto block" />
                       </figure>
                     ))}
@@ -164,10 +164,10 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
             </section>
 
             {/* 02 Digital Edition with PDF viewer */}
-            <section className="px-3 tablet:px-5 desktop:px-7 pb-20 mt-20">
-              <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
+            <section className="px-7 pb-20 mt-20">
+              <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
                 <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">02 Digital Edition</h2>
-                <div className="grid gap-4 pl-4 tablet:pl-8 desktop:pl-48">
+                <div className="grid gap-4 pl-48">
                   <div className="border border-black/15 rounded-[4px] shadow-sm overflow-hidden bg-white" style={{ height: 640, minHeight: 400 }}>
                     <iframe
                       title="Best of Iceland publication"
@@ -183,11 +183,11 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
             </section>
 
             {/* 03 Final Result */}
-            <section className="px-3 tablet:px-5 desktop:px-7 pb-20 mt-20">
-              <div className="grid desktop:grid-cols-[260px_1fr] gap-12 items-start">
+            <section className="px-7 pb-20 mt-20">
+              <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
                 <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">03 Final Result</h2>
-                <div className="grid gap-6 pl-4 tablet:pl-8 desktop:pl-48">
-                  <div className="grid desktop:grid-cols-[3fr_2fr] gap-8 items-start">
+                <div className="grid gap-6 pl-48">
+                  <div className="grid grid-cols-[3fr_2fr] gap-8 items-start">
                     <div className="flex flex-col gap-8">
                       <img src={Mock5} alt="Final spread mockup 5" className="w-full h-auto block object-cover" />
                       <img src={Mock4} alt="Final spread mockup 4" className="w-full h-[580px] block object-cover object-top" />

@@ -104,12 +104,12 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
 
   return (
     <div className="layout-viewport hide-scrollbar">
-      <div className="layout-canvas">
+      <div className="layout-canvas" style={{ "--layout-base-height": "1480px" } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div
             ref={frameRef}
             className="relative bg-grey-normal"
-            style={{ "--layout-base-height-projects": "1480px", minHeight: "calc(var(--layout-base-height-projects) * var(--layout-scale-height))" } as CSSProperties}
+            style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}
           >
             <Header
               currentPage={currentPage}
