@@ -27,6 +27,9 @@ const ROW_START = 696;
 const ROW_GAP_WITHIN_CATEGORY = 40;
 const ROW_GAP_BETWEEN_CATEGORIES = 80;
 const FIRST_CATEGORY_LAST_OFFSET = 2;
+const PROJECTS_PAGE_LAYOUT_BASE_HEIGHT = 1480;
+const PROJECTS_PAGE_FOOTER_OFFSET = 280;
+const PROJECTS_PAGE_FOOTER_TOP = PROJECTS_PAGE_LAYOUT_BASE_HEIGHT - PROJECTS_PAGE_FOOTER_OFFSET;
 const columnWidths = {
   workType: 'calc(25% - 14px)',
   title: 'calc(50% - 20px)',
@@ -39,19 +42,52 @@ type ProjectRow = {
   title: string;
   role: string;
   year: string;
+  page?: Page;
   thumbnail?: string;
+  hoverThumbnailWidth?: number;
+  hoverThumbnailHeight?: number;
 };
 
 const rows: ProjectRow[] = [
   { offset: 0, workType: 'App & Website', title: 'Individual Project', role: 'Independent', year: '2026' },
-  { offset: 1, workType: 'App', title: 'ProLog', role: 'UI Developer', year: '2025', thumbnail: PrologMockup },
-  { offset: 2, workType: 'Website', title: 'TinyPaws', role: 'UI/UX Designer', year: '2025', thumbnail: TinypawsMockup },
-  { offset: 3, workType: 'Brochure', title: 'Best of Iceland', role: 'Independent', year: '2025', thumbnail: BestOfIcelandMockup5 },
-  { offset: 4, workType: 'Poster', title: 'Archive House', role: 'Independent', year: '2025', thumbnail: ArchiveHouseResult2 },
-  { offset: 5, workType: 'Poster', title: 'Archive of Veilance', role: 'Independent', year: '2025', thumbnail: VeilanceResult2 },
+  { offset: 1, workType: 'App', title: 'ProLog', role: 'UI Developer', year: '2025', page: 'prolog', thumbnail: PrologMockup },
+  { offset: 2, workType: 'Website', title: 'TinyPaws', role: 'UI/UX Designer', year: '2025', page: 'tinypaws', thumbnail: TinypawsMockup },
+  { offset: 3, workType: 'Brochure', title: 'Best of Iceland', role: 'Independent', year: '2025', page: 'iceland', thumbnail: BestOfIcelandMockup5 },
+  {
+    offset: 4,
+    workType: 'Poster',
+    title: 'Archive House',
+    role: 'Independent',
+    year: '2025',
+    page: 'archivehouse',
+    thumbnail: ArchiveHouseResult2,
+    hoverThumbnailWidth: 252,
+    hoverThumbnailHeight: 350,
+  },
+  {
+    offset: 5,
+    workType: 'Poster',
+    title: 'Archive of Veilance',
+    role: 'Independent',
+    year: '2025',
+    page: 'archiveofveliance',
+    thumbnail: VeilanceResult2,
+    hoverThumbnailWidth: 252,
+    hoverThumbnailHeight: 350,
+  },
   { offset: 6, workType: 'Motion', title: 'StarLink', role: 'Independent', year: '2025' },
-  { offset: 7, workType: 'Poster', title: 'Ikea', role: 'Independent', year: '2025' },
-  { offset: 8, workType: 'Promotional Material', title: 'MUJI', role: 'VMD', year: '2024', thumbnail: MujiThumbnail },
+  { offset: 7, workType: 'Package', title: 'Matcha Latte', role: 'Independent', year: '2024', page: 'matchalatte' },
+  {
+    offset: 8,
+    workType: 'Promotional Material',
+    title: 'MUJI',
+    role: 'VMD',
+    year: '2024',
+    page: 'muji',
+    thumbnail: MujiThumbnail,
+    hoverThumbnailWidth: 240,
+    hoverThumbnailHeight: 333,
+  },
 ];
 
 function getRowTop(offset: number) {
@@ -74,21 +110,13 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
   const frameRef = useRef<HTMLDivElement | null>(null);
   const activeRow = rows.find((row) => row.offset === hoveredRow);
   const activeThumbnail = activeRow?.thumbnail;
-  const isMujiHover = activeRow?.title.includes('MUJI') ?? false;
-  const isArchiveHover =
-    activeRow?.title.includes('Archive House') || activeRow?.title.includes('Archive of Veilance');
 
-  const handleRowClick = (title: string) => {
-    if (title.includes('ProLog')) onNavigate('prolog');
-    if (title.includes('Iceland')) onNavigate('iceland');
-    if (title.includes('TinyPaws')) onNavigate('tinypaws');
-    if (title.includes('MUJI')) onNavigate('muji');
-    if (title.includes('Archive House')) onNavigate('archivehouse');
-    if (title.includes('Archive of Veilance')) onNavigate('archiveofveliance');
+  const handleRowClick = (row: ProjectRow) => {
+    if (row.page) onNavigate(row.page);
   };
 
-  const thumbnailWidth = isMujiHover ? 240 : isArchiveHover ? 252 : 360;
-  const thumbnailHeightEstimate = isMujiHover ? 333 : isArchiveHover ? 350 : 500;
+  const thumbnailWidth = activeRow?.hoverThumbnailWidth ?? 360;
+  const thumbnailHeightEstimate = activeRow?.hoverThumbnailHeight ?? 500;
   const thumbOffsetX = 28;
   const thumbOffsetY = 24;
   const frameWidth = frameRef.current?.offsetWidth ?? 1440;
@@ -117,7 +145,7 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
 
   return (
     <div className="layout-viewport hide-scrollbar">
-      <div className="layout-canvas" style={{ "--layout-base-height": "1480px" } as CSSProperties}>
+      <div className="layout-canvas" style={{ "--layout-base-height": `${PROJECTS_PAGE_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div
             ref={frameRef}
@@ -190,13 +218,7 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
 
             {rows.map((row) => {
               const top = getRowTop(row.offset);
-              const isInteractive =
-                row.title.includes('ProLog') ||
-                row.title.includes('Iceland') ||
-                row.title.includes('TinyPaws') ||
-                row.title.includes('MUJI') ||
-                row.title.includes('Archive House') ||
-                row.title.includes('Archive of Veilance');
+              const isInteractive = Boolean(row.page);
               const isActive = hoveredRow === row.offset;
 
               return (
@@ -214,28 +236,28 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
                   <p
                     className={`absolute projects-hover-cell ${columnLeft.workType} ${isActive ? 'is-active' : ''} font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-[24px]`}
                     style={{ width: columnWidths.workType, cursor: isInteractive ? 'pointer' : 'default' }}
-                    onClick={() => handleRowClick(row.title)}
+                    onClick={() => handleRowClick(row)}
                   >
                     <span>{row.workType}</span>
                   </p>
                   <p
                     className={`absolute projects-hover-cell ${columnLeft.title} ${isActive ? 'is-active' : ''} font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-[24px]`}
                     style={{ width: columnWidths.title, cursor: isInteractive ? 'pointer' : 'default' }}
-                    onClick={() => handleRowClick(row.title)}
+                    onClick={() => handleRowClick(row)}
                   >
                     <span>{row.title}</span>
                   </p>
                   <p
                     className={`absolute projects-hover-cell ${columnLeft.role} ${isActive ? 'is-active' : ''} font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-[24px]`}
                     style={{ width: columnWidths.role, cursor: isInteractive ? 'pointer' : 'default' }}
-                    onClick={() => handleRowClick(row.title)}
+                    onClick={() => handleRowClick(row)}
                   >
                     <span>{row.role}</span>
                   </p>
                   <p
                     className={`absolute projects-hover-cell projects-hover-cell-year ${columnLeft.year} ${isActive ? 'is-active' : ''} font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-[24px]`}
                     style={{ width: columnWidths.year, cursor: isInteractive ? 'pointer' : 'default' }}
-                    onClick={() => handleRowClick(row.title)}
+                    onClick={() => handleRowClick(row)}
                   >
                     <span>{row.year}</span>
                   </p>
@@ -244,7 +266,7 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
             })}
 
             {/* Footer for this page sits near the bottom of the list */}
-            <Footer onNavigate={onNavigate} top={1200} />
+            <Footer onNavigate={onNavigate} top={PROJECTS_PAGE_FOOTER_TOP} />
           </div>
         </div>
       </div>

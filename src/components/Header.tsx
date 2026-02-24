@@ -102,7 +102,8 @@ export default function Header({ currentPage, language, onNavigate, onLanguageCh
     currentPage === 'tinypaws' ||
     currentPage === 'muji' ||
     currentPage === 'archivehouse' ||
-    currentPage === 'archiveofveliance';
+    currentPage === 'archiveofveliance' ||
+    currentPage === 'matchalatte';
 
   return (
     <header className="relative h-[96px]">

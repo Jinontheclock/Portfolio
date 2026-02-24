@@ -25,6 +25,8 @@ type Props = {
 const MOOD_BOARD_FIGMA_URL = 'https://www.figma.com/design/1H8FYTkzKkDBKAPR01a5Wb/Archive-of-Veilance?node-id=1-2&t=unjbvFlGCW8CsnyK-1';
 const MOOD_BOARD_EMBED_URL = `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(MOOD_BOARD_FIGMA_URL)}`;
 const VEILANCE_MOCKUP_IMAGES = [VeilanceEn1, VeilanceEn2, VeilanceKr1, VeilanceKr2, VeilanceJp1, VeilanceJp2];
+const VEILANCE_LAYOUT_BASE_HEIGHT = 5200;
+const VEILANCE_FOOTER_TOP = VEILANCE_LAYOUT_BASE_HEIGHT - 300;
 
 type VeilanceTypographyRow = {
   label: string;
@@ -144,7 +146,7 @@ const veilanceTypographyGroups: Array<{ language: string; rows: VeilanceTypograp
 export default function ProjectArchiveOfVeilance({ currentPage, language, onNavigate, onLanguageChange }: Props) {
   return (
     <div className="layout-viewport hide-scrollbar bg-grey-normal">
-      <div className="layout-canvas" style={{ "--layout-base-height": "5200px" } as CSSProperties}>
+      <div className="layout-canvas" style={{ "--layout-base-height": `${VEILANCE_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
             <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
@@ -302,7 +304,7 @@ export default function ProjectArchiveOfVeilance({ currentPage, language, onNavi
                 </div>
               </section>
 
-              <Footer onNavigate={onNavigate} top={4900} />
+              <Footer onNavigate={onNavigate} top={VEILANCE_FOOTER_TOP} />
             </div>
           </div>
         </div>

@@ -108,6 +108,9 @@ const typographyScale: Array<{ label: string; value: string; style: CSSPropertie
   },
 ];
 
+const PROLOG_LAYOUT_BASE_HEIGHT = 15500;
+const PROLOG_FOOTER_TOP = PROLOG_LAYOUT_BASE_HEIGHT - 300;
+
 export default function ProjectProLog({ currentPage, language, onNavigate, onLanguageChange }: Props) {
   const [activeUsabilitySide, setActiveUsabilitySide] = useState<'left' | 'right'>('left');
   const [activeUsabilitySideSecond, setActiveUsabilitySideSecond] = useState<'left' | 'right'>('left');
@@ -115,7 +118,7 @@ export default function ProjectProLog({ currentPage, language, onNavigate, onLan
 
   return (
     <div className="layout-viewport hide-scrollbar bg-grey-normal">
-      <div className="layout-canvas" style={{ "--layout-base-height": "15500px" } as CSSProperties}>
+      <div className="layout-canvas" style={{ "--layout-base-height": `${PROLOG_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
             <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
@@ -884,7 +887,7 @@ export default function ProjectProLog({ currentPage, language, onNavigate, onLan
                 </div>
               </section>
 
-              <Footer onNavigate={onNavigate} top={15200} />
+              <Footer onNavigate={onNavigate} top={PROLOG_FOOTER_TOP} />
             </div>
           </div>
         </div>

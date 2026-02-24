@@ -6,6 +6,7 @@ type FooterProps = {
   onNavigate: (page: Page) => void;
   onArchiveClick?: () => void;
   top?: number; // allow positioning override per page
+  showTopLine?: boolean;
 };
 
 const textButton =
@@ -26,7 +27,7 @@ const LINE_LEFT_PRIMARY = 'calc(75% - 6px)';
 const LINE_LEFT_SECONDARY = 'calc(62.5% - 3px)';
 const COPYRIGHT_LEFT = 'calc(62.5% + 138px)';
 
-export default function Footer({ onNavigate, onArchiveClick = () => {}, top = 3528 }: FooterProps) {
+export default function Footer({ onNavigate, onArchiveClick = () => {}, top = 3528, showTopLine = true }: FooterProps) {
   const openExternal = (url: string) => window.open(url, '_blank', 'noopener,noreferrer');
   const baseTop = top;
   const offset = (value: number) => ({ top: value });
@@ -41,7 +42,9 @@ export default function Footer({ onNavigate, onArchiveClick = () => {}, top = 35
         height: `calc(${COPYRIGHT_TOP}px + ${GAP}px)`,
       }}
     >
-      <RevealHLine className="absolute left-0 right-0" style={offset(FOOTER_TOP_LINE)} color="var(--color-black-normal)" thickness={1} />
+      {showTopLine && (
+        <RevealHLine className="absolute left-0 right-0" style={offset(FOOTER_TOP_LINE)} color="var(--color-black-normal)" thickness={1} />
+      )}
 
       <button
         type="button"

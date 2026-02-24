@@ -21,11 +21,14 @@ type Props = {
   onLanguageChange: (language: Language) => void;
 };
 
+const ICELAND_LAYOUT_BASE_HEIGHT = 5300;
+const ICELAND_FOOTER_TOP = ICELAND_LAYOUT_BASE_HEIGHT - 300;
+
 export default function ProjectIceland({ currentPage, language, onNavigate, onLanguageChange }: Props) {
 
   return (
     <div className="layout-viewport hide-scrollbar bg-grey-normal">
-      <div className="layout-canvas" style={{ "--layout-base-height": "5300px" } as CSSProperties}>
+      <div className="layout-canvas" style={{ "--layout-base-height": `${ICELAND_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
             <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
@@ -202,7 +205,7 @@ export default function ProjectIceland({ currentPage, language, onNavigate, onLa
               </div>
             </section>
 
-            <Footer onNavigate={onNavigate} top={5000} />
+            <Footer onNavigate={onNavigate} top={ICELAND_FOOTER_TOP} />
 
             </div>
           </div>

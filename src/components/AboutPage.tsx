@@ -16,20 +16,25 @@ const photos = Object.entries(aboutPhotoModules)
     filename: path.split('/').pop() ?? path,
   }));
 
-function resolveAboutCaption(filename: string) {
-  const lower = filename.toLowerCase();
+type AboutPhotoCaption = {
+  title: string;
+  year: string;
+};
 
-  if (lower.includes('aboutme2')) {
-    return {
-      title: 'Thomas Demand at TFAM',
-      year: '2025',
-    };
-  }
-
-  return {
+const ABOUT_PHOTO_CAPTIONS: Record<string, AboutPhotoCaption> = {
+  aboutme1: {
     title: 'Christian Boltanski at MOT',
     year: '2019',
-  };
+  },
+  aboutme2: {
+    title: 'Thomas Demand at TFAM',
+    year: '2025',
+  },
+};
+
+function resolveAboutCaption(filename: string) {
+  const normalized = filename.toLowerCase().replace(/\.[^.]+$/, '');
+  return ABOUT_PHOTO_CAPTIONS[normalized] ?? ABOUT_PHOTO_CAPTIONS.aboutme1;
 }
 
 type AboutPageProps = {
@@ -40,6 +45,9 @@ type AboutPageProps = {
 };
 
 type PhotoDirection = 'prev' | 'next';
+const ABOUT_PAGE_LAYOUT_BASE_HEIGHT = 2800;
+const ABOUT_PAGE_FOOTER_OFFSET = 232;
+const ABOUT_PAGE_FOOTER_TOP = ABOUT_PAGE_LAYOUT_BASE_HEIGHT - ABOUT_PAGE_FOOTER_OFFSET;
 
 export default function AboutPage({ currentPage, language, onNavigate, onLanguageChange }: AboutPageProps) {
   const [photoIndex, setPhotoIndex] = useState(0);
@@ -105,7 +113,7 @@ export default function AboutPage({ currentPage, language, onNavigate, onLanguag
 
   return (
     <div className="layout-viewport hide-scrollbar">
-      <div className="layout-canvas" style={{ "--layout-base-height": "2800px" } as CSSProperties}>
+      <div className="layout-canvas" style={{ "--layout-base-height": `${ABOUT_PAGE_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div
             className="relative bg-grey-normal text-black-normal"
@@ -272,8 +280,8 @@ export default function AboutPage({ currentPage, language, onNavigate, onLanguag
             </div>
 
             {/* Footer line and nav block */}
-            <div className="absolute left-[24px] right-[24px] top-[2568px] h-0 border-t border-black/60" />
-            <Footer onNavigate={onNavigate} top={2568} />
+            <div className="absolute left-[24px] right-[24px] h-0 border-t border-black/60" style={{ top: ABOUT_PAGE_FOOTER_TOP }} />
+            <Footer onNavigate={onNavigate} top={ABOUT_PAGE_FOOTER_TOP} showTopLine={false} />
           </div>
         </div>
       </div>

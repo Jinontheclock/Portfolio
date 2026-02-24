@@ -54,11 +54,14 @@ type Props = {
   onLanguageChange: (language: Language) => void;
 };
 
+const MUJI_LAYOUT_BASE_HEIGHT = 7500;
+const MUJI_FOOTER_TOP = MUJI_LAYOUT_BASE_HEIGHT - 300;
+
 export default function ProjectMuji({ currentPage, language, onNavigate, onLanguageChange }: Props) {
 
   return (
     <div className="layout-viewport hide-scrollbar bg-grey-normal">
-      <div className="layout-canvas" style={{ "--layout-base-height": "7500px" } as CSSProperties}>
+      <div className="layout-canvas" style={{ "--layout-base-height": `${MUJI_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
             <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
@@ -368,7 +371,7 @@ export default function ProjectMuji({ currentPage, language, onNavigate, onLangu
               </div>
             </section>
 
-            <Footer onNavigate={onNavigate} top={7200} />
+            <Footer onNavigate={onNavigate} top={MUJI_FOOTER_TOP} />
 
             </div>
           </div>

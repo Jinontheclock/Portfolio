@@ -1,5 +1,14 @@
 import React from 'react';
 
+const PROJECT_HEADER_LAYOUT = {
+  metaLeftColWidth: 220,
+  toolsColWidth: 220,
+  dividerOffsetX: -56,
+  toolsOffsetX: -73,
+  descriptionOffsetX: 224,
+  descriptionMaxWidth: 640,
+} as const;
+
 type ProjectHeaderProps = {
   title: string;
   timeline: string;
@@ -57,7 +66,10 @@ export default function ProjectHeader({
         />
       )}
 
-      <div className="grid gap-8 grid-cols-[220px_1px_220px_1fr] items-start">
+      <div
+        className="grid gap-8 items-start"
+        style={{ gridTemplateColumns: `${PROJECT_HEADER_LAYOUT.metaLeftColWidth}px 1px ${PROJECT_HEADER_LAYOUT.toolsColWidth}px 1fr` }}
+      >
         {/* Left meta column */}
         <div className="grid gap-6">
           {category && (
@@ -105,10 +117,13 @@ export default function ProjectHeader({
         </div>
 
         {/* Divider */}
-        <div className="border-l border-black/60 translate-x-[-56px]" style={{ height: dividerHeight }} />
+        <div
+          className="border-l border-black/60"
+          style={{ height: dividerHeight, transform: `translateX(${PROJECT_HEADER_LAYOUT.dividerOffsetX}px)` }}
+        />
 
         {/* Tools column */}
-        <div className="text-[12px] leading-[1.6] -ml-[73px]">
+        <div className="text-[12px] leading-[1.6]" style={{ marginLeft: PROJECT_HEADER_LAYOUT.toolsOffsetX }}>
           {tools.map((tool) => (
             <p key={tool} className="m-0 type-body text-black-normal">
               {tool}
@@ -116,7 +131,10 @@ export default function ProjectHeader({
           ))}
         </div>
         {/* Description column */}
-        <div className="type-body-lg leading-[1.6] text-black-normal max-w-[640px] ml-56">
+        <div
+          className="type-body-lg leading-[1.6] text-black-normal"
+          style={{ maxWidth: PROJECT_HEADER_LAYOUT.descriptionMaxWidth, marginLeft: PROJECT_HEADER_LAYOUT.descriptionOffsetX }}
+        >
           {description.map((line) => (
             <p key={line} className="m-0 mb-0 last:mb-0">
               {line}

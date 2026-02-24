@@ -75,13 +75,16 @@ const typographyScale: Array<{ label: string; value: string; style: CSSPropertie
   },
 ];
 
+const TINYPAWS_LAYOUT_BASE_HEIGHT = 10900;
+const TINYPAWS_FOOTER_TOP = TINYPAWS_LAYOUT_BASE_HEIGHT - 300;
+
 export default function ProjectTinyPaws({ currentPage, language, onNavigate, onLanguageChange }: Props) {
   const [activeUsabilitySide, setActiveUsabilitySide] = useState<'left' | 'right'>('left');
   const [activeUsabilitySideSecond, setActiveUsabilitySideSecond] = useState<'left' | 'right'>('left');
 
   return (
     <div className="layout-viewport hide-scrollbar bg-grey-normal">
-      <div className="layout-canvas" style={{ "--layout-base-height": "10900px" } as CSSProperties}>
+      <div className="layout-canvas" style={{ "--layout-base-height": `${TINYPAWS_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
             <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
@@ -627,7 +630,7 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                 </div>
               </section>
 
-              <Footer onNavigate={onNavigate} top={10600} />
+              <Footer onNavigate={onNavigate} top={TINYPAWS_FOOTER_TOP} />
             </div>
           </div>
         </div>

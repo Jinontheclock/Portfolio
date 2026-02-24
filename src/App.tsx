@@ -14,6 +14,7 @@ import ProjectTinyPaws from "./components/ProjectTinyPaws";
 import ProjectMuji from "./components/ProjectMuji";
 import ProjectArchiveHouse from "./components/ProjectArchiveHouse";
 import ProjectArchiveOfVeilance from "./components/ProjectArchiveOfVeilance";
+import ProjectMatchaLatte from "./components/ProjectMatchaLatte";
 import { Language, Page } from "./types";
 import RevealLine, { RevealHLine } from "./components/RevealLine";
 
@@ -33,6 +34,10 @@ const HERO_POS = {
   title: { left: 154, top: 307 },
   subtitle: { left: 727, top: 484 },
 };
+
+const HOME_LAYOUT_BASE_HEIGHT = 3850;
+const HOME_FOOTER_OFFSET = 290;
+const HOME_FOOTER_TOP = HOME_LAYOUT_BASE_HEIGHT - HOME_FOOTER_OFFSET;
 
 type InspirationItem = {
   img: string;
@@ -186,6 +191,7 @@ const PAGE_PATHS: Record<Page, string> = {
   muji: '/projects/muji',
   archivehouse: '/projects/archive-house',
   archiveofveliance: '/projects/archive-of-veliance',
+  matchalatte: '/projects/matcha-latte',
 };
 
 function normalizePath(pathname: string) {
@@ -204,6 +210,7 @@ function pageFromPath(pathname: string): Page {
   if (path === '/projects/muji' || path === '/muji') return 'muji';
   if (path === '/projects/archive-house' || path === '/archive-house') return 'archivehouse';
   if (path === '/projects/archive-of-veliance' || path === '/archive-of-veliance') return 'archiveofveliance';
+  if (path === '/projects/matcha-latte' || path === '/matcha-latte') return 'matchalatte';
 
   return 'home';
 }
@@ -469,6 +476,17 @@ export default function App() {
     );
   }
 
+  if (currentPage === 'matchalatte') {
+    return (
+      <ProjectMatchaLatte
+        currentPage={currentPage}
+        language={language}
+        onNavigate={navigateTo}
+        onLanguageChange={(lang) => setLanguage(lang)}
+      />
+    );
+  }
+
   if (currentPage === 'about') {
     return (
       <AboutPage
@@ -484,7 +502,7 @@ export default function App() {
 
   return (
     <div className="layout-viewport hide-scrollbar">
-      <div className="layout-canvas" style={{ "--layout-base-height": "3850px" } as CSSProperties}>
+      <div className="layout-canvas" style={{ "--layout-base-height": `${HOME_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div
             className="relative"
@@ -539,21 +557,6 @@ export default function App() {
           <p className="type-heading-2 text-black-normal m-0 leading-[1.2]">About</p>
           <img src={imgArrow} alt="" className="w-6 h-6 object-contain translate-y-[2px]" />
         </button>
-        <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(62.5%-15px)] not-italic text-black-normal text-[18px] top-[1680px] w-[262px] whitespace-pre-wrap">
-          <p className="mb-0">Product design</p>
-          <p className="mb-0">Mobile UX/UI design</p>
-          <p>Interface development</p>
-        </div>
-        <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(62.5%-15px)] not-italic text-black-normal text-[18px] top-[1992px] w-[248px] whitespace-pre-wrap">
-          <p className="mb-0">Product design</p>
-          <p className="mb-0">WordPress Web design</p>
-          <p>Brand identity</p>
-        </div>
-        <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(62.5%-15px)] not-italic text-black-normal text-[18px] top-[2304px] w-[217px] whitespace-pre-wrap">
-          <p className="mb-0">Editorial design</p>
-          <p className="mb-0">Visual storytelling</p>
-          <p>Print-ready composition</p>
-        </div>
         {/* Project 1 group */}
         <ProjectBlocks onNavigate={navigateTo} />
         {projectSeparators.map((top, idx) => (
@@ -597,7 +600,7 @@ export default function App() {
         <Footer
           onNavigate={navigateTo}
           onArchiveClick={() => {}}
-          top={3560}
+          top={HOME_FOOTER_TOP}
         />
           </div>
         </div>

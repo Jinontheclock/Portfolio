@@ -97,10 +97,13 @@ const archiveMockupImages = [
   ArchiveHouseMockup6,
 ];
 
+const ARCHIVE_HOUSE_LAYOUT_BASE_HEIGHT = 5700;
+const ARCHIVE_HOUSE_FOOTER_TOP = ARCHIVE_HOUSE_LAYOUT_BASE_HEIGHT - 300;
+
 export default function ProjectArchiveHouse({ currentPage, language, onNavigate, onLanguageChange }: Props) {
   return (
     <div className="layout-viewport hide-scrollbar bg-grey-normal">
-      <div className="layout-canvas" style={{ "--layout-base-height": "5700px" } as CSSProperties}>
+      <div className="layout-canvas" style={{ "--layout-base-height": `${ARCHIVE_HOUSE_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
             <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
@@ -400,7 +403,7 @@ export default function ProjectArchiveHouse({ currentPage, language, onNavigate,
               </div>
             </section>
 
-            <Footer onNavigate={onNavigate} top={5400} />
+            <Footer onNavigate={onNavigate} top={ARCHIVE_HOUSE_FOOTER_TOP} />
           </div>
         </div>
       </div>
