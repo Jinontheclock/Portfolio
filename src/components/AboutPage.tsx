@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import { Language, Page } from '../types';
@@ -110,6 +110,14 @@ export default function AboutPage({ currentPage, language, onNavigate, onLanguag
 
   const goPrev = () => changePhoto('prev');
   const goNext = () => changePhoto('next');
+  const renderTextReveal = (content: ReactNode, delayMs: number) => (
+    <span
+      className="project-header-reveal-line"
+      style={{ ['--project-header-reveal-delay' as string]: `${delayMs}ms` } as CSSProperties}
+    >
+      <span className="project-header-reveal-text">{content}</span>
+    </span>
+  );
 
   return (
     <div className="layout-viewport hide-scrollbar">
@@ -119,6 +127,10 @@ export default function AboutPage({ currentPage, language, onNavigate, onLanguag
             className="relative bg-grey-normal text-black-normal"
             style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}
           >
+            <div className="tinypaws-page-enter-overlay" aria-hidden>
+              <span className="tinypaws-page-enter-overlay-base" />
+            </div>
+            <div className="tinypaws-page-enter-content">
             <Header
               currentPage={currentPage}
               language={language}
@@ -127,22 +139,32 @@ export default function AboutPage({ currentPage, language, onNavigate, onLanguag
             />
 
             {/* Hero title and year */}
-            <p className="absolute type-title-2 left-[24px] top-[193px] leading-[1]">Hajin</p>
-            <p className="absolute type-title-2 left-[24px] top-[337px] leading-[1]">Lee</p>
+            <p className="absolute type-title-2 left-[24px] top-[193px] leading-[1]">{renderTextReveal('Hajin', 980)}</p>
+            <p className="absolute type-title-2 left-[24px] top-[337px] leading-[1]">{renderTextReveal('Lee', 1040)}</p>
             <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] font-extrabold text-[160px] leading-[1] right-[24px] top-[193px]">
-              2026©
+              {renderTextReveal('2026©', 1010)}
             </p>
 
             {/* About intro */}
             <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[32px] left-[24px] top-[648px]">
-              About Me
+              {renderTextReveal('About Me', 1120)}
             </p>
             <div className="absolute type-body-lg" style={{ left: 'calc(37.5% + 15px)', top: 648, width: 861 }}>
-              <p className="mb-0">Originally from Seoul, I moved to Canada in 2024 to transition my career into UX/UI design.</p>
               <p className="mb-0">
-                With professional experience in the Japanese retail industry, I developed a strong foundation in an
-                experience-focused mindset and purposeful visual storytelling through visual merchandising. Shaped by
-                diverse cultural experiences, I bring a flexible way of thinking into digital design.
+                {renderTextReveal(
+                  'Originally from Seoul, I moved to Canada in 2024 to transition my career into UX/UI design.',
+                  1160
+                )}
+              </p>
+              <p className="mb-0">
+                {renderTextReveal(
+                  <>
+                    With professional experience in the Japanese retail industry, I developed a strong foundation in an
+                    experience-focused mindset and purposeful visual storytelling through visual merchandising. Shaped by
+                    diverse cultural experiences, I bring a flexible way of thinking into digital design.
+                  </>,
+                  1200
+                )}
               </p>
             </div>
 
@@ -282,6 +304,7 @@ export default function AboutPage({ currentPage, language, onNavigate, onLanguag
             {/* Footer line and nav block */}
             <div className="absolute left-[24px] right-[24px] h-0 border-t border-black/60" style={{ top: ABOUT_PAGE_FOOTER_TOP }} />
             <Footer onNavigate={onNavigate} top={ABOUT_PAGE_FOOTER_TOP} showTopLine={false} />
+            </div>
           </div>
         </div>
       </div>

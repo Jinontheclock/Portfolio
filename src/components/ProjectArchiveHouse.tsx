@@ -106,6 +106,10 @@ export default function ProjectArchiveHouse({ currentPage, language, onNavigate,
       <div className="layout-canvas" style={{ "--layout-base-height": `${ARCHIVE_HOUSE_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
+            <div className="tinypaws-page-enter-overlay" aria-hidden>
+              <span className="tinypaws-page-enter-overlay-base" />
+            </div>
+            <div className="tinypaws-page-enter-content">
             <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
 
             <div className="flex flex-col gap-0 mt-12">
@@ -404,6 +408,7 @@ export default function ProjectArchiveHouse({ currentPage, language, onNavigate,
             </section>
 
             <Footer onNavigate={onNavigate} top={ARCHIVE_HOUSE_FOOTER_TOP} />
+          </div>
           </div>
         </div>
       </div>

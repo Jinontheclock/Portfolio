@@ -3,7 +3,7 @@ import imgTinypawsMockup from "./assets/projects/tinypaws/tinypaws_mockup.png";
 import imgIcelandMockup4 from "./assets/projects/iceland/BestofIceland_mockup4.png";
 import imgImg26161 from "./assets/home/about/hajin_homepage_about.png";
 import imgArrow from "./assets/common/arrow.png";
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProjectsPage from "./components/ProjectsPage";
@@ -362,6 +362,19 @@ export default function App() {
   });
   const [language, setLanguage] = useState<Language>('EN');
   const [heroRoleIndex, setHeroRoleIndex] = useState(0);
+  const renderHomeHeroReveal = (content: ReactNode, delayMs: number) => (
+    <span
+      className="project-header-reveal-line projects-text-reveal-line"
+      style={{
+        ['--project-header-reveal-delay' as string]: `${delayMs}ms`,
+        display: 'inline-block',
+        width: 'max-content',
+        maxWidth: 'none',
+      } as CSSProperties}
+    >
+      <span className="project-header-reveal-text">{content}</span>
+    </span>
+  );
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -519,7 +532,7 @@ export default function App() {
           className="absolute type-title-1 text-black-normal"
           style={HERO_POS.title}
         >
-          HAJIN
+          {renderHomeHeroReveal('HAJIN', 980)}
         </p>
         
         <div
@@ -527,14 +540,17 @@ export default function App() {
           style={HERO_POS.subtitle}
         >
           <div className="grid grid-cols-[80px_100px] items-start gap-x-[12px] gap-y-[2px]">
-            <p className="m-0">VANCOUVER</p>
-            <p className="m-0 text-right">BASED</p>
+            <p className="m-0">{renderHomeHeroReveal('VANCOUVER', 1040)}</p>
+            <p className="m-0 text-right">{renderHomeHeroReveal('BASED', 1070)}</p>
             <div className="relative h-[26px] overflow-visible">
-              <span key={heroRoles[heroRoleIndex]} className="inline-block hero-role-word whitespace-nowrap">
-                {heroRoles[heroRoleIndex]}
-              </span>
+              {renderHomeHeroReveal(
+                <span key={heroRoles[heroRoleIndex]} className="inline-block hero-role-word whitespace-nowrap">
+                  {heroRoles[heroRoleIndex]}
+                </span>,
+                1100
+              )}
             </div>
-            <p className="m-0 text-right">DESIGNER</p>
+            <p className="m-0 text-right">{renderHomeHeroReveal('DESIGNER', 1130)}</p>
           </div>
         </div>
         

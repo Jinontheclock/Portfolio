@@ -64,6 +64,10 @@ export default function ProjectMuji({ currentPage, language, onNavigate, onLangu
       <div className="layout-canvas" style={{ "--layout-base-height": `${MUJI_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
+            <div className="tinypaws-page-enter-overlay" aria-hidden>
+              <span className="tinypaws-page-enter-overlay-base" />
+            </div>
+            <div className="tinypaws-page-enter-content">
             <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
 
             <div className="flex flex-col gap-0 -mt-20">
@@ -373,6 +377,7 @@ export default function ProjectMuji({ currentPage, language, onNavigate, onLangu
 
             <Footer onNavigate={onNavigate} top={MUJI_FOOTER_TOP} />
 
+            </div>
             </div>
           </div>
         </div>

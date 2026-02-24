@@ -1,7 +1,7 @@
 import Header from './Header';
 import Footer from './Footer';
 import { Language, Page } from '../types';
-import React, { useRef, useState, type CSSProperties } from 'react';
+import React, { useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import BestOfIcelandMockup5 from '../assets/projects/iceland/BestofIceland_mockup5.png';
 import PrologMockup from '../assets/projects/prolog/prolog_mockup1.png';
 import TinypawsMockup from '../assets/projects/tinypaws/tinypaws_mockup.png';
@@ -114,6 +114,7 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const frameRef = useRef<HTMLDivElement | null>(null);
+  const visibleRows = rows.filter((row) => !row.hidden);
   const activeRow = rows.find((row) => row.offset === hoveredRow);
   const activeThumbnail = activeRow?.thumbnail;
 
@@ -149,6 +150,15 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
     setCursorPosition({ x: localX, y: localY });
   };
 
+  const renderTextReveal = (content: ReactNode, delayMs: number) => (
+    <span
+      className="project-header-reveal-line projects-text-reveal-line"
+      style={{ ['--project-header-reveal-delay' as string]: `${delayMs}ms` } as CSSProperties}
+    >
+      <span className="project-header-reveal-text">{content}</span>
+    </span>
+  );
+
   return (
     <div className="layout-viewport hide-scrollbar">
       <div className="layout-canvas" style={{ "--layout-base-height": `${PROJECTS_PAGE_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
@@ -158,6 +168,10 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
             className="relative bg-grey-normal"
             style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}
           >
+            <div className="tinypaws-page-enter-overlay" aria-hidden>
+              <span className="tinypaws-page-enter-overlay-base" />
+            </div>
+            <div className="tinypaws-page-enter-content">
             <Header
               currentPage={currentPage}
               language={language}
@@ -169,13 +183,13 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
               className="absolute type-title-2 left-[24px] text-black-normal top-[205px]"
               data-node-id="117:406"
             >
-              Select work
+              {renderTextReveal('Select work', 980)}
             </p>
             <p
               className="absolute type-title-2 left-[24px] text-black-normal top-[373px]"
               data-node-id="117:458"
             >
-              2024/current
+              {renderTextReveal('2024/current', 1040)}
             </p>
 
             {/* Column headers */}
@@ -184,28 +198,28 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
               style={{ width: columnWidths.workType, paddingLeft: 8 }}
               data-node-id="117:409"
             >
-              work type
+              {renderTextReveal('work type', 1120)}
             </p>
             <p
               className={`absolute z-[30] font-['Plus_Jakarta_Sans',sans-serif] font-medium leading-[normal] text-black-normal text-[18px] top-[648px] ${columnLeft.title}`}
               style={{ width: columnWidths.title, paddingLeft: 8 }}
               data-node-id="117:407"
             >
-              title
+              {renderTextReveal('title', 1150)}
             </p>
             <p
               className={`absolute z-[30] font-['Plus_Jakarta_Sans',sans-serif] font-medium leading-[normal] text-black-normal text-[18px] top-[648px] ${columnLeft.role}`}
               style={{ width: columnWidths.role, paddingLeft: 8 }}
               data-node-id="117:408"
             >
-              role
+              {renderTextReveal('role', 1180)}
             </p>
             <p
               className={`absolute z-[30] font-['Plus_Jakarta_Sans',sans-serif] font-medium leading-[normal] text-black-normal text-[18px] top-[648px] text-right ${columnLeft.year}`}
               style={{ width: columnWidths.year, paddingRight: 8 }}
               data-node-id="117:410"
             >
-              year
+              {renderTextReveal('year', 1210)}
             </p>
 
             {activeThumbnail && (
@@ -222,10 +236,11 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
               </div>
             )}
 
-            {rows.filter((row) => !row.hidden).map((row) => {
+            {visibleRows.map((row, visibleIndex) => {
               const top = getRowTop(row.offset);
               const isInteractive = Boolean(row.page);
               const isActive = hoveredRow === row.offset;
+              const rowBaseDelay = 1260 + visibleIndex * 42;
 
               return (
                 <div
@@ -244,28 +259,28 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
                     style={{ width: columnWidths.workType, cursor: isInteractive ? 'pointer' : 'default' }}
                     onClick={() => handleRowClick(row)}
                   >
-                    <span>{row.workType}</span>
+                    <span>{renderTextReveal(row.workType, rowBaseDelay)}</span>
                   </p>
                   <p
                     className={`absolute projects-hover-cell ${columnLeft.title} ${isActive ? 'is-active' : ''} font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-[24px]`}
                     style={{ width: columnWidths.title, cursor: isInteractive ? 'pointer' : 'default' }}
                     onClick={() => handleRowClick(row)}
                   >
-                    <span>{row.title}</span>
+                    <span>{renderTextReveal(row.title, rowBaseDelay + 18)}</span>
                   </p>
                   <p
                     className={`absolute projects-hover-cell ${columnLeft.role} ${isActive ? 'is-active' : ''} font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-[24px]`}
                     style={{ width: columnWidths.role, cursor: isInteractive ? 'pointer' : 'default' }}
                     onClick={() => handleRowClick(row)}
                   >
-                    <span>{row.role}</span>
+                    <span>{renderTextReveal(row.role, rowBaseDelay + 36)}</span>
                   </p>
                   <p
                     className={`absolute projects-hover-cell projects-hover-cell-year ${columnLeft.year} ${isActive ? 'is-active' : ''} font-['Plus_Jakarta_Sans',sans-serif] font-semibold leading-[normal] text-[24px]`}
                     style={{ width: columnWidths.year, cursor: isInteractive ? 'pointer' : 'default' }}
                     onClick={() => handleRowClick(row)}
                   >
-                    <span>{row.year}</span>
+                    <span>{renderTextReveal(row.year, rowBaseDelay + 54)}</span>
                   </p>
                 </div>
               );
@@ -273,6 +288,7 @@ export default function ProjectsPage({ currentPage, language, onNavigate, onLang
 
             {/* Footer for this page sits near the bottom of the list */}
             <Footer onNavigate={onNavigate} top={PROJECTS_PAGE_FOOTER_TOP} />
+            </div>
           </div>
         </div>
       </div>

@@ -24,6 +24,7 @@ type ProjectHeaderProps = {
   titleUnderlineColor?: string;
   titleUnderlineWidth?: number | string;
   titleFontSize?: number;
+  textRevealOnEnter?: boolean;
   description: string[];
 };
 
@@ -46,9 +47,24 @@ export default function ProjectHeader({
   titleUnderlineColor,
   titleUnderlineWidth = 420,
   titleFontSize = 160,
+  textRevealOnEnter = true,
   description,
 }: ProjectHeaderProps) {
   const linkItems = Array.isArray(link) ? link : link ? [link] : [];
+  let revealIndex = 0;
+  const wrapRevealText = (content: React.ReactNode) => {
+    if (!textRevealOnEnter) return content;
+    const delayMs = 980 + revealIndex * 28;
+    revealIndex += 1;
+    return (
+      <span
+        className="project-header-reveal-line"
+        style={{ ['--project-header-reveal-delay' as string]: `${delayMs}ms` } as React.CSSProperties}
+      >
+        <span className="project-header-reveal-text">{content}</span>
+      </span>
+    );
+  };
 
   return (
     <section className="relative px-7 pt-48 pb-12 text-black-normal">
@@ -56,7 +72,7 @@ export default function ProjectHeader({
         className={`type-title-1 leading-[0.9] -ml-3 ${titleUnderlineColor ? 'mb-1' : 'mb-12'}`}
         style={{ fontSize: titleFontSize }}
       >
-        {title}
+        {wrapRevealText(title)}
       </h1>
       {titleUnderlineColor && (
         <div
@@ -74,27 +90,27 @@ export default function ProjectHeader({
         <div className="grid gap-6">
           {category && (
             <div>
-              <p className="m-0 type-category text-black-normal">Category</p>
-              <p className="m-0 type-body-lg text-black-normal">{category}</p>
+              <p className="m-0 type-category text-black-normal">{wrapRevealText('Category')}</p>
+              <p className="m-0 type-body-lg text-black-normal">{wrapRevealText(category)}</p>
             </div>
           )}
           <div>
-            <p className="m-0 type-category text-black-normal">Timeline</p>
-            <p className="m-0 type-body-lg text-black-normal">{timeline}</p>
+            <p className="m-0 type-category text-black-normal">{wrapRevealText('Timeline')}</p>
+            <p className="m-0 type-body-lg text-black-normal">{wrapRevealText(timeline)}</p>
           </div>
           <div>
-            <p className="m-0 type-category text-black-normal">{roleLabel}</p>
-            <p className="m-0 type-body-lg text-black-normal">{role}</p>
+            <p className="m-0 type-category text-black-normal">{wrapRevealText(roleLabel)}</p>
+            <p className="m-0 type-body-lg text-black-normal">{wrapRevealText(role)}</p>
           </div>
           {reference && (
             <div>
-              <p className="m-0 type-category text-black-normal">{referenceLabel}</p>
-              <p className="m-0 type-body-lg text-black-normal">{reference}</p>
+              <p className="m-0 type-category text-black-normal">{wrapRevealText(referenceLabel)}</p>
+              <p className="m-0 type-body-lg text-black-normal">{wrapRevealText(reference)}</p>
             </div>
           )}
           {linkItems.length > 0 && (
             <div>
-              <p className="m-0 type-category text-black-normal">Link</p>
+              <p className="m-0 type-category text-black-normal">{wrapRevealText('Link')}</p>
               {linkItems.map((item) => (
                 linkUrls?.[item] ? (
                   <a
@@ -104,11 +120,11 @@ export default function ProjectHeader({
                     rel="noreferrer"
                     className="block m-0 type-body-lg text-black-normal leading-[1.35]"
                   >
-                    {item}
+                    {wrapRevealText(item)}
                   </a>
                 ) : (
                   <p key={item} className="m-0 type-body-lg text-black-normal leading-[1.35]">
-                    {item}
+                    {wrapRevealText(item)}
                   </p>
                 )
               ))}
@@ -126,7 +142,7 @@ export default function ProjectHeader({
         <div className="text-[12px] leading-[1.6]" style={{ marginLeft: PROJECT_HEADER_LAYOUT.toolsOffsetX }}>
           {tools.map((tool) => (
             <p key={tool} className="m-0 type-body text-black-normal">
-              {tool}
+              {wrapRevealText(tool)}
             </p>
           ))}
         </div>
@@ -137,7 +153,7 @@ export default function ProjectHeader({
         >
           {description.map((line) => (
             <p key={line} className="m-0 mb-0 last:mb-0">
-              {line}
+              {wrapRevealText(line)}
             </p>
           ))}
         </div>

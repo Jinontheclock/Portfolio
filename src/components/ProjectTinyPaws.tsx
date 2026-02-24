@@ -87,82 +87,87 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
       <div className="layout-canvas" style={{ "--layout-base-height": `${TINYPAWS_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
-            <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
-
-            <div className="flex flex-col gap-0 mt-12">
-              <ProjectHeader
-                title="TinyPaws"
-                category="Website"
-                timeline="5 months"
-                tools={['Figma', 'WordPress', 'Adobe Photoshop', 'Adobe Illustrator', 'Adobe Premiere', 'Trello']}
-                role="UI/UX Designer"
-                description={[
-                  'TinyPaws reimagines the cat adoption journey for a volunteer-driven rescue organization in Greater Vancouver.',
-                  'Designed to replace an outdated site, it clarifies adoption, fostering, and donation pathways through friendly branding, structured navigation, and accessible resources.',
-                ]}
-              />
-
-              {/* Hero image */}
-              <section className="px-7">
-                <div className="flex justify-center">
-                  <img
-                    src={TinyBanner}
-                    alt="TinyPaws overview"
-                    className="w-full max-w-[1400px] h-auto"
-                  />
-                </div>
-              </section>
+            <div className="tinypaws-page-enter-overlay" aria-hidden>
+              <span className="tinypaws-page-enter-overlay-base" />
             </div>
+            <div className="tinypaws-page-enter-content">
+              <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
 
-            <div>
-              {/* 01 Why ProLog was created */}
-              <section className="px-7 pb-16 mt-16">
-                <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
-                  <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">01 Why ProLog was created</h2>
-                  <div className="grid gap-6 pl-48 max-w-[1280px]">
-                    <div>
-                      <p className="type-body-lg m-0 text-black-normal font-semibold">Outdated First Impression</p>
-                      <p className="type-body m-0 text-black-normal leading-[1.5]">
-                        TinyPaws’ website was the first point of contact for potential adopters,
-                        <br />
-                        but the existing site felt outdated and difficult to navigate.
-                      </p>
-                    </div>
+              <div className="flex flex-col gap-0 mt-12">
+                <ProjectHeader
+                  title="TinyPaws"
+                  category="Website"
+                  timeline="5 months"
+                  tools={['Figma', 'WordPress', 'Adobe Photoshop', 'Adobe Illustrator', 'Adobe Premiere', 'Trello']}
+                  role="UI/UX Designer"
+                  textRevealOnEnter
+                  description={[
+                    'TinyPaws reimagines the cat adoption journey for a volunteer-driven rescue organization in Greater Vancouver.',
+                    'Designed to replace an outdated site, it clarifies adoption, fostering, and donation pathways through friendly branding, structured navigation, and accessible resources.',
+                  ]}
+                />
 
-                    <div>
-                      <p className="type-body-lg m-0 text-black-normal font-semibold">Need for Clear Adoption Guidance</p>
-                      <p className="type-body m-0 text-black-normal leading-[1.5]">
-                        Visitors often lacked understanding of the rescue adoption process,
-                        <br />
-                        making it important to provide step-by-step education and support.    
-                      </p>
-                    </div>
+                {/* Hero image */}
+                <section className="px-7">
+                  <div className="flex justify-center">
+                    <img
+                      src={TinyBanner}
+                      alt="TinyPaws overview"
+                      className="w-full max-w-[1400px] h-auto"
+                    />
+                  </div>
+                </section>
+              </div>
 
-                    <div>
-                      <p className="type-body-lg m-0 text-black-normal font-semibold">Building Trust Through Accessibility</p>
-                      <p className="type-body m-0 text-black-normal leading-[1.5]">
-                        As a volunteer-driven non-profit,
-                        <br />
-                        TinyPaws needed a welcoming platform that highlights responsibility, transparency, and community care.
-                      </p>
+              <div>
+                {/* 01 Why ProLog was created */}
+                <section className="px-7 pb-16 mt-16">
+                  <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
+                    <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">01 Why ProLog was created</h2>
+                    <div className="grid gap-6 pl-48 max-w-[1280px]">
+                      <div>
+                        <p className="type-body-lg m-0 text-black-normal font-semibold">Outdated First Impression</p>
+                        <p className="type-body m-0 text-black-normal leading-[1.5]">
+                          TinyPaws’ website was the first point of contact for potential adopters,
+                          <br />
+                          but the existing site felt outdated and difficult to navigate.
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="type-body-lg m-0 text-black-normal font-semibold">Need for Clear Adoption Guidance</p>
+                        <p className="type-body m-0 text-black-normal leading-[1.5]">
+                          Visitors often lacked understanding of the rescue adoption process,
+                          <br />
+                          making it important to provide step-by-step education and support.    
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="type-body-lg m-0 text-black-normal font-semibold">Building Trust Through Accessibility</p>
+                        <p className="type-body m-0 text-black-normal leading-[1.5]">
+                          As a volunteer-driven non-profit,
+                          <br />
+                          TinyPaws needed a welcoming platform that highlights responsibility, transparency, and community care.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </section>
+                </section>
 
-              {/* 02 Research & Analysis */}
-              <section className="px-7 pb-16 mt-12">
-                <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
-                  <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">02 Research & Analysis</h2>
-                  <div className="grid gap-6 pl-48 max-w-[1280px]">
-                    <div>
-                      <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">User Interview</p>
-                      <p className="type-body text-black-normal m-0 leading-[1.5] mt-1">
-                        We conducted a survey to understand common concerns adopters face when considering rescue cats,
-                        <br />
-                        including costs, health, and behavioural adjustment.
-                      </p>
-                    </div>
+                {/* 02 Research & Analysis */}
+                <section className="px-7 pb-16 mt-12">
+                  <div className="grid grid-cols-[260px_1fr] gap-12 items-start">
+                    <h2 className="type-heading-2 text-black-normal m-0 leading-[1.2] whitespace-nowrap">02 Research & Analysis</h2>
+                    <div className="grid gap-6 pl-48 max-w-[1280px]">
+                      <div>
+                        <p className="type-heading-3 text-black-normal m-0 leading-[1.3]">User Interview</p>
+                        <p className="type-body text-black-normal m-0 leading-[1.5] mt-1">
+                          We conducted a survey to understand common concerns adopters face when considering rescue cats,
+                          <br />
+                          including costs, health, and behavioural adjustment.
+                        </p>
+                      </div>
 
                     <div>
                       <p className="type-body-lg m-0 text-black-normal font-semibold">Findings</p>
@@ -630,7 +635,8 @@ export default function ProjectTinyPaws({ currentPage, language, onNavigate, onL
                 </div>
               </section>
 
-              <Footer onNavigate={onNavigate} top={TINYPAWS_FOOTER_TOP} />
+                <Footer onNavigate={onNavigate} top={TINYPAWS_FOOTER_TOP} />
+              </div>
             </div>
           </div>
         </div>

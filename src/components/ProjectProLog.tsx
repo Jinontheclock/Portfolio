@@ -121,7 +121,11 @@ export default function ProjectProLog({ currentPage, language, onNavigate, onLan
       <div className="layout-canvas" style={{ "--layout-base-height": `${PROLOG_LAYOUT_BASE_HEIGHT}px` } as CSSProperties}>
         <div className="layout-canvas-inner">
           <div className="relative" style={{ minHeight: "var(--layout-base-height)" } as CSSProperties}>
-            <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
+            <div className="tinypaws-page-enter-overlay" aria-hidden>
+              <span className="tinypaws-page-enter-overlay-base" />
+            </div>
+            <div className="tinypaws-page-enter-content">
+              <Header currentPage={currentPage} language={language} onNavigate={onNavigate} onLanguageChange={onLanguageChange} />
 
             <div className="flex flex-col gap-0 mt-12">
               <ProjectHeader
@@ -888,6 +892,7 @@ export default function ProjectProLog({ currentPage, language, onNavigate, onLan
               </section>
 
               <Footer onNavigate={onNavigate} top={PROLOG_FOOTER_TOP} />
+            </div>
             </div>
           </div>
         </div>
