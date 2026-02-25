@@ -829,10 +829,10 @@ body::-webkit-scrollbar {
 html.platform-windows .layout-viewport {
   --layout-scale: clamp(
     0.15,
-    calc((100% - (var(--layout-gutter) * 2)) / var(--layout-base-width)),
+    calc((var(--windows-viewport-width, 100vw) - (var(--layout-gutter) * 2)) / var(--layout-base-width)),
     3
   );
-  scrollbar-gutter: stable both-edges;
+  scrollbar-gutter: stable;
 }
 
 .layout-canvas {
