@@ -211,7 +211,7 @@ export default function ProjectMatchaLatte({ currentPage, language, onNavigate, 
                                 className="relative h-[90px] rounded-[4px] overflow-hidden"
                                 style={{ backgroundColor: row.solid }}
                               >
-                                <p className="absolute left-2 top-1.5 m-0 text-[12px] leading-[1] text-white/90">
+                                <p className="absolute left-2 top-1.5 m-0 text-[12px] leading-[1] text-black-normal">
                                   {row.solid}
                                 </p>
                               </div>
@@ -229,7 +229,7 @@ export default function ProjectMatchaLatte({ currentPage, language, onNavigate, 
                                   backgroundImage: `linear-gradient(90deg, ${row.gradientStart} 0%, ${MATCHA_GRADIENT_END} 100%)`,
                                 }}
                               >
-                                <p className="absolute left-2 top-1.5 m-0 text-[12px] leading-[1] text-white/90">
+                                <p className="absolute left-2 top-1.5 m-0 text-[12px] leading-[1] text-black-normal">
                                   {row.gradientStart}
                                 </p>
                               </div>

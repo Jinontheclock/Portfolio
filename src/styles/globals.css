@@ -46,10 +46,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --theme-light-surface: #f3f3f2;
+  --theme-dark-surface: #212222;
   --color-black-light: #e9e9e9;
   --color-black-light-hover: #dedede;
   --color-black-light-active: #bababa;
-  --color-black-normal: #212222;
+  --color-black-normal: var(--theme-dark-surface);
   --color-black-normal-hover: #1e1f1f;
   --color-black-normal-active: #1a1b1b;
   --color-black-dark: #191a1a;
@@ -58,7 +60,7 @@
   --color-black-darker: #0c0c0c;
   --color-grey-light: #fbfbfb;
   --color-grey-light-hover: #f9f9f9;
-  --color-grey-light-active: #f3f3f2;
+  --color-grey-light-active: var(--theme-light-surface);
   --color-grey-normal: #d9d8d6;
   --color-grey-normal-hover: #c3c2c1;
   --color-grey-normal-active: #aeadab;
@@ -115,6 +117,43 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+}
+
+html.theme-dark {
+  --color-black-light: #323333;
+  --color-black-light-hover: #3b3c3c;
+  --color-black-light-active: #464747;
+  --color-black-normal: var(--theme-light-surface);
+  --color-black-normal-hover: #ffffff;
+  --color-black-normal-active: #ececeb;
+  --color-black-dark: #e4e4e3;
+  --color-black-dark-hover: #eeeeed;
+  --color-black-dark-active: #d9d9d8;
+  --color-black-darker: #d0d0cf;
+  --color-grey-light: #252626;
+  --color-grey-light-hover: #2d2e2e;
+  --color-grey-light-active: var(--theme-dark-surface);
+  --color-grey-normal: #2b2c2c;
+  --color-grey-normal-hover: #333434;
+  --color-grey-normal-active: #3a3b3b;
+  --color-grey-dark: #515252;
+  --color-grey-dark-hover: #5f6060;
+  --color-grey-dark-active: #6f7070;
+  --color-grey-darker: #848585;
+  --border: rgba(243, 243, 242, 0.28);
+}
+
+html.theme-dark .text-black {
+  color: var(--color-black-normal) !important;
+}
+
+html.theme-dark .text-white {
+  color: var(--color-black-normal) !important;
+}
+
+html.theme-dark .bg-white,
+html.theme-dark .bg-black {
+  background-color: var(--color-grey-light-active) !important;
 }
 
 :root {
@@ -250,6 +289,15 @@ body {
   font-family: var(--font-family-sans);
   font-size: var(--body-size);
   color: var(--color-black-normal);
+}
+
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Hide scrollbars while keeping scrollability */
@@ -438,6 +486,99 @@ body::-webkit-scrollbar {
   opacity: 1;
 }
 
+.header-mode-toggle {
+  width: 80px;
+  height: 28px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  align-items: stretch;
+  gap: 0;
+  overflow: hidden;
+  will-change: grid-template-rows;
+  transition: grid-template-rows 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.header-mode-toggle.is-light {
+  grid-template-rows: 1.85fr 1fr;
+}
+
+.header-mode-toggle.is-dark {
+  grid-template-rows: 1fr 1.85fr;
+}
+
+.header-mode-option {
+  width: 80px;
+  height: auto;
+  min-height: 0;
+  position: relative;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transform-origin: right center;
+  transition:
+    color 280ms ease,
+    background-color 280ms ease;
+}
+
+.header-mode-option[data-mode="light"] {
+  background: var(--theme-light-surface);
+  color: var(--theme-dark-surface);
+}
+
+.header-mode-option[data-mode="dark"] {
+  background: var(--theme-dark-surface);
+  color: var(--theme-light-surface);
+}
+
+.header-mode-option.is-active {
+  transform: translateZ(0);
+}
+
+.header-mode-option-label {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  display: block;
+  text-align: right;
+  font-family: var(--font-family-sans);
+  line-height: 1;
+  font-size: 10px;
+  font-weight: 500;
+  transform-origin: right center;
+  transform: translateY(-50%) scale(1);
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 260ms ease,
+    font-size 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.header-mode-option.is-expanded .header-mode-option-label {
+  font-size: 13px;
+  transform: translateY(-50%) scale(1);
+  opacity: 1;
+}
+
+.header-mode-option:not(.is-expanded) .header-mode-option-label {
+  font-size: 10px;
+  transform: translateY(-50%) scale(0.88);
+  opacity: 0.92;
+}
+
+.header-mode-option.is-hovered.is-expanded .header-mode-option-label {
+  transform: translateY(-50%) scale(1.06);
+}
+
+.header-mode-option.is-hovered:not(.is-expanded) .header-mode-option-label {
+  transform: translateY(-50%) scale(0.96);
+  opacity: 1;
+}
+
 .home-projects-cta-text {
   display: inline-flex;
   align-items: baseline;
@@ -508,7 +649,7 @@ body::-webkit-scrollbar {
 
 .projects-hover-cell:hover > span,
 .projects-hover-cell.is-active > span {
-  color: #ffffff;
+  color: var(--color-grey-light-active);
 }
 
 .projects-hover-cell-year {
@@ -549,7 +690,7 @@ body::-webkit-scrollbar {
 }
 
 .home-project-row:hover .home-project-hover-block > span {
-  color: #ffffff;
+  color: var(--color-grey-light-active);
 }
 
 .hero-role-word {
@@ -802,11 +943,10 @@ body::-webkit-scrollbar {
 .about-photo-layer {
   position: absolute;
   left: 0;
-  top: -20.84%;
+  top: 50%;
   width: 100%;
-  height: 124.56%;
-  object-fit: cover;
-  transform: translateX(0);
+  height: auto;
+  transform: translate3d(0, -50%, 0);
   opacity: 1;
   will-change: transform, opacity;
   backface-visibility: hidden;
@@ -830,44 +970,44 @@ body::-webkit-scrollbar {
 
 @keyframes aboutPhotoEnterNext {
   0% {
-    transform: translateX(16%);
+    transform: translate3d(16%, -50%, 0);
     opacity: 0.15;
   }
   100% {
-    transform: translateX(0);
+    transform: translate3d(0, -50%, 0);
     opacity: 1;
   }
 }
 
 @keyframes aboutPhotoEnterPrev {
   0% {
-    transform: translateX(-16%);
+    transform: translate3d(-16%, -50%, 0);
     opacity: 0.15;
   }
   100% {
-    transform: translateX(0);
+    transform: translate3d(0, -50%, 0);
     opacity: 1;
   }
 }
 
 @keyframes aboutPhotoExitNext {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, -50%, 0);
     opacity: 1;
   }
   100% {
-    transform: translateX(-16%);
+    transform: translate3d(-16%, -50%, 0);
     opacity: 0.15;
   }
 }
 
 @keyframes aboutPhotoExitPrev {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, -50%, 0);
     opacity: 1;
   }
   100% {
-    transform: translateX(16%);
+    transform: translate3d(16%, -50%, 0);
     opacity: 0.15;
   }
 }

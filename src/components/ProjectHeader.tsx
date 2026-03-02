@@ -134,8 +134,13 @@ export default function ProjectHeader({
 
         {/* Divider */}
         <div
-          className="border-l border-black/60"
-          style={{ height: dividerHeight, transform: `translateX(${PROJECT_HEADER_LAYOUT.dividerOffsetX}px)` }}
+          className="border-l"
+          style={{
+            height: dividerHeight,
+            transform: `translateX(${PROJECT_HEADER_LAYOUT.dividerOffsetX}px)`,
+            borderLeftColor: 'var(--color-black-normal)',
+            borderLeftWidth: 1,
+          }}
         />
 
         {/* Tools column */}

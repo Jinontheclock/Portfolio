@@ -71,21 +71,21 @@ const archiveTypographyScale: Array<{ label: string; value: string; sample: stri
 ];
 
 const posterPalette = [
-  { hex: '#141416', textClass: 'text-white' },
-  { hex: '#00315A', textClass: 'text-white' },
-  { hex: '#E4EAF0', textClass: 'text-black/60' },
+  { hex: '#141416', textClass: 'text-black-normal' },
+  { hex: '#00315A', textClass: 'text-black-normal' },
+  { hex: '#E4EAF0', textClass: 'text-black-normal' },
 ];
 
 const posterPalette02 = [
-  { hex: '#141416', textClass: 'text-white' },
-  { hex: '#DBDADB', textClass: 'text-black/60' },
+  { hex: '#141416', textClass: 'text-black-normal' },
+  { hex: '#DBDADB', textClass: 'text-black-normal' },
 ];
 
 const posterPalette03 = [
-  { hex: '#141416', textClass: 'text-white' },
-  { hex: '#7AC8EB', textClass: 'text-black/60' },
-  { hex: '#FF7885', textClass: 'text-black/60' },
-  { hex: '#F2E782', textClass: 'text-black/60' },
+  { hex: '#141416', textClass: 'text-black-normal' },
+  { hex: '#7AC8EB', textClass: 'text-black-normal' },
+  { hex: '#FF7885', textClass: 'text-black-normal' },
+  { hex: '#F2E782', textClass: 'text-black-normal' },
 ];
 
 const archiveMockupImages = [

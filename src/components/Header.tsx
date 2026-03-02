@@ -3,25 +3,48 @@ import { createPortal } from 'react-dom';
 import imgLogoGif from '../assets/common/hajin_icon.gif';
 import { Language, Page } from '../types';
 
+export type ThemeMode = 'light' | 'dark';
+export const THEME_EVENT_NAME = 'hajin-theme-change';
+
+type HeaderVariant = 'with-language' | 'with-mode';
+
 type HeaderProps = {
   currentPage: Page;
   language: Language;
   onNavigate: (page: Page) => void;
   onLanguageChange: (language: Language) => void;
+  variant?: HeaderVariant;
 };
 
 const NAV_TOP = 24;
 const NAV_GAP = 152; // distance between Projects and About
 const NAV_LEFT_BASE = 'calc(75% - 18px)';
+const DEFAULT_HEADER_VARIANT: HeaderVariant = 'with-mode';
+const BLUR_LIGHT_BG = 'rgba(243, 243, 242, 0.34)';
+const BLUR_DARK_BG = 'rgba(33, 34, 34, 0.34)';
 const navBase =
   "absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] not-italic text-black-normal text-[16px] cursor-pointer bg-transparent border-none z-10";
 
 const activeUnderline = 'underline [text-decoration-skip-ink:none] decoration-solid';
 
-export default function Header({ currentPage, language, onNavigate, onLanguageChange }: HeaderProps) {
+function resolveStoredThemeMode(): ThemeMode {
+  if (typeof document === 'undefined') return 'light';
+  return document.documentElement.classList.contains('theme-dark') ? 'dark' : 'light';
+}
+
+export default function Header({
+  currentPage,
+  language,
+  onNavigate,
+  onLanguageChange,
+  variant = DEFAULT_HEADER_VARIANT,
+}: HeaderProps) {
   const anchorRef = useRef<HTMLDivElement | null>(null);
   const [portalStyle, setPortalStyle] = useState<CSSProperties | null>(null);
   const [isEntryOverlayActive, setIsEntryOverlayActive] = useState<boolean>(false);
+  const [themeMode, setThemeMode] = useState<ThemeMode>(() => resolveStoredThemeMode());
+  const [hoveredMode, setHoveredMode] = useState<ThemeMode | null>(null);
+  const didInitThemeRef = useRef(false);
   const [staticSrc, setStaticSrc] = useState<string>(imgLogoGif); // first frame
   const [lastFrameSrc, setLastFrameSrc] = useState<string>(imgLogoGif); // will be updated
   const [logoSrc, setLogoSrc] = useState<string>(imgLogoGif);
@@ -96,6 +119,35 @@ export default function Header({ currentPage, language, onNavigate, onLanguageCh
     },
     []
   );
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const root = document.documentElement;
+    const shouldAnimate = didInitThemeRef.current;
+    didInitThemeRef.current = true;
+
+    if (shouldAnimate) {
+      root.classList.add('theme-transition');
+    }
+
+    root.classList.toggle('theme-dark', themeMode === 'dark');
+    root.dataset.themeMode = themeMode;
+
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent<ThemeMode>(THEME_EVENT_NAME, { detail: themeMode }));
+    }
+
+    if (!shouldAnimate || typeof window === 'undefined') return;
+    const timerId = window.setTimeout(() => {
+      root.classList.remove('theme-transition');
+    }, 460);
+
+    return () => {
+      window.clearTimeout(timerId);
+      root.classList.remove('theme-transition');
+    };
+  }, [themeMode]);
 
   useEffect(() => {
     if (currentPage === 'home') {
@@ -188,6 +240,13 @@ export default function Header({ currentPage, language, onNavigate, onLanguageCh
 
   const languageButtonClass = (lang: Language) =>
     `cursor-pointer bg-transparent border-none leading-[16px] text-black-normal ${language === lang ? activeUnderline : ''}`;
+  const showLanguageSelector = variant === 'with-language';
+  const showModeSelector = variant === 'with-mode';
+  const layoutMode = hoveredMode ?? themeMode;
+  const oppositeMode: ThemeMode = themeMode === 'light' ? 'dark' : 'light';
+  const setPreviewMode = (nextMode: ThemeMode) => {
+    setHoveredMode(nextMode);
+  };
   const isProjectsActive =
     currentPage === 'projects' ||
     currentPage === 'prolog' ||
@@ -208,7 +267,7 @@ export default function Header({ currentPage, language, onNavigate, onLanguageCh
           right: '24px',
           top: `${NAV_TOP - 4}px`,
           height: '28px',
-          background: 'rgba(243, 243, 242, 0.34)',
+          background: themeMode === 'dark' ? BLUR_DARK_BG : BLUR_LIGHT_BG,
           backdropFilter: 'blur(10px)',
           WebkitBackdropFilter: 'blur(10px)',
         }}
@@ -240,19 +299,54 @@ export default function Header({ currentPage, language, onNavigate, onLanguageCh
         <span className={`nav-underline ${currentPage === 'about' ? 'is-active' : ''}`}>About</span>
       </button>
 
-      <div className="absolute top-[25px] right-[32px] h-[16px] flex items-center gap-[4px] text-[10px] whitespace-nowrap z-10">
-        <button onClick={() => onLanguageChange('EN')} className={languageButtonClass('EN')}>
-          EN
-        </button>
-        <span className="leading-[16px] text-black-normal">|</span>
-        <button onClick={() => onLanguageChange('JP')} className={languageButtonClass('JP')}>
-          JP
-        </button>
-        <span className="leading-[16px] text-black-normal">|</span>
-        <button onClick={() => onLanguageChange('KR')} className={languageButtonClass('KR')}>
-          KR
-        </button>
-      </div>
+      {showLanguageSelector && (
+        <div className="absolute top-[25px] right-[32px] h-[16px] flex items-center gap-[4px] text-[10px] whitespace-nowrap z-10">
+          <button onClick={() => onLanguageChange('EN')} className={languageButtonClass('EN')}>
+            EN
+          </button>
+          <span className="leading-[16px] text-black-normal">|</span>
+          <button onClick={() => onLanguageChange('JP')} className={languageButtonClass('JP')}>
+            JP
+          </button>
+          <span className="leading-[16px] text-black-normal">|</span>
+          <button onClick={() => onLanguageChange('KR')} className={languageButtonClass('KR')}>
+            KR
+          </button>
+        </div>
+      )}
+
+      {showModeSelector && (
+        <div className="absolute top-[20px] right-[24px] z-10">
+          <div
+            className={`header-mode-toggle ${layoutMode === 'dark' ? 'is-dark' : 'is-light'}`}
+            role="group"
+            aria-label="Theme mode"
+            onMouseEnter={() => setPreviewMode(oppositeMode)}
+            onMouseLeave={() => setHoveredMode(null)}
+          >
+            <button
+              type="button"
+              aria-pressed={themeMode === 'light'}
+              className={`header-mode-option ${themeMode === 'light' ? 'is-active' : ''} ${layoutMode === 'light' ? 'is-expanded' : ''} ${hoveredMode === 'light' ? 'is-hovered' : ''}`}
+              data-mode="light"
+              onFocus={() => setPreviewMode('light')}
+              onClick={() => setThemeMode('light')}
+            >
+              <span className="header-mode-option-label">Light</span>
+            </button>
+            <button
+              type="button"
+              aria-pressed={themeMode === 'dark'}
+              className={`header-mode-option ${themeMode === 'dark' ? 'is-active' : ''} ${layoutMode === 'dark' ? 'is-expanded' : ''} ${hoveredMode === 'dark' ? 'is-hovered' : ''}`}
+              data-mode="dark"
+              onFocus={() => setPreviewMode('dark')}
+              onClick={() => setThemeMode('dark')}
+            >
+              <span className="header-mode-option-label">Dark</span>
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 

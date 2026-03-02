@@ -4,7 +4,7 @@ import imgIcelandMockup4 from "./assets/projects/iceland/BestofIceland_mockup4.w
 import imgImg26161 from "./assets/home/about/hajin_homepage_about.webp";
 import imgArrow from "./assets/common/arrow.webp";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import Header from "./components/Header";
+import Header, { THEME_EVENT_NAME, type ThemeMode } from "./components/Header";
 import Footer from "./components/Footer";
 import ProjectsPage from "./components/ProjectsPage";
 import AboutPage from "./components/AboutPage";
@@ -201,7 +201,7 @@ const PROJECTS: ProjectEntry[] = [
     top: 1480,
     title: 'ProLog',
     desc: ['Skilled trades apprenticeship app', 'for progress tracking'],
-    skills: ['Product design', 'Mobile UX/UI design', 'Interface development'],
+    skills: ['Product design', 'Front-end development'],
     skillsWidth: 262,
     image: { grey: imgPrologMockup1, color: imgPrologMockup1 },
   },
@@ -210,7 +210,7 @@ const PROJECTS: ProjectEntry[] = [
     top: 1792,
     title: 'TinyPaws',
     desc: ['Cat adoption website', 'for a rescue nonprofit'],
-    skills: ['Product design', 'WordPress Web design', 'Brand identity'],
+    skills: ['Product design', 'WordPress Web design'],
     skillsWidth: 248,
     image: { grey: imgTinypawsMockup, color: imgTinypawsMockup },
   },
@@ -224,6 +224,7 @@ const PROJECTS: ProjectEntry[] = [
     image: { grey: imgIcelandMockup4, color: imgIcelandMockup4 },
   },
 ];
+const PROJECT_SKILLS_TOP_OFFSET = 30;
 
 const PAGE_PATHS: Record<Page, string> = {
   home: '/',
@@ -266,14 +267,14 @@ function InspirationLines() {
       <RevealHLine
         className="absolute left-[24px] right-[24px] top-[720px]"
         style={{ width: 'auto' }}
-        color="#212222"
+        color="var(--color-black-normal)"
         thickness={1}
       />
       {/* Line 2: starts after the inspirations label */}
       <RevealHLine
         className="absolute left-[180px] right-[24px] top-[744px]"
         style={{ width: 'auto' }}
-        color="#212222"
+        color="var(--color-black-normal)"
         thickness={1}
         delayMs={60}
       />
@@ -283,7 +284,7 @@ function InspirationLines() {
           key={idx}
           className="absolute left-[24px] right-[24px]"
           style={{ top: `${768 + idx * 24}px`, width: 'auto' }}
-          color="#212222"
+          color="var(--color-black-normal)"
           thickness={1}
           delayMs={80 + idx * 20}
         />
@@ -366,7 +367,7 @@ function ProjectBlocks({ onNavigate }: { onNavigate: (page: Page) => void }) {
 
           <div
             className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] not-italic text-black-normal text-[18px] whitespace-pre-wrap"
-            style={{ left: 'calc(62.5% - 15px)', top: proj.top, width: proj.skillsWidth }}
+            style={{ left: 'calc(62.5% - 15px)', top: proj.top + PROJECT_SKILLS_TOP_OFFSET, width: proj.skillsWidth }}
           >
             {proj.skills.map((line) => (
               <p key={line} className="mb-0">
@@ -413,6 +414,10 @@ export default function App() {
     return pageFromPath(window.location.pathname);
   });
   const [language, setLanguage] = useState<Language>('EN');
+  const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
+    if (typeof document === 'undefined') return 'light';
+    return document.documentElement.classList.contains('theme-dark') ? 'dark' : 'light';
+  });
   const [heroRoleIndex, setHeroRoleIndex] = useState(0);
   const renderHomeHeroReveal = (content: ReactNode, delayMs: number) => (
     <span
@@ -431,7 +436,7 @@ export default function App() {
   useEffect(() => {
     const intervalId = window.setInterval(() => {
       setHeroRoleIndex((prev) => (prev + 1) % heroRoles.length);
-    }, 5000);
+    }, 3000);
 
     return () => window.clearInterval(intervalId);
   }, [heroRoles.length]);
@@ -450,6 +455,26 @@ export default function App() {
 
     window.addEventListener('popstate', syncFromLocation);
     return () => window.removeEventListener('popstate', syncFromLocation);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const syncThemeMode = (nextMode?: ThemeMode) => {
+      if (nextMode === 'dark' || nextMode === 'light') {
+        setThemeMode(nextMode);
+        return;
+      }
+      setThemeMode(document.documentElement.classList.contains('theme-dark') ? 'dark' : 'light');
+    };
+
+    const onThemeModeChange = (event: Event) => {
+      const detail = (event as CustomEvent<ThemeMode>).detail;
+      syncThemeMode(detail);
+    };
+
+    window.addEventListener(THEME_EVENT_NAME, onThemeModeChange as EventListener);
+    return () => window.removeEventListener(THEME_EVENT_NAME, onThemeModeChange as EventListener);
   }, []);
 
   useEffect(() => {
@@ -516,6 +541,8 @@ export default function App() {
           vantaEffectRef.current.destroy();
         }
 
+        const isDarkMode = themeMode === 'dark';
+
         vantaEffectRef.current = window.VANTA.BIRDS({
           el: homeBackgroundRef.current,
           mouseControls: true,
@@ -525,11 +552,11 @@ export default function App() {
           minWidth: 200.0,
           scale: 1.0,
           scaleMobile: 1.0,
-          backgroundColor: 0xf3f3f2,
+          backgroundColor: isDarkMode ? 0x212222 : 0xf3f3f2,
           backgroundAlpha: 1,
           colorMode: "varianceGradient",
-          color1: 0x212222,
-          color2: 0x212222,
+          color1: isDarkMode ? 0xf3f3f2 : 0x212222,
+          color2: isDarkMode ? 0xf3f3f2 : 0x212222,
           birdSize: 1.0,
           wingSpan: 20.0,
           speedLimit: 5.0,
@@ -556,7 +583,7 @@ export default function App() {
       }
       vantaEffectRef.current = null;
     };
-  }, [currentPage]);
+  }, [currentPage, themeMode]);
 
   const navigateTo = (page: Page) => {
     setCurrentPage(page);
@@ -759,28 +786,26 @@ export default function App() {
         ))}
         <RevealLine
           height={192}
-          className="left-[calc(75%-17px)] top-[2712px]"
+          className="left-[calc(75%-17px)] top-[2672px]"
           color="var(--color-black-normal)"
           delayMs={80}
         />
         <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[calc(25%+18px)] not-italic text-black-normal text-[18px] top-[2592px] w-[531px] whitespace-pre-wrap">
-          <p className="mb-0">Grounded in visual clarity and practical usability,</p>
-          <p className="mb-0">design is approached as a way to simplify digital experiences.</p>
-          <p className="mb-0">Each interface is shaped with structure and intention,</p>
-          <p>keeping both users and real-world execution in mind.</p>
+          <p className="mb-0">Designing with structure and real-world constraints in mind,</p>
+          <p className="mb-0">translating complex needs into clear, usable experiences.</p>
         </div>
-        <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] h-[24px] leading-[normal] left-[calc(75%-6px)] not-italic text-black-normal text-[18px] top-[2712px] w-[483px] whitespace-pre-wrap">UX/UI Design for Digital Products</p>
-        <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] h-[37px] leading-[normal] left-[calc(75%-6px)] not-italic text-black-normal text-[18px] top-[2856px] w-[483px] whitespace-pre-wrap">
+        <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] h-[24px] leading-[normal] left-[calc(75%-6px)] not-italic text-black-normal text-[18px] top-[2672px] w-[483px] whitespace-pre-wrap">UX/UI Design for Digital Products</p>
+        <div className="absolute font-['Plus_Jakarta_Sans',sans-serif] h-[37px] leading-[normal] left-[calc(75%-6px)] not-italic text-black-normal text-[18px] top-[2816px] w-[483px] whitespace-pre-wrap">
           <p className="mb-0">Front-End Development</p>
           <p>{`& AI-Assisted Prototyping`}</p>
         </div>
-        <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] h-[37px] leading-[normal] left-[calc(75%-6px)] not-italic text-black-normal text-[18px] top-[2760px] w-[483px] whitespace-pre-wrap">{`Graphic Design & Layout Composition`}</p>
-        <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] h-[37px] leading-[normal] left-[calc(75%-6px)] not-italic text-black-normal text-[18px] top-[2808px] w-[483px] whitespace-pre-wrap">{`Brand Identity & Visual Systems`}</p>
+        <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] h-[37px] leading-[normal] left-[calc(75%-6px)] not-italic text-black-normal text-[18px] top-[2720px] w-[483px] whitespace-pre-wrap">{`Graphic Design & Layout Composition`}</p>
+        <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] h-[37px] leading-[normal] left-[calc(75%-6px)] not-italic text-black-normal text-[18px] top-[2768px] w-[483px] whitespace-pre-wrap">{`Brand Identity & Visual Systems`}</p>
         <img
           alt=""
           src={imgImg26161}
-          className="absolute left-[24px] top-[2712px] grayscale pointer-events-none"
-          style={{ transform: 'scale(0.56)', transformOrigin: 'top left' }}
+          className="absolute left-[24px] top-[2680px] grayscale pointer-events-none"
+          style={{ transform: 'scale(0.59)', transformOrigin: 'top left' }}
         />
         <InspirationLines />
         <p className="absolute font-['Plus_Jakarta_Sans',sans-serif] leading-[normal] left-[24px] not-italic text-black-normal text-[24px] top-[724px]">inspirations</p>

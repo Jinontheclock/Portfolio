@@ -25,11 +25,11 @@ type Props = {
 };
 
 const brandPalette = [
-  { hex: '#DC6E00', textClass: 'text-white' },
-  { hex: '#301800', textClass: 'text-white' },
-  { hex: '#000000', textClass: 'text-white' },
-  { hex: '#F2F2F2', textClass: 'text-black/60' },
-  { hex: '#FFFFFF', textClass: 'text-black/60' },
+  { hex: '#DC6E00', textClass: 'text-black-normal' },
+  { hex: '#301800', textClass: 'text-black-normal' },
+  { hex: '#000000', textClass: 'text-black-normal' },
+  { hex: '#F2F2F2', textClass: 'text-black-normal' },
+  { hex: '#FFFFFF', textClass: 'text-black-normal' },
 ];
 
 const typographyScale: Array<{ label: string; value: string; style: CSSProperties }> = [
