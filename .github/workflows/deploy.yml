@@ -32,8 +32,6 @@ jobs:
       # need the /Portfolio/ prefix in this build only (local dev stays at /).
       - run: npm run build -- --base=/Portfolio/
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site/dist
