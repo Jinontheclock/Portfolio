@@ -1,0 +1,22 @@
+/* Webfonts — Hajin Lee Portfolio
+   Single family for ALL text: Spoqa Han Sans Neo (EN / KO / JA),
+   self-hosted (official subset woff2). No other fonts. */
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 400;
+  font-display: swap;
+  src: local("Spoqa Han Sans Neo Regular"), url("../assets/fonts/SpoqaHanSansNeo-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 500;
+  font-display: swap;
+  src: local("Spoqa Han Sans Neo Medium"), url("../assets/fonts/SpoqaHanSansNeo-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 700;
+  font-display: swap;
+  src: local("Spoqa Han Sans Neo Bold"), url("../assets/fonts/SpoqaHanSansNeo-Bold.woff2") format("woff2");
+}

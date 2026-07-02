@@ -1,0 +1,120 @@
+/* Landing page — ported from Landing Page.dc.html.
+   Breakpoints trace back to the Figma responsive set:
+   Desktop 1440 / Laptop 1280 / Tablet 834 / Mobile 402. */
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.lp-root {
+  min-height: 100dvh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(16px, 1.4vw, 20px);
+  background: var(--bg);
+  font-family: var(--font-sans);
+}
+
+.lp-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(16px, 3.33vw, 48px);
+}
+
+.lp-heading {
+  margin: 0;
+  width: 100%;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(28px, 7.8vw, 112px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.lp-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(4px, 1.66vw, 24px);
+}
+
+.lp-navlink {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(11px, 2.08vw, 30px);
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 200ms var(--easing);
+}
+
+.lp-navlink:hover {
+  opacity: 0.5;
+}
+
+.lp-navlink-text {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.lp-arrow {
+  display: block;
+  width: clamp(16px, 2.5vw, 36px);
+  height: auto;
+}
+
+:root[data-theme="dark"] .lp-arrow,
+.dark .lp-arrow {
+  filter: invert(1);
+}
+
+.lp-foot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.lp-theme-toggle {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.lang-switcher {
+  display: flex;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.lang-switcher-item {
+  font: 400 12px/1.4 var(--font-sans);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--easing);
+}
+
+/* Mobile (Landing Page_Mobile 402w): hero block drops to the lower third,
+   above the utilities, instead of pinning to the top. */
+@media (max-width: 600px) {
+  .lp-hero {
+    margin-top: auto;
+    margin-bottom: min(142px, 16dvh);
+  }
+  .lp-foot {
+    margin-top: 0;
+  }
+}

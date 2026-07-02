@@ -1,0 +1,75 @@
+/* Colors — strictly greyscale (PAF-inspired minimalism).
+   Values transcribed from the Figma "Design Guide → Colors" frame and the
+   Light/Dark variable collections. Never introduce hue. */
+
+:root {
+  /* ── Grey ramp · light context ── */
+  --grey-50: #FAFAFA;
+  --grey-100: #F2F2F2;
+  --grey-150: #E8E8E8;
+  --grey-200: #D4D4D4;
+  --grey-300: #B8B8B8;
+  --grey-400: #8F8F8F;
+  --grey-500: #5C5C5C;
+  --grey-600: #2E2E2E;
+
+  /* ── Grey ramp · dark context ── */
+  --grey-950: #0F0F0F;
+  --grey-900: #1A1A1A;
+  --grey-850: #252525;
+  --grey-800: #333333;
+  --grey-700: #4A4A4A;
+  --grey-450: #6B6B6B;
+  --grey-350: #999999;
+  --grey-250: #CCCCCC;
+
+  --white: #FFFFFF;
+  --black: #000000;
+
+  /* ── Semantic (light = default) ── */
+  --bg: #FAFAFA;
+  --bg-subtle: #F2F2F2;
+  --bg-muted: #E8E8E8;
+  --border: #D4D4D4;
+  --border-strong: #B8B8B8;
+  --text-muted: #8F8F8F;
+  --text-secondary: #5C5C5C;
+  --text: #2E2E2E;
+  --text-primary: #0F0F0F;
+
+  /* ── Site-specific surfaces ── */
+  --surface-canvas: #F4F4F4;        /* lo-fi page background rgb(244,244,244) */
+  --surface-placeholder: #D9D9D9;   /* image placeholder rgb(217,217,217) */
+  --pill-bg: rgba(228,228,233,0.35);/* pill button fill */
+  --pill-text: #313132;             /* pill button label rgb(49,49,50) */
+  --text-faint: rgba(15,15,15,0.5); /* copyright / de-emphasized meta */
+
+  /* ── Glass (dropdowns, hover overlays) — greyscale glassmorphism ── */
+  --glass-bg: rgba(244,244,244,0.5);       /* floating menus over content */
+  --glass-bg-strong: rgba(250,250,250,0.75);/* denser panels needing legibility */
+  --glass-border: rgba(184,184,184,0.3);   /* hairline edge on glass */
+  --glass-blur: 12px;                       /* backdrop-filter: blur(var(--glass-blur)) */
+}
+
+/* ── Dark theme ── */
+:root[data-theme="dark"], .dark {
+  --bg: #0F0F0F;
+  --bg-subtle: #1A1A1A;
+  --bg-muted: #252525;
+  --border: #333333;
+  --border-strong: #4A4A4A;
+  --text-muted: #6B6B6B;
+  --text-secondary: #999999;
+  --text: #CCCCCC;
+  --text-primary: #FAFAFA;
+
+  --surface-canvas: #0F0F0F;
+  --surface-placeholder: #252525;
+  --pill-bg: rgba(37,37,37,0.6);
+  --pill-text: #CCCCCC;
+  --text-faint: rgba(250,250,250,0.5);
+
+  --glass-bg: rgba(26,26,26,0.5);
+  --glass-bg-strong: rgba(15,15,15,0.75);
+  --glass-border: rgba(74,74,74,0.4);
+}
