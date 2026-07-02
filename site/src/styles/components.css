@@ -1,0 +1,136 @@
+/* Shared components ported from the design system bundle.
+   Values are verbatim from components/core/* and components/site/*. */
+
+/* ── PillButton ── */
+.pill-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  padding: 0 19px;
+  border: none;
+  border-radius: var(--radius-pill-inner);
+  background: var(--pill-bg);
+  opacity: 0.96;
+  font: 400 var(--text-pill) / 20px var(--font-ui);
+  letter-spacing: 0.21px;
+  color: var(--pill-text);
+  cursor: pointer;
+  transition:
+    filter var(--duration-fast) var(--easing),
+    background var(--duration-fast) var(--easing);
+}
+.pill-button:hover {
+  filter: brightness(0.96);
+}
+.pill-button.is-active {
+  background: var(--bg-muted);
+}
+
+/* ── NavLink ── */
+.nav-link {
+  font: 400 16px/1.5 var(--font-ui);
+  color: var(--text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity var(--duration-fast) var(--easing);
+}
+.nav-link:hover {
+  opacity: 0.5;
+}
+.nav-link.is-muted {
+  color: var(--text-faint);
+}
+
+/* ── MetaList ── */
+.meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.meta-list-label {
+  font: 700 40px/1.2 var(--font-ui);
+  color: var(--text-primary);
+}
+.meta-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font: 400 16px/1.6 var(--font-ui);
+  color: var(--text);
+}
+
+/* ── SiteHeader: pill dropdown + centered wordmark ── */
+.site-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 20px var(--page-margin) 0;
+}
+.site-menu-anchor {
+  position: relative;
+}
+.site-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 10px;
+  min-width: 168px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--radius-pill-outer);
+  overflow: hidden;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+.site-menu-item {
+  all: unset;
+  box-sizing: border-box;
+  padding: 11px 22px;
+  font: 400 15px/22px var(--font-ui);
+  letter-spacing: 0.21px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.site-menu-item:hover {
+  background: var(--glass-bg-strong);
+}
+.site-menu-item.is-current {
+  color: var(--text-muted);
+}
+.site-wordmark {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  font: 400 20px/24px var(--font-ui);
+  color: var(--text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity var(--duration-fast) var(--easing);
+}
+.site-wordmark:hover {
+  opacity: 0.5;
+}
+
+/* ── SiteFooter: plain-text theme + language, bottom-left ── */
+.site-footer {
+  display: flex;
+  align-items: baseline;
+  gap: 44px;
+  padding: 0 var(--page-margin) 24px;
+}
+.site-footer-toggle {
+  font: 400 14px/14px var(--font-ui);
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+  transition: opacity var(--duration-fast) var(--easing);
+}
+.site-footer-toggle:hover {
+  opacity: 0.5;
+}

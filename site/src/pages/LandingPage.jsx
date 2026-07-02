@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
-import useTheme from "../hooks/useTheme.js";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import LangSwitcher from "../components/LangSwitcher.jsx";
 import arrowDown from "../assets/arrow-down.png";
 
-export default function LandingPage() {
-  const { theme, toggleTheme } = useTheme();
-  const [lang, setLang] = useState("en");
-
+export default function LandingPage({ theme, toggleTheme, lang, setLang }) {
   useEffect(() => {
-    document.documentElement.lang = lang;
-  }, [lang]);
+    document.title = "HAJIN, Product Designer";
+  }, []);
 
   const themeLabel = theme === "dark" ? "(Dark)" : "(Light)";
 
@@ -18,14 +15,14 @@ export default function LandingPage() {
       <div className="lp-hero">
         <h1 className="lp-heading">HAJIN, Product Designer</h1>
         <nav className="lp-nav">
-          <a href="#work" className="lp-navlink">
+          <Link to="/work" className="lp-navlink">
             <span className="lp-navlink-text">Work</span>
             <img className="lp-arrow" src={arrowDown} alt="" />
-          </a>
-          <a href="#about" className="lp-navlink">
+          </Link>
+          <Link to="/about" className="lp-navlink">
             <span className="lp-navlink-text">About</span>
             <img className="lp-arrow" src={arrowDown} alt="" />
-          </a>
+          </Link>
         </nav>
       </div>
       <div className="lp-foot">
