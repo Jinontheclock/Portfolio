@@ -29,7 +29,7 @@
 
 /* ── NavLink ── */
 .nav-link {
-  font: 400 16px/1.5 var(--font-ui);
+  font: 400 clamp(15px, 14.4px + 0.16vw, 16px) / 1.5 var(--font-ui);
   color: var(--text-primary);
   text-decoration: none;
   cursor: pointer;
@@ -49,14 +49,15 @@
   gap: 16px;
 }
 .meta-list-label {
-  font: 700 40px/1.2 var(--font-ui);
+  /* matches .ab-title: 40px desktop → 28px mobile, fluid */
+  font: 700 clamp(28px, 23.4px + 1.16vw, 40px) / 1.2 var(--font-ui);
   color: var(--text-primary);
 }
 .meta-list-items {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font: 400 16px/1.6 var(--font-ui);
+  font: 400 clamp(15px, 14.4px + 0.16vw, 16px) / 1.6 var(--font-ui);
   color: var(--text);
 }
 

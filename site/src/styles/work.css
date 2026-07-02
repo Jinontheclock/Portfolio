@@ -25,13 +25,14 @@
 }
 
 .wk-title {
-  font: 400 28px/1.25 var(--font-ui);
+  /* 28px desktop → ~24px tablet → 22px mobile, fluid */
+  font: 400 clamp(22px, 19.7px + 0.58vw, 28px) / 1.25 var(--font-ui);
   letter-spacing: -0.01em;
   color: var(--text-primary);
 }
 
 .wk-desc {
-  font: 400 16px/1.6 var(--font-ui);
+  font: 400 clamp(15px, 14.4px + 0.16vw, 16px) / 1.6 var(--font-ui);
   color: var(--text);
 }
 
