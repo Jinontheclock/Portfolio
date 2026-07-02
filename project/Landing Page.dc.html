@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/hajin-lee-portfolio-design-system-2627bb0c-b3af-4297-8531-4a19892936f3/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/hajin-lee-portfolio-design-system-2627bb0c-b3af-4297-8531-4a19892936f3/tokens/fig/fig-tokens.css">
+  <link rel="stylesheet" href="_ds/hajin-lee-portfolio-design-system-2627bb0c-b3af-4297-8531-4a19892936f3/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/hajin-lee-portfolio-design-system-2627bb0c-b3af-4297-8531-4a19892936f3/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/hajin-lee-portfolio-design-system-2627bb0c-b3af-4297-8531-4a19892936f3/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/hajin-lee-portfolio-design-system-2627bb0c-b3af-4297-8531-4a19892936f3/tokens/base.css">
+  <link rel="stylesheet" href="_ds/hajin-lee-portfolio-design-system-2627bb0c-b3af-4297-8531-4a19892936f3/styles.css">
+  <script src="_ds/hajin-lee-portfolio-design-system-2627bb0c-b3af-4297-8531-4a19892936f3/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; }
+    /* Mobile (Landing Page_Mobile 402w): hero block drops to the lower third, above the utilities */
+    @media (max-width: 600px) {
+      .lp-hero { margin-top: auto; margin-bottom: min(142px, 16dvh); }
+      .lp-foot { margin-top: 0; }
+    }
+    :root[data-theme="dark"] .lp-arrow, .dark .lp-arrow { filter: invert(1); }
+  </style>
+</helmet>
+<div data-screen-label="Landing" style="min-height: 100dvh; box-sizing: border-box; display: flex; flex-direction: column; padding: clamp(16px, 1.4vw, 20px); background: var(--bg); font-family: var(--font-sans);">
+  <div class="lp-hero" style="display: flex; flex-direction: column; align-items: flex-start; gap: clamp(16px, 3.33vw, 48px);">
+    <h1 style="margin: 0; width: 100%; font-family: var(--font-sans); font-weight: 700; font-size: clamp(28px, 7.8vw, 112px); line-height: 1.2; letter-spacing: -0.01em; color: var(--text-primary);">HAJIN, Product Designer</h1>
+    <nav style="display: flex; flex-direction: column; align-items: flex-start; gap: clamp(4px, 1.66vw, 24px);">
+      <a href="#work" onClick="{{ goWork }}" style="display: inline-flex; align-items: center; gap: clamp(11px, 2.08vw, 30px); text-decoration: none; cursor: pointer; opacity: 1; transition: opacity 200ms var(--easing);" style-hover="opacity: 0.5;">
+        <span style="font-family: var(--font-sans); font-weight: 400; font-size: 28px; line-height: 1.25; letter-spacing: -0.01em; color: var(--text-primary);">Work</span>
+        <img class="lp-arrow" src="assets/arrow-down.png" alt="" style="display: block; width: clamp(16px, 2.5vw, 36px); height: auto;">
+      </a>
+      <a href="#about" onClick="{{ goAbout }}" style="display: inline-flex; align-items: center; gap: clamp(11px, 2.08vw, 30px); text-decoration: none; cursor: pointer; opacity: 1; transition: opacity 200ms var(--easing);" style-hover="opacity: 0.5;">
+        <span style="font-family: var(--font-sans); font-weight: 400; font-size: 28px; line-height: 1.25; letter-spacing: -0.01em; color: var(--text-primary);">About</span>
+        <img class="lp-arrow" src="assets/arrow-down.png" alt="" style="display: block; width: clamp(16px, 2.5vw, 36px); height: auto;">
+      </a>
+    </nav>
+  </div>
+  <div class="lp-foot" style="margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+    <span onClick="{{ toggleTheme }}" style="font-family: var(--font-sans); font-weight: 400; font-size: 12px; line-height: 1.4; color: var(--text-primary); cursor: pointer; user-select: none;">{{ themeLabel }}</span>
+    <x-import component-from-global-scope="HajinLeePortfolioDesignSystem_2627bb.LangSwitcher" value="{{ lang }}" on-change="{{ setLang }}" hint-size="42px,58px"></x-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;theme&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;light&quot;, &quot;dark&quot;], &quot;default&quot;: &quot;light&quot;, &quot;tsType&quot;: &quot;\&quot;light\&quot; | \&quot;dark\&quot;&quot;, &quot;section&quot;: &quot;Appearance&quot; },
+  &quot;language&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;en&quot;, &quot;ja&quot;, &quot;ko&quot;], &quot;default&quot;: &quot;en&quot;, &quot;tsType&quot;: &quot;\&quot;en\&quot; | \&quot;ja\&quot; | \&quot;ko\&quot;&quot;, &quot;section&quot;: &quot;Appearance&quot; }
+}">
+class Component extends DCLogic {
+  state = { theme: null, lang: null };
+
+  _theme() {
+    if (this.state.theme) return this.state.theme;
+    if (this.props.theme) return this.props.theme;
+    try {
+      const saved = localStorage.getItem("hajin-theme");
+      if (saved === "light" || saved === "dark") return saved;
+      if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+    } catch (e) {}
+    return "light";
+  }
+
+  _applyTheme() {
+    document.documentElement.setAttribute("data-theme", this._theme());
+  }
+
+  componentDidMount() { this._applyTheme(); }
+  componentDidUpdate() { this._applyTheme(); }
+
+  renderVals() {
+    const theme = this._theme();
+    return {
+      themeLabel: theme === "dark" ? "(Dark)" : "(Light)",
+      toggleTheme: () => {
+        const next = theme === "dark" ? "light" : "dark";
+        try { localStorage.setItem("hajin-theme", next); } catch (e) {}
+        this.setState({ theme: next });
+      },
+      lang: this.state.lang ?? this.props.language ?? "en",
+      setLang: (code) => this.setState({ lang: code }),
+      goWork: (e) => e.preventDefault(),
+      goAbout: (e) => e.preventDefault(),
+    };
+  }
+}
+</script>
+</body>
+</html>

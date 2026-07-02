@@ -1,0 +1,334 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/core/**",
+              "components/site/**",
+              "ui_kits/portfolio/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Spoqa Han Sans Neo))/i]",
+        "message": "Font not provided by the design system. Available: Spoqa Han Sans Neo."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ArrowLink'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|children|size|arrowSrc|href|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<ArrowLink> doesn't accept that prop. Declared props: label, children, size, arrowSrc, href, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='LangSwitcher'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|onChange|direction|style|key|ref|className|style|children)$/]",
+        "message": "<LangSwitcher> doesn't accept that prop. Declared props: value, onChange, direction, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='LangSwitcher'] > JSXAttribute[name.name='value'] > Literal[value!=/^(?:en|ja|ko)$/]",
+        "message": "<LangSwitcher> value must be one of 'en' | 'ja' | 'ko'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='LangSwitcher'] > JSXAttribute[name.name='direction'] > Literal[value!=/^(?:column|row)$/]",
+        "message": "<LangSwitcher> direction must be one of 'column' | 'row'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='MetaList'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|items|gap|style|key|ref|className|style|children)$/]",
+        "message": "<MetaList> doesn't accept that prop. Declared props: label, items, gap, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavLink'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|children|href|size|muted|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<NavLink> doesn't accept that prop. Declared props: label, children, href, size, muted, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PillButton'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|children|active|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<PillButton> doesn't accept that prop. Declared props: label, children, active, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SiteFooter'] > JSXAttribute > JSXIdentifier[name!=/^(?:theme|onThemeChange|lang|onLangChange|year|markSrc|style|key|ref|className|style|children)$/]",
+        "message": "<SiteFooter> doesn't accept that prop. Declared props: theme, onThemeChange, lang, onLangChange, year, markSrc, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SiteFooter'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<SiteFooter> theme must be one of 'light' | 'dark'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SiteFooter'] > JSXAttribute[name.name='lang'] > Literal[value!=/^(?:en|ja|ko)$/]",
+        "message": "<SiteFooter> lang must be one of 'en' | 'ja' | 'ko'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SiteHeader'] > JSXAttribute > JSXIdentifier[name!=/^(?:active|onNavigate|wordmark|style|key|ref|className|style|children)$/]",
+        "message": "<SiteHeader> doesn't accept that prop. Declared props: active, onNavigate, wordmark, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SiteHeader'] > JSXAttribute[name.name='active'] > Literal[value!=/^(?:work|about|none)$/]",
+        "message": "<SiteHeader> active must be one of 'work' | 'about' | 'none'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ThemeToggle'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|onChange|style|key|ref|className|style|children)$/]",
+        "message": "<ThemeToggle> doesn't accept that prop. Declared props: value, onChange, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ThemeToggle'] > JSXAttribute[name.name='value'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<ThemeToggle> value must be one of 'light' | 'dark'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='WorkCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:title|description|roles|imageSrc|imageHeight|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<WorkCard> doesn't accept that prop. Declared props: title, description, roles, imageSrc, imageHeight, onClick, style."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "ArrowLink": {
+        "replaces": []
+      },
+      "LangSwitcher": {
+        "replaces": []
+      },
+      "MetaList": {
+        "replaces": []
+      },
+      "NavLink": {
+        "replaces": []
+      },
+      "PillButton": {
+        "replaces": []
+      },
+      "SiteFooter": {
+        "replaces": []
+      },
+      "SiteHeader": {
+        "replaces": []
+      },
+      "ThemeToggle": {
+        "replaces": []
+      },
+      "WorkCard": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent-bg",
+      "--accent-default",
+      "--accent-onaccent",
+      "--bg",
+      "--bg-2",
+      "--bg-default",
+      "--bg-muted",
+      "--bg-muted-2",
+      "--bg-subtle",
+      "--bg-subtle-2",
+      "--black",
+      "--border",
+      "--border-strong",
+      "--button-borderradius",
+      "--button-borderwidth",
+      "--button-primary-background",
+      "--button-primary-text",
+      "--card-background",
+      "--card-borderradius",
+      "--card-padding",
+      "--color",
+      "--color-10",
+      "--color-11",
+      "--color-12",
+      "--color-2",
+      "--color-3",
+      "--color-8",
+      "--color-9",
+      "--duration-base",
+      "--duration-fast",
+      "--easing",
+      "--fg-default",
+      "--fg-muted",
+      "--fg-subtle",
+      "--font-sans",
+      "--font-ui",
+      "--glass-bg",
+      "--glass-bg-strong",
+      "--glass-blur",
+      "--glass-border",
+      "--grey-100",
+      "--grey-150",
+      "--grey-200",
+      "--grey-250",
+      "--grey-300",
+      "--grey-350",
+      "--grey-400",
+      "--grey-450",
+      "--grey-50",
+      "--grey-500",
+      "--grey-600",
+      "--grey-700",
+      "--grey-800",
+      "--grey-850",
+      "--grey-900",
+      "--grey-950",
+      "--page-margin",
+      "--page-margin-tight",
+      "--pill-bg",
+      "--pill-text",
+      "--radius-none",
+      "--radius-pill-inner",
+      "--radius-pill-outer",
+      "--shadows-default",
+      "--space-1",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--surface-canvas",
+      "--surface-placeholder",
+      "--text",
+      "--text-body-l",
+      "--text-body-m",
+      "--text-body-s",
+      "--text-caption",
+      "--text-display",
+      "--text-faint",
+      "--text-heading-l",
+      "--text-heading-m",
+      "--text-heading-s",
+      "--text-hero",
+      "--text-label",
+      "--text-muted",
+      "--text-pill",
+      "--text-primary",
+      "--text-secondary",
+      "--white"
+    ],
+    "tokenKinds": {
+      "--accent-bg": "color",
+      "--accent-default": "color",
+      "--accent-onaccent": "color",
+      "--bg-2": "color",
+      "--bg-default": "color",
+      "--bg-muted-2": "color",
+      "--bg-muted": "color",
+      "--bg-subtle-2": "color",
+      "--bg-subtle": "color",
+      "--bg": "color",
+      "--border-strong": "color",
+      "--border": "color",
+      "--button-borderradius": "radius",
+      "--button-borderwidth": "spacing",
+      "--button-primary-background": "color",
+      "--button-primary-text": "color",
+      "--card-background": "color",
+      "--card-borderradius": "radius",
+      "--card-padding": "spacing",
+      "--color-10": "color",
+      "--color-11": "color",
+      "--color-12": "color",
+      "--color-2": "color",
+      "--color-3": "color",
+      "--color-8": "color",
+      "--color-9": "color",
+      "--color": "color",
+      "--fg-default": "color",
+      "--fg-muted": "color",
+      "--fg-subtle": "color",
+      "--shadows-default": "color",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--text-muted": "color",
+      "--text-primary": "color",
+      "--text-secondary": "color",
+      "--text": "color",
+      "--grey-50": "color",
+      "--grey-100": "color",
+      "--grey-150": "color",
+      "--grey-200": "color",
+      "--grey-300": "color",
+      "--grey-400": "color",
+      "--grey-500": "color",
+      "--grey-600": "color",
+      "--grey-950": "color",
+      "--grey-900": "color",
+      "--grey-850": "color",
+      "--grey-800": "color",
+      "--grey-700": "color",
+      "--grey-450": "color",
+      "--grey-350": "color",
+      "--grey-250": "color",
+      "--white": "color",
+      "--black": "color",
+      "--surface-canvas": "color",
+      "--surface-placeholder": "color",
+      "--pill-bg": "color",
+      "--pill-text": "font",
+      "--text-faint": "font",
+      "--glass-bg": "color",
+      "--glass-bg-strong": "color",
+      "--glass-border": "color",
+      "--glass-blur": "spacing",
+      "--font-sans": "font",
+      "--font-ui": "font",
+      "--text-hero": "font",
+      "--text-display": "font",
+      "--text-heading-l": "font",
+      "--text-heading-m": "font",
+      "--text-heading-s": "font",
+      "--text-body-l": "font",
+      "--text-body-m": "font",
+      "--text-body-s": "font",
+      "--text-label": "font",
+      "--text-caption": "font",
+      "--text-pill": "font",
+      "--page-margin": "spacing",
+      "--page-margin-tight": "spacing",
+      "--radius-none": "radius",
+      "--radius-pill-inner": "radius",
+      "--radius-pill-outer": "radius",
+      "--easing": "other",
+      "--duration-fast": "other",
+      "--duration-base": "other"
+    },
+    "fontFamilies": [
+      "Spoqa Han Sans Neo"
+    ]
+  }
+}

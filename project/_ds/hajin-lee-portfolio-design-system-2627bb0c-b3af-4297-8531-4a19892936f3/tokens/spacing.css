@@ -1,0 +1,26 @@
+/* Spacing, radii, motion — from the Figma "Spacing" variable collection. */
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  /* Layout */
+  --page-margin: 24px;        /* lo-fi desktop gutter (landing hero uses 20px) */
+  --page-margin-tight: 20px;
+
+  /* Radii — everything is square except pills */
+  --radius-none: 0;
+  --radius-pill-inner: 17px;  /* pill button */
+  --radius-pill-outer: 18px;  /* pill container */
+
+  /* Motion — quiet, opacity-led */
+  --easing: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --duration-fast: 150ms; /* @kind other */
+  --duration-base: 250ms; /* @kind other */
+}
