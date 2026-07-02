@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import LangSwitcher from "../components/LangSwitcher.jsx";
 import arrowDown from "../assets/arrow-down.png";
+import { THEME_LABELS } from "../i18n.js";
 
 export default function LandingPage({ theme, toggleTheme, lang, setLang }) {
   useEffect(() => {
     document.title = "HAJIN, Product Designer";
   }, []);
 
-  const themeLabel = theme === "dark" ? "(Dark)" : "(Light)";
+  const themeLabel = `(${THEME_LABELS[lang][theme === "dark" ? "dark" : "light"]})`;
 
   return (
     <div className="lp-root">
