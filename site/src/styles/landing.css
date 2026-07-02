@@ -54,12 +54,6 @@ body,
   gap: var(--size-lp-arrow-gap);
   text-decoration: none;
   cursor: pointer;
-  opacity: 1;
-  transition: opacity 200ms var(--easing);
-}
-
-.lp-navlink:hover {
-  opacity: 0.5;
 }
 
 .lp-navlink-text {
