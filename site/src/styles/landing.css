@@ -45,7 +45,9 @@ body,
 
 .lp-navlink {
   display: inline-flex;
-  align-items: center;
+  /* The arrow glyph sits at the bottom edge of its transparent square
+     canvas, so baseline alignment pins it to the text's baseline. */
+  align-items: baseline;
   gap: clamp(11px, 2.08vw, 30px);
   text-decoration: none;
   cursor: pointer;
