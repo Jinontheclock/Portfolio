@@ -60,23 +60,14 @@
   color: var(--text);
 }
 
-/* ── SiteHeader: pill dropdown + centered wordmark ── */
-.site-header {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 20px var(--page-margin) 0;
-}
-.site-menu-anchor {
+/* ── Glass dropdown/drop-up menu (header nav, filters, footer) ── */
+.dropdown-anchor {
   position: relative;
 }
-.site-menu {
+.glass-menu {
   position: absolute;
-  top: 100%;
   left: 0;
-  margin-top: 10px;
+  z-index: 20;
   min-width: 168px;
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -87,7 +78,15 @@
   display: flex;
   flex-direction: column;
 }
-.site-menu-item {
+.glass-menu-down {
+  top: 100%;
+  margin-top: 10px;
+}
+.glass-menu-up {
+  bottom: 100%;
+  margin-bottom: 10px;
+}
+.glass-menu-item {
   all: unset;
   box-sizing: border-box;
   padding: 11px 22px;
@@ -96,11 +95,21 @@
   color: var(--text-primary);
   cursor: pointer;
 }
-.site-menu-item:hover {
+.glass-menu-item:hover {
   background: var(--glass-bg-strong);
 }
-.site-menu-item.is-current {
+.glass-menu-item.is-current {
   color: var(--text-muted);
+}
+
+/* ── SiteHeader: pill dropdown + centered wordmark ── */
+.site-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 20px var(--page-margin) 0;
 }
 .site-wordmark {
   position: absolute;

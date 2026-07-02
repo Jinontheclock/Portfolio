@@ -31,8 +31,5 @@ export default function useLang() {
     setLangState(code);
   };
 
-  // The About footer cycles languages in the design's order: en → ja → ko
-  const cycleLang = () => setLang(ORDER[(ORDER.indexOf(lang) + 1) % ORDER.length]);
-
-  return { lang, setLang, cycleLang };
+  return { lang, setLang };
 }

@@ -6,9 +6,9 @@ import AboutPage from "./pages/AboutPage.jsx";
 import WorkPage from "./pages/WorkPage.jsx";
 
 export default function App() {
-  const { theme, toggleTheme } = useTheme();
-  const { lang, setLang, cycleLang } = useLang();
-  const shared = { theme, toggleTheme, lang, setLang, cycleLang };
+  const { theme, setTheme, toggleTheme } = useTheme();
+  const { lang, setLang } = useLang();
+  const shared = { theme, setTheme, toggleTheme, lang, setLang };
 
   return (
     <HashRouter>

@@ -24,17 +24,16 @@ export default function useTheme() {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const next = prev === "dark" ? "light" : "dark";
-      try {
-        localStorage.setItem(STORAGE_KEY, next);
-      } catch {
-        // ignore write failures (private browsing, storage disabled)
-      }
-      return next;
-    });
+  const chooseTheme = (mode) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, mode);
+    } catch {
+      // ignore write failures (private browsing, storage disabled)
+    }
+    setTheme(mode);
   };
 
-  return { theme, toggleTheme };
+  const toggleTheme = () => chooseTheme(theme === "dark" ? "light" : "dark");
+
+  return { theme, setTheme: chooseTheme, toggleTheme };
 }

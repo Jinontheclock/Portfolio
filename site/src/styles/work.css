@@ -10,40 +10,35 @@
   flex-direction: column;
 }
 
-/* "All" filter pill sits at the left margin, just under the header */
-.wk-filter-row {
-  padding: 0 24px;
-  margin-top: 8px;
-}
-
 .wk-list {
   display: flex;
   flex-direction: column;
   gap: 63px;
-  padding: 40px 0 96px;
+  padding: 48px 0 96px;
 }
 
 .wk-text {
   grid-column: 5 / 8;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .wk-title {
-  font: 500 20px/32px var(--font-ui);
+  font: 400 28px/1.25 var(--font-ui);
+  letter-spacing: -0.01em;
   color: var(--text-primary);
 }
 
 .wk-desc {
   font: 400 16px/1.6 var(--font-ui);
-  color: var(--text-secondary);
+  color: var(--text);
 }
 
-.wk-roles {
-  font: 400 12px/1.6 var(--font-ui);
-  color: var(--text-muted);
-  white-space: pre-line;
+.wk-specs {
+  margin-top: 32px;
+  font: 400 14px/1.5 var(--font-ui);
+  color: var(--text);
 }
 
 .wk-image {
@@ -67,9 +62,6 @@
   .wk-list {
     gap: 48px;
     padding: 32px 0 64px;
-  }
-  .wk-filter-row {
-    padding: 0 20px;
   }
   .wk-card {
     row-gap: 16px;

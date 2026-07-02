@@ -33,7 +33,7 @@ const DESIGN_STACK = ["Figma", "After Effects", "Photoshop", "Illustrator", "InD
 const TECH_STACK = ["HTML", "CSS", "JavaScript", "React"];
 const PRODUCTIVITY = ["Notion", "Slack", "Jira"];
 
-export default function AboutPage({ theme, toggleTheme, lang, cycleLang }) {
+export default function AboutPage({ theme, setTheme, lang, setLang }) {
   useEffect(() => {
     document.title = "About — HAJIN";
   }, []);
@@ -76,7 +76,7 @@ export default function AboutPage({ theme, toggleTheme, lang, cycleLang }) {
         </div>
       </main>
 
-      <SiteFooter theme={theme} toggleTheme={toggleTheme} lang={lang} cycleLang={cycleLang} />
+      <SiteFooter theme={theme} setTheme={setTheme} lang={lang} setLang={setLang} />
     </div>
   );
 }
