@@ -75,6 +75,14 @@ body,
   display: block;
   width: var(--size-lp-arrow);
   height: auto;
+  /* settles back to the resting spot when hover ends */
+  transition: transform 200ms var(--easing);
+}
+
+/* Hover pushes the arrow out to its old (Figma) position, easing in */
+.lp-navlink:hover .lp-arrow {
+  transform: translateX(var(--size-lp-arrow-shift));
+  transition: transform 200ms ease-in;
 }
 
 :root[data-theme="dark"] .lp-arrow,
