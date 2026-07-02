@@ -1,0 +1,69 @@
+/* Four breakpoint tiers matching the Figma responsive set:
+     Desktop ≥1440 · Laptop 1025–1439 · Tablet 601–1024 · Mobile ≤600
+   (frames: Landing-Page_Desktop 1440 / _Laptop 1280 / _Tablet 834 / _Mobile 402)
+   Each tier sets the size variables below; the cascade of max-width
+   queries means desktop values are the defaults. */
+
+:root {
+  /* ── Desktop (Figma 1440 frame) ── */
+  --size-page-pad: 20px;
+
+  /* landing */
+  --size-hero: 120px;
+  --size-lp-nav: 28px;
+  --size-lp-arrow: 36px;
+  --size-lp-arrow-gap: 30px;
+  --size-lp-block-gap: 48px;
+  --size-lp-nav-gap: 24px;
+
+  /* inner pages */
+  --size-heading: 40px; /* About title, MetaList labels */
+  --size-card-title: 28px; /* Work cards */
+  --size-body: 16px;
+}
+
+/* ── Laptop (Figma 1280 frame) ── */
+@media (max-width: 1439px) {
+  :root {
+    --size-hero: 100px;
+    --size-lp-arrow: 32px;
+    --size-lp-arrow-gap: 20px;
+    --size-lp-block-gap: 32px;
+    --size-lp-nav-gap: 16px;
+
+    --size-heading: 36px;
+    --size-card-title: 26px;
+  }
+}
+
+/* ── Tablet (Figma 834 frame) ── */
+@media (max-width: 1024px) {
+  :root {
+    --size-hero: 64px;
+    --size-lp-arrow: 24px;
+    --size-lp-arrow-gap: 15px;
+    --size-lp-block-gap: 24px;
+    --size-lp-nav-gap: 8px;
+
+    --size-heading: 32px;
+    --size-card-title: 24px;
+  }
+}
+
+/* ── Mobile (Figma 402 frame) ── */
+@media (max-width: 600px) {
+  :root {
+    --size-page-pad: 16px;
+
+    --size-hero: 32px;
+    --size-lp-nav: 22px;
+    --size-lp-arrow: 20px;
+    --size-lp-arrow-gap: 11px;
+    --size-lp-block-gap: 16px;
+    --size-lp-nav-gap: 4px;
+
+    --size-heading: 28px;
+    --size-card-title: 22px;
+    --size-body: 15px;
+  }
+}

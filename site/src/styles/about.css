@@ -30,8 +30,7 @@
 
 .ab-title {
   grid-column: 5 / 13;
-  /* 40px desktop → ~33px tablet → 28px mobile, fluid */
-  font: 700 clamp(28px, 23.4px + 1.16vw, 40px) / 1.2 var(--font-ui);
+  font: 700 var(--size-heading) / 1.2 var(--font-ui);
   color: var(--text-primary);
 }
 
@@ -44,8 +43,7 @@
 
 .ab-paragraph {
   margin: 0;
-  /* body settles at 16px, easing to 15px on phones */
-  font: 400 clamp(15px, 14.4px + 0.16vw, 16px) / 1.6 var(--font-ui);
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
   white-space: pre-line;
 }
@@ -74,7 +72,7 @@
 }
 
 /* ── Tablet: reclaim the empty left third, keep two columns ── */
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
   .ab-title {
     grid-column: 1 / 13;
   }
@@ -89,7 +87,7 @@
 }
 
 /* ── Mobile: single column, tighter rhythm ── */
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   .ab-main {
     padding: 48px 0 64px;
     gap: 48px;

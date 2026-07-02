@@ -25,14 +25,13 @@
 }
 
 .wk-title {
-  /* 28px desktop → ~24px tablet → 22px mobile, fluid */
-  font: 400 clamp(22px, 19.7px + 0.58vw, 28px) / 1.25 var(--font-ui);
+  font: 400 var(--size-card-title) / 1.25 var(--font-ui);
   letter-spacing: -0.01em;
   color: var(--text-primary);
 }
 
 .wk-desc {
-  font: 400 clamp(15px, 14.4px + 0.16vw, 16px) / 1.6 var(--font-ui);
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
 }
 
@@ -49,7 +48,7 @@
 }
 
 /* ── Tablet: reclaim the empty left third ── */
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
   .wk-text {
     grid-column: 1 / 5;
   }
@@ -59,7 +58,7 @@
 }
 
 /* ── Mobile: stack text above image ── */
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   .wk-list {
     gap: 48px;
     padding: 32px 0 64px;

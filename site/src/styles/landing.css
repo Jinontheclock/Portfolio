@@ -1,6 +1,6 @@
 /* Landing page — ported from Landing Page.dc.html.
-   Breakpoints trace back to the Figma responsive set:
-   Desktop 1440 / Laptop 1280 / Tablet 834 / Mobile 402. */
+   Sizes come from the per-breakpoint variables in breakpoints.css,
+   which mirror the Figma responsive set (1440/1280/834/402). */
 
 html,
 body,
@@ -13,7 +13,7 @@ body,
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: clamp(16px, 1.4vw, 20px);
+  padding: var(--size-page-pad);
   background: var(--bg);
   font-family: var(--font-sans);
 }
@@ -22,7 +22,7 @@ body,
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(16px, 3.33vw, 48px);
+  gap: var(--size-lp-block-gap);
 }
 
 .lp-heading {
@@ -30,7 +30,7 @@ body,
   width: 100%;
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: clamp(28px, 7.8vw, 112px);
+  font-size: var(--size-hero);
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: var(--text-primary);
@@ -40,7 +40,7 @@ body,
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(4px, 1.66vw, 24px);
+  gap: var(--size-lp-nav-gap);
 }
 
 .lp-navlink {
@@ -48,7 +48,7 @@ body,
   /* The arrow glyph sits at the bottom edge of its transparent square
      canvas, so baseline alignment pins it to the text's baseline. */
   align-items: baseline;
-  gap: clamp(11px, 2.08vw, 30px);
+  gap: var(--size-lp-arrow-gap);
   text-decoration: none;
   cursor: pointer;
   opacity: 1;
@@ -62,8 +62,7 @@ body,
 .lp-navlink-text {
   font-family: var(--font-sans);
   font-weight: 400;
-  /* 28px from tablet up (per the Figma responsive set); shrinks on phones */
-  font-size: clamp(22px, 5vw, 28px);
+  font-size: var(--size-lp-nav);
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--text-primary);
@@ -71,7 +70,7 @@ body,
 
 .lp-arrow {
   display: block;
-  width: clamp(16px, 2.5vw, 36px);
+  width: var(--size-lp-arrow);
   height: auto;
 }
 
