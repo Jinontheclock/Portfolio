@@ -26,6 +26,7 @@
 @media (max-width: 1439px) {
   :root {
     --size-hero: 100px;
+    --size-lp-nav: 26px;
     --size-lp-arrow: 32px;
     --size-lp-arrow-gap: 20px;
     --size-lp-block-gap: 32px;
@@ -40,6 +41,7 @@
 @media (max-width: 1024px) {
   :root {
     --size-hero: 64px;
+    --size-lp-nav: 24px;
     --size-lp-arrow: 24px;
     --size-lp-arrow-gap: 15px;
     --size-lp-block-gap: 24px;
