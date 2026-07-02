@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import LangSwitcher from "../components/LangSwitcher.jsx";
 import arrowDown from "../assets/arrow-down.png";
 import { THEME_LABELS } from "../i18n.js";
+import useFitText from "../hooks/useFitText.js";
 
 export default function LandingPage({ theme, toggleTheme, lang, setLang }) {
+  const heroRef = useFitText();
+
   useEffect(() => {
     document.title = "HAJIN, Product Designer";
   }, []);
@@ -14,7 +17,7 @@ export default function LandingPage({ theme, toggleTheme, lang, setLang }) {
   return (
     <div className="lp-root">
       <div className="lp-hero">
-        <h1 className="lp-heading">HAJIN, Product Designer</h1>
+        <h1 className="lp-heading" ref={heroRef}>HAJIN, Product Designer</h1>
         <nav className="lp-nav">
           <Link to="/work" className="lp-navlink">
             <span className="lp-navlink-text">Work</span>

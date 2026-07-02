@@ -28,6 +28,9 @@ body,
 .lp-heading {
   margin: 0;
   width: 100%;
+  /* single line always — useFitText scales the font to fill the width;
+     var(--size-hero) is only the pre-JS fallback */
+  white-space: nowrap;
   font-family: var(--font-sans);
   font-weight: 700;
   font-size: var(--size-hero);
