@@ -72,8 +72,76 @@
   white-space: pre-line;
 }
 
-.ab-content .meta-list {
+.ab-section {
   margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ab-section-label {
+  margin: 0;
+  font: 700 var(--size-section-label) / 1.3 var(--font-ui);
+  color: var(--text-primary);
+}
+
+.xp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.xp-head {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--easing);
+}
+
+.xp-head:hover {
+  color: var(--text-primary);
+}
+
+.xp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  width: 100%;
+}
+
+.xp-right {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* unfolds on the quiet curve; 0fr → 1fr animates the natural height */
+.xp-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) ease-out;
+}
+.xp-detail.is-open {
+  grid-template-rows: 1fr;
+}
+.xp-detail-inner {
+  overflow: hidden;
+  min-height: 0;
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  color: var(--text);
+}
+.xp-type-row {
+  margin-top: 20px;
+}
+.xp-desc {
+  margin: 20px 0 0;
 }
 
 /* label + items side by side, per the Figma stack rows */

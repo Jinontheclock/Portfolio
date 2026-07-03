@@ -1,7 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
-import MetaList from "../components/MetaList.jsx";
 
 const INTRO_1 =
   "Originally from Seoul, I moved to Vancouver in 2024 to transition my career into UX/UI design.\n" +
@@ -19,26 +18,39 @@ const LINKS = [
   { label: "Instagram", href: "https://www.instagram.com/hj.archiv/" },
 ];
 
-// Placeholder per the Figma frame (repeats the education entries) —
-// swap in real experience entries when ready
+const PLACEHOLDER_DESC = "What I did ".repeat(16).trim();
+
 const EXPERIENCES = [
-  "2026",
-  "Digital Design and Development",
-  "British Columbia Institute of Technology",
-  "",
-  "2022",
-  "Fashion Design and Textiles",
-  "Inha University",
+  {
+    year: "2026",
+    title: "UI/UX Designer",
+    org: "WeLAB Entertainment",
+    period: "Mar 2026 – May 2026",
+    type: "Internship",
+    location: "Vancouver, Canada",
+    description: PLACEHOLDER_DESC,
+  },
 ];
 
 const EDUCATION = [
-  "2026",
-  "Digital Design and Development",
-  "British Columbia Institute of Technology",
-  "",
-  "2022",
-  "Fashion Design and Textiles",
-  "Inha University",
+  {
+    year: "2026",
+    title: "Digital Design and Development",
+    org: "British Columbia Institute of Technology",
+    period: "Jun 2026",
+    type: "Diploma",
+    location: "Burnaby, Canada",
+    description: PLACEHOLDER_DESC,
+  },
+  {
+    year: "2022",
+    title: "Fashion Design and Textiles",
+    org: "Inha University",
+    period: "2022",
+    type: "Bachelor's Degree",
+    location: "Incheon, Korea",
+    description: PLACEHOLDER_DESC,
+  },
 ];
 
 const STACKS = [
@@ -46,6 +58,34 @@ const STACKS = [
   { label: "Tech Stack", items: ["HTML", "CSS", "JavaScript", "React"] },
   { label: "Productivity", items: ["Notion", "Slack", "Jira"] },
 ];
+
+/** Collapsed: year / title / org. Expanded: title with the period on the
+ *  right, org, then type + location and the description unfold below. */
+function Entry({ entry }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="xp-entry">
+      <button type="button" className="xp-head" onClick={() => setOpen((o) => !o)}>
+        {!open && <span className="xp-year">{entry.year}</span>}
+        <span className="xp-row">
+          <span>{entry.title}</span>
+          {open && <span className="xp-right">{entry.period}</span>}
+        </span>
+        <span>{entry.org}</span>
+      </button>
+      <div className={"xp-detail" + (open ? " is-open" : "")}>
+        <div className="xp-detail-inner">
+          <div className="xp-row xp-type-row">
+            <span>{entry.type}</span>
+            <span className="xp-right">{entry.location}</span>
+          </div>
+          <p className="xp-desc">{entry.description}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function AboutPage({ theme, setTheme, lang, setLang }) {
   useEffect(() => {
@@ -78,8 +118,23 @@ export default function AboutPage({ theme, setTheme, lang, setLang }) {
             <p className="ab-paragraph">{INTRO_1}</p>
             <p className="ab-paragraph">{INTRO_2}</p>
 
-            <MetaList label="Experiences" items={EXPERIENCES} />
-            <MetaList label="Education" items={EDUCATION} />
+            <section className="ab-section">
+              <h2 className="ab-section-label">Experiences</h2>
+              <div className="xp-list">
+                {EXPERIENCES.map((e) => (
+                  <Entry key={e.title + e.period} entry={e} />
+                ))}
+              </div>
+            </section>
+
+            <section className="ab-section">
+              <h2 className="ab-section-label">Education</h2>
+              <div className="xp-list">
+                {EDUCATION.map((e) => (
+                  <Entry key={e.title + e.period} entry={e} />
+                ))}
+              </div>
+            </section>
 
             <div className="ab-stacks">
               {STACKS.map((s) => (
