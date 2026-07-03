@@ -10,12 +10,12 @@
 
   /* landing */
   --size-hero: 120px;
-  --size-lp-nav: 28px;
-  --size-lp-arrow: 36px;
+  --size-lp-nav: 26px;
+  --size-lp-arrow: 32px;
   --size-lp-arrow-gap: 12px;
   --size-lp-arrow-shift: 18px;
   --size-lp-block-gap: 48px;
-  --size-lp-nav-gap: 24px;
+  --size-lp-nav-gap: 16px;
 
   /* inner pages */
   --size-heading: 40px; /* About title, MetaList labels */
@@ -27,12 +27,12 @@
 @media (max-width: 1439px) {
   :root {
     --size-hero: 100px;
-    --size-lp-nav: 26px;
-    --size-lp-arrow: 32px;
+    --size-lp-nav: 24px;
+    --size-lp-arrow: 28px;
     --size-lp-arrow-gap: 10px;
     --size-lp-arrow-shift: 10px;
     --size-lp-block-gap: 32px;
-    --size-lp-nav-gap: 16px;
+    --size-lp-nav-gap: 12px;
 
     --size-heading: 36px;
     --size-card-title: 26px;
@@ -43,12 +43,12 @@
 @media (max-width: 1024px) {
   :root {
     --size-hero: 64px;
-    --size-lp-nav: 24px;
-    --size-lp-arrow: 24px;
+    --size-lp-nav: 22px;
+    --size-lp-arrow: 22px;
     --size-lp-arrow-gap: 8px;
     --size-lp-arrow-shift: 7px;
     --size-lp-block-gap: 24px;
-    --size-lp-nav-gap: 8px;
+    --size-lp-nav-gap: 6px;
 
     --size-heading: 32px;
     --size-card-title: 24px;
@@ -61,8 +61,8 @@
     --size-page-pad: 16px;
 
     --size-hero: 32px;
-    --size-lp-nav: 22px;
-    --size-lp-arrow: 20px;
+    --size-lp-nav: 20px;
+    --size-lp-arrow: 18px;
     --size-lp-arrow-gap: 6px;
     --size-lp-arrow-shift: 5px;
     --size-lp-block-gap: 16px;
