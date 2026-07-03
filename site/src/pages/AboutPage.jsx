@@ -22,7 +22,6 @@ const PLACEHOLDER_DESC = "What I did ".repeat(16).trim();
 
 const EXPERIENCES = [
   {
-    year: "2026",
     title: "UI/UX Designer",
     org: "WeLAB Entertainment",
     period: "Mar 2026 – May 2026",
@@ -30,12 +29,19 @@ const EXPERIENCES = [
     location: "Vancouver, Canada",
     description: PLACEHOLDER_DESC,
   },
+  {
+    title: "Visual Merchandiser",
+    org: "MUJI Japan",
+    period: "Apr 2022 – Sep 2024",
+    type: "Full-time",
+    location: "Tokyo, Japan",
+    description: PLACEHOLDER_DESC,
+  },
 ];
 
 const EDUCATION = [
   {
-    year: "2026",
-    title: "Digital Design and Development",
+    title: "Dip. Digital Design and Development",
     org: "British Columbia Institute of Technology",
     period: "Jun 2026",
     type: "Diploma",
@@ -43,10 +49,9 @@ const EDUCATION = [
     description: PLACEHOLDER_DESC,
   },
   {
-    year: "2022",
-    title: "Fashion Design and Textiles",
+    title: "BA. Fashion Design and Textiles",
     org: "Inha University",
-    period: "2022",
+    period: "Feb 2022",
     type: "Bachelor's Degree",
     location: "Incheon, Korea",
     description: PLACEHOLDER_DESC,
@@ -59,18 +64,17 @@ const STACKS = [
   { label: "Productivity", items: ["Notion", "Slack", "Jira"] },
 ];
 
-/** Collapsed: year / title / org. Expanded: title with the period on the
- *  right, org, then type + location and the description unfold below. */
+/** Head (title with the period right-aligned, then org) matches the Figma
+ *  list format; clicking unfolds type + location and the description. */
 function Entry({ entry }) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="xp-entry">
       <button type="button" className="xp-head" onClick={() => setOpen((o) => !o)}>
-        {!open && <span className="xp-year">{entry.year}</span>}
         <span className="xp-row">
           <span>{entry.title}</span>
-          {open && <span className="xp-right">{entry.period}</span>}
+          <span className="xp-right">{entry.period}</span>
         </span>
         <span>{entry.org}</span>
       </button>
@@ -119,7 +123,7 @@ export default function AboutPage({ theme, setTheme, lang, setLang }) {
             <p className="ab-paragraph">{INTRO_2}</p>
 
             <section className="ab-section">
-              <h2 className="ab-section-label">Experiences</h2>
+              <h2 className="ab-section-label">Experience</h2>
               <div className="xp-list">
                 {EXPERIENCES.map((e) => (
                   <Entry key={e.title + e.period} entry={e} />
@@ -136,18 +140,21 @@ export default function AboutPage({ theme, setTheme, lang, setLang }) {
               </div>
             </section>
 
-            <div className="ab-stacks">
-              {STACKS.map((s) => (
-                <div key={s.label} className="ab-stack-row">
-                  <span className="ab-stack-label">{s.label}</span>
-                  <div className="ab-stack-items">
-                    {s.items.map((item) => (
-                      <span key={item}>{item}</span>
-                    ))}
+            <section className="ab-section">
+              <h2 className="ab-section-label">Skills</h2>
+              <div className="ab-stacks">
+                {STACKS.map((s) => (
+                  <div key={s.label} className="ab-stack-row">
+                    <span className="ab-stack-label">{s.label}</span>
+                    <div className="ab-stack-items">
+                      {s.items.map((item) => (
+                        <span key={item}>{item}</span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </section>
           </div>
         </div>
       </main>

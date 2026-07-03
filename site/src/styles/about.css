@@ -146,7 +146,6 @@
 
 /* label + items side by side, per the Figma stack rows */
 .ab-stacks {
-  margin-top: 48px;
   display: flex;
   flex-direction: column;
   gap: 24px;
