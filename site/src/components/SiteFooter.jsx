@@ -9,32 +9,37 @@ const LANGS = ["en", "ja", "ko"];
 export default function SiteFooter({ theme, setTheme, lang, setLang }) {
   return (
     <footer className="site-footer">
-      <Dropdown
-        direction="up"
-        renderTrigger={(toggle) => (
-          <span className="site-footer-toggle" onClick={toggle}>
-            {THEME_LABELS[lang][theme]}
-          </span>
-        )}
-        items={THEMES.map((t) => ({
-          label: THEME_LABELS[lang][t],
-          current: t === theme,
-          onSelect: () => setTheme(t),
-        }))}
-      />
-      <Dropdown
-        direction="up"
-        renderTrigger={(toggle) => (
-          <span className="site-footer-toggle" onClick={toggle}>
-            {LANG_LABELS[lang]}
-          </span>
-        )}
-        items={LANGS.map((l) => ({
-          label: LANG_LABELS[l],
-          current: l === lang,
-          onSelect: () => setLang(l),
-        }))}
-      />
+      <div className="site-footer-menus">
+        <Dropdown
+          direction="up"
+          renderTrigger={(toggle) => (
+            <span className="site-footer-toggle" onClick={toggle}>
+              {THEME_LABELS[lang][theme]}
+            </span>
+          )}
+          items={THEMES.map((t) => ({
+            label: THEME_LABELS[lang][t],
+            current: t === theme,
+            onSelect: () => setTheme(t),
+          }))}
+        />
+        <Dropdown
+          direction="up"
+          renderTrigger={(toggle) => (
+            <span className="site-footer-toggle" onClick={toggle}>
+              {LANG_LABELS[lang]}
+            </span>
+          )}
+          items={LANGS.map((l) => ({
+            label: LANG_LABELS[l],
+            current: l === lang,
+            onSelect: () => setLang(l),
+          }))}
+        />
+      </div>
+      <span className="site-footer-copy">
+        © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
+      </span>
     </footer>
   );
 }
