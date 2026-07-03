@@ -10,8 +10,8 @@
 
   /* landing */
   --size-hero: 120px;
-  --size-lp-nav: 26px;
-  --size-lp-arrow: 32px;
+  --size-lp-nav: 24px;
+  --size-lp-arrow: 28px;
   --size-lp-arrow-gap: 12px;
   --size-lp-arrow-shift: 18px;
   --size-lp-block-gap: 48px;
@@ -29,8 +29,8 @@
 @media (max-width: 1439px) {
   :root {
     --size-hero: 100px;
-    --size-lp-nav: 24px;
-    --size-lp-arrow: 28px;
+    --size-lp-nav: 22px;
+    --size-lp-arrow: 24px;
     --size-lp-arrow-gap: 10px;
     --size-lp-arrow-shift: 10px;
     --size-lp-block-gap: 32px;
@@ -47,8 +47,8 @@
 @media (max-width: 1024px) {
   :root {
     --size-hero: 64px;
-    --size-lp-nav: 22px;
-    --size-lp-arrow: 22px;
+    --size-lp-nav: 20px;
+    --size-lp-arrow: 20px;
     --size-lp-arrow-gap: 8px;
     --size-lp-arrow-shift: 7px;
     --size-lp-block-gap: 24px;
@@ -67,8 +67,8 @@
     --size-page-pad: 16px;
 
     --size-hero: 32px;
-    --size-lp-nav: 20px;
-    --size-lp-arrow: 18px;
+    --size-lp-nav: 18px;
+    --size-lp-arrow: 16px;
     --size-lp-arrow-gap: 6px;
     --size-lp-arrow-shift: 5px;
     --size-lp-block-gap: 16px;
