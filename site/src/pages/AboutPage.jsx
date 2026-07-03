@@ -12,11 +12,11 @@ const INTRO_2 =
   "I approach design with a focus on clarity and real-world feasibility, identify challenges within user flows and refine interfaces through clear structure and iterative improvement. With a combined understanding of graphic design and development, I value delivering seamless, frustration-free digital experiences that go beyond aesthetics.";
 
 const LINKS = [
-  { label: "LinkedIn", href: "#" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/hajin-lee-ca" },
   { label: "Resume", href: "#" },
   { label: "Contact", href: "#" },
-  { label: "GitHub", href: "#" },
-  { label: "Instagram", href: "#" },
+  { label: "GitHub", href: "https://github.com/Jinontheclock" },
+  { label: "Instagram", href: "https://www.instagram.com/hj.archiv/" },
 ];
 
 const EDUCATION = [
