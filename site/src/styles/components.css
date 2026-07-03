@@ -110,21 +110,21 @@
     transform: none;
   }
 }
+/* unselected items rest muted; the current item and whatever is hovered
+   read at full strength */
 .glass-menu-item {
   all: unset;
   box-sizing: border-box;
   padding: 11px 22px;
   font: 400 15px/22px var(--font-ui);
   letter-spacing: 0.21px;
-  color: var(--text-primary);
+  color: var(--text-muted);
   cursor: pointer;
   transition: color var(--duration-fast) var(--easing);
 }
-.glass-menu-item:hover {
-  color: var(--text-secondary);
-}
+.glass-menu-item:hover,
 .glass-menu-item.is-current {
-  color: var(--text-muted);
+  color: var(--text-primary);
 }
 
 /* ── SiteHeader: pill dropdown + centered wordmark ── */
