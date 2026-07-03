@@ -39,19 +39,21 @@ body,
   color: var(--text-primary);
 }
 
+/* Two-column grid: texts in col 1 (sized by the widest, "About"), arrows
+   in col 2 — so both arrows align at the same x from the resting state.
+   Baseline alignment pins the arrow glyph (drawn at the bottom edge of
+   its transparent square canvas) to the text's baseline. */
 .lp-nav {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--size-lp-nav-gap);
+  display: grid;
+  grid-template-columns: max-content max-content;
+  column-gap: var(--size-lp-arrow-gap);
+  row-gap: var(--size-lp-nav-gap);
+  align-items: baseline;
+  justify-items: start;
 }
 
 .lp-navlink {
-  display: inline-flex;
-  /* The arrow glyph sits at the bottom edge of its transparent square
-     canvas, so baseline alignment pins it to the text's baseline. */
-  align-items: baseline;
-  gap: var(--size-lp-arrow-gap);
+  display: contents;
   text-decoration: none;
   cursor: pointer;
 }

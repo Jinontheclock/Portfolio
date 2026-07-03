@@ -24,7 +24,7 @@
   filter: brightness(0.96);
 }
 .pill-button.is-active {
-  background: var(--bg-muted);
+  background: var(--bg-subtle);
 }
 
 /* ── NavLink ── */
