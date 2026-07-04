@@ -27,7 +27,7 @@
 .ab-title {
   grid-column: 9 / 13;
   grid-row: 1;
-  margin: 0 0 24px;
+  margin: 0 0 8px;
   font: 400 var(--size-about-title) / 1.2 var(--font-ui);
   letter-spacing: -0.01em;
   color: var(--text-primary);
@@ -63,14 +63,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-}
-
-/* hero sentence directly under the name — larger than body, full ink */
-.ab-lead {
-  margin: 0 0 16px;
-  font: 400 var(--size-lead) / 1.5 var(--font-ui);
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
 }
 
 .ab-paragraph {
@@ -176,15 +168,19 @@
 .ab-skill-rows {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  gap: 8px;
+  font: 400 var(--size-body) / 1.5 var(--font-ui);
   color: var(--text);
 }
 
 .ab-skill-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 24px;
+  gap: 4px 14px;
+}
+/* first item is a fixed column so trailing items line up across rows */
+.ab-skill-row > span:first-child {
+  min-width: 96px;
 }
 
 /* ── Tablet: reclaim some of the empty middle ── */

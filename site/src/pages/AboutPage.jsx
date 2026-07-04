@@ -137,7 +137,7 @@ export default function AboutPage({ lang, setLang }) {
 
       <main className="ab-main">
         <div className="ab-grid ab-layout">
-          <h1 className="ab-title">Hajin Lee</h1>
+          <h1 className="ab-title">Hajin L.</h1>
 
           <nav className="ab-rail">
             {LINKS.map((l) => (
@@ -154,7 +154,7 @@ export default function AboutPage({ lang, setLang }) {
           </nav>
 
           <div className="ab-content">
-            <p className="ab-lead">{HERO}</p>
+            <p className="ab-paragraph">{HERO}</p>
             {BODY.map((para, i) => (
               <p key={i} className="ab-paragraph">
                 {para}
