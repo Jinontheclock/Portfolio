@@ -65,6 +65,14 @@
   gap: 24px;
 }
 
+/* hero sentence directly under the name — larger than body, full ink */
+.ab-lead {
+  margin: 0 0 16px;
+  font: 400 var(--size-lead) / 1.5 var(--font-ui);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
 .ab-paragraph {
   margin: 0;
   font: 400 var(--size-body) / 1.6 var(--font-ui);

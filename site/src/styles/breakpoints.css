@@ -21,6 +21,7 @@
   /* inner pages */
   --size-heading: 40px;
   --size-about-title: 48px; /* "Hajin Lee" */
+  --size-lead: 22px; /* hero sentence under the name */
   --size-section-label: 24px; /* Experiences / Education */
   --size-card-title: 28px; /* Work cards */
   --size-body: 16px;
@@ -33,6 +34,7 @@
 
     --size-heading: 36px;
     --size-about-title: 44px;
+    --size-lead: 21px;
     --size-section-label: 22px;
     --size-card-title: 26px;
   }
@@ -45,6 +47,7 @@
 
     --size-heading: 32px;
     --size-about-title: 38px;
+    --size-lead: 20px;
     --size-section-label: 20px;
     --size-card-title: 24px;
   }
@@ -57,6 +60,7 @@
 
     --size-heading: 28px;
     --size-about-title: 32px;
+    --size-lead: 18px;
     --size-section-label: 20px;
     --size-card-title: 22px;
     --size-body: 15px;

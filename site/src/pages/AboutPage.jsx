@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 
-const INTRO_1 =
-  "Originally from Seoul, I moved to Vancouver in 2024 to transition my career into UX/UI design.\n" +
-  "With professional experience in the Japanese retail industry, I developed a strong foundation in an experience-focused mindset and purposeful visual storytelling through visual merchandising. Shaped by diverse cultural experiences, I bring a flexible way of thinking into digital design.";
+const HERO =
+  "A Product Designer who uncovers user friction within complex environments and resolves it through clear structure and refined visual language.";
 
-const INTRO_2 =
-  "I approach design with a focus on clarity and real-world feasibility, identify challenges within user flows and refine interfaces through clear structure and iterative improvement.\n" +
-  "With a combined understanding of graphic design and development, I value delivering seamless, frustration-free digital experiences that go beyond aesthetics.";
+const BODY = [
+  "To me, great design means identifying the core friction of a challenge and guiding users intuitively to their goals. I analyze user pain points through a critical lens, creating the highest value when translating fragmented information into clear architecture and polished visuals.",
+  "In my recent projects, I focused on enhancing existing products by rebuilding layout systems to improve web usability and implementing new CTAs using custom code and libraries. On another project, I participated in the entire product lifecycle—spanning initial ideation, design, development, and marketing—to successfully launch a new service. Having experienced both sides, I can seamlessly adapt to any product cycle and agilely deliver the exact solutions the team needs.",
+  "I highly value the process of moving at the same pace and alignment with team members toward a shared vision. I believe our solutions become far more robust when we understand the languages of different functions and communicate with flexibility.",
+  "If you'd like to build clear, meaningful solutions together, or if you have an exciting opportunity, please feel free to reach out via email. Let's chat!",
+];
 
 const LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/hajin-lee-ca" },
@@ -152,8 +154,12 @@ export default function AboutPage({ lang, setLang }) {
           </nav>
 
           <div className="ab-content">
-            <p className="ab-paragraph">{INTRO_1}</p>
-            <p className="ab-paragraph">{INTRO_2}</p>
+            <p className="ab-lead">{HERO}</p>
+            {BODY.map((para, i) => (
+              <p key={i} className="ab-paragraph">
+                {para}
+              </p>
+            ))}
 
             <section className="ab-section">
               <h2 className="ab-section-label">Experience</h2>
