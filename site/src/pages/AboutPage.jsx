@@ -78,7 +78,7 @@ const SKILLS = [
       ["HTML/CSS", "Tailwind CSS"],
       ["JavaScript", "TypeScript"],
       ["React", "Next.js"],
-      ["Git/GitHub", "Next.js"],
+      ["Git/GitHub"],
       ["Vercel"],
     ],
   },
