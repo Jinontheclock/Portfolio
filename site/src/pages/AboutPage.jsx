@@ -124,7 +124,7 @@ function Entry({ entry }) {
   );
 }
 
-export default function AboutPage({ theme, setTheme, lang, setLang }) {
+export default function AboutPage({ lang, setLang }) {
   useEffect(() => {
     document.title = "About — HAJIN";
   }, []);
@@ -196,7 +196,7 @@ export default function AboutPage({ theme, setTheme, lang, setLang }) {
         </div>
       </main>
 
-      <SiteFooter theme={theme} setTheme={setTheme} lang={lang} setLang={setLang} />
+      <SiteFooter lang={lang} setLang={setLang} />
     </div>
   );
 }

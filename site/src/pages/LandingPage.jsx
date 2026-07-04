@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import LangSwitcher from "../components/LangSwitcher.jsx";
-import { THEME_LABELS } from "../i18n.js";
 import useFitText from "../hooks/useFitText.js";
 
 /* Long-tail arrow traced from the Figma asset: thick tail, head peaking
@@ -13,14 +12,12 @@ const ArrowIcon = () => (
   </svg>
 );
 
-export default function LandingPage({ theme, toggleTheme, lang, setLang }) {
+export default function LandingPage({ lang, setLang }) {
   const heroRef = useFitText();
 
   useEffect(() => {
     document.title = "HAJIN, Product Designer";
   }, []);
-
-  const themeLabel = `(${THEME_LABELS[lang][theme === "dark" ? "dark" : "light"]})`;
 
   return (
     <div className="lp-root">
@@ -38,9 +35,6 @@ export default function LandingPage({ theme, toggleTheme, lang, setLang }) {
         </nav>
       </div>
       <div className="lp-foot">
-        <span className="lp-theme-toggle" onClick={toggleTheme}>
-          {themeLabel}
-        </span>
         <LangSwitcher value={lang} onChange={setLang} />
       </div>
     </div>

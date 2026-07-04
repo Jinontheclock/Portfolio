@@ -11,7 +11,7 @@ const PROJECTS = Array.from({ length: 5 }, (_, i) => ({ id: `placeholder-${i + 1
 
 const SUMMARY = "Project Summary".repeat(6);
 
-export default function WorkPage({ theme, setTheme, lang, setLang }) {
+export default function WorkPage({ lang, setLang }) {
   const [filter, setFilter] = useState("All");
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function WorkPage({ theme, setTheme, lang, setLang }) {
         </div>
       </main>
 
-      <SiteFooter theme={theme} setTheme={setTheme} lang={lang} setLang={setLang} />
+      <SiteFooter lang={lang} setLang={setLang} />
     </div>
   );
 }

@@ -105,15 +105,6 @@ body,
   gap: 8px;
 }
 
-.lp-theme-toggle {
-  font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 1.4;
-  color: var(--text-primary);
-  cursor: pointer;
-  user-select: none;
-}
 
 .lang-switcher {
   display: flex;
