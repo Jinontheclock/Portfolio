@@ -4,12 +4,12 @@ import LangSwitcher from "../components/LangSwitcher.jsx";
 import { THEME_LABELS } from "../i18n.js";
 import useFitText from "../hooks/useFitText.js";
 
-/* Long-tail arrow traced from the Figma asset: thick tail, wedge head
-   growing toward the right. currentColor follows the theme. */
+/* Long-tail arrow traced from the Figma asset: thick tail, head peaking
+   at its left and tapering to the right tip. currentColor follows the theme. */
 const ArrowIcon = () => (
   <svg className="lp-arrow" viewBox="0 0 418 66" aria-hidden="true">
     <rect x="0" y="47" width="212" height="19" fill="currentColor" />
-    <path d="M209 47 L418 0 L418 66 L209 66 Z" fill="currentColor" />
+    <path d="M209 0 L418 66 L209 66 Z" fill="currentColor" />
   </svg>
 );
 
