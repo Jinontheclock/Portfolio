@@ -58,10 +58,43 @@ const EDUCATION = [
   },
 ];
 
-const STACKS = [
-  { label: "Design Stack", items: ["Figma", "After Effects", "Photoshop", "Illustrator", "InDesign"] },
-  { label: "Tech Stack", items: ["HTML", "CSS", "JavaScript", "React"] },
-  { label: "Productivity", items: ["Notion", "Slack", "Jira"] },
+// Rows render left-to-right with wrapping, per the Figma Skills frame
+const SKILLS = [
+  {
+    label: "Tools",
+    rows: [
+      ["Figma"],
+      ["Adobe", "InDesign", "Illustrator", "Photoshop", "AfterEffect"],
+      ["Microsoft Office"],
+      ["Google Suite"],
+      ["WordPress"],
+    ],
+  },
+  {
+    label: "Technical",
+    rows: [
+      ["HTML/CSS", "Tailwind CSS"],
+      ["JavaScript", "TypeScript"],
+      ["React", "Next.js"],
+      ["Git/GitHub", "Next.js"],
+      ["Vercel"],
+    ],
+  },
+  {
+    label: "Methods",
+    rows: [
+      ["User + Stakeholder Journey Mapping"],
+      ["Semi-structured Interviews"],
+      ["Experience Prototyping"],
+      ["Storyboarding"],
+      ["Wireframing"],
+      ["User Stories"],
+    ],
+  },
+  {
+    label: "Languages",
+    rows: [["Korean"], ["Japanese"], ["English"]],
+  },
 ];
 
 /** Head (title with the period right-aligned, then org) matches the Figma
@@ -142,13 +175,17 @@ export default function AboutPage({ theme, setTheme, lang, setLang }) {
 
             <section className="ab-section">
               <h2 className="ab-section-label">Skills</h2>
-              <div className="ab-stacks">
-                {STACKS.map((s) => (
-                  <div key={s.label} className="ab-stack-row">
-                    <span className="ab-stack-label">{s.label}</span>
-                    <div className="ab-stack-items">
-                      {s.items.map((item) => (
-                        <span key={item}>{item}</span>
+              <div className="ab-skills">
+                {SKILLS.map((group) => (
+                  <div key={group.label} className="ab-skill-group">
+                    <h3 className="ab-skill-label">{group.label}</h3>
+                    <div className="ab-skill-rows">
+                      {group.rows.map((row, i) => (
+                        <div key={i} className="ab-skill-row">
+                          {row.map((item) => (
+                            <span key={item}>{item}</span>
+                          ))}
+                        </div>
                       ))}
                     </div>
                   </div>
