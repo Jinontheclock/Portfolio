@@ -37,6 +37,9 @@ body,
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: var(--text-primary);
+  /* hang the H's measured left side bearing (0.09em in Spoqa 700) so its
+     ink starts exactly at the page margin, aligned with Work/About below */
+  text-indent: -0.09em;
 }
 
 /* Two-column grid: texts in col 1 (sized by the widest, "About"), arrows
@@ -65,6 +68,14 @@ body,
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--text-primary);
+}
+
+/* per-glyph ink compensation (measured left side bearings, Spoqa 400) */
+.lp-navlink:first-child .lp-navlink-text {
+  text-indent: -0.025em; /* W */
+}
+.lp-navlink:last-child .lp-navlink-text {
+  text-indent: -0.0025em; /* A */
 }
 
 .lp-arrow {
