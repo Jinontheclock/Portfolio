@@ -82,19 +82,15 @@ body,
   display: block;
   width: var(--size-lp-arrow);
   height: auto;
+  color: var(--text-primary);
   /* settles back to the resting spot when hover ends */
   transition: transform 200ms var(--easing);
 }
 
-/* Hover pushes the arrow out to its old (Figma) position, easing in */
+/* Hover pushes the arrow rightward, easing in */
 .lp-navlink:hover .lp-arrow {
   transform: translateX(var(--size-lp-arrow-shift));
   transition: transform 200ms ease-in;
-}
-
-:root[data-theme="dark"] .lp-arrow,
-.dark .lp-arrow {
-  filter: invert(1);
 }
 
 .lp-foot {

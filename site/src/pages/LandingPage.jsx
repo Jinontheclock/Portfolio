@@ -1,9 +1,17 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import LangSwitcher from "../components/LangSwitcher.jsx";
-import arrowDown from "../assets/arrow-down.png";
 import { THEME_LABELS } from "../i18n.js";
 import useFitText from "../hooks/useFitText.js";
+
+/* Long-tail arrow traced from the Figma asset: thick tail, wedge head
+   growing toward the right. currentColor follows the theme. */
+const ArrowIcon = () => (
+  <svg className="lp-arrow" viewBox="0 0 418 66" aria-hidden="true">
+    <rect x="0" y="47" width="212" height="19" fill="currentColor" />
+    <path d="M209 47 L418 0 L418 66 L209 66 Z" fill="currentColor" />
+  </svg>
+);
 
 export default function LandingPage({ theme, toggleTheme, lang, setLang }) {
   const heroRef = useFitText();
@@ -21,11 +29,11 @@ export default function LandingPage({ theme, toggleTheme, lang, setLang }) {
         <nav className="lp-nav">
           <Link to="/work" className="lp-navlink">
             <span className="lp-navlink-text">Work</span>
-            <img className="lp-arrow" src={arrowDown} alt="" />
+            <ArrowIcon />
           </Link>
           <Link to="/about" className="lp-navlink">
             <span className="lp-navlink-text">About</span>
-            <img className="lp-arrow" src={arrowDown} alt="" />
+            <ArrowIcon />
           </Link>
         </nav>
       </div>

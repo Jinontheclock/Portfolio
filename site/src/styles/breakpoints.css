@@ -12,8 +12,8 @@
   --size-hero: 120px;
   --size-lp-nav: 22px;
   --size-lp-arrow: 24px;
-  --size-lp-arrow-gap: 12px;
-  --size-lp-arrow-shift: 18px;
+  --size-lp-arrow-gap: 8px;
+  --size-lp-arrow-shift: 12px;
   --size-lp-block-gap: 48px;
   --size-lp-nav-gap: 16px;
 
@@ -31,8 +31,8 @@
     --size-hero: 100px;
     --size-lp-nav: 20px;
     --size-lp-arrow: 20px;
-    --size-lp-arrow-gap: 10px;
-    --size-lp-arrow-shift: 10px;
+    --size-lp-arrow-gap: 6px;
+    --size-lp-arrow-shift: 8px;
     --size-lp-block-gap: 32px;
     --size-lp-nav-gap: 12px;
 
@@ -49,8 +49,8 @@
     --size-hero: 64px;
     --size-lp-nav: 18px;
     --size-lp-arrow: 16px;
-    --size-lp-arrow-gap: 8px;
-    --size-lp-arrow-shift: 7px;
+    --size-lp-arrow-gap: 5px;
+    --size-lp-arrow-shift: 6px;
     --size-lp-block-gap: 24px;
     --size-lp-nav-gap: 6px;
 
@@ -69,8 +69,8 @@
     --size-hero: 32px;
     --size-lp-nav: 16px;
     --size-lp-arrow: 14px;
-    --size-lp-arrow-gap: 6px;
-    --size-lp-arrow-shift: 5px;
+    --size-lp-arrow-gap: 4px;
+    --size-lp-arrow-shift: 4px;
     --size-lp-block-gap: 16px;
     --size-lp-nav-gap: 4px;
 
