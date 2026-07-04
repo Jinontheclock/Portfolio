@@ -6,16 +6,17 @@
 
 :root {
   /* ── Desktop (Figma 1440 frame) ── */
-  --size-page-pad: 20px;
+  --size-page-pad: clamp(16px, 14.45px + 0.39vw, 20px); /* 16 → 20, fluid */
 
-  /* landing */
-  --size-hero: 120px;
-  --size-lp-nav: 22px;
-  --size-lp-arrow: 24px;
-  --size-lp-arrow-gap: 8px;
-  --size-lp-arrow-shift: 12px;
-  --size-lp-block-gap: 32px;
-  --size-lp-nav-gap: 16px;
+  /* landing — fluid between the 402px and 1440px anchors so nothing
+     jumps at breakpoints (the hero itself is fitted by JS) */
+  --size-hero: 120px; /* pre-JS fallback only */
+  --size-lp-nav: clamp(16px, 13.7px + 0.58vw, 22px); /* 16 → 22 */
+  --size-lp-arrow: clamp(14px, 10.1px + 0.96vw, 24px); /* 14 → 24 */
+  --size-lp-arrow-gap: clamp(4px, 2.45px + 0.39vw, 8px); /* 4 → 8 */
+  --size-lp-arrow-shift: clamp(4px, 0.9px + 0.77vw, 12px); /* 4 → 12 */
+  --size-lp-block-gap: clamp(12px, 2.22vw, 32px); /* 12 → 32 */
+  --size-lp-nav-gap: clamp(4px, 1.16vw - 0.65px, 16px); /* 4 → 16 */
 
   /* inner pages */
   --size-heading: 40px;
@@ -28,13 +29,7 @@
 /* ── Laptop (Figma 1280 frame) ── */
 @media (max-width: 1439px) {
   :root {
-    --size-hero: 100px;
-    --size-lp-nav: 20px;
-    --size-lp-arrow: 20px;
-    --size-lp-arrow-gap: 6px;
-    --size-lp-arrow-shift: 8px;
-    --size-lp-block-gap: 24px;
-    --size-lp-nav-gap: 12px;
+    --size-hero: 100px; /* pre-JS fallback only */
 
     --size-heading: 36px;
     --size-about-title: 44px;
@@ -46,13 +41,7 @@
 /* ── Tablet (Figma 834 frame) ── */
 @media (max-width: 1024px) {
   :root {
-    --size-hero: 64px;
-    --size-lp-nav: 18px;
-    --size-lp-arrow: 16px;
-    --size-lp-arrow-gap: 5px;
-    --size-lp-arrow-shift: 6px;
-    --size-lp-block-gap: 16px;
-    --size-lp-nav-gap: 6px;
+    --size-hero: 64px; /* pre-JS fallback only */
 
     --size-heading: 32px;
     --size-about-title: 38px;
@@ -64,15 +53,7 @@
 /* ── Mobile (Figma 402 frame) ── */
 @media (max-width: 600px) {
   :root {
-    --size-page-pad: 16px;
-
-    --size-hero: 32px;
-    --size-lp-nav: 16px;
-    --size-lp-arrow: 14px;
-    --size-lp-arrow-gap: 4px;
-    --size-lp-arrow-shift: 4px;
-    --size-lp-block-gap: 12px;
-    --size-lp-nav-gap: 4px;
+    --size-hero: 32px; /* pre-JS fallback only */
 
     --size-heading: 28px;
     --size-about-title: 32px;
