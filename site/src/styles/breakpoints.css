@@ -14,7 +14,7 @@
   --size-lp-arrow: 24px;
   --size-lp-arrow-gap: 8px;
   --size-lp-arrow-shift: 12px;
-  --size-lp-block-gap: 48px;
+  --size-lp-block-gap: 32px;
   --size-lp-nav-gap: 16px;
 
   /* inner pages */
@@ -33,7 +33,7 @@
     --size-lp-arrow: 20px;
     --size-lp-arrow-gap: 6px;
     --size-lp-arrow-shift: 8px;
-    --size-lp-block-gap: 32px;
+    --size-lp-block-gap: 24px;
     --size-lp-nav-gap: 12px;
 
     --size-heading: 36px;
@@ -51,7 +51,7 @@
     --size-lp-arrow: 16px;
     --size-lp-arrow-gap: 5px;
     --size-lp-arrow-shift: 6px;
-    --size-lp-block-gap: 24px;
+    --size-lp-block-gap: 16px;
     --size-lp-nav-gap: 6px;
 
     --size-heading: 32px;
@@ -71,7 +71,7 @@
     --size-lp-arrow: 14px;
     --size-lp-arrow-gap: 4px;
     --size-lp-arrow-shift: 4px;
-    --size-lp-block-gap: 16px;
+    --size-lp-block-gap: 12px;
     --size-lp-nav-gap: 4px;
 
     --size-heading: 28px;
