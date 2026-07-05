@@ -86,6 +86,10 @@ html.lp-locked body {
   line-height: round(calc(var(--size-lp-nav) * 1.25), 1px);
   letter-spacing: -0.01em;
   color: var(--text-primary);
+  /* enlarge the clickable/hover area without moving the glyphs: padding
+     grows the box, the matching negative margin pulls layout back */
+  padding: 16px 0 16px 12px;
+  margin: -16px 0 -16px -12px;
 }
 
 /* per-glyph ink compensation (measured left side bearings, Spoqa 400) */
@@ -98,9 +102,13 @@ html.lp-locked body {
 
 .lp-arrow {
   display: block;
+  box-sizing: content-box;
   width: var(--size-lp-arrow);
   height: auto;
   color: var(--text-primary);
+  /* extend the hit area around the arrow too (bridges the text→arrow gap) */
+  padding: 16px 12px;
+  margin: -16px -12px;
   /* settles back to the resting spot when hover ends */
   transition: transform 200ms var(--easing);
 }
