@@ -148,13 +148,20 @@ const SKILLS = [
 ];
 
 /** Head (title with the period right-aligned, then org) matches the Figma
- *  list format; clicking unfolds type + location and the description. */
+ *  list format; hovering unfolds type + location and the description, and a
+ *  click pins it open so it stays after the mouse leaves. */
 function Entry({ entry }) {
-  const [open, setOpen] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const open = pinned || hovered;
 
   return (
-    <div className="xp-entry">
-      <button type="button" className="xp-head" onClick={() => setOpen((o) => !o)}>
+    <div
+      className="xp-entry"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <button type="button" className="xp-head" onClick={() => setPinned((p) => !p)}>
         <span className="xp-row">
           <span>{entry.title}</span>
           <span className="xp-right">{entry.period}</span>

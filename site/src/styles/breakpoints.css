@@ -23,7 +23,10 @@
   --size-about-title: 48px; /* "Hajin Lee" */
   --size-section-label: 24px; /* Experiences / Education */
   --size-card-title: 28px; /* Work cards */
-  --size-body: 16px;
+  /* body/detail text on Work + About: fluid between the 402 and 1440
+     anchors so it steps subtly across mobile/tablet/laptop/desktop
+     (≈14 → 15 → 16.1 → 16.5) instead of holding one size everywhere */
+  --size-body: clamp(14px, 13.03px + 0.241vw, 16.5px);
 }
 
 /* ── Laptop (Figma 1280 frame) ── */
@@ -59,6 +62,6 @@
     --size-about-title: 32px;
     --size-section-label: 20px;
     --size-card-title: 22px;
-    --size-body: 15px;
+    /* --size-body stays fluid (clamps to 14px here) */
   }
 }
