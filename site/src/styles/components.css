@@ -62,14 +62,17 @@
 }
 .glass-menu-down {
   top: 100%;
-  /* pull left by the item padding so item text lines up with the trigger */
-  margin: 10px 0 0 -16px;
+  /* header pills carry 19px padding, so item text (19px in) already lines
+     up with the pill label — no horizontal shift needed */
+  margin: 10px 0 0 0;
   transform-origin: top left;
   animation: glass-menu-open-down 200ms ease-out;
 }
 .glass-menu-up {
   bottom: 100%;
-  margin: 0 0 10px -16px;
+  /* footer trigger is plain text at the margin, so pull the menu left by
+     the item padding to line item text up with it */
+  margin: 0 0 10px -19px;
   transform-origin: bottom left;
   animation: glass-menu-open-up 200ms ease-out;
 }
@@ -109,7 +112,7 @@
   all: unset;
   box-sizing: border-box;
   width: 100%;
-  padding: 11px 16px;
+  padding: 11px 19px;
   font: 400 15px/22px var(--font-ui);
   letter-spacing: 0.21px;
   color: var(--text-muted);
