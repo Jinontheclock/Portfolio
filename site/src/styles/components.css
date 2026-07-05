@@ -62,13 +62,14 @@
 }
 .glass-menu-down {
   top: 100%;
-  margin-top: 10px;
+  /* pull left by the item padding so item text lines up with the trigger */
+  margin: 10px 0 0 -16px;
   transform-origin: top left;
   animation: glass-menu-open-down 200ms ease-out;
 }
 .glass-menu-up {
   bottom: 100%;
-  margin-bottom: 10px;
+  margin: 0 0 10px -16px;
   transform-origin: bottom left;
   animation: glass-menu-open-up 200ms ease-out;
 }
@@ -108,7 +109,7 @@
   all: unset;
   box-sizing: border-box;
   width: 100%;
-  padding: 11px 22px;
+  padding: 11px 16px;
   font: 400 15px/22px var(--font-ui);
   letter-spacing: 0.21px;
   color: var(--text-muted);
