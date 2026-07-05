@@ -106,9 +106,10 @@ html.lp-locked body {
   width: var(--size-lp-arrow);
   height: auto;
   color: var(--text-primary);
-  /* extend the hit area around the arrow too (bridges the text→arrow gap) */
-  padding: 16px 12px;
-  margin: -16px -12px;
+  /* horizontal hit padding only — vertical padding would shift the arrow
+     off the text baseline (the row is already tall via the text padding) */
+  padding: 0 12px;
+  margin: 0 -12px;
   /* settles back to the resting spot when hover ends */
   transition: transform 200ms var(--easing);
 }
