@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import useFitToWidth from "../hooks/useFitToWidth.js";
+import useCanHover from "../hooks/useCanHover.js";
 
 /* Name and its H/이/イ left-side-bearing compensation, per language */
 const NAME = { en: "Hajin L.", ko: "이 하진", ja: "イ　ハジン" };
@@ -151,9 +152,11 @@ const SKILLS = [
  *  list format; hovering unfolds type + location and the description, and a
  *  click pins it open so it stays after the mouse leaves. */
 function Entry({ entry }) {
+  const canHover = useCanHover();
   const [pinned, setPinned] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const open = pinned || hovered;
+  // on touch, a tapped mouseenter sticks, so ignore hover and let taps toggle
+  const open = pinned || (canHover && hovered);
 
   return (
     <div

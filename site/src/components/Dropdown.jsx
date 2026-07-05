@@ -1,21 +1,32 @@
 import { useEffect, useRef, useState } from "react";
+import useCanHover from "../hooks/useCanHover.js";
+
+// dispatched when any dropdown opens so the others close themselves
+const CLOSE_ALL = "dropdown:closeall";
 
 /** Glass menu attached to any trigger, per the About design's Work/About
  *  dropdown. `direction="up"` opens above the trigger (for footer menus).
- *  Opens on hover; a click pins it open (stays open after the mouse leaves)
- *  until an item is chosen or a click lands outside. */
+ *  On a mouse device it opens on hover and a click pins it open; on touch
+ *  (no real hover) a tap toggles it open/closed. */
 export default function Dropdown({ renderTrigger, items, direction = "down" }) {
+  const canHover = useCanHover();
   const [pinned, setPinned] = useState(false);
   const [hovered, setHovered] = useState(false);
   const closeTimer = useRef(null);
-  const open = pinned || hovered;
+  // hover only counts on devices that can actually hover; on touch a tapped
+  // mouseenter sticks forever, so it must not keep the menu open
+  const open = pinned || (canHover && hovered);
 
-  // clicking outside closes a pinned menu
+  // while pinned: an outside click, or another dropdown opening, closes it
   useEffect(() => {
     if (!pinned) return;
     const close = () => setPinned(false);
     document.addEventListener("click", close);
-    return () => document.removeEventListener("click", close);
+    document.addEventListener(CLOSE_ALL, close);
+    return () => {
+      document.removeEventListener("click", close);
+      document.removeEventListener(CLOSE_ALL, close);
+    };
   }, [pinned]);
 
   useEffect(() => () => clearTimeout(closeTimer.current), []);
@@ -30,10 +41,13 @@ export default function Dropdown({ renderTrigger, items, direction = "down" }) {
   };
 
   const toggle = (e) => {
-    e.stopPropagation();
-    // close other open (pinned) menus, then pin this one
-    document.dispatchEvent(new Event("click"));
-    setPinned(true);
+    e.stopPropagation(); // keep the outside-click handler from double-firing
+    if (pinned) {
+      setPinned(false);
+    } else {
+      document.dispatchEvent(new Event(CLOSE_ALL)); // close any sibling menu
+      setPinned(true);
+    }
   };
 
   const close = () => {
