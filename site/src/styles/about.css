@@ -27,13 +27,11 @@
 .ab-title {
   grid-column: 9 / 13;
   grid-row: 1;
-  margin: 0 0 8px;
+  margin: 0 0 2px;
   font: 400 var(--size-about-title) / 1.2 var(--font-ui);
   letter-spacing: -0.01em;
   color: var(--text-primary);
-  /* hang the H's measured left side bearing (0.1em at weight 400) so its
-     ink aligns with the body text's left edge below */
-  text-indent: -0.1em;
+  /* text-indent (per-language H/이/イ LSB compensation) is set inline in JSX */
 }
 
 /* ── Left link rail ── */
@@ -159,7 +157,9 @@
 /* label in a left column, the item rows beside it on the right */
 .ab-skill-group {
   display: grid;
-  grid-template-columns: 110px 1fr;
+  /* minmax(0,1fr) stops a nowrap row from widening the items column;
+     it stays fixed so the fit row overflows it and gets scaled down */
+  grid-template-columns: 110px minmax(0, 1fr);
   column-gap: 24px;
   align-items: start;
 }
@@ -174,6 +174,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
   font: 400 var(--size-body) / 1.5 var(--font-ui);
   color: var(--text);
 }
@@ -186,6 +187,15 @@
 /* first item is a fixed column so trailing items line up across rows */
 .ab-skill-row > span:first-child {
   min-width: 96px;
+}
+/* the Adobe row stays on one line (font auto-fit via JS); no fixed column.
+   em-based gap scales with the fitted font so it never overflows */
+.ab-skill-row.is-fit {
+  flex-wrap: nowrap;
+  gap: 4px 0.75em;
+}
+.ab-skill-row.is-fit > span:first-child {
+  min-width: 0;
 }
 
 /* ── Tablet: reclaim some of the empty middle ── */
@@ -227,5 +237,9 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+  }
+  /* let the Adobe row wrap on mobile instead of shrinking */
+  .ab-skill-row.is-fit {
+    flex-wrap: wrap;
   }
 }

@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
+import useFitToWidth from "../hooks/useFitToWidth.js";
+
+/* Name and its H/이/イ left-side-bearing compensation, per language */
+const NAME = { en: "Hajin L.", ko: "이 하진", ja: "イ　ハジン" };
+const NAME_INDENT = { en: "-0.1em", ko: "-0.085em", ja: "-0.08em" };
 
 /* Hero sentence + body paragraphs per language */
 const ABOUT = {
@@ -70,7 +75,7 @@ const EXPERIENCES = [
     id: "welab",
     title: "UI/UX Designer",
     org: "WeLAB Entertainment",
-    period: "Mar 2026 – May 2026",
+    period: { en: "Mar 2026 – May 2026", ko: "2026년 3월 – 5월", ja: "2026年3月 – 5月" },
     type: "Internship",
     location: "Vancouver, Canada",
   },
@@ -78,7 +83,7 @@ const EXPERIENCES = [
     id: "muji",
     title: "Visual Merchandiser",
     org: "MUJI Japan",
-    period: "Apr 2022 – Sep 2024",
+    period: { en: "Apr 2022 – Sep 2024", ko: "2022년 4월 – 2024년 9월", ja: "2022年4月 – 2024年9月" },
     type: "Full-time",
     location: "Tokyo, Japan",
   },
@@ -89,7 +94,7 @@ const EDUCATION = [
     id: "bcit",
     title: "Digital Design and Development",
     org: "British Columbia Institute of Technology",
-    period: "Jun 2026",
+    period: { en: "Jun 2026", ko: "2026년 6월", ja: "2026年6月" },
     type: "Diploma",
     location: "Burnaby, Canada",
   },
@@ -97,7 +102,7 @@ const EDUCATION = [
     id: "inha",
     title: "Fashion Design and Textiles",
     org: "Inha University",
-    period: "Feb 2022",
+    period: { en: "Feb 2022", ko: "2022년 2월", ja: "2022年2月" },
     type: "Bachelor's Degree",
     location: "Incheon, Korea",
   },
@@ -109,7 +114,7 @@ const SKILLS = [
     label: "Tools",
     rows: [
       ["Figma"],
-      ["Adobe", "InDesign", "Illustrator", "Photoshop", "AfterEffect"],
+      { items: ["Adobe", "InDesign", "Illustrator", "Photoshop", "AfterEffect"], fit: true },
       ["Microsoft Office"],
       ["Google Suite"],
       ["WordPress"],
@@ -169,6 +174,18 @@ function Entry({ entry }) {
   );
 }
 
+/** A skill row; `fit` rows scale their font to stay on one line. */
+function SkillRow({ items, fit }) {
+  const ref = useFitToWidth(fit ? 16 : null);
+  return (
+    <div ref={ref} className={"ab-skill-row" + (fit ? " is-fit" : "")}>
+      {items.map((item) => (
+        <span key={item}>{item}</span>
+      ))}
+    </div>
+  );
+}
+
 export default function AboutPage({ lang, setLang }) {
   useEffect(() => {
     document.title = "About — HAJIN";
@@ -176,7 +193,11 @@ export default function AboutPage({ lang, setLang }) {
 
   const about = ABOUT[lang] || ABOUT.en;
   const withDesc = (list) =>
-    list.map((e) => ({ ...e, description: DESCRIPTIONS[e.id][lang] || DESCRIPTIONS[e.id].en }));
+    list.map((e) => ({
+      ...e,
+      period: e.period[lang] || e.period.en,
+      description: DESCRIPTIONS[e.id][lang] || DESCRIPTIONS[e.id].en,
+    }));
 
   return (
     <div className="ab-root">
@@ -184,7 +205,9 @@ export default function AboutPage({ lang, setLang }) {
 
       <main className="ab-main">
         <div className="ab-grid ab-layout">
-          <h1 className="ab-title">Hajin L.</h1>
+          <h1 className="ab-title" style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}>
+            {NAME[lang] || NAME.en}
+          </h1>
 
           <nav className="ab-rail">
             {LINKS.map((l) => (
@@ -233,13 +256,11 @@ export default function AboutPage({ lang, setLang }) {
                   <div key={group.label} className="ab-skill-group">
                     <h3 className="ab-skill-label">{group.label}</h3>
                     <div className="ab-skill-rows">
-                      {group.rows.map((row, i) => (
-                        <div key={i} className="ab-skill-row">
-                          {row.map((item) => (
-                            <span key={item}>{item}</span>
-                          ))}
-                        </div>
-                      ))}
+                      {group.rows.map((row, i) => {
+                        const items = Array.isArray(row) ? row : row.items;
+                        const fit = !Array.isArray(row) && row.fit;
+                        return <SkillRow key={i} items={items} fit={fit} />;
+                      })}
                     </div>
                   </div>
                 ))}
