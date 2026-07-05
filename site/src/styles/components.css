@@ -124,7 +124,7 @@
 
 /* ── SiteHeader: pill dropdown + centered wordmark ── */
 /* sticks to the top of the viewport on every screen so Work/All stay
-   reachable while scrolling; solid bg hides content passing underneath */
+   reachable while scrolling */
 .site-header {
   position: sticky;
   top: 0;
@@ -132,8 +132,7 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  padding: 20px var(--page-margin) 12px;
-  background: var(--bg);
+  padding: 20px var(--page-margin) 0;
 }
 .site-wordmark {
   position: absolute;
