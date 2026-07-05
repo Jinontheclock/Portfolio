@@ -145,6 +145,7 @@
 }
 .xp-desc {
   margin: 20px 0 0;
+  white-space: pre-line;
 }
 
 /* Skills — four subsections, rows of items flowing left-to-right */
