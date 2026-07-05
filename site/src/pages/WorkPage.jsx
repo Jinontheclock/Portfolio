@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import Dropdown from "../components/Dropdown.jsx";
@@ -34,14 +35,14 @@ export default function WorkPage({ lang, setLang }) {
       <main className="wk-main">
         <div className="wk-list">
           {PROJECTS.map((p) => (
-            <div key={p.id} className="ab-grid wk-card">
+            <Link key={p.id} to={`/work/${p.id}`} className="ab-grid wk-card wk-card-link">
               <div className="wk-text">
                 <span className="wk-title">Project Title</span>
                 <span className="wk-desc">{SUMMARY}</span>
                 <span className="wk-specs">Project specs</span>
               </div>
               <div className="wk-image" aria-hidden="true"></div>
-            </div>
+            </Link>
           ))}
         </div>
       </main>

@@ -7,6 +7,7 @@ import "./styles/landing.css";
 import "./styles/components.css";
 import "./styles/about.css";
 import "./styles/work.css";
+import "./styles/casestudy.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

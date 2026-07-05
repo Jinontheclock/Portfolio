@@ -1,0 +1,160 @@
+/* Case study / project detail page — from the Figma "Case Studies" frame.
+   Asymmetric two-column layout on the 12-col grid: title + table of contents
+   on the left, the scrolling content (intro, meta, image, body sections) on
+   the right. Placeholder content lives in CaseStudyPage.jsx. */
+
+.cs-main {
+  flex: 1;
+  box-sizing: border-box;
+  padding: 84px 0 96px;
+}
+
+.cs-grid {
+  row-gap: 40px;
+}
+
+/* ── Title (left, row 1) ── */
+.cs-title {
+  grid-column: 2 / 8;
+  grid-row: 1;
+  margin: 0;
+  font: 700 var(--size-card-title) / 1.2 var(--font-ui);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* ── Table of contents (left, row 2) ── */
+.cs-toc {
+  grid-column: 2 / 6;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cs-toc-item {
+  font: 400 var(--size-body) / 1.9 var(--font-ui);
+  color: var(--text);
+}
+
+/* ── Right content column (row 2) ── */
+.cs-content {
+  grid-column: 7 / 13;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cs-paragraph {
+  margin: 0;
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  color: var(--text);
+}
+
+/* ── Meta block (two key/value groups side by side) ── */
+.cs-meta {
+  margin-top: 40px;
+  display: flex;
+  gap: 40px;
+}
+
+.cs-meta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cs-meta-row {
+  display: grid;
+  grid-template-columns: 68px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.cs-meta-label {
+  font: 400 13px / 1.7 var(--font-ui);
+  color: var(--text-muted);
+}
+
+.cs-meta-values {
+  display: flex;
+  flex-direction: column;
+  font: 400 13px / 1.7 var(--font-ui);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* ── Placeholder image ── */
+.cs-image {
+  margin-top: 40px;
+  width: 100%;
+  aspect-ratio: 5 / 2;
+  background: var(--surface-placeholder);
+}
+
+/* ── Body sections ── */
+.cs-sections {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.cs-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs-section-title {
+  margin: 0;
+  font: 700 var(--size-body) / 1.5 var(--font-ui);
+  color: var(--text-primary);
+}
+
+/* ── Tablet: pull both columns toward the edges ── */
+@media (max-width: 1024px) {
+  .cs-title {
+    grid-column: 1 / 6;
+  }
+  .cs-toc {
+    grid-column: 1 / 5;
+  }
+  .cs-content {
+    grid-column: 6 / 13;
+  }
+}
+
+/* ── Mobile: stack title, TOC, then content ── */
+@media (max-width: 600px) {
+  .cs-main {
+    padding: 48px 0 64px;
+  }
+  .cs-grid {
+    padding: 0 20px;
+    row-gap: 28px;
+  }
+  .cs-title {
+    grid-column: 1 / 13;
+    grid-row: 1;
+  }
+  .cs-toc {
+    grid-column: 1 / 13;
+    grid-row: 2;
+  }
+  .cs-content {
+    grid-column: 1 / 13;
+    grid-row: 3;
+  }
+  /* stack the two meta groups so long tool names don't overflow the width */
+  .cs-meta {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

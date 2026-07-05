@@ -17,6 +17,25 @@
   padding: 48px 0 96px;
 }
 
+/* cards are links to the case-study detail page */
+.wk-card-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.wk-card-link .wk-image,
+.wk-card-link .wk-title {
+  transition:
+    opacity var(--duration-fast) var(--easing),
+    filter var(--duration-fast) var(--easing);
+}
+.wk-card-link:hover .wk-image {
+  filter: brightness(0.97);
+}
+.wk-card-link:hover .wk-title {
+  opacity: 0.6;
+}
+
 .wk-text {
   grid-column: 5 / 8;
   display: flex;
