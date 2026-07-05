@@ -46,6 +46,12 @@
   /* all work/about image placeholders are 3:2 (width 3 : height 2) */
   aspect-ratio: 3 / 2;
   background: var(--surface-placeholder);
+  /* fill the column, but stop growing past the Desktop-1440 size (~563px)
+     on wider screens; margin-left:auto anchors the capped box to the right
+     page margin so it stays aligned with the layout edge */
+  width: 100%;
+  max-width: 564px;
+  margin-left: auto;
 }
 
 /* ── Tablet: reclaim the empty left third ── */
