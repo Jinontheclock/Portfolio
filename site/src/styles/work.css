@@ -58,7 +58,7 @@
   }
 }
 
-/* ── Mobile: stack text above image ── */
+/* ── Mobile: image above text, both indented from the left (Figma grid) ── */
 @media (max-width: 600px) {
   .wk-list {
     gap: 48px;
@@ -66,9 +66,14 @@
   }
   .wk-card {
     row-gap: 16px;
+    column-gap: 0; /* 12 equal columns fit the narrow width */
   }
-  .wk-text,
   .wk-image {
-    grid-column: 1 / 13;
+    grid-column: 3 / 13;
+    grid-row: 1;
+  }
+  .wk-text {
+    grid-column: 3 / 13;
+    grid-row: 2;
   }
 }
