@@ -12,7 +12,9 @@
   border-radius: var(--radius-pill-inner);
   background: var(--pill-bg);
   opacity: 0.96;
-  font: 400 var(--text-pill) / 20px var(--font-ui);
+  /* label matches the dropdown menu items (15px / 0.21px) so the collapsed
+     trigger reads identically to the selected value in the open menu */
+  font: 400 15px / 20px var(--font-ui);
   letter-spacing: 0.21px;
   color: var(--pill-text);
   cursor: pointer;
@@ -197,7 +199,10 @@
   white-space: nowrap; /* stays one line (font auto-fits when tight) */
 }
 .site-footer-toggle {
-  font: 400 14px/14px var(--font-ui);
+  /* identical to the glass menu items (15px / 0.21px) so the collapsed
+     language trigger matches the selected value in the open drop-up */
+  font: 400 15px/16px var(--font-ui);
+  letter-spacing: 0.21px;
   color: var(--text-primary);
   cursor: pointer;
   user-select: none;
