@@ -184,9 +184,10 @@ function Entry({ entry }) {
   );
 }
 
-/** A skill row; `fit` rows scale their font to stay on one line. */
+/** A skill row; `fit` rows scale their font to stay on one line (on every
+ *  screen, including mobile, now that Skills uses the label-left layout). */
 function SkillRow({ items, fit }) {
-  const ref = useFitToWidth(fit ? 16 : null, { skipMobile: true });
+  const ref = useFitToWidth(fit ? 16 : null);
   return (
     <div ref={ref} className={"ab-skill-row" + (fit ? " is-fit" : "")}>
       {items.map((item) => (
@@ -201,6 +202,8 @@ export default function AboutPage({ lang, setLang }) {
     document.title = "About — HAJIN";
   }, []);
 
+  // on mobile the rail is a single row above the name; shrink to fit one line
+  const railRef = useFitToWidth(12);
   const about = ABOUT[lang] || ABOUT.en;
   const withDesc = (list) =>
     list.map((e) => ({
@@ -219,7 +222,7 @@ export default function AboutPage({ lang, setLang }) {
             {NAME[lang] || NAME.en}
           </h1>
 
-          <nav className="ab-rail">
+          <nav className="ab-rail" ref={railRef}>
             {LINKS.map((l) => (
               <a
                 key={l.label}

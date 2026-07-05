@@ -194,7 +194,11 @@
   flex-wrap: nowrap;
   gap: 4px 0.75em;
 }
-.ab-skill-row.is-fit > span:first-child {
+/* don't let flexbox shrink the items — otherwise the first one collapses to
+   fit the column and clips, and scrollWidth (which the font-fit reads) never
+   reports overflow. Keeping natural widths lets useFitToWidth scale the font. */
+.ab-skill-row.is-fit > span {
+  flex: 0 0 auto;
   min-width: 0;
 }
 
@@ -209,7 +213,7 @@
   }
 }
 
-/* ── Mobile: single column — title, links row, then content ── */
+/* ── Mobile: single column — links row, name, then content ── */
 @media (max-width: 600px) {
   .ab-main {
     padding: 48px 0 64px;
@@ -222,24 +226,30 @@
   .ab-content {
     grid-column: 1 / 13;
   }
+  /* link rail sits above the name as a single row; the em gap scales with
+     the font so useFitToWidth can shrink the whole line to fit narrow phones */
   .ab-rail {
-    grid-row: 2;
+    grid-row: 1;
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 12px 20px;
-    margin-bottom: 32px;
+    flex-wrap: nowrap;
+    gap: 0.9em;
+    margin-bottom: 24px;
+  }
+  .ab-rail-link {
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .ab-title {
+    grid-row: 2;
+    margin-bottom: 20px;
   }
   .ab-content {
     grid-row: 3;
   }
-  /* stacked skills (label above items) on mobile */
+  /* Skills keeps the label-left layout on mobile (like the other tiers);
+     narrow the label column so the item column gets more room */
   .ab-skill-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  /* let the Adobe row wrap on mobile instead of shrinking */
-  .ab-skill-row.is-fit {
-    flex-wrap: wrap;
+    grid-template-columns: 84px minmax(0, 1fr);
+    column-gap: 16px;
   }
 }
