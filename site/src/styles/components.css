@@ -107,10 +107,12 @@
 .glass-menu-item {
   all: unset;
   box-sizing: border-box;
+  width: 100%;
   padding: 11px 22px;
   font: 400 15px/22px var(--font-ui);
   letter-spacing: 0.21px;
   color: var(--text-muted);
+  text-align: left;
   cursor: pointer;
   transition: color var(--duration-fast) var(--easing);
 }
