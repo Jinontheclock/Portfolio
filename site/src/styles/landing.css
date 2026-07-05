@@ -8,6 +8,13 @@ body,
   height: 100%;
 }
 
+/* Kill the overscroll (rubber-band) bounce on every page while keeping
+   normal scrolling on About/Work */
+html,
+body {
+  overscroll-behavior: none;
+}
+
 /* Landing fits one screen — fully lock scrolling and the overscroll
    bounce so the hero and nav never move */
 html.lp-locked,

@@ -176,7 +176,7 @@ function Entry({ entry }) {
 
 /** A skill row; `fit` rows scale their font to stay on one line. */
 function SkillRow({ items, fit }) {
-  const ref = useFitToWidth(fit ? 16 : null);
+  const ref = useFitToWidth(fit ? 16 : null, { skipMobile: true });
   return (
     <div ref={ref} className={"ab-skill-row" + (fit ? " is-fit" : "")}>
       {items.map((item) => (

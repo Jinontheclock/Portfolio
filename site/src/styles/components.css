@@ -145,6 +145,10 @@
 /* Mobile: stack the header pills vertically and open their menus to the
    right (there's horizontal room; vertical is tight) */
 @media (max-width: 600px) {
+  /* header/footer gutters match the content grid (20px) on mobile */
+  :root {
+    --page-margin: 20px;
+  }
   .site-header {
     flex-direction: column;
   }
@@ -154,6 +158,16 @@
     margin: 0 0 0 10px;
     transform-origin: top left;
     animation-name: glass-menu-open-right;
+  }
+  /* stack the footer so the copyright gets the full width for one line */
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .site-footer-copy {
+    width: 100%;
+    text-align: left;
   }
 }
 
@@ -172,8 +186,9 @@
 }
 .site-footer-copy {
   font: 400 12px/16px var(--font-ui);
-  color: var(--text-faint);
+  color: var(--grey-300); /* one step lighter — less noticeable */
   text-align: right;
+  white-space: nowrap; /* stays one line (font auto-fits when tight) */
 }
 .site-footer-toggle {
   font: 400 14px/14px var(--font-ui);

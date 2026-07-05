@@ -3,7 +3,7 @@ import { useLayoutEffect, useRef } from "react";
 /** Scales a single nowrap line's font down so it fits its container width,
  *  never larger than maxPx. Used for the Adobe tool row, which is wider than
  *  the narrow Skills column at body size. Refits on resize and font load. */
-export default function useFitToWidth(maxPx) {
+export default function useFitToWidth(maxPx, { skipMobile = false } = {}) {
   const ref = useRef(null);
 
   useLayoutEffect(() => {
@@ -12,8 +12,8 @@ export default function useFitToWidth(maxPx) {
 
     const fit = () => {
       el.style.fontSize = maxPx + "px";
-      // On mobile the row is allowed to wrap (stacked layout), so don't shrink
-      if (window.innerWidth <= 600) return;
+      // some rows are allowed to wrap on mobile instead of shrinking
+      if (skipMobile && window.innerWidth <= 600) return;
       const avail = el.clientWidth;
       const content = el.scrollWidth;
       if (content > avail && content > 0) {
@@ -26,7 +26,7 @@ export default function useFitToWidth(maxPx) {
     if (document.fonts?.ready) document.fonts.ready.then(fit);
     window.addEventListener("resize", fit);
     return () => window.removeEventListener("resize", fit);
-  }, [maxPx]);
+  }, [maxPx, skipMobile]);
 
   return ref;
 }
