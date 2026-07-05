@@ -1,6 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
+import TryAppModal from "../components/TryAppModal.jsx";
+
+// ProLog is exported to the Portfolio under /prolog/ (see site/public/prolog)
+const PROLOG_SRC = `${import.meta.env.BASE_URL}prolog/`;
 
 /* Placeholder case-study content, transcribed from the Figma "Case Studies"
    frame (ProLog). This is a reusable template — every Work card points here
@@ -80,6 +84,8 @@ function MetaGroup({ rows }) {
 }
 
 export default function CaseStudyPage({ lang, setLang }) {
+  const [demoOpen, setDemoOpen] = useState(false);
+
   useEffect(() => {
     document.title = `${TITLE} — HAJIN`;
   }, []);
@@ -124,11 +130,22 @@ export default function CaseStudyPage({ lang, setLang }) {
                 </div>
               ))}
             </div>
+
+            <div className="cs-tryapp">
+              <button type="button" className="cs-tryapp-btn" onClick={() => setDemoOpen(true)}>
+                Try app! <span className="cs-tryapp-arrow" aria-hidden="true">↗</span>
+              </button>
+              <span className="cs-tryapp-note">
+                Runs the real app right here — no install needed.
+              </span>
+            </div>
           </div>
         </div>
       </main>
 
       <SiteFooter lang={lang} setLang={setLang} />
+
+      <TryAppModal open={demoOpen} onClose={() => setDemoOpen(false)} src={PROLOG_SRC} title={TITLE} />
     </div>
   );
 }
