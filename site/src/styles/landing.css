@@ -50,7 +50,9 @@ body,
   display: grid;
   grid-template-columns: max-content max-content;
   column-gap: var(--size-lp-arrow-gap);
-  row-gap: var(--size-lp-nav-gap);
+  /* integer row-gap so the two rows are a whole number of pixels apart —
+     keeps both arrows on the same sub-pixel grid, hence pixel-identical */
+  row-gap: round(var(--size-lp-nav-gap), 1px);
   align-items: baseline;
   justify-items: start;
 }
@@ -65,7 +67,8 @@ body,
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: var(--size-lp-nav);
-  line-height: 1.25;
+  /* integer line box so each nav row is a whole number of pixels tall */
+  line-height: round(calc(var(--size-lp-nav) * 1.25), 1px);
   letter-spacing: -0.01em;
   color: var(--text-primary);
 }

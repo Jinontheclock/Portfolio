@@ -43,7 +43,8 @@
 
 .wk-image {
   grid-column: 8 / 13;
-  height: 328px;
+  /* all work/about image placeholders are 3:2 (width 3 : height 2) */
+  aspect-ratio: 3 / 2;
   background: var(--surface-placeholder);
 }
 
@@ -69,9 +70,5 @@
   .wk-text,
   .wk-image {
     grid-column: 1 / 13;
-  }
-  .wk-image {
-    height: auto;
-    aspect-ratio: 625 / 328;
   }
 }
