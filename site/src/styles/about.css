@@ -241,7 +241,7 @@
   }
   .ab-title {
     grid-row: 2;
-    margin-bottom: 20px;
+    margin-bottom: 0;
   }
   .ab-content {
     grid-row: 3;
