@@ -19,6 +19,12 @@ export default function LandingPage({ lang, setLang }) {
     document.title = "HAJIN, Product Designer";
   }, []);
 
+  // Lock scroll/overscroll while on the landing page so it can't rubber-band
+  useEffect(() => {
+    document.documentElement.classList.add("lp-locked");
+    return () => document.documentElement.classList.remove("lp-locked");
+  }, []);
+
   return (
     <div className="lp-root">
       <div className="lp-hero">

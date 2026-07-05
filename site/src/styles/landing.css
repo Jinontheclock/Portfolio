@@ -8,6 +8,14 @@ body,
   height: 100%;
 }
 
+/* Landing fits one screen — fully lock scrolling and the overscroll
+   bounce so the hero and nav never move */
+html.lp-locked,
+html.lp-locked body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 .lp-root {
   min-height: 100dvh;
   box-sizing: border-box;
