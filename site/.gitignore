@@ -2,3 +2,9 @@ node_modules
 dist
 .DS_Store
 _*.mjs
+
+# The ProLog web demo is a committed build; keep its bundled vector-icon
+# fonts even though they live under a node_modules path (otherwise every
+# icon renders as a missing-glyph box on the deployed site).
+!public/prolog/assets/node_modules/
+!public/prolog/assets/node_modules/**
