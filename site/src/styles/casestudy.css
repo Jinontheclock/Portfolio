@@ -184,7 +184,7 @@
   animation: tryapp-rise 220ms var(--easing);
 }
 .tryapp-head {
-  width: min(390px, 92vw);
+  width: min(422px, 92vw);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -214,13 +214,17 @@
 .tryapp-close:hover {
   background: rgba(250, 250, 250, 0.28);
 }
+/* iPhone 17: 402×874 pt viewport + 11px bezel each side. aspect-ratio keeps
+   the shape; height caps to the smaller of the full size, the viewport
+   height, or what the width (92vw) allows — so it stays iPhone-17-proportioned
+   and hits true size on a roomy screen, scaling down proportionally when tight. */
 .tryapp-phone {
   box-sizing: border-box;
-  width: min(390px, 92vw);
-  height: min(800px, 78vh);
-  padding: 10px;
+  aspect-ratio: 424 / 896;
+  height: min(896px, 88vh, 92vw * 2.1132);
+  padding: 11px;
   background: #0f0f0f;
-  border-radius: 44px;
+  border-radius: 52px;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
 }
 .tryapp-frame {
