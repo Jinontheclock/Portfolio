@@ -188,11 +188,15 @@
 .ab-skill-row > span:first-child {
   min-width: 96px;
 }
-/* the Adobe row: "Adobe" sits in the fixed lead column and the products
+/* the Adobe row: "Adobe" sits in a narrow lead column and the products
    flow beside it at body size — when they don't fit one line they wrap,
    and wrapped lines align under the first product (never under Adobe) */
 .ab-skill-row.is-lead {
   flex-wrap: nowrap;
+}
+/* tighter lead column than the default 96px so Adobe→InDesign reads close */
+.ab-skill-row.is-lead > span:first-child {
+  min-width: 4em;
 }
 .ab-skill-rest {
   flex: 1;
@@ -253,15 +257,6 @@
     grid-template-columns: 84px minmax(0, 1fr);
     column-gap: 16px;
   }
-  /* the Adobe row flattens on mobile: items flow full-width in wrap order
-     (Adobe InDesign Illustrator / Photoshop AfterEffect) at body size */
-  .ab-skill-row.is-lead {
-    flex-wrap: wrap;
-  }
-  .ab-skill-row.is-lead > span:first-child {
-    min-width: 0;
-  }
-  .ab-skill-rest {
-    display: contents;
-  }
+  /* the Adobe row keeps the lead-column structure on mobile too, so the
+     wrapped second line left-aligns with InDesign */
 }
