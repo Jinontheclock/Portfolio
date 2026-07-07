@@ -2,36 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
-
-// Real project list; descriptions are placeholders until each case study
-// gets its own copy.
-const PROJECTS = [
-  {
-    id: "prolog",
-    title: "ProLog",
-    description:
-      "A mobile app that turns fragmented apprenticeship records into one clear roadmap for neurodivergent tradespeople",
-    roles: "Product Design, Research, Branding",
-  },
-  {
-    id: "tinypaws",
-    title: "TinyPaws",
-    description: "A short one- or two-line summary of the project and the problem it set out to solve.",
-    roles: "Product Design, Development",
-  },
-  {
-    id: "compass-card",
-    title: "Compass Card",
-    description: "A short one- or two-line summary of the project and the problem it set out to solve.",
-    roles: "Product Design, Development",
-  },
-  {
-    id: "welab",
-    title: "WeLAB Entertainment",
-    description: "A short one- or two-line summary of the project and the problem it set out to solve.",
-    roles: "Product Design, Development",
-  },
-];
+import { PROJECTS } from "../data/projects.js";
 
 export default function WorkPage({ lang, setLang }) {
   useEffect(() => {
