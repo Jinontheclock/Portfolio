@@ -188,18 +188,18 @@
 .ab-skill-row > span:first-child {
   min-width: 96px;
 }
-/* the Adobe row stays on one line (font auto-fit via JS); no fixed column.
-   em-based gap scales with the fitted font so it never overflows */
-.ab-skill-row.is-fit {
+/* the Adobe row: "Adobe" sits in the fixed lead column and the products
+   flow beside it at body size — when they don't fit one line they wrap,
+   and wrapped lines align under the first product (never under Adobe) */
+.ab-skill-row.is-lead {
   flex-wrap: nowrap;
-  gap: 4px 0.75em;
 }
-/* don't let flexbox shrink the items — otherwise the first one collapses to
-   fit the column and clips, and scrollWidth (which the font-fit reads) never
-   reports overflow. Keeping natural widths lets useFitToWidth scale the font. */
-.ab-skill-row.is-fit > span {
-  flex: 0 0 auto;
+.ab-skill-rest {
+  flex: 1;
   min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
 }
 
 /* ── Tablet: reclaim some of the empty middle ── */
@@ -253,10 +253,15 @@
     grid-template-columns: 84px minmax(0, 1fr);
     column-gap: 16px;
   }
-  /* the Adobe row wraps onto two lines at body size on mobile (same size
-     and gaps as every other skill row) instead of shrinking its font */
-  .ab-skill-row.is-fit {
+  /* the Adobe row flattens on mobile: items flow full-width in wrap order
+     (Adobe InDesign Illustrator / Photoshop AfterEffect) at body size */
+  .ab-skill-row.is-lead {
     flex-wrap: wrap;
-    gap: 6px 16px;
+  }
+  .ab-skill-row.is-lead > span:first-child {
+    min-width: 0;
+  }
+  .ab-skill-rest {
+    display: contents;
   }
 }

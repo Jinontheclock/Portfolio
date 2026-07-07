@@ -184,12 +184,26 @@ function Entry({ entry }) {
   );
 }
 
-/** A skill row; `fit` rows scale their font to stay on one line on larger
- *  screens, and wrap at body size (like every other row) on mobile. */
+/** A skill row at body size. `fit` rows (Adobe tools) put the first item in
+ *  the fixed lead column and flow the rest beside it — wrapped lines align
+ *  under the first product (InDesign/Photoshop share a left edge), never
+ *  shrinking the font. */
 function SkillRow({ items, fit }) {
-  const ref = useFitToWidth(fit ? 16 : null, { skipMobile: true });
+  if (fit) {
+    const [lead, ...rest] = items;
+    return (
+      <div className="ab-skill-row is-lead">
+        <span>{lead}</span>
+        <span className="ab-skill-rest">
+          {rest.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </span>
+      </div>
+    );
+  }
   return (
-    <div ref={ref} className={"ab-skill-row" + (fit ? " is-fit" : "")}>
+    <div className="ab-skill-row">
       {items.map((item) => (
         <span key={item}>{item}</span>
       ))}
