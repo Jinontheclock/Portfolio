@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
-import Dropdown from "../components/Dropdown.jsx";
-import PillButton from "../components/PillButton.jsx";
 
-const CATEGORIES = ["All", "Product", "UI/UX", "Graphic"];
-
-// Top project is the real ProLog case study; the rest stay as placeholders
-// until their case studies land.
+// Real project list; descriptions are placeholders until each case study
+// gets its own copy.
 const PROJECTS = [
   {
     id: "prolog",
@@ -17,33 +13,34 @@ const PROJECTS = [
       "A mobile app that turns fragmented apprenticeship records into one clear roadmap for neurodivergent tradespeople",
     roles: "Product Design, Research, Branding",
   },
-  ...Array.from({ length: 3 }, (_, i) => ({
-    id: `placeholder-${i + 1}`,
-    title: "Project Title",
+  {
+    id: "tinypaws",
+    title: "TinyPaws",
     description: "A short one- or two-line summary of the project and the problem it set out to solve.",
     roles: "Product Design, Development",
-  })),
+  },
+  {
+    id: "compass-card",
+    title: "Compass Card",
+    description: "A short one- or two-line summary of the project and the problem it set out to solve.",
+    roles: "Product Design, Development",
+  },
+  {
+    id: "welab",
+    title: "WeLAB Entertainment",
+    description: "A short one- or two-line summary of the project and the problem it set out to solve.",
+    roles: "Product Design, Development",
+  },
 ];
 
 export default function WorkPage({ lang, setLang }) {
-  const [filter, setFilter] = useState("All");
-
   useEffect(() => {
     document.title = "Work — HAJIN";
   }, []);
 
   return (
     <div className="ab-root">
-      <SiteHeader current="work">
-        <Dropdown
-          renderTrigger={(toggle) => <PillButton label={filter} active onClick={toggle} />}
-          items={CATEGORIES.map((c) => ({
-            label: c,
-            current: c === filter,
-            onSelect: () => setFilter(c),
-          }))}
-        />
-      </SiteHeader>
+      <SiteHeader current="work" />
 
       <main className="wk-main">
         <div className="wk-list">
