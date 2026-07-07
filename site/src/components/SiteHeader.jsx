@@ -9,8 +9,8 @@ const PAGES = [
 
 /** Inner-page header: Work and About as two side-by-side pills (the current
  *  page reads active), and the HAJIN wordmark centered, linking home. On
- *  mobile the wordmark shows only at the very top of the page (CSS hides it
- *  once scrolled) so it doesn't ride over content in the sticky header. */
+ *  mobile the whole header (nav + wordmark) shows only at the very top of
+ *  the page — CSS fades it out once scrolled so nothing rides over content. */
 export default function SiteHeader({ current, children }) {
   const navigate = useNavigate();
   const [atTop, setAtTop] = useState(true);
@@ -23,7 +23,7 @@ export default function SiteHeader({ current, children }) {
   }, []);
 
   return (
-    <header className="site-header">
+    <header className={"site-header" + (atTop ? "" : " is-scrolled")}>
       {PAGES.map((p) => (
         <PillButton
           key={p.key}
@@ -35,7 +35,7 @@ export default function SiteHeader({ current, children }) {
         />
       ))}
       {children}
-      <Link to="/" className={"site-wordmark" + (atTop ? "" : " is-scrolled")}>
+      <Link to="/" className="site-wordmark">
         HAJIN
       </Link>
     </header>

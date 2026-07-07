@@ -165,15 +165,20 @@
     --page-margin: 20px;
   }
   /* the wordmark sits at the right edge (centered it would collide with the
-     two pills) and only shows at the very top of the page — once scrolled it
-     fades out so it doesn't ride over content in the sticky header */
+     two pills); the whole header — nav buttons and wordmark — only shows at
+     the very top of the page and fades out once scrolled, so nothing rides
+     over content in the sticky header */
   .site-wordmark {
     left: auto;
     right: var(--page-margin);
     transform: none;
+  }
+  .site-wordmark,
+  .site-header .pill-button {
     transition: opacity var(--duration-base) var(--easing);
   }
-  .site-wordmark.is-scrolled {
+  .site-header.is-scrolled .site-wordmark,
+  .site-header.is-scrolled .pill-button {
     opacity: 0;
     pointer-events: none;
   }
