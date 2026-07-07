@@ -126,8 +126,26 @@
   z-index: 10;
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: 20px;
   padding: 20px var(--page-margin) 0;
+}
+/* header nav reads as plain text: no pill background, the current page at
+   full strength and the other muted */
+.site-header .pill-button {
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  opacity: 1;
+  color: var(--text-muted);
+}
+.site-header .pill-button:hover {
+  filter: none;
+  color: var(--text-primary);
+}
+.site-header .pill-button.is-active {
+  background: none;
+  color: var(--text-primary);
 }
 .site-wordmark {
   position: absolute;
