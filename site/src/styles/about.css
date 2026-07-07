@@ -226,12 +226,13 @@
   .ab-content {
     grid-column: 1 / 13;
   }
-  /* link rail sits above the name as a single row; the em gap scales with
-     the font so useFitToWidth can shrink the whole line to fit narrow phones */
+  /* link rail sits above the name as a single right-aligned row; the em gap
+     scales with the font so useFitToWidth can shrink the line to fit */
   .ab-rail {
     grid-row: 1;
     flex-direction: row;
     flex-wrap: nowrap;
+    justify-content: flex-end;
     gap: 0.9em;
     margin-bottom: 24px;
   }
