@@ -13,6 +13,10 @@ body,
 html,
 body {
   overscroll-behavior: none;
+  /* stop iOS Safari from inflating small text after layout — it re-enlarges
+     the font-fitted copyright and pushes it past the viewport */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* Landing fits one screen — fully lock scrolling and the overscroll

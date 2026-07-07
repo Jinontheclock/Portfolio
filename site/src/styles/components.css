@@ -219,6 +219,6 @@
     font-size: 13px;
   }
   .site-footer-copy {
-    font-size: 10px; /* pre-JS fallback; the fit hook caps at 10 on mobile */
+    font-size: 9px; /* pre-JS fallback; the fit hook caps at 9 on mobile */
   }
 }
