@@ -15,8 +15,9 @@ const ArrowIcon = () => (
 
 export default function LandingPage({ lang, setLang }) {
   const t = LANDING[lang] || LANDING.en;
-  // refit the hero when the language (and so the text) changes
-  const heroRef = useFitText(lang);
+  // refit the hero when the language (and so the text) changes; on mobile
+  // sit at 85% of the width instead of edge-to-edge
+  const heroRef = useFitText(lang, { mobileRatio: 0.85 });
 
   useEffect(() => {
     document.title = "HAJIN, Product Designer";

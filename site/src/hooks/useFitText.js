@@ -5,7 +5,7 @@ import { useLayoutEffect, useRef } from "react";
  *  (white-space: nowrap); until this runs, the stylesheet's font-size acts
  *  as the fallback. Refits on resize and once webfonts finish loading,
  *  since fallback-font metrics differ. */
-export default function useFitText(dep) {
+export default function useFitText(dep, { mobileRatio = 1 } = {}) {
   const ref = useRef(null);
 
   useLayoutEffect(() => {
@@ -21,8 +21,10 @@ export default function useFitText(dep) {
       const textWidth = range.getBoundingClientRect().width;
       const available = el.clientWidth;
       if (!textWidth || !available) return;
+      // on mobile the line can sit a bit smaller than full width
+      const ratio = window.innerWidth <= 600 ? mobileRatio : 1;
       // 0.995 leaves a hair of slack so rounding never causes a wrap
-      el.style.fontSize = PROBE * (available / textWidth) * 0.995 + "px";
+      el.style.fontSize = PROBE * (available / textWidth) * 0.995 * ratio + "px";
     };
 
     fit();
@@ -30,7 +32,7 @@ export default function useFitText(dep) {
     window.addEventListener("resize", fit);
     return () => window.removeEventListener("resize", fit);
     // refit when the text content changes (e.g. language switch)
-  }, [dep]);
+  }, [dep, mobileRatio]);
 
   return ref;
 }

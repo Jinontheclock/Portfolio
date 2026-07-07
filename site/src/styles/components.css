@@ -160,6 +160,15 @@
   .site-header {
     flex-direction: column;
   }
+  /* the wordmark only shows at the very top of the page — once scrolled it
+     fades out so it doesn't ride over content in the sticky header */
+  .site-wordmark {
+    transition: opacity var(--duration-base) var(--easing);
+  }
+  .site-wordmark.is-scrolled {
+    opacity: 0;
+    pointer-events: none;
+  }
   .site-header .glass-menu {
     top: 0;
     left: 100%;
