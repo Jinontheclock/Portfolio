@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import LangSwitcher from "../components/LangSwitcher.jsx";
 import useFitText from "../hooks/useFitText.js";
+import { LANDING } from "../i18n.js";
 
 /* Long-tail arrow traced from the Figma asset: thick tail, head peaking
    at its left and tapering to the right tip. currentColor follows the theme. */
@@ -13,7 +14,9 @@ const ArrowIcon = () => (
 );
 
 export default function LandingPage({ lang, setLang }) {
-  const heroRef = useFitText();
+  const t = LANDING[lang] || LANDING.en;
+  // refit the hero when the language (and so the text) changes
+  const heroRef = useFitText(lang);
 
   useEffect(() => {
     document.title = "HAJIN, Product Designer";
@@ -28,14 +31,20 @@ export default function LandingPage({ lang, setLang }) {
   return (
     <div className="lp-root">
       <div className="lp-hero">
-        <h1 className="lp-heading" ref={heroRef}>HAJIN, Product Designer</h1>
+        <h1 className="lp-heading" ref={heroRef} style={{ textIndent: t.heroIndent }}>
+          {t.hero}
+        </h1>
         <nav className="lp-nav">
           <Link to="/work" className="lp-navlink">
-            <span className="lp-navlink-text">Work</span>
+            <span className="lp-navlink-text" style={{ textIndent: t.workIndent }}>
+              {t.work}
+            </span>
             <ArrowIcon />
           </Link>
           <Link to="/about" className="lp-navlink">
-            <span className="lp-navlink-text">About</span>
+            <span className="lp-navlink-text" style={{ textIndent: t.aboutIndent }}>
+              {t.about}
+            </span>
             <ArrowIcon />
           </Link>
         </nav>

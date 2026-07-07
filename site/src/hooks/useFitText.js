@@ -5,7 +5,7 @@ import { useLayoutEffect, useRef } from "react";
  *  (white-space: nowrap); until this runs, the stylesheet's font-size acts
  *  as the fallback. Refits on resize and once webfonts finish loading,
  *  since fallback-font metrics differ. */
-export default function useFitText() {
+export default function useFitText(dep) {
   const ref = useRef(null);
 
   useLayoutEffect(() => {
@@ -29,7 +29,8 @@ export default function useFitText() {
     if (document.fonts?.ready) document.fonts.ready.then(fit);
     window.addEventListener("resize", fit);
     return () => window.removeEventListener("resize", fit);
-  }, []);
+    // refit when the text content changes (e.g. language switch)
+  }, [dep]);
 
   return ref;
 }
