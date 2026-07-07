@@ -7,7 +7,9 @@ const LANGS = ["en", "ja", "ko"];
 /** Inner-page footer: plain-text language trigger bottom-left, opening a
  *  glass menu upward (drop-up), plus the copyright line bottom-right. */
 export default function SiteFooter({ lang, setLang }) {
-  const copyRef = useFitToWidth(12); // keep the copyright on one line
+  // keep the copyright on one line; a step smaller on mobile so it shares
+  // the bottom row with the language trigger
+  const copyRef = useFitToWidth(12, { mobileMax: 10 });
 
   return (
     <footer className="site-footer">
