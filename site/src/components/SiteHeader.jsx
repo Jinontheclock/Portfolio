@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Dropdown from "./Dropdown.jsx";
 import PillButton from "./PillButton.jsx";
 
 const PAGES = [
@@ -8,15 +7,12 @@ const PAGES = [
   { key: "about", label: "About", path: "/about" },
 ];
 
-/** Inner-page header from the About design: a pill labeled with the current
- *  page that opens a glass dropdown (Work / About), and the HAJIN wordmark
- *  centered, linking home. Extra pills (e.g. the Work page's category
- *  filter) render inline after the nav pill via `children`. On mobile the
- *  wordmark shows only at the very top of the page (CSS hides it once
- *  scrolled) so it doesn't ride over content in the sticky header. */
+/** Inner-page header: Work and About as two side-by-side pills (the current
+ *  page reads active), and the HAJIN wordmark centered, linking home. On
+ *  mobile the wordmark shows only at the very top of the page (CSS hides it
+ *  once scrolled) so it doesn't ride over content in the sticky header. */
 export default function SiteHeader({ current, children }) {
   const navigate = useNavigate();
-  const currentPage = PAGES.find((p) => p.key === current);
   const [atTop, setAtTop] = useState(true);
 
   useEffect(() => {
@@ -28,16 +24,16 @@ export default function SiteHeader({ current, children }) {
 
   return (
     <header className="site-header">
-      <Dropdown
-        renderTrigger={(toggle) => (
-          <PillButton label={currentPage.label} active onClick={toggle} />
-        )}
-        items={PAGES.map((p) => ({
-          label: p.label,
-          current: p.key === current,
-          onSelect: () => navigate(p.path),
-        }))}
-      />
+      {PAGES.map((p) => (
+        <PillButton
+          key={p.key}
+          label={p.label}
+          active={p.key === current}
+          onClick={() => {
+            if (p.key !== current) navigate(p.path);
+          }}
+        />
+      ))}
       {children}
       <Link to="/" className={"site-wordmark" + (atTop ? "" : " is-scrolled")}>
         HAJIN
