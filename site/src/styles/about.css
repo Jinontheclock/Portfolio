@@ -253,4 +253,10 @@
     grid-template-columns: 84px minmax(0, 1fr);
     column-gap: 16px;
   }
+  /* the Adobe row wraps onto two lines at body size on mobile (same size
+     and gaps as every other skill row) instead of shrinking its font */
+  .ab-skill-row.is-fit {
+    flex-wrap: wrap;
+    gap: 6px 16px;
+  }
 }

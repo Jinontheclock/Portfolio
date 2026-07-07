@@ -184,10 +184,10 @@ function Entry({ entry }) {
   );
 }
 
-/** A skill row; `fit` rows scale their font to stay on one line (on every
- *  screen, including mobile, now that Skills uses the label-left layout). */
+/** A skill row; `fit` rows scale their font to stay on one line on larger
+ *  screens, and wrap at body size (like every other row) on mobile. */
 function SkillRow({ items, fit }) {
-  const ref = useFitToWidth(fit ? 16 : null);
+  const ref = useFitToWidth(fit ? 16 : null, { skipMobile: true });
   return (
     <div ref={ref} className={"ab-skill-row" + (fit ? " is-fit" : "")}>
       {items.map((item) => (

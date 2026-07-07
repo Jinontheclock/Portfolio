@@ -13,10 +13,13 @@ export default function useFitToWidth(maxPx, { skipMobile = false, mobileMax = n
 
     const fit = () => {
       const mobile = window.innerWidth <= 600;
+      // some rows wrap at the stylesheet size on mobile instead of shrinking
+      if (skipMobile && mobile) {
+        el.style.fontSize = "";
+        return;
+      }
       const cap = mobile && mobileMax != null ? mobileMax : maxPx;
       el.style.fontSize = cap + "px";
-      // some rows are allowed to wrap on mobile instead of shrinking
-      if (skipMobile && mobile) return;
       const avail = el.clientWidth;
       const content = el.scrollWidth;
       if (content > avail && content > 0) {
