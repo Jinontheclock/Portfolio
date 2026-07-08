@@ -6,9 +6,9 @@
 export const LANG_LABELS = { en: "English", ja: "日本語", ko: "한국어" };
 
 /* Landing page. `indent` hangs the first glyph's left side bearing so its
-   ink starts exactly at the margin: EN/KO measured from the Spoqa font
-   (BoundsPen ink-left); JA uses typical values — those glyphs aren't in the
-   bundled subset, so they render in the platform's fallback font. */
+   ink starts exactly at the margin — all values measured from the bundled
+   fonts (BoundsPen ink-left): EN/KO from Spoqa Neo, JA from the Spoqa JP
+   subset. */
 export const LANDING = {
   en: {
     hero: "HAJIN, Product Designer",
@@ -28,10 +28,10 @@ export const LANDING = {
   },
   ja: {
     hero: "ハジン, プロダクト　デザイナー",
-    heroIndent: "-0.06em",
+    heroIndent: "-0.05em",
     work: "実績",
-    workIndent: "-0.03em",
+    workIndent: "-0.056em",
     about: "経歴",
-    aboutIndent: "-0.03em",
+    aboutIndent: "-0.029em",
   },
 };
