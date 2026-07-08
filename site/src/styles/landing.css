@@ -95,8 +95,9 @@ html.lp-locked body {
   margin: -16px 0 -16px -12px;
 }
 
-/* per-glyph ink compensation (text-indent) is set inline per language
-   in LandingPage.jsx */
+/* per-glyph ink compensation (text-indent) is set inline per language in
+   LandingPage.jsx, which also locks each text cell's min-width to the
+   English label so the arrows hold the English position in every language */
 
 .lp-arrow {
   display: block;
