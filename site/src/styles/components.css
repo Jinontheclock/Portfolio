@@ -165,6 +165,9 @@
   background: none;
   color: var(--text-primary);
 }
+/* the wordmark shows only at the very top of the page on every screen —
+   once scrolled it fades out so it doesn't ride over content in the
+   sticky header */
 .site-wordmark {
   position: absolute;
   left: 50%;
@@ -174,6 +177,11 @@
   color: var(--text-primary);
   text-decoration: none;
   cursor: pointer;
+  transition: opacity var(--duration-base) var(--easing);
+}
+.site-header.is-scrolled .site-wordmark {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Mobile */
@@ -182,20 +190,16 @@
   :root {
     --page-margin: 20px;
   }
-  /* the wordmark sits at the right edge (centered it would collide with the
-     two pills); the whole header — nav buttons and wordmark — only shows at
-     the very top of the page and fades out once scrolled, so nothing rides
-     over content in the sticky header */
+  /* the wordmark sits at the right edge (centered it would collide with
+     the two pills); the nav buttons also fade out on scroll on mobile */
   .site-wordmark {
     left: auto;
     right: var(--page-margin);
     transform: none;
   }
-  .site-wordmark,
   .site-header .pill-button {
     transition: opacity var(--duration-base) var(--easing);
   }
-  .site-header.is-scrolled .site-wordmark,
   .site-header.is-scrolled .pill-button {
     opacity: 0;
     pointer-events: none;
