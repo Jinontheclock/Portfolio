@@ -60,18 +60,22 @@ html.lp-locked body {
      inline in LandingPage.jsx so ink starts exactly at the margin */
 }
 
-/* Two-column grid: texts in col 1 (sized by the widest, "About"), arrows
-   in col 2 — so both arrows align at the same x from the resting state.
-   Baseline alignment pins the arrow glyph (drawn at the bottom edge of
-   its transparent square canvas) to the text's baseline. */
+/* Two-column grid: texts in col 1 (locked to the English labels' width),
+   arrows in col 2 — so both arrows align at the same x in every language.
+   Rows align to their END edge (the line box bottom, which is fixed-px and
+   so font-independent) instead of the text baseline: baselines move with
+   the fallback font used for CJK labels (e.g. Hiragino for 実績 on iOS),
+   which nudged the arrows between languages. */
 .lp-nav {
   display: grid;
   grid-template-columns: max-content max-content;
   column-gap: var(--size-lp-arrow-gap);
   /* integer row-gap so the two rows are a whole number of pixels apart —
-     keeps both arrows on the same sub-pixel grid, hence pixel-identical */
+     keeps both arrows on the same sub-pixel grid, hence pixel-identical
+     (unrounded fallback first, for browsers without CSS round()) */
+  row-gap: calc(var(--size-lp-nav-gap));
   row-gap: round(var(--size-lp-nav-gap), 1px);
-  align-items: baseline;
+  align-items: end;
   justify-items: start;
 }
 
@@ -85,7 +89,9 @@ html.lp-locked body {
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: var(--size-lp-nav);
-  /* integer line box so each nav row is a whole number of pixels tall */
+  /* integer line box so each nav row is a whole number of pixels tall
+     (unrounded fallback first, for browsers without CSS round()) */
+  line-height: calc(var(--size-lp-nav) * 1.25);
   line-height: round(calc(var(--size-lp-nav) * 1.25), 1px);
   letter-spacing: -0.01em;
   color: var(--text-primary);
@@ -106,9 +112,14 @@ html.lp-locked body {
   height: auto;
   color: var(--text-primary);
   /* horizontal hit padding only — vertical padding would shift the arrow
-     off the text baseline (the row is already tall via the text padding) */
+     (the row is already tall via the text padding). The bottom margin
+     reproduces the English baseline offset from the row's end edge, so the
+     arrow position is font- (and so language-) independent: 0.32em below
+     half the rounded line box. Unrounded fallback first. */
   padding: 0 12px;
-  margin: 0 -12px;
+  margin: 0 -12px calc(var(--size-lp-nav) * 0.305) -12px;
+  margin: 0 -12px
+    calc(round(calc(var(--size-lp-nav) * 1.25), 1px) / 2 - var(--size-lp-nav) * 0.32) -12px;
   /* settles back to the resting spot when hover ends */
   transition: transform 200ms var(--easing);
 }
