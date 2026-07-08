@@ -108,6 +108,17 @@
   color: var(--text);
   white-space: nowrap;
 }
+.cs-meta-values a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--grey-300);
+  transition: color var(--duration-fast) var(--easing);
+}
+.cs-meta-values a:hover {
+  color: var(--text-primary);
+  text-decoration-color: currentColor;
+}
 
 /* ── Placeholder image ── */
 .cs-image {
@@ -295,19 +306,19 @@
   position: relative;
   align-self: center;
 }
-/* Fixed-size iPhone 17 frame (402x874 screen + 12px bezel). Rendered at full
+/* Fixed-size iPhone 17 frame (402x874 screen + 6px bezel). Rendered at full
    size and visually scaled via an inline transform, so the app always renders
    at its designed width and the bezel/corners scale proportionally. */
 .tryapp-phone {
   box-sizing: border-box;
-  padding: 12px;
+  padding: 6px;
   background: linear-gradient(155deg, #1c1c1e 0%, #050506 60%);
-  border-radius: 60px;
+  border-radius: 54px;
   transform-origin: top left;
   box-shadow:
     0 40px 90px rgba(0, 0, 0, 0.55),
-    inset 0 0 0 2px #2a2a2c,
-    inset 0 0 0 3px #000;
+    inset 0 0 0 1px #2a2a2c,
+    inset 0 0 0 2px #000;
 }
 .tryapp-frame {
   width: 402px;

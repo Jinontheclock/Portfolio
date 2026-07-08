@@ -67,7 +67,15 @@ export const PROJECTS = [
         label: "tool",
         values: ["Figma", "React Native Expo", "Framer", "Adobe Creative Suite"],
       },
-      { label: "link", values: ["Website", "Instagram", "Blog", "GitHub"] },
+      {
+        label: "link",
+        values: [
+          { label: "Website", href: "https://prolog.framer.website/" },
+          { label: "Instagram", href: "https://www.instagram.com/prolog.app/" },
+          { label: "Blog", href: "https://prolog.framer.website/blog" },
+          { label: "GitHub", href: "https://github.com/Jinontheclock/ProLog" },
+        ],
+      },
     ],
     sections: [
       {

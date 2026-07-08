@@ -15,9 +15,15 @@ function MetaGroup({ rows }) {
         <div key={r.label} className="cs-meta-row">
           <span className="cs-meta-label">{r.label}</span>
           <span className="cs-meta-values">
-            {r.values.map((v) => (
-              <span key={v}>{v}</span>
-            ))}
+            {r.values.map((v) =>
+              typeof v === "object" ? (
+                <a key={v.label} href={v.href} target="_blank" rel="noreferrer">
+                  {v.label}
+                </a>
+              ) : (
+                <span key={v}>{v}</span>
+              ),
+            )}
           </span>
         </div>
       ))}

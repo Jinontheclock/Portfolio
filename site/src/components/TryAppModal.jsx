@@ -5,9 +5,9 @@ import { useEffect, useLayoutEffect, useState } from "react";
 // the whole frame is then visually scaled to fit the available space.
 const SCREEN_W = 402;
 const SCREEN_H = 874;
-const BEZEL = 12;
-const FRAME_W = SCREEN_W + BEZEL * 2; // 426
-const FRAME_H = SCREEN_H + BEZEL * 2; // 898
+const BEZEL = 6;
+const FRAME_W = SCREEN_W + BEZEL * 2; // 414
+const FRAME_H = SCREEN_H + BEZEL * 2; // 886
 
 function computeScale() {
   if (typeof window === "undefined") return 1;
