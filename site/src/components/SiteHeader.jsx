@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PillButton from "./PillButton.jsx";
 
 const PAGES = [
@@ -13,6 +13,7 @@ const PAGES = [
  *  the page — CSS fades it out once scrolled so nothing rides over content. */
 export default function SiteHeader({ current, children }) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [atTop, setAtTop] = useState(true);
 
   useEffect(() => {
@@ -30,7 +31,9 @@ export default function SiteHeader({ current, children }) {
           label={p.label}
           active={p.key === current}
           onClick={() => {
-            if (p.key !== current) navigate(p.path);
+            // compare routes, not the highlighted section — a case-study page
+            // highlights Work but still needs the button to reach /work
+            if (pathname !== p.path) navigate(p.path);
           }}
         />
       ))}
