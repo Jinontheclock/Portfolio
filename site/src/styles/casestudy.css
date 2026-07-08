@@ -6,7 +6,7 @@
 .cs-main {
   flex: 1;
   box-sizing: border-box;
-  padding: 84px 0 96px;
+  padding: 84px 0 140px;
 }
 
 .cs-grid {
@@ -280,7 +280,7 @@
 /* ── Mobile: stack title, TOC, then content ── */
 @media (max-width: 600px) {
   .cs-main {
-    padding: 48px 0 64px;
+    padding: 48px 0 96px;
   }
   .cs-grid {
     padding: 0 20px;

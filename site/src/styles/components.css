@@ -69,7 +69,7 @@
   color: var(--text-faint);
 }
 
-/* ── Glass dropdown/drop-up menu (header nav, filters, footer) ── */
+/* ── Dropdown/drop-up menu (footer language) — plain text, no box ── */
 .dropdown-anchor {
   position: relative;
 }
@@ -78,12 +78,6 @@
   left: 0;
   z-index: 20;
   min-width: 168px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border-radius: var(--radius-pill-outer);
-  overflow: hidden;
-  padding: 10px 0;
   display: flex;
   flex-direction: column;
 }
@@ -123,13 +117,12 @@
     transform: none;
   }
 }
-/* unselected items rest muted; the current item and whatever is hovered
-   read at full strength */
+/* unselected items rest muted; whatever is hovered reads at full strength */
 .glass-menu-item {
   all: unset;
   box-sizing: border-box;
   width: 100%;
-  padding: 11px 19px;
+  padding: 5px 19px;
   font: 400 15px/22px var(--font-ui);
   letter-spacing: 0.21px;
   color: var(--text-muted);

@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   gap: 63px;
-  padding: 48px 0 96px;
+  padding: 48px 0 140px;
 }
 
 /* cards are links to the case-study detail page */
@@ -85,7 +85,7 @@
 @media (max-width: 600px) {
   .wk-list {
     gap: 48px;
-    padding: 32px 0 64px;
+    padding: 32px 0 96px;
   }
   .wk-card {
     row-gap: 16px;
