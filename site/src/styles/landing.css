@@ -143,6 +143,19 @@ html.lp-locked body {
 }
 
 
+/* copyright pinned to the opposite corner from the language switcher; the
+   max-width keeps it clear of the switcher so the font-fit can shrink it */
+.lp-copy {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  max-width: calc(100vw - 130px);
+  font: 400 12px/16px var(--font-ui);
+  color: var(--grey-300);
+  white-space: nowrap;
+  text-align: right;
+}
+
 .lang-switcher {
   display: flex;
   gap: 4px;

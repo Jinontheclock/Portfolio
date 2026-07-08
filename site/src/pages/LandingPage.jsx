@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import LangSwitcher from "../components/LangSwitcher.jsx";
 import useFitText from "../hooks/useFitText.js";
+import useFitToWidth from "../hooks/useFitToWidth.js";
 import { LANDING } from "../i18n.js";
 
 /* Long-tail arrow traced from the Figma asset: thick tail, head peaking
@@ -24,6 +25,8 @@ export default function LandingPage({ lang, setLang, fadeClass = "" }) {
     ratio: t.heroRatio ?? 1,
   });
   const navRef = useRef(null);
+  // bottom-right copyright, one line (smaller cap on mobile)
+  const copyRef = useFitToWidth(12, { mobileMax: 9 });
 
   // lock the nav text column to the English labels' width so the arrows sit
   // at the English position in every language (CJK labels are narrower)
@@ -98,6 +101,9 @@ export default function LandingPage({ lang, setLang, fadeClass = "" }) {
       <div className="lp-foot">
         <LangSwitcher value={lang} onChange={setLang} />
       </div>
+      <span className="lp-copy" ref={copyRef}>
+        © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
+      </span>
     </div>
   );
 }

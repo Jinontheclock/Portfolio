@@ -21,9 +21,8 @@ export default function SiteFooter({ lang, setLang }) {
               {LANG_LABELS[lang]}
             </span>
           )}
-          items={LANGS.map((l) => ({
+          items={LANGS.filter((l) => l !== lang).map((l) => ({
             label: LANG_LABELS[l],
-            current: l === lang,
             onSelect: () => setLang(l),
           }))}
         />
