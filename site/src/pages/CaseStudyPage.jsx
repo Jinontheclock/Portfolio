@@ -25,8 +25,54 @@ function MetaGroup({ rows }) {
   );
 }
 
-/** One shared case-study layout for every project: title + TOC on the left,
- *  intro / meta / image / sections on the right (the ProLog layout). */
+function Block({ block, onDemo }) {
+  switch (block.type) {
+    case "h":
+      return (
+        <h3 className="cs-block-h">
+          {block.text}
+          {block.tag && <span className="cs-block-tag">{block.tag}</span>}
+        </h3>
+      );
+    case "p":
+      return <p className="cs-paragraph">{block.text}</p>;
+    case "list":
+      return (
+        <ul className="cs-list">
+          {block.items.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
+      );
+    case "demo":
+      return (
+        <div className="cs-tryapp">
+          <button type="button" className="cs-tryapp-btn" onClick={onDemo}>
+            Try app! <span className="cs-tryapp-arrow" aria-hidden="true">↗</span>
+          </button>
+          <span className="cs-tryapp-note">
+            Runs the real app right here — no install needed.
+          </span>
+        </div>
+      );
+    case "gallery":
+      return (
+        <div className="cs-gallery" aria-hidden="true">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      );
+    case "tagline":
+      return <p className="cs-tagline">{block.text}</p>;
+    default:
+      return null;
+  }
+}
+
+/** One shared case-study layout for every project: title + table of contents
+ *  on the left, the content (headline, intro, meta, image, sections) on the
+ *  right, built from each section's block list. */
 export default function CaseStudyPage({ lang, setLang }) {
   const { id } = useParams();
   const project = getProject(id);
@@ -38,6 +84,17 @@ export default function CaseStudyPage({ lang, setLang }) {
 
   if (!project) return <Navigate to="/work" replace />;
 
+  const scrollTo = (sectionId) => {
+    if (!sectionId) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    document.getElementById(`cs-${sectionId}`)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <div className="ab-root">
       <SiteHeader current="work" />
@@ -47,14 +104,24 @@ export default function CaseStudyPage({ lang, setLang }) {
           <h1 className="cs-title">{project.title}</h1>
 
           <nav className="cs-toc">
-            {project.toc.map((t) => (
-              <span key={t} className="cs-toc-item">
-                {t}
-              </span>
+            <button type="button" className="cs-toc-item" onClick={() => scrollTo(null)}>
+              00 INTRO
+            </button>
+            {project.sections.map((s) => (
+              <button
+                key={s.id}
+                type="button"
+                className="cs-toc-item"
+                onClick={() => scrollTo(s.id)}
+              >
+                {s.label}
+              </button>
             ))}
           </nav>
 
           <div className="cs-content">
+            {project.headline && <p className="cs-headline">{project.headline}</p>}
+
             <div className="cs-intro">
               {project.intro.map((p, i) => (
                 <p key={i} className="cs-paragraph">
@@ -71,24 +138,15 @@ export default function CaseStudyPage({ lang, setLang }) {
             <div className="cs-image" aria-hidden="true"></div>
 
             <div className="cs-sections">
-              {project.sections.map((s, i) => (
-                <div key={i} className="cs-section">
-                  <h3 className="cs-section-title">{s.heading}</h3>
-                  <p className="cs-paragraph">{s.body}</p>
-                </div>
+              {project.sections.map((s) => (
+                <section key={s.id} id={`cs-${s.id}`} className="cs-section">
+                  <h2 className="cs-section-no">{s.label}</h2>
+                  {s.blocks.map((b, i) => (
+                    <Block key={i} block={b} onDemo={() => setDemoOpen(true)} />
+                  ))}
+                </section>
               ))}
             </div>
-
-            {project.demo && (
-              <div className="cs-tryapp">
-                <button type="button" className="cs-tryapp-btn" onClick={() => setDemoOpen(true)}>
-                  Try app! <span className="cs-tryapp-arrow" aria-hidden="true">↗</span>
-                </button>
-                <span className="cs-tryapp-note">
-                  Runs the real app right here — no install needed.
-                </span>
-              </div>
-            )}
           </div>
         </div>
       </main>

@@ -33,8 +33,14 @@
 }
 
 .cs-toc-item {
+  all: unset;
   font: 400 var(--size-body) / 1.9 var(--font-ui);
   color: var(--text);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--easing);
+}
+.cs-toc-item:hover {
+  color: var(--text-primary);
 }
 
 /* ── Right content column (row 2) ── */
@@ -43,6 +49,14 @@
   grid-row: 2;
   display: flex;
   flex-direction: column;
+}
+
+/* lead line above the intro */
+.cs-headline {
+  margin: 0 0 20px;
+  font: 400 var(--size-card-title) / 1.35 var(--font-ui);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
 }
 
 .cs-intro {
@@ -98,24 +112,77 @@
   background: var(--surface-placeholder);
 }
 
-/* ── Body sections ── */
+/* ── Body sections (numbered, from each project's block list) ── */
 .cs-sections {
-  margin-top: 32px;
+  margin-top: 48px;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 56px;
 }
 
 .cs-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
+  /* anchored TOC jumps land with a little air above the section */
+  scroll-margin-top: 24px;
 }
 
-.cs-section-title {
-  margin: 0;
+.cs-section-no {
+  margin: 0 0 4px;
+  font: 700 var(--size-section-label) / 1.3 var(--font-ui);
+  color: var(--text-primary);
+}
+
+.cs-block-h {
+  margin: 12px 0 0;
   font: 700 var(--size-body) / 1.5 var(--font-ui);
   color: var(--text-primary);
+}
+.cs-block-h:first-of-type {
+  margin-top: 0;
+}
+.cs-block-tag {
+  margin-left: 10px;
+  font: 400 12px / 1.4 var(--font-ui);
+  color: var(--text-muted);
+}
+
+.cs-list {
+  margin: 0;
+  padding-left: 1.2em;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  color: var(--text);
+}
+.cs-list li::marker {
+  color: var(--text-muted);
+}
+
+/* placeholder gallery row (promo campaign shots) */
+.cs-gallery {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.cs-gallery div {
+  aspect-ratio: 3 / 2;
+  background: var(--surface-placeholder);
+}
+
+.cs-tagline {
+  margin: 8px 0 0;
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* the Try-app embed inside a section sits close to its lead-in copy */
+.cs-section .cs-tryapp {
+  margin: 8px 0;
 }
 
 /* ── "Try app!" call-to-action ── */

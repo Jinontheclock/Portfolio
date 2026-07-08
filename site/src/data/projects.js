@@ -1,28 +1,44 @@
 /* All projects: the Work-page card copy plus the case-study page content.
-   Every case study shares the ProLog layout (title + TOC on the left; intro,
-   meta, image, sections on the right). Non-ProLog copy is placeholder until
-   each project's real content lands. `demo` adds the Try-app modal. */
-
-const PLACEHOLDER_TOC = [
-  "00 INTRO",
-  "01 Placeholder section",
-  "02 Placeholder section",
-  "03 Placeholder section",
-  "04 Placeholder section",
-];
+   Case studies share one layout (title + TOC on the left; content on the
+   right) rendered from a small block model per section:
+     { type:"h", text, tag? }   bold sub-heading (tag = small muted note)
+     { type:"p", text }         paragraph
+     { type:"list", items }     bullet list
+     { type:"demo" }            the live Try-app embed (ProLog)
+     { type:"gallery" }         placeholder image row
+     { type:"tagline", text }   closing line
+   Non-ProLog copy is placeholder until each project's real content lands. */
 
 const PLACEHOLDER_SECTIONS = [
   {
-    heading: "Section Heading",
-    body: "Placeholder copy — a short paragraph describing this part of the project: the problem, the decision made, and what it changed.",
+    id: "s1",
+    label: "01 Placeholder section",
+    blocks: [
+      {
+        type: "p",
+        text: "Placeholder copy — a short paragraph describing this part of the project: the problem, the decision made, and what it changed.",
+      },
+    ],
   },
   {
-    heading: "Section Heading",
-    body: "Placeholder copy — a short paragraph describing this part of the project: the problem, the decision made, and what it changed.",
+    id: "s2",
+    label: "02 Placeholder section",
+    blocks: [
+      {
+        type: "p",
+        text: "Placeholder copy — a short paragraph describing this part of the project: the problem, the decision made, and what it changed.",
+      },
+    ],
   },
   {
-    heading: "Section Heading",
-    body: "Placeholder copy — a short paragraph describing this part of the project: the problem, the decision made, and what it changed.",
+    id: "s3",
+    label: "03 Placeholder section",
+    blocks: [
+      {
+        type: "p",
+        text: "Placeholder copy — a short paragraph describing this part of the project: the problem, the decision made, and what it changed.",
+      },
+    ],
   },
 ];
 
@@ -33,53 +49,184 @@ export const PROJECTS = [
     description:
       "A mobile app that turns fragmented apprenticeship records into one clear roadmap for neurodivergent tradespeople",
     roles: "Product Design, Research, Branding",
-    toc: [
-      "00 INTRO",
-      "01 WHY was ProLog developed?",
-      "02 WHY was ProLog developed?",
-      "03 WHY was ProLog developed?",
-      "04 WHY was ProLog developed?",
-      "05 WHY was ProLog developed?",
-      "06 WHY was ProLog developed?",
-      "07 WHY was ProLog developed?",
-    ],
+    headline: "Bringing a 6,000-hour journey into one clear view.",
     intro: [
-      "ProLog is a progress-tracking mobile app designed to support neurodivergent apprentices in the skilled trades. The project was developed as part of the D3 & FSWD × ConnectHER Technology Showcase, where students design digital solutions to address challenges faced by underrepresented people in the trades.",
-      "ProLog centralizes fragmented training information into a clear, structured roadmap that helps apprentices track their progress, stay organized, and confidently navigate their journey toward Red Seal certification.",
+      "ProLog is a progress-tracking app that levels the playing field for neurodivergent apprentices in the skilled trades. As lead developer on an eight-person team, I turned the design system into a working React Native build and shaped the interface along the way. The project was created for the ConnectHER Technology Showcase and presented at SSE Y2WD.",
     ],
     metaLeft: [
-      { label: "category", values: ["App"] },
+      { label: "category", values: ["Mobile App"] },
       { label: "timeline", values: ["4 months"] },
-      { label: "role", values: ["UI Developer"] },
-      { label: "link", values: ["Website", "Instagram", "Blog", "GitHub"] },
+      { label: "role", values: ["Lead Developer", "UI Development"] },
+      {
+        label: "team",
+        values: ["8 people", "PM · product lead · lead designer", "2 researchers · marketing · developers"],
+      },
     ],
     metaRight: [
       {
         label: "tool",
-        values: [
-          "Figma",
-          "HTML5",
-          "CSS3",
-          "JavaScript",
-          "React Native Suite",
-          "Adobe Creative Suite",
-          "Framer",
-          "Trello",
-        ],
+        values: ["Figma", "React Native Expo", "Framer", "Adobe Creative Suite"],
       },
+      { label: "link", values: ["Website", "Instagram", "Blog", "GitHub"] },
     ],
     sections: [
       {
-        heading: "Low Completion Rate",
-        body: "Only 40% of apprentices in British Columbia complete their program within six years, showing how unclear and demanding the pathway can be.",
+        id: "context",
+        label: "01 Context",
+        blocks: [
+          {
+            type: "p",
+            text: "Becoming a certified tradesperson in British Columbia takes roughly 6,000 hours — logged work hours, technical training levels, and around a hundred competencies per level, verified against SkilledTradesBC records. That information lives in scattered places: official portals unfit for mobile, PDF competency documents, separate finance resources. One in five Canadians is neurodivergent — in our own survey at BCIT, a majority of trades apprentices identified as such — yet the system remains rigid and text-heavy. For them especially, an already demanding pathway becomes a navigation problem.",
+          },
+        ],
       },
       {
-        heading: "Risk of Delay",
-        body: "Work hours must be submitted through sponsor reporting processes, meaning missing or inconsistent information can delay apprenticeship progression.",
+        id: "problem",
+        label: "02 The Problem",
+        blocks: [
+          { type: "h", text: "Problem 01 — No map of the journey" },
+          {
+            type: "p",
+            text: "Apprentices can see their past hours, but nothing shows where they stand or what comes next. The apprenticeship dropout rate sits at 42%. The requirements are clear on paper — the journey isn't.",
+          },
+          { type: "h", text: "Problem 02 — Hours lost in the system" },
+          {
+            type: "p",
+            text: "The biggest concern we heard: discrepancies between the hours apprentices actually worked and the hours officially recorded. Hard-earned progress quietly goes missing, delaying progression and draining motivation.",
+          },
+          { type: "h", text: "Problem 03 — Scattered support" },
+          {
+            type: "p",
+            text: "Study materials, funding information, and deadlines live across disconnected websites, most of them dense and desktop-only — while apprentices work almost entirely from their phones.",
+          },
+        ],
       },
       {
-        heading: "Disconnected Progress Systems",
-        body: "Apprenticeship progress depends on multiple separate systems, making it difficult for individuals to understand where they stand.",
+        id: "approach",
+        label: "03 Approach",
+        blocks: [
+          {
+            type: "p",
+            text: "We interviewed skilled trades apprentices across BC, from entry-level to journeypersons, and reviewed the tools they were given — SkilledTradesBC portals, competency documents, union resources, and forums.",
+          },
+          { type: "h", text: "What we heard" },
+          {
+            type: "list",
+            items: [
+              "Requirements are understood; guidance is scattered. Apprentices know what is required but piece together how from disconnected sources.",
+              "Hour verification is the sorest point — discrepancies mean delays, and delays mean anxiety.",
+              "Nearly everyone works from a phone on site, not a desktop at home.",
+            ],
+          },
+          { type: "h", text: "Design principles" },
+          {
+            type: "list",
+            items: [
+              "One source of truth — progress, hours, money, and study in a single app.",
+              "Nothing goes missing — no progress, no requirement, no deadline.",
+              "Built for neurodivergent users — information in small chunks, visual progress, reminders, and text-to-speech, on a phone, one-handed.",
+            ],
+          },
+        ],
+      },
+      {
+        id: "solution",
+        label: "04 The Solution",
+        blocks: [
+          { type: "h", text: "A 6,000-hour journey at a glance", tag: "↔ Problem 01" },
+          {
+            type: "p",
+            text: "ProLog's dashboard turns certification into a single roadmap: hours tracked, hours left in the current level, and hours until Red Seal — with competency and finance status alongside. Whenever it gets overwhelming, the dashboard shows exactly where you are and what's ahead.",
+          },
+          {
+            type: "p",
+            text: "In usability testing, hour totals initially read as static labels — participants couldn't tell what the numbers were made of. We made every figure tappable, breaking hours down by competency, so exploring your own progress became the default interaction rather than a dead end.",
+          },
+          { type: "h", text: "No hour goes missing", tag: "↔ Problem 02" },
+          {
+            type: "p",
+            text: "ProLog links to a user's SkilledTradesBC account and paystub records, and cross-checks the two in real time. When a discrepancy appears — say, 30 hours short of what the paystubs prove — ProLog flags it immediately, with a full report already generated and ready to send to the employer in one tap. What used to be a silent delay becomes an item you can resolve.",
+          },
+          { type: "h", text: "Everything else, in one place", tag: "↔ Problem 03" },
+          {
+            type: "p",
+            text: "Beyond tracking, ProLog folds in the support apprentices otherwise hunt for. A finance view lays out expected expenses for the term — tuition, tools, books — next to the grants and support programs they can apply to. A study section covers every competency in the level with summaries, text-to-speech, and AI-generated quizzes that refresh on every attempt, up to a full exam prep. Reminders are created automatically from the user's own records: tuition due Sunday, EI application by the 31st, certification expiring next Friday.",
+          },
+          {
+            type: "p",
+            text: "Testing exposed that several of these entry points were hard to find — finance tools and reminders in particular — so navigation was reorganized around primary actions and core features surfaced to the top level.",
+          },
+        ],
+      },
+      {
+        id: "visual",
+        label: "05 Visual Language",
+        blocks: [
+          { type: "h", text: "A palette built for the job site" },
+          {
+            type: "p",
+            text: "Industrial-inspired neutrals ground the interface, with a single bold orange reserved for progress and key actions. If it's orange, it moves you forward.",
+          },
+          { type: "h", text: "Type that works at arm's length" },
+          {
+            type: "p",
+            text: "The type system prioritizes glanceability — clear weight contrast, generous sizing, and numerals treated as first-class content: “You've completed 1,240 hours, keep going.”",
+          },
+          { type: "h", text: "Feedback you can't miss" },
+          {
+            type: "p",
+            text: "Testing showed tappable elements didn't read as tappable. Contrast, visual hierarchy, and interaction cues were strengthened across the system — for neurodivergent users on a bright work site, state changes have to be legible at a glance.",
+          },
+          { type: "h", text: "Beyond the screen" },
+          {
+            type: "p",
+            text: "The identity extends to a promotional campaign — video, brochure, billboard, stickers, and social media — built on the same visual system.",
+          },
+          { type: "gallery" },
+        ],
+      },
+      {
+        id: "outcome",
+        label: "06 Outcome",
+        blocks: [
+          { type: "h", text: "A working build, not just a prototype." },
+          {
+            type: "p",
+            text: "ProLog runs as a React Native Expo app. The embedded build below is the actual product.",
+          },
+          { type: "demo" },
+          {
+            type: "list",
+            items: [
+              "Created for and presented at the ConnectHER Technology Showcase, where students design digital solutions for underrepresented people in the trades",
+              "Presented at SSE Y2WD",
+              "Usability testing with five apprentices drove three shipped improvements: interactive progress breakdowns, reorganized navigation, and strengthened interaction feedback",
+              "Scoped to the electrical apprenticeship in BC, with an expansion path toward all skilled trades across Canada",
+            ],
+          },
+          { type: "tagline", text: "Supporting your progress. Logging your journey." },
+        ],
+      },
+      {
+        id: "reflection",
+        label: "07 Reflection",
+        blocks: [
+          { type: "h", text: "Research earned its keep in the details." },
+          {
+            type: "p",
+            text: "The decisions that mattered most — the discrepancy detector, tappable hour breakdowns, auto-generated reminders — came directly from things apprentices told us, not from assumptions about what a tracking app should be.",
+          },
+          { type: "h", text: "Building the design made me a better designer." },
+          {
+            type: "p",
+            text: "Implementing the team's design system in React Native forced honesty about what the specs actually said — every vague token, every undefined state surfaced in code. Working between the lead designer and the build taught me to speak both languages.",
+          },
+          { type: "h", text: "With more time" },
+          {
+            type: "p",
+            text: "I would test the discrepancy flow with employers as well as apprentices; their side of the sign-off shapes the anxiety we set out to remove.",
+          },
+        ],
       },
     ],
     demo: true,
@@ -90,7 +237,6 @@ export const PROJECTS = [
     description:
       "A short one- or two-line summary of the project and the problem it set out to solve.",
     roles: "Product Design, Development",
-    toc: PLACEHOLDER_TOC,
     intro: [
       "TinyPaws — placeholder introduction. A couple of sentences describing what the product is, who it serves, and the context it was built in.",
       "A second placeholder paragraph summarizing the approach and the outcome.",
@@ -110,7 +256,6 @@ export const PROJECTS = [
     description:
       "A short one- or two-line summary of the project and the problem it set out to solve.",
     roles: "Product Design, Development",
-    toc: PLACEHOLDER_TOC,
     intro: [
       "Compass Card — placeholder introduction. A couple of sentences describing what the product is, who it serves, and the context it was built in.",
       "A second placeholder paragraph summarizing the approach and the outcome.",
@@ -130,7 +275,6 @@ export const PROJECTS = [
     description:
       "A short one- or two-line summary of the project and the problem it set out to solve.",
     roles: "Product Design, Development",
-    toc: PLACEHOLDER_TOC,
     intro: [
       "WeLAB Entertainment — placeholder introduction. A couple of sentences describing what the product is, who it serves, and the context it was built in.",
       "A second placeholder paragraph summarizing the approach and the outcome.",
