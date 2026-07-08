@@ -130,11 +130,11 @@ html.lp-locked body {
   transition: transform 200ms ease-in;
 }
 
-/* pinned to the viewport corner — constant offset and size at every
-   screen size, unlike the fluid layout above it */
+/* pinned to the viewport corner — follows the page padding horizontally so
+   English/日本語/한국어 share the hero and nav's left edge at every size */
 .lp-foot {
   position: fixed;
-  left: 20px;
+  left: var(--size-page-pad);
   bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -147,7 +147,7 @@ html.lp-locked body {
    max-width keeps it clear of the switcher so the font-fit can shrink it */
 .lp-copy {
   position: fixed;
-  right: 20px;
+  right: var(--size-page-pad);
   bottom: 20px;
   max-width: calc(100vw - 130px);
   font: 400 12px/16px var(--font-ui);
