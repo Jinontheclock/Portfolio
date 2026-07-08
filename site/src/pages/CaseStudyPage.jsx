@@ -77,9 +77,36 @@ export default function CaseStudyPage({ lang, setLang }) {
   const { id } = useParams();
   const project = getProject(id);
   const [demoOpen, setDemoOpen] = useState(false);
+  // section currently in view (null = the intro block above the sections)
+  const [activeId, setActiveId] = useState(null);
 
   useEffect(() => {
     if (project) document.title = `${project.title} — HAJIN`;
+  }, [project]);
+
+  // scroll-spy: the TOC highlights the chapter the reader is inside —
+  // the last section whose top has passed the reading line
+  useEffect(() => {
+    if (!project) return;
+    const ids = project.sections.map((s) => s.id);
+    const onScroll = () => {
+      let current = null;
+      for (const sid of ids) {
+        const el = document.getElementById(`cs-${sid}`);
+        if (el && el.getBoundingClientRect().top <= 140) current = sid;
+        else break;
+      }
+      // fully scrolled: the last chapter is what's being read even if its
+      // top never crosses the reading line
+      const doc = document.documentElement;
+      if (window.innerHeight + window.scrollY >= doc.scrollHeight - 2) {
+        current = ids[ids.length - 1];
+      }
+      setActiveId(current);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, [project]);
 
   if (!project) return <Navigate to="/work" replace />;
@@ -104,14 +131,18 @@ export default function CaseStudyPage({ lang, setLang }) {
           <h1 className="cs-title">{project.title}</h1>
 
           <nav className="cs-toc">
-            <button type="button" className="cs-toc-item" onClick={() => scrollTo(null)}>
+            <button
+              type="button"
+              className={"cs-toc-item" + (activeId === null ? " is-current" : "")}
+              onClick={() => scrollTo(null)}
+            >
               00 INTRO
             </button>
             {project.sections.map((s) => (
               <button
                 key={s.id}
                 type="button"
-                className="cs-toc-item"
+                className={"cs-toc-item" + (activeId === s.id ? " is-current" : "")}
                 onClick={() => scrollTo(s.id)}
               >
                 {s.label}

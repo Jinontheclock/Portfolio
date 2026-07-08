@@ -23,23 +23,28 @@
   color: var(--text-primary);
 }
 
-/* ── Table of contents (left, row 2) ── */
+/* ── Table of contents (left, row 2) ──
+   Sticks while the content scrolls, tracking the chapter in view. */
 .cs-toc {
   grid-column: 2 / 6;
   grid-row: 2;
   display: flex;
   flex-direction: column;
   gap: 2px;
+  position: sticky;
+  top: 84px;
+  align-self: start;
 }
 
 .cs-toc-item {
   all: unset;
   font: 400 var(--size-body) / 1.9 var(--font-ui);
-  color: var(--text);
+  color: var(--text-muted);
   cursor: pointer;
   transition: color var(--duration-fast) var(--easing);
 }
-.cs-toc-item:hover {
+.cs-toc-item:hover,
+.cs-toc-item.is-current {
   color: var(--text-primary);
 }
 
