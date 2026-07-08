@@ -18,7 +18,11 @@ export default function LandingPage({ lang, setLang, fadeClass = "" }) {
   // refit the hero when the language (and so the text) changes; on mobile
   // sit at 85% of the width instead of edge-to-edge. The line box is locked
   // to the English hero's height so switching language never shifts the nav.
-  const heroRef = useFitText(lang, { mobileRatio: 0.85, refText: LANDING.en.hero });
+  const heroRef = useFitText(lang, {
+    mobileRatio: 0.85,
+    refText: LANDING.en.hero,
+    ratio: t.heroRatio ?? 1,
+  });
   const navRef = useRef(null);
 
   // lock the nav text column to the English labels' width so the arrows sit

@@ -20,6 +20,8 @@ export const LANDING = {
   },
   ko: {
     hero: "하진, 프로덕트 디자이너",
+    // Hangul reads visually denser at the fitted size, so sit a bit smaller
+    heroRatio: 0.94,
     heroIndent: "-0.038em",
     work: "작업",
     workIndent: "-0.049em",
