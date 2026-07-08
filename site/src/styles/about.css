@@ -73,6 +73,11 @@
   white-space: pre-line;
 }
 
+/* extra air between the hero sentence and the body paragraphs */
+.ab-hero {
+  margin-bottom: 16px;
+}
+
 .ab-section {
   margin-top: 40px;
   display: flex;

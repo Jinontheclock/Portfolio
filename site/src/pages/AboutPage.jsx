@@ -251,7 +251,7 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
           </nav>
 
           <div className="ab-content">
-            <p className="ab-paragraph">{about.hero}</p>
+            <p className="ab-paragraph ab-hero">{about.hero}</p>
             {about.body.map((para, i) => (
               <p key={i} className="ab-paragraph">
                 {para}
