@@ -1,6 +1,31 @@
 /* Shared components ported from the design system bundle.
    Values are verbatim from components/core/* and components/site/*. */
 
+/* ── Language-switch transition (animate.css fadeOut → fadeIn) ── */
+@keyframes lang-fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes lang-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* durations stay in sync with FADE_MS in App.jsx */
+.lang-fade-out {
+  animation: lang-fadeOut 350ms var(--easing) both;
+}
+.lang-fade-in {
+  animation: lang-fadeIn 350ms var(--easing) both;
+}
+
 /* ── PillButton ── */
 .pill-button {
   display: inline-flex;
