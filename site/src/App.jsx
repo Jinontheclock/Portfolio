@@ -25,18 +25,25 @@ export default function App() {
     return () => clearTimeout(t);
   }, [lang, displayLang]);
 
-  const shared = { lang: displayLang, setLang };
+  // <html lang> follows the DISPLAYED language: flipping it earlier would
+  // re-resolve the still-visible old text's fallback font mid-fade
+  useEffect(() => {
+    document.documentElement.lang = displayLang;
+  }, [displayLang]);
+
+  // pages put this on their localized content only, so fixed chrome like
+  // the landing language switcher doesn't blink with every switch
+  const fadeClass = fadingOut ? "lang-fade-out" : "lang-fade-in";
+  const shared = { lang: displayLang, setLang, fadeClass };
 
   return (
     <HashRouter>
-      <div className={fadingOut ? "lang-fade-out" : "lang-fade-in"}>
-        <Routes>
-          <Route path="/" element={<LandingPage {...shared} />} />
-          <Route path="/about" element={<AboutPage {...shared} />} />
-          <Route path="/work" element={<WorkPage {...shared} />} />
-          <Route path="/work/:id" element={<CaseStudyPage {...shared} />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<LandingPage {...shared} />} />
+        <Route path="/about" element={<AboutPage {...shared} />} />
+        <Route path="/work" element={<WorkPage {...shared} />} />
+        <Route path="/work/:id" element={<CaseStudyPage {...shared} />} />
+      </Routes>
     </HashRouter>
   );
 }

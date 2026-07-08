@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const STORAGE_KEY = "hajin-lang";
 const ORDER = ["en", "ja", "ko"];
@@ -13,14 +13,12 @@ function readInitialLang() {
   return "en";
 }
 
-/** Site-wide language state, persisted like the theme choice and mirrored
- *  onto <html lang> so the design system's per-language type rules apply. */
+/** Site-wide language state, persisted like the theme choice. The <html lang>
+ *  mirror lives in App and follows the *displayed* language — flipping it on
+ *  click would re-resolve the still-visible old text's fallback font
+ *  mid-fade (visibly reflowing e.g. Japanese glyphs) before the swap. */
 export default function useLang() {
   const [lang, setLangState] = useState(readInitialLang);
-
-  useEffect(() => {
-    document.documentElement.lang = lang;
-  }, [lang]);
 
   const setLang = (code) => {
     try {

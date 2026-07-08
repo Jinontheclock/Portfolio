@@ -211,7 +211,7 @@ function SkillRow({ items, fit }) {
   );
 }
 
-export default function AboutPage({ lang, setLang }) {
+export default function AboutPage({ lang, setLang, fadeClass = "" }) {
   useEffect(() => {
     document.title = "About — HAJIN";
   }, []);
@@ -230,7 +230,7 @@ export default function AboutPage({ lang, setLang }) {
     <div className="ab-root">
       <SiteHeader current="about" />
 
-      <main className="ab-main">
+      <main className={"ab-main " + fadeClass}>
         <div className="ab-grid ab-layout">
           <h1 className="ab-title" style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}>
             {NAME[lang] || NAME.en}

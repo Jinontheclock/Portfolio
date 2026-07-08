@@ -13,7 +13,7 @@ const ArrowIcon = () => (
   </svg>
 );
 
-export default function LandingPage({ lang, setLang }) {
+export default function LandingPage({ lang, setLang, fadeClass = "" }) {
   const t = LANDING[lang] || LANDING.en;
   // refit the hero when the language (and so the text) changes; on mobile
   // sit at 85% of the width instead of edge-to-edge. The line box is locked
@@ -60,7 +60,9 @@ export default function LandingPage({ lang, setLang }) {
 
   return (
     <div className="lp-root">
-      <div className="lp-hero">
+      {/* only the localized hero/nav fades on language switch — the language
+          switcher below stays put */}
+      <div className={"lp-hero " + fadeClass}>
         <h1 className="lp-heading" ref={heroRef} style={{ textIndent: t.heroIndent }}>
           {t.hero}
         </h1>
