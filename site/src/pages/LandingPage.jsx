@@ -60,21 +60,31 @@ export default function LandingPage({ lang, setLang, fadeClass = "" }) {
 
   return (
     <div className="lp-root">
-      {/* only the localized hero/nav fades on language switch — the language
-          switcher below stays put */}
-      <div className={"lp-hero " + fadeClass}>
-        <h1 className="lp-heading" ref={heroRef} style={{ textIndent: t.heroIndent }}>
+      {/* only the localized text fades on language switch — the arrows and
+          the language switcher below stay put */}
+      <div className="lp-hero">
+        <h1
+          className={"lp-heading " + fadeClass}
+          ref={heroRef}
+          style={{ textIndent: t.heroIndent }}
+        >
           {t.hero}
         </h1>
         <nav className="lp-nav" ref={navRef}>
           <Link to="/work" className="lp-navlink">
-            <span className="lp-navlink-text" style={{ textIndent: t.workIndent }}>
+            <span
+              className={"lp-navlink-text " + fadeClass}
+              style={{ textIndent: t.workIndent }}
+            >
               {t.work}
             </span>
             <ArrowIcon />
           </Link>
           <Link to="/about" className="lp-navlink">
-            <span className="lp-navlink-text" style={{ textIndent: t.aboutIndent }}>
+            <span
+              className={"lp-navlink-text " + fadeClass}
+              style={{ textIndent: t.aboutIndent }}
+            >
               {t.about}
             </span>
             <ArrowIcon />
