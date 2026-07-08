@@ -63,7 +63,7 @@
   grid-row: 2;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .ab-paragraph {
@@ -73,9 +73,10 @@
   white-space: pre-line;
 }
 
-/* extra air between the hero sentence and the body paragraphs */
+/* extra air between the hero sentence and the body paragraphs (40px total
+   with the 20px content gap) */
 .ab-hero {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .ab-section {
