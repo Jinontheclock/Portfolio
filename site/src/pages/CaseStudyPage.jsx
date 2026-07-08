@@ -97,9 +97,10 @@ export default function CaseStudyPage({ lang, setLang }) {
         else break;
       }
       // fully scrolled: the last chapter is what's being read even if its
-      // top never crosses the reading line
+      // top never crosses the reading line (only once actually scrolled, so
+      // short pages don't jump straight to the last chapter)
       const doc = document.documentElement;
-      if (window.innerHeight + window.scrollY >= doc.scrollHeight - 2) {
+      if (window.scrollY > 0 && window.innerHeight + window.scrollY >= doc.scrollHeight - 2) {
         current = ids[ids.length - 1];
       }
       setActiveId(current);

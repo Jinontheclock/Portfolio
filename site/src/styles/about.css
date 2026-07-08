@@ -34,7 +34,8 @@
   /* text-indent (per-language H/이/イ LSB compensation) is set inline in JSX */
 }
 
-/* ── Left link rail ── */
+/* ── Left link rail ──
+   Sticks while the content scrolls (like the case-study TOC). */
 .ab-rail {
   grid-column: 2 / 4;
   grid-row: 2;
@@ -42,6 +43,9 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 18px;
+  position: sticky;
+  top: 84px;
+  align-self: start;
 }
 
 .ab-rail-link {
@@ -236,9 +240,11 @@
   .ab-content {
     grid-column: 1 / 13;
   }
-  /* link rail sits above the name as a single right-aligned row; the em gap
-     scales with the font so useFitToWidth can shrink the line to fit */
+  /* link rail sits above the name as a single right-aligned row (no sticky
+     on mobile); the em gap scales with the font so useFitToWidth can shrink
+     the line to fit */
   .ab-rail {
+    position: static;
     grid-row: 1;
     flex-direction: row;
     flex-wrap: nowrap;
