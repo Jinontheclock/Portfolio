@@ -378,6 +378,11 @@
     grid-row: 2;
     position: static; /* no sticky tracking on mobile */
   }
+  /* without the sticky tracking, the muted/current split means nothing —
+     read the whole list at full strength */
+  .cs-toc-item {
+    color: var(--text-primary);
+  }
   .cs-content {
     grid-column: 1 / 13;
     grid-row: 3;
