@@ -51,15 +51,19 @@ export const PROJECTS = [
     roles: "Product Design, Research, Branding",
     headline: "Bringing a 6,000-hour journey into one clear view.",
     intro: [
-      "ProLog is a progress-tracking app that levels the playing field for neurodivergent apprentices in the skilled trades. As lead developer on an eight-person team, I turned the design system into a working React Native build and shaped the interface along the way. The project was created for the ConnectHER Technology Showcase and presented at SSE Y2WD.",
+      [
+        "ProLog is a progress-tracking app that levels the playing field for neurodivergent apprentices in the skilled trades. As lead developer on an eight-person team, I worked on the UX/UI design and turned the design system into a working React Native build. The project was created for the ConnectHER Technology Showcase and presented at ",
+        { text: "SSE Y2WD", href: "https://www.d3-fswd.ca" },
+        ".",
+      ],
     ],
     metaLeft: [
       { label: "category", values: ["Mobile App"] },
-      { label: "timeline", values: ["4 months"] },
-      { label: "role", values: ["Lead Developer", "UI Development"] },
+      { label: "timeline", values: ["Sept 2025 – Dec 2025"] },
+      { label: "role", values: ["Lead Developer", "UX/UI Design"] },
       {
         label: "team",
-        values: ["8 people", "PM · product lead · lead designer", "2 researchers · marketing · developers"],
+        values: ["8 people", "design · development · research · marketing"],
       },
     ],
     metaRight: [

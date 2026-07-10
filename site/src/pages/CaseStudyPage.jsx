@@ -161,9 +161,25 @@ export default function CaseStudyPage({ lang, setLang }) {
             {project.headline && <p className="cs-headline">{project.headline}</p>}
 
             <div className="cs-intro">
-              {project.intro.map((p, i) => (
+              {project.intro.map((para, i) => (
                 <p key={i} className="cs-paragraph">
-                  {p}
+                  {typeof para === "string"
+                    ? para
+                    : para.map((seg, j) =>
+                        typeof seg === "string" ? (
+                          seg
+                        ) : (
+                          <a
+                            key={j}
+                            className="cs-inline-link"
+                            href={seg.href}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {seg.text}
+                          </a>
+                        ),
+                      )}
                 </p>
               ))}
             </div>

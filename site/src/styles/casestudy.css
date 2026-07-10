@@ -76,6 +76,19 @@
   color: var(--text);
 }
 
+/* a link inside body copy keeps a quiet underline as its affordance */
+.cs-inline-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--grey-300);
+  transition: color var(--duration-fast) var(--easing);
+}
+.cs-inline-link:hover {
+  color: var(--text-primary);
+  text-decoration-color: currentColor;
+}
+
 /* ── Meta block (two key/value groups side by side) ── */
 .cs-meta {
   margin-top: 40px;
