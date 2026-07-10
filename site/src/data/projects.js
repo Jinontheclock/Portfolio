@@ -296,6 +296,24 @@ export const PROJECTS = [
     metaRight: [{ label: "tool", values: ["WordPress", "Bricks Builder", "Figma"] }],
     sections: PLACEHOLDER_SECTIONS,
   },
+  {
+    id: "muji",
+    title: "MUJI",
+    description:
+      "A short one- or two-line summary of the project and the problem it set out to solve.",
+    roles: "Visual Merchandising, Branding",
+    intro: [
+      "MUJI — placeholder introduction. A couple of sentences describing what the project is, who it serves, and the context it was built in.",
+      "A second placeholder paragraph summarizing the approach and the outcome.",
+    ],
+    metaLeft: [
+      { label: "category", values: ["Visual Merchandising"] },
+      { label: "timeline", values: ["Apr 2022 – Sep 2024"] },
+      { label: "role", values: ["Visual Merchandiser"] },
+    ],
+    metaRight: [{ label: "tool", values: ["Adobe Creative Suite"] }],
+    sections: PLACEHOLDER_SECTIONS,
+  },
 ];
 
 export const getProject = (id) => PROJECTS.find((p) => p.id === id);
