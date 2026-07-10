@@ -110,14 +110,11 @@
 }
 .cs-meta-values a {
   color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--grey-300);
+  text-decoration: none;
   transition: color var(--duration-fast) var(--easing);
 }
 .cs-meta-values a:hover {
   color: var(--text-primary);
-  text-decoration-color: currentColor;
 }
 
 /* ── Placeholder image ── */
