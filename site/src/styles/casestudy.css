@@ -13,27 +13,30 @@
   row-gap: 40px;
 }
 
-/* ── Title (left, row 1) ── */
-.cs-title {
-  grid-column: 2 / 8;
-  grid-row: 1;
-  margin: 0;
-  font: 700 var(--size-card-title) / 1.2 var(--font-ui);
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-}
-
-/* ── Table of contents (left, row 2) ──
-   Sticks while the content scrolls, tracking the chapter in view. */
-.cs-toc {
+/* ── Left block: title + chapters, sticky together ── */
+.cs-left {
   grid-column: 2 / 6;
-  grid-row: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  grid-row: 1 / 3;
   position: sticky;
   top: 84px;
   align-self: start;
+}
+
+/* clicking the title returns to the intro */
+.cs-title {
+  margin: 0 0 40px;
+  font: 700 var(--size-card-title) / 1.2 var(--font-ui);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  cursor: pointer;
+  width: fit-content;
+}
+
+/* ── Table of contents — tracks the chapter in view ── */
+.cs-toc {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .cs-toc-item {
@@ -48,10 +51,10 @@
   color: var(--text-primary);
 }
 
-/* ── Right content column (row 2) ── */
+/* ── Right content column ── */
 .cs-content {
   grid-column: 7 / 13;
-  grid-row: 2;
+  grid-row: 1 / 3;
   display: flex;
   flex-direction: column;
 }
@@ -76,10 +79,11 @@
   color: var(--text);
 }
 
-/* links inside body copy: no underline, darken on hover */
+/* links inside body copy: underlined, darken on hover */
 .cs-inline-link {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   transition: color var(--duration-fast) var(--easing);
 }
 .cs-inline-link:hover {
@@ -120,7 +124,8 @@
 }
 .cs-meta-values a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   transition: color var(--duration-fast) var(--easing);
 }
 .cs-meta-values a:hover {
@@ -360,10 +365,7 @@
 
 /* ── Tablet: pull both columns toward the edges ── */
 @media (max-width: 1024px) {
-  .cs-title {
-    grid-column: 1 / 6;
-  }
-  .cs-toc {
+  .cs-left {
     grid-column: 1 / 5;
   }
   .cs-content {
@@ -380,14 +382,13 @@
     padding: 0 20px;
     row-gap: 28px;
   }
-  .cs-title {
+  .cs-left {
     grid-column: 1 / 13;
     grid-row: 1;
-  }
-  .cs-toc {
-    grid-column: 1 / 13;
-    grid-row: 2;
     position: static; /* no sticky tracking on mobile */
+  }
+  .cs-title {
+    margin-bottom: 24px;
   }
   /* without the sticky tracking, the muted/current split means nothing —
      read the whole list at full strength */
@@ -396,7 +397,7 @@
   }
   .cs-content {
     grid-column: 1 / 13;
-    grid-row: 3;
+    grid-row: 2;
   }
   /* stack the two meta groups so long tool names don't overflow the width */
   .cs-meta {

@@ -135,27 +135,25 @@ export default function CaseStudyPage({ lang, setLang }) {
 
       <main className="cs-main">
         <div className="ab-grid cs-grid">
-          <h1 className="cs-title">{project.title}</h1>
-
-          <nav className="cs-toc">
-            <button
-              type="button"
-              className={"cs-toc-item" + (activeId === null ? " is-current" : "")}
-              onClick={() => scrollTo(null)}
-            >
-              00 INTRO
-            </button>
-            {project.sections.map((s) => (
-              <button
-                key={s.id}
-                type="button"
-                className={"cs-toc-item" + (activeId === s.id ? " is-current" : "")}
-                onClick={() => scrollTo(s.id)}
-              >
-                {s.label}
-              </button>
-            ))}
-          </nav>
+          {/* title + chapters stick together; the title doubles as the
+              "back to intro" control */}
+          <div className="cs-left">
+            <h1 className="cs-title" onClick={() => scrollTo(null)}>
+              {project.title}
+            </h1>
+            <nav className="cs-toc">
+              {project.sections.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  className={"cs-toc-item" + (activeId === s.id ? " is-current" : "")}
+                  onClick={() => scrollTo(s.id)}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </nav>
+          </div>
 
           <div className="cs-content">
             {project.headline && <p className="cs-headline">{project.headline}</p>}
