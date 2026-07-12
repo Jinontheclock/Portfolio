@@ -114,7 +114,7 @@ export const PROJECTS = [
           },
           {
             type: "p",
-            text: "One in five Canadians is neurodivergent — in our survey of apprentices at BCIT, a majority identified as such — yet the system remains rigid and text-heavy. For them especially, an already demanding pathway becomes a navigation problem.",
+            text: "One in five Canadians is neurodivergent — in our survey of 11 apprentices at BCIT, a majority identified as such — yet the system remains rigid and text-heavy. For them especially, an already demanding pathway becomes a navigation problem.",
           },
           { type: "figure", graphic: "prolog-audience" },
         ],
