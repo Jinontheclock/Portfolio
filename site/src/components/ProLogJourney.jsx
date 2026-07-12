@@ -7,13 +7,14 @@ import mockupUrl from "../assets/prolog-mockup.jpg";
    mockup side by side, sitting above the headline.
 
    The animation is ported from the Claude Design project ("ProLog Journey
-   Animation.dc.html" → prolog-scene.jsx). A 15s looped scene: the start
-   node glows, the captions type on, the trail draws with a pause at each
-   stage while its card pops in, and the end node ripples. Everything is
-   driven by per-frame attribute updates on the inlined SVG, so it renders
-   on the page background at any size — no video, no crop. */
+   Animation.dc.html" → prolog-scene.jsx). A 15s scene that plays once and
+   settles on its final frame: the start node glows, the captions type on,
+   the trail draws with a pause at each stage while its card pops in, and
+   the end node ripples. Everything is driven by per-frame attribute
+   updates on the inlined SVG, so it renders on the page background at any
+   size — no video, no crop. */
 
-const DURATION = 15; // seconds per loop
+const DURATION = 15; // seconds, one play-through
 const RIPPLE_COUNT = 3;
 
 const Easing = {
@@ -287,22 +288,41 @@ export default function ProLogJourney() {
         if (!svg) return;
         setup(svg, S);
 
-        // reduced motion: hold a settled end-state frame instead of looping
+        // the settled final frame: everything drawn, ambient ripples cleared
+        const settle = () => {
+          applyFrame(S, DURATION, DURATION, RIPPLE_COUNT);
+          S.ripples && S.ripples.forEach((el) => el && (el.style.opacity = 0));
+        };
+
+        // reduced motion: jump straight to the settled end state
         if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-          applyFrame(S, DURATION * 0.99, DURATION, RIPPLE_COUNT);
+          settle();
           return;
         }
 
+        // plays through once, then holds the final frame; the clock only
+        // advances while the hero is on screen, so scrolling away doesn't
+        // burn through the play unseen
         applyFrame(S, 0, DURATION, RIPPLE_COUNT);
         let running = true;
-        const start = performance.now();
+        let elapsed = 0;
+        let last = performance.now();
         const loop = (now) => {
-          if (running) applyFrame(S, ((now - start) / 1000) % DURATION, DURATION, RIPPLE_COUNT);
+          const dt = (now - last) / 1000;
+          last = now;
+          if (running) {
+            elapsed += dt;
+            if (elapsed >= DURATION) {
+              settle();
+              return; // done — no more frames
+            }
+            applyFrame(S, elapsed, DURATION, RIPPLE_COUNT);
+          }
           raf = requestAnimationFrame(loop);
         };
         raf = requestAnimationFrame(loop);
 
-        // skip frame work while scrolled offscreen
+        // pause the clock while scrolled offscreen
         io = new IntersectionObserver(([e]) => {
           running = e.isIntersecting;
         });
