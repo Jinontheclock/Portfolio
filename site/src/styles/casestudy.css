@@ -267,11 +267,12 @@
   color: var(--text-muted);
 }
 
-/* in-page figures (SVG graphics) with an optional caption below */
+/* in-page figures with an optional caption below */
 .cs-figure {
   margin: 12px 0;
 }
-.cs-figure svg {
+.cs-figure svg,
+.cs-figure img {
   display: block;
   width: 100%;
   height: auto;
