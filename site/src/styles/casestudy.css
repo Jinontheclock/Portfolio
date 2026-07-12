@@ -145,6 +145,19 @@
   background: var(--surface-placeholder);
 }
 
+/* hero scene (live in-page animation, e.g. the ProLog journey): the inlined
+   SVG keeps its own near-square shape and scales with the column */
+.cs-journey {
+  margin-top: 40px;
+  width: 100%;
+  aspect-ratio: 1290 / 1259; /* the journey SVG's viewBox */
+}
+.cs-journey svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* hero video (replaces the placeholder when a project sets heroVideo):
    same 5:2 media band as the design, video cover-cropped into it */
 .cs-video {

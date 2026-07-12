@@ -3,6 +3,11 @@ import { Navigate, useParams } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import TryAppModal from "../components/TryAppModal.jsx";
+import ProLogJourney from "../components/ProLogJourney.jsx";
+
+/* hero scenes: live in-page animations a project can use instead of a
+   video or the placeholder (see each project's heroScene field) */
+const HERO_SCENES = { journey: ProLogJourney };
 import { getProject } from "../data/projects.js";
 
 // ProLog is exported to the Portfolio under /prolog/ (see site/public/prolog)
@@ -187,7 +192,12 @@ export default function CaseStudyPage({ lang, setLang }) {
               <MetaGroup rows={project.metaRight} />
             </div>
 
-            {project.heroVideo ? (
+            {project.heroScene && HERO_SCENES[project.heroScene] ? (
+              (() => {
+                const Scene = HERO_SCENES[project.heroScene];
+                return <Scene />;
+              })()
+            ) : project.heroVideo ? (
               /* hero media: silent autoplay loop, like a GIF. heroVideoRatio
                  (e.g. "1000 / 976") shows the file uncropped at its own
                  shape; without it the video cover-fills the 5:2 band */

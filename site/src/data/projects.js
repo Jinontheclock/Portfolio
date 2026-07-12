@@ -49,6 +49,7 @@ export const PROJECTS = [
     description:
       "A mobile app that turns fragmented apprenticeship records into one clear roadmap for neurodivergent tradespeople",
     roles: "Product Design, Research, Branding",
+    heroScene: "journey",
     headline: "Bringing a 6,000-hour journey into one clear view.",
     intro: [
       [
