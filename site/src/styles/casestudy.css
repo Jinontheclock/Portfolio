@@ -18,7 +18,10 @@
   grid-column: 2 / 6;
   grid-row: 1 / 3;
   position: sticky;
-  top: 84px;
+  /* pinned at its natural resting spot (header 40px + .cs-main's 84px top
+     padding) so it holds the exact same position whether scrolled or not —
+     no initial ride-up before it fixes */
+  top: 124px;
   align-self: start;
 }
 
