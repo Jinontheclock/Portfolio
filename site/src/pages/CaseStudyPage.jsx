@@ -4,10 +4,22 @@ import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import TryAppModal from "../components/TryAppModal.jsx";
 import ProLogJourney from "../components/ProLogJourney.jsx";
+import {
+  AudienceFigure,
+  FragmentsFigure,
+  TimelineFigure,
+} from "../components/ProLogContextFigures.jsx";
 
 /* hero scenes: live in-page animations a project can use instead of a
    video or the placeholder (see each project's heroScene field) */
 const HERO_SCENES = { journey: ProLogJourney };
+
+/* in-page figures a "figure" block can reference by name */
+const FIGURES = {
+  "prolog-timeline": TimelineFigure,
+  "prolog-fragments": FragmentsFigure,
+  "prolog-audience": AudienceFigure,
+};
 import { getProject } from "../data/projects.js";
 
 // ProLog is exported to the Portfolio under /prolog/ (see site/public/prolog)
@@ -66,6 +78,18 @@ function Block({ block, onDemo }) {
           </span>
         </div>
       );
+    case "figure": {
+      const Figure = FIGURES[block.graphic];
+      if (!Figure) return null;
+      return (
+        <figure className="cs-figure">
+          <Figure />
+          {block.caption && (
+            <figcaption className="cs-figure-caption">{block.caption}</figcaption>
+          )}
+        </figure>
+      );
+    }
     case "gallery":
       return (
         <div className="cs-gallery" aria-hidden="true">

@@ -96,8 +96,27 @@ export const PROJECTS = [
         blocks: [
           {
             type: "p",
-            text: "Becoming a certified tradesperson in British Columbia takes roughly 6,000 hours — logged work hours, technical training levels, and around a hundred competencies per level, verified against SkilledTradesBC records. That information lives in scattered places: official portals unfit for mobile, PDF competency documents, separate finance resources. One in five Canadians is neurodivergent — in our own survey at BCIT, a majority of trades apprentices identified as such — yet the system remains rigid and text-heavy. For them especially, an already demanding pathway becomes a navigation problem.",
+            text: "Becoming a certified tradesperson in British Columbia takes about four years: roughly 6,000 logged work hours, four levels of technical training, and around a hundred competencies per level — all verified against SkilledTradesBC records.",
           },
+          {
+            type: "figure",
+            graphic: "prolog-timeline",
+            caption: "The certification journey of a BC electrical apprentice.",
+          },
+          {
+            type: "p",
+            text: "That information lives in scattered places: official portals unfit for mobile, PDF competency documents, separate finance resources, and union forums.",
+          },
+          {
+            type: "figure",
+            graphic: "prolog-fragments",
+            caption: "Four disconnected systems, one journey to manage.",
+          },
+          {
+            type: "p",
+            text: "One in five Canadians is neurodivergent — in our survey of apprentices at BCIT, a majority identified as such — yet the system remains rigid and text-heavy. For them especially, an already demanding pathway becomes a navigation problem.",
+          },
+          { type: "figure", graphic: "prolog-audience" },
         ],
       },
       {

@@ -267,6 +267,21 @@
   color: var(--text-muted);
 }
 
+/* in-page figures (SVG graphics) with an optional caption below */
+.cs-figure {
+  margin: 12px 0;
+}
+.cs-figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.cs-figure-caption {
+  margin-top: 6px;
+  font: 400 13px / 1.5 var(--font-ui);
+  color: var(--text-muted);
+}
+
 /* the Try-app embed inside a section sits close to its lead-in copy */
 .cs-section .cs-tryapp {
   margin: 8px 0;
