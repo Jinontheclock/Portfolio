@@ -110,10 +110,10 @@ const EDUCATION = [
 ];
 
 /* Skills per language — same five-group schema in every language (1:1 rows).
-   Each row is one line: `main` at body strength, plus an optional muted part
-   after an em dash — `sub` trails the main text (detail notes, Tools'
-   category labels) and `lead` precedes it (Development's sublabels).
-   Program/tech names stay in English in every language. */
+   Each row is one line: `main` plus an optional annotation around an em
+   dash — `sub` trails the main text (detail notes, Tools' category labels)
+   and `lead` precedes it (Development's sublabels). Program/tech names stay
+   in English in every language. */
 const SKILLS = {
   en: [
     {
@@ -282,10 +282,11 @@ function Entry({ entry }) {
   );
 }
 
-/** One skill line at body size: the main text plus an optional muted part
- *  around an em dash — `lead` precedes it (Development's sublabels), `sub`
- *  trails it (detail notes, Tools' category labels). Inline flow, so long
- *  lines wrap like prose. */
+/** One skill line at body size: the main text plus an optional annotated
+ *  part around an em dash — `lead` precedes it (Development's sublabels),
+ *  `sub` trails it (detail notes, Tools' category labels). Inline flow, so
+ *  long lines wrap like prose. The note spans share the section's uniform
+ *  primary color; the class just keeps the structure restylable. */
 function SkillRow({ row }) {
   return (
     <div className="ab-skill-row">

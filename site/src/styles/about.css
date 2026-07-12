@@ -175,7 +175,7 @@
 .ab-skill-label {
   margin: 0;
   font: 400 var(--size-body) / 1.5 var(--font-ui);
-  color: var(--text);
+  color: var(--text-primary);
 }
 
 .ab-skill-rows {
@@ -184,17 +184,14 @@
   gap: 8px;
   min-width: 0;
   font: 400 var(--size-body) / 1.5 var(--font-ui);
-  color: var(--text);
+  /* one uniform color across the whole section — the em-dash notes
+     (.ab-skill-note spans) inherit it too */
+  color: var(--text-primary);
 }
 
 /* one skill per line, wrapping like prose when narrow */
 .ab-skill-row {
   min-width: 0;
-}
-/* the muted half of a row's em dash: detail notes (after the dash) and
-   Development's sublabels (before it) sit a step below the main text */
-.ab-skill-note {
-  color: var(--text-muted);
 }
 
 /* ── Tablet: reclaim some of the empty middle ── */
