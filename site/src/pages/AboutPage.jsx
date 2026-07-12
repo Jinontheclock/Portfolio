@@ -109,44 +109,142 @@ const EDUCATION = [
   },
 ];
 
-// Rows render left-to-right with wrapping, per the Figma Skills frame
-const SKILLS = [
-  {
-    label: "Tools",
-    rows: [
-      ["Figma"],
-      { items: ["Adobe", "InDesign", "Illustrator", "Photoshop", "AfterEffect"], fit: true },
-      ["Microsoft Office"],
-      ["Google Suite"],
-      ["WordPress"],
-    ],
-  },
-  {
-    label: "Technical",
-    rows: [
-      ["HTML/CSS", "Tailwind CSS"],
-      ["JavaScript", "TypeScript"],
-      ["React", "Next.js"],
-      ["Git/GitHub"],
-      ["Vercel"],
-    ],
-  },
-  {
-    label: "Methods",
-    rows: [
-      ["User + Stakeholder Journey Mapping"],
-      ["Semi-structured Interviews"],
-      ["Experience Prototyping"],
-      ["Storyboarding"],
-      ["Wireframing"],
-      ["User Stories"],
-    ],
-  },
-  {
-    label: "Languages",
-    rows: [["Korean"], ["Japanese"], ["English"]],
-  },
-];
+/* Skills per language — same five-group schema in every language (1:1 rows).
+   Each row is one line: `main` at body strength, plus an optional muted part
+   after an em dash — `sub` trails the main text (detail notes, Tools'
+   category labels) and `lead` precedes it (Development's sublabels).
+   Program/tech names stay in English in every language. */
+const SKILLS = {
+  en: [
+    {
+      label: "Design",
+      rows: [
+        { main: "Product Design" },
+        { main: "Design Systems", sub: "semantic tokens, component libraries" },
+        { main: "Interaction Design & Prototyping" },
+        { main: "Visual & Graphic Design", sub: "typography, brand identity, motion" },
+        { main: "Accessibility", sub: "WCAG 2.1/2.2 AA" },
+      ],
+    },
+    {
+      label: "Research & Strategy",
+      rows: [
+        { main: "User Research", sub: "interviews, surveys, contextual inquiry" },
+        { main: "Usability Testing", sub: "moderated/unmoderated" },
+        { main: "Journey Mapping", sub: "touchpoints, pain points, opportunities" },
+        { main: "Information Architecture", sub: "wireframing, user flows" },
+      ],
+    },
+    {
+      label: "Development",
+      rows: [
+        { lead: "Languages", main: "HTML5, CSS3, JavaScript, TypeScript" },
+        { lead: "Framework", main: "React, Next.js" },
+        { lead: "Styling & Animation", main: "Tailwind CSS, CSS Modules, GSAP" },
+        { lead: "Workflow", main: "Git/GitHub, Vercel" },
+      ],
+    },
+    {
+      label: "Tools",
+      rows: [
+        { main: "Figma, Framer, WordPress", sub: "Design & Prototyping" },
+        { main: "Adobe Creative Suite", sub: "Adobe Illustrator, Photoshop, After Effects, InDesign" },
+        { main: "Google Analytics (GA4)", sub: "Analytics" },
+        { main: "Figma AI, Cursor, ChatGPT, Claude", sub: "AI" },
+      ],
+    },
+    {
+      label: "Languages",
+      rows: [{ main: "Korean" }, { main: "English" }, { main: "Japanese" }],
+    },
+  ],
+  ko: [
+    {
+      label: "디자인",
+      rows: [
+        { main: "프로덕트 디자인" },
+        { main: "디자인 시스템", sub: "시맨틱 토큰, 컴포넌트 라이브러리" },
+        { main: "인터랙션 디자인 & 프로토타이핑" },
+        { main: "비주얼 & 그래픽 디자인", sub: "타이포그래피, 브랜드 아이덴티티, 모션" },
+        { main: "접근성", sub: "WCAG 2.1/2.2 AA" },
+      ],
+    },
+    {
+      label: "리서치 & 전략",
+      rows: [
+        { main: "사용자 리서치", sub: "인터뷰, 설문조사, 컨텍스추얼 인쿼리" },
+        { main: "사용성 테스트", sub: "진행자 유/무 방식" },
+        { main: "저니 매핑", sub: "터치포인트, 페인포인트, 개선 기회" },
+        { main: "정보 구조 설계(IA)", sub: "와이어프레임, 유저 플로우" },
+      ],
+    },
+    {
+      label: "개발",
+      rows: [
+        { lead: "언어", main: "HTML5, CSS3, JavaScript, TypeScript" },
+        { lead: "프레임워크", main: "React, Next.js" },
+        { lead: "스타일링 & 애니메이션", main: "Tailwind CSS, CSS Modules, GSAP" },
+        { lead: "워크플로우", main: "Git/GitHub, Vercel" },
+      ],
+    },
+    {
+      label: "툴",
+      rows: [
+        { main: "Figma, Framer, WordPress", sub: "디자인 & 프로토타이핑" },
+        { main: "Adobe Creative Suite", sub: "Adobe Illustrator, Photoshop, After Effects, InDesign" },
+        { main: "Google Analytics (GA4)", sub: "애널리틱스" },
+        { main: "Figma AI, Cursor, ChatGPT, Claude", sub: "AI" },
+      ],
+    },
+    {
+      label: "구사 언어",
+      rows: [{ main: "한국어" }, { main: "영어" }, { main: "일본어" }],
+    },
+  ],
+  ja: [
+    {
+      label: "デザイン",
+      rows: [
+        { main: "プロダクトデザイン" },
+        { main: "デザインシステム", sub: "セマンティックトークン、コンポーネントライブラリ" },
+        { main: "インタラクションデザイン & プロトタイピング" },
+        { main: "ビジュアル & グラフィックデザイン", sub: "タイポグラフィ、ブランドアイデンティティ、モーション" },
+        { main: "アクセシビリティ", sub: "WCAG 2.1/2.2 AA" },
+      ],
+    },
+    {
+      label: "リサーチ & ストラテジー",
+      rows: [
+        { main: "ユーザーリサーチ", sub: "インタビュー、アンケート調査、コンテクスチュアルインクワイアリー" },
+        { main: "ユーザビリティテスト", sub: "モデレーターあり/なし" },
+        { main: "ジャーニーマッピング", sub: "タッチポイント、ペインポイント、改善機会" },
+        { main: "情報アーキテクチャ(IA)", sub: "ワイヤーフレーム、ユーザーフロー" },
+      ],
+    },
+    {
+      label: "開発",
+      rows: [
+        { lead: "言語", main: "HTML5, CSS3, JavaScript, TypeScript" },
+        { lead: "フレームワーク", main: "React, Next.js" },
+        { lead: "スタイリング & アニメーション", main: "Tailwind CSS, CSS Modules, GSAP" },
+        { lead: "ワークフロー", main: "Git/GitHub, Vercel" },
+      ],
+    },
+    {
+      label: "ツール",
+      rows: [
+        { main: "Figma, Framer, WordPress", sub: "デザイン & プロトタイピング" },
+        { main: "Adobe Creative Suite", sub: "Adobe Illustrator, Photoshop, After Effects, InDesign" },
+        { main: "Google Analytics (GA4)", sub: "アナリティクス" },
+        { main: "Figma AI, Cursor, ChatGPT, Claude", sub: "AI" },
+      ],
+    },
+    {
+      label: "語学",
+      rows: [{ main: "韓国語" }, { main: "英語" }, { main: "日本語" }],
+    },
+  ],
+};
 
 /** Head (title with the period right-aligned, then org) matches the Figma
  *  list format; hovering unfolds type + location and the description, and a
@@ -184,29 +282,16 @@ function Entry({ entry }) {
   );
 }
 
-/** A skill row at body size. `fit` rows (Adobe tools) put the first item in
- *  the fixed lead column and flow the rest beside it — wrapped lines align
- *  under the first product (InDesign/Photoshop share a left edge), never
- *  shrinking the font. */
-function SkillRow({ items, fit }) {
-  if (fit) {
-    const [lead, ...rest] = items;
-    return (
-      <div className="ab-skill-row is-lead">
-        <span>{lead}</span>
-        <span className="ab-skill-rest">
-          {rest.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </span>
-      </div>
-    );
-  }
+/** One skill line at body size: the main text plus an optional muted part
+ *  around an em dash — `lead` precedes it (Development's sublabels), `sub`
+ *  trails it (detail notes, Tools' category labels). Inline flow, so long
+ *  lines wrap like prose. */
+function SkillRow({ row }) {
   return (
     <div className="ab-skill-row">
-      {items.map((item) => (
-        <span key={item}>{item}</span>
-      ))}
+      {row.lead && <span className="ab-skill-note">{`${row.lead} — `}</span>}
+      {row.main}
+      {row.sub && <span className="ab-skill-note">{` — ${row.sub}`}</span>}
     </div>
   );
 }
@@ -279,15 +364,13 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
             <section className="ab-section">
               <h2 className="ab-section-label">Skills</h2>
               <div className="ab-skills">
-                {SKILLS.map((group) => (
+                {(SKILLS[lang] || SKILLS.en).map((group) => (
                   <div key={group.label} className="ab-skill-group">
                     <h3 className="ab-skill-label">{group.label}</h3>
                     <div className="ab-skill-rows">
-                      {group.rows.map((row, i) => {
-                        const items = Array.isArray(row) ? row : row.items;
-                        const fit = !Array.isArray(row) && row.fit;
-                        return <SkillRow key={i} items={items} fit={fit} />;
-                      })}
+                      {group.rows.map((row, i) => (
+                        <SkillRow key={i} row={row} />
+                      ))}
                     </div>
                   </div>
                 ))}

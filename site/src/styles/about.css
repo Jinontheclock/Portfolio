@@ -156,7 +156,7 @@
   white-space: pre-line;
 }
 
-/* Skills — four subsections, rows of items flowing left-to-right */
+/* Skills — five subsections, one line per skill */
 .ab-skills {
   margin-top: 8px;
   display: flex;
@@ -164,11 +164,9 @@
   gap: 48px;
 }
 
-/* label in a left column, the item rows beside it on the right */
+/* label in a left column, the skill lines beside it on the right */
 .ab-skill-group {
   display: grid;
-  /* minmax(0,1fr) stops a nowrap row from widening the items column;
-     it stays fixed so the fit row overflows it and gets scaled down */
   grid-template-columns: 110px minmax(0, 1fr);
   column-gap: 24px;
   align-items: start;
@@ -189,31 +187,14 @@
   color: var(--text);
 }
 
+/* one skill per line, wrapping like prose when narrow */
 .ab-skill-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 16px;
-}
-/* first item is a fixed column so trailing items line up across rows */
-.ab-skill-row > span:first-child {
-  min-width: 96px;
-}
-/* the Adobe row: "Adobe" sits in a narrow lead column and the products
-   flow beside it at body size — when they don't fit one line they wrap,
-   and wrapped lines align under the first product (never under Adobe) */
-.ab-skill-row.is-lead {
-  flex-wrap: nowrap;
-}
-/* tighter lead column than the default 96px so Adobe→InDesign reads close */
-.ab-skill-row.is-lead > span:first-child {
-  min-width: 4em;
-}
-.ab-skill-rest {
-  flex: 1;
   min-width: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 16px;
+}
+/* the muted half of a row's em dash: detail notes (after the dash) and
+   Development's sublabels (before it) sit a step below the main text */
+.ab-skill-note {
+  color: var(--text-muted);
 }
 
 /* ── Tablet: reclaim some of the empty middle ── */
@@ -269,6 +250,4 @@
     grid-template-columns: 84px minmax(0, 1fr);
     column-gap: 16px;
   }
-  /* the Adobe row keeps the lead-column structure on mobile too, so the
-     wrapped second line left-aligns with InDesign */
 }
