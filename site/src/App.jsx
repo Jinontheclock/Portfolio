@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import useLang from "./hooks/useLang.js";
+import Preloader from "./components/Preloader.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import WorkPage from "./pages/WorkPage.jsx";
@@ -8,8 +9,17 @@ import CaseStudyPage from "./pages/CaseStudyPage.jsx";
 
 const FADE_MS = 350; // keep in sync with .lang-fade-* in components.css
 
+// the boot loader (0→100 count) covers the app's first load on ANY route so
+// no page is ever seen mid-assembly (font refits, hero SVG/image pop-in);
+// in-app navigation never re-triggers it
+let booted = false;
+
 export default function App() {
   const { lang, setLang } = useLang();
+  const [booting, setBooting] = useState(!booted);
+  useEffect(() => {
+    booted = true;
+  }, []);
   // language switches fade out with the old text, then fade in with the new:
   // pages render displayLang, which only advances once the fade-out ends
   const [displayLang, setDisplayLang] = useState(lang);
@@ -77,6 +87,7 @@ export default function App() {
         <Route path="/work" element={<WorkPage {...shared} />} />
         <Route path="/work/:id" element={<CaseStudyPage {...shared} />} />
       </Routes>
+      {booting && <Preloader onDone={() => setBooting(false)} />}
     </HashRouter>
   );
 }

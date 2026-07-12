@@ -1,17 +1,9 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import LangSwitcher from "../components/LangSwitcher.jsx";
-import Preloader from "../components/Preloader.jsx";
 import useFitText from "../hooks/useFitText.js";
 import useFitToWidth from "../hooks/useFitToWidth.js";
 import { LANDING } from "../i18n.js";
-
-// The boot loader (0→100 count) covers the first paint so the hero's font-fit
-// never shows mid-adjustment. It runs only when the app itself starts on the
-// landing page — module scope is evaluated once, before the router normalizes
-// the hash — never on in-app navigation back to it.
-const BOOTS_ON_LANDING = /^#?\/?$/.test(window.location.hash);
-let booted = false;
 
 /* Long-tail arrow traced from the Figma asset: thick tail, head peaking
    at its left and tapering to the right tip. currentColor follows the theme. */
@@ -24,11 +16,6 @@ const ArrowIcon = () => (
 
 export default function LandingPage({ lang, setLang, fadeClass = "" }) {
   const t = LANDING[lang] || LANDING.en;
-  // covered by the boot loader until the page behind it is fully settled
-  const [booting, setBooting] = useState(BOOTS_ON_LANDING && !booted);
-  useEffect(() => {
-    booted = true;
-  }, []);
   // refit the hero when the language (and so the text) changes; on mobile
   // sit at 85% of the width instead of edge-to-edge. The line box is locked
   // to the English hero's height so switching language never shifts the nav.
@@ -117,7 +104,6 @@ export default function LandingPage({ lang, setLang, fadeClass = "" }) {
       <span className="lp-copy" ref={copyRef}>
         © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
       </span>
-      {booting && <Preloader onDone={() => setBooting(false)} />}
     </div>
   );
 }

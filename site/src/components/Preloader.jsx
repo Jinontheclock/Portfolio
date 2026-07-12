@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
-/** Boot overlay for the landing page: an opaque cover with a centered 0→100
- *  count while the page underneath finishes assembling (webfonts load, the
- *  hero font-fit settles). The pace is time-eased, but the final tick to 100
- *  waits for actual readiness — so the landing is only ever revealed complete,
- *  never mid-fit. */
+/** Boot overlay: an opaque cover with a centered 0→100 count while the page
+ *  underneath finishes assembling — webfonts, images, and fetch-injected
+ *  heroes (the ProLog journey SVG). The pace is time-eased, but the final
+ *  tick to 100 waits for actual readiness, so pages are only ever revealed
+ *  complete, never mid-assembly. Shown once, on the app's first load. */
 const PACE_MS = 1400; // the 0→99 run: quick start, easing out
-const MAX_WAIT_MS = 3500; // never hold the page hostage to a slow font
+const MAX_WAIT_MS = 4500; // never hold the page hostage to a slow asset
 const HOLD_MS = 150; // beat at 100 before the fade starts
 const FADE_MS = 450; // keep in sync with .lp-loader's opacity transition
 
@@ -18,13 +18,26 @@ export default function Preloader({ onDone }) {
 
   useEffect(() => {
     let ready = false;
+    let cancelled = false;
     let raf = 0;
     const timers = [];
 
-    // readiness = webfonts in (or the cap expired), plus two frames so the
-    // fonts-ready refit (useFitText) has painted before the reveal
+    // readiness = webfonts in, every <img> settled, and any fetch-injected
+    // hero (a .cs-journey host) holding its SVG — or the cap expired — plus
+    // two frames so the fonts-ready refits have painted before the reveal
+    const assetsSettled = async () => {
+      await (document.fonts?.ready ?? Promise.resolve());
+      for (;;) {
+        if (cancelled) return;
+        const host = document.querySelector(".cs-journey");
+        const svgIn = !host || !!host.querySelector("svg");
+        const imgsIn = [...document.querySelectorAll("img")].every((i) => i.complete);
+        if (svgIn && imgsIn) return;
+        await new Promise((r) => timers.push(setTimeout(r, 80)));
+      }
+    };
     const cap = new Promise((res) => timers.push(setTimeout(res, MAX_WAIT_MS)));
-    Promise.race([document.fonts?.ready ?? Promise.resolve(), cap]).then(() => {
+    Promise.race([assetsSettled(), cap]).then(() => {
       requestAnimationFrame(() =>
         requestAnimationFrame(() => {
           ready = true;
@@ -49,6 +62,7 @@ export default function Preloader({ onDone }) {
     raf = requestAnimationFrame(tick);
 
     return () => {
+      cancelled = true;
       cancelAnimationFrame(raf);
       timers.forEach(clearTimeout);
     };

@@ -338,15 +338,14 @@ export default function ProLogJourney() {
 
   return (
     <div className="cs-hero">
+      {/* the logo floats over the animation's top-left corner */}
       <img className="cs-hero-logo" src={logoUrl} alt="ProLog" />
-      <div className="cs-hero-media">
-        <div ref={hostRef} className="cs-journey" aria-hidden="true" />
-        <img
-          className="cs-hero-mockup"
-          src={mockupUrl}
-          alt="ProLog dashboard on a phone"
-        />
-      </div>
+      <div ref={hostRef} className="cs-journey" aria-hidden="true" />
+      <img
+        className="cs-hero-mockup"
+        src={mockupUrl}
+        alt="ProLog dashboard on a phone"
+      />
     </div>
   );
 }
