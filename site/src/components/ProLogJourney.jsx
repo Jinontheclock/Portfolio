@@ -1,12 +1,17 @@
 import { useEffect, useRef } from "react";
 import svgUrl from "../assets/prolog-journey.svg";
+import logoUrl from "../assets/prolog-logo.svg";
+import mockupUrl from "../assets/prolog-mockup.jpg";
 
-/* ProLog journey hero animation — ported from the Claude Design project
-   ("ProLog Journey Animation.dc.html" → prolog-scene.jsx). A 15s looped
-   scene: the start node glows, the captions type on, the trail draws with
-   a pause at each stage while its card pops in, and the end node ripples.
-   Everything is driven by per-frame attribute updates on the inlined SVG,
-   so it renders on the page background at any size — no video, no crop. */
+/* ProLog case-study hero: the logo, the journey animation, and the phone
+   mockup side by side, sitting above the headline.
+
+   The animation is ported from the Claude Design project ("ProLog Journey
+   Animation.dc.html" → prolog-scene.jsx). A 15s looped scene: the start
+   node glows, the captions type on, the trail draws with a pause at each
+   stage while its card pops in, and the end node ripples. Everything is
+   driven by per-frame attribute updates on the inlined SVG, so it renders
+   on the page background at any size — no video, no crop. */
 
 const DURATION = 15; // seconds per loop
 const RIPPLE_COUNT = 3;
@@ -311,5 +316,17 @@ export default function ProLogJourney() {
     };
   }, []);
 
-  return <div ref={hostRef} className="cs-journey" aria-hidden="true" />;
+  return (
+    <div className="cs-hero">
+      <img className="cs-hero-logo" src={logoUrl} alt="ProLog" />
+      <div className="cs-hero-media">
+        <div ref={hostRef} className="cs-journey" aria-hidden="true" />
+        <img
+          className="cs-hero-mockup"
+          src={mockupUrl}
+          alt="ProLog dashboard on a phone"
+        />
+      </div>
+    </div>
+  );
 }

@@ -123,6 +123,8 @@ export default function CaseStudyPage({ lang, setLang }) {
 
   if (!project) return <Navigate to="/work" replace />;
 
+  const HeroScene = project.heroScene ? HERO_SCENES[project.heroScene] : null;
+
   const scrollTo = (sectionId) => {
     if (!sectionId) {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -161,6 +163,10 @@ export default function CaseStudyPage({ lang, setLang }) {
           </div>
 
           <div className="cs-content">
+            {/* a project's hero scene (logo + live animation + mockup) leads
+                the page, above the headline */}
+            {HeroScene && <HeroScene />}
+
             {project.headline && <p className="cs-headline">{project.headline}</p>}
 
             <div className="cs-intro">
@@ -192,12 +198,7 @@ export default function CaseStudyPage({ lang, setLang }) {
               <MetaGroup rows={project.metaRight} />
             </div>
 
-            {project.heroScene && HERO_SCENES[project.heroScene] ? (
-              (() => {
-                const Scene = HERO_SCENES[project.heroScene];
-                return <Scene />;
-              })()
-            ) : project.heroVideo ? (
+            {HeroScene ? null : project.heroVideo ? (
               /* hero media: silent autoplay loop, like a GIF. heroVideoRatio
                  (e.g. "1000 / 976") shows the file uncropped at its own
                  shape; without it the video cover-fills the 5:2 band */
