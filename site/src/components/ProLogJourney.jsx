@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import svgUrl from "../assets/prolog-journey.svg";
 import logoUrl from "../assets/prolog-logo.svg";
-import mockupUrl from "../assets/prolog-mockup.jpg";
+import mockupUrl from "../assets/prolog-mockup.webp";
 
 /* ProLog case-study hero: the logo, the journey animation, and the phone
    mockup side by side, sitting above the headline.
