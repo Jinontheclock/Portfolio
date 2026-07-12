@@ -126,17 +126,17 @@ export const PROJECTS = [
           { type: "h", text: "Problem 01 — No map of the journey" },
           {
             type: "p",
-            text: "Apprentices can see their past hours, but nothing shows where they stand or what comes next. The apprenticeship dropout rate sits at 42%. The requirements are clear on paper — the journey isn't.",
+            text: "Apprentices can see their past hours, but nothing shows where they stand or what comes next. Across Canada, only 16% of apprentices earn certification within their program's expected duration — and even given twice that time, roughly four in ten never certify at all. The requirements are clear on paper. The journey isn't.",
           },
           { type: "h", text: "Problem 02 — Hours lost in the system" },
           {
             type: "p",
-            text: "The biggest concern we heard: discrepancies between the hours apprentices actually worked and the hours officially recorded. Hard-earned progress quietly goes missing, delaying progression and draining motivation.",
+            text: "The sharpest concern in our interviews: discrepancies between the hours apprentices actually worked and the hours officially recorded — and no clear way to fix them. What proof counts? Who do you escalate to? Hard-earned progress quietly goes missing, delaying progression and draining motivation.",
           },
           { type: "h", text: "Problem 03 — Scattered support" },
           {
             type: "p",
-            text: "Study materials, funding information, and deadlines live across disconnected websites, most of them dense and desktop-only — while apprentices work almost entirely from their phones.",
+            text: "Apprentices work from their phones — eight of the eleven we surveyed named the phone as their primary device — yet study materials, funding information, and deadlines live on dense, desktop-only websites. The support exists. It just isn't built for the way apprentices actually work.",
           },
         ],
       },
