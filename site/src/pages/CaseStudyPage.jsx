@@ -187,7 +187,21 @@ export default function CaseStudyPage({ lang, setLang }) {
               <MetaGroup rows={project.metaRight} />
             </div>
 
-            <div className="cs-image" aria-hidden="true"></div>
+            {project.heroVideo ? (
+              /* hero media: silent autoplay loop, like a GIF */
+              <video
+                className="cs-video"
+                src={`${import.meta.env.BASE_URL}${project.heroVideo}`}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-hidden="true"
+              />
+            ) : (
+              <div className="cs-image" aria-hidden="true"></div>
+            )}
 
             <div className="cs-sections">
               {project.sections.map((s) => (

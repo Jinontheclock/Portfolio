@@ -145,6 +145,17 @@
   background: var(--surface-placeholder);
 }
 
+/* hero video (replaces the placeholder when a project sets heroVideo):
+   same 5:2 media band as the design, video cover-cropped into it */
+.cs-video {
+  margin-top: 40px;
+  width: 100%;
+  aspect-ratio: 5 / 2;
+  object-fit: cover;
+  display: block;
+  background: var(--surface-placeholder);
+}
+
 /* ── Body sections (numbered, from each project's block list) ── */
 .cs-sections {
   margin-top: 48px;
