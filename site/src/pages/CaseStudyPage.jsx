@@ -188,10 +188,13 @@ export default function CaseStudyPage({ lang, setLang }) {
             </div>
 
             {project.heroVideo ? (
-              /* hero media: silent autoplay loop, like a GIF */
+              /* hero media: silent autoplay loop, like a GIF. heroVideoRatio
+                 (e.g. "1000 / 976") shows the file uncropped at its own
+                 shape; without it the video cover-fills the 5:2 band */
               <video
                 className="cs-video"
                 src={`${import.meta.env.BASE_URL}${project.heroVideo}`}
+                style={project.heroVideoRatio ? { aspectRatio: project.heroVideoRatio } : undefined}
                 autoPlay
                 muted
                 loop
