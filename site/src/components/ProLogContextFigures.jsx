@@ -1,6 +1,6 @@
-import timelineImg from "../assets/prolog-fig-timeline.webp";
-import fragmentsImg from "../assets/prolog-fig-fragments.webp";
-import audienceImg from "../assets/prolog-fig-audience.webp";
+import timelineImg from "../assets/prolog/prolog-fig-timeline.webp";
+import fragmentsImg from "../assets/prolog/prolog-fig-fragments.webp";
+import audienceImg from "../assets/prolog/prolog-fig-audience.webp";
 
 /* Context figures for the ProLog case study — the designed graphics,
    optimized from the originals in public/media. */
