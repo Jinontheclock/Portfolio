@@ -4,7 +4,9 @@ import audienceImg from "../assets/prolog/prolog-fig-audience.webp";
 import certStatsImg from "../assets/prolog/prolog-fig-certstats.webp";
 import discrepancyImg from "../assets/prolog/prolog-fig-discrepancy.webp";
 import participantsImg from "../assets/prolog/prolog-fig-participants.webp";
-import shotJourney from "../assets/prolog/prolog-shot-journey-dashboard.webp";
+import shotJourney1 from "../assets/prolog/prolog-shot-journey-dashboard-1.webp";
+import shotJourney2 from "../assets/prolog/prolog-shot-journey-dashboard-2.webp";
+import shotJourney3 from "../assets/prolog/prolog-shot-journey-dashboard-3.webp";
 import shotScanning from "../assets/prolog/prolog-shot-manual-scanning.webp";
 import shotPaystubs from "../assets/prolog/prolog-shot-work-paystub-records.webp";
 import shotHours from "../assets/prolog/prolog-shot-work-hours.webp";
@@ -77,7 +79,9 @@ export function ParticipantsFigure() {
 
 /* app screens used by the Solution section's split rows */
 export const PROLOG_SHOTS = {
-  "journey-dashboard": { src: shotJourney, alt: "ProLog dashboard: the journey path with levels, overall progress, reminders and exam status in one scroll" },
+  "journey-dashboard-1": { src: shotJourney1, alt: "ProLog dashboard: journey path with levels completed, overall progress, reminders and exam status" },
+  "journey-dashboard-2": { src: shotJourney2, alt: "Level 3 unlocked: the dashboard celebrates completing every Level 2 requirement" },
+  "journey-dashboard-3": { src: shotJourney3, alt: "The same dashboard earlier in the journey: Level 3 in progress, skills and school still ahead" },
   "manual-scanning": { src: shotScanning, alt: "Scanning a paystub document with the in-app camera" },
   "work-paystub-records": { src: shotPaystubs, alt: "Paystub records by month with work hours and income" },
   "work-hours": { src: shotHours, alt: "Working hours: 1,545 of 1,800 tracked, apprenticeship details and discrepancy tracking" },

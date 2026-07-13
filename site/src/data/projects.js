@@ -185,7 +185,7 @@ export const PROJECTS = [
               "ProLog's dashboard turns certification into a single roadmap: hours tracked, hours left in the current level, and hours until Red Seal — with competency and finance status alongside. Whenever it gets overwhelming, the dashboard shows exactly where you are and what's ahead.",
               "In usability testing, hour totals initially read as static labels — participants couldn't tell what the numbers were made of. We made every figure tappable, breaking hours down by competency, so exploring your own progress became the default interaction rather than a dead end.",
             ],
-            media: ["journey-dashboard"],
+            media: ["journey-dashboard-1", "journey-dashboard-2", "journey-dashboard-3"],
             caption:
               "The dashboard: journey path, hours, competencies, and what's next — one screen.",
           },
