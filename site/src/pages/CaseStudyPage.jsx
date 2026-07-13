@@ -7,6 +7,7 @@ import ProLogJourney from "../components/ProLogJourney.jsx";
 import {
   AudienceFigure,
   CertStatsFigure,
+  DiscrepancyFigure,
   FragmentsFigure,
   TimelineFigure,
 } from "../components/ProLogContextFigures.jsx";
@@ -21,6 +22,7 @@ const FIGURES = {
   "prolog-fragments": FragmentsFigure,
   "prolog-audience": AudienceFigure,
   "prolog-certstats": CertStatsFigure,
+  "prolog-discrepancy": DiscrepancyFigure,
 };
 import { getProject } from "../data/projects.js";
 

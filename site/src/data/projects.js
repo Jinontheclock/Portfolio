@@ -134,6 +134,7 @@ export const PROJECTS = [
             type: "p",
             text: "The sharpest concern in our interviews: discrepancies between the hours apprentices actually worked and the hours officially recorded — and no clear way to fix them. What proof counts? Who do you escalate to? Hard-earned progress quietly goes missing, delaying progression and draining motivation.",
           },
+          { type: "figure", graphic: "prolog-discrepancy" },
           { type: "h", text: "Problem 03 — Scattered support" },
           {
             type: "p",

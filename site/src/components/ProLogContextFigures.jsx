@@ -2,6 +2,7 @@ import timelineImg from "../assets/prolog/prolog-fig-timeline.webp";
 import fragmentsImg from "../assets/prolog/prolog-fig-fragments.webp";
 import audienceImg from "../assets/prolog/prolog-fig-audience.webp";
 import certStatsImg from "../assets/prolog/prolog-fig-certstats.webp";
+import discrepancyImg from "../assets/prolog/prolog-fig-discrepancy.webp";
 
 /* Context figures for the ProLog case study — the designed graphics,
    optimized from the originals in public/media. */
@@ -41,6 +42,16 @@ export function CertStatsFigure() {
     <img
       src={certStatsImg}
       alt="The journey, abandoned: only 16% of Canadian apprentices earn certification within the expected program duration, and 4 in 10 never certify even given twice the time"
+      loading="lazy"
+    />
+  );
+}
+
+export function DiscrepancyFigure() {
+  return (
+    <img
+      src={discrepancyImg}
+      alt="Worked does not equal recorded: paystub records show 1,240 hours while the SkilledTradesBC record shows 1,210 — a 30-hour discrepancy with no clear way to prove or escalate"
       loading="lazy"
     />
   );
