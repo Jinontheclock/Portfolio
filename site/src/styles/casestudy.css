@@ -175,6 +175,10 @@
   height: auto;
   align-self: center;
 }
+/* the mobile-only copy of the mockup that sits beside the chapter list */
+.cs-toc-mockup {
+  display: none;
+}
 
 /* the journey animation: the inlined SVG keeps its own near-square shape
    and scales with the space it's given */
@@ -533,8 +537,8 @@
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  /* hero: the journey takes the full width, the phone mockup below it;
-     the logo keeps floating over the animation's top-left corner */
+  /* hero: the journey takes the full width; the phone mockup moves up
+     beside the chapter list, so the hero's own copy disappears */
   .cs-hero {
     margin-bottom: 36px;
     flex-direction: column;
@@ -544,10 +548,27 @@
     width: 100%;
   }
   .cs-hero-mockup {
-    width: 70%;
+    display: none;
   }
   .cs-hero-logo {
     width: 26%;
+  }
+  /* chapter list on the left, a small mockup on the right */
+  .cs-toc-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .cs-toc-row .cs-toc {
+    flex: 1;
+    min-width: 0;
+  }
+  .cs-toc-mockup {
+    display: block;
+    width: 36%;
+    max-width: 170px;
+    height: auto;
+    align-self: center;
   }
   /* the phone size is computed in JS (see TryAppModal) to fit the visible
      viewport with margins; just tighten the backdrop padding on mobile

@@ -4,6 +4,7 @@ import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import TryAppModal from "../components/TryAppModal.jsx";
 import ProLogJourney from "../components/ProLogJourney.jsx";
+import prologMockupUrl from "../assets/prolog/prolog-mockup.webp";
 import {
   AudienceFigure,
   CertStatsFigure,
@@ -220,18 +221,31 @@ export default function CaseStudyPage({ lang, setLang }) {
             <h1 className="cs-title" onClick={() => scrollTo(null)}>
               {project.title}
             </h1>
-            <nav className="cs-toc">
-              {project.sections.map((s) => (
-                <button
-                  key={s.id}
-                  type="button"
-                  className={"cs-toc-item" + (activeId === s.id ? " is-current" : "")}
-                  onClick={() => scrollTo(s.id)}
-                >
-                  {s.label}
-                </button>
-              ))}
-            </nav>
+            {/* on mobile the phone mockup rides beside the chapter list
+                instead of inside the hero (hidden on desktop via CSS) */}
+            <div className="cs-toc-row">
+              <nav className="cs-toc">
+                {project.sections.map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    className={"cs-toc-item" + (activeId === s.id ? " is-current" : "")}
+                    onClick={() => scrollTo(s.id)}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </nav>
+              {HeroScene && (
+                <img
+                  className="cs-toc-mockup"
+                  src={prologMockupUrl}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                />
+              )}
+            </div>
           </div>
 
           <div className="cs-content">
