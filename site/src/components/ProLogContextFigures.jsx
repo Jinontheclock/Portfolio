@@ -4,6 +4,8 @@ import audienceImg from "../assets/prolog/prolog-fig-audience.webp";
 import certStatsImg from "../assets/prolog/prolog-fig-certstats.webp";
 import discrepancyImg from "../assets/prolog/prolog-fig-discrepancy.webp";
 import participantsImg from "../assets/prolog/prolog-fig-participants.webp";
+import personaIzzy from "../assets/prolog/prolog-persona-izzy.webp";
+import personaJordan from "../assets/prolog/prolog-persona-jordan.webp";
 import shotJourney1 from "../assets/prolog/prolog-shot-journey-dashboard-1.webp";
 import shotJourney2 from "../assets/prolog/prolog-shot-journey-dashboard-2.webp";
 import shotJourney3 from "../assets/prolog/prolog-shot-journey-dashboard-3.webp";
@@ -89,3 +91,23 @@ export const PROLOG_SHOTS = {
   "competency-exam-prep": { src: shotExamPrep, alt: "Exam prep: new exam entry, progress update and exam log" },
   "dashboard-reminder": { src: shotReminder, alt: "Event calendar with automatically created reminders" },
 };
+
+export function PersonaIzzyFigure() {
+  return (
+    <img
+      src={personaIzzy}
+      alt="Persona: Izzy Wilson, 22 - Level 2 electrical apprentice in Vancouver finding her footing; needs one organized view of hours, certifications and grants"
+      loading="lazy"
+    />
+  );
+}
+
+export function PersonaJordanFigure() {
+  return (
+    <img
+      src={personaJordan}
+      alt="Persona: Jordan Richards, 27 - Level 4 electrician apprentice in Surrey closing out his ticket; needs expiry notifications, budgeting help and everything in one place"
+      loading="lazy"
+    />
+  );
+}

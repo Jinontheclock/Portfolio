@@ -161,6 +161,16 @@ export const PROJECTS = [
               "Short, practical formats win: videos under two minutes, checklists, and links to official sources beat long documents every time.",
             ],
           },
+          {
+            type: "p",
+            text: "We distilled these into two contrasting personas — a first-year apprentice finding her footing, and a Level 4 veteran closing out his ticket — that kept every feature decision anchored to a real person's week.",
+          },
+          {
+            type: "figure",
+            graphics: ["prolog-persona-izzy", "prolog-persona-jordan"],
+            caption:
+              "Izzy (Level 2, entry) and Jordan (Level 4, veteran) — the two ends of the journey ProLog serves.",
+          },
           { type: "h", text: "Design principles" },
           {
             type: "list",

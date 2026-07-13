@@ -9,6 +9,8 @@ import {
   CertStatsFigure,
   DiscrepancyFigure,
   ParticipantsFigure,
+  PersonaIzzyFigure,
+  PersonaJordanFigure,
   FragmentsFigure,
   TimelineFigure,
 } from "../components/ProLogContextFigures.jsx";
@@ -26,6 +28,8 @@ const FIGURES = {
   "prolog-certstats": CertStatsFigure,
   "prolog-discrepancy": DiscrepancyFigure,
   "prolog-participants": ParticipantsFigure,
+  "prolog-persona-izzy": PersonaIzzyFigure,
+  "prolog-persona-jordan": PersonaJordanFigure,
 };
 import { getProject } from "../data/projects.js";
 
@@ -116,11 +120,16 @@ function Block({ block, onDemo }) {
         </div>
       );
     case "figure": {
-      const Figure = FIGURES[block.graphic];
-      if (!Figure) return null;
+      const names = block.graphics ?? [block.graphic];
+      const Figures = names.map((n) => FIGURES[n]).filter(Boolean);
+      if (!Figures.length) return null;
       return (
         <figure className="cs-figure">
-          <Figure />
+          <div className={Figures.length > 1 ? "cs-figure-row" : undefined}>
+            {Figures.map((Figure, i) => (
+              <Figure key={i} />
+            ))}
+          </div>
           {block.caption && (
             <figcaption className="cs-figure-caption">{block.caption}</figcaption>
           )}
