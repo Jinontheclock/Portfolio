@@ -3,6 +3,7 @@ import fragmentsImg from "../assets/prolog/prolog-fig-fragments.webp";
 import audienceImg from "../assets/prolog/prolog-fig-audience.webp";
 import certStatsImg from "../assets/prolog/prolog-fig-certstats.webp";
 import discrepancyImg from "../assets/prolog/prolog-fig-discrepancy.webp";
+import participantsImg from "../assets/prolog/prolog-fig-participants.webp";
 
 /* Context figures for the ProLog case study — the designed graphics,
    optimized from the originals in public/media. */
@@ -52,6 +53,16 @@ export function DiscrepancyFigure() {
     <img
       src={discrepancyImg}
       alt="Worked does not equal recorded: paystub records show 1,240 hours while the SkilledTradesBC record shows 1,210 — a 30-hour discrepancy with no clear way to prove or escalate"
+      loading="lazy"
+    />
+  );
+}
+
+export function ParticipantsFigure() {
+  return (
+    <img
+      src={participantsImg}
+      alt="Who we heard from: 11 apprentices surveyed and interviewed across BC - electrical, plumbing, HVAC, ironworking and landscaping trades, first-year to journeyperson, union and non-union, 8 of 11 phone-first"
       loading="lazy"
     />
   );

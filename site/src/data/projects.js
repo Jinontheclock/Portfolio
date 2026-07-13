@@ -148,15 +148,17 @@ export const PROJECTS = [
         blocks: [
           {
             type: "p",
-            text: "We interviewed skilled trades apprentices across BC, from entry-level to journeypersons, and reviewed the tools they were given — SkilledTradesBC portals, competency documents, union resources, and forums.",
+            text: "We surveyed and interviewed eleven apprentices across BC — electrical, plumbing, HVAC, ironworking, and landscaping — from first-year apprentices to journeypersons, union and non-union alike. Alongside, we reviewed the ecosystem they navigate: SkilledTradesBC portals and success-story profiles, competency documents, and the forum threads where apprentices ask each other what the official channels don't answer.",
           },
+          { type: "figure", graphic: "prolog-participants" },
           { type: "h", text: "What we heard" },
           {
             type: "list",
             items: [
-              "Requirements are understood; guidance is scattered. Apprentices know what is required but piece together how from disconnected sources.",
-              "Hour verification is the sorest point — discrepancies mean delays, and delays mean anxiety.",
-              "Nearly everyone works from a phone on site, not a desktop at home.",
+              "Everyone tracks differently — the official portal, paper logbooks, employer or union records. ProLog has to sit on top of these systems and sync with them, not ask apprentices to abandon them.",
+              "All eleven had been asked to work above or below their level — competency boundaries blur on real job sites, and sign-offs don't keep up.",
+              "Support exists but goes unused: only two ever consulted their assigned mentor, and \"not sure who to ask\" came up again and again — alongside funding programs apprentices didn't know they qualified for.",
+              "Short, practical formats win: videos under two minutes, checklists, and links to official sources beat long documents every time.",
             ],
           },
           { type: "h", text: "Design principles" },
@@ -165,6 +167,7 @@ export const PROJECTS = [
             items: [
               "One source of truth — progress, hours, money, and study in a single app.",
               "Nothing goes missing — no progress, no requirement, no deadline.",
+              "Complement the system, don't replace it — sync with SkilledTradesBC records and export back to them.",
               "Built for neurodivergent users — information in small chunks, visual progress, reminders, and text-to-speech, on a phone, one-handed.",
             ],
           },
