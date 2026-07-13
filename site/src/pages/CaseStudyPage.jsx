@@ -13,6 +13,7 @@ import {
   PersonaJordanFigure,
   FragmentsFigure,
   TimelineFigure,
+  LogoLockupFigure,
 } from "../components/ProLogContextFigures.jsx";
 import { PROLOG_SHOTS } from "../components/ProLogContextFigures.jsx";
 
@@ -30,6 +31,7 @@ const FIGURES = {
   "prolog-participants": ParticipantsFigure,
   "prolog-persona-izzy": PersonaIzzyFigure,
   "prolog-persona-jordan": PersonaJordanFigure,
+  "prolog-logo": LogoLockupFigure,
 };
 import { getProject } from "../data/projects.js";
 

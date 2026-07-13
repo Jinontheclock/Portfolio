@@ -4,6 +4,7 @@ import audienceImg from "../assets/prolog/prolog-fig-audience.webp";
 import certStatsImg from "../assets/prolog/prolog-fig-certstats.webp";
 import discrepancyImg from "../assets/prolog/prolog-fig-discrepancy.webp";
 import participantsImg from "../assets/prolog/prolog-fig-participants.webp";
+import logoLockup from "../assets/prolog/prolog-logo.svg";
 import personaIzzy from "../assets/prolog/prolog-persona-izzy.webp";
 import personaJordan from "../assets/prolog/prolog-persona-jordan.webp";
 import shotJourney1 from "../assets/prolog/prolog-shot-journey-dashboard-1.webp";
@@ -108,6 +109,17 @@ export function PersonaJordanFigure() {
       src={personaJordan}
       alt="Persona: Jordan Richards, 27 - Level 4 electrician apprentice in Surrey closing out his ticket; needs expiry notifications, budgeting help and everything in one place"
       loading="lazy"
+    />
+  );
+}
+
+export function LogoLockupFigure() {
+  return (
+    <img
+      src={logoLockup}
+      alt="The ProLog mark: rounded nodes linked along a winding path with a single orange block marking the current position"
+      loading="lazy"
+      style={{ width: "min(260px, 55%)" }}
     />
   );
 }

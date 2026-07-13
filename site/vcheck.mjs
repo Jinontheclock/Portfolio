@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const p = await b.newPage({ viewport: { width: 1440, height: 1200 } });
+await p.goto('http://localhost:4173/Portfolio/#/work/prolog', { waitUntil: 'networkidle' });
+await p.waitForTimeout(2600);
+await p.evaluate(() => document.getElementById('cs-visual').scrollIntoView({ block: 'start' }));
+await p.waitForTimeout(500);
+console.log('headings:', await p.evaluate(() => [...document.querySelectorAll('#cs-visual .cs-block-h')].map((h) => h.textContent).join(' | ')));
+console.log('logo img:', await p.evaluate(() => document.querySelector('#cs-visual .cs-figure img')?.naturalWidth > 0));
+await p.screenshot({ path: '/tmp/claude-0/-home-claude/e8e33be9-63d1-5464-9b3d-0ab8b4f77179/scratchpad/visual-new.png' });
+await b.close();

@@ -228,6 +228,12 @@ export const PROJECTS = [
         id: "visual",
         label: "05 Visual Language",
         blocks: [
+          { type: "h", text: "A mark that maps the journey" },
+          {
+            type: "p",
+            text: "The ProLog mark is the product in miniature: rounded nodes linked along a winding path — the same journey map the dashboard draws — with a single orange block marking where you are now. The rule that runs through the whole system starts here: if it's orange, it moves you forward.",
+          },
+          { type: "figure", graphic: "prolog-logo" },
           { type: "h", text: "A palette built for the job site" },
           {
             type: "p",
@@ -241,14 +247,13 @@ export const PROJECTS = [
           { type: "h", text: "Feedback you can't miss" },
           {
             type: "p",
-            text: "Testing showed tappable elements didn't read as tappable. Contrast, visual hierarchy, and interaction cues were strengthened across the system — for neurodivergent users on a bright work site, state changes have to be legible at a glance.",
+            text: "Testing showed tappable elements didn't read as tappable. Contrast, visual hierarchy, and interaction cues were strengthened across the system — every step of the palette is annotated with its contrast ratio, because for neurodivergent users on a bright work site, state changes have to be legible at a glance.",
           },
           { type: "h", text: "Beyond the screen" },
           {
             type: "p",
             text: "The identity extends to a promotional campaign — video, brochure, billboard, stickers, and social media — built on the same visual system.",
           },
-          { type: "gallery" },
         ],
       },
       {
