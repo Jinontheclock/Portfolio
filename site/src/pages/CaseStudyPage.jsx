@@ -12,6 +12,7 @@ import {
   FragmentsFigure,
   TimelineFigure,
 } from "../components/ProLogContextFigures.jsx";
+import { PROLOG_SHOTS } from "../components/ProLogContextFigures.jsx";
 
 /* hero scenes: live in-page animations a project can use instead of a
    video or the placeholder (see each project's heroScene field) */
@@ -82,6 +83,36 @@ function Block({ block, onDemo }) {
           <span className="cs-tryapp-note">
             Runs the real app right here — no install needed.
           </span>
+        </div>
+      );
+    case "solution":
+      /* a Solution row: heading with its problem tag, then text on the
+         left and the app screens on the right */
+      return (
+        <div className="cs-solution">
+          <h3 className="cs-block-h">
+            {block.title}
+            {block.tag && <span className="cs-block-tag">{block.tag}</span>}
+          </h3>
+          <div className="cs-solution-row">
+            <div className="cs-solution-text">
+              {block.paras.map((t, i) => (
+                <p key={i} className="cs-paragraph">
+                  {t}
+                </p>
+              ))}
+            </div>
+            <figure className="cs-solution-media">
+              <div className="cs-shots">
+                {block.media.map((m) => (
+                  <img key={m} src={PROLOG_SHOTS[m].src} alt={PROLOG_SHOTS[m].alt} loading="lazy" />
+                ))}
+              </div>
+              {block.caption && (
+                <figcaption className="cs-figure-caption">{block.caption}</figcaption>
+              )}
+            </figure>
+          </div>
         </div>
       );
     case "figure": {

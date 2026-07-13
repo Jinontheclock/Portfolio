@@ -267,6 +267,45 @@
   color: var(--text-muted);
 }
 
+/* ── Solution rows: text on the left, app screens on the right ── */
+.cs-solution {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+.cs-solution:first-child {
+  margin-top: 0;
+}
+.cs-solution-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 24px;
+  align-items: start;
+}
+.cs-solution-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cs-solution-media {
+  margin: 0;
+}
+.cs-shots {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.cs-shots img {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid var(--grey-100, #e5e5e5);
+  display: block;
+}
+
 /* in-page figures with an optional caption below */
 .cs-figure {
   margin: 12px 0;
@@ -478,6 +517,11 @@
   .cs-meta {
     flex-direction: column;
     gap: 20px;
+  }
+  /* solution rows stack: text first, then the screens */
+  .cs-solution-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
   /* hero: the journey takes the full width, the phone mockup below it;
      the logo keeps floating over the animation's top-left corner */

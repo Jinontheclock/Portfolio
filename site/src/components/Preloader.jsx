@@ -31,7 +31,11 @@ export default function Preloader({ onDone }) {
         if (cancelled) return;
         const host = document.querySelector(".cs-journey");
         const svgIn = !host || !!host.querySelector("svg");
-        const imgsIn = [...document.querySelectorAll("img")].every((i) => i.complete);
+        // lazy images below the fold never load while the cover is up —
+        // only eager (above-the-fold) images gate the reveal
+        const imgsIn = [...document.querySelectorAll("img")]
+          .filter((i) => i.loading !== "lazy")
+          .every((i) => i.complete);
         if (svgIn && imgsIn) return;
         await new Promise((r) => timers.push(setTimeout(r, 80)));
       }

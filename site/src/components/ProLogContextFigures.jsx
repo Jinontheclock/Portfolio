@@ -4,6 +4,13 @@ import audienceImg from "../assets/prolog/prolog-fig-audience.webp";
 import certStatsImg from "../assets/prolog/prolog-fig-certstats.webp";
 import discrepancyImg from "../assets/prolog/prolog-fig-discrepancy.webp";
 import participantsImg from "../assets/prolog/prolog-fig-participants.webp";
+import shotJourney from "../assets/prolog/prolog-shot-journey-dashboard.webp";
+import shotScanning from "../assets/prolog/prolog-shot-manual-scanning.webp";
+import shotPaystubs from "../assets/prolog/prolog-shot-work-paystub-records.webp";
+import shotHours from "../assets/prolog/prolog-shot-work-hours.webp";
+import shotFinance from "../assets/prolog/prolog-shot-work-finance.webp";
+import shotExamPrep from "../assets/prolog/prolog-shot-competency-exam-prep.webp";
+import shotReminder from "../assets/prolog/prolog-shot-dashboard-reminder.webp";
 
 /* Context figures for the ProLog case study — the designed graphics,
    optimized from the originals in public/media. */
@@ -67,3 +74,14 @@ export function ParticipantsFigure() {
     />
   );
 }
+
+/* app screens used by the Solution section's split rows */
+export const PROLOG_SHOTS = {
+  "journey-dashboard": { src: shotJourney, alt: "ProLog dashboard: the journey path with levels, overall progress, reminders and exam status in one scroll" },
+  "manual-scanning": { src: shotScanning, alt: "Scanning a paystub document with the in-app camera" },
+  "work-paystub-records": { src: shotPaystubs, alt: "Paystub records by month with work hours and income" },
+  "work-hours": { src: shotHours, alt: "Working hours: 1,545 of 1,800 tracked, apprenticeship details and discrepancy tracking" },
+  "work-finance": { src: shotFinance, alt: "Finance view: potential expenses for tools and certifications" },
+  "competency-exam-prep": { src: shotExamPrep, alt: "Exam prep: new exam entry, progress update and exam log" },
+  "dashboard-reminder": { src: shotReminder, alt: "Event calendar with automatically created reminders" },
+};

@@ -177,28 +177,40 @@ export const PROJECTS = [
         id: "solution",
         label: "04 The Solution",
         blocks: [
-          { type: "h", text: "A 6,000-hour journey at a glance", tag: "↔ Problem 01" },
           {
-            type: "p",
-            text: "ProLog's dashboard turns certification into a single roadmap: hours tracked, hours left in the current level, and hours until Red Seal — with competency and finance status alongside. Whenever it gets overwhelming, the dashboard shows exactly where you are and what's ahead.",
+            type: "solution",
+            title: "A 6,000-hour journey at a glance",
+            tag: "↔ Problem 01",
+            paras: [
+              "ProLog's dashboard turns certification into a single roadmap: hours tracked, hours left in the current level, and hours until Red Seal — with competency and finance status alongside. Whenever it gets overwhelming, the dashboard shows exactly where you are and what's ahead.",
+              "In usability testing, hour totals initially read as static labels — participants couldn't tell what the numbers were made of. We made every figure tappable, breaking hours down by competency, so exploring your own progress became the default interaction rather than a dead end.",
+            ],
+            media: ["journey-dashboard"],
+            caption:
+              "The dashboard: journey path, hours, competencies, and what's next — one screen.",
           },
           {
-            type: "p",
-            text: "In usability testing, hour totals initially read as static labels — participants couldn't tell what the numbers were made of. We made every figure tappable, breaking hours down by competency, so exploring your own progress became the default interaction rather than a dead end.",
-          },
-          { type: "h", text: "No hour goes missing", tag: "↔ Problem 02" },
-          {
-            type: "p",
-            text: "ProLog links to a user's SkilledTradesBC account and paystub records, and cross-checks the two in real time. When a discrepancy appears — say, 30 hours short of what the paystubs prove — ProLog flags it immediately, with a full report already generated and ready to send to the employer in one tap. What used to be a silent delay becomes an item you can resolve.",
-          },
-          { type: "h", text: "Everything else, in one place", tag: "↔ Problem 03" },
-          {
-            type: "p",
-            text: "Beyond tracking, ProLog folds in the support apprentices otherwise hunt for. A finance view lays out expected expenses for the term — tuition, tools, books — next to the grants and support programs they can apply to. A study section covers every competency in the level with summaries, text-to-speech, and AI-generated quizzes that refresh on every attempt, up to a full exam prep. Reminders are created automatically from the user's own records: tuition due Sunday, EI application by the 31st, certification expiring next Friday.",
+            type: "solution",
+            title: "No hour goes missing",
+            tag: "↔ Problem 02",
+            paras: [
+              "ProLog links to a user's SkilledTradesBC account and paystub records, and cross-checks the two in real time. When a discrepancy appears — say, 30 hours short of what the paystubs prove — ProLog flags it immediately, with a full report already generated and ready to send to the employer in one tap. What used to be a silent delay becomes an item you can resolve.",
+            ],
+            media: ["manual-scanning", "work-paystub-records", "work-hours"],
+            caption:
+              "Scan a paystub, keep the record, catch the gap — the discrepancy flag does the chasing.",
           },
           {
-            type: "p",
-            text: "Testing exposed that several of these entry points were hard to find — finance tools and reminders in particular — so navigation was reorganized around primary actions and core features surfaced to the top level.",
+            type: "solution",
+            title: "Everything else, in one place",
+            tag: "↔ Problem 03",
+            paras: [
+              "Beyond tracking, ProLog folds in the support apprentices otherwise hunt for. A finance view lays out expected expenses for the term — tuition, tools, books — next to the grants and support programs they can apply to. A study section covers every competency in the level, built around the short, practical formats apprentices told us they use — summaries, text-to-speech, and AI-generated quizzes that refresh on every attempt, up to a full exam prep. Reminders are created automatically from the user's own records: tuition due Sunday, EI application by the 31st, certification expiring next Friday.",
+              "Testing exposed that several of these entry points were hard to find — finance tools and reminders in particular — so navigation was reorganized around primary actions and core features surfaced to the top level.",
+            ],
+            media: ["work-finance", "competency-exam-prep", "dashboard-reminder"],
+            caption:
+              "Finance, study, and reminders — the support apprentices used to hunt for.",
           },
         ],
       },
