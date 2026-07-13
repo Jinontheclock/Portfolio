@@ -6,6 +6,7 @@ import TryAppModal from "../components/TryAppModal.jsx";
 import ProLogJourney from "../components/ProLogJourney.jsx";
 import {
   AudienceFigure,
+  CertStatsFigure,
   FragmentsFigure,
   TimelineFigure,
 } from "../components/ProLogContextFigures.jsx";
@@ -19,6 +20,7 @@ const FIGURES = {
   "prolog-timeline": TimelineFigure,
   "prolog-fragments": FragmentsFigure,
   "prolog-audience": AudienceFigure,
+  "prolog-certstats": CertStatsFigure,
 };
 import { getProject } from "../data/projects.js";
 

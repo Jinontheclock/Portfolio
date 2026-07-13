@@ -128,6 +128,7 @@ export const PROJECTS = [
             type: "p",
             text: "Apprentices can see their past hours, but nothing shows where they stand or what comes next. Across Canada, only 16% of apprentices earn certification within their program's expected duration — and even given twice that time, roughly four in ten never certify at all. The requirements are clear on paper. The journey isn't.",
           },
+          { type: "figure", graphic: "prolog-certstats" },
           { type: "h", text: "Problem 02 — Hours lost in the system" },
           {
             type: "p",

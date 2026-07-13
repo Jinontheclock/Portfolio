@@ -1,6 +1,7 @@
 import timelineImg from "../assets/prolog/prolog-fig-timeline.webp";
 import fragmentsImg from "../assets/prolog/prolog-fig-fragments.webp";
 import audienceImg from "../assets/prolog/prolog-fig-audience.webp";
+import certStatsImg from "../assets/prolog/prolog-fig-certstats.webp";
 
 /* Context figures for the ProLog case study — the designed graphics,
    optimized from the originals in public/media. */
@@ -30,6 +31,16 @@ export function AudienceFigure() {
     <img
       src={audienceImg}
       alt="Who we designed for: one in five Canadians is neurodivergent, and a majority of the BCIT apprentices we surveyed identified as such"
+      loading="lazy"
+    />
+  );
+}
+
+export function CertStatsFigure() {
+  return (
+    <img
+      src={certStatsImg}
+      alt="The journey, abandoned: only 16% of Canadian apprentices earn certification within the expected program duration, and 4 in 10 never certify even given twice the time"
       loading="lazy"
     />
   );
