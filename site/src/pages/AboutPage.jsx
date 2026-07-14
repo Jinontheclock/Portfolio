@@ -42,7 +42,6 @@ const ABOUT = {
 const LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/hajin-lee-ca" },
   { label: "Resume", href: "#" },
-  { label: "Contact", href: "#" },
   { label: "GitHub", href: "https://github.com/Jinontheclock" },
   { label: "Instagram", href: "https://www.instagram.com/hj.archiv/" },
 ];
