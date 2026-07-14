@@ -246,11 +246,6 @@ export const PROJECTS = [
             text: "The type system prioritizes glanceability — clear weight contrast, generous sizing, and numerals treated as first-class content: “You've completed 1,240 hours, keep going.”",
           },
           { type: "figure", graphic: "prolog-type" },
-          { type: "h", text: "Feedback you can't miss" },
-          {
-            type: "p",
-            text: "Testing showed tappable elements didn't read as tappable. Contrast, visual hierarchy, and interaction cues were strengthened across the system — every step of the palette is annotated with its contrast ratio, because for neurodivergent users on a bright work site, state changes have to be legible at a glance.",
-          },
           { type: "h", text: "Beyond the screen" },
           {
             type: "p",
