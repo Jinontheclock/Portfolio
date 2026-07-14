@@ -245,6 +245,7 @@ export const PROJECTS = [
             type: "p",
             text: "The type system prioritizes glanceability — clear weight contrast, generous sizing, and numerals treated as first-class content: “You've completed 1,240 hours, keep going.”",
           },
+          { type: "figure", graphic: "prolog-type" },
           { type: "h", text: "Feedback you can't miss" },
           {
             type: "p",

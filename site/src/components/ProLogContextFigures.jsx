@@ -7,6 +7,7 @@ import participantsImg from "../assets/prolog/prolog-fig-participants.webp";
 import logoLockup from "../assets/prolog/prolog-logo-lockup.webp";
 import logoAppIcon from "../assets/prolog/prolog-logo-appicon.webp";
 import paletteImg from "../assets/prolog/prolog-fig-palette.webp";
+import typeImg from "../assets/prolog/prolog-fig-type.webp";
 import personaIzzy from "../assets/prolog/prolog-persona-izzy.webp";
 import personaJordan from "../assets/prolog/prolog-persona-jordan.webp";
 import shotJourney1 from "../assets/prolog/prolog-shot-journey-dashboard-1.webp";
@@ -129,6 +130,17 @@ export function LogoLockupFigure() {
         loading="lazy"
       />
     </div>
+  );
+}
+
+export function TypeFigure() {
+  return (
+    <img
+      src={typeImg}
+      alt="The ProLog type specimen: a large 1,240 hrs figure beside the scale — Space Grotesk for screen titles, key figures and section headers, Roboto for body, buttons and timestamps"
+      loading="lazy"
+      style={{ width: "100%" }}
+    />
   );
 }
 

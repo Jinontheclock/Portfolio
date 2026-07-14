@@ -17,6 +17,7 @@ import {
   TimelineFigure,
   LogoLockupFigure,
   PaletteFigure,
+  TypeFigure,
 } from "../components/ProLogContextFigures.jsx";
 import { PROLOG_SHOTS } from "../components/ProLogContextFigures.jsx";
 
@@ -36,6 +37,7 @@ const FIGURES = {
   "prolog-persona-jordan": PersonaJordanFigure,
   "prolog-logo": LogoLockupFigure,
   "prolog-palette": PaletteFigure,
+  "prolog-type": TypeFigure,
 };
 import { getProject } from "../data/projects.js";
 
