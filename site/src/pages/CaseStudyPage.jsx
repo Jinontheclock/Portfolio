@@ -105,7 +105,7 @@ function Block({ block, onDemo }) {
             Try app! <span className="cs-tryapp-arrow" aria-hidden="true">↗</span>
           </button>
           <span className="cs-tryapp-note">
-            Runs the real app right here — no install needed.
+            {block.note ?? "Runs the real app right here — no install needed."}
           </span>
         </div>
       );

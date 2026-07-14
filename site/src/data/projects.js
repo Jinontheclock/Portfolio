@@ -289,10 +289,9 @@ export const PROJECTS = [
         blocks: [
           { type: "h", text: "A working build, not just a prototype." },
           {
-            type: "p",
-            text: "ProLog runs as a React Native Expo app. The embedded build below is the actual product.",
+            type: "demo",
+            note: "ProLog runs as a React Native Expo app. The embedded build is the actual product.",
           },
-          { type: "demo" },
           {
             type: "list",
             items: [
