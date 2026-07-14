@@ -114,7 +114,7 @@ export const PROJECTS = [
           },
           {
             type: "p",
-            text: "One in five Canadians is neurodivergent — in our survey of 11 apprentices at BCIT, a majority identified as such — yet the system remains rigid and text-heavy. For them especially, an already demanding pathway becomes a navigation problem.",
+            text: "One in five Canadians is neurodivergent, yet the system remains rigid and text-heavy. For them especially, an already demanding pathway becomes a navigation problem.",
           },
           { type: "figure", graphic: "prolog-audience" },
         ],
@@ -138,7 +138,7 @@ export const PROJECTS = [
           { type: "h", text: "Problem 03 — Scattered support" },
           {
             type: "p",
-            text: "Apprentices work from their phones — eight of the eleven we surveyed named the phone as their primary device — yet study materials, funding information, and deadlines live on dense, desktop-only websites. The support exists. It just isn't built for the way apprentices actually work.",
+            text: "Apprentices work from their phones — nine of the twelve we surveyed named the phone as their primary device — yet study materials, funding information, and deadlines live on dense, desktop-only websites. The support exists. It just isn't built for the way apprentices actually work.",
           },
         ],
       },
@@ -148,7 +148,7 @@ export const PROJECTS = [
         blocks: [
           {
             type: "p",
-            text: "We surveyed and interviewed eleven apprentices across BC — electrical, plumbing, HVAC, ironworking, and landscaping — from first-year apprentices to journeypersons, union and non-union alike. Alongside, we reviewed the ecosystem they navigate: SkilledTradesBC portals and success-story profiles, competency documents, and the forum threads where apprentices ask each other what the official channels don't answer.",
+            text: "We surveyed and interviewed twelve apprentices across BC — electrical, plumbing, HVAC, welding, power engineering, ironworking, and landscaping — from first-year apprentices to journeypersons, union and non-union alike. Alongside, we reviewed the ecosystem they navigate: SkilledTradesBC portals and success-story profiles, competency documents, and the forum threads where apprentices ask each other what the official channels don't answer.",
           },
           { type: "figure", graphic: "prolog-participants" },
           { type: "h", text: "What we heard" },
@@ -156,8 +156,8 @@ export const PROJECTS = [
             type: "list",
             items: [
               "Everyone tracks differently — the official portal, paper logbooks, employer or union records. ProLog has to sit on top of these systems and sync with them, not ask apprentices to abandon them.",
-              "All eleven had been asked to work above or below their level — competency boundaries blur on real job sites, and sign-offs don't keep up.",
-              "Support exists but goes unused: only two ever consulted their assigned mentor, and \"not sure who to ask\" came up again and again — alongside funding programs apprentices didn't know they qualified for.",
+              "Ten of the twelve had been asked to work above or below their level — competency boundaries blur on real job sites, and sign-offs don't keep up.",
+              "Support exists but goes unused: nine of twelve had never contacted their assigned mentor, and \"not sure who to ask\" came up again and again — alongside funding programs apprentices didn't know they qualified for.",
               "Short, practical formats win: videos under two minutes, checklists, and links to official sources beat long documents every time.",
             ],
           },
