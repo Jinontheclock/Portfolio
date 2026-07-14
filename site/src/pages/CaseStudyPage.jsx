@@ -48,21 +48,21 @@ const PROLOG_SRC = `${import.meta.env.BASE_URL}prolog/`;
 const GATE_COPY = {
   en: {
     title: "Protected case study",
-    body: "This project is covered by a company confidentiality policy. Enter the password to view it.",
+    body: "This project is covered by a company confidentiality policy.",
     placeholder: "Password",
     error: "Incorrect password.",
     submit: "Unlock",
   },
   ko: {
     title: "보호된 케이스 스터디",
-    body: "사내 보안 규정에 따라 보호된 프로젝트입니다. 비밀번호를 입력하면 열람할 수 있습니다.",
+    body: "사내 보안 규정에 따라 보호된 프로젝트입니다.",
     placeholder: "비밀번호",
     error: "비밀번호가 올바르지 않습니다.",
     submit: "잠금 해제",
   },
   ja: {
     title: "保護されたケーススタディ",
-    body: "社内規定により保護されたプロジェクトです。パスワードを入力するとご覧いただけます。",
+    body: "社内規定により保護されたプロジェクトです。",
     placeholder: "パスワード",
     error: "パスワードが正しくありません。",
     submit: "ロック解除",
@@ -240,72 +240,36 @@ export default function CaseStudyPage({ lang, setLang }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, [project]);
 
+  // freeze the page while the gate is up
+  useEffect(() => {
+    if (!project?.locked || unlocked) return;
+    const prev = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = prev;
+    };
+  }, [project, unlocked]);
+
   if (!project) return <Navigate to="/work" replace />;
 
-  if (project.locked && !unlocked) {
-    const copy = GATE_COPY[lang] || GATE_COPY.en;
-    const tryUnlock = async (e) => {
-      e.preventDefault();
-      const hex = await sha256Hex(gatePw.trim());
-      if (hex === project.passwordHash) {
-        try {
-          sessionStorage.setItem(`cs-unlocked-${id}`, "1");
-        } catch {}
-        setUnlocked(true);
-      } else {
-        setGateError(true);
-        setGateShake(true);
-        setTimeout(() => setGateShake(false), 450);
-      }
-    };
-    return (
-      <div className="ab-root">
-        <SiteHeader current="work" />
-        <main className="cs-gate">
-          <form
-            className={"cs-gate-card" + (gateShake ? " is-shake" : "")}
-            onSubmit={tryUnlock}
-          >
-            <svg
-              className="cs-gate-lock"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              aria-hidden="true"
-            >
-              <rect x="5" y="11" width="14" height="9" rx="2" />
-              <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-            </svg>
-            <h1 className="cs-gate-title">{copy.title}</h1>
-            <p className="cs-gate-body">{copy.body}</p>
-            <div className="cs-gate-field">
-              <input
-                type="password"
-                value={gatePw}
-                onChange={(e) => {
-                  setGatePw(e.target.value);
-                  setGateError(false);
-                }}
-                placeholder={copy.placeholder}
-                aria-label={copy.placeholder}
-                autoFocus
-              />
-              <button type="submit" aria-label={copy.submit}>
-                →
-              </button>
-            </div>
-            <p className="cs-gate-error" aria-live="polite">
-              {gateError ? copy.error : "\u00A0"}
-            </p>
-          </form>
-        </main>
-        <SiteFooter lang={lang} setLang={setLang} />
-      </div>
-    );
-  }
-
   const HeroScene = project.heroScene ? HERO_SCENES[project.heroScene] : null;
+
+  const gateActive = !!project.locked && !unlocked;
+  const gateCopy = GATE_COPY[lang] || GATE_COPY.en;
+  const tryUnlock = async (e) => {
+    e.preventDefault();
+    const hex = await sha256Hex(gatePw.trim());
+    if (hex === project.passwordHash) {
+      try {
+        sessionStorage.setItem(`cs-unlocked-${id}`, "1");
+      } catch {}
+      setUnlocked(true);
+    } else {
+      setGateError(true);
+      setGateShake(true);
+      setTimeout(() => setGateShake(false), 450);
+    }
+  };
 
   const scrollTo = (sectionId) => {
     if (!sectionId) {
@@ -427,6 +391,37 @@ export default function CaseStudyPage({ lang, setLang }) {
       </main>
 
       <SiteFooter lang={lang} setLang={setLang} />
+
+      {gateActive && (
+        <div className="cs-gate-overlay">
+          <form
+            className={"cs-gate-card" + (gateShake ? " is-shake" : "")}
+            onSubmit={tryUnlock}
+          >
+            <h1 className="cs-gate-title">{gateCopy.title}</h1>
+            <p className="cs-gate-body">{gateCopy.body}</p>
+            <div className="cs-gate-field">
+              <input
+                type="password"
+                value={gatePw}
+                onChange={(e) => {
+                  setGatePw(e.target.value);
+                  setGateError(false);
+                }}
+                placeholder={gateCopy.placeholder}
+                aria-label={gateCopy.placeholder}
+                autoFocus
+              />
+              <button type="submit" aria-label={gateCopy.submit}>
+                →
+              </button>
+            </div>
+            <p className="cs-gate-error" aria-live="polite">
+              {gateError ? gateCopy.error : "\u00A0"}
+            </p>
+          </form>
+        </div>
+      )}
 
       {project.demo && (
         <TryAppModal
