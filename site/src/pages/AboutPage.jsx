@@ -155,7 +155,8 @@ const SKILLS = {
     },
     {
       label: "Languages",
-      rows: [{ main: "Korean" }, { main: "English" }, { main: "Japanese" }],
+      // the page's own language leads the list in every locale
+      rows: [{ main: "English" }, { main: "Korean" }, { main: "Japanese" }],
     },
   ],
   ko: [
@@ -241,7 +242,7 @@ const SKILLS = {
     },
     {
       label: "語学",
-      rows: [{ main: "韓国語" }, { main: "英語" }, { main: "日本語" }],
+      rows: [{ main: "日本語" }, { main: "韓国語" }, { main: "英語" }],
     },
   ],
 };
