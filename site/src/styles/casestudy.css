@@ -553,10 +553,10 @@
   .cs-hero-logo {
     width: 26%;
   }
-  /* chapter list on the left, a small mockup on the right */
+  /* chapter list on the left, a small mockup on the right, bottoms flush */
   .cs-toc-row {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 20px;
   }
   .cs-toc-row .cs-toc {
@@ -568,7 +568,6 @@
     width: 36%;
     max-width: 170px;
     height: auto;
-    align-self: center;
   }
   /* the phone size is computed in JS (see TryAppModal) to fit the visible
      viewport with margins; just tighten the backdrop padding on mobile
