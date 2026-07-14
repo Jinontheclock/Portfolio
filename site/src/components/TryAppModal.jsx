@@ -37,11 +37,24 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog" }) {
       if (e.key === "Escape") onClose();
     };
     document.addEventListener("keydown", onKey);
+    // iOS Safari ignores overflow:hidden on html for touch scrolling, and a
+    // scrolling page drags fixed overlays out of place (bare bands above and
+    // below the backdrop) — pinning the body freezes the page for real
+    const scrollY = window.scrollY;
     const prev = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
+    const body = document.body.style;
+    const prevBody = { position: body.position, top: body.top, width: body.width };
+    body.position = "fixed";
+    body.top = `-${scrollY}px`;
+    body.width = "100%";
     return () => {
       document.removeEventListener("keydown", onKey);
       document.documentElement.style.overflow = prev;
+      body.position = prevBody.position;
+      body.top = prevBody.top;
+      body.width = prevBody.width;
+      window.scrollTo(0, scrollY);
     };
   }, [open, onClose]);
 

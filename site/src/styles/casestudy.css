@@ -388,20 +388,21 @@
 /* ── Try-app modal (phone frame + iframe) ── */
 .tryapp-backdrop {
   position: fixed;
-  /* bleed well past the viewport so iOS Safari's toolbar / safe-area bands
-     can't show page content above or below the overlay; the symmetric
-     padding keeps the dialog centered in the visible area (its size itself
-     is computed in JS from the visual viewport) */
-  top: -120px;
-  bottom: -120px;
+  /* bleed half a screen past the viewport on both ends so no iOS Safari
+     toolbar shuffle or scroll jank can ever expose page content above or
+     below the overlay; the symmetric padding keeps the dialog centered in
+     the visible area (its size itself is computed in JS from the visual
+     viewport) */
+  top: -50vh;
+  bottom: -50vh;
   left: 0;
   right: 0;
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 144px 24px;
-  background: rgba(15, 15, 15, 0.62);
+  padding: calc(50vh + 24px) 24px;
+  background: rgba(15, 15, 15, 0.45);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   animation: tryapp-fade 180ms ease-out;
@@ -571,8 +572,8 @@
   }
   /* the phone size is computed in JS (see TryAppModal) to fit the visible
      viewport with margins; just tighten the backdrop padding on mobile
-     (120px bleed + 16px effective) */
+     (50vh bleed + 16px effective) */
   .tryapp-backdrop {
-    padding: 136px 16px;
+    padding: calc(50vh + 16px) 16px;
   }
 }
