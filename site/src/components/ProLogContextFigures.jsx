@@ -4,7 +4,9 @@ import audienceImg from "../assets/prolog/prolog-fig-audience.webp";
 import certStatsImg from "../assets/prolog/prolog-fig-certstats.webp";
 import discrepancyImg from "../assets/prolog/prolog-fig-discrepancy.webp";
 import participantsImg from "../assets/prolog/prolog-fig-participants.webp";
-import logoLockup from "../assets/prolog/prolog-logo.svg";
+import logoLockup from "../assets/prolog/prolog-logo-lockup.webp";
+import logoAppIcon from "../assets/prolog/prolog-logo-appicon.webp";
+import paletteImg from "../assets/prolog/prolog-fig-palette.webp";
 import personaIzzy from "../assets/prolog/prolog-persona-izzy.webp";
 import personaJordan from "../assets/prolog/prolog-persona-jordan.webp";
 import shotJourney1 from "../assets/prolog/prolog-shot-journey-dashboard-1.webp";
@@ -115,11 +117,28 @@ export function PersonaJordanFigure() {
 
 export function LogoLockupFigure() {
   return (
+    <div className="cs-logo-suite">
+      <img
+        src={logoLockup}
+        alt="The ProLog logo lockup: rounded nodes linked along a winding path with a single orange block, beside the Pro Log wordmark"
+        loading="lazy"
+      />
+      <img
+        src={logoAppIcon}
+        alt="The ProLog app icon: the wordmark on a dark rounded square with a single orange dot"
+        loading="lazy"
+      />
+    </div>
+  );
+}
+
+export function PaletteFigure() {
+  return (
     <img
-      src={logoLockup}
-      alt="The ProLog mark: rounded nodes linked along a winding path with a single orange block marking the current position"
+      src={paletteImg}
+      alt="The ProLog palette: a primary orange ramp, industrial neutrals, an alert red, a secondary steel blue, their gradients, and the background/white/border stack"
       loading="lazy"
-      style={{ width: "min(260px, 55%)" }}
+      style={{ width: "100%" }}
     />
   );
 }

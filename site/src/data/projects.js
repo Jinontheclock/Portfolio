@@ -239,6 +239,7 @@ export const PROJECTS = [
             type: "p",
             text: "Industrial-inspired neutrals ground the interface, with a single bold orange reserved for progress and key actions. If it's orange, it moves you forward.",
           },
+          { type: "figure", graphic: "prolog-palette" },
           { type: "h", text: "Type that works at arm's length" },
           {
             type: "p",

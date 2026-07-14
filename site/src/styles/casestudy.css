@@ -137,6 +137,19 @@
   color: var(--text-primary);
 }
 
+/* ── Logo suite (lockup + app icon side by side, heights matched) ── */
+.cs-logo-suite {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 4vw, 40px);
+}
+/* out-specifies the generic .cs-figure img { width: 100% } */
+.cs-figure .cs-logo-suite img,
+.cs-logo-suite img {
+  height: clamp(84px, 13vw, 132px);
+  width: auto;
+}
+
 /* ── Placeholder image ── */
 .cs-image {
   margin-top: 40px;
