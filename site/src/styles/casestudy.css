@@ -590,3 +590,85 @@
     padding: calc(50vh + 16px) 16px;
   }
 }
+
+/* ── Password gate for confidential case studies ── */
+.cs-gate {
+  min-height: calc(100vh - 220px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px 80px;
+}
+.cs-gate-card {
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.cs-gate-card.is-shake {
+  animation: cs-gate-shake 0.4s ease;
+}
+@keyframes cs-gate-shake {
+  20% { transform: translateX(-7px); }
+  45% { transform: translateX(6px); }
+  70% { transform: translateX(-4px); }
+  90% { transform: translateX(2px); }
+}
+.cs-gate-lock {
+  width: 26px;
+  height: 26px;
+  color: var(--text-primary);
+  margin-bottom: 18px;
+}
+.cs-gate-title {
+  margin: 0 0 10px;
+  font: 600 var(--size-body) / 1.4 var(--font-ui);
+  color: var(--text-primary);
+}
+.cs-gate-body {
+  margin: 0;
+  font: 400 var(--size-body) / 1.7 var(--font-ui);
+  color: var(--text-muted);
+}
+.cs-gate-field {
+  margin-top: 28px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  transition: border-color var(--duration-fast, 150ms) var(--easing, ease);
+}
+.cs-gate-field:focus-within {
+  border-color: var(--text-primary);
+}
+.cs-gate-field input {
+  all: unset;
+  flex: 1;
+  min-width: 0;
+  padding: 10px 4px;
+  font: 400 var(--size-body) / 1.5 var(--font-ui);
+  color: var(--text-primary);
+  text-align: left;
+}
+.cs-gate-field input::placeholder {
+  color: var(--text-muted);
+}
+.cs-gate-field button {
+  all: unset;
+  cursor: pointer;
+  padding: 10px 6px;
+  font: 400 var(--size-body) / 1 var(--font-ui);
+  color: var(--text-primary);
+  transition: transform var(--duration-fast, 150ms) var(--easing, ease);
+}
+.cs-gate-field button:hover {
+  transform: translateX(3px);
+}
+.cs-gate-error {
+  margin: 10px 0 0;
+  min-height: 1.4em;
+  font: 400 13px / 1.4 var(--font-ui);
+  color: var(--text-muted);
+}

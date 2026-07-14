@@ -363,6 +363,9 @@ export const PROJECTS = [
   {
     id: "muji",
     title: "MUJI",
+    // company confidentiality: gate the case study behind a password
+    locked: true,
+    passwordHash: "9caa7c2feef38ddfb33aebdc7988e72d88f5b4c5caa43e67a8fd880fbaf56421",
     description:
       "A short one- or two-line summary of the project and the problem it set out to solve.",
     roles: "Visual Merchandising, Branding",

@@ -100,3 +100,13 @@
     grid-row: 2;
   }
 }
+
+/* ── Protected-project lock mark in the list ── */
+.wk-lock {
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+  vertical-align: baseline;
+  color: currentColor;
+  opacity: 0.5;
+}
