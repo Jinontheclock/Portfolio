@@ -8,11 +8,7 @@ import logoLockup from "../assets/prolog/prolog-logo-lockup.webp";
 import logoAppIcon from "../assets/prolog/prolog-logo-appicon.webp";
 import paletteImg from "../assets/prolog/prolog-fig-palette.webp";
 import typeImg from "../assets/prolog/prolog-fig-type.webp";
-import campStill1 from "../assets/prolog/prolog-campaign-still-1.webp";
-import campStill2 from "../assets/prolog/prolog-campaign-still-2.webp";
 import campBrochure from "../assets/prolog/prolog-campaign-brochure.webp";
-import campSticker1 from "../assets/prolog/prolog-campaign-sticker-1.webp";
-import campSticker2 from "../assets/prolog/prolog-campaign-sticker-2.webp";
 import campBillboard1 from "../assets/prolog/prolog-campaign-billboard-1.webp";
 import campBillboard2 from "../assets/prolog/prolog-campaign-billboard-2.webp";
 import campInsta1 from "../assets/prolog/prolog-campaign-insta-1.webp";
@@ -170,27 +166,9 @@ export function CampaignVideoFigure() {
   );
 }
 
-export function CampaignStillsFigure() {
-  return (
-    <div className="cs-figure-row">
-      <img src={campStill1} alt="Frame from the ProLog promotional film" loading="lazy" />
-      <img src={campStill2} alt="Frame from the ProLog promotional film" loading="lazy" />
-    </div>
-  );
-}
-
 export function CampaignBrochureFigure() {
   return (
     <img src={campBrochure} alt="The ProLog brochure mockup" loading="lazy" style={{ width: "100%" }} />
-  );
-}
-
-export function CampaignStickersFigure() {
-  return (
-    <div className="cs-figure-row cs-row-bottom">
-      <img src={campSticker1} alt="ProLog sticker sheet" loading="lazy" />
-      <img src={campSticker2} alt="ProLog die-cut stickers" loading="lazy" />
-    </div>
   );
 }
 

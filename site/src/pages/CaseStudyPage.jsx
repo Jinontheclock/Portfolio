@@ -19,9 +19,7 @@ import {
   PaletteFigure,
   TypeFigure,
   CampaignVideoFigure,
-  CampaignStillsFigure,
   CampaignBrochureFigure,
-  CampaignStickersFigure,
   CampaignBillboardsFigure,
   CampaignInstagramFigure,
 } from "../components/ProLogContextFigures.jsx";
@@ -45,9 +43,7 @@ const FIGURES = {
   "prolog-palette": PaletteFigure,
   "prolog-type": TypeFigure,
   "prolog-campaign-video": CampaignVideoFigure,
-  "prolog-campaign-stills": CampaignStillsFigure,
   "prolog-campaign-brochure": CampaignBrochureFigure,
-  "prolog-campaign-stickers": CampaignStickersFigure,
   "prolog-campaign-billboards": CampaignBillboardsFigure,
   "prolog-campaign-instagram": CampaignInstagramFigure,
 };

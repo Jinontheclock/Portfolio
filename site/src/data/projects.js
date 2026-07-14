@@ -258,18 +258,8 @@ export const PROJECTS = [
           },
           {
             type: "figure",
-            graphic: "prolog-campaign-stills",
-            caption: "Storyboard and shot planning for the film.",
-          },
-          {
-            type: "figure",
             graphic: "prolog-campaign-brochure",
             caption: "Brochure handed to showcase guests.",
-          },
-          {
-            type: "figure",
-            graphic: "prolog-campaign-stickers",
-            caption: "Sticker set.",
           },
           {
             type: "figure",
