@@ -251,6 +251,36 @@ export const PROJECTS = [
             type: "p",
             text: "The identity extends to a promotional campaign — video, brochure, billboard, stickers, and social media — built on the same visual system.",
           },
+          {
+            type: "figure",
+            graphic: "prolog-campaign-video",
+            caption: "The promotional film made for the showcase.",
+          },
+          {
+            type: "figure",
+            graphic: "prolog-campaign-stills",
+            caption: "Storyboard and shot planning for the film.",
+          },
+          {
+            type: "figure",
+            graphic: "prolog-campaign-brochure",
+            caption: "Brochure handed to showcase guests.",
+          },
+          {
+            type: "figure",
+            graphic: "prolog-campaign-stickers",
+            caption: "Sticker set.",
+          },
+          {
+            type: "figure",
+            graphic: "prolog-campaign-billboards",
+            caption: "Billboard concepts.",
+          },
+          {
+            type: "figure",
+            graphic: "prolog-campaign-instagram",
+            caption: "Instagram carousel — the frames connect into one continuous scene as you swipe.",
+          },
         ],
       },
       {

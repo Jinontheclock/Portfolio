@@ -8,6 +8,16 @@ import logoLockup from "../assets/prolog/prolog-logo-lockup.webp";
 import logoAppIcon from "../assets/prolog/prolog-logo-appicon.webp";
 import paletteImg from "../assets/prolog/prolog-fig-palette.webp";
 import typeImg from "../assets/prolog/prolog-fig-type.webp";
+import campStill1 from "../assets/prolog/prolog-campaign-still-1.webp";
+import campStill2 from "../assets/prolog/prolog-campaign-still-2.webp";
+import campBrochure from "../assets/prolog/prolog-campaign-brochure.webp";
+import campSticker1 from "../assets/prolog/prolog-campaign-sticker-1.webp";
+import campSticker2 from "../assets/prolog/prolog-campaign-sticker-2.webp";
+import campBillboard1 from "../assets/prolog/prolog-campaign-billboard-1.webp";
+import campBillboard2 from "../assets/prolog/prolog-campaign-billboard-2.webp";
+import campInsta1 from "../assets/prolog/prolog-campaign-insta-1.webp";
+import campInsta2 from "../assets/prolog/prolog-campaign-insta-2.webp";
+import campInsta3 from "../assets/prolog/prolog-campaign-insta-3.webp";
 import personaIzzy from "../assets/prolog/prolog-persona-izzy.webp";
 import personaJordan from "../assets/prolog/prolog-persona-jordan.webp";
 import shotJourney1 from "../assets/prolog/prolog-shot-journey-dashboard-1.webp";
@@ -141,6 +151,65 @@ export function TypeFigure() {
       loading="lazy"
       style={{ width: "100%" }}
     />
+  );
+}
+
+/* ── Beyond the screen: the promotional campaign set ── */
+const CAMPAIGN_VIDEO = `${import.meta.env.BASE_URL}media/prolog/prolog_video.mp4`;
+
+export function CampaignVideoFigure() {
+  return (
+    <video
+      className="cs-campaign-video"
+      src={CAMPAIGN_VIDEO}
+      controls
+      playsInline
+      preload="metadata"
+      aria-label="The ProLog promotional film"
+    />
+  );
+}
+
+export function CampaignStillsFigure() {
+  return (
+    <div className="cs-figure-row">
+      <img src={campStill1} alt="Frame from the ProLog promotional film" loading="lazy" />
+      <img src={campStill2} alt="Frame from the ProLog promotional film" loading="lazy" />
+    </div>
+  );
+}
+
+export function CampaignBrochureFigure() {
+  return (
+    <img src={campBrochure} alt="The ProLog brochure mockup" loading="lazy" style={{ width: "100%" }} />
+  );
+}
+
+export function CampaignStickersFigure() {
+  return (
+    <div className="cs-figure-row cs-row-bottom">
+      <img src={campSticker1} alt="ProLog sticker sheet" loading="lazy" />
+      <img src={campSticker2} alt="ProLog die-cut stickers" loading="lazy" />
+    </div>
+  );
+}
+
+export function CampaignBillboardsFigure() {
+  return (
+    <div className="cs-figure-row">
+      <img src={campBillboard1} alt="ProLog billboard mockup" loading="lazy" />
+      <img src={campBillboard2} alt="ProLog billboard mockup" loading="lazy" />
+    </div>
+  );
+}
+
+export function CampaignInstagramFigure() {
+  return (
+    <div className="cs-insta-stack">
+      <img src={campInsta1} alt="ProLog Instagram carousel, first strip" loading="lazy" />
+      <img src={campInsta2} alt="ProLog Instagram carousel, second strip" loading="lazy" />
+      <img src={campInsta3} alt="ProLog Instagram carousel, third strip" loading="lazy" />
+    </div>
   );
 }
 

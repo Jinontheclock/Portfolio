@@ -18,6 +18,12 @@ import {
   LogoLockupFigure,
   PaletteFigure,
   TypeFigure,
+  CampaignVideoFigure,
+  CampaignStillsFigure,
+  CampaignBrochureFigure,
+  CampaignStickersFigure,
+  CampaignBillboardsFigure,
+  CampaignInstagramFigure,
 } from "../components/ProLogContextFigures.jsx";
 import { PROLOG_SHOTS } from "../components/ProLogContextFigures.jsx";
 
@@ -38,6 +44,12 @@ const FIGURES = {
   "prolog-logo": LogoLockupFigure,
   "prolog-palette": PaletteFigure,
   "prolog-type": TypeFigure,
+  "prolog-campaign-video": CampaignVideoFigure,
+  "prolog-campaign-stills": CampaignStillsFigure,
+  "prolog-campaign-brochure": CampaignBrochureFigure,
+  "prolog-campaign-stickers": CampaignStickersFigure,
+  "prolog-campaign-billboards": CampaignBillboardsFigure,
+  "prolog-campaign-instagram": CampaignInstagramFigure,
 };
 import { getProject } from "../data/projects.js";
 
