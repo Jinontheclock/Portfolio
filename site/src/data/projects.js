@@ -291,7 +291,6 @@ export const PROJECTS = [
               "Scoped to the electrical apprenticeship in BC, with an expansion path toward all skilled trades across Canada",
             ],
           },
-          { type: "tagline", text: "Supporting your progress. Logging your journey." },
         ],
       },
       {
