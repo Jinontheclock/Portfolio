@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import TryAppModal from "../components/TryAppModal.jsx";
+import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
 import ProLogJourney from "../components/ProLogJourney.jsx";
 import prologMockupUrl from "../assets/prolog/prolog-mockup.webp";
 import {
@@ -40,39 +41,6 @@ import { getProject } from "../data/projects.js";
 
 // ProLog is exported to the Portfolio under /prolog/ (see site/public/prolog)
 const PROLOG_SRC = `${import.meta.env.BASE_URL}prolog/`;
-
-/* Password gate for confidential case studies (see each project's `locked`
-   + `passwordHash`). Checked client-side against a SHA-256 digest — a
-   courtesy gate in the industry-standard portfolio sense, not security —
-   and remembered for the browsing session. */
-const GATE_COPY = {
-  en: {
-    title: "Protected case study",
-    body: "This project is covered by a company confidentiality policy.",
-    placeholder: "Password",
-    error: "Incorrect password.",
-    submit: "Unlock",
-  },
-  ko: {
-    title: "보호된 케이스 스터디",
-    body: "사내 보안 규정에 따라 보호된 프로젝트입니다.",
-    placeholder: "비밀번호",
-    error: "비밀번호가 올바르지 않습니다.",
-    submit: "잠금 해제",
-  },
-  ja: {
-    title: "保護されたケーススタディ",
-    body: "社内規定により保護されたプロジェクトです。",
-    placeholder: "パスワード",
-    error: "パスワードが正しくありません。",
-    submit: "ロック解除",
-  },
-};
-
-async function sha256Hex(text) {
-  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
-}
 
 function MetaGroup({ rows }) {
   return (
@@ -199,16 +167,8 @@ export default function CaseStudyPage({ lang, setLang }) {
   // section currently in view (null = the intro block above the sections)
   const [activeId, setActiveId] = useState(null);
   // password gate: an unlock lasts for the browsing session
-  const [unlocked, setUnlocked] = useState(() => {
-    try {
-      return sessionStorage.getItem(`cs-unlocked-${id}`) === "1";
-    } catch {
-      return false;
-    }
-  });
-  const [gatePw, setGatePw] = useState("");
-  const [gateError, setGateError] = useState(false);
-  const [gateShake, setGateShake] = useState(false);
+  const [unlocked, setUnlocked] = useState(() => isUnlocked(id));
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (project) document.title = `${project.title} — HAJIN`;
@@ -240,36 +200,11 @@ export default function CaseStudyPage({ lang, setLang }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, [project]);
 
-  // freeze the page while the gate is up
-  useEffect(() => {
-    if (!project?.locked || unlocked) return;
-    const prev = document.documentElement.style.overflow;
-    document.documentElement.style.overflow = "hidden";
-    return () => {
-      document.documentElement.style.overflow = prev;
-    };
-  }, [project, unlocked]);
-
   if (!project) return <Navigate to="/work" replace />;
 
   const HeroScene = project.heroScene ? HERO_SCENES[project.heroScene] : null;
 
   const gateActive = !!project.locked && !unlocked;
-  const gateCopy = GATE_COPY[lang] || GATE_COPY.en;
-  const tryUnlock = async (e) => {
-    e.preventDefault();
-    const hex = await sha256Hex(gatePw.trim());
-    if (hex === project.passwordHash) {
-      try {
-        sessionStorage.setItem(`cs-unlocked-${id}`, "1");
-      } catch {}
-      setUnlocked(true);
-    } else {
-      setGateError(true);
-      setGateShake(true);
-      setTimeout(() => setGateShake(false), 450);
-    }
-  };
 
   const scrollTo = (sectionId) => {
     if (!sectionId) {
@@ -393,34 +328,12 @@ export default function CaseStudyPage({ lang, setLang }) {
       <SiteFooter lang={lang} setLang={setLang} />
 
       {gateActive && (
-        <div className="cs-gate-overlay">
-          <form
-            className={"cs-gate-card" + (gateShake ? " is-shake" : "")}
-            onSubmit={tryUnlock}
-          >
-            <h1 className="cs-gate-title">{gateCopy.title}</h1>
-            <p className="cs-gate-body">{gateCopy.body}</p>
-            <div className="cs-gate-field">
-              <input
-                type="password"
-                value={gatePw}
-                onChange={(e) => {
-                  setGatePw(e.target.value);
-                  setGateError(false);
-                }}
-                placeholder={gateCopy.placeholder}
-                aria-label={gateCopy.placeholder}
-                autoFocus
-              />
-              <button type="submit" aria-label={gateCopy.submit}>
-                →
-              </button>
-            </div>
-            <p className="cs-gate-error" aria-live="polite">
-              {gateError ? gateCopy.error : "\u00A0"}
-            </p>
-          </form>
-        </div>
+        <CaseGateModal
+          project={project}
+          lang={lang}
+          onDismiss={() => navigate("/work")}
+          onUnlocked={() => setUnlocked(true)}
+        />
       )}
 
       {project.demo && (

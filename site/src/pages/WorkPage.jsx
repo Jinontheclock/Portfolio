@@ -1,10 +1,14 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
+import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
 import { PROJECTS } from "../data/projects.js";
 
 export default function WorkPage({ lang, setLang }) {
+  const navigate = useNavigate();
+  // a locked project asks for its password right here, before navigating
+  const [gateProject, setGateProject] = useState(null);
   useEffect(() => {
     document.title = "Work — HAJIN";
   }, []);
@@ -16,7 +20,17 @@ export default function WorkPage({ lang, setLang }) {
       <main className="wk-main">
         <div className="wk-list">
           {PROJECTS.map((p) => (
-            <Link key={p.id} to={`/work/${p.id}`} className="ab-grid wk-card wk-card-link">
+            <Link
+              key={p.id}
+              to={`/work/${p.id}`}
+              className="ab-grid wk-card wk-card-link"
+              onClick={(e) => {
+                if (p.locked && !isUnlocked(p.id)) {
+                  e.preventDefault();
+                  setGateProject(p);
+                }
+              }}
+            >
               <div className="wk-text">
                 <span className="wk-title">
                   {p.title}
@@ -45,6 +59,19 @@ export default function WorkPage({ lang, setLang }) {
       </main>
 
       <SiteFooter lang={lang} setLang={setLang} />
+
+      {gateProject && (
+        <CaseGateModal
+          project={gateProject}
+          lang={lang}
+          onDismiss={() => setGateProject(null)}
+          onUnlocked={() => {
+            const id = gateProject.id;
+            setGateProject(null);
+            navigate(`/work/${id}`);
+          }}
+        />
+      )}
     </div>
   );
 }
