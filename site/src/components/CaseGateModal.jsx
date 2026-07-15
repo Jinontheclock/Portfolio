@@ -7,21 +7,21 @@ import { useEffect, useState } from "react";
    the browsing session. */
 const GATE_COPY = {
   en: {
-    title: "Protected case study",
+    title: "Protected project",
     body: "This project is covered by a company confidentiality policy.",
     placeholder: "Password",
     error: "Incorrect password.",
     submit: "Unlock",
   },
   ko: {
-    title: "보호된 케이스 스터디",
+    title: "보호된 프로젝트",
     body: "사내 보안 규정에 따라 보호된 프로젝트입니다.",
     placeholder: "비밀번호",
     error: "비밀번호가 올바르지 않습니다.",
     submit: "잠금 해제",
   },
   ja: {
-    title: "保護されたケーススタディ",
+    title: "保護されたプロジェクト",
     body: "社内規定により保護されたプロジェクトです。",
     placeholder: "パスワード",
     error: "パスワードが正しくありません。",
