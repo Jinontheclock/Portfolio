@@ -700,3 +700,29 @@
   width: 100%;
   height: auto;
 }
+
+/* ── Before/after pairs (usability-testing fixes) ── */
+.cs-ba-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.cs-ba-cell {
+  min-width: 0;
+}
+.cs-ba-label {
+  display: block;
+  margin-bottom: 6px;
+  font: 400 11px / 1.4 var(--font-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.cs-figure .cs-ba-cell img,
+.cs-ba-cell img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  border: 1px solid var(--grey-100, #e5e5e5);
+}

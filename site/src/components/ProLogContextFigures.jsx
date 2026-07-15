@@ -11,6 +11,12 @@ import typeImg from "../assets/prolog/prolog-fig-type.webp";
 import campBrochure from "../assets/prolog/prolog-campaign-brochure.webp";
 import campBillboard1 from "../assets/prolog/prolog-campaign-billboard-1.webp";
 import campBillboard2 from "../assets/prolog/prolog-campaign-billboard-2.webp";
+import baProgressBefore from "../assets/prolog/prolog-ba-progress-before.webp";
+import baProgressAfter from "../assets/prolog/prolog-ba-progress-after.webp";
+import baNavBefore from "../assets/prolog/prolog-ba-nav-before.webp";
+import baNavAfter from "../assets/prolog/prolog-ba-nav-after.webp";
+import baCuesBefore from "../assets/prolog/prolog-ba-cues-before.webp";
+import baCuesAfter from "../assets/prolog/prolog-ba-cues-after.webp";
 import campInsta1 from "../assets/prolog/prolog-campaign-insta-1.webp";
 import campInsta2 from "../assets/prolog/prolog-campaign-insta-2.webp";
 import campInsta3 from "../assets/prolog/prolog-campaign-insta-3.webp";
@@ -148,6 +154,34 @@ export function TypeFigure() {
       style={{ width: "100%" }}
     />
   );
+}
+
+/* ── Usability-testing fixes: labelled before/after screen pairs ── */
+function BeforeAfter({ before, after, name }) {
+  return (
+    <div className="cs-ba-row">
+      <div className="cs-ba-cell">
+        <span className="cs-ba-label">Before</span>
+        <img src={before} alt={`${name} — before the usability fixes`} loading="lazy" />
+      </div>
+      <div className="cs-ba-cell">
+        <span className="cs-ba-label">After</span>
+        <img src={after} alt={`${name} — after the usability fixes`} loading="lazy" />
+      </div>
+    </div>
+  );
+}
+
+export function BAProgressFigure() {
+  return <BeforeAfter before={baProgressBefore} after={baProgressAfter} name="Progress dashboard" />;
+}
+
+export function BANavigationFigure() {
+  return <BeforeAfter before={baNavBefore} after={baNavAfter} name="Competency navigation" />;
+}
+
+export function BAVisualCuesFigure() {
+  return <BeforeAfter before={baCuesBefore} after={baCuesAfter} name="Hour tracking" />;
 }
 
 /* ── Beyond the screen: the promotional campaign set ── */
