@@ -165,8 +165,8 @@ export const PROJECTS = [
             type: "list",
             items: [
               "Everyone tracks differently — the official portal, paper logbooks, employer or union records. ProLog has to sit on top of these systems and sync with them, not ask apprentices to abandon them.",
-              "Ten of the twelve had been asked to work above or below their level — competency boundaries blur on real job sites, and sign-offs don't keep up.",
-              "Support exists but goes unused: nine of twelve had never contacted their assigned mentor, and \"not sure who to ask\" came up again and again — alongside funding programs apprentices didn't know they qualified for.",
+              "Competency boundaries blur on real job sites — apprentices get asked to work above or below their level, and sign-offs don't keep up.",
+              "Support exists but goes unused — \"not sure who to ask\" came up again and again, alongside funding programs apprentices didn't know they qualified for.",
               "Short, practical formats win: videos under two minutes, checklists, and links to official sources beat long documents every time.",
             ],
           },
