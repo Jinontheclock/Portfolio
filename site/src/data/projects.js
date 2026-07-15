@@ -214,6 +214,7 @@ export const PROJECTS = [
             paras: [
               "ProLog's dashboard turns certification into a single roadmap: hours tracked, hours left in the current level, and hours until Red Seal — with competency and finance status alongside. Whenever it gets overwhelming, the dashboard shows exactly where you are and what's ahead.",
               "Every figure is tappable — hours break down by competency, so exploring your own progress is the default interaction, not a dead end.",
+              "For Izzy — who holds her progress together across sticky notes and a paper journal — one tappable total replaces the pile she used to reconstruct by hand.",
             ],
             media: ["journey-dashboard-1", "journey-dashboard-2", "journey-dashboard-3"],
             caption:
@@ -236,6 +237,7 @@ export const PROJECTS = [
             tag: "↔ Problem 03",
             paras: [
               "Beyond tracking, ProLog folds in the support apprentices otherwise hunt for. A finance view lays out expected expenses for the term — tuition, tools, books — next to the grants and support programs they can apply to. A study section covers every competency in the level, built around the short, practical formats apprentices told us they use — summaries, text-to-speech, and AI-generated quizzes that refresh on every attempt, up to a full exam prep. Reminders are created automatically from the user's own records: tuition due Sunday, EI application by the 31st, certification expiring next Friday.",
+              "For Jordan — a Level 4 who dreads the wordy PDFs and buried deadlines — the grant he qualifies for and his ticket-renewal date surface before he has to go hunting for them.",
             ],
             media: ["work-finance", "competency-exam-prep", "dashboard-reminder"],
             caption:
