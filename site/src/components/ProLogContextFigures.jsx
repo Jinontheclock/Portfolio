@@ -18,8 +18,6 @@ import baNavBefore from "../assets/prolog/prolog-ba-nav-before.webp";
 import baNavAfter from "../assets/prolog/prolog-ba-nav-after.webp";
 import baCuesBefore from "../assets/prolog/prolog-ba-cues-before.webp";
 import baCuesAfter from "../assets/prolog/prolog-ba-cues-after.webp";
-import campInsta1 from "../assets/prolog/prolog-campaign-insta-1.webp";
-import campInsta2 from "../assets/prolog/prolog-campaign-insta-2.webp";
 import campInsta3 from "../assets/prolog/prolog-campaign-insta-3.webp";
 import personaIzzy from "../assets/prolog/prolog-persona-izzy.webp";
 import personaJordan from "../assets/prolog/prolog-persona-jordan.webp";
@@ -254,9 +252,7 @@ export function CampaignBillboardsFigure() {
 export function CampaignInstagramFigure() {
   return (
     <div className="cs-insta-stack">
-      <img src={campInsta1} alt="ProLog Instagram carousel, first strip" loading="lazy" />
-      <img src={campInsta2} alt="ProLog Instagram carousel, second strip" loading="lazy" />
-      <img src={campInsta3} alt="ProLog Instagram carousel, third strip" loading="lazy" />
+      <img src={campInsta3} alt="ProLog Instagram carousel, team foundation strip" loading="lazy" />
     </div>
   );
 }
