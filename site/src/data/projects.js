@@ -214,7 +214,7 @@ export const PROJECTS = [
             tag: "↔ Problem 01",
             paras: [
               "ProLog's dashboard turns certification into a single roadmap: hours tracked, hours left in the current level, and hours until Red Seal — with competency and finance status alongside. Whenever it gets overwhelming, the dashboard shows exactly where you are and what's ahead.",
-              "In usability testing, hour totals initially read as static labels — participants couldn't tell what the numbers were made of. We made every figure tappable, breaking hours down by competency, so exploring your own progress became the default interaction rather than a dead end.",
+              "Every figure is tappable — hours break down by competency, so exploring your own progress is the default interaction, not a dead end.",
             ],
             media: ["journey-dashboard-1", "journey-dashboard-2", "journey-dashboard-3"],
             caption:
@@ -237,7 +237,6 @@ export const PROJECTS = [
             tag: "↔ Problem 03",
             paras: [
               "Beyond tracking, ProLog folds in the support apprentices otherwise hunt for. A finance view lays out expected expenses for the term — tuition, tools, books — next to the grants and support programs they can apply to. A study section covers every competency in the level, built around the short, practical formats apprentices told us they use — summaries, text-to-speech, and AI-generated quizzes that refresh on every attempt, up to a full exam prep. Reminders are created automatically from the user's own records: tuition due Sunday, EI application by the 31st, certification expiring next Friday.",
-              "Testing exposed that several of these entry points were hard to find — finance tools and reminders in particular — so navigation was reorganized around primary actions and core features surfaced to the top level.",
             ],
             media: ["work-finance", "competency-exam-prep", "dashboard-reminder"],
             caption:
@@ -335,7 +334,7 @@ export const PROJECTS = [
             items: [
               "Created for and presented at the ConnectHER Technology Showcase, where students design digital solutions for underrepresented people in the trades",
               "Presented at SSE Y2WD",
-              "Usability testing with five apprentices drove three shipped improvements: interactive progress breakdowns, reorganized navigation, and strengthened interaction feedback",
+              "Task-based testing with five apprentices shipped three improvements before the showcase",
               "Scoped to the electrical apprenticeship in BC, with an expansion path toward all skilled trades across Canada",
             ],
           },
