@@ -92,6 +92,18 @@ function Block({ block, onDemo }) {
       );
     case "p":
       return <p className="cs-paragraph">{block.text}</p>;
+    case "stats":
+      /* research stats strip: big figure + one-line finding per cell */
+      return (
+        <div className="cs-stats">
+          {block.items.map((s, i) => (
+            <div key={i} className="cs-stat">
+              <span className="cs-stat-value">{s.value}</span>
+              <span className="cs-stat-label">{s.label}</span>
+            </div>
+          ))}
+        </div>
+      );
     case "list":
       return (
         <ul className="cs-list">

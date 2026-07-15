@@ -347,6 +347,30 @@
   color: var(--text-muted);
 }
 
+/* research stats strip: one thin-ruled cell per finding, figure over label */
+.cs-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 12px 0;
+}
+.cs-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.cs-stat-value {
+  font: 700 var(--size-card-title) / 1.1 var(--font-ui);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.cs-stat-label {
+  font: 400 13px / 1.5 var(--font-ui);
+  color: var(--text-muted);
+}
+
 /* the Try-app embed inside a section sits close to its lead-in copy */
 .cs-section .cs-tryapp {
   margin: 8px 0;
@@ -544,6 +568,10 @@
   .cs-meta {
     flex-direction: column;
     gap: 20px;
+  }
+  /* stats strip drops to two columns */
+  .cs-stats {
+    grid-template-columns: repeat(2, 1fr);
   }
   /* solution rows stack: text first, then the screens */
   .cs-solution-row {
