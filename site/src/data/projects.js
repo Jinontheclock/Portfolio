@@ -138,7 +138,7 @@ export const PROJECTS = [
           { type: "h", text: "Problem 03 — Scattered support" },
           {
             type: "p",
-            text: "Apprentices work from their phones — nine of the twelve we surveyed named the phone as their primary device — yet study materials, funding information, and deadlines live on dense, desktop-only websites. The support exists. It just isn't built for the way apprentices actually work.",
+            text: "Apprentices work from their phones — nine of the twelve we surveyed named the phone as their primary device — but the study guides and funding pages they need are built for a desktop: dense, multi-column, unusable one-handed on a job site. The support exists. It just isn't built for where the work happens.",
           },
         ],
       },
