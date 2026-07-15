@@ -260,6 +260,10 @@ export const PROJECTS = [
         id: "visual",
         label: "05 Visual Language",
         blocks: [
+          {
+            type: "p",
+            text: "Identity and system built across the 8-person team — my part: co-designing the components and implementing the full system in React Native.",
+          },
           { type: "h", text: "A mark that maps the journey" },
           {
             type: "p",
