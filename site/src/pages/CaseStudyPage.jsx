@@ -164,7 +164,7 @@ function Block({ block, onDemo }) {
       const Figures = names.map((n) => FIGURES[n]).filter(Boolean);
       if (!Figures.length) return null;
       return (
-        <figure className="cs-figure">
+        <figure className={"cs-figure" + (block.frames ? " cs-figure-frames" : "")}>
           <div className={Figures.length > 1 ? "cs-figure-row" : undefined}>
             {Figures.map((Figure, i) => (
               <Figure key={i} />

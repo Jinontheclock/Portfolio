@@ -341,6 +341,20 @@
   min-width: 0;
 }
 
+/* fidelity-evolution frames: sized to the 110px app-screen frames used in
+   the Solution rows and before/after pairs, not stretched to fill the row */
+.cs-figure-frames .cs-figure-row {
+  justify-content: flex-start;
+  gap: 16px;
+}
+.cs-figure-frames .cs-figure-row img {
+  flex: 0 0 auto;
+  width: 110px;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid var(--grey-100, #e5e5e5);
+}
+
 .cs-figure-caption {
   margin-top: 6px;
   font: 400 13px / 1.5 var(--font-ui);
