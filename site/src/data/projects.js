@@ -208,12 +208,6 @@ export const PROJECTS = [
               "Sixty mid-fi screens mapped every state — quiz right and wrong, filters, drawers — before a single hi-fi pixel.",
           },
           {
-            type: "figure",
-            frames: true,
-            graphic: "prolog-shot-journey-midfi",
-            caption: "The journey dashboard in mid-fi — the structure locked down before any visual styling.",
-          },
-          {
             type: "solution",
             title: "A 6,000-hour journey at a glance",
             tag: "↔ Problem 01",
