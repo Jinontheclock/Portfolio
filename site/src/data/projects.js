@@ -172,7 +172,11 @@ export const PROJECTS = [
           },
           {
             type: "p",
-            text: "We distilled these into two contrasting personas — a first-year apprentice finding her footing, and a Level 4 veteran closing out his ticket — that kept every feature decision anchored to a real person's week.",
+            text: "The friction we heard most — overwhelm from fragmented, text-heavy information — is exactly what neurodivergent apprentices feel most sharply. Designing for that edge sharpened ProLog for every apprentice.",
+          },
+          {
+            type: "p",
+            text: "We distilled these into two contrasting personas — a first-year apprentice finding her footing, and a Level 4 veteran closing out his ticket — both built around how neurodivergent apprentices experience an information-heavy pathway: Izzy holding it together with sticky notes and handmade study guides, Jordan overwhelmed by wordy PDFs and long resource lists. They kept every feature decision anchored to a real person's week.",
           },
           {
             type: "figure",
