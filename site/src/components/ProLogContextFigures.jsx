@@ -242,7 +242,8 @@ export function CampaignBrochureFigure() {
 
 export function CampaignBillboardsFigure() {
   return (
-    <div className="cs-figure-row">
+    <div className="cs-figure-row cs-campaign-row">
+      <img src={campBrochure} alt="The ProLog brochure mockup" loading="lazy" />
       <img src={campBillboard1} alt="ProLog billboard mockup" loading="lazy" />
       <img src={campBillboard2} alt="ProLog billboard mockup" loading="lazy" />
     </div>

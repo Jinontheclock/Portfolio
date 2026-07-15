@@ -304,13 +304,8 @@ export const PROJECTS = [
           },
           {
             type: "figure",
-            graphic: "prolog-campaign-brochure",
-            caption: "Brochure handed to showcase guests.",
-          },
-          {
-            type: "figure",
             graphic: "prolog-campaign-billboards",
-            caption: "Billboard concepts.",
+            caption: "Brochure and billboard concepts.",
           },
           {
             type: "figure",
