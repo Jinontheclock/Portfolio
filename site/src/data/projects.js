@@ -151,6 +151,15 @@ export const PROJECTS = [
             text: "We surveyed and interviewed twelve apprentices across BC — electrical, plumbing, HVAC, welding, power engineering, ironworking, and landscaping — from first-year apprentices to journeypersons, union and non-union alike. Alongside, we reviewed the ecosystem they navigate: SkilledTradesBC portals and success-story profiles, competency documents, and the forum threads where apprentices ask each other what the official channels don't answer.",
           },
           { type: "figure", graphic: "prolog-participants" },
+          {
+            type: "stats",
+            items: [
+              { value: "11/12", label: "knew their next-level requirements — the information just lived in four different places" },
+              { value: "10/12", label: "had been asked to work above or below their level" },
+              { value: "9/12", label: "named the phone as their primary device" },
+              { value: "9/12", label: "had never contacted their assigned mentor" },
+            ],
+          },
           { type: "h", text: "What we heard" },
           {
             type: "list",
