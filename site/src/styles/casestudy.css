@@ -347,7 +347,7 @@
   justify-content: flex-start;
   gap: 16px;
 }
-.cs-figure-frames .cs-figure-row img {
+.cs-figure-frames img {
   flex: 0 0 auto;
   width: 110px;
   height: auto;

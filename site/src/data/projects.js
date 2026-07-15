@@ -199,8 +199,8 @@ export const PROJECTS = [
           {
             type: "figure",
             frames: true,
-            graphics: ["prolog-shot-journey-midfi", "prolog-shot-journey-dashboard-1"],
-            caption: "The journey dashboard, from mid-fi structure to the shipped build.",
+            graphic: "prolog-shot-journey-midfi",
+            caption: "The journey dashboard in mid-fi — the structure locked down before any visual styling.",
           },
         ],
       },
