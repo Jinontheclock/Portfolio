@@ -25,6 +25,7 @@ import {
   CampaignBrochureFigure,
   CampaignBillboardsFigure,
   CampaignInstagramFigure,
+  MidfiGridFigure,
   JourneyMidfiFigure,
   JourneyDashboard1Figure,
 } from "../components/ProLogContextFigures.jsx";
@@ -54,6 +55,7 @@ const FIGURES = {
   "prolog-campaign-brochure": CampaignBrochureFigure,
   "prolog-campaign-billboards": CampaignBillboardsFigure,
   "prolog-campaign-instagram": CampaignInstagramFigure,
+  "prolog-fig-midfi-grid": MidfiGridFigure,
   "prolog-shot-journey-midfi": JourneyMidfiFigure,
   "prolog-shot-journey-dashboard-1": JourneyDashboard1Figure,
 };

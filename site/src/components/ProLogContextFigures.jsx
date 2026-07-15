@@ -8,6 +8,7 @@ import logoLockup from "../assets/prolog/prolog-logo-lockup.webp";
 import logoAppIcon from "../assets/prolog/prolog-logo-appicon.webp";
 import paletteImg from "../assets/prolog/prolog-fig-palette.webp";
 import typeImg from "../assets/prolog/prolog-fig-type.webp";
+import midfiGridImg from "../assets/prolog/prolog-fig-midfi-grid.webp";
 import campBrochure from "../assets/prolog/prolog-campaign-brochure.webp";
 import campBillboard1 from "../assets/prolog/prolog-campaign-billboard-1.webp";
 import campBillboard2 from "../assets/prolog/prolog-campaign-billboard-2.webp";
@@ -108,6 +109,18 @@ export const PROLOG_SHOTS = {
   "competency-exam-prep": { src: shotExamPrep, alt: "Exam prep: new exam entry, progress update and exam log" },
   "dashboard-reminder": { src: shotReminder, alt: "Event calendar with automatically created reminders" },
 };
+
+/* Mid-fi coverage grid (03 Approach): ~60 screens in one wide board,
+   showing how much of the app was mapped in mid-fi before hi-fi design. */
+export function MidfiGridFigure() {
+  return (
+    <img
+      src={midfiGridImg}
+      alt="A wide board of about sixty mid-fidelity screens — login, dashboard, skills and quizzes with right and wrong states, reminders, finances and settings — mapping the whole app before hi-fi design"
+      loading="lazy"
+    />
+  );
+}
 
 /* Journey-dashboard fidelity evolution (03 Approach): the mid-fi structure
    next to the shipped hi-fi build. The hi-fi frame reuses the Solution shot. */

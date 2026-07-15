@@ -192,6 +192,12 @@ export const PROJECTS = [
           },
           {
             type: "figure",
+            graphic: "prolog-fig-midfi-grid",
+            caption:
+              "Sixty mid-fi screens mapped every state — quiz right and wrong, filters, drawers — before a single hi-fi pixel.",
+          },
+          {
+            type: "figure",
             graphics: ["prolog-shot-journey-midfi", "prolog-shot-journey-dashboard-1"],
             caption: "The journey dashboard, from mid-fi structure to the shipped build.",
           },
