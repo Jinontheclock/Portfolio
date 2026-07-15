@@ -190,6 +190,11 @@ export const PROJECTS = [
               "Built for neurodivergent users — information in small chunks, visual progress, reminders, and text-to-speech, on a phone, one-handed.",
             ],
           },
+          {
+            type: "figure",
+            graphics: ["prolog-shot-journey-midfi", "prolog-shot-journey-dashboard-1"],
+            caption: "The journey dashboard, from mid-fi structure to the shipped build.",
+          },
         ],
       },
       {

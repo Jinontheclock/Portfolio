@@ -23,6 +23,7 @@ import campInsta3 from "../assets/prolog/prolog-campaign-insta-3.webp";
 import personaIzzy from "../assets/prolog/prolog-persona-izzy.webp";
 import personaJordan from "../assets/prolog/prolog-persona-jordan.webp";
 import shotJourney1 from "../assets/prolog/prolog-shot-journey-dashboard-1.webp";
+import shotJourneyMidfi from "../assets/prolog/prolog-shot-journey-midfi.webp";
 import shotJourney2 from "../assets/prolog/prolog-shot-journey-dashboard-2.webp";
 import shotJourney3 from "../assets/prolog/prolog-shot-journey-dashboard-3.webp";
 import shotScanning from "../assets/prolog/prolog-shot-manual-scanning.webp";
@@ -107,6 +108,28 @@ export const PROLOG_SHOTS = {
   "competency-exam-prep": { src: shotExamPrep, alt: "Exam prep: new exam entry, progress update and exam log" },
   "dashboard-reminder": { src: shotReminder, alt: "Event calendar with automatically created reminders" },
 };
+
+/* Journey-dashboard fidelity evolution (03 Approach): the mid-fi structure
+   next to the shipped hi-fi build. The hi-fi frame reuses the Solution shot. */
+export function JourneyMidfiFigure() {
+  return (
+    <img
+      src={shotJourneyMidfi}
+      alt="Mid-fidelity journey dashboard: the level progress ring, training hours, reminders and competencies laid out before the final visual system"
+      loading="lazy"
+    />
+  );
+}
+
+export function JourneyDashboard1Figure() {
+  return (
+    <img
+      src={shotJourney1}
+      alt="ProLog dashboard: journey path with levels completed, overall progress, reminders and exam status"
+      loading="lazy"
+    />
+  );
+}
 
 export function PersonaIzzyFigure() {
   return (
