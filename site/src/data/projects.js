@@ -285,7 +285,7 @@ export const PROJECTS = [
           { type: "h", text: "A palette built for the job site" },
           {
             type: "p",
-            text: "Industrial-inspired neutrals ground the interface, with a single bold orange reserved for progress and key actions. If it's orange, it moves you forward — and the rule carries through every interactive state: orange for actions you can take now, grey for information that waits, dimmed for steps not yet unlocked.",
+            text: "Industrial-inspired neutrals ground the interface, with a single bold orange reserved for progress and key actions. That rule carries through every interactive state: orange for actions you can take now, grey for information that waits, dimmed for steps not yet unlocked.",
           },
           { type: "figure", graphic: "prolog-palette" },
           { type: "h", text: "Type that works at arm's length" },
