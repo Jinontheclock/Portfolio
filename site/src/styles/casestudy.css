@@ -701,13 +701,14 @@
   height: auto;
 }
 
-/* ── Before/after pairs (usability-testing fixes) ── */
+/* ── Before/after pairs (usability-testing fixes): frames sized to match
+   the solution rows' app screens above (110px wide at every breakpoint) ── */
 .cs-ba-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 16px;
 }
 .cs-ba-cell {
+  width: 110px;
   min-width: 0;
 }
 .cs-ba-label {
@@ -720,6 +721,7 @@
 }
 .cs-figure .cs-ba-cell img,
 .cs-ba-cell img {
+  box-sizing: border-box;
   width: 100%;
   height: auto;
   display: block;
