@@ -194,6 +194,13 @@ export const PROJECTS = [
               "Built for neurodivergent users — information in small chunks, visual progress, reminders, and text-to-speech, on a phone, one-handed.",
             ],
           },
+        ],
+      },
+      {
+        id: "solution",
+        label: "04 The Solution",
+        blocks: [
+          { type: "h", text: "From structure to shipped" },
           {
             type: "figure",
             graphic: "prolog-fig-midfi-grid",
@@ -206,12 +213,6 @@ export const PROJECTS = [
             graphic: "prolog-shot-journey-midfi",
             caption: "The journey dashboard in mid-fi — the structure locked down before any visual styling.",
           },
-        ],
-      },
-      {
-        id: "solution",
-        label: "04 The Solution",
-        blocks: [
           {
             type: "solution",
             title: "A 6,000-hour journey at a glance",
