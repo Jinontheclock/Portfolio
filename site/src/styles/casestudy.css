@@ -182,10 +182,9 @@
   top: 0;
   left: 0;
   z-index: 1;
-  /* sized to the animation's empty top-left corner — any wider and it
-     collides with the first stage card. The steep vw slope shrinks it
-     fast on laptop widths, where the corner closes up sooner */
-  width: clamp(72px, 16vw - 80px, 150px);
+  /* the first stage card's left edge sits at ~19% of the hero at every
+     width (the SVG scales with it), so 17% can never collide with it */
+  width: min(17%, 140px);
   height: auto;
 }
 .cs-hero .cs-journey {
@@ -625,7 +624,8 @@
     display: none;
   }
   .cs-hero-logo {
-    width: 32%;
+    /* the journey fills the hero on mobile; its card edge sits at ~26% */
+    width: 22%;
   }
   /* chapter list on the left, a small mockup on the right, bottoms flush */
   .cs-toc-row {
