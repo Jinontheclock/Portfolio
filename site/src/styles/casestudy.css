@@ -78,7 +78,6 @@
 
 .cs-paragraph {
   margin: 0;
-  white-space: pre-line; /* intro copy breaks at sentence ends and commas */
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
 }
@@ -339,10 +338,11 @@
   font: 400 13px / 1.5 var(--font-ui);
   color: var(--text-muted);
 }
-/* credit links inside captions follow the meta-link pattern: quiet, darken on hover */
+/* credit links inside captions: underlined, darken on hover */
 .cs-figure-caption a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
   transition: color var(--duration-fast) var(--easing);
 }
 .cs-figure-caption a:hover {

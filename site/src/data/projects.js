@@ -55,7 +55,7 @@ export const PROJECTS = [
       [
         "ProLog is a progress-tracking app that levels the playing field for neurodivergent apprentices in ",
         { text: "BC skilled trades", href: "https://skilledtradesbc.ca/" },
-        ".\nAs lead developer on an eight-person team,\nI worked on the UX/UI design and turned the design system into a working React Native build.\nThe project was created for the ",
+        ". As lead developer on an eight-person team, I worked on the UX/UI design and turned the design system into a working React Native build. The project was created for the ",
         {
           text: "ConnectHER",
           href: "https://www.bcit.ca/construction-environment/welcome-to-the-connectherhub/",
