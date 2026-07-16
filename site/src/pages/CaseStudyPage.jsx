@@ -28,6 +28,9 @@ import {
   MidfiGridFigure,
   JourneyMidfiFigure,
   JourneyDashboard1Figure,
+  ShowcaseStageFigure,
+  ShowcaseCrowdFigure,
+  ShowcaseBoothFigure,
 } from "../components/ProLogContextFigures.jsx";
 import { PROLOG_SHOTS } from "../components/ProLogContextFigures.jsx";
 
@@ -58,6 +61,9 @@ const FIGURES = {
   "prolog-fig-midfi-grid": MidfiGridFigure,
   "prolog-shot-journey-midfi": JourneyMidfiFigure,
   "prolog-shot-journey-dashboard-1": JourneyDashboard1Figure,
+  "prolog-showcase-stage": ShowcaseStageFigure,
+  "prolog-showcase-crowd": ShowcaseCrowdFigure,
+  "prolog-showcase-booth": ShowcaseBoothFigure,
 };
 import { getProject } from "../data/projects.js";
 

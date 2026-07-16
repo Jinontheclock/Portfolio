@@ -23,6 +23,9 @@ import personaIzzy from "../assets/prolog/prolog-persona-izzy.webp";
 import personaJordan from "../assets/prolog/prolog-persona-jordan.webp";
 import shotJourney1 from "../assets/prolog/prolog-shot-journey-dashboard-1.webp";
 import shotJourneyMidfi from "../assets/prolog/prolog-shot-journey-midfi.webp";
+import showcaseStage from "../assets/prolog/prolog-showcase-stage.webp";
+import showcaseCrowd from "../assets/prolog/prolog-showcase-crowd.webp";
+import showcaseBooth from "../assets/prolog/prolog-showcase-booth.webp";
 import shotJourney2 from "../assets/prolog/prolog-shot-journey-dashboard-2.webp";
 import shotJourney3 from "../assets/prolog/prolog-shot-journey-dashboard-3.webp";
 import shotScanning from "../assets/prolog/prolog-shot-manual-scanning.webp";
@@ -255,6 +258,38 @@ export function CampaignInstagramFigure() {
     <div className="cs-insta-stack">
       <img src={campInsta3} alt="ProLog Instagram carousel, team foundation strip" loading="lazy" />
     </div>
+  );
+}
+
+/* Showcase photos (06 Outcome): the presentation, the room, and the booth.
+   Photos by Carlos M Bonmatí / BCIT. */
+export function ShowcaseStageFigure() {
+  return (
+    <img
+      src={showcaseStage}
+      alt='The ProLog team presenting on stage at the BCIT showcase, with the "Road to Red Seal: 6,000 hours" slide on screen'
+      loading="lazy"
+    />
+  );
+}
+
+export function ShowcaseCrowdFigure() {
+  return (
+    <img
+      src={showcaseCrowd}
+      alt="The showcase audience — students and guests filling the BCIT lecture hall"
+      loading="lazy"
+    />
+  );
+}
+
+export function ShowcaseBoothFigure() {
+  return (
+    <img
+      src={showcaseBooth}
+      alt='The Mayor of Burnaby at the ProLog booth, reading the "how many hours" poster'
+      loading="lazy"
+    />
   );
 }
 

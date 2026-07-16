@@ -328,11 +328,30 @@ export const PROJECTS = [
           {
             type: "list",
             items: [
-              "Created for and presented at the ConnectHER Technology Showcase, where students design digital solutions for underrepresented people in the trades",
+              "Presented live at the ConnectHER Technology Showcase — where students design digital solutions for underrepresented people in the trades — to an audience that included BC's Minister of State for AI and New Technologies, two Members of Parliament, and the Mayor of Burnaby",
               "Presented at SSE Y2WD",
+              "Recognized with a certificate from MP Jake Sawatzky, presented to each participating team",
               "Task-based testing with five apprentices shipped three improvements before the showcase",
               "Scoped to the electrical apprenticeship in BC, with an expansion path toward all skilled trades across Canada",
             ],
+          },
+          {
+            type: "figure",
+            graphic: "prolog-showcase-stage",
+            caption:
+              "Road to Red Seal — the 6,000-hour story, told live at the BCIT showcase. Photo: Carlos M Bonmatí / BCIT",
+          },
+          {
+            type: "figure",
+            graphic: "prolog-showcase-crowd",
+            caption:
+              "A full house — nearly a hundred students across two programs, with government and industry guests in the seats. Photo: Carlos M Bonmatí / BCIT",
+          },
+          {
+            type: "figure",
+            graphic: "prolog-showcase-booth",
+            caption:
+              "The Mayor of Burnaby at the ProLog booth — guessing the hours before we showed him the app. Photo: Carlos M Bonmatí / BCIT",
           },
         ],
       },
