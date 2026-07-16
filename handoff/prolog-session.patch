@@ -1,7 +1,7 @@
 From 1ac6a535f5426bd29326b8cef0b51b14025d92dd Mon Sep 17 00:00:00 2001
 From: Hajin Lee <hajinlee.ca@gmail.com>
 Date: Wed, 15 Jul 2026 07:32:14 +0000
-Subject: [PATCH 1/3] =?UTF-8?q?feat:=20demo=20polish=20=E2=80=94=20journey?=
+Subject: [PATCH 1/4] =?UTF-8?q?feat:=20demo=20polish=20=E2=80=94=20journey?=
  =?UTF-8?q?=20scroll,=20ripple/pulse,=20external-link=20flow,=20checklist?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -7034,7 +7034,7 @@ index df2f031..9cee786 100644
 From 9ad31f4b17b3f3a44d5f2226c082078773d2eca0 Mon Sep 17 00:00:00 2001
 From: Hajin Lee <hajinlee.ca@gmail.com>
 Date: Thu, 16 Jul 2026 10:18:42 +0000
-Subject: [PATCH 2/3] =?UTF-8?q?feat:=20named=20sign-up=20=E2=80=94=20greet?=
+Subject: [PATCH 2/4] =?UTF-8?q?feat:=20named=20sign-up=20=E2=80=94=20greet?=
  =?UTF-8?q?ing=20follows=20the=20user,=20Login=20button=20dropped?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -7200,7 +7200,7 @@ index 0000000..af430c9
 From d41715bbefc1a452bec64d84578b7f84d148a549 Mon Sep 17 00:00:00 2001
 From: Hajin Lee <hajinlee.ca@gmail.com>
 Date: Thu, 16 Jul 2026 10:42:43 +0000
-Subject: [PATCH 3/3] feat: sign-up email derives from the name, passwords
+Subject: [PATCH 3/4] feat: sign-up email derives from the name, passwords
  never block
 
 Typing a name fills name@prolog.ca live; Create Account proceeds
@@ -7263,6 +7263,1826 @@ index 3af480f..ae05c86 100644
                  />
                </View>
                <View style={styles.inputSection}>
+-- 
+2.43.0
+
+
+From 63b8d3810cb5779b56704775f0bfea0af07633db Mon Sep 17 00:00:00 2001
+From: Hajin Lee <hajinlee.ca@gmail.com>
+Date: Thu, 16 Jul 2026 21:27:20 +0000
+Subject: [PATCH 4/4] feat: editable profile name, fresh demo dates, web-safe
+ alerts, cleanup
+
+The Settings profile card opens an edit-name dialog and every screen
+follows via a store subscription; value-only settings rows drop their
+false chevrons; all demo dates move to 2026/2027 so countdowns and
+records read as current; Alert.alert routes through a web-safe helper;
+dead TTS variants, the commented Recents block and debug logs are gone.
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Sd3ocUiFGXccpfGr2QGCEH
+---
+ app/(tabs)/Dashboard.tsx                     |   7 +-
+ app/(tabs)/My_Skills.tsx                     |   9 -
+ app/(tabs)/Resources.tsx                     |  97 +++++++-
+ app/(tabs)/School.tsx                        |   2 +-
+ app/(tabs)/Work.tsx                          |   5 +-
+ app/dashboard/Dashboard_Reminder.tsx         |   8 +-
+ app/paystubs/PaystubList.tsx                 |  26 +--
+ app/skills/details.tsx                       |   7 +-
+ app/skills/exam-prep.tsx                     |  10 +-
+ app/skills/quiz.tsx                          |   4 +-
+ components/shared/AddReminderDialogueBox.tsx |   2 +-
+ components/shared/AddReminderModal.tsx       |   2 +-
+ components/shared/Recents.tsx                |  84 -------
+ components/shared/RecentsList.tsx            |  54 -----
+ components/shared/Reminder.tsx               |   4 +-
+ components/shared/ReminderFullView.tsx       |  10 +-
+ components/shared/SimpleTTSPlayer.tsx        | 191 ----------------
+ components/shared/SmallDataCard.tsx          |   2 +-
+ components/shared/TTSAudioPlayer.tsx         |  27 +--
+ components/shared/TextToSpeechPlayer.tsx     | 226 -------------------
+ data/skills-data.json                        |   2 +-
+ data/work-data.json                          |  26 +--
+ hooks/use-tts.ts                             | 157 -------------
+ lib/tts-service.ts                           | 223 ------------------
+ lib/user-store.ts                            |  12 +-
+ lib/web-alert.ts                             |  18 ++
+ 26 files changed, 189 insertions(+), 1026 deletions(-)
+ delete mode 100644 components/shared/Recents.tsx
+ delete mode 100644 components/shared/RecentsList.tsx
+ delete mode 100644 components/shared/SimpleTTSPlayer.tsx
+ delete mode 100644 components/shared/TextToSpeechPlayer.tsx
+ delete mode 100644 hooks/use-tts.ts
+ delete mode 100644 lib/tts-service.ts
+ create mode 100644 lib/web-alert.ts
+
+diff --git a/app/(tabs)/Dashboard.tsx b/app/(tabs)/Dashboard.tsx
+index 8d0da48..79870a4 100644
+--- a/app/(tabs)/Dashboard.tsx
++++ b/app/(tabs)/Dashboard.tsx
+@@ -5,7 +5,7 @@ import SendDiscrepancyReportModal from "@/components/shared/SendDiscrepancyRepor
+ import { SProgressBar } from "@/components/shared/SProgressBar";
+ import { Tags } from "@/components/shared/Tags";
+ import { UpdatePulse } from "@/components/shared/UpdatePulse";
+-import { displayName } from "@/lib/user-store";
++import { displayName, subscribe } from "@/lib/user-store";
+ import { Colors } from "@/constants/colors";
+ import { Spacing } from "@/constants/design-tokens";
+ import { Typography } from "@/constants/typography";
+@@ -13,7 +13,7 @@ import workData from "@/data/work-data.json";
+ import { CommonStyles } from "@/lib/common-styles";
+ import { MaterialCommunityIcons } from "@expo/vector-icons";
+ import { router } from "expo-router";
+-import React, { useRef, useState } from "react";
++import React, { useRef, useState, useSyncExternalStore } from "react";
+ import {
+   Animated,
+   Image,
+@@ -26,6 +26,7 @@ import {
+ import { SafeAreaView } from "react-native-safe-area-context";
+ 
+ export default function DashboardScreen() {
++  const userName = useSyncExternalStore(subscribe, displayName);
+   const [demoState, setDemoState] = useState<"before" | "after" | "nxtLvl">("before");
+   const [isLoading, setIsLoading] = useState(false);
+   const [level3AnimationActive, setLevel3AnimationActive] = useState(false);
+@@ -129,7 +130,7 @@ export default function DashboardScreen() {
+         {/* Header */}
+         <View style={styles.header}>
+           <View>
+-            <Text style={styles.greeting}>Hello {displayName()}</Text>
++            <Text style={styles.greeting}>Hello {userName}</Text>
+             <Text style={styles.subtitle}>
+               You're getting closer to the goal everyday!
+             </Text>
+diff --git a/app/(tabs)/My_Skills.tsx b/app/(tabs)/My_Skills.tsx
+index b337806..7a8d08d 100644
+--- a/app/(tabs)/My_Skills.tsx
++++ b/app/(tabs)/My_Skills.tsx
+@@ -181,15 +181,6 @@ export default function SkillsScreen() {
+         {/* Content based on selected tab */}
+         {selectedTab === "overall" && (
+           <View style={styles.overallContainer}>
+-            {/* Recents Component */}
+-            {/* <View style={styles.componentContainer}>
+-              <Recents
+-                title="Recently viewed"
+-                line="Line A-3"
+-                description="Describe the concepts of electricity..."
+-                onRemove={() => console.log("Remove recent item")}
+-              />
+-            </View> */}
+ 
+             {/* Exam Prep Component */}
+             <View style={styles.examPrepSection}>
+diff --git a/app/(tabs)/Resources.tsx b/app/(tabs)/Resources.tsx
+index 1a17c04..f1b2bc2 100644
+--- a/app/(tabs)/Resources.tsx
++++ b/app/(tabs)/Resources.tsx
+@@ -1,9 +1,9 @@
+ import { CommonStyles } from '@/lib/common-styles';
+ import { useExternalLink } from '@/lib/external-link';
+-import { displayName } from '@/lib/user-store';
++import { displayName, setUserName, subscribe } from '@/lib/user-store';
+ import { router } from 'expo-router';
+ import React from 'react';
+-import { Image, ScrollView, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
++import { Image, Modal, ScrollView, StyleSheet, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
+ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+ 
+ import { Button } from '@/components/shared/Buttons';
+@@ -48,12 +48,14 @@ function SettingRow({
+       ) : (
+         <View style={styles.rowRight}>
+           {value ? <Text style={styles.rowValue}>{value}</Text> : null}
+-          <MaterialIcon name="chevron_right" size={20} color={Colors.grey[300]} />
++          {onPress ? (
++            <MaterialIcon name="chevron_right" size={20} color={Colors.grey[300]} />
++          ) : null}
+         </View>
+       )}
+     </View>
+   );
+-  if (switchValue !== undefined) return content;
++  if (switchValue !== undefined || !onPress) return content;
+   return (
+     <TouchableOpacity activeOpacity={0.6} onPress={onPress}>
+       {content}
+@@ -65,7 +67,20 @@ export default function SettingsScreen() {
+   const insets = useSafeAreaInsets();
+   const openExternal = useExternalLink();
+ 
+-  // demo state: the switches work locally; navigation rows are inert
++  const userName = React.useSyncExternalStore(subscribe, displayName);
++  const [editingName, setEditingName] = React.useState(false);
++  const [nameDraft, setNameDraft] = React.useState('');
++
++  const openNameEditor = () => {
++    setNameDraft(displayName());
++    setEditingName(true);
++  };
++  const saveName = () => {
++    if (nameDraft.trim()) setUserName(nameDraft);
++    setEditingName(false);
++  };
++
++  // demo state: the switches work locally; the value-only rows are static
+   const [notifications, setNotifications] = React.useState(true);
+   const [reminders, setReminders] = React.useState(true);
+   const [tts, setTts] = React.useState(true);
+@@ -92,12 +107,18 @@ export default function SettingsScreen() {
+ 
+         <View style={styles.content}>
+           {/* Profile */}
+-          <TouchableOpacity style={styles.profileCard} activeOpacity={0.6}>
++          <TouchableOpacity
++            style={styles.profileCard}
++            activeOpacity={0.6}
++            onPress={openNameEditor}
++            accessibilityRole="button"
++            accessibilityLabel="Edit name"
++          >
+             <View style={styles.avatar}>
+               <MaterialIcon name="person" size={26} color={Colors.orange[400]} />
+             </View>
+             <View style={styles.profileText}>
+-              <Text style={styles.profileName}>{displayName()}</Text>
++              <Text style={styles.profileName}>{userName}</Text>
+               <Text style={styles.profileSub}>Electrical Apprentice · Level 2</Text>
+             </View>
+             <MaterialIcon name="edit" size={18} color={Colors.grey[300]} />
+@@ -180,11 +201,73 @@ export default function SettingsScreen() {
+           <Text style={styles.version}>ProLog · Version 1.0.0</Text>
+         </View>
+       </ScrollView>
++
++      {/* Edit-name dialog: the greeting and profile follow the new name */}
++      <Modal visible={editingName} transparent animationType="fade" onRequestClose={() => setEditingName(false)}>
++        <View style={styles.editOverlay}>
++          <View style={styles.editCard}>
++            <Text style={styles.editTitle}>Edit name</Text>
++            <TextInput
++              style={styles.editInput}
++              value={nameDraft}
++              onChangeText={setNameDraft}
++              placeholder="Enter your name"
++              placeholderTextColor={Colors.grey[300]}
++              autoFocus
++            />
++            <View style={styles.editActions}>
++              <Button text="Cancel" variant="light" onPress={() => setEditingName(false)} />
++              <Button
++                text="Save"
++                variant={nameDraft.trim() ? 'primary' : 'light'}
++                onPress={nameDraft.trim() ? saveName : undefined}
++                disabled={!nameDraft.trim()}
++              />
++            </View>
++          </View>
++        </View>
++      </Modal>
+     </SafeAreaView>
+   );
+ }
+ 
+ const styles = StyleSheet.create({
++  editOverlay: {
++    flex: 1,
++    backgroundColor: 'rgba(15, 15, 15, 0.45)',
++    alignItems: 'center',
++    justifyContent: 'center',
++    paddingHorizontal: 32,
++  },
++  editCard: {
++    width: '100%',
++    maxWidth: 340,
++    backgroundColor: Colors.white,
++    borderRadius: 20,
++    borderWidth: 1,
++    borderColor: Colors.grey[100],
++    padding: 20,
++    gap: 16,
++  },
++  editTitle: {
++    ...Typography.contentTitle,
++    color: Colors.grey[900],
++  },
++  editInput: {
++    backgroundColor: Colors.grey[50],
++    borderRadius: 8,
++    paddingHorizontal: 16,
++    height: 44,
++    ...Typography.bigBody,
++    color: Colors.grey[900],
++    borderWidth: 1,
++    borderColor: '#E5E5E5',
++  },
++  editActions: {
++    flexDirection: 'row',
++    justifyContent: 'flex-end',
++    gap: 10,
++  },
+   content: {
+     paddingHorizontal: 24,
+     paddingTop: 8,
+diff --git a/app/(tabs)/School.tsx b/app/(tabs)/School.tsx
+index 9077350..7a9a802 100644
+--- a/app/(tabs)/School.tsx
++++ b/app/(tabs)/School.tsx
+@@ -34,7 +34,7 @@ const SKILLS_RECORD = {
+     theory: {
+         completed: { before: 14, after: 22 },
+         total: 36,
+-        lastUpdated: { before: "Dec 05, 2025", after: "Dec 12, 2025" },
++        lastUpdated: { before: "Dec 05, 2026", after: "Dec 12, 2026" },
+     },
+     lines: [
+         { name: "Line A", total: 16, before: 7, after: 11 },
+diff --git a/app/(tabs)/Work.tsx b/app/(tabs)/Work.tsx
+index 7a442ee..4892769 100644
+--- a/app/(tabs)/Work.tsx
++++ b/app/(tabs)/Work.tsx
+@@ -106,7 +106,6 @@ export default function WorkScreen() {
+         }, 3000);
+       }, 350);
+     } catch (error) {
+-      console.log('Error playing notification sound:', error);
+       // Still show popup even if sound fails (with same delay)
+       setTimeout(() => {
+         setShowNotificationPopup(true);
+@@ -431,7 +430,7 @@ export default function WorkScreen() {
+               checkboxLabel="Practical Competencies"
+               current={10}
+               total={34}
+-              lastUpdated="On: Mar 12, 2025"
++              lastUpdated="On: Jun 12, 2026"
+               progressImage={require("@/assets/images/Group 46.png")}
+             />
+ 
+@@ -674,7 +673,7 @@ export default function WorkScreen() {
+             typeName="Notification Reminder"
+             date="now"
+             title="BCIT Tuition Deadline"
+-            content="Dec 07, 2025"
++            content="Dec 07, 2026"
+           />
+         </Animated.View>
+       )}
+diff --git a/app/dashboard/Dashboard_Reminder.tsx b/app/dashboard/Dashboard_Reminder.tsx
+index deec43d..004abd8 100644
+--- a/app/dashboard/Dashboard_Reminder.tsx
++++ b/app/dashboard/Dashboard_Reminder.tsx
+@@ -20,8 +20,8 @@ interface ReminderItem {
+ }
+ 
+ const DEFAULT_REMINDERS: ReminderItem[] = [
+-  { title: 'BCIT Tuition Deadline', date: 'Dec 07, 2025', day: 'Sunday' },
+-  { title: 'Apply for EI', date: 'Dec 31, 2025', day: 'Wednesday' },
++  { title: 'BCIT Tuition Deadline', date: 'Dec 07, 2026', day: 'Monday' },
++  { title: 'Apply for EI', date: 'Dec 31, 2026', day: 'Thursday' },
+ ];
+ 
+ export default function DashboardReminderScreen() {
+@@ -29,9 +29,9 @@ export default function DashboardReminderScreen() {
+   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+   const [pendingDeleteIndex, setPendingDeleteIndex] = useState<number | null>(null);
+   const [reminderList, setReminderList] = useState<ReminderItem[]>(DEFAULT_REMINDERS);
+-  // Calendar view defaults to the demo month (December 2025) but can page
++  // Calendar view defaults to the demo month (December 2026) but can page
+   // freely in both directions
+-  const [viewMonth, setViewMonth] = useState({ monthIndex: 11, year: 2025 });
++  const [viewMonth, setViewMonth] = useState({ monthIndex: 11, year: 2026 });
+ 
+   const stepMonth = (delta: number) => {
+     setViewMonth(({ monthIndex, year }) => {
+diff --git a/app/paystubs/PaystubList.tsx b/app/paystubs/PaystubList.tsx
+index 1cc382a..6fa116b 100644
+--- a/app/paystubs/PaystubList.tsx
++++ b/app/paystubs/PaystubList.tsx
+@@ -19,56 +19,56 @@ export default function PaystubListScreen() {
+   const [showYearDropdown, setShowYearDropdown] = useState(false);
+ 
+   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+-  const years = ['2024', '2025'];
++  const years = ['2025', '2026'];
+ 
+   // Monthly stubs at a Level 2 apprentice rate (~$26/hr), with hours a
+   // real month can actually hold
+   const allPaystubs = [
+     {
+       month: 'May',
+-      year: '2025',
++      year: '2026',
+       company: 'Burquos Mills Inc.',
+-      receivedDate: 'Jun 06, 2025',
++      receivedDate: 'Jun 06, 2026',
+       workHours: 152,
+       income: '$3,952',
+     },
+     {
+       month: 'April',
+-      year: '2025',
++      year: '2026',
+       company: 'Burquos Mills Inc.',
+-      receivedDate: 'May 08, 2025',
++      receivedDate: 'May 08, 2026',
+       workHours: 168,
+       income: '$4,368',
+     },
+     {
+       month: 'March',
+-      year: '2025',
++      year: '2026',
+       company: 'Burquos Mills Inc.',
+-      receivedDate: 'Apr 04, 2025',
++      receivedDate: 'Apr 04, 2026',
+       workHours: 144,
+       income: '$3,744',
+     },
+     {
+       month: 'February',
+-      year: '2025',
++      year: '2026',
+       company: 'Burquos Mills Inc.',
+-      receivedDate: 'Mar 07, 2025',
++      receivedDate: 'Mar 07, 2026',
+       workHours: 160,
+       income: '$4,160',
+     },
+     {
+       month: 'January',
+-      year: '2025',
++      year: '2026',
+       company: 'Burquos Mills Inc.',
+-      receivedDate: 'Feb 06, 2025',
++      receivedDate: 'Feb 06, 2026',
+       workHours: 136,
+       income: '$3,536',
+     },
+     {
+       month: 'December',
+-      year: '2024',
++      year: '2025',
+       company: 'Burquos Mills Inc.',
+-      receivedDate: 'Jan 09, 2025',
++      receivedDate: 'Jan 09, 2026',
+       workHours: 120,
+       income: '$3,120',
+     },
+diff --git a/app/skills/details.tsx b/app/skills/details.tsx
+index 621a13a..5bc1f68 100644
+--- a/app/skills/details.tsx
++++ b/app/skills/details.tsx
+@@ -7,7 +7,7 @@ import { CommonStyles } from "@/lib/common-styles";
+ import { completionStore } from "@/lib/completion-store";
+ import { router, useLocalSearchParams } from "expo-router";
+ import React, { useEffect, useRef, useState } from "react";
+-import { Alert, Animated, Image, ScrollView, StyleSheet, Text, View } from "react-native";
++import { Animated, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+ import {
+   SafeAreaView,
+   useSafeAreaInsets,
+@@ -15,6 +15,7 @@ import {
+ 
+ // Import the competency data
+ import { TTSAudioPlayer } from "@/components/shared/TTSAudioPlayer";
++import { showAlert } from "@/lib/web-alert";
+ import SuccessMessage from "@/components/shared/successMessage";
+ import skillsData from "@/data/skills-competency-summary.json";
+ 
+@@ -77,7 +78,7 @@ export default function SkillsDetailsScreen() {
+           await loadCompletionStatus(competencyId);
+           setIsLoading(false);
+         } else {
+-          Alert.alert("Error", "Competency not found", [
++          showAlert("Error", "Competency not found", [
+             { text: "OK", onPress: () => router.back() },
+           ]);
+           setIsLoading(false);
+@@ -134,7 +135,7 @@ export default function SkillsDetailsScreen() {
+       console.error("Error saving completion status:", error);
+       // Revert the local state if save failed
+       setIsCompleted(!newCompletedState);
+-      Alert.alert(
++      showAlert(
+         "Error",
+         "Failed to save completion status. Please try again.",
+         [{ text: "OK" }]
+diff --git a/app/skills/exam-prep.tsx b/app/skills/exam-prep.tsx
+index 815e2f3..2631f4f 100644
+--- a/app/skills/exam-prep.tsx
++++ b/app/skills/exam-prep.tsx
+@@ -23,18 +23,18 @@ const examAttempts = [
+     score: 38,
+     total: 40,
+     percentage: 95,
+-    date: "Nov 14, 2025",
++    date: "Nov 14, 2026",
+     improvement: 30,
+     isBestRecord: true,
+-    previousScore: { score: 26, total: 40, date: "Aug 7, 2025" },
+-    newScore: { score: 38, total: 40, date: "Aug 14, 2025" },
++    previousScore: { score: 26, total: 40, date: "Aug 7, 2026" },
++    newScore: { score: 38, total: 40, date: "Aug 14, 2026" },
+   },
+   {
+     attemptNumber: 2,
+     score: 26,
+     total: 40,
+     percentage: 65,
+-    date: "Aug 7, 2025",
++    date: "Aug 7, 2026",
+     improvement: -13,
+   },
+   {
+@@ -42,7 +42,7 @@ const examAttempts = [
+     score: 32,
+     total: 40,
+     percentage: 78,
+-    date: "Nov 14, 2025",
++    date: "Nov 14, 2026",
+     improvement: null,
+   },
+ ];
+diff --git a/app/skills/quiz.tsx b/app/skills/quiz.tsx
+index d933c57..c9f3c6d 100644
+--- a/app/skills/quiz.tsx
++++ b/app/skills/quiz.tsx
+@@ -10,12 +10,12 @@ import { Colors } from "@/constants/colors";
+ import { Spacing } from "@/constants/design-tokens";
+ import { Typography } from "@/constants/typography";
+ import { CommonStyles } from "@/lib/common-styles";
++import { showAlert } from "@/lib/web-alert";
+ import { completionStore } from "@/lib/completion-store";
+ import { generateQuiz, QuizQuestion } from "@/lib/quizApi";
+ import { useLocalSearchParams, useRouter } from "expo-router";
+ import React, { useEffect, useState } from "react";
+ import {
+-  Alert,
+   Image,
+   ScrollView,
+   StyleSheet,
+@@ -96,7 +96,7 @@ const QuizPage: React.FC = () => {
+         setError(err instanceof Error ? err.message : "Failed to load quiz");
+ 
+         // Show error alert and go back
+-        Alert.alert(
++        showAlert(
+           "Quiz Error",
+           "Failed to generate quiz questions. Please try again later.",
+           [{ text: "OK", onPress: () => router.back() }]
+diff --git a/components/shared/AddReminderDialogueBox.tsx b/components/shared/AddReminderDialogueBox.tsx
+index 47071fb..d97e5d8 100644
+--- a/components/shared/AddReminderDialogueBox.tsx
++++ b/components/shared/AddReminderDialogueBox.tsx
+@@ -23,7 +23,7 @@ export const AddReminderDialogueBox: React.FC<AddReminderDialogueBoxProps> = ({
+   
+   // Demo content for auto-fill
+   const demoEventName = 'Test Next Week';
+-  const demoDate = 'Dec 05, 2025';
++  const demoDate = 'Dec 05, 2026';
+   
+   const handleEventNameFocus = () => {
+     // Auto-fill with demo content when focused
+diff --git a/components/shared/AddReminderModal.tsx b/components/shared/AddReminderModal.tsx
+index 63b0f5f..bbca044 100644
+--- a/components/shared/AddReminderModal.tsx
++++ b/components/shared/AddReminderModal.tsx
+@@ -67,7 +67,7 @@ export const AddReminderModal: React.FC<AddReminderModalProps> = ({
+               <Text style={styles.label}>Date</Text>
+               <TextInput
+                 style={styles.input}
+-                placeholder="Dec 2, 2025"
++                placeholder="Dec 2, 2026"
+                 placeholderTextColor={Colors.grey[400]}
+                 value={date}
+                 onChangeText={setDate}
+diff --git a/components/shared/Recents.tsx b/components/shared/Recents.tsx
+deleted file mode 100644
+index 6dcb9d8..0000000
+--- a/components/shared/Recents.tsx
++++ /dev/null
+@@ -1,84 +0,0 @@
+-import { Colors } from '@/constants/colors';
+-import { Typography } from '@/constants/typography';
+-import { MaterialIcons } from '@expo/vector-icons';
+-import React from 'react';
+-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+-
+-interface RecentsProps {
+-  title?: string;
+-  line?: string;
+-  description?: string;
+-  onRemove?: () => void;
+-}
+-
+-export const Recents: React.FC<RecentsProps> = ({ title = 'Recently viewed', line = 'Line A-3', description = 'Describe the concepts of electricity...', onRemove }) => (
+-  <View style={styles.container}>
+-    <View style={[styles.row, { alignItems: 'center' }]}> 
+-      <Text style={styles.header}>{title}</Text>
+-      <View style={{ flex: 1, alignItems: 'flex-end', flexDirection: 'row', justifyContent: 'flex-end' }}>
+-        <TouchableOpacity onPress={onRemove} style={[styles.closeBtn, { alignSelf: 'flex-start', marginTop: 2 }]}>
+-          <MaterialIcons name="close" size={20} color={Colors.grey[300]} />
+-        </TouchableOpacity>
+-      </View>
+-    </View>
+-    <View style={styles.row}>
+-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+-        <Text style={styles.line} numberOfLines={1} ellipsizeMode="tail">
+-          <Text style={[styles.lineBold, { marginRight: 16 }]}>{line}</Text>
+-          <Text style={styles.description}>{description}</Text>
+-        </Text>
+-      </View>
+-      <TouchableOpacity onPress={onRemove} style={[styles.closeBtn, { alignSelf: 'flex-start', marginTop: 2 }]}> 
+-      </TouchableOpacity>
+-    </View>
+-  </View>
+-);
+-
+-const styles = StyleSheet.create({
+-  container: {
+-    backgroundColor: Colors.white,
+-    borderColor: Colors.borderGrey,
+-    borderWidth: 1,
+-    borderRadius: 20,
+-    paddingHorizontal: 24,
+-    paddingVertical: 18,
+-    marginVertical: 12,
+-    width: "auto",
+-    height: 84,
+-    shadowColor: '#000',
+-    shadowOpacity: 0.06,
+-    shadowRadius: 6,
+-    elevation: 1,
+-  },
+-  header: {
+-    ...Typography.buttonText,
+-    color: Colors.grey[300],
+-    marginBottom: 8,
+-  },
+-  row: {
+-    flexDirection: 'row',
+-    alignItems: 'center',
+-  },
+-  line: {
+-    flex: 1,
+-    flexDirection: 'row',
+-    alignItems: 'center',
+-  },
+-  lineBold: {
+-    ...Typography.contentTitle,
+-    color: Colors.grey[900],
+-    fontWeight: 'bold',
+-  },
+-  description: {
+-    ...Typography.bigBody,
+-    color: Colors.grey[900],
+-  },
+-  closeBtn: {
+-    marginLeft: 12,
+-    padding: 0,
+-    width: 20,
+-    height: 20,
+-    alignItems: 'flex-end',
+-    justifyContent: 'center',
+-  },
+-});
+diff --git a/components/shared/RecentsList.tsx b/components/shared/RecentsList.tsx
+deleted file mode 100644
+index bba868f..0000000
+--- a/components/shared/RecentsList.tsx
++++ /dev/null
+@@ -1,54 +0,0 @@
+-import { Colors } from '@/constants/colors';
+-import { Typography } from '@/constants/typography';
+-import { MaterialIcons } from '@expo/vector-icons';
+-import React from 'react';
+-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+-
+-interface RecentsListProps {
+-  items: string[];
+-  onSelect: (item: string) => void;
+-}
+-
+-export const RecentsList: React.FC<RecentsListProps> = ({ items, onSelect }) => (
+-  <View style={styles.container}>
+-    <Text style={styles.header}>Recents</Text>
+-    {items.map((item, idx) => (
+-      <TouchableOpacity key={item} style={styles.itemRow} onPress={() => onSelect(item)}>
+-        <Text style={styles.itemText}>{item}</Text>
+-        <MaterialIcons name="chevron-right" size={20} color={Colors.grey[300]} />
+-      </TouchableOpacity>
+-    ))}
+-  </View>
+-);
+-
+-const styles = StyleSheet.create({
+-  container: {
+-    backgroundColor: Colors.white,
+-    borderColor: Colors.borderGrey,
+-    borderWidth: 1,
+-    borderRadius: 12,
+-    paddingHorizontal: 24,
+-    paddingVertical: 20,
+-    width: 353,
+-    marginTop: 16,
+-    shadowColor: '#000',
+-    shadowOpacity: 0.06,
+-    shadowRadius: 6,
+-    elevation: 1,
+-  },
+-  header: {
+-    ...Typography.buttonText,
+-    color: Colors.grey[300],
+-    marginBottom: 12,
+-  },
+-  itemRow: {
+-    flexDirection: 'row',
+-    alignItems: 'center',
+-    justifyContent: 'space-between',
+-    marginBottom: 8,
+-  },
+-  itemText: {
+-    ...Typography.bigBody,
+-    color: Colors.grey[900],
+-  },
+-});
+diff --git a/components/shared/Reminder.tsx b/components/shared/Reminder.tsx
+index 36362ba..99e6bcf 100644
+--- a/components/shared/Reminder.tsx
++++ b/components/shared/Reminder.tsx
+@@ -28,8 +28,8 @@ export const Reminder: React.FC<ReminderProps> = ({
+   refreshTrigger,
+ }) => {
+   const DEFAULT_REMINDERS: ReminderItem[] = [
+-    { title: 'BCIT Tuition Deadline', date: 'Dec 07, 2025', day: 'Sunday' },
+-    { title: 'Apply for EI', date: 'Dec 31, 2025', day: 'Wednesday' },
++    { title: 'BCIT Tuition Deadline', date: 'Dec 07, 2026', day: 'Monday' },
++    { title: 'Apply for EI', date: 'Dec 31, 2026', day: 'Thursday' },
+   ];
+   const [localReminders, setLocalReminders] = useState<ReminderItem[]>(reminders ?? DEFAULT_REMINDERS);
+ 
+diff --git a/components/shared/ReminderFullView.tsx b/components/shared/ReminderFullView.tsx
+index 1b6027f..332a421 100644
+--- a/components/shared/ReminderFullView.tsx
++++ b/components/shared/ReminderFullView.tsx
+@@ -32,16 +32,16 @@ const MONTH_MAP: { [key: string]: number } = {
+   Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11,
+ };
+ 
+-// The demo lives on Dec 5, 2025 — the highlighted "today"
+-const DEMO_TODAY = { day: 5, monthIndex: 11, year: 2025 };
++// The demo lives on Dec 5, 2026 — the highlighted "today"
++const DEMO_TODAY = { day: 5, monthIndex: 11, year: 2026 };
+ 
+ export const ReminderFullView: React.FC<ReminderFullViewProps> = ({
+   reminders = [
+-    { title: 'BCIT Tuition Deadline', date: 'Dec 07, 2025', day: 'Sunday' },
+-    { title: 'Apply For EI', date: 'Dec 31, 2025', day: 'Wednesday' },
++    { title: 'BCIT Tuition Deadline', date: 'Dec 07, 2026', day: 'Monday' },
++    { title: 'Apply For EI', date: 'Dec 31, 2026', day: 'Thursday' },
+   ],
+   monthIndex = 11,
+-  year = 2025,
++  year = 2026,
+   onPrevMonth,
+   onNextMonth,
+   onAddReminder,
+diff --git a/components/shared/SimpleTTSPlayer.tsx b/components/shared/SimpleTTSPlayer.tsx
+deleted file mode 100644
+index 477fb4d..0000000
+--- a/components/shared/SimpleTTSPlayer.tsx
++++ /dev/null
+@@ -1,191 +0,0 @@
+-import MaterialIcon from '@/components/shared/MaterialIcon';
+-import { Colors } from '@/constants/colors';
+-import { Typography } from '@/constants/typography';
+-import { Audio } from 'expo-av';
+-import React, { useState } from 'react';
+-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+-
+-interface SimpleTTSPlayerProps {
+-  text: string;
+-  apiKey: string;
+-  languageCode?: string;
+-  voiceName?: string;
+-  speakingRate?: number;
+-  pitch?: number;
+-}
+-
+-export const SimpleTTSPlayer: React.FC<SimpleTTSPlayerProps> = ({
+-  text,
+-  apiKey,
+-  languageCode = 'en-US',
+-  voiceName = 'en-US-Standard-A',
+-  speakingRate = 1.0,
+-  pitch = 0.0,
+-}) => {
+-  const [isLoading, setIsLoading] = useState(false);
+-
+-  const synthesizeAndPlay = async () => {
+-    try {
+-      console.log('SimpleTTSPlayer: Starting TTS synthesis...');
+-      console.log('Text length:', text.length, 'API Key present:', !!apiKey);
+-      
+-      setIsLoading(true);
+-
+-      // Initialize audio first
+-      await Audio.setAudioModeAsync({
+-        allowsRecordingIOS: false,
+-        playsInSilentModeIOS: true,
+-        shouldDuckAndroid: true,
+-        playThroughEarpieceAndroid: false,
+-      });
+-
+-      const requestBody = {
+-        input: { text },
+-        voice: {
+-          languageCode,
+-          name: voiceName,
+-          ssmlGender: 'FEMALE'
+-        },
+-        audioConfig: {
+-          audioEncoding: 'MP3',
+-          speakingRate,
+-          pitch
+-        }
+-      };
+-
+-      console.log('Making API request to Google TTS...');
+-      const response = await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`, {
+-        method: 'POST',
+-        headers: {
+-          'Content-Type': 'application/json',
+-        },
+-        body: JSON.stringify(requestBody),
+-      });
+-
+-      console.log('API Response status:', response.status);
+-      
+-      if (!response.ok) {
+-        const errorText = await response.text();
+-        console.error('API Error response:', errorText);
+-        throw new Error(`TTS API request failed: ${response.status} ${response.statusText}`);
+-      }
+-
+-      const data = await response.json();
+-      const audioContent = data.audioContent;
+-
+-      if (!audioContent) {
+-        throw new Error('No audio content received from API');
+-      }
+-
+-      console.log('Received audio content, length:', audioContent.length);
+-
+-      // Create a data URI for the audio
+-      const audioUri = `data:audio/mp3;base64,${audioContent}`;
+-      
+-      console.log('Creating audio sound object...');
+-      // Use the device's native audio player
+-      const { sound } = await Audio.Sound.createAsync(
+-        { uri: audioUri },
+-        { shouldPlay: false, isLooping: false }
+-      );
+-
+-      console.log('Sound created, checking if loaded...');
+-      const status = await sound.getStatusAsync();
+-      
+-      if (status.isLoaded) {
+-        console.log('Sound loaded successfully, playing...');
+-        await sound.playAsync();
+-        console.log('Playback started');
+-      } else {
+-        console.error('Sound failed to load');
+-        throw new Error('Failed to load audio');
+-      }
+-
+-      // The native player will handle the playback
+-      sound.setOnPlaybackStatusUpdate((status) => {
+-        if (status.isLoaded && status.didJustFinish) {
+-          console.log('Playback finished, unloading sound');
+-          sound.unloadAsync();
+-        }
+-      });
+-
+-      setIsLoading(false);
+-      
+-    } catch (error) {
+-      console.error('Error in TTS:', error);
+-      setIsLoading(false);
+-      Alert.alert('Error', `Failed to play audio: ${error instanceof Error ? error.message : 'Unknown error'}`);
+-    }
+-  };
+-
+-  const handlePlay = () => {
+-    synthesizeAndPlay();
+-  };
+-
+-  return (
+-    <View style={styles.card}>
+-      <View style={styles.row}>
+-        <TouchableOpacity 
+-          onPress={handlePlay} 
+-          style={styles.playButton}
+-          disabled={isLoading}
+-        >
+-          {isLoading ? (
+-            <MaterialIcon name="cached" size={24} color={Colors.grey[500]} />
+-          ) : (
+-            <MaterialIcon name="play_arrow" size={24} color={Colors.white} />
+-          )}
+-        </TouchableOpacity>
+-        
+-        <View style={styles.textContainer}>
+-          <Text style={styles.title}>Listen to Content</Text>
+-          <Text style={styles.subtitle}>
+-            {isLoading ? 'Generating audio...' : 'Tap to play with device audio player'}
+-          </Text>
+-        </View>
+-      </View>
+-    </View>
+-  );
+-};
+-
+-const styles = StyleSheet.create({
+-  card: {
+-    backgroundColor: Colors.white,
+-    borderRadius: 16,
+-    borderWidth: 1,
+-    borderColor: Colors.border.light,
+-    paddingHorizontal: 20,
+-    paddingVertical: 16,
+-    marginHorizontal: 20,
+-    shadowColor: '#000',
+-    shadowOffset: { width: 0, height: 2 },
+-    shadowOpacity: 0.05,
+-    shadowRadius: 8,
+-    elevation: 2,
+-  },
+-  row: {
+-    flexDirection: 'row',
+-    alignItems: 'center',
+-    gap: 16,
+-  },
+-  playButton: {
+-    width: 48,
+-    height: 48,
+-    borderRadius: 24,
+-    backgroundColor: Colors.orange[400],
+-    justifyContent: 'center',
+-    alignItems: 'center',
+-  },
+-  textContainer: {
+-    flex: 1,
+-  },
+-  title: {
+-    ...Typography.contentTitle,
+-    color: Colors.grey[900],
+-    marginBottom: 4,
+-  },
+-  subtitle: {
+-    ...Typography.captionLight,
+-    color: Colors.grey[600],
+-  },
+-});
+\ No newline at end of file
+diff --git a/components/shared/SmallDataCard.tsx b/components/shared/SmallDataCard.tsx
+index 9104923..814acce 100644
+--- a/components/shared/SmallDataCard.tsx
++++ b/components/shared/SmallDataCard.tsx
+@@ -26,7 +26,7 @@ export const SmallDataCard: React.FC<SmallDataCardProps> = ({
+       <View style={styles.valueRow}>
+         <Text style={styles.value}>26/40</Text>
+       </View>
+-      <Text style={styles.lastUpdated}>Aug 7, 2025</Text>
++      <Text style={styles.lastUpdated}>Aug 7, 2026</Text>
+     </View>
+   );
+ };
+diff --git a/components/shared/TTSAudioPlayer.tsx b/components/shared/TTSAudioPlayer.tsx
+index ff0ded9..456e5b2 100644
+--- a/components/shared/TTSAudioPlayer.tsx
++++ b/components/shared/TTSAudioPlayer.tsx
+@@ -1,7 +1,7 @@
+ import { AudioPlayer } from '@/components/shared/AudioPlayer';
+ import { Audio } from 'expo-av';
++import { showAlert } from '@/lib/web-alert';
+ import React, { useEffect, useRef, useState } from 'react';
+-import { Alert } from 'react-native';
+ 
+ interface TTSAudioPlayerProps {
+   text: string;
+@@ -111,8 +111,7 @@ export const TTSAudioPlayer: React.FC<TTSAudioPlayerProps> = ({
+ 
+   // Synthesize speech from Google TTS API
+   const synthesizeSpeech = async (): Promise<string> => {
+-    console.log('Synthesizing speech...');
+-    
++
+     const requestBody = {
+       input: { text },
+       voice: {
+@@ -146,14 +145,12 @@ export const TTSAudioPlayer: React.FC<TTSAudioPlayerProps> = ({
+       throw new Error('No audio content received');
+     }
+ 
+-    console.log('Speech synthesis successful');
+     return data.audioContent;
+   };
+ 
+   // Create and load audio from base64 content
+   const createAudioFromContent = async (audioContent: string): Promise<Audio.Sound> => {
+-    console.log('Creating audio from content...');
+-    
++
+     // Stop and unload any existing sound
+     if (soundRef.current) {
+       await soundRef.current.stopAsync();
+@@ -174,7 +171,6 @@ export const TTSAudioPlayer: React.FC<TTSAudioPlayerProps> = ({
+       throw new Error('Failed to load audio file');
+     }
+ 
+-    console.log('Audio created and loaded successfully');
+     return sound;
+   };
+ 
+@@ -206,7 +202,7 @@ export const TTSAudioPlayer: React.FC<TTSAudioPlayerProps> = ({
+ 
+       // If no audio content, synthesize first
+       if (!audioContent) {
+-        console.log('No audio content, synthesizing...');
++
+         setIsLoading(true);
+         
+         const newAudioContent = await synthesizeSpeech();
+@@ -220,14 +216,13 @@ export const TTSAudioPlayer: React.FC<TTSAudioPlayerProps> = ({
+         setIsPlaying(true);
+         startProgressTracking();
+         setIsLoading(false);
+-        
+-        console.log('Started playing new audio');
++
+         return;
+       }
+ 
+       // If we have audio content but no sound object, create it
+       if (!soundRef.current && audioContent) {
+-        console.log('Recreating sound object...');
++
+         const sound = await createAudioFromContent(audioContent);
+         soundRef.current = sound;
+       }
+@@ -239,13 +234,13 @@ export const TTSAudioPlayer: React.FC<TTSAudioPlayerProps> = ({
+         if (status.isLoaded) {
+           if (isPlaying) {
+             // Pause
+-            console.log('Pausing audio');
++
+             await soundRef.current.pauseAsync();
+             setIsPlaying(false);
+             stopProgressTracking();
+           } else {
+             // Play/Resume
+-            console.log('Playing/Resuming audio');
++
+             await soundRef.current.playAsync();
+             setIsPlaying(true);
+             startProgressTracking();
+@@ -257,7 +252,7 @@ export const TTSAudioPlayer: React.FC<TTSAudioPlayerProps> = ({
+       setIsLoading(false);
+       setIsPlaying(false);
+       stopProgressTracking();
+-      Alert.alert('Playback Error', error instanceof Error ? error.message : 'Failed to play audio');
++      showAlert('Playback Error', error instanceof Error ? error.message : 'Failed to play audio');
+     }
+   };
+ 
+@@ -270,7 +265,7 @@ export const TTSAudioPlayer: React.FC<TTSAudioPlayerProps> = ({
+           const newMutedState = !isMuted;
+           await soundRef.current.setVolumeAsync(newMutedState ? 0 : 1);
+           setIsMuted(newMutedState);
+-          console.log(newMutedState ? 'Audio muted' : 'Audio unmuted');
++
+         }
+       }
+     } catch (error) {
+@@ -284,7 +279,7 @@ export const TTSAudioPlayer: React.FC<TTSAudioPlayerProps> = ({
+       if (soundRef.current) {
+         const status = await soundRef.current.getStatusAsync();
+         if (status.isLoaded) {
+-          console.log('Restarting audio from beginning');
++
+           await soundRef.current.setPositionAsync(0);
+           setProgress(0);
+           setCurrentTime('0:00');
+diff --git a/components/shared/TextToSpeechPlayer.tsx b/components/shared/TextToSpeechPlayer.tsx
+deleted file mode 100644
+index 80d81ef..0000000
+--- a/components/shared/TextToSpeechPlayer.tsx
++++ /dev/null
+@@ -1,226 +0,0 @@
+-import MaterialIcon from '@/components/shared/MaterialIcon';
+-import { Colors } from '@/constants/colors';
+-import { Typography } from '@/constants/typography';
+-import { useTTS } from '@/hooks/use-tts';
+-import React, { useEffect, useState } from 'react';
+-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+-
+-interface TextToSpeechPlayerProps {
+-  text: string; // The text content to convert to speech
+-  apiKey: string; // Google TTS API key
+-  languageCode?: string;
+-  voiceName?: string;
+-  speakingRate?: number;
+-  pitch?: number;
+-}
+-
+-export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
+-  text,
+-  apiKey,
+-  languageCode = 'en-US',
+-  voiceName = 'en-US-Standard-A',
+-  speakingRate = 1.0,
+-  pitch = 0.0,
+-}) => {
+-  const {
+-    isPlaying,
+-    isLoading,
+-    currentTime,
+-    duration,
+-    progress,
+-    error,
+-    speak,
+-    pause,
+-    resume,
+-    stop
+-  } = useTTS(apiKey);
+-
+-  const [hasStarted, setHasStarted] = useState(false);
+-
+-  // Debug logging on component mount
+-  useEffect(() => {
+-    console.log('TextToSpeechPlayer mounted with:', {
+-      textLength: text?.length || 0,
+-      hasApiKey: !!apiKey,
+-      apiKeyLength: apiKey?.length || 0,
+-      text: text?.substring(0, 100) + '...'
+-    });
+-  }, [text, apiKey]);
+-
+-  useEffect(() => {
+-    if (error) {
+-      console.error('TTS Error occurred:', error);
+-      Alert.alert('Audio Error', error);
+-    }
+-  }, [error]);
+-
+-  const handlePlayPause = async () => {
+-    try {
+-      console.log('HandlePlayPause called:', { isLoading, hasStarted, isPlaying, textLength: text.length, apiKeyExists: !!apiKey });
+-      
+-      if (isLoading) return;
+-
+-      if (!apiKey) {
+-        Alert.alert('Configuration Error', 'Google TTS API key is not configured');
+-        return;
+-      }
+-
+-      if (!text || text.trim().length === 0) {
+-        Alert.alert('Error', 'No text content available for speech synthesis');
+-        return;
+-      }
+-
+-      if (!hasStarted) {
+-        // First time play - synthesize and start
+-        console.log('Starting TTS with text:', text.substring(0, 100) + '...');
+-        await speak(text, {
+-          languageCode,
+-          voiceName,
+-          speakingRate,
+-          pitch,
+-        });
+-        setHasStarted(true);
+-      } else if (isPlaying) {
+-        // Currently playing - pause
+-        console.log('Pausing audio');
+-        await pause();
+-      } else {
+-        // Not playing but has started - resume
+-        console.log('Resuming audio');
+-        await resume();
+-      }
+-    } catch (error) {
+-      console.error('Error in play/pause:', error);
+-      Alert.alert('Playback Error', error instanceof Error ? error.message : 'Failed to play audio');
+-    }
+-  };
+-
+-  const handleStop = async () => {
+-    try {
+-      await stop();
+-      setHasStarted(false);
+-    } catch (error) {
+-      console.error('Error stopping audio:', error);
+-    }
+-  };
+-
+-  const handleVolume = () => {
+-    // TODO: Implement volume control
+-    Alert.alert('Volume Control', 'Volume control will be implemented here');
+-  };
+-
+-  const handleMenu = () => {
+-    // Menu options for TTS settings
+-    Alert.alert(
+-      'Audio Settings',
+-      'Voice settings and options',
+-      [
+-        { text: 'Stop Audio', onPress: handleStop },
+-        { text: 'Cancel', style: 'cancel' },
+-      ]
+-    );
+-  };
+-
+-  return (
+-    <View style={styles.card}>
+-      <View style={styles.row}>
+-        {/* Play/Pause Icon */}
+-        <TouchableOpacity 
+-          onPress={handlePlayPause} 
+-          style={styles.iconButton}
+-          disabled={isLoading}
+-        >
+-          {isLoading ? (
+-            <MaterialIcon name="cached" size={20} color={Colors.grey[500]} />
+-          ) : (
+-            <MaterialIcon
+-              name={isPlaying ? 'pause' : 'play_arrow'}
+-              size={20}
+-              color={Colors.grey[900]}
+-            />
+-          )}
+-        </TouchableOpacity>
+-
+-        {/* Time Text */}
+-        <Text style={styles.timeText}>
+-          {isLoading ? 'Loading...' : `${currentTime} / ${duration}`}
+-        </Text>
+-
+-        {/* Progress Bar */}
+-        <View style={styles.progressBarContainer}>
+-          <View style={styles.progressBarBg} />
+-          <View style={[styles.progressBarFg, { width: `${progress * 100}%` }]} />
+-        </View>
+-
+-        {/* Volume Control */}
+-        {/* <TouchableOpacity onPress={handleVolume} style={styles.iconButton}>
+-          <MaterialIcon name="volume_down" size={20} color={Colors.grey[900]} />
+-        </TouchableOpacity> */}
+-
+-        {/* Menu */}
+-        <TouchableOpacity onPress={handleMenu} style={styles.iconButton}>
+-          <MaterialIcon name="more_vert" size={20} color={Colors.grey[900]} />
+-        </TouchableOpacity>
+-      </View>
+-    </View>
+-  );
+-};
+-
+-const styles = StyleSheet.create({
+-  card: {
+-    height: 60,
+-    backgroundColor: Colors.white,
+-    borderRadius: 16,
+-    borderWidth: 1,
+-    borderColor: Colors.border.light,
+-    paddingHorizontal: 24,
+-    paddingVertical: 0,
+-    marginHorizontal: 20,
+-    shadowColor: '#000',
+-    shadowOffset: { width: 0, height: 2 },
+-    shadowOpacity: 0.05,
+-    shadowRadius: 8,
+-    elevation: 2,
+-    justifyContent: 'center',
+-  },
+-  row: {
+-    flexDirection: 'row',
+-    alignItems: 'center',
+-    gap: 8,
+-    paddingHorizontal: 0,
+-  },
+-  iconButton: {
+-    padding: 0,
+-    marginHorizontal: 0,
+-  },
+-  timeText: {
+-    ...Typography.captionLight,
+-    color: Colors.grey[600],
+-    minWidth: 80,
+-    textAlign: 'left',
+-    marginLeft: 4,
+-    marginRight: 0,
+-  },
+-  progressBarContainer: {
+-    width: 133,
+-    height: 10,
+-    justifyContent: 'center',
+-    marginHorizontal: 4,
+-  },
+-  progressBarBg: {
+-    position: 'absolute',
+-    left: 0,
+-    width: 133,
+-    height: 10,
+-    borderRadius: 5,
+-    backgroundColor: Colors.grey[50],
+-  },
+-  progressBarFg: {
+-    position: 'absolute',
+-    left: 0,
+-    height: 6,
+-    borderRadius: 3,
+-    backgroundColor: Colors.grey[500],
+-    top: 2,
+-  },
+-});
+\ No newline at end of file
+diff --git a/data/skills-data.json b/data/skills-data.json
+index dfa47d0..91a420e 100644
+--- a/data/skills-data.json
++++ b/data/skills-data.json
+@@ -4,7 +4,7 @@
+     "checkboxLabel": "Practical Competencies",
+     "current": 6,
+     "total": 12,
+-    "lastUpdated": "Mar 12, 2025",
++    "lastUpdated": "Jun 12, 2026",
+     "progressImage": "@/assets/images/Group 46.png"
+   },
+   "lineCompletion": {
+diff --git a/data/work-data.json b/data/work-data.json
+index a95b714..252c052 100644
+--- a/data/work-data.json
++++ b/data/work-data.json
+@@ -172,7 +172,7 @@
+         },
+         "examAttemptDate": {
+           "before": "",
+-          "after": "May 09, 2025",
++          "after": "May 09, 2027",
+           "nxtLvl": ""
+         },
+         "registeredBadge": {
+@@ -207,10 +207,10 @@
+           "before": "203 days",
+           "after": "20 days"
+         },
+-        "startDate": "May 06, 2024",
++        "startDate": "May 06, 2026",
+         "estimatedEndDate": {
+-          "before": "Mar 19, 2025",
+-          "after": "Apr 15, 2025"
++          "before": "Mar 19, 2027",
++          "after": "Apr 15, 2027"
+         }
+       },
+       "discrepancyTracking": {
+@@ -219,16 +219,16 @@
+           "after": "1800"
+         },
+         "paystubDate": {
+-          "before": "Jul 02, 2024",
+-          "after": "Apr 02, 2025"
++          "before": "Jul 02, 2026",
++          "after": "Apr 02, 2027"
+         },
+         "skilledTradeBCHours": {
+           "before": "450",
+           "after": "1640"
+         },
+         "skilledTradeBCDate": {
+-          "before": "Jul 12, 2024",
+-          "after": "Apr 25, 2025"
++          "before": "Jul 12, 2026",
++          "after": "Apr 25, 2027"
+         },
+         "discrepancy": {
+           "before": "0",
+@@ -253,12 +253,12 @@
+           "after": "income_graph02.png"
+         },
+         "paystubDateStart": {
+-          "before": "Jan 2024",
+-          "after": "Oct 2024"
++          "before": "Jan 2026",
++          "after": "Oct 2026"
+         },
+         "paystubDateEnd": {
+-          "before": "Jun 2024",
+-          "after": "Mar 2025"
++          "before": "Jun 2026",
++          "after": "Mar 2027"
+         }
+       }
+     },
+@@ -280,7 +280,7 @@
+         "examAttempt": "Attempt 1",
+         "examAttemptDate": {
+           "before": "",
+-          "after": "May 09, 2025"
++          "after": "May 09, 2027"
+         },
+         "registeredBadge": {
+           "before": "Not Registered",
+diff --git a/hooks/use-tts.ts b/hooks/use-tts.ts
+deleted file mode 100644
+index 2131f81..0000000
+--- a/hooks/use-tts.ts
++++ /dev/null
+@@ -1,157 +0,0 @@
+-import { GoogleTTSService, TTSConfig, formatTime } from '@/lib/tts-service';
+-import { Audio } from 'expo-av';
+-import { useEffect, useState } from 'react';
+-
+-interface UseTTSReturn {
+-  isPlaying: boolean;
+-  isLoading: boolean;
+-  currentTime: string;
+-  duration: string;
+-  progress: number;
+-  error: string | null;
+-  speak: (text: string, config?: Partial<TTSConfig>) => Promise<void>;
+-  pause: () => Promise<void>;
+-  resume: () => Promise<void>;
+-  stop: () => Promise<void>;
+-}
+-
+-export const useTTS = (apiKey: string): UseTTSReturn => {
+-  const [ttsService] = useState(() => new GoogleTTSService(apiKey));
+-  const [isPlaying, setIsPlaying] = useState(false);
+-  const [isLoading, setIsLoading] = useState(false);
+-  const [currentTime, setCurrentTime] = useState('0:00');
+-  const [duration, setDuration] = useState('0:00');
+-  const [progress, setProgress] = useState(0);
+-  const [error, setError] = useState<string | null>(null);
+-  const [currentSound, setCurrentSound] = useState<Audio.Sound | null>(null);
+-
+-  useEffect(() => {
+-    let progressInterval: NodeJS.Timeout | null = null;
+-
+-    if (isPlaying && currentSound) {
+-      progressInterval = setInterval(async () => {
+-        try {
+-          const status = await currentSound.getStatusAsync();
+-          if (status.isLoaded && status.durationMillis && status.positionMillis !== undefined) {
+-            const currentSeconds = status.positionMillis / 1000;
+-            const totalSeconds = status.durationMillis / 1000;
+-            
+-            setCurrentTime(formatTime(currentSeconds));
+-            setDuration(formatTime(totalSeconds));
+-            setProgress(currentSeconds / totalSeconds);
+-
+-            // Check if audio finished playing
+-            if (status.didJustFinish) {
+-              setIsPlaying(false);
+-              setProgress(0);
+-              setCurrentTime('0:00');
+-            }
+-          }
+-        } catch (error) {
+-          console.error('Error getting audio status:', error);
+-        }
+-      }, 100);
+-    }
+-
+-    return () => {
+-      if (progressInterval) {
+-        clearInterval(progressInterval);
+-      }
+-    };
+-  }, [isPlaying, currentSound]);
+-
+-  const speak = async (text: string, config: Partial<TTSConfig> = {}): Promise<void> => {
+-    try {
+-      console.log('useTTS speak called with:', { textLength: text.length, hasApiKey: !!apiKey });
+-      setIsLoading(true);
+-      setError(null);
+-
+-      // Stop current audio if playing
+-      if (currentSound) {
+-        await stop();
+-      }
+-
+-      const fullConfig: TTSConfig = {
+-        text,
+-        languageCode: 'en-US',
+-        voiceName: 'en-US-Standard-A',
+-        gender: 'FEMALE',
+-        speakingRate: 1.0,
+-        pitch: 0.0,
+-        ...config
+-      };
+-
+-      console.log('Calling TTS service with config:', fullConfig);
+-      const sound = await ttsService.speakText(fullConfig);
+-      console.log('TTS service returned sound object');
+-      setCurrentSound(sound);
+-
+-      // Set up audio completion callback
+-      sound.setOnPlaybackStatusUpdate((status) => {
+-        if (status.isLoaded && status.didJustFinish) {
+-          console.log('Audio playback finished');
+-          setIsPlaying(false);
+-          setProgress(0);
+-          setCurrentTime('0:00');
+-        }
+-      });
+-
+-      console.log('Starting audio playback');
+-      await sound.playAsync();
+-      setIsPlaying(true);
+-      setIsLoading(false);
+-      console.log('Audio playback started successfully');
+-    } catch (error) {
+-      console.error('Error in speak function:', error);
+-      setError(error instanceof Error ? error.message : 'Failed to synthesize speech');
+-      setIsLoading(false);
+-      setIsPlaying(false);
+-    }
+-  };
+-
+-  const pause = async (): Promise<void> => {
+-    try {
+-      await ttsService.pauseAudio();
+-      setIsPlaying(false);
+-    } catch (error) {
+-      console.error('Error pausing audio:', error);
+-      setError('Failed to pause audio');
+-    }
+-  };
+-
+-  const resume = async (): Promise<void> => {
+-    try {
+-      await ttsService.resumeAudio();
+-      setIsPlaying(true);
+-    } catch (error) {
+-      console.error('Error resuming audio:', error);
+-      setError('Failed to resume audio');
+-    }
+-  };
+-
+-  const stop = async (): Promise<void> => {
+-    try {
+-      await ttsService.stopAudio();
+-      setIsPlaying(false);
+-      setProgress(0);
+-      setCurrentTime('0:00');
+-      setCurrentSound(null);
+-    } catch (error) {
+-      console.error('Error stopping audio:', error);
+-      setError('Failed to stop audio');
+-    }
+-  };
+-
+-  return {
+-    isPlaying,
+-    isLoading,
+-    currentTime,
+-    duration,
+-    progress,
+-    error,
+-    speak,
+-    pause,
+-    resume,
+-    stop
+-  };
+-};
+\ No newline at end of file
+diff --git a/lib/tts-service.ts b/lib/tts-service.ts
+deleted file mode 100644
+index 3cb0212..0000000
+--- a/lib/tts-service.ts
++++ /dev/null
+@@ -1,223 +0,0 @@
+-import { Audio } from 'expo-av';
+-
+-export interface TTSConfig {
+-  text: string;
+-  languageCode?: string;
+-  voiceName?: string;
+-  gender?: 'MALE' | 'FEMALE' | 'NEUTRAL';
+-  speakingRate?: number;
+-  pitch?: number;
+-}
+-
+-export class GoogleTTSService {
+-  private apiKey: string;
+-  private baseUrl = 'https://texttospeech.googleapis.com/v1/text:synthesize';
+-  private currentSound: Audio.Sound | null = null;
+-  private isInitialized: boolean = false;
+-
+-  constructor(apiKey: string) {
+-    this.apiKey = apiKey;
+-    this.initializeAudio();
+-  }
+-
+-  private async initializeAudio(): Promise<void> {
+-    try {
+-      await Audio.setAudioModeAsync({
+-        allowsRecordingIOS: false,
+-        playsInSilentModeIOS: true,
+-        shouldDuckAndroid: true,
+-        playThroughEarpieceAndroid: false,
+-      });
+-      this.isInitialized = true;
+-      console.log('Audio initialized successfully');
+-    } catch (error) {
+-      console.error('Failed to initialize audio:', error);
+-    }
+-  }
+-
+-  async synthesizeSpeech(config: TTSConfig): Promise<string> {
+-    if (!this.apiKey) {
+-      throw new Error('Google TTS API key is not configured');
+-    }
+-
+-    if (!config.text || config.text.trim().length === 0) {
+-      throw new Error('Text content is empty');
+-    }
+-
+-    const {
+-      text,
+-      languageCode = 'en-US',
+-      voiceName = 'en-US-Standard-A',
+-      gender = 'FEMALE',
+-      speakingRate = 1.0,
+-      pitch = 0.0
+-    } = config;
+-
+-    const requestBody = {
+-      input: { text: text.trim() },
+-      voice: {
+-        languageCode,
+-        name: voiceName,
+-        ssmlGender: gender
+-      },
+-      audioConfig: {
+-        audioEncoding: 'MP3',
+-        speakingRate,
+-        pitch
+-      }
+-    };
+-
+-    console.log('Making TTS API request with:', { text: text.substring(0, 50) + '...', languageCode, voiceName });
+-
+-    try {
+-      const response = await fetch(`${this.baseUrl}?key=${this.apiKey}`, {
+-        method: 'POST',
+-        headers: {
+-          'Content-Type': 'application/json',
+-        },
+-        body: JSON.stringify(requestBody),
+-      });
+-
+-      if (!response.ok) {
+-        const errorText = await response.text();
+-        console.error('TTS API error response:', errorText);
+-        throw new Error(`TTS API request failed: ${response.status} ${response.statusText}`);
+-      }
+-
+-      const data = await response.json();
+-      
+-      if (!data.audioContent) {
+-        throw new Error('No audio content received from TTS API');
+-      }
+-
+-      console.log('TTS API request successful, audio content length:', data.audioContent.length);
+-      return data.audioContent;
+-    } catch (error) {
+-      console.error('Error synthesizing speech:', error);
+-      throw error;
+-    }
+-  }
+-
+-  async playAudio(audioContent: string): Promise<Audio.Sound> {
+-    if (!this.isInitialized) {
+-      await this.initializeAudio();
+-    }
+-
+-    try {
+-      // Stop any existing audio first
+-      if (this.currentSound) {
+-        await this.stopAudio();
+-      }
+-
+-      console.log('Creating audio from base64 content, length:', audioContent.length);
+-      
+-      // Convert base64 to data URI
+-      const audioUri = `data:audio/mp3;base64,${audioContent}`;
+-      
+-      // Create and load the sound
+-      const { sound } = await Audio.Sound.createAsync(
+-        { uri: audioUri },
+-        { 
+-          shouldPlay: false,
+-          progressUpdateIntervalMillis: 100
+-        }
+-      );
+-
+-      // Check if sound loaded successfully
+-      const status = await sound.getStatusAsync();
+-      if (!status.isLoaded) {
+-        await sound.unloadAsync();
+-        throw new Error('Failed to load audio file');
+-      }
+-
+-      console.log('Audio loaded successfully, duration:', status.durationMillis);
+-      this.currentSound = sound;
+-      return sound;
+-    } catch (error) {
+-      console.error('Error playing audio:', error);
+-      throw new Error(`Failed to create audio: ${error instanceof Error ? error.message : 'Unknown error'}`);
+-    }
+-  }
+-
+-  async speakText(config: TTSConfig): Promise<Audio.Sound> {
+-    try {
+-      const audioContent = await this.synthesizeSpeech(config);
+-      const sound = await this.playAudio(audioContent);
+-      return sound;
+-    } catch (error) {
+-      console.error('Error in text-to-speech:', error);
+-      throw error;
+-    }
+-  }
+-
+-  async stopAudio(): Promise<void> {
+-    if (this.currentSound) {
+-      try {
+-        await this.currentSound.stopAsync();
+-        await this.currentSound.unloadAsync();
+-        this.currentSound = null;
+-      } catch (error) {
+-        console.error('Error stopping audio:', error);
+-      }
+-    }
+-  }
+-
+-  async pauseAudio(): Promise<void> {
+-    if (this.currentSound) {
+-      try {
+-        await this.currentSound.pauseAsync();
+-      } catch (error) {
+-        console.error('Error pausing audio:', error);
+-      }
+-    }
+-  }
+-
+-  async resumeAudio(): Promise<void> {
+-    if (this.currentSound) {
+-      try {
+-        await this.currentSound.playAsync();
+-      } catch (error) {
+-        console.error('Error resuming audio:', error);
+-      }
+-    }
+-  }
+-
+-  getCurrentSound(): Audio.Sound | null {
+-    return this.currentSound;
+-  }
+-}
+-
+-// Helper function to create TTS service instance
+-export const createTTSService = (apiKey: string): GoogleTTSService => {
+-  return new GoogleTTSService(apiKey);
+-};
+-
+-// Helper function to get duration from audio content
+-export const getAudioDuration = async (audioContent: string): Promise<number> => {
+-  try {
+-    const audioUri = `data:audio/mp3;base64,${audioContent}`;
+-    const { sound } = await Audio.Sound.createAsync(
+-      { uri: audioUri },
+-      { shouldPlay: false }
+-    );
+-    
+-    const status = await sound.getStatusAsync();
+-    await sound.unloadAsync();
+-    
+-    if (status.isLoaded && status.durationMillis) {
+-      return status.durationMillis / 1000; // Convert to seconds
+-    }
+-    
+-    return 0;
+-  } catch (error) {
+-    console.error('Error getting audio duration:', error);
+-    return 0;
+-  }
+-};
+-
+-// Helper function to format time for display
+-export const formatTime = (seconds: number): string => {
+-  const minutes = Math.floor(seconds / 60);
+-  const remainingSeconds = Math.floor(seconds % 60);
+-  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+-};
+\ No newline at end of file
+diff --git a/lib/user-store.ts b/lib/user-store.ts
+index af430c9..e8292dc 100644
+--- a/lib/user-store.ts
++++ b/lib/user-store.ts
+@@ -1,13 +1,23 @@
+ // Demo user name, shared across screens for the session. "Start Demo"
+ // leaves it unset (screens fall back to "Stranger"); signing up with a
+-// name personalizes the greeting and profile.
++// name — or editing it from Settings — personalizes the greeting and
++// profile. Screens subscribe so an edit shows up everywhere at once.
+ let userName: string | null = null;
++const listeners = new Set<() => void>();
+ 
+ export function setUserName(name: string): void {
+   const trimmed = name.trim();
+   userName = trimmed.length > 0 ? trimmed : null;
++  listeners.forEach((l) => l());
+ }
+ 
+ export function displayName(): string {
+   return userName ?? "Stranger";
+ }
++
++export function subscribe(cb: () => void): () => void {
++  listeners.add(cb);
++  return () => {
++    listeners.delete(cb);
++  };
++}
+diff --git a/lib/web-alert.ts b/lib/web-alert.ts
+new file mode 100644
+index 0000000..aefaa64
+--- /dev/null
++++ b/lib/web-alert.ts
+@@ -0,0 +1,18 @@
++import { Alert, Platform } from "react-native";
++
++type AlertButton = { text: string; onPress?: () => void; style?: "default" | "cancel" | "destructive" };
++
++/* Alert.alert is a silent no-op on react-native-web, so error paths would
++   just freeze in the browser. On the web fall back to window.alert and run
++   the primary button's action; native keeps the real Alert. */
++export function showAlert(title: string, message?: string, buttons?: AlertButton[]): void {
++  if (Platform.OS === "web") {
++    if (typeof window !== "undefined") {
++      window.alert(message ? `${title}\n\n${message}` : title);
++    }
++    const primary = buttons?.find((b) => b.style !== "cancel") ?? buttons?.[0];
++    primary?.onPress?.();
++    return;
++  }
++  Alert.alert(title, message, buttons);
++}
 -- 
 2.43.0
 
