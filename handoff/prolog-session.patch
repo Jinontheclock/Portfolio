@@ -1,8 +1,8 @@
 From 1ac6a535f5426bd29326b8cef0b51b14025d92dd Mon Sep 17 00:00:00 2001
 From: Hajin Lee <hajinlee.ca@gmail.com>
 Date: Wed, 15 Jul 2026 07:32:14 +0000
-Subject: [PATCH] =?UTF-8?q?feat:=20demo=20polish=20=E2=80=94=20journey=20s?=
- =?UTF-8?q?croll,=20ripple/pulse,=20external-link=20flow,=20checklist?=
+Subject: [PATCH 1/2] =?UTF-8?q?feat:=20demo=20polish=20=E2=80=94=20journey?=
+ =?UTF-8?q?=20scroll,=20ripple/pulse,=20external-link=20flow,=20checklist?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -7026,6 +7026,172 @@ index df2f031..9cee786 100644
 +
 +  const bank = LINE_BANKS[skillId?.[0]?.toUpperCase() ?? ""] ?? GENERAL_BANK;
 +  return withShuffledOptions(bank);
++}
+-- 
+2.43.0
+
+
+From 9ad31f4b17b3f3a44d5f2226c082078773d2eca0 Mon Sep 17 00:00:00 2001
+From: Hajin Lee <hajinlee.ca@gmail.com>
+Date: Thu, 16 Jul 2026 10:18:42 +0000
+Subject: [PATCH 2/2] =?UTF-8?q?feat:=20named=20sign-up=20=E2=80=94=20greet?=
+ =?UTF-8?q?ing=20follows=20the=20user,=20Login=20button=20dropped?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Start Demo greets Stranger; Sign up gains a Name field (smaller logo to
+fit) and the dashboard greeting and Resources profile show the entered
+name via a session user store.
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Sd3ocUiFGXccpfGr2QGCEH
+---
+ app/(tabs)/Dashboard.tsx  |  3 ++-
+ app/(tabs)/Resources.tsx  |  3 ++-
+ app/login.tsx             |  6 ------
+ app/login_credentials.tsx | 22 ++++++++++++++++++----
+ lib/user-store.ts         | 13 +++++++++++++
+ 5 files changed, 35 insertions(+), 12 deletions(-)
+ create mode 100644 lib/user-store.ts
+
+diff --git a/app/(tabs)/Dashboard.tsx b/app/(tabs)/Dashboard.tsx
+index 340b2a4..8d0da48 100644
+--- a/app/(tabs)/Dashboard.tsx
++++ b/app/(tabs)/Dashboard.tsx
+@@ -5,6 +5,7 @@ import SendDiscrepancyReportModal from "@/components/shared/SendDiscrepancyRepor
+ import { SProgressBar } from "@/components/shared/SProgressBar";
+ import { Tags } from "@/components/shared/Tags";
+ import { UpdatePulse } from "@/components/shared/UpdatePulse";
++import { displayName } from "@/lib/user-store";
+ import { Colors } from "@/constants/colors";
+ import { Spacing } from "@/constants/design-tokens";
+ import { Typography } from "@/constants/typography";
+@@ -128,7 +129,7 @@ export default function DashboardScreen() {
+         {/* Header */}
+         <View style={styles.header}>
+           <View>
+-            <Text style={styles.greeting}>Hello Ubin</Text>
++            <Text style={styles.greeting}>Hello {displayName()}</Text>
+             <Text style={styles.subtitle}>
+               You're getting closer to the goal everyday!
+             </Text>
+diff --git a/app/(tabs)/Resources.tsx b/app/(tabs)/Resources.tsx
+index 3328e83..1a17c04 100644
+--- a/app/(tabs)/Resources.tsx
++++ b/app/(tabs)/Resources.tsx
+@@ -1,5 +1,6 @@
+ import { CommonStyles } from '@/lib/common-styles';
+ import { useExternalLink } from '@/lib/external-link';
++import { displayName } from '@/lib/user-store';
+ import { router } from 'expo-router';
+ import React from 'react';
+ import { Image, ScrollView, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
+@@ -96,7 +97,7 @@ export default function SettingsScreen() {
+               <MaterialIcon name="person" size={26} color={Colors.orange[400]} />
+             </View>
+             <View style={styles.profileText}>
+-              <Text style={styles.profileName}>Ubin Park</Text>
++              <Text style={styles.profileName}>{displayName()}</Text>
+               <Text style={styles.profileSub}>Electrical Apprentice · Level 2</Text>
+             </View>
+             <MaterialIcon name="edit" size={18} color={Colors.grey[300]} />
+diff --git a/app/login.tsx b/app/login.tsx
+index cd368fc..92873ca 100644
+--- a/app/login.tsx
++++ b/app/login.tsx
+@@ -47,12 +47,6 @@ export default function LoginScreen() {
+               fullWidth={true}
+               onPress={() => router.push("/login_credentials")}
+             />
+-            <Button
+-              text="Login"
+-              variant="dark"
+-              fullWidth={true}
+-              onPress={() => router.push("/(tabs)/Dashboard")}
+-            />
+           </View>
+         </View>
+     </SafeAreaView>
+diff --git a/app/login_credentials.tsx b/app/login_credentials.tsx
+index b1c1ad6..3af480f 100644
+--- a/app/login_credentials.tsx
++++ b/app/login_credentials.tsx
+@@ -16,8 +16,10 @@ import MaterialIcon from "@/components/shared/MaterialIcon";
+ import { Typography } from "@/constants";
+ import { Colors } from "@/constants/colors";
+ import { CommonStyles } from "@/lib/common-styles";
++import { setUserName } from "@/lib/user-store";
+ 
+ export default function LoginCredentialsScreen() {
++  const [name, setName] = useState("");
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+   const [reEnterPassword, setReEnterPassword] = useState("");
+@@ -42,11 +44,13 @@ export default function LoginCredentialsScreen() {
+   };
+ 
+   const isFormComplete =
++    name.trim() !== "" &&
+     email.trim() !== "" &&
+     password.trim() !== "" &&
+     reEnterPassword.trim() !== "";
+ 
+   const handleCreateAccount = () => {
++    setUserName(name);
+     setIsLoading(true);
+     // Simulate loading time
+     setTimeout(() => {
+@@ -85,6 +89,16 @@ export default function LoginCredentialsScreen() {
+                 ProLog connects directly with SkilledTradesBC. Log in with your
+                 SkilledTradesBC account to get started.
+               </Text>
++              <View style={styles.inputSection}>
++                <Text style={styles.label}>Name</Text>
++                <TextInput
++                  style={styles.input}
++                  placeholder="Enter your name"
++                  placeholderTextColor={Colors.grey[300]}
++                  value={name}
++                  onChangeText={setName}
++                />
++              </View>
+               <View style={styles.inputSection}>
+                 <Text style={styles.label}>Email</Text>
+                 <TextInput
+@@ -223,10 +237,10 @@ const styles = StyleSheet.create({
+   },
+   image: {
+     top: 0,
+-    marginTop: -22,
+-    marginBottom: 32,
+-    width: 280,
+-    height: 220,
++    marginTop: -12,
++    marginBottom: 12,
++    width: 200,
++    height: 140,
+     resizeMode: "contain",
+   },
+ });
+diff --git a/lib/user-store.ts b/lib/user-store.ts
+new file mode 100644
+index 0000000..af430c9
+--- /dev/null
++++ b/lib/user-store.ts
+@@ -0,0 +1,13 @@
++// Demo user name, shared across screens for the session. "Start Demo"
++// leaves it unset (screens fall back to "Stranger"); signing up with a
++// name personalizes the greeting and profile.
++let userName: string | null = null;
++
++export function setUserName(name: string): void {
++  const trimmed = name.trim();
++  userName = trimmed.length > 0 ? trimmed : null;
++}
++
++export function displayName(): string {
++  return userName ?? "Stranger";
 +}
 -- 
 2.43.0
