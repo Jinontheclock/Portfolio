@@ -82,7 +82,7 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog" }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="tryapp-head">
-          <span className="tryapp-caption">{title} — live interactive demo</span>
+          <span className="tryapp-caption" aria-hidden="true"></span>
           <button type="button" className="tryapp-close" onClick={onClose} aria-label="Close demo">
             ×
           </button>
