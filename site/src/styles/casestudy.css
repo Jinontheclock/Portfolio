@@ -133,7 +133,8 @@
 .cs-meta-values a:hover {
   color: var(--text-primary);
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 /* ── Logo suite (lockup + app icon side by side, heights matched) ── */
@@ -344,7 +345,8 @@
 .cs-figure-caption a {
   color: inherit;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
   transition: color var(--duration-fast) var(--easing);
 }
 .cs-figure-caption a:hover {
