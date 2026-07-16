@@ -250,21 +250,7 @@ export const PROJECTS = [
           },
           {
             type: "figure",
-            graphic: "prolog-ba-progress",
-            caption:
-              "Hour totals read as static labels — participants couldn't tell what the numbers were made of. Now the journey map leads, and every figure breaks down on tap.",
-          },
-          {
-            type: "figure",
-            graphic: "prolog-ba-navigation",
-            caption:
-              "A flat list buried a hundred competencies behind search. Navigation was rebuilt around how apprentices actually study — by Line, by level, one thumb.",
-          },
-          {
-            type: "figure",
-            graphic: "prolog-ba-visual-cues",
-            caption:
-              "Grey-on-grey states didn't read as tappable. Contrast, hierarchy, and interaction cues were strengthened across the system — if it's orange, it moves you forward.",
+            graphics: ["prolog-ba-progress", "prolog-ba-navigation", "prolog-ba-visual-cues"],
           },
         ],
       },
