@@ -22,7 +22,6 @@ import campInsta3 from "../assets/prolog/prolog-campaign-insta-3.webp";
 import personaIzzy from "../assets/prolog/prolog-persona-izzy.webp";
 import personaJordan from "../assets/prolog/prolog-persona-jordan.webp";
 import shotJourney1 from "../assets/prolog/prolog-shot-journey-dashboard-1.webp";
-import shotJourneyMidfi from "../assets/prolog/prolog-shot-journey-midfi.webp";
 import showcaseStage from "../assets/prolog/prolog-showcase-stage.webp";
 import showcaseCrowd from "../assets/prolog/prolog-showcase-crowd.webp";
 import showcaseBooth from "../assets/prolog/prolog-showcase-booth.webp";
@@ -123,28 +122,6 @@ export function MidfiGridFigure() {
   );
 }
 
-/* Journey-dashboard fidelity evolution (03 Approach): the mid-fi structure
-   next to the shipped hi-fi build. The hi-fi frame reuses the Solution shot. */
-export function JourneyMidfiFigure() {
-  return (
-    <img
-      src={shotJourneyMidfi}
-      alt="Mid-fidelity journey dashboard: the level progress ring, training hours, reminders and competencies laid out before the final visual system"
-      loading="lazy"
-    />
-  );
-}
-
-export function JourneyDashboard1Figure() {
-  return (
-    <img
-      src={shotJourney1}
-      alt="ProLog dashboard: journey path with levels completed, overall progress, reminders and exam status"
-      loading="lazy"
-    />
-  );
-}
-
 export function PersonaIzzyFigure() {
   return (
     <img
@@ -237,15 +214,9 @@ export function CampaignVideoFigure() {
   );
 }
 
-export function CampaignBrochureFigure() {
-  return (
-    <img src={campBrochure} alt="The ProLog brochure mockup" loading="lazy" style={{ width: "100%" }} />
-  );
-}
-
 export function CampaignBillboardsFigure() {
   return (
-    <div className="cs-figure-row cs-campaign-row">
+    <div className="cs-figure-row">
       <img src={campBrochure} alt="The ProLog brochure mockup" loading="lazy" />
       <img src={campBillboard1} alt="ProLog billboard mockup" loading="lazy" />
       <img src={campBillboard2} alt="ProLog billboard mockup" loading="lazy" />

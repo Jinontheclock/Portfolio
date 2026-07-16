@@ -264,25 +264,6 @@
   color: var(--text-muted);
 }
 
-/* placeholder gallery row (promo campaign shots) */
-.cs-gallery {
-  margin-top: 8px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-.cs-gallery div {
-  aspect-ratio: 3 / 2;
-  background: var(--surface-placeholder);
-}
-
-.cs-tagline {
-  margin: 8px 0 0;
-  font: 400 var(--size-body) / 1.6 var(--font-ui);
-  font-style: italic;
-  color: var(--text-muted);
-}
-
 /* ── Solution rows: text on the left, app screens on the right ── */
 .cs-solution {
   display: flex;
@@ -340,20 +321,6 @@
 .cs-figure-row img {
   flex: 1;
   min-width: 0;
-}
-
-/* fidelity-evolution frames: sized to the 110px app-screen frames used in
-   the Solution rows and before/after pairs, not stretched to fill the row */
-.cs-figure-frames .cs-figure-row {
-  justify-content: flex-start;
-  gap: 16px;
-}
-.cs-figure-frames img {
-  flex: 0 0 auto;
-  width: 110px;
-  height: auto;
-  border-radius: 16px;
-  border: 1px solid var(--grey-100, #e5e5e5);
 }
 
 .cs-figure-caption {

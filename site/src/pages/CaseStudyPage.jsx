@@ -22,12 +22,9 @@ import {
   BANavigationFigure,
   BAVisualCuesFigure,
   CampaignVideoFigure,
-  CampaignBrochureFigure,
   CampaignBillboardsFigure,
   CampaignInstagramFigure,
   MidfiGridFigure,
-  JourneyMidfiFigure,
-  JourneyDashboard1Figure,
   ShowcaseStageFigure,
   ShowcaseCrowdFigure,
   ShowcaseBoothFigure,
@@ -55,12 +52,9 @@ const FIGURES = {
   "prolog-ba-navigation": BANavigationFigure,
   "prolog-ba-visual-cues": BAVisualCuesFigure,
   "prolog-campaign-video": CampaignVideoFigure,
-  "prolog-campaign-brochure": CampaignBrochureFigure,
   "prolog-campaign-billboards": CampaignBillboardsFigure,
   "prolog-campaign-instagram": CampaignInstagramFigure,
   "prolog-fig-midfi-grid": MidfiGridFigure,
-  "prolog-shot-journey-midfi": JourneyMidfiFigure,
-  "prolog-shot-journey-dashboard-1": JourneyDashboard1Figure,
   "prolog-showcase-stage": ShowcaseStageFigure,
   "prolog-showcase-crowd": ShowcaseCrowdFigure,
   "prolog-showcase-booth": ShowcaseBoothFigure,
@@ -170,7 +164,7 @@ function Block({ block, onDemo }) {
       const Figures = names.map((n) => FIGURES[n]).filter(Boolean);
       if (!Figures.length) return null;
       return (
-        <figure className={"cs-figure" + (block.frames ? " cs-figure-frames" : "")}>
+        <figure className="cs-figure">
           <div className={Figures.length > 1 ? "cs-figure-row" : undefined}>
             {Figures.map((Figure, i) => (
               <Figure key={i} />
@@ -182,16 +176,6 @@ function Block({ block, onDemo }) {
         </figure>
       );
     }
-    case "gallery":
-      return (
-        <div className="cs-gallery" aria-hidden="true">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      );
-    case "tagline":
-      return <p className="cs-tagline">{block.text}</p>;
     default:
       return null;
   }
