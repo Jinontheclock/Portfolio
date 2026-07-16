@@ -11,8 +11,8 @@
 
 ## 새 세션에서 ProLog 복원
 컨테이너의 fine-grained PAT는 **Portfolio 전용**이라 ProLog로 git push가 403난다.
-그래서 이 세션의 마지막 데모 커밋(`1ac6a53`)은 GitHub에 못 올라갔고, 대신 이 폴더에
-패치로 실어 보낸다. 공개 레포라 clone은 자유롭다.
+그래서 이 세션의 데모 커밋들(`1ac6a53`, `9ad31f4` — named sign-up)은 GitHub에 못
+올라갔고, 대신 이 폴더에 패치로 실어 보낸다. 공개 레포라 clone은 자유롭다.
 
 ```bash
 git clone https://github.com/Jinontheclock/ProLog.git /home/claude/ProLog
@@ -74,4 +74,4 @@ Claude-Session: https://claude.ai/code/session_…
 
 ## 현재 상태 (이 핸드오프 시점)
 - Portfolio: `582bd3a` (P4 stats 스트립까지) 배포 완료.
-- ProLog: 로컬 `1ac6a53` = 이 폴더의 패치. GitHub은 `08f70ba`까지.
+- ProLog: 로컬 `9ad31f4`(HEAD, named sign-up)까지 = 이 폴더의 패치(2커밋). GitHub은 `08f70ba`까지.
