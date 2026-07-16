@@ -218,6 +218,10 @@
   .ab-grid {
     padding: 0 20px;
   }
+  /* no measure cap on a phone — the viewport is the measure */
+  .ab-paragraph {
+    max-width: none;
+  }
   .ab-title,
   .ab-rail,
   .ab-content {

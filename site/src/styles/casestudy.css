@@ -169,7 +169,7 @@
    top-left corner ── */
 .cs-hero {
   position: relative;
-  margin-bottom: 48px;
+  margin-bottom: 24px;
   /* the mockup ignores the page margin and hugs the window's right edge,
      buying the journey animation more room */
   margin-right: -24px;
@@ -595,6 +595,13 @@
   /* chapter breaks breathe, but a phone screen needs less air than desktop */
   .cs-sections {
     gap: 112px;
+  }
+  /* no measure cap on a phone — the viewport is the measure */
+  .cs-paragraph,
+  .cs-list,
+  .cs-block-h,
+  .cs-figure-caption {
+    max-width: none;
   }
   /* the three before/after columns stack (pair width set after the BA rules) */
   .cs-figure-row:has(.cs-ba-col) {
