@@ -337,21 +337,9 @@ export const PROJECTS = [
           },
           {
             type: "figure",
-            graphic: "prolog-showcase-stage",
+            graphics: ["prolog-showcase-stage", "prolog-showcase-crowd", "prolog-showcase-booth"],
             caption:
-              "Road to Red Seal — the 6,000-hour story, told live at the BCIT showcase. Photo: Carlos M Bonmatí / BCIT",
-          },
-          {
-            type: "figure",
-            graphic: "prolog-showcase-crowd",
-            caption:
-              "A full house — nearly a hundred students across two programs, with government and industry guests in the seats. Photo: Carlos M Bonmatí / BCIT",
-          },
-          {
-            type: "figure",
-            graphic: "prolog-showcase-booth",
-            caption:
-              "The Mayor of Burnaby at the ProLog booth — guessing the hours before we showed him the app. Photo: Carlos M Bonmatí / BCIT",
+              "The 6,000-hour story told live, a full house, and the Mayor of Burnaby at the ProLog booth. Photos: Carlos M Bonmatí / BCIT",
           },
         ],
       },
