@@ -81,7 +81,6 @@
   /* 67ch ≈ 80 CPL EN — the recommended ceiling; ≈ 40 chars CJK, still on
      the CJK guideline, so the same cap works for all three locales */
   max-width: 67ch;
-  text-wrap: pretty; /* no one-word last lines */
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
 }
@@ -251,7 +250,6 @@
 .cs-block-h {
   margin: 20px 0 0;
   max-width: 67ch;
-  text-wrap: pretty;
   font: 700 var(--size-body) / 1.5 var(--font-ui);
   color: var(--text-primary);
 }
@@ -267,7 +265,6 @@
 .cs-list {
   margin: 0;
   max-width: 67ch;
-  text-wrap: pretty;
   padding-left: 1.2em;
   display: flex;
   flex-direction: column;
@@ -350,7 +347,6 @@
 
 .cs-figure-caption {
   margin-top: 6px;
-  text-wrap: pretty;
   font: 400 13px / 1.5 var(--font-ui);
   color: var(--text-muted);
 }
@@ -374,7 +370,6 @@
   margin: 12px 0;
   padding-left: 1.2em;
   max-width: 67ch;
-  text-wrap: pretty;
 }
 .cs-stat {
   margin: 0;
