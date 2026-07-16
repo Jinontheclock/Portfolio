@@ -59,7 +59,7 @@ export function AudienceFigure() {
   return (
     <img
       src={audienceImg}
-      alt="Who we designed for: one in five Canadians is neurodivergent, and a majority of the BCIT apprentices we surveyed identified as such"
+      alt="Who we designed for: an estimated 1 in 5 people are neurodivergent, and 11 of the 12 apprentices we surveyed knew the next level's requirements but pieced the journey together from scattered sources"
       loading="lazy"
     />
   );
@@ -89,7 +89,7 @@ export function ParticipantsFigure() {
   return (
     <img
       src={participantsImg}
-      alt="Who we heard from: 11 apprentices surveyed and interviewed across BC - electrical, plumbing, HVAC, ironworking and landscaping trades, first-year to journeyperson, union and non-union, 8 of 11 phone-first"
+      alt="Who we heard from: 12 apprentices surveyed and interviewed across BC - electrical, plumbing, HVAC, power engineering, ironworking, landscaping and welding trades, first-year to journeyperson, union and non-union, 9 of 12 mobile-first"
       loading="lazy"
     />
   );
