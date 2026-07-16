@@ -171,7 +171,19 @@ function Block({ block, onDemo }) {
             ))}
           </div>
           {block.caption && (
-            <figcaption className="cs-figure-caption">{block.caption}</figcaption>
+            <figcaption className="cs-figure-caption">
+              {typeof block.caption === "string"
+                ? block.caption
+                : block.caption.map((seg, j) =>
+                    typeof seg === "string" ? (
+                      seg
+                    ) : (
+                      <a key={j} href={seg.href} target="_blank" rel="noreferrer">
+                        {seg.text}
+                      </a>
+                    ),
+                  )}
+            </figcaption>
           )}
         </figure>
       );

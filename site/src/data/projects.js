@@ -55,7 +55,7 @@ export const PROJECTS = [
       [
         "ProLog is a progress-tracking app that levels the playing field for neurodivergent apprentices in ",
         { text: "BC skilled trades", href: "https://skilledtradesbc.ca/" },
-        ". As lead developer on an eight-person team, I worked on the UX/UI design and turned the design system into a working React Native build. The project was created for the ",
+        ".\nAs lead developer on an eight-person team,\nI worked on the UX/UI design and turned the design system into a working React Native build.\nThe project was created for the ",
         {
           text: "ConnectHER",
           href: "https://www.bcit.ca/construction-environment/welcome-to-the-connectherhub/",
@@ -324,8 +324,13 @@ export const PROJECTS = [
           {
             type: "figure",
             graphics: ["prolog-showcase-stage", "prolog-showcase-crowd", "prolog-showcase-booth"],
-            caption:
-              "The 6,000-hour story told live, a full house, and the Mayor of Burnaby at the ProLog booth. Photos: Carlos M Bonmatí / BCIT",
+            caption: [
+              "The 6,000-hour story told live, a full house, and the Mayor of Burnaby at the ProLog booth. ",
+              {
+                text: "Photos: Carlos M Bonmatí / BCIT",
+                href: "https://www.flickr.com/photos/bcitbusiness/albums/72177720330795756/with/54972788549",
+              },
+            ],
           },
         ],
       },
