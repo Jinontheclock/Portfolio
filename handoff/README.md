@@ -10,17 +10,14 @@
   작업 디렉터리: `/home/claude/ProLog` (새 세션엔 자동으로 안 옴 → 아래 복원)
 
 ## 새 세션에서 ProLog 복원
-컨테이너의 fine-grained PAT는 **Portfolio 전용**이라 ProLog로 git push가 403난다.
-그래서 이 세션의 데모 커밋들(`1ac6a53`, `9ad31f4`, `d41715b`, `63b8d38` — demo polish)은 GitHub에 못
-올라갔고, 대신 이 폴더에 패치로 실어 보낸다. 공개 레포라 clone은 자유롭다.
+데모 소스는 GitHub에 전부 올라가 있다 — clone 한 줄이면 끝:
 
 ```bash
 git clone https://github.com/Jinontheclock/ProLog.git /home/claude/ProLog
-cd /home/claude/ProLog
-git am /home/claude/repo/handoff/prolog-session.patch   # 세션 데모 작업 재적용
 ```
 
-제대로 된 write 토큰이 생기면 그때 ProLog에 직접 push하면 된다.
+주의: 컨테이너의 fine-grained PAT는 **Portfolio 전용**이라 ProLog로 git push는 403난다.
+푸시가 필요하면 오너가 ProLog 스코프의 임시 토큰을 제공해야 한다.
 
 ## 빌드 / 프리뷰 / 배포 (사이트)
 ```bash
@@ -49,12 +46,9 @@ cd /home/claude/repo/site && npx vite build --base=/Portfolio/
 ```bash
 git -c user.name="Hajin Lee" -c user.email="hajinlee.ca@gmail.com" commit -m "…"
 ```
-트레일러(세션 URL은 새 세션 것으로 교체):
-```
-Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_…
-```
-유저가 세션 중 GitHub 웹 UI로 파일을 올리므로 push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 않는다.
+트레일러는 붙이지 않는다 — 오너 요청으로 커밋 참여자는 Hajin Lee 단독이어야 한다
+(Co-Authored-By/Claude-Session 금지). 유저가 세션 중 GitHub 웹 UI로 파일을 올리므로
+push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 않는다.
 
 ## 검증 (Playwright)
 `executablePath: '/opt/pw-browsers/chromium'`, 스크립트는 `/home/claude/repo/site`에서 실행.
@@ -74,4 +68,4 @@ Claude-Session: https://claude.ai/code/session_…
 
 ## 현재 상태 (이 핸드오프 시점)
 - Portfolio: `582bd3a` (P4 stats 스트립까지) 배포 완료.
-- ProLog: 로컬 `63b8d38`(HEAD)까지 = 이 폴더의 패치(4커밋). GitHub은 `08f70ba`까지.
+- ProLog: GitHub `main` = `93f79c9` (세션 작업 전부 푸시됨, 패치 불필요).
