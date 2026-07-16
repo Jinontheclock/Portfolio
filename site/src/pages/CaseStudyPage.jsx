@@ -104,10 +104,9 @@ function Block({ block, onDemo }) {
       return (
         <div className="cs-stats">
           {block.items.map((s, i) => (
-            <div key={i} className="cs-stat">
-              <span className="cs-stat-value">{s.value}</span>
-              <span className="cs-stat-label">{s.label}</span>
-            </div>
+            <p key={i} className="cs-stat">
+              <span className="cs-stat-value">{s.value}</span> {noOrphan(s.label)}
+            </p>
           ))}
         </div>
       );
