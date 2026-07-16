@@ -81,6 +81,7 @@
   /* 67ch ≈ 80 CPL EN — the recommended ceiling; ≈ 40 chars CJK, still on
      the CJK guideline, so the same cap works for all three locales */
   max-width: 67ch;
+  text-wrap: pretty; /* no one-word last lines */
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
 }
@@ -169,6 +170,9 @@
 .cs-hero {
   position: relative;
   margin-bottom: 48px;
+  /* the mockup ignores the page margin and hugs the window's right edge,
+     buying the journey animation more room */
+  margin-right: -24px;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -184,7 +188,7 @@
   height: auto;
 }
 .cs-hero .cs-journey {
-  flex: 1.7;
+  flex: 2;
   min-width: 0;
 }
 .cs-hero-mockup {
@@ -247,6 +251,7 @@
 .cs-block-h {
   margin: 20px 0 0;
   max-width: 67ch;
+  text-wrap: pretty;
   font: 700 var(--size-body) / 1.5 var(--font-ui);
   color: var(--text-primary);
 }
@@ -262,6 +267,7 @@
 .cs-list {
   margin: 0;
   max-width: 67ch;
+  text-wrap: pretty;
   padding-left: 1.2em;
   display: flex;
   flex-direction: column;
@@ -344,6 +350,7 @@
 .cs-figure-caption {
   margin-top: 6px;
   max-width: 67ch;
+  text-wrap: pretty;
   font: 400 13px / 1.5 var(--font-ui);
   color: var(--text-muted);
 }
@@ -603,6 +610,7 @@
      beside the chapter list, so the hero's own copy disappears */
   .cs-hero {
     margin-bottom: 36px;
+    margin-right: 0; /* no edge bleed once the mockup leaves the hero */
     flex-direction: column;
     gap: 20px;
   }
