@@ -22,6 +22,7 @@ import campInsta3 from "../assets/prolog/prolog-campaign-insta-3.webp";
 import personaIzzy from "../assets/prolog/prolog-persona-izzy.webp";
 import personaJordan from "../assets/prolog/prolog-persona-jordan.webp";
 import shotJourney1 from "../assets/prolog/prolog-shot-journey-dashboard-1.webp";
+import videoPoster from "../assets/prolog/prolog-video-poster.webp";
 import showcaseStage from "../assets/prolog/prolog-showcase-stage.webp";
 import showcaseCrowd from "../assets/prolog/prolog-showcase-crowd.webp";
 import showcaseBooth from "../assets/prolog/prolog-showcase-booth.webp";
@@ -170,32 +171,57 @@ export function TypeFigure() {
   );
 }
 
-/* ── Usability-testing fixes: labelled before/after screen pairs ── */
-function BeforeAfter({ before, after, name }) {
+/* ── Usability-testing fixes: labelled before/after screen pairs, each
+   pair a column with its own caption so the three fixes share one row ── */
+function BeforeAfter({ before, after, name, caption }) {
   return (
-    <div className="cs-ba-row">
-      <div className="cs-ba-cell">
-        <span className="cs-ba-label">Before</span>
-        <img src={before} alt={`${name} — before the usability fixes`} loading="lazy" />
+    <div className="cs-ba-col">
+      <div className="cs-ba-row">
+        <div className="cs-ba-cell">
+          <span className="cs-ba-label">Before</span>
+          <img src={before} alt={`${name} — before the usability fixes`} loading="lazy" />
+        </div>
+        <div className="cs-ba-cell">
+          <span className="cs-ba-label">After</span>
+          <img src={after} alt={`${name} — after the usability fixes`} loading="lazy" />
+        </div>
       </div>
-      <div className="cs-ba-cell">
-        <span className="cs-ba-label">After</span>
-        <img src={after} alt={`${name} — after the usability fixes`} loading="lazy" />
-      </div>
+      <p className="cs-figure-caption">{caption}</p>
     </div>
   );
 }
 
 export function BAProgressFigure() {
-  return <BeforeAfter before={baProgressBefore} after={baProgressAfter} name="Progress dashboard" />;
+  return (
+    <BeforeAfter
+      before={baProgressBefore}
+      after={baProgressAfter}
+      name="Progress dashboard"
+      caption="Hour totals read as static labels — participants couldn't tell what the numbers were made of. Now the journey map leads, and every figure breaks down on tap."
+    />
+  );
 }
 
 export function BANavigationFigure() {
-  return <BeforeAfter before={baNavBefore} after={baNavAfter} name="Competency navigation" />;
+  return (
+    <BeforeAfter
+      before={baNavBefore}
+      after={baNavAfter}
+      name="Competency navigation"
+      caption="A flat list buried a hundred competencies behind search. Navigation was rebuilt around how apprentices actually study — by Line, by level, one thumb."
+    />
+  );
 }
 
 export function BAVisualCuesFigure() {
-  return <BeforeAfter before={baCuesBefore} after={baCuesAfter} name="Hour tracking" />;
+  return (
+    <BeforeAfter
+      before={baCuesBefore}
+      after={baCuesAfter}
+      name="Hour tracking"
+      caption="Grey-on-grey states didn't read as tappable. Contrast, hierarchy, and interaction cues were strengthened across the system — if it's orange, it moves you forward."
+    />
+  );
 }
 
 /* ── Beyond the screen: the promotional campaign set ── */
@@ -206,6 +232,7 @@ export function CampaignVideoFigure() {
     <video
       className="cs-campaign-video"
       src={CAMPAIGN_VIDEO}
+      poster={videoPoster}
       controls
       playsInline
       preload="metadata"
