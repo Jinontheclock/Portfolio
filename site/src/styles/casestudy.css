@@ -183,8 +183,9 @@
   left: 0;
   z-index: 1;
   /* sized to the animation's empty top-left corner — any wider and it
-     collides with the first stage card */
-  width: min(150px, 21%);
+     collides with the first stage card. The steep vw slope shrinks it
+     fast on laptop widths, where the corner closes up sooner */
+  width: clamp(72px, 16vw - 80px, 150px);
   height: auto;
 }
 .cs-hero .cs-journey {
