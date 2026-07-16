@@ -368,6 +368,13 @@
   flex-direction: column;
   gap: 6px;
   margin: 12px 0;
+}
+/* the stats follow the participants figure directly — no extra air */
+.cs-figure:has(+ .cs-stats) {
+  margin-bottom: 0;
+}
+.cs-figure + .cs-stats {
+  margin-top: 0;
   padding-left: 1.2em;
   max-width: 67ch;
 }
