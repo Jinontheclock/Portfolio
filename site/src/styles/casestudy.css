@@ -322,9 +322,10 @@
 .cs-figure {
   margin: 20px 0;
 }
-/* a figure (or video) directly under its lead-in text sits close to it —
-   the pair reads as one unit, the air stays around the unit instead */
-.cs-paragraph + .cs-figure {
+/* a figure (or video) directly under its lead-in text or heading sits
+   close to it — the pair reads as one unit, the air stays around it */
+.cs-paragraph + .cs-figure,
+.cs-block-h + .cs-figure {
   margin-top: 0;
 }
 .cs-figure svg,
@@ -349,7 +350,6 @@
 
 .cs-figure-caption {
   margin-top: 6px;
-  max-width: 67ch;
   text-wrap: pretty;
   font: 400 13px / 1.5 var(--font-ui);
   color: var(--text-muted);
@@ -595,8 +595,7 @@
   /* no measure cap on a phone — the viewport is the measure */
   .cs-paragraph,
   .cs-list,
-  .cs-block-h,
-  .cs-figure-caption {
+  .cs-block-h {
     max-width: none;
   }
   /* the three before/after columns stack (pair width set after the BA rules) */
