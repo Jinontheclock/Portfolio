@@ -102,13 +102,13 @@ function Block({ block, onDemo }) {
     case "stats":
       /* research stats strip: big figure + one-line finding per cell */
       return (
-        <div className="cs-stats">
+        <ul className="cs-stats">
           {block.items.map((s, i) => (
-            <p key={i} className="cs-stat">
+            <li key={i} className="cs-stat">
               <span className="cs-stat-value">{s.value}</span> {noOrphan(s.label)}
-            </p>
+            </li>
           ))}
-        </div>
+        </ul>
       );
     case "list":
       return (

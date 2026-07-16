@@ -367,12 +367,13 @@
   color: var(--text-primary);
 }
 
-/* research stats: one finding per line, reading like body copy */
+/* research stats: bulleted findings, reading like the other lists */
 .cs-stats {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin: 12px 0;
+  padding-left: 1.2em;
   max-width: 67ch;
   text-wrap: pretty;
 }
@@ -380,6 +381,9 @@
   margin: 0;
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
+}
+.cs-stat::marker {
+  color: var(--text-muted);
 }
 .cs-stat-value,
 .cs-stat-label {
