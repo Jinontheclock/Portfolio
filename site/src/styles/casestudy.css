@@ -132,6 +132,8 @@
 }
 .cs-meta-values a:hover {
   color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* ── Logo suite (lockup + app icon side by side, heights matched) ── */
