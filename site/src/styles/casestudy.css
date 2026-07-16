@@ -217,18 +217,19 @@
 
 /* ── Body sections (numbered, from each project's block list) ── */
 .cs-sections {
-  margin-top: 48px;
+  margin-top: 64px;
   display: flex;
   flex-direction: column;
-  gap: 96px;
+  /* a chapter break should read as a clear pause, not a paragraph gap */
+  gap: 160px;
 }
 
 .cs-section {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   /* anchored TOC jumps land with a little air above the section */
-  scroll-margin-top: 24px;
+  scroll-margin-top: 32px;
 }
 
 .cs-section-no {
@@ -238,7 +239,7 @@
 }
 
 .cs-block-h {
-  margin: 12px 0 0;
+  margin: 20px 0 0;
   font: 700 var(--size-body) / 1.5 var(--font-ui);
   color: var(--text-primary);
 }
@@ -269,7 +270,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 12px;
+  margin-top: 20px;
 }
 .cs-solution:first-child {
   margin-top: 0;
@@ -305,7 +306,7 @@
 
 /* in-page figures with an optional caption below */
 .cs-figure {
-  margin: 12px 0;
+  margin: 20px 0;
 }
 .cs-figure svg,
 .cs-figure img {
@@ -555,6 +556,15 @@
   .cs-stats {
     grid-template-columns: repeat(2, 1fr);
   }
+  /* chapter breaks breathe, but a phone screen needs less air than desktop */
+  .cs-sections {
+    gap: 112px;
+  }
+  /* the three before/after columns stack (pair width set after the BA rules) */
+  .cs-figure-row:has(.cs-ba-col) {
+    flex-direction: column;
+    gap: 28px;
+  }
   /* solution rows stack: text first, then the screens */
   .cs-solution-row {
     grid-template-columns: 1fr;
@@ -711,14 +721,22 @@
   height: auto;
 }
 
-/* ── Before/after pairs (usability-testing fixes): frames sized to match
-   the solution rows' app screens above (110px wide at every breakpoint) ── */
+/* ── Before/after pairs (usability-testing fixes): the three fixes share
+   one row, each pair a column with its caption underneath. Cells split
+   the column width, landing near the solution rows' 110px frames ── */
+.cs-ba-col {
+  flex: 1;
+  min-width: 0;
+}
+.cs-ba-col .cs-figure-caption {
+  margin-top: 10px;
+}
 .cs-ba-row {
   display: flex;
-  gap: 16px;
+  gap: 12px;
 }
 .cs-ba-cell {
-  width: 110px;
+  flex: 1;
   min-width: 0;
 }
 .cs-ba-label {
@@ -737,4 +755,11 @@
   display: block;
   border-radius: 16px;
   border: 1px solid var(--grey-100, #e5e5e5);
+}
+/* stacked columns on mobile: pairs return to the 110px frame width */
+@media (max-width: 600px) {
+  .cs-ba-cell {
+    flex: 0 0 auto;
+    width: 110px;
+  }
 }
