@@ -236,7 +236,7 @@
 .cs-section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   /* anchored TOC jumps land with a little air above the section */
   scroll-margin-top: 32px;
 }
@@ -320,10 +320,11 @@
   margin: 20px 0;
 }
 /* a figure (or video) directly under its lead-in text or heading sits
-   close to it — the pair reads as one unit, the air stays around it */
+   closer than anything else (8px < the 12px block rhythm < the 52px
+   topic break), so the pair reads as one unit */
 .cs-paragraph + .cs-figure,
 .cs-block-h + .cs-figure {
-  margin-top: 0;
+  margin-top: -4px;
 }
 .cs-figure svg,
 .cs-figure img {
