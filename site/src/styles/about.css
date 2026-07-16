@@ -14,7 +14,7 @@
 .ab-main {
   flex: 1;
   box-sizing: border-box;
-  padding: 84px 0 140px;
+  padding: 84px 0 320px;
 }
 
 .ab-grid {
@@ -209,7 +209,7 @@
 /* ── Mobile: single column — links row, name, then content ── */
 @media (max-width: 600px) {
   .ab-main {
-    padding: 48px 0 96px;
+    padding: 48px 0 220px;
   }
   .ab-grid {
     padding: 0 20px;

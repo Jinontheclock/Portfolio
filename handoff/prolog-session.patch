@@ -1,7 +1,7 @@
 From 1ac6a535f5426bd29326b8cef0b51b14025d92dd Mon Sep 17 00:00:00 2001
 From: Hajin Lee <hajinlee.ca@gmail.com>
 Date: Wed, 15 Jul 2026 07:32:14 +0000
-Subject: [PATCH 1/2] =?UTF-8?q?feat:=20demo=20polish=20=E2=80=94=20journey?=
+Subject: [PATCH 1/3] =?UTF-8?q?feat:=20demo=20polish=20=E2=80=94=20journey?=
  =?UTF-8?q?=20scroll,=20ripple/pulse,=20external-link=20flow,=20checklist?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -7034,7 +7034,7 @@ index df2f031..9cee786 100644
 From 9ad31f4b17b3f3a44d5f2226c082078773d2eca0 Mon Sep 17 00:00:00 2001
 From: Hajin Lee <hajinlee.ca@gmail.com>
 Date: Thu, 16 Jul 2026 10:18:42 +0000
-Subject: [PATCH 2/2] =?UTF-8?q?feat:=20named=20sign-up=20=E2=80=94=20greet?=
+Subject: [PATCH 2/3] =?UTF-8?q?feat:=20named=20sign-up=20=E2=80=94=20greet?=
  =?UTF-8?q?ing=20follows=20the=20user,=20Login=20button=20dropped?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -7193,6 +7193,76 @@ index 0000000..af430c9
 +export function displayName(): string {
 +  return userName ?? "Stranger";
 +}
+-- 
+2.43.0
+
+
+From d41715bbefc1a452bec64d84578b7f84d148a549 Mon Sep 17 00:00:00 2001
+From: Hajin Lee <hajinlee.ca@gmail.com>
+Date: Thu, 16 Jul 2026 10:42:43 +0000
+Subject: [PATCH 3/3] feat: sign-up email derives from the name, passwords
+ never block
+
+Typing a name fills name@prolog.ca live; Create Account proceeds
+regardless of what the password fields hold.
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Sd3ocUiFGXccpfGr2QGCEH
+---
+ app/login_credentials.tsx | 19 ++++++++-----------
+ 1 file changed, 8 insertions(+), 11 deletions(-)
+
+diff --git a/app/login_credentials.tsx b/app/login_credentials.tsx
+index 3af480f..ae05c86 100644
+--- a/app/login_credentials.tsx
++++ b/app/login_credentials.tsx
+@@ -29,10 +29,11 @@ export default function LoginCredentialsScreen() {
+     router.back();
+   };
+ 
+-  const handleEmailFocus = () => {
+-    setEmail("ujung@my.bcit.ca");
+-    setPassword("**************");
+-    setReEnterPassword("**************");
++  // the email follows the name: "Hajin Lee" -> hajinlee@prolog.ca
++  const handleNameChange = (value: string) => {
++    setName(value);
++    const handle = value.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
++    setEmail(handle ? `${handle}@prolog.ca` : "");
+   };
+ 
+   const handlePasswordFocus = () => {
+@@ -43,11 +44,8 @@ export default function LoginCredentialsScreen() {
+     setReEnterPassword("**************");
+   };
+ 
+-  const isFormComplete =
+-    name.trim() !== "" &&
+-    email.trim() !== "" &&
+-    password.trim() !== "" &&
+-    reEnterPassword.trim() !== "";
++  // demo gate: only the name matters — passwords can be anything (or empty)
++  const isFormComplete = name.trim() !== "";
+ 
+   const handleCreateAccount = () => {
+     setUserName(name);
+@@ -96,7 +94,7 @@ export default function LoginCredentialsScreen() {
+                   placeholder="Enter your name"
+                   placeholderTextColor={Colors.grey[300]}
+                   value={name}
+-                  onChangeText={setName}
++                  onChangeText={handleNameChange}
+                 />
+               </View>
+               <View style={styles.inputSection}>
+@@ -107,7 +105,6 @@ export default function LoginCredentialsScreen() {
+                   placeholderTextColor={Colors.grey[300]}
+                   value={email}
+                   onChangeText={setEmail}
+-                  onFocus={handleEmailFocus}
+                 />
+               </View>
+               <View style={styles.inputSection}>
 -- 
 2.43.0
 
