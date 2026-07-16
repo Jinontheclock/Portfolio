@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
+import { noOrphan } from "../lib/no-orphan.js";
 import SiteFooter from "../components/SiteFooter.jsx";
 import useFitToWidth from "../hooks/useFitToWidth.js";
 import useCanHover from "../hooks/useCanHover.js";
@@ -337,10 +338,10 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
           </nav>
 
           <div className="ab-content">
-            <p className="ab-paragraph ab-hero">{about.hero}</p>
+            <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
             {about.body.map((para, i) => (
               <p key={i} className="ab-paragraph">
-                {para}
+                {noOrphan(para)}
               </p>
             ))}
 

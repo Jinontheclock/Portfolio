@@ -1,3 +1,4 @@
+import { noOrphan } from "../lib/no-orphan.js";
 import timelineImg from "../assets/prolog/prolog-fig-timeline.webp";
 import fragmentsImg from "../assets/prolog/prolog-fig-fragments.webp";
 import audienceImg from "../assets/prolog/prolog-fig-audience.webp";
@@ -186,7 +187,7 @@ function BeforeAfter({ before, after, name, caption }) {
           <img src={after} alt={`${name} — after the usability fixes`} loading="lazy" />
         </div>
       </div>
-      <p className="cs-figure-caption">{caption}</p>
+      <p className="cs-figure-caption">{noOrphan(caption)}</p>
     </div>
   );
 }

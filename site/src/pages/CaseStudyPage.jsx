@@ -60,6 +60,7 @@ const FIGURES = {
   "prolog-showcase-booth": ShowcaseBoothFigure,
 };
 import { getProject } from "../data/projects.js";
+import { noOrphan, noOrphanSegments } from "../lib/no-orphan.js";
 
 // ProLog is exported to the Portfolio under /prolog/ (see site/public/prolog)
 const PROLOG_SRC = `${import.meta.env.BASE_URL}prolog/`;
@@ -97,7 +98,7 @@ function Block({ block, onDemo }) {
         </h3>
       );
     case "p":
-      return <p className="cs-paragraph">{block.text}</p>;
+      return <p className="cs-paragraph">{noOrphan(block.text)}</p>;
     case "stats":
       /* research stats strip: big figure + one-line finding per cell */
       return (
@@ -114,7 +115,7 @@ function Block({ block, onDemo }) {
       return (
         <ul className="cs-list">
           {block.items.map((item, i) => (
-            <li key={i}>{item}</li>
+            <li key={i}>{noOrphan(item)}</li>
           ))}
         </ul>
       );
@@ -142,7 +143,7 @@ function Block({ block, onDemo }) {
             <div className="cs-solution-text">
               {block.paras.map((t, i) => (
                 <p key={i} className="cs-paragraph">
-                  {t}
+                  {noOrphan(t)}
                 </p>
               ))}
             </div>
@@ -173,8 +174,8 @@ function Block({ block, onDemo }) {
           {block.caption && (
             <figcaption className="cs-figure-caption">
               {typeof block.caption === "string"
-                ? block.caption
-                : block.caption.map((seg, j) =>
+                ? noOrphan(block.caption)
+                : noOrphanSegments(block.caption).map((seg, j) =>
                     typeof seg === "string" ? (
                       seg
                     ) : (
@@ -303,8 +304,8 @@ export default function CaseStudyPage({ lang, setLang }) {
               {project.intro.map((para, i) => (
                 <p key={i} className="cs-paragraph">
                   {typeof para === "string"
-                    ? para
-                    : para.map((seg, j) =>
+                    ? noOrphan(para)
+                    : noOrphanSegments(para).map((seg, j) =>
                         typeof seg === "string" ? (
                           seg
                         ) : (
