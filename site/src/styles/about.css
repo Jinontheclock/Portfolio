@@ -49,16 +49,19 @@
 }
 
 .ab-rail-link {
-  font: 500 12px/1.4 var(--font-ui);
-  letter-spacing: 0.08em;
-  color: var(--text-primary);
+  /* same voice as the body copy, underline on hover like every text link */
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  color: var(--text);
   text-decoration: none;
   cursor: pointer;
   transition: color var(--duration-fast) var(--easing);
 }
 
 .ab-rail-link:hover {
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 /* ── Right content column ── */
