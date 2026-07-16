@@ -6,7 +6,7 @@
 .cs-main {
   flex: 1;
   box-sizing: border-box;
-  padding: 84px 0 140px;
+  padding: 84px 0 240px;
 }
 
 .cs-grid {
@@ -175,7 +175,7 @@
   z-index: 1;
   /* sized to the animation's empty top-left corner — any wider and it
      collides with the first stage card */
-  width: min(110px, 16%);
+  width: min(150px, 21%);
   height: auto;
 }
 .cs-hero .cs-journey {
@@ -309,6 +309,11 @@
 .cs-figure {
   margin: 20px 0;
 }
+/* a figure (or video) directly under its lead-in text sits close to it —
+   the pair reads as one unit, the air stays around the unit instead */
+.cs-paragraph + .cs-figure {
+  margin-top: 0;
+}
 .cs-figure svg,
 .cs-figure img {
   display: block;
@@ -319,6 +324,10 @@
 .cs-figure-row {
   display: flex;
   gap: 12px;
+}
+/* the three before/after cases need clearer separation than plain pairs */
+.cs-figure-row:has(.cs-ba-col) {
+  gap: 36px;
 }
 .cs-figure-row img {
   flex: 1;
@@ -534,7 +543,7 @@
 /* ── Mobile: stack title, TOC, then content ── */
 @media (max-width: 600px) {
   .cs-main {
-    padding: 48px 0 96px;
+    padding: 48px 0 160px;
   }
   .cs-grid {
     padding: 0 20px;
@@ -594,7 +603,7 @@
     display: none;
   }
   .cs-hero-logo {
-    width: 26%;
+    width: 32%;
   }
   /* chapter list on the left, a small mockup on the right, bottoms flush */
   .cs-toc-row {
