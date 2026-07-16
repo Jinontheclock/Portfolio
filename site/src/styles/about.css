@@ -72,6 +72,7 @@
 
 .ab-paragraph {
   margin: 0;
+  max-width: 58ch;
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
   white-space: pre-line;

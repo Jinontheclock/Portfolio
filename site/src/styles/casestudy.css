@@ -78,6 +78,9 @@
 
 .cs-paragraph {
   margin: 0;
+  /* 58ch ≈ 66-73 CPL EN (this face's 0 glyph runs wide, so ch reads large),
+     ≈ 34 chars CJK — the same cap works for all three locales */
+  max-width: 58ch;
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
 }
@@ -243,6 +246,7 @@
 
 .cs-block-h {
   margin: 20px 0 0;
+  max-width: 58ch;
   font: 700 var(--size-body) / 1.5 var(--font-ui);
   color: var(--text-primary);
 }
@@ -257,6 +261,7 @@
 
 .cs-list {
   margin: 0;
+  max-width: 58ch;
   padding-left: 1.2em;
   display: flex;
   flex-direction: column;
@@ -338,6 +343,7 @@
 
 .cs-figure-caption {
   margin-top: 6px;
+  max-width: 58ch;
   font: 400 13px / 1.5 var(--font-ui);
   color: var(--text-muted);
 }
