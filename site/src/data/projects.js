@@ -44,6 +44,44 @@ const PLACEHOLDER_SECTIONS = [
 
 export const PROJECTS = [
   {
+    id: "compass-card",
+    title: "Compass Card",
+    description:
+      "A short one- or two-line summary of the project and the problem it set out to solve.",
+    roles: "Product Design, Development",
+    intro: [
+      "Compass Card — placeholder introduction. A couple of sentences describing what the product is, who it serves, and the context it was built in.",
+      "A second placeholder paragraph summarizing the approach and the outcome.",
+    ],
+    metaLeft: [
+      { label: "category", values: ["UX Case Study"] },
+      { label: "timeline", values: ["TBD"] },
+      { label: "role", values: ["Product Designer"] },
+      { label: "link", values: ["Website"] },
+    ],
+    metaRight: [{ label: "tool", values: ["Figma", "Adobe Creative Suite"] }],
+    sections: PLACEHOLDER_SECTIONS,
+  },
+  {
+    id: "welab",
+    title: "WeLAB Entertainment",
+    description:
+      "A short one- or two-line summary of the project and the problem it set out to solve.",
+    roles: "Product Design, Development",
+    intro: [
+      "WeLAB Entertainment — placeholder introduction. A couple of sentences describing what the product is, who it serves, and the context it was built in.",
+      "A second placeholder paragraph summarizing the approach and the outcome.",
+    ],
+    metaLeft: [
+      { label: "category", values: ["Website"] },
+      { label: "timeline", values: ["Mar 2026 – May 2026"] },
+      { label: "role", values: ["UI/UX Designer"] },
+      { label: "link", values: ["Website"] },
+    ],
+    metaRight: [{ label: "tool", values: ["WordPress", "Bricks Builder", "Figma"] }],
+    sections: PLACEHOLDER_SECTIONS,
+  },
+  {
     id: "prolog",
     title: "ProLog",
     description:
@@ -375,44 +413,6 @@ export const PROJECTS = [
       { label: "link", values: ["Website"] },
     ],
     metaRight: [{ label: "tool", values: ["Figma", "Adobe Creative Suite"] }],
-    sections: PLACEHOLDER_SECTIONS,
-  },
-  {
-    id: "compass-card",
-    title: "Compass Card",
-    description:
-      "A short one- or two-line summary of the project and the problem it set out to solve.",
-    roles: "Product Design, Development",
-    intro: [
-      "Compass Card — placeholder introduction. A couple of sentences describing what the product is, who it serves, and the context it was built in.",
-      "A second placeholder paragraph summarizing the approach and the outcome.",
-    ],
-    metaLeft: [
-      { label: "category", values: ["UX Case Study"] },
-      { label: "timeline", values: ["TBD"] },
-      { label: "role", values: ["Product Designer"] },
-      { label: "link", values: ["Website"] },
-    ],
-    metaRight: [{ label: "tool", values: ["Figma", "Adobe Creative Suite"] }],
-    sections: PLACEHOLDER_SECTIONS,
-  },
-  {
-    id: "welab",
-    title: "WeLAB Entertainment",
-    description:
-      "A short one- or two-line summary of the project and the problem it set out to solve.",
-    roles: "Product Design, Development",
-    intro: [
-      "WeLAB Entertainment — placeholder introduction. A couple of sentences describing what the product is, who it serves, and the context it was built in.",
-      "A second placeholder paragraph summarizing the approach and the outcome.",
-    ],
-    metaLeft: [
-      { label: "category", values: ["Website"] },
-      { label: "timeline", values: ["Mar 2026 – May 2026"] },
-      { label: "role", values: ["UI/UX Designer"] },
-      { label: "link", values: ["Website"] },
-    ],
-    metaRight: [{ label: "tool", values: ["WordPress", "Bricks Builder", "Figma"] }],
     sections: PLACEHOLDER_SECTIONS,
   },
   {
