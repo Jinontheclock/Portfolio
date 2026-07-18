@@ -30,6 +30,14 @@ import {
   ShowcaseBoothFigure,
 } from "../components/ProLogContextFigures.jsx";
 import { PROLOG_SHOTS } from "../components/ProLogContextFigures.jsx";
+import {
+  TPJourneyFigure,
+  TPPersonaEmilyFigure,
+  TPPersonaAlexFigure,
+  TPLogoFigure,
+  TPVideoFigure,
+  TINYPAWS_SHOTS,
+} from "../components/TinyPawsFigures.jsx";
 
 /* hero scenes: live in-page animations a project can use instead of a
    video or the placeholder (see each project's heroScene field) */
@@ -58,7 +66,16 @@ const FIGURES = {
   "prolog-showcase-stage": ShowcaseStageFigure,
   "prolog-showcase-crowd": ShowcaseCrowdFigure,
   "prolog-showcase-booth": ShowcaseBoothFigure,
+  "tinypaws-fig-journey": TPJourneyFigure,
+  "tinypaws-persona-emily": TPPersonaEmilyFigure,
+  "tinypaws-persona-alex": TPPersonaAlexFigure,
+  "tinypaws-logo": TPLogoFigure,
+  "tinypaws-campaign-video": TPVideoFigure,
 };
+
+/* solution-row app/site screens, keyed per project (keys are unique
+   across projects, so one lookup serves them all) */
+const SHOTS = { ...PROLOG_SHOTS, ...TINYPAWS_SHOTS };
 import { getProject } from "../data/projects.js";
 import { noOrphan, noOrphanSegments } from "../lib/no-orphan.js";
 
@@ -74,9 +91,14 @@ function MetaGroup({ rows }) {
           <span className="cs-meta-values">
             {r.values.map((v) =>
               typeof v === "object" ? (
-                <a key={v.label} href={v.href} target="_blank" rel="noreferrer">
-                  {v.label}
-                </a>
+                // a link whose URL is still a «TBD:…» token renders inert
+                v.href.includes("«TBD") ? (
+                  <span key={v.label}>{v.label}</span>
+                ) : (
+                  <a key={v.label} href={v.href} target="_blank" rel="noreferrer">
+                    {v.label}
+                  </a>
+                )
               ) : (
                 <span key={v}>{v}</span>
               ),
@@ -129,6 +151,27 @@ function Block({ block, onDemo }) {
           </span>
         </div>
       );
+    case "cta": {
+      /* external-link call to action, styled like the demo button; stays
+         disabled while the destination URL is still a «TBD:…» token */
+      const pending = !block.href || block.href.includes("«TBD");
+      return (
+        <div className="cs-tryapp">
+          {pending ? (
+            <button type="button" className="cs-tryapp-btn" disabled>
+              {block.label}
+            </button>
+          ) : (
+            <a className="cs-tryapp-btn" href={block.href} target="_blank" rel="noreferrer">
+              {block.label}
+            </a>
+          )}
+          {block.note && <span className="cs-tryapp-note">{block.note}</span>}
+        </div>
+      );
+    }
+    case "tagline":
+      return <p className="cs-tagline">{block.text}</p>;
     case "solution":
       /* a Solution row: heading with its problem tag, then text on the
          left and the app screens on the right */
@@ -149,7 +192,7 @@ function Block({ block, onDemo }) {
             <figure className="cs-solution-media">
               <div className="cs-shots">
                 {block.media.map((m) => (
-                  <img key={m} src={PROLOG_SHOTS[m].src} alt={PROLOG_SHOTS[m].alt} loading="lazy" />
+                  <img key={m} src={SHOTS[m].src} alt={SHOTS[m].alt} loading="lazy" />
                 ))}
               </div>
               {block.caption && (

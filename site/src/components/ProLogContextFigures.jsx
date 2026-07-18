@@ -1,4 +1,4 @@
-import { noOrphan } from "../lib/no-orphan.js";
+import BeforeAfter from "./BeforeAfter.jsx";
 import timelineImg from "../assets/prolog/prolog-fig-timeline.webp";
 import fragmentsImg from "../assets/prolog/prolog-fig-fragments.webp";
 import audienceImg from "../assets/prolog/prolog-fig-audience.webp";
@@ -173,25 +173,8 @@ export function TypeFigure() {
 }
 
 /* ── Usability-testing fixes: labelled before/after screen pairs, each
-   pair a column with its own caption so the three fixes share one row ── */
-function BeforeAfter({ before, after, name, caption }) {
-  return (
-    <div className="cs-ba-col">
-      <div className="cs-ba-row">
-        <div className="cs-ba-cell">
-          <span className="cs-ba-label">Before</span>
-          <img src={before} alt={`${name} — before the usability fixes`} loading="lazy" />
-        </div>
-        <div className="cs-ba-cell">
-          <span className="cs-ba-label">After</span>
-          <img src={after} alt={`${name} — after the usability fixes`} loading="lazy" />
-        </div>
-      </div>
-      <p className="cs-figure-caption">{noOrphan(caption)}</p>
-    </div>
-  );
-}
-
+   pair a column with its own caption so the three fixes share one row
+   (BeforeAfter itself is shared — see components/BeforeAfter.jsx) ── */
 export function BAProgressFigure() {
   return (
     <BeforeAfter

@@ -276,6 +276,14 @@
   color: var(--text-muted);
 }
 
+/* brand tagline: a quiet italic line closing Visual Language */
+.cs-tagline {
+  margin: 8px 0 0;
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  font-style: italic;
+  color: var(--text-muted);
+}
+
 /* ── Solution rows: text on the left, app screens on the right ── */
 .cs-solution {
   display: flex;
@@ -440,6 +448,12 @@
 }
 .cs-tryapp-btn:active {
   transform: translateY(1px);
+}
+/* cta variant: disabled until the destination URL exists */
+.cs-tryapp-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
 }
 .cs-tryapp-note {
   font: 400 13px / 1.5 var(--font-ui);
