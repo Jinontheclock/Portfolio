@@ -400,20 +400,282 @@ export const PROJECTS = [
     id: "tinypaws",
     title: "TinyPaws",
     description:
-      "A short one- or two-line summary of the project and the problem it set out to solve.",
-    roles: "Product Design, Development",
+      "A responsive website that turns a cluttered rescue-cat adoption process into one clear, welcoming journey",
+    roles: "UI/UX Design, Web Development",
+    headline: "A clear path from stray to safe home.",
     intro: [
-      "TinyPaws — placeholder introduction. A couple of sentences describing what the product is, who it serves, and the context it was built in.",
-      "A second placeholder paragraph summarizing the approach and the outcome.",
+      "TinyPaws is a website for a volunteer-run kitten rescue in Vancouver. On a five-person team, I co-designed the UX, built the visual identity into a working design system, and hand-coded the site — from browsing cats to bringing one home. Created for the «TBD: 프로그램/수업 명칭» at BCIT.",
     ],
     metaLeft: [
-      { label: "category", values: ["App"] },
-      { label: "timeline", values: ["TBD"] },
-      { label: "role", values: ["Product Designer"] },
-      { label: "link", values: ["Website"] },
+      { label: "category", values: ["Website"] },
+      { label: "timeline", values: ["«TBD: 기간»"] },
+      { label: "role", values: ["UI/UX Design", "Web Development"] },
+      {
+        label: "team",
+        values: ["5 people", "design · research · development"],
+      },
     ],
-    metaRight: [{ label: "tool", values: ["Figma", "Adobe Creative Suite"] }],
-    sections: PLACEHOLDER_SECTIONS,
+    metaRight: [
+      { label: "tool", values: ["Figma", "Astro", "Adobe Creative Suite"] },
+      {
+        label: "link",
+        values: [
+          { label: "Live Site", href: "«TBD: 배포 URL»" },
+          { label: "GitHub", href: "https://github.com/Jinontheclock/TinyPaws-web" },
+        ],
+      },
+    ],
+    sections: [
+      {
+        id: "context",
+        label: "01 Context",
+        blocks: [
+          {
+            type: "p",
+            text: "Adopting a rescue cat should be simple. In practice, adopters meet scattered information, unclear steps, and websites run by volunteers with no time to maintain them. TinyPaws — a volunteer-run kitten rescue in Vancouver — needed a site that could explain, reassure, and guide.",
+          },
+          {
+            type: "figure",
+            graphic: "tinypaws-fig-journey",
+            caption:
+              "From first visit to homecoming — the adoption journey the site is built around.",
+          },
+          {
+            type: "p",
+            text: "As a non-profit, every barrier on the website costs a kitten a home: an unclear form, a missing medical record, a buried donation button. The website is not a brochure — it is the rescue's front door.",
+          },
+        ],
+      },
+      {
+        id: "problem",
+        label: "02 The Problem",
+        blocks: [
+          { type: "h", text: "Problem 01 — A process nobody explains" },
+          {
+            type: "p",
+            text: "Adopters arrive motivated and leave confused. Adoption steps live in FAQs, forms, and volunteers' heads — visitors couldn't tell what happens after they apply, or whether they would qualify at all.",
+          },
+          { type: "h", text: "Problem 02 — Trust is asked for, not earned" },
+          {
+            type: "p",
+            text: "Rescue cats come with histories. Adopters told us they wanted medical records, behaviour notes, and vaccination status up front — yet most rescue sites ask for trust instead of showing the evidence.",
+          },
+          { type: "h", text: "Problem 03 — Support ends at adoption day" },
+          {
+            type: "p",
+            text: "The moment a cat goes home, most sites go quiet. Post-adoption guidance, cost expectations, and behaviour help were the most requested — and least available — resources in our research.",
+          },
+        ],
+      },
+      {
+        id: "approach",
+        label: "03 Approach",
+        blocks: [
+          {
+            type: "p",
+            text: "We surveyed and interviewed cat owners and adopters across BC, and read the wider evidence — BC SPCA statistics, pet-adoption studies, and the forums where adopters compare notes on what rescue sites don't tell them.",
+          },
+          /* stats strip intentionally omitted until the owner confirms the
+             four research figures («TBD: User research 수치») */
+          { type: "h", text: "What we heard" },
+          {
+            type: "list",
+            items: [
+              "Adoption sites feel long, unclear, and hard to navigate — motivated adopters give up mid-way.",
+              "Transparent medical, behaviour, and vaccination information is the single biggest trust factor.",
+              "Support and guidance after adoption day is missing almost everywhere.",
+              "First-time adopters and experienced multi-cat households need very different depths of information.",
+            ],
+          },
+          {
+            type: "p",
+            text: "We distilled these into two contrasting personas — Emily, a psychiatrist with a multi-cat household and high standards for care, and Alex, a first-time owner in a small apartment who needs guidance more than options. Every claim on their cards traces back to a cited source.",
+          },
+          {
+            type: "figure",
+            graphics: ["tinypaws-persona-emily", "tinypaws-persona-alex"],
+            caption:
+              "Emily (experienced, multi-cat) and Alex (first-time) — the two depths of need the site serves.",
+          },
+          { type: "h", text: "One map, three goals" },
+          {
+            type: "p",
+            text: "The sitemap was rebuilt around the three things visitors actually come to do — adopt, get involved, give. Content that served none of those goals was cut or folded in.",
+          },
+          {
+            type: "figure",
+            graphic: "tinypaws-fig-sitemap",
+            caption:
+              "The sitemap: every page earns its place under adopt, get involved, or give.",
+          },
+          { type: "h", text: "Design principles" },
+          {
+            type: "list",
+            items: [
+              "Explain before you ask — every form is preceded by what happens next.",
+              "Show the evidence — records and histories, not promises.",
+              "Support past adoption day — resources are content, not an afterthought.",
+              "Warmth without clutter — playful identity, disciplined layout.",
+            ],
+          },
+        ],
+      },
+      {
+        id: "solution",
+        label: "04 The Solution",
+        blocks: [
+          { type: "h", text: "From structure to shipped" },
+          {
+            type: "figure",
+            graphic: "tinypaws-fig-lofi-grid",
+            caption:
+              "Low-fidelity wireframes mapped the structure — hierarchy and flows before any visual identity.",
+          },
+          {
+            type: "solution",
+            title: "A guided adoption journey",
+            tag: "↔ Problem 01",
+            paras: [
+              "A step-by-step process page shows exactly what happens between applying and bringing a cat home. A short match quiz narrows the gallery to cats that fit an adopter's home and habits — browsing becomes matching, and the application form arrives pre-contextualized.",
+            ],
+            media: ["tinypaws-shot-process", "tinypaws-shot-quiz", "tinypaws-shot-form"],
+            caption: "Process, match quiz, application — one guided path.",
+          },
+          {
+            type: "solution",
+            title: "Cat profiles that earn trust",
+            tag: "↔ Problem 02",
+            paras: [
+              "Every profile leads with the facts adopters asked for: vaccination and spay-neuter status, medical notes, temperament, and the cat's own story. Trust is built by disclosure, not decoration.",
+            ],
+            media: ["tinypaws-shot-adopt", "tinypaws-shot-profile", "tinypaws-shot-profile-medical"],
+            caption: "The gallery and profile: records first, cuteness second.",
+          },
+          {
+            type: "solution",
+            title: "Support that doesn't end at adoption",
+            tag: "↔ Problem 03",
+            paras: [
+              "Foster, volunteer, donate, and events live under one Get Involved roof, and adopters leave with resources — cost guides, behaviour help, and what to expect in the first weeks. The relationship outlives the transaction.",
+            ],
+            media: ["tinypaws-shot-involve", "tinypaws-shot-events", "tinypaws-shot-home"],
+            caption:
+              "Get involved, events, and the home page that ties the journey together.",
+          },
+          { type: "h", text: "Tested twice. Fixed twice." },
+          {
+            type: "p",
+            text: "Task-based sessions with «TBD: lo-fi 참가자 수» participants at low fidelity caught the structural failures; a second round with «TBD: hi-fi 참가자 수» participants at high fidelity caught what the polish hid. Both rounds shipped fixes.",
+          },
+          {
+            type: "figure",
+            graphic: "tinypaws-ba-nav",
+            caption:
+              "Menu labels read as interchangeable — visitors landed on the wrong pages. Navigation was relabelled and reorganized around the three goals.",
+          },
+          {
+            type: "figure",
+            graphic: "tinypaws-ba-structure",
+            caption:
+              "Content-heavy pages overwhelmed at a glance. Sections were condensed into a consistent hierarchy with calls to action visitors could actually find.",
+          },
+        ],
+      },
+      {
+        id: "visual",
+        label: "05 Visual Language",
+        blocks: [
+          {
+            type: "p",
+            text: "Identity and site built across the five-person team — my part: co-designing the identity system and hand-coding it into the shipped site.",
+          },
+          { type: "h", text: "Before the mark, a hundred sketches" },
+          {
+            type: "figure",
+            graphic: "tinypaws-fig-brand-explore",
+            caption: "Wordmark and mark explorations — the cat found its way into the P.",
+          },
+          { type: "h", text: "A mark with a cat inside" },
+          {
+            type: "p",
+            text: "The wordmark hides a cat in the letterform: rounded, bubbly type with a silhouette curled into the P — playful enough for a kitten rescue, disciplined enough to run a website.",
+          },
+          { type: "figure", graphic: "tinypaws-logo" },
+          { type: "h", text: "Colours borrowed from a calico" },
+          {
+            type: "p",
+            text: "The palette comes straight from calico fur — warm orange, deep brown, soft cream. Orange carries actions, brown carries structure, cream keeps the pages calm.",
+          },
+          {
+            type: "figure",
+            graphic: "tinypaws-fig-styletile",
+            caption: "The style tile: palette, type scale, and interactive elements in one sheet.",
+          },
+          { type: "h", text: "Type that sounds like the brand" },
+          {
+            type: "p",
+            text: "Nexa Round's soft geometry gives headings the brand's voice; Lexend — a typeface designed for reading proficiency — carries the long-form content adopters actually need to read.",
+          },
+          { type: "h", text: "Beyond the screen" },
+          {
+            type: "p",
+            text: "A promotional video introduces the rescue in the same voice as the site — bright, warm, and honest about what adoption takes.",
+          },
+          {
+            type: "figure",
+            graphic: "tinypaws-campaign-video",
+            caption: "The promotional film. «TBD: 크레딧 필요 시»",
+          },
+          { type: "tagline", text: "Small paws, safe homes." },
+        ],
+      },
+      {
+        id: "outcome",
+        label: "06 Outcome",
+        blocks: [
+          { type: "h", text: "A working website, not just a mockup." },
+          { type: "cta", label: "Visit the live site", href: "«TBD: 배포 URL»" },
+          {
+            type: "p",
+            text: "The design system shipped as a documented spec — tokens, components, and screen definitions — and then as code. The site is hand-built: semantic HTML, design-token CSS, and just enough JavaScript.",
+          },
+          {
+            type: "figure",
+            graphic: "tinypaws-fig-devspecs",
+            caption: "The development spec: the handoff document the build follows.",
+          },
+          {
+            type: "list",
+            items: [
+              "«TBD: 발표/전시 사실 — 확인 후 추가»",
+              "Fully responsive and keyboard-navigable, with WCAG AA contrast throughout",
+              "Scoped to one rescue in Vancouver, built to template for any volunteer-run shelter",
+            ],
+          },
+        ],
+      },
+      {
+        id: "reflection",
+        label: "07 Reflection",
+        blocks: [
+          { type: "h", text: "Two rounds of testing beat one big one." },
+          {
+            type: "p",
+            text: "Low fidelity caught the failures of structure; high fidelity caught the failures of detail. Neither round would have found the other's problems — the order mattered as much as the testing.",
+          },
+          { type: "h", text: "Coding the design closed the loop." },
+          {
+            type: "p",
+            text: "Hand-building the site meant every token, breakpoint, and state had to survive contact with real CSS. The design system stopped being a picture of intent and became the implementation itself.",
+          },
+          { type: "h", text: "With more time" },
+          {
+            type: "p",
+            text: "I would run the site against a real rescue's live data — real cats, changing statuses, volunteer editors — and test whether the structure holds when the content isn't curated.",
+          },
+        ],
+      },
+    ],
   },
   {
     id: "muji",
