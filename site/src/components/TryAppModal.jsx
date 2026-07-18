@@ -25,10 +25,12 @@ function computeScale() {
   return Math.min(availW / FRAME_W, availH / FRAME_H, 1);
 }
 
-/** Full-screen modal that shows a hosted app inside a phone frame via iframe.
+/** Full-screen modal that shows a hosted app via iframe — a phone frame by
+ *  default, or a browser-like window for responsive sites (variant="web",
+ *  where the site simply adapts to the frame instead of being scaled).
  *  Closes on backdrop click, the × button, or Escape; locks page scroll while
  *  open. The iframe is only mounted while open, so each open is a fresh load. */
-export default function TryAppModal({ open, onClose, src, title = "ProLog" }) {
+export default function TryAppModal({ open, onClose, src, title = "ProLog", variant = "phone" }) {
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
@@ -71,6 +73,24 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog" }) {
   }, [open]);
 
   if (!open) return null;
+
+  if (variant === "web") {
+    return (
+      <div className="tryapp-backdrop" onClick={onClose}>
+        <div className="tryapp-dialog tryapp-dialog--web" onClick={(e) => e.stopPropagation()}>
+          <div className="tryapp-head">
+            <span className="tryapp-caption" aria-hidden="true"></span>
+            <button type="button" className="tryapp-close" onClick={onClose} aria-label="Close demo">
+              ×
+            </button>
+          </div>
+          <div className="tryapp-web-frame">
+            <iframe className="tryapp-frame" src={src} title={`${title} interactive demo`} />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const dialogWidth = Math.round(FRAME_W * scale);
 

@@ -403,6 +403,7 @@ export const PROJECTS = [
       "A responsive website that turns a cluttered rescue-cat adoption process into one clear, welcoming journey",
     roles: "UI/UX Design, Web Development",
     headline: "A clear path from stray to safe home.",
+    demo: { src: "tinypaws/", variant: "web" },
     intro: [
       "TinyPaws is a website for a volunteer-run kitten rescue in Vancouver. On a five-person team, I co-designed the UX, built the visual identity into a working design system, and hand-coded the site — from browsing cats to bringing one home. Created for the «TBD: 프로그램/수업 명칭» at BCIT.",
     ],
@@ -634,7 +635,7 @@ export const PROJECTS = [
         label: "06 Outcome",
         blocks: [
           { type: "h", text: "A working website, not just a mockup." },
-          { type: "cta", label: "Visit the live site", href: "«TBD: 배포 URL»" },
+          { type: "cta", label: "Visit the live site", demo: true },
           {
             type: "p",
             text: "The design system shipped as a documented spec — tokens, components, and screen definitions — and then as code. The site is hand-built: semantic HTML, design-token CSS, and just enough JavaScript.",

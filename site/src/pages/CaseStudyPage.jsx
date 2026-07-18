@@ -152,12 +152,17 @@ function Block({ block, onDemo }) {
         </div>
       );
     case "cta": {
-      /* external-link call to action, styled like the demo button; stays
+      /* call to action styled like the demo button. With demo:true it opens
+         the project's embedded demo modal; otherwise it's an external link,
          disabled while the destination URL is still a «TBD:…» token */
-      const pending = !block.href || block.href.includes("«TBD");
+      const pending = !block.demo && (!block.href || block.href.includes("«TBD"));
       return (
         <div className="cs-tryapp">
-          {pending ? (
+          {block.demo ? (
+            <button type="button" className="cs-tryapp-btn" onClick={onDemo}>
+              {block.label}
+            </button>
+          ) : pending ? (
             <button type="button" className="cs-tryapp-btn" disabled>
               {block.label}
             </button>
@@ -419,7 +424,10 @@ export default function CaseStudyPage({ lang, setLang }) {
         <TryAppModal
           open={demoOpen}
           onClose={() => setDemoOpen(false)}
-          src={PROLOG_SRC}
+          src={
+            project.demo.src ? `${import.meta.env.BASE_URL}${project.demo.src}` : PROLOG_SRC
+          }
+          variant={project.demo.variant ?? "phone"}
           title={project.title}
         />
       )}
