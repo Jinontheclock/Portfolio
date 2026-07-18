@@ -25,6 +25,27 @@ function computeScale() {
   return Math.min(availW / FRAME_W, availH / FRAME_H, 1);
 }
 
+// web variant: on desktop/laptop the site is a desktop site first, so the
+// iframe always renders at a fixed desktop width and is scaled down to fit —
+// a narrow browser window never demotes the demo to its tablet/mobile layout.
+// On phones the iframe stays natural-size and the responsive site takes over.
+const WEB_W = 1280;
+
+function computeWebLayout() {
+  if (typeof window === "undefined") return { mobile: false, w: WEB_W, h: 800, scale: 1, logicalH: 800 };
+  const vv = window.visualViewport;
+  const vw = vv ? vv.width : window.innerWidth;
+  const vh = vv ? vv.height : window.innerHeight;
+  if (vw <= 600) return { mobile: true };
+  const headSpace = 46;
+  const availW = vw - 28 * 2;
+  const availH = vh - 28 * 2 - headSpace;
+  const w = Math.min(availW, 1200);
+  const h = Math.min(availH, 820);
+  const scale = w / WEB_W;
+  return { mobile: false, w, h, scale, logicalH: Math.round(h / scale) };
+}
+
 /** Full-screen modal that shows a hosted app via iframe — a phone frame by
  *  default, or a browser-like window for responsive sites (variant="web",
  *  where the site simply adapts to the frame instead of being scaled).
@@ -32,6 +53,7 @@ function computeScale() {
  *  open. The iframe is only mounted while open, so each open is a fresh load. */
 export default function TryAppModal({ open, onClose, src, title = "ProLog", variant = "phone" }) {
   const [scale, setScale] = useState(1);
+  const [webLayout, setWebLayout] = useState(computeWebLayout);
 
   useEffect(() => {
     if (!open) return;
@@ -62,7 +84,10 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
 
   useLayoutEffect(() => {
     if (!open) return;
-    const update = () => setScale(computeScale());
+    const update = () => {
+      setScale(computeScale());
+      setWebLayout(computeWebLayout());
+    };
     update();
     window.addEventListener("resize", update);
     window.visualViewport?.addEventListener("resize", update);
@@ -75,18 +100,41 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
   if (!open) return null;
 
   if (variant === "web") {
+    const wl = webLayout;
     return (
       <div className="tryapp-backdrop" onClick={onClose}>
-        <div className="tryapp-dialog tryapp-dialog--web" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="tryapp-dialog tryapp-dialog--web"
+          style={wl.mobile ? undefined : { width: wl.w }}
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="tryapp-head">
             <span className="tryapp-caption" aria-hidden="true"></span>
             <button type="button" className="tryapp-close" onClick={onClose} aria-label="Close demo">
               ×
             </button>
           </div>
-          <div className="tryapp-web-frame">
-            <iframe className="tryapp-frame" src={src} title={`${title} interactive demo`} />
-          </div>
+          {wl.mobile ? (
+            /* phones: natural size — the responsive site shows its mobile layout */
+            <div className="tryapp-web-frame tryapp-web-frame--fluid">
+              <iframe className="tryapp-frame" src={src} title={`${title} interactive demo`} />
+            </div>
+          ) : (
+            /* desktop/laptop: fixed desktop width, scaled to fit the window */
+            <div className="tryapp-web-frame" style={{ width: wl.w, height: wl.h }}>
+              <iframe
+                className="tryapp-frame"
+                src={src}
+                title={`${title} interactive demo`}
+                style={{
+                  width: WEB_W,
+                  height: wl.logicalH,
+                  transform: `scale(${wl.scale})`,
+                  transformOrigin: "top left",
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     );
