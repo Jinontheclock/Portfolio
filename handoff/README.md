@@ -79,6 +79,8 @@ push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 �
   - 폴리시 패스(`655a29f`): 콜라주 피스 확대+전 피스 프레임(필에 오프화이트 링 추가, 가림 최소화 재배치, 캡션 z-순서), Featured 캣 서클 380px+카피 padding-left로 히어로와 좌우 밸런스, About "How the rescue actually runs" 660px 센터(문단 measure 정렬), 캣 프로필 둘째 사진을 본문 하단으로 이동(우측 레일 공백 해소), 인풋 전 사이트 통일(13px/16px·rgba 보더·radius-input·focus 오렌지 — donate/footer/서치 포함), co-thumb radius-input, wish-rows 갭 space-4, [data-reveal]을 html.js 게이트(무JS 안전).
   - 푸터 전화번호 문구 제거(`a368111`).
   - 모바일 폴리시(`119c0ab`): PageHero에 imagePosition prop(배너 얼굴 크롭 — adopt 72%/38%), 신규 배너 5종(shop=바구니 칼리코·events=야옹 Miso·resources=페르시안 그루밍·about=크레이들 키튼·quiz=진저) ui/banner-*.jpg, Featured = Mochi 미니 콜라주(서클+미니 폴라로이드+발자국, 전 해상도), adopt 러닝 필·도네이션 티어 모바일 1행, 모바일 히어로 상단 패딩 축소, shop 첫 섹션 패딩 축소.
+  - adopt 페이지네이션(`603ddce`): 10마리/페이지(24마리=3페이지), 필터 변경 시 1페이지 리셋, 결과 ≤10이면 페이저 숨김, 카운터 "1–10 of 24 cats". 샵 백 배너 문장 nowrap+모바일 0.82rem 한 줄 고정.
+  - 최종 점검 통과: 60페이지 크롤(내부 링크 404 0, 깨진 이미지 0, JS/콘솔 에러 0, 데스크톱·모바일 오버플로 0), 주요 12페이지 Lighthouse 전 카테고리(perf 93~100·a11y 100·bp 100·seo 100). 따뜻해진 배경에서 대비 미달이던 rgba(48,24,0,0.6) 텍스트 4곳 → 0.7 보정.
   - 데모웹 소스는 `Jinontheclock/TinyPaws`에 push 완료(base=/TinyPaws). 라이브 배포는 레포 Settings → Pages → Source=GitHub Actions 설정만 남음 → 그 후 «TBD: 배포 URL»에 https://jinontheclock.github.io/TinyPaws/ 반영
 - **⑨ 컴포넌트 상태 보드**(ProLog 05 Visual Language) — 유저 업로드 대기.
 - About의 **Resume 링크**는 아직 `href:"#"` 플레이스홀더.
@@ -90,5 +92,5 @@ push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 �
 
 ## 현재 상태 (이 핸드오프 시점)
 - Portfolio: TinyPaws 케이스 스터디 + 임베드 데모 모달(데스크톱 우선) 배포 완료.
-- TinyPaws 데모웹: GitHub `Jinontheclock/TinyPaws` main = `119c0ab` (로컬 /home/claude/TinyPaws-web).
+- TinyPaws 데모웹: GitHub `Jinontheclock/TinyPaws` main = `f649300` (로컬 /home/claude/TinyPaws-web).
 - ProLog: GitHub `main` = `93f79c9` (세션 작업 전부 푸시됨, 패치 불필요).
