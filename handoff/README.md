@@ -92,5 +92,5 @@ push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 �
 
 ## 현재 상태 (이 핸드오프 시점)
 - Portfolio: TinyPaws 케이스 스터디 + 임베드 데모 모달(데스크톱 우선) 배포 완료.
-- TinyPaws 데모웹: GitHub `Jinontheclock/TinyPaws` main = `f649300` (로컬 /home/claude/TinyPaws-web).
+- TinyPaws 데모웹: GitHub `Jinontheclock/TinyPaws` main = `9a040c4` (로컬 /home/claude/TinyPaws-web).
 - ProLog: GitHub `main` = `93f79c9` (세션 작업 전부 푸시됨, 패치 불필요).
