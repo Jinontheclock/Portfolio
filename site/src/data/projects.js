@@ -508,7 +508,13 @@ export const PROJECTS = [
             type: "figure",
             graphic: "tinypaws-ba-structure",
             caption:
-              "Content-heavy pages overwhelmed at a glance. Sections were condensed into a consistent hierarchy with calls to action visitors could actually find.",
+              "Content-heavy pages overwhelmed at a glance. Sections were condensed into a consistent hierarchy visitors could scan in seconds.",
+          },
+          {
+            type: "figure",
+            graphic: "tinypaws-ba-cta",
+            caption:
+              "Buttons behaved inconsistently — some looked clickable but weren't, others hid where visitors couldn't find them. Every action became one clear, consistent orange control.",
           },
         ],
       },
