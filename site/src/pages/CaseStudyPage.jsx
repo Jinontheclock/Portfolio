@@ -35,6 +35,11 @@ import {
   TPPersonaAlexFigure,
   TPLogoFigure,
   TPVideoFigure,
+  TPSitemapFigure,
+  TPLofiGridFigure,
+  TPBANavFigure,
+  TPBAStructureFigure,
+  TPBACtaFigure,
   TINYPAWS_SHOTS,
 } from "../components/TinyPawsFigures.jsx";
 
@@ -69,6 +74,11 @@ const FIGURES = {
   "tinypaws-persona-alex": TPPersonaAlexFigure,
   "tinypaws-logo": TPLogoFigure,
   "tinypaws-campaign-video": TPVideoFigure,
+  "tinypaws-fig-sitemap": TPSitemapFigure,
+  "tinypaws-fig-lofi-grid": TPLofiGridFigure,
+  "tinypaws-ba-nav": TPBANavFigure,
+  "tinypaws-ba-structure": TPBAStructureFigure,
+  "tinypaws-ba-cta": TPBACtaFigure,
 };
 
 /* solution-row app/site screens, keyed per project (keys are unique

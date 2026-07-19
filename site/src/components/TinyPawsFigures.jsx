@@ -11,11 +11,78 @@ import shotProfileMedical from "../assets/tinypaws/tinypaws-shot-profile-medical
 import shotInvolve from "../assets/tinypaws/tinypaws-shot-involve.webp";
 import shotEvents from "../assets/tinypaws/tinypaws-shot-events.webp";
 import shotHome from "../assets/tinypaws/tinypaws-shot-home.webp";
+import BeforeAfter from "./BeforeAfter.jsx";
+import figSitemap from "../assets/tinypaws/tinypaws-fig-sitemap.webp";
+import figLofiGrid from "../assets/tinypaws/tinypaws-fig-lofi-grid.webp";
+import baNavBefore from "../assets/tinypaws/tinypaws-ba-nav-before.webp";
+import baNavAfter from "../assets/tinypaws/tinypaws-ba-nav-after.webp";
+import baStructureBefore from "../assets/tinypaws/tinypaws-ba-structure-before.webp";
+import baStructureAfter from "../assets/tinypaws/tinypaws-ba-structure-after.webp";
+import baCtaBefore from "../assets/tinypaws/tinypaws-ba-cta-before.webp";
+import baCtaAfter from "../assets/tinypaws/tinypaws-ba-cta-after.webp";
 
 /* Context figures for the TinyPaws case study. Figures whose source images
-   the owner hasn't exported yet (sitemap, lo-fi grid, brand exploration,
-   style tile, dev specs, the before/after pairs) are not registered — their
-   blocks render nothing until the assets land. */
+   the owner hasn't exported yet (brand exploration, style tile, dev specs)
+   are not registered — their blocks render nothing until the assets land. */
+
+/* ── 03 Structuring the Site: sitemap, lo-fi grid, and three before/after
+   pairs (nav / structure / CTA). BeforeAfter is shared with ProLog; the
+   caption is owned by the surrounding <figure> block, so no caption prop. ── */
+export function TPSitemapFigure() {
+  return (
+    <img
+      src={figSitemap}
+      alt="TinyPaws sitemap — the home page branching into cats, events, donations, information, volunteering, and fostering"
+      loading="lazy"
+    />
+  );
+}
+
+export function TPLofiGridFigure() {
+  return (
+    <img
+      src={figLofiGrid}
+      alt="A grid of low-fidelity wireframes covering the full site — home, adoption, cat profiles, forms, volunteer and events pages in grey boxes"
+      loading="lazy"
+    />
+  );
+}
+
+export function TPBANavFigure() {
+  return (
+    <BeforeAfter
+      before={baNavBefore}
+      after={baNavAfter}
+      name="Navigation"
+      beforeAlt='Before — a cluttered navigation bar with seven overlapping labels including both "Cats" and "Adopt"'
+      afterAlt="After — a streamlined navigation bar reorganized around adopt, get involved, and give"
+    />
+  );
+}
+
+export function TPBAStructureFigure() {
+  return (
+    <BeforeAfter
+      before={baStructureBefore}
+      after={baStructureAfter}
+      name="Information page"
+      beforeAlt="Before — an information page that is a dense wall of text with no visual grouping"
+      afterAlt="After — the same content condensed into scannable sections and cards"
+    />
+  );
+}
+
+export function TPBACtaFigure() {
+  return (
+    <BeforeAfter
+      before={baCtaBefore}
+      after={baCtaAfter}
+      name="Call to action"
+      beforeAlt="Before — flat, ambiguous buttons that don't read as clickable"
+      afterAlt="After — consistent orange call-to-action buttons across the site"
+    />
+  );
+}
 
 export function TPPersonaEmilyFigure() {
   return (
