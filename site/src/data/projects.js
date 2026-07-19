@@ -405,7 +405,7 @@ export const PROJECTS = [
     headline: "A clear path from stray to safe home.",
     demo: { src: "tinypaws/", variant: "web" },
     intro: [
-      "TinyPaws is a website for a volunteer-run kitten rescue in Vancouver. On a five-person team, I co-designed the UX, built the visual identity into a working design system, and hand-coded the site — from browsing cats to bringing one home. Created for the «TBD: 프로그램/수업 명칭» at BCIT.",
+      "TinyPaws is the website of a volunteer-run kitten rescue in Vancouver — the rescue's front door, where adopters decide whether to trust, apply, or leave. On a five-person team, I co-designed the UX, built the visual identity, and hand-coded the site itself. Created for «TBD: 프로그램/수업 명칭» at BCIT.",
     ],
     metaLeft: [
       { label: "category", values: ["Website"] },
@@ -428,69 +428,40 @@ export const PROJECTS = [
     ],
     sections: [
       {
-        id: "context",
-        label: "01 Context",
+        id: "brief",
+        label: "01 The Brief",
         blocks: [
           {
             type: "p",
-            text: "Adopting a rescue cat should be simple. In practice, adopters meet scattered information, unclear steps, and websites run by volunteers with no time to maintain them. TinyPaws — a volunteer-run kitten rescue in Vancouver — needed a site that could explain, reassure, and guide.",
+            text: "A rescue's website does one job: turn goodwill into homes. TinyPaws needed a site that could explain adoption to first-timers, prove its cats' histories to careful adopters, and make giving — time, foster space, money — feel as easy as browsing.",
           },
-          {
-            type: "figure",
-            graphic: "tinypaws-fig-journey",
-            caption:
-              "From first visit to homecoming — the adoption journey the site is built around.",
-          },
+          { type: "cta", label: "Visit the live site", demo: true, href: "«TBD: 배포 URL»" },
           {
             type: "p",
-            text: "As a non-profit, every barrier on the website costs a kitten a home: an unclear form, a missing medical record, a buried donation button. The website is not a brochure — it is the rescue's front door.",
+            text: "My part on the five-person team: co-designing the user experience, building the brand into a working design system, and writing the code the site runs on.",
           },
         ],
       },
       {
-        id: "problem",
-        label: "02 The Problem",
-        blocks: [
-          { type: "h", text: "Problem 01 — A process nobody explains" },
-          {
-            type: "p",
-            text: "Adopters arrive motivated and leave confused. Adoption steps live in FAQs, forms, and volunteers' heads — visitors couldn't tell what happens after they apply, or whether they would qualify at all.",
-          },
-          { type: "h", text: "Problem 02 — Trust is asked for, not earned" },
-          {
-            type: "p",
-            text: "Rescue cats come with histories. Adopters told us they wanted medical records, behaviour notes, and vaccination status up front — yet most rescue sites ask for trust instead of showing the evidence.",
-          },
-          { type: "h", text: "Problem 03 — Support ends at adoption day" },
-          {
-            type: "p",
-            text: "The moment a cat goes home, most sites go quiet. Post-adoption guidance, cost expectations, and behaviour help were the most requested — and least available — resources in our research.",
-          },
-        ],
-      },
-      {
-        id: "approach",
-        label: "03 Approach",
+        id: "adopters",
+        label: "02 Understanding Adopters",
         blocks: [
           {
             type: "p",
-            text: "We surveyed and interviewed cat owners and adopters across BC, and read the wider evidence — BC SPCA statistics, pet-adoption studies, and the forums where adopters compare notes on what rescue sites don't tell them.",
+            text: "We surveyed and interviewed cat owners and adopters across BC, and read the wider evidence — BC SPCA statistics, pet-adoption studies, and the forums where adopters compare notes on what rescue sites never tell them.",
           },
-          /* stats strip intentionally omitted until the owner confirms the
-             four research figures («TBD: User research 수치») */
-          { type: "h", text: "What we heard" },
+          { type: "h", text: "Three things adopters kept saying" },
           {
             type: "list",
             items: [
               "Adoption sites feel long, unclear, and hard to navigate — motivated adopters give up mid-way.",
-              "Transparent medical, behaviour, and vaccination information is the single biggest trust factor.",
-              "Support and guidance after adoption day is missing almost everywhere.",
-              "First-time adopters and experienced multi-cat households need very different depths of information.",
+              "Transparent medical, behaviour, and vaccination records are the single biggest trust factor.",
+              "Support after adoption day is missing almost everywhere — and it's what first-timers fear most.",
             ],
           },
           {
             type: "p",
-            text: "We distilled these into two contrasting personas — Emily, a psychiatrist with a multi-cat household and high standards for care, and Alex, a first-time owner in a small apartment who needs guidance more than options. Every claim on their cards traces back to a cited source.",
+            text: "Two personas kept the team honest about depth: Emily, a psychiatrist running a multi-cat household with high standards for care, and Alex, a first-time owner in a small apartment who needs guidance more than options. Every claim on their cards traces back to a cited source.",
           },
           {
             type: "figure",
@@ -498,84 +469,40 @@ export const PROJECTS = [
             caption:
               "Emily (experienced, multi-cat) and Alex (first-time) — the two depths of need the site serves.",
           },
-          { type: "h", text: "One map, three goals" },
+        ],
+      },
+      {
+        id: "structure",
+        label: "03 Structuring the Site",
+        blocks: [
           {
             type: "p",
-            text: "The sitemap was rebuilt around the three things visitors actually come to do — adopt, get involved, give. Content that served none of those goals was cut or folded in.",
+            text: "The sitemap was rebuilt around the three things visitors actually come to do — adopt, get involved, give. Every page had to earn its place under one of those goals; content that served none of them was cut or folded in.",
           },
           {
             type: "figure",
             graphic: "tinypaws-fig-sitemap",
-            caption:
-              "The sitemap: every page earns its place under adopt, get involved, or give.",
+            caption: "One map, three goals — the structure the whole site hangs on.",
           },
-          { type: "h", text: "Design principles" },
           {
-            type: "list",
-            items: [
-              "Explain before you ask — every form is preceded by what happens next.",
-              "Show the evidence — records and histories, not promises.",
-              "Support past adoption day — resources are content, not an afterthought.",
-              "Warmth without clutter — playful identity, disciplined layout.",
-            ],
+            type: "p",
+            text: "Low-fidelity wireframes tested that structure before any visual identity existed: hierarchy, navigation, and flows in grey boxes.",
           },
-        ],
-      },
-      {
-        id: "solution",
-        label: "04 The Solution",
-        blocks: [
-          { type: "h", text: "From structure to shipped" },
           {
             type: "figure",
             graphic: "tinypaws-fig-lofi-grid",
-            caption:
-              "Low-fidelity wireframes mapped the structure — hierarchy and flows before any visual identity.",
+            caption: "Lo-fi wireframes — structure first, personality later.",
           },
-          {
-            type: "solution",
-            wide: true,
-            title: "A guided adoption journey",
-            tag: "↔ Problem 01",
-            paras: [
-              "A step-by-step process page shows exactly what happens between applying and bringing a cat home. A short match quiz narrows the gallery to cats that fit an adopter's home and habits — browsing becomes matching, and the application form arrives pre-contextualized.",
-            ],
-            media: ["tinypaws-shot-process", "tinypaws-shot-quiz", "tinypaws-shot-form"],
-            caption: "Process, match quiz, application — one guided path.",
-          },
-          {
-            type: "solution",
-            wide: true,
-            title: "Cat profiles that earn trust",
-            tag: "↔ Problem 02",
-            paras: [
-              "Every profile leads with the facts adopters asked for: vaccination and spay-neuter status, medical notes, temperament, and the cat's own story. Trust is built by disclosure, not decoration.",
-            ],
-            media: ["tinypaws-shot-adopt", "tinypaws-shot-profile", "tinypaws-shot-profile-medical"],
-            caption: "The gallery and profile: records first, cuteness second.",
-          },
-          {
-            type: "solution",
-            wide: true,
-            title: "Support that doesn't end at adoption",
-            tag: "↔ Problem 03",
-            paras: [
-              "Foster, volunteer, donate, and events live under one Get Involved roof, and adopters leave with resources — cost guides, behaviour help, and what to expect in the first weeks. The relationship outlives the transaction.",
-            ],
-            media: ["tinypaws-shot-involve", "tinypaws-shot-events", "tinypaws-shot-home"],
-            caption:
-              "Get involved, events, and the home page that ties the journey together.",
-          },
-          { type: "h", text: "Tested twice. Fixed twice." },
+          { type: "h", text: "The first test broke the structure, not the visuals" },
           {
             type: "p",
-            text: "Task-based sessions with «TBD: lo-fi 참가자 수» participants at low fidelity caught the structural failures; a second round with «TBD: hi-fi 참가자 수» participants at high fidelity caught what the polish hid. Both rounds shipped fixes.",
+            text: "Task-based sessions with «TBD: lo-fi 참가자 수» participants surfaced structural failures no amount of styling would have fixed — and both fixes shipped into the next fidelity.",
           },
           {
             type: "figure",
             graphic: "tinypaws-ba-nav",
             caption:
-              "Menu labels read as interchangeable — visitors landed on the wrong pages. Navigation was relabelled and reorganized around the three goals.",
+              "Menu labels read as interchangeable — visitors landed on the wrong pages. Navigation was relabelled around the three goals.",
           },
           {
             type: "figure",
@@ -586,39 +513,29 @@ export const PROJECTS = [
         ],
       },
       {
-        id: "visual",
-        label: "05 Visual Language",
+        id: "brand",
+        label: "04 Building the Brand",
         blocks: [
-          {
-            type: "p",
-            text: "Identity and site built across the five-person team — my part: co-designing the identity system and hand-coding it into the shipped site.",
-          },
-          { type: "h", text: "Before the mark, a hundred sketches" },
+          { type: "h", text: "A hundred sketches before the mark" },
           {
             type: "figure",
             graphic: "tinypaws-fig-brand-explore",
-            caption: "Wordmark and mark explorations — the cat found its way into the P.",
+            caption: "Wordmark and mark explorations — the cat slowly finding its way into the P.",
           },
-          { type: "h", text: "A mark with a cat inside" },
           {
             type: "p",
-            text: "The wordmark hides a cat in the letterform: rounded, bubbly type with a silhouette curled into the P — playful enough for a kitten rescue, disciplined enough to run a website.",
+            text: "The final wordmark hides a cat in the letterform: rounded, bubbly type with a silhouette curled into the P — playful enough for a kitten rescue, disciplined enough to run a website.",
           },
           { type: "figure", graphic: "tinypaws-logo" },
           { type: "h", text: "Colours borrowed from a calico" },
           {
             type: "p",
-            text: "The palette comes straight from calico fur — warm orange, deep brown, soft cream. Orange carries actions, brown carries structure, cream keeps the pages calm.",
+            text: "The palette comes straight from calico fur — warm orange, deep brown, soft cream. Orange carries actions, brown carries structure, cream keeps the pages calm. Nexa Round gives headings the brand's voice; Lexend — a typeface designed for reading proficiency — carries the long-form content adopters actually need to read.",
           },
           {
             type: "figure",
             graphic: "tinypaws-fig-styletile",
             caption: "The style tile: palette, type scale, and interactive elements in one sheet.",
-          },
-          { type: "h", text: "Type that sounds like the brand" },
-          {
-            type: "p",
-            text: "Nexa Round's soft geometry gives headings the brand's voice; Lexend — a typeface designed for reading proficiency — carries the long-form content adopters actually need to read.",
           },
           { type: "h", text: "Beyond the screen" },
           {
@@ -628,49 +545,104 @@ export const PROJECTS = [
           {
             type: "figure",
             graphic: "tinypaws-campaign-video",
-            caption: "The promotional film. «TBD: 크레딧 필요 시»",
+            caption: "The promotional film.",
           },
           { type: "tagline", text: "Small paws, safe homes." },
         ],
       },
       {
-        id: "outcome",
-        label: "06 Outcome",
+        id: "experience",
+        label: "05 Designing the Experience",
         blocks: [
-          { type: "h", text: "A working website, not just a mockup." },
-          { type: "cta", label: "Visit the live site", demo: true },
+          {
+            type: "solution",
+            wide: true,
+            title: "A guided adoption journey",
+            paras: [
+              "A step-by-step process page shows exactly what happens between applying and bringing a cat home. A short match quiz narrows the gallery to cats that fit an adopter's home and habits — browsing becomes matching, and the application form arrives pre-contextualized.",
+            ],
+            media: ["tinypaws-shot-process", "tinypaws-shot-quiz", "tinypaws-shot-form"],
+            caption: "Process, match quiz, application — one guided path.",
+          },
+          {
+            type: "solution",
+            wide: true,
+            title: "Cat profiles that earn trust",
+            paras: [
+              "Every profile leads with the facts adopters asked for: vaccination and spay-neuter status, medical notes, temperament, and the cat's own story. Trust is built by disclosure, not decoration.",
+            ],
+            media: ["tinypaws-shot-adopt", "tinypaws-shot-profile", "tinypaws-shot-profile-medical"],
+            caption: "The gallery and profile: records first, cuteness second.",
+          },
+          {
+            type: "solution",
+            wide: true,
+            title: "Support that doesn't end at adoption",
+            paras: [
+              "Foster, volunteer, donate, and events live under one Get Involved roof, and adopters leave with resources — cost guides, behaviour help, and what to expect in the first weeks. The relationship outlives the transaction.",
+            ],
+            media: ["tinypaws-shot-involve", "tinypaws-shot-events", "tinypaws-shot-home"],
+            caption: "Get involved, events, and the home page that ties the journey together.",
+          },
+          { type: "h", text: "The second test caught what the polish hid" },
           {
             type: "p",
-            text: "The design system shipped as a documented spec — tokens, components, and screen definitions — and then as code. The site is hand-built: semantic HTML, design-token CSS, and just enough JavaScript.",
+            text: "With the visual system in place, a second round of task-based sessions with «TBD: hi-fi 참가자 수» participants caught the failures of detail — «TBD: hi-fi 리포트 'Changes Implemented After Testing'에서 구체 수정 2~3개». Structure and polish fail differently; testing twice caught both.",
+          },
+        ],
+      },
+      {
+        id: "shipping",
+        label: "06 Shipping It Myself",
+        blocks: [
+          {
+            type: "p",
+            text: "The site is hand-built — semantic HTML, design-token CSS, and just enough JavaScript — with no CMS, no framework overhead, and nothing between the design system and the pixels.",
+          },
+          { type: "h", text: "The style tile became a stylesheet" },
+          {
+            type: "p",
+            text: "Every colour, type size, and radius from the style tile lives in one tokens file the whole site reads from. The brand isn't applied to the site; the site is compiled from the brand.",
+          },
+          {
+            type: "figure",
+            graphic: "tinypaws-fig-tokens",
+            caption: "One sheet, one file — the style tile and the tokens.css it became.",
+          },
+          { type: "h", text: "Content as data, matching as logic" },
+          {
+            type: "p",
+            text: "Each cat is a content entry — story, temperament, medical record, adoption status — rendered into cards, profiles, and the match quiz from a single source. Add a cat, and the whole site already knows.",
           },
           {
             type: "figure",
             graphic: "tinypaws-fig-devspecs",
-            caption: "The development spec: the handoff document the build follows.",
+            caption: "The development spec the build follows: tokens, components, screen definitions.",
           },
           {
             type: "list",
             items: [
-              "«TBD: 발표/전시 사실 — 확인 후 추가»",
               "Fully responsive and keyboard-navigable, with WCAG AA contrast throughout",
+              "Lighthouse «TBD: 4항목 점수» across performance, accessibility, best practices, and SEO",
               "Scoped to one rescue in Vancouver, built to template for any volunteer-run shelter",
             ],
           },
+          { type: "cta", label: "Visit the live site", demo: true, href: "«TBD: 배포 URL»" },
         ],
       },
       {
         id: "reflection",
         label: "07 Reflection",
         blocks: [
-          { type: "h", text: "Two rounds of testing beat one big one." },
+          { type: "h", text: "Two tests, two different failures." },
           {
             type: "p",
-            text: "Low fidelity caught the failures of structure; high fidelity caught the failures of detail. Neither round would have found the other's problems — the order mattered as much as the testing.",
+            text: "Low fidelity broke where the structure was wrong; high fidelity broke where the details lied. Neither round would have caught the other's problems — the order mattered as much as the testing.",
           },
-          { type: "h", text: "Coding the design closed the loop." },
+          { type: "h", text: "The brand wasn't finished until it compiled." },
           {
             type: "p",
-            text: "Hand-building the site meant every token, breakpoint, and state had to survive contact with real CSS. The design system stopped being a picture of intent and became the implementation itself.",
+            text: "Turning the style tile into tokens, and cats into content entries, was where the design decisions proved themselves — a palette isn't real until it passes contrast in code, and a layout isn't real until real content bends it.",
           },
           { type: "h", text: "With more time" },
           {
