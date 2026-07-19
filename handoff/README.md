@@ -69,6 +69,7 @@ push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 �
     sitemap(FigJam) / lofi-grid / brand-explore / styletile / devspecs / BA 2쌍
     (BA는 옛 레포 `tinypaws_user1~4.webp` ↔ nav/structure 매핑 확인 필요. 추정: user3(텍스트 벽)→user4(섹션형)=structure)
   - «TBD» 토큰 7개(코드 주석 1 포함): 프로그램/수업 명칭·배포 URL(메타 Live Site — cta는 임베드 모달로 대체됨)·lo-fi/hi-fi 참가자 수·영상 크레딧·발표/전시 사실·stats 수치 4개(수치 오기 전까지 stats 블록 자체 미삽입). 기간은 Jan 2025 – May 2025로 확정 반영.
+  - 데모웹 사진 파이프라인 구현됨(`3175de2`): cats 스키마 photos/photoAlt(optional, image() 헬퍼), CatPhoto.astro(astro:assets Image, card 1:1/profile 4:3, 사진 없으면 CatPortrait 일러스트 폴백). 오너가 Unsplash/Pexels 사진을 `src/assets/cats/<slug>-1.jpg`(긴 변 1600px)로 넣고 JSON에 `"photos": ["../../assets/cats/<slug>-1.jpg"]` 추가 + README Credits 기록 → `content: cat photos and credits` 커밋. 사진 반영 시 임베드 재수출 + 케이스 스터디 솔루션 샷 재캡처 고려.
   - 데모웹 소스는 `Jinontheclock/TinyPaws`에 push 완료(base=/TinyPaws). 라이브 배포는 레포 Settings → Pages → Source=GitHub Actions 설정만 남음 → 그 후 «TBD: 배포 URL»에 https://jinontheclock.github.io/TinyPaws/ 반영
 - **⑨ 컴포넌트 상태 보드**(ProLog 05 Visual Language) — 유저 업로드 대기.
 - About의 **Resume 링크**는 아직 `href:"#"` 플레이스홀더.
