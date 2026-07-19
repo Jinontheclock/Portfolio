@@ -409,7 +409,7 @@ export const PROJECTS = [
     ],
     metaLeft: [
       { label: "category", values: ["Website"] },
-      { label: "timeline", values: ["«TBD: 기간»"] },
+      { label: "timeline", values: ["Jan 2025 – May 2025"] },
       { label: "role", values: ["UI/UX Design", "Web Development"] },
       {
         label: "team",
@@ -422,7 +422,7 @@ export const PROJECTS = [
         label: "link",
         values: [
           { label: "Live Site", href: "«TBD: 배포 URL»" },
-          { label: "GitHub", href: "https://github.com/Jinontheclock/TinyPaws-web" },
+          { label: "GitHub", href: "https://github.com/Jinontheclock/TinyPaws" },
         ],
       },
     ],
