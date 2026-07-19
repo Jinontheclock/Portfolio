@@ -108,7 +108,7 @@ function MetaGroup({ rows }) {
   );
 }
 
-function Block({ block, onDemo }) {
+function Block({ block, onDemo, demoHref }) {
   switch (block.type) {
     case "h":
       return (
@@ -150,24 +150,22 @@ function Block({ block, onDemo }) {
         </div>
       );
     case "cta": {
-      /* call to action styled like the demo button. With demo:true it opens
-         the project's embedded demo modal; otherwise it's an external link,
-         disabled while the destination URL is still a «TBD:…» token */
-      const pending = !block.demo && (!block.href || block.href.includes("«TBD"));
+      /* call to action styled like the demo button, opening in a new tab.
+         The destination is block.href, or — while that's still a «TBD:…»
+         token — the project's embedded demo build (demo:true + demoHref).
+         With neither, the button renders disabled. */
+      const external = block.href && !block.href.includes("«TBD") ? block.href : null;
+      const target = external ?? (block.demo ? demoHref : null);
       return (
         <div className="cs-tryapp">
-          {block.demo ? (
-            <button type="button" className="cs-tryapp-btn" onClick={onDemo}>
+          {target ? (
+            <a className="cs-tryapp-btn" href={target} target="_blank" rel="noreferrer">
               {block.label}
-            </button>
-          ) : pending ? (
+            </a>
+          ) : (
             <button type="button" className="cs-tryapp-btn" disabled>
               {block.label}
             </button>
-          ) : (
-            <a className="cs-tryapp-btn" href={block.href} target="_blank" rel="noreferrer">
-              {block.label}
-            </a>
           )}
           {block.note && <span className="cs-tryapp-note">{block.note}</span>}
         </div>
@@ -288,6 +286,9 @@ export default function CaseStudyPage({ lang, setLang }) {
 
   const HeroScene = project.heroScene ? HERO_SCENES[project.heroScene] : null;
 
+  // where a cta with demo:true points until its real URL lands
+  const demoHref = project.demo?.src ? `${import.meta.env.BASE_URL}${project.demo.src}` : null;
+
   const gateActive = !!project.locked && !unlocked;
 
   const scrollTo = (sectionId) => {
@@ -400,7 +401,12 @@ export default function CaseStudyPage({ lang, setLang }) {
                 <section key={s.id} id={`cs-${s.id}`} className="cs-section">
                   <h2 className="cs-section-no">{s.label}</h2>
                   {s.blocks.map((b, i) => (
-                    <Block key={i} block={b} onDemo={() => setDemoOpen(true)} />
+                    <Block
+                      key={i}
+                      block={b}
+                      onDemo={() => setDemoOpen(true)}
+                      demoHref={demoHref}
+                    />
                   ))}
                 </section>
               ))}
