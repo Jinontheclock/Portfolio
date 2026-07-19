@@ -81,6 +81,7 @@ push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 �
   - 모바일 폴리시(`119c0ab`): PageHero에 imagePosition prop(배너 얼굴 크롭 — adopt 72%/38%), 신규 배너 5종(shop=바구니 칼리코·events=야옹 Miso·resources=페르시안 그루밍·about=크레이들 키튼·quiz=진저) ui/banner-*.jpg, Featured = Mochi 미니 콜라주(서클+미니 폴라로이드+발자국, 전 해상도), adopt 러닝 필·도네이션 티어 모바일 1행, 모바일 히어로 상단 패딩 축소, shop 첫 섹션 패딩 축소.
   - adopt 페이지네이션(`603ddce`): 10마리/페이지(24마리=3페이지), 필터 변경 시 1페이지 리셋, 결과 ≤10이면 페이저 숨김, 카운터 "1–10 of 24 cats". 샵 백 배너 문장 nowrap+모바일 0.82rem 한 줄 고정.
   - 최종 점검 통과: 60페이지 크롤(내부 링크 404 0, 깨진 이미지 0, JS/콘솔 에러 0, 데스크톱·모바일 오버플로 0), 주요 12페이지 Lighthouse 전 카테고리(perf 93~100·a11y 100·bp 100·seo 100). 따뜻해진 배경에서 대비 미달이던 rgba(48,24,0,0.6) 텍스트 4곳 → 0.7 보정.
+  - 디벨롭 5종(`0ca22bf`): ① 프로필 사진 갤러리(사진 2장+인 고양이는 썸네일 탭 전환, aria-selected, 본문 하단 사진 제거) ② 이벤트 adoption day 카드에 "Meet them there" 고양이 아바타 3+N(대기 오래된 순, 이벤트별 로테이션, 프로필 링크) ③ 퀴즈 결과 = 상위 3매치 카드(Best/Close second/Also great + 이유 1줄 + 성격 태그 — JS 생성 DOM이라 스타일은 .result-cards :global() 필수) ④ 404 = "This page has already been adopted." 일러스트+Adopted! 뱃지 ⑤ 폰트 woff2 4종 preload(폰트 스왑 CLS 제거) + shop 백 바 라인 예약 높이/모바일 flex-basis 100%(로드 중 리플로 제거) → events 100·CLS 0, shop 98·CLS 0, quiz·profile 100/100/100/100.
   - 데모웹 소스는 `Jinontheclock/TinyPaws`에 push 완료(base=/TinyPaws). 라이브 배포는 레포 Settings → Pages → Source=GitHub Actions 설정만 남음 → 그 후 «TBD: 배포 URL»에 https://jinontheclock.github.io/TinyPaws/ 반영
 - **⑨ 컴포넌트 상태 보드**(ProLog 05 Visual Language) — 유저 업로드 대기.
 - About의 **Resume 링크**는 아직 `href:"#"` 플레이스홀더.
@@ -92,5 +93,5 @@ push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 �
 
 ## 현재 상태 (이 핸드오프 시점)
 - Portfolio: TinyPaws 케이스 스터디 + 임베드 데모 모달(데스크톱 우선) 배포 완료.
-- TinyPaws 데모웹: GitHub `Jinontheclock/TinyPaws` main = `9a040c4` (로컬 /home/claude/TinyPaws-web).
+- TinyPaws 데모웹: GitHub `Jinontheclock/TinyPaws` main = `0ca22bf` (로컬 /home/claude/TinyPaws-web).
 - ProLog: GitHub `main` = `93f79c9` (세션 작업 전부 푸시됨, 패치 불필요).
