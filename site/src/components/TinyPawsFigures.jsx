@@ -1,4 +1,3 @@
-import journeyImg from "../assets/tinypaws/tinypaws-fig-journey.webp";
 import personaEmily from "../assets/tinypaws/tinypaws-persona-emily.webp";
 import personaAlex from "../assets/tinypaws/tinypaws-persona-alex.webp";
 import logoImg from "../assets/tinypaws/tinypaws-logo.webp";
@@ -17,16 +16,6 @@ import shotHome from "../assets/tinypaws/tinypaws-shot-home.webp";
    the owner hasn't exported yet (sitemap, lo-fi grid, brand exploration,
    style tile, dev specs, the before/after pairs) are not registered — their
    blocks render nothing until the assets land. */
-
-export function TPJourneyFigure() {
-  return (
-    <img
-      src={journeyImg}
-      alt="The five-step adoption journey from first visit to homecoming: browse and meet, apply, chat with a volunteer, a one-week trial stay, and making it official"
-      loading="lazy"
-    />
-  );
-}
 
 export function TPPersonaEmilyFigure() {
   return (
@@ -93,7 +82,7 @@ export const TINYPAWS_SHOTS = {
   },
   "tinypaws-shot-adopt": {
     src: shotAdopt,
-    alt: "The adoption gallery: age and status filters, a live result count, and illustrated cat cards with temperament tags",
+    alt: "The adoption gallery: age and status filters, a live result count, and cat cards mixing real photos with illustrated stand-ins",
   },
   "tinypaws-shot-profile": {
     src: shotProfile,

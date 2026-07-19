@@ -31,7 +31,6 @@ import {
 } from "../components/ProLogContextFigures.jsx";
 import { PROLOG_SHOTS } from "../components/ProLogContextFigures.jsx";
 import {
-  TPJourneyFigure,
   TPPersonaEmilyFigure,
   TPPersonaAlexFigure,
   TPLogoFigure,
@@ -66,7 +65,6 @@ const FIGURES = {
   "prolog-showcase-stage": ShowcaseStageFigure,
   "prolog-showcase-crowd": ShowcaseCrowdFigure,
   "prolog-showcase-booth": ShowcaseBoothFigure,
-  "tinypaws-fig-journey": TPJourneyFigure,
   "tinypaws-persona-emily": TPPersonaEmilyFigure,
   "tinypaws-persona-alex": TPPersonaAlexFigure,
   "tinypaws-logo": TPLogoFigure,
