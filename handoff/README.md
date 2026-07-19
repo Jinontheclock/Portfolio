@@ -69,7 +69,8 @@ push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 �
   - «TBD» 8개: 프로그램/수업 명칭 · 배포 URL×3(메타+cta 2) · lo-fi 참가자 수 · hi-fi 참가자 수 · hi-fi 수정사항 2~3개 · Lighthouse 4항목 점수(재구축 데모 실측은 99~100 — 오너가 쓸지 결정)
   - 데모웹 사진 반영 완료(`f66e336`): 피그마 hi-fi에서 추출(노드별 스크린샷→트랜스크립트 base64, 원본 해상도=캔버스 크기 한계). biscuit/mochi/nori 2장, pepper 1장; **clementine(칼리코 없음)·tofu(흰 고양이 후보가 워터마크 인스타 사진뿐)는 일러스트 폴백 유지**. 배너 히어로 3페이지(adopt/adoption/get-involved), 홈 히어로 사진 페어+포스터 가족 사진. hi-fi 그리드 자산(tinypaws-fig-hifi-grid.webp)은 케이스 스터디 캡션 확정 대기.
   - (구) 사진 파이프라인 구현(`3175de2`): cats 스키마 photos/photoAlt(optional, image() 헬퍼), CatPhoto.astro(astro:assets Image, card 1:1/profile 4:3, 사진 없으면 CatPortrait 일러스트 폴백). 오너가 Unsplash/Pexels 사진을 `src/assets/cats/<slug>-1.jpg`(긴 변 1600px)로 넣고 JSON에 `"photos": ["../../assets/cats/<slug>-1.jpg"]` 추가 + README Credits 기록 → `content: cat photos and credits` 커밋. 사진 반영 시 임베드 재수출 + 케이스 스터디 솔루션 샷 재캡처 고려.
-  - 데모웹 IA를 hi-fi와 동기화(`9c617bf`): 헤더 = Adopt·Resources·Get Involved·Events·Gift Shop·About us + 검색 아이콘 + Donate Now. 신규 페이지: /resources/(+caring-for-a-cat 아티클), /shop/(일러스트 상품+데모 백), /about/, /search/(정적 인덱스). 홈 구성 = 히어로→피처드 캣→3스텝→Personalities 오렌지 밴드→Why we do→You've helped(500+ 스탯). 푸터 = Info/Action/Subscribe(데모) + 연락처. 퀴즈는 내비에서 빠졌지만 홈 히어로·푸터·검색으로 접근 가능.
+  - 데모웹 IA를 hi-fi와 동기화(`9c617bf`): 헤더 = Adopt·Resources·Get Involved·Events·Gift Shop·About us + 검색 아이콘 + Donate Now. 신규 페이지: /resources/(+caring-for-a-cat 아티클), /shop/(일러스트 상품+데모 백), /about/. 홈 구성 = 히어로→피처드 캣→3스텝→Personalities 오렌지 밴드→Why we do→You've helped(500+ 스탯). 푸터 = Info/Action/Subscribe(데모) + 연락처. 퀴즈는 내비에서 빠졌지만 홈 히어로·푸터·검색으로 접근 가능.
+  - 대형 배치 2건 반영(TinyPaws `29a5819`→`56d7527`, Portfolio `3eb88ff`): 실제 로고 자산(wordmark 헤더/mark-orange 푸터, src/assets/ui/), **검색은 /search/ 페이지 삭제 → 헤더 인라인 드롭다운**(#search-panel, 빌드타임 인덱스, ESC/× 닫기), 샵 상단 백 바(JS로 헤더 높이에 밀착), 카트(썸네일·수량 스테퍼·서머리), 체크아웃(프로세스 바 Bag✓→Details→Confirmation + 결제수단 라디오 Apple Pay/Credit card/PayPal — 카드번호 미수집·데모 명시), About = Our Story 피그마 verbatim 3문단 + **Our Mission 5카드**(Rescue & Rehabilitate/Foster-based support/Forever Home/Community Education/Lifelong Advocacy, 브랜드 SVG 아이콘), Get involved에 **Our Wishlist 5카테고리**. Lighthouse: about 100/100/100, checkout a11y 100, shop perf 91. 케이스 스터디 샷 9장 재캡처(새 워드마크 헤더 반영) + 임베드 재수출 완료.
   - 데모웹 소스는 `Jinontheclock/TinyPaws`에 push 완료(base=/TinyPaws). 라이브 배포는 레포 Settings → Pages → Source=GitHub Actions 설정만 남음 → 그 후 «TBD: 배포 URL»에 https://jinontheclock.github.io/TinyPaws/ 반영
 - **⑨ 컴포넌트 상태 보드**(ProLog 05 Visual Language) — 유저 업로드 대기.
 - About의 **Resume 링크**는 아직 `href:"#"` 플레이스홀더.
@@ -81,5 +82,5 @@ push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 �
 
 ## 현재 상태 (이 핸드오프 시점)
 - Portfolio: TinyPaws 케이스 스터디 + 임베드 데모 모달(데스크톱 우선) 배포 완료.
-- TinyPaws 데모웹: GitHub `Jinontheclock/TinyPaws` main = `09235fc` (로컬 /home/claude/TinyPaws-web).
+- TinyPaws 데모웹: GitHub `Jinontheclock/TinyPaws` main = `56d7527` (로컬 /home/claude/TinyPaws-web).
 - ProLog: GitHub `main` = `93f79c9` (세션 작업 전부 푸시됨, 패치 불필요).
