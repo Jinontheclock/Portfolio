@@ -72,6 +72,7 @@ push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 �
   - 데모웹 IA를 hi-fi와 동기화(`9c617bf`): 헤더 = Adopt·Resources·Get Involved·Events·Gift Shop·About us + 검색 아이콘 + Donate Now. 신규 페이지: /resources/(+caring-for-a-cat 아티클), /shop/(일러스트 상품+데모 백), /about/. 홈 구성 = 히어로→피처드 캣→3스텝→Personalities 오렌지 밴드→Why we do→You've helped(500+ 스탯). 푸터 = Info/Action/Subscribe(데모) + 연락처. 퀴즈는 내비에서 빠졌지만 홈 히어로·푸터·검색으로 접근 가능.
   - 대형 배치 2건 반영(TinyPaws `29a5819`→`56d7527`, Portfolio `3eb88ff`): 실제 로고 자산(wordmark 헤더/mark-orange 푸터, src/assets/ui/), **검색은 /search/ 페이지 삭제 → 헤더 인라인 드롭다운**(#search-panel, 빌드타임 인덱스, ESC/× 닫기), 샵 상단 백 바(JS로 헤더 높이에 밀착), 카트(썸네일·수량 스테퍼·서머리), 체크아웃(프로세스 바 Bag✓→Details→Confirmation + 결제수단 라디오 Apple Pay/Credit card/PayPal — 카드번호 미수집·데모 명시), About = Our Story 피그마 verbatim 3문단 + **Our Mission 5카드**(Rescue & Rehabilitate/Foster-based support/Forever Home/Community Education/Lifelong Advocacy, 브랜드 SVG 아이콘), Get involved에 **Our Wishlist 5카테고리**. Lighthouse: about 100/100/100, checkout a11y 100, shop perf 91. 케이스 스터디 샷 9장 재캡처(새 워드마크 헤더 반영) + 임베드 재수출 완료.
   - hi-fi 구조 패스(TinyPaws `408895b`, Portfolio `ab86742`): 푸터 legal © 줄 먼저·줄별 한 줄, 홈 3스텝 = 아이콘 트리오+점선 연결+오렌지 타이틀+브라운 필(hi-fi식), 홈 Why/You've-helped 한 섹션 통합(교차 행, 커플 사진 family-couple.jpg — 유저 스크린샷에서 추출·업스케일 638px), /adoption/ 5스텝 = 지그재그 원형 고양이 사진+오렌지 링+점선 스파인+Ready-to-adopt 브라운 밴드, About Our Mission = 타우프 밴드(--paw-taupe #86715E) 3+2 크림 서클(악수/핸드하트/하우스하트/전구/발자국), Get involved 볼런티어 = 다크 "What you can expect" 밴드(원형 사진 3), 위시리스트 = 타우프 밴드 아이콘 서클+불릿 행. [data-reveal] 스크롤 리빌(IntersectionObserver, Base.astro). Lighthouse 4페이지 99~100/100/100. 피그마 보드 원본은 scratchpad/hifi-grid.png(1999px) 참고.
+  - 고양이 24마리로 확장(`002f6b7`): 오너가 `site/public/media/tinypaws/`에 올린 사진 16장 반영 — 신규 13(miso·clover·ginger·peanut·waffles·poppy·marmalade(사진2장)·truffle·sunny·willow·hazel·ash·pebble), clementine·tofu 일러스트 폴백 → 실사진 전환(tofu breed는 White & Grey로 수정), Miso는 nori.json 서사에 맞춰 sister·bonded pending. adopt 나이 필터가 weeks/years 파싱하도록 수정(기존 parseInt는 "3 years"를 kitten으로 오분류). 원본 업로드 파일은 그대로 site/public/media/tinypaws/에 남아 있음.
   - 데모웹 소스는 `Jinontheclock/TinyPaws`에 push 완료(base=/TinyPaws). 라이브 배포는 레포 Settings → Pages → Source=GitHub Actions 설정만 남음 → 그 후 «TBD: 배포 URL»에 https://jinontheclock.github.io/TinyPaws/ 반영
 - **⑨ 컴포넌트 상태 보드**(ProLog 05 Visual Language) — 유저 업로드 대기.
 - About의 **Resume 링크**는 아직 `href:"#"` 플레이스홀더.
@@ -83,5 +84,5 @@ push 전 rebase 폴백 준비. 모델 식별자는 커밋/PR/코드에 넣지 �
 
 ## 현재 상태 (이 핸드오프 시점)
 - Portfolio: TinyPaws 케이스 스터디 + 임베드 데모 모달(데스크톱 우선) 배포 완료.
-- TinyPaws 데모웹: GitHub `Jinontheclock/TinyPaws` main = `408895b` (로컬 /home/claude/TinyPaws-web).
+- TinyPaws 데모웹: GitHub `Jinontheclock/TinyPaws` main = `002f6b7` (로컬 /home/claude/TinyPaws-web).
 - ProLog: GitHub `main` = `93f79c9` (세션 작업 전부 푸시됨, 패치 불필요).
