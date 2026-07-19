@@ -76,7 +76,8 @@ export function TPVideoFigure() {
 }
 
 /* site screens used by the Solution section's split rows — real captures
-   of the rebuilt site at mobile width */
+   of the rebuilt site at desktop width (the site is desktop-first; the
+   solution rows stack these full-width via the block's wide flag) */
 export const TINYPAWS_SHOTS = {
   "tinypaws-shot-process": {
     src: shotProcess,

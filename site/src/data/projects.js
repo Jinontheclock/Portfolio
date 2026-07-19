@@ -534,6 +534,7 @@ export const PROJECTS = [
           },
           {
             type: "solution",
+            wide: true,
             title: "A guided adoption journey",
             tag: "↔ Problem 01",
             paras: [
@@ -544,6 +545,7 @@ export const PROJECTS = [
           },
           {
             type: "solution",
+            wide: true,
             title: "Cat profiles that earn trust",
             tag: "↔ Problem 02",
             paras: [
@@ -554,6 +556,7 @@ export const PROJECTS = [
           },
           {
             type: "solution",
+            wide: true,
             title: "Support that doesn't end at adoption",
             tag: "↔ Problem 03",
             paras: [

@@ -322,6 +322,17 @@
   border: 1px solid var(--grey-100, #e5e5e5);
   display: block;
 }
+/* wide (desktop-width) screenshots: the row breaks to one column — text
+   first, then the shots stacked at full content width, one per row */
+.cs-solution-row:has(.cs-shots--wide) {
+  grid-template-columns: 1fr;
+}
+.cs-shots--wide {
+  flex-direction: column;
+}
+.cs-shots--wide img {
+  flex: none;
+}
 
 /* in-page figures with an optional caption below */
 .cs-figure {

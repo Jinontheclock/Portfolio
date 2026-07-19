@@ -195,7 +195,9 @@ function Block({ block, onDemo }) {
               ))}
             </div>
             <figure className="cs-solution-media">
-              <div className="cs-shots">
+              {/* wide: landscape desktop screenshots stack vertically instead
+                  of sharing one row like the portrait phone shots */}
+              <div className={"cs-shots" + (block.wide ? " cs-shots--wide" : "")}>
                 {block.media.map((m) => (
                   <img key={m} src={SHOTS[m].src} alt={SHOTS[m].alt} loading="lazy" />
                 ))}
