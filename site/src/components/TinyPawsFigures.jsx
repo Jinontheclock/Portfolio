@@ -22,18 +22,29 @@ import baCtaBefore from "../assets/tinypaws/tinypaws-ba-cta-before.webp";
 import baCtaAfter from "../assets/tinypaws/tinypaws-ba-cta-after.webp";
 import figStyleTile from "../assets/tinypaws/tinypaws-fig-styletile.webp";
 import figTokens from "../assets/tinypaws/tinypaws-fig-tokens.webp";
+import figContentModel from "../assets/tinypaws/tinypaws-fig-content-model.webp";
 
 /* Context figures for the TinyPaws case study. Figures whose source images
-   the owner hasn't exported yet (brand exploration, content model) are not
-   registered — their blocks render nothing until the assets land. */
+   the owner hasn't exported yet (brand exploration) are not registered —
+   their blocks render nothing until the assets land. */
 
 /* ── 06 Shipping It Myself: the style tile beside the tokens.css it
-   compiled into. ── */
+   compiled into, and one cat entry branching into its three surfaces. ── */
 export function TPTokensFigure() {
   return (
     <img
       src={figTokens}
       alt="The TinyPaws style tile beside the tokens.css file it became — the same colours, type sizes, and radii as CSS custom properties"
+      loading="lazy"
+    />
+  );
+}
+
+export function TPContentModelFigure() {
+  return (
+    <img
+      src={figContentModel}
+      alt="One cat's data entry branching into three rendered surfaces — a gallery card, a full profile, and a match-quiz result"
       loading="lazy"
     />
   );
