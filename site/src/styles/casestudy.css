@@ -201,16 +201,18 @@
   display: none;
 }
 
-/* the journey animation: the inlined SVG keeps its own near-square shape
-   and scales with the space it's given */
+/* the journey animation: the video keeps its own near-square shape and
+   scales with the space it's given; its baked-in background matches the
+   page (#FAFAFA) so it never reads as a media box */
 .cs-journey {
   width: 100%;
-  aspect-ratio: 1290 / 1259; /* the journey SVG's viewBox */
+  aspect-ratio: 1200 / 1000; /* the animation video's frame */
 }
-.cs-journey svg {
+.cs-journey video {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 
 /* hero video (replaces the placeholder when a project sets heroVideo):
