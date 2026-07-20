@@ -603,12 +603,12 @@ export const PROJECTS = [
         blocks: [
           {
             type: "p",
-            text: "The site is hand-built — semantic HTML, design-token CSS, and just enough JavaScript — with no CMS, no framework overhead, and nothing between the design system and the pixels.",
+            text: "I built the site in code myself — semantic HTML, design-token CSS, and just enough JavaScript, with no CMS behind it. A rescue's site is content, not software: cats, events, guides. That made a static build the honest choice — fast, cheap to run, and driven by a design system that is the site's source of truth rather than a theme's approximation of it.",
           },
           { type: "h", text: "The style tile became a stylesheet" },
           {
             type: "p",
-            text: "Every colour, type size, and radius from the style tile lives in one tokens file the whole site reads from. The brand isn't applied to the site; the site is compiled from the brand.",
+            text: "Every colour, type size, and radius from the style tile lives in one tokens file the whole site reads from — the brand isn't applied to the site, the site is compiled from the brand. That's also where the design got tested: orange on cream measured 2.85:1, under the AA line, so body-size orange became a darkened #A65300 (4.6:1) and orange buttons carry dark-brown labels instead of white. A palette isn't real until it passes contrast in code.",
           },
           {
             type: "figure",
@@ -622,8 +622,13 @@ export const PROJECTS = [
           },
           {
             type: "figure",
-            graphic: "tinypaws-fig-devspecs",
-            caption: "The development spec the build follows: tokens, components, screen definitions.",
+            graphic: "tinypaws-fig-content-model",
+            caption: "One cat entry, three surfaces — the same record becomes a card, a full profile, and a quiz match.",
+          },
+          { type: "h", text: "Honest by construction" },
+          {
+            type: "p",
+            text: "Nothing on the site pretends to do more than it does. Forms validate and confirm success without sending anything, and say so. The match quiz is plain additive scoring over the cats' own records — a match quiz, never \"AI\". Donation buttons are marked as a demo. And the pages that were out of scope — shop, forum, login — simply don't exist, so there are no dead ends. A demo can still be honest about what it is.",
           },
           {
             type: "list",
@@ -634,6 +639,7 @@ export const PROJECTS = [
             ],
           },
           { type: "cta", label: "Visit the live site", demo: true, href: "https://jinontheclock.github.io/TinyPaws/" },
+          { type: "cta", label: "Read the code on GitHub", href: "https://github.com/Jinontheclock/TinyPaws" },
         ],
       },
       {
