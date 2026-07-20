@@ -536,7 +536,7 @@ export const PROJECTS = [
           { type: "h", text: "Colours borrowed from a calico" },
           {
             type: "p",
-            text: "The palette comes straight from calico fur — warm orange, deep brown, soft cream. Orange carries actions, brown carries structure, cream keeps the pages calm. Nexa Round gives headings the brand's voice; Lexend — a typeface designed for reading proficiency — carries the long-form content adopters actually need to read.",
+            text: "The palette comes straight from calico fur — warm orange, deep brown, soft cream. Orange carries actions, brown carries structure, cream keeps the pages calm. Fredoka gives headings the brand's voice; Lexend — a typeface designed for reading proficiency — carries the long-form content adopters actually need to read.",
           },
           {
             type: "figure",
