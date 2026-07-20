@@ -421,7 +421,7 @@ export const PROJECTS = [
       {
         label: "link",
         values: [
-          { label: "Live Site", href: "«TBD: 배포 URL»" },
+          { label: "Live Site", href: "https://jinontheclock.github.io/TinyPaws/" },
           { label: "GitHub", href: "https://github.com/Jinontheclock/TinyPaws" },
         ],
       },
@@ -435,7 +435,7 @@ export const PROJECTS = [
             type: "p",
             text: "A rescue's website does one job: turn goodwill into homes. TinyPaws needed a site that could explain adoption to first-timers, prove its cats' histories to careful adopters, and make giving — time, foster space, money — feel as easy as browsing.",
           },
-          { type: "cta", label: "Visit the live site", demo: true, href: "«TBD: 배포 URL»" },
+          { type: "cta", label: "Visit the live site", demo: true, href: "https://jinontheclock.github.io/TinyPaws/" },
           {
             type: "p",
             text: "My part on the five-person team: co-designing the user experience, building the brand into a working design system, and writing the code the site runs on.",
@@ -633,7 +633,7 @@ export const PROJECTS = [
               "Scoped to one rescue in Vancouver, built to template for any volunteer-run shelter",
             ],
           },
-          { type: "cta", label: "Visit the live site", demo: true, href: "«TBD: 배포 URL»" },
+          { type: "cta", label: "Visit the live site", demo: true, href: "https://jinontheclock.github.io/TinyPaws/" },
         ],
       },
       {
