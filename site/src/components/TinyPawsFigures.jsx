@@ -20,10 +20,22 @@ import baStructureBefore from "../assets/tinypaws/tinypaws-ba-structure-before.w
 import baStructureAfter from "../assets/tinypaws/tinypaws-ba-structure-after.webp";
 import baCtaBefore from "../assets/tinypaws/tinypaws-ba-cta-before.webp";
 import baCtaAfter from "../assets/tinypaws/tinypaws-ba-cta-after.webp";
+import figStyleTile from "../assets/tinypaws/tinypaws-fig-styletile.webp";
 
 /* Context figures for the TinyPaws case study. Figures whose source images
-   the owner hasn't exported yet (brand exploration, style tile, dev specs)
-   are not registered — their blocks render nothing until the assets land. */
+   the owner hasn't exported yet (brand exploration, dev specs) are not
+   registered — their blocks render nothing until the assets land. */
+
+/* ── 04 Building the Brand: the style tile / brand board. ── */
+export function TPStyleTileFigure() {
+  return (
+    <img
+      src={figStyleTile}
+      alt="The TinyPaws brand board — logo variants, the Fredoka and Lexend type scale, the calico-drawn colour palette with hex values, and the five brand-mission icons"
+      loading="lazy"
+    />
+  );
+}
 
 /* ── 03 Structuring the Site: sitemap, lo-fi grid, and three before/after
    pairs (nav / structure / CTA). BeforeAfter is shared with ProLog; the
