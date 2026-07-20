@@ -405,7 +405,7 @@ export const PROJECTS = [
     headline: "A clear path from stray to safe home.",
     demo: { src: "tinypaws/", variant: "web" },
     intro: [
-      "TinyPaws is the website of a volunteer-run kitten rescue in Vancouver — the rescue's front door, where adopters decide whether to trust, apply, or leave. On a five-person team, I co-designed the UX, built the visual identity, and hand-coded the site itself. Created for «TBD: 프로그램/수업 명칭» at BCIT.",
+      "TinyPaws is the website of a volunteer-run kitten rescue in Vancouver — the rescue's front door, where adopters decide whether to trust, apply, or leave. On a five-person team, I co-designed the UX, built the visual identity, and hand-coded the site itself. Created for MDIA 2003 Project 1 at BCIT.",
     ],
     metaLeft: [
       { label: "category", values: ["Website"] },
