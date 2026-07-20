@@ -33,13 +33,17 @@ export default function ProLogJourney() {
 
     // plays through once, then holds the final frame; the playhead only
     // advances while the hero is on screen, so scrolling away doesn't
-    // burn through the play unseen
+    // burn through the play unseen. React drops the muted attribute from
+    // its rendered DOM, so re-assert it before playing or the browser's
+    // autoplay policy rejects the play() call.
     let ended = false;
     video.addEventListener("ended", () => (ended = true), { once: true });
     const io = new IntersectionObserver(([e]) => {
       if (ended) return;
-      if (e.isIntersecting) video.play().catch(() => {});
-      else video.pause();
+      if (e.isIntersecting) {
+        video.muted = true;
+        video.play().catch(() => {});
+      } else video.pause();
     });
     io.observe(video);
     return () => io.disconnect();
