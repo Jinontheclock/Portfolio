@@ -1,13 +1,12 @@
 import { useEffect, useRef } from "react";
-import monitorUrl from "../assets/tinypaws/tinypaws-monitor-mockup.webp";
 
 /* TinyPaws case-study hero: the live-site screen recording playing inside
-   a desktop monitor mockup, above the headline. The video sits in the
-   mockup's screen cutout — measured from the frame image (left 2.075%,
-   top 2.634%, 95.85% × 70.03%) — and loops silently like a GIF, with the
-   monitor frame drawn on top. */
+   a desktop monitor, above the headline. The monitor frame is baked into
+   the video itself; its white ground melts into the page background via
+   multiply, so the mockup reads as sitting on the page, not in a box.
+   Loops silently like a GIF. */
 
-const VIDEO_SRC = `${import.meta.env.BASE_URL}media/tinypaws/tinypaws-hero-journey.mp4`;
+const VIDEO_SRC = `${import.meta.env.BASE_URL}media/tinypaws/tinypaws-hero-monitor.mp4`;
 
 export default function TinyPawsMonitor() {
   const videoRef = useRef(null);
@@ -32,7 +31,6 @@ export default function TinyPawsMonitor() {
         aria-hidden="true"
         tabIndex={-1}
       />
-      <img src={monitorUrl} alt="The TinyPaws site playing on a desktop monitor" />
     </div>
   );
 }
