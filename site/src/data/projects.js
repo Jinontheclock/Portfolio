@@ -651,11 +651,6 @@ export const PROJECTS = [
             type: "p",
             text: "Low fidelity broke where the structure was wrong; high fidelity broke where the details lied. Neither round would have caught the other's problems — the order mattered as much as the testing.",
           },
-          { type: "h", text: "The brand wasn't finished until it compiled." },
-          {
-            type: "p",
-            text: "Turning the style tile into tokens, and cats into content entries, was where the design decisions proved themselves — a palette isn't real until it passes contrast in code, and a layout isn't real until real content bends it.",
-          },
           { type: "h", text: "With more time" },
           {
             type: "p",
