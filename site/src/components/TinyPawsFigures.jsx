@@ -21,10 +21,23 @@ import baStructureAfter from "../assets/tinypaws/tinypaws-ba-structure-after.web
 import baCtaBefore from "../assets/tinypaws/tinypaws-ba-cta-before.webp";
 import baCtaAfter from "../assets/tinypaws/tinypaws-ba-cta-after.webp";
 import figStyleTile from "../assets/tinypaws/tinypaws-fig-styletile.webp";
+import figTokens from "../assets/tinypaws/tinypaws-fig-tokens.webp";
 
 /* Context figures for the TinyPaws case study. Figures whose source images
-   the owner hasn't exported yet (brand exploration, dev specs) are not
+   the owner hasn't exported yet (brand exploration, content model) are not
    registered — their blocks render nothing until the assets land. */
+
+/* ── 06 Shipping It Myself: the style tile beside the tokens.css it
+   compiled into. ── */
+export function TPTokensFigure() {
+  return (
+    <img
+      src={figTokens}
+      alt="The TinyPaws style tile beside the tokens.css file it became — the same colours, type sizes, and radii as CSS custom properties"
+      loading="lazy"
+    />
+  );
+}
 
 /* ── 04 Building the Brand: the style tile / brand board. ── */
 export function TPStyleTileFigure() {
