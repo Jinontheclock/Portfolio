@@ -402,6 +402,7 @@ export const PROJECTS = [
     description:
       "A responsive website that turns a cluttered rescue-cat adoption process into one clear, welcoming journey",
     roles: "UI/UX Design, Web Development",
+    heroScene: "monitor",
     headline: "A clear path from stray to safe home.",
     demo: { src: "tinypaws/", variant: "web" },
     intro: [

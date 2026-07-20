@@ -201,6 +201,31 @@
   display: none;
 }
 
+/* ── Hero scene (TinyPaws): the live-site recording inside a desktop
+   monitor mockup ── */
+.cs-monitor {
+  position: relative;
+  margin-bottom: 24px;
+  aspect-ratio: 2000 / 1542; /* the mockup frame image */
+}
+.cs-monitor video {
+  /* the mockup's screen cutout, measured from the frame image */
+  position: absolute;
+  left: 2.075%;
+  top: 2.634%;
+  width: 95.85%;
+  height: 70.033%;
+  object-fit: cover;
+  background: #fff;
+}
+.cs-monitor img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 /* the journey animation: the video keeps its own near-square shape and
    scales with the space it's given; its baked-in background matches the
    page (#FAFAFA) so it never reads as a media box */
