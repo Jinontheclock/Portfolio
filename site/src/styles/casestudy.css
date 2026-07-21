@@ -709,6 +709,11 @@
     /* the journey fills the hero on mobile; its card edge sits at ~26% */
     width: 22%;
   }
+  /* the monitor hero's frame starts at ~17% from the left, so its logo
+     stays inside the blank corner instead of covering the mockup */
+  .cs-monitor .cs-hero-logo {
+    width: 15%;
+  }
   /* chapter list on the left, a small mockup on the right, bottoms flush */
   .cs-toc-row {
     display: flex;
