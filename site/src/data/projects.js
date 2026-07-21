@@ -497,7 +497,7 @@ export const PROJECTS = [
           { type: "h", text: "The first test broke the structure, not the visuals" },
           {
             type: "p",
-            text: "Task-based sessions with «TBD: lo-fi 참가자 수» participants surfaced structural failures no amount of styling would have fixed — and all three fixes shipped into the next fidelity.",
+            text: "Task-based sessions with 14 participants surfaced structural failures no amount of styling would have fixed — and all three fixes shipped into the next fidelity.",
           },
           {
             type: "figure",
@@ -588,7 +588,7 @@ export const PROJECTS = [
           { type: "h", text: "The second test caught what the polish hid" },
           {
             type: "p",
-            text: "With the visual system in place, a second round of task-based sessions with «TBD: hi-fi 참가자 수» participants caught the failures of detail — «TBD: hi-fi 리포트 'Changes Implemented After Testing'에서 구체 수정 2~3개». Structure and polish fail differently; testing twice caught both.",
+            text: "With the visual system in place, a second round of task-based sessions with 14 participants caught the failures of detail — «TBD: hi-fi 리포트 'Changes Implemented After Testing'에서 구체 수정 2~3개». Structure and polish fail differently; testing twice caught both.",
           },
         ],
       },
@@ -629,7 +629,7 @@ export const PROJECTS = [
             type: "list",
             items: [
               "Fully responsive and keyboard-navigable, with WCAG AA contrast throughout",
-              "Lighthouse «TBD: 4항목 점수» across performance, accessibility, best practices, and SEO",
+              "Lighthouse 100 across performance, accessibility, best practices, and SEO",
               "Scoped to one rescue in Vancouver, built to template for any volunteer-run shelter",
             ],
           },
