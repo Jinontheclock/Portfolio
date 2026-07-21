@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 import useLang from "./hooks/useLang.js";
 import Preloader from "./components/Preloader.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
@@ -8,6 +8,18 @@ import WorkPage from "./pages/WorkPage.jsx";
 import CaseStudyPage from "./pages/CaseStudyPage.jsx";
 
 const FADE_MS = 350; // keep in sync with .lang-fade-* in components.css
+
+// every route change starts at the top of the new page — without this the
+// browser keeps the old page's scroll offset, so opening a case study from
+// a scrolled Work page lands mid-chapter (worst on mobile, where the Work
+// page is long)
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 // the boot loader (0→100 count) covers the app's first load on ANY route so
 // no page is ever seen mid-assembly (font refits, hero SVG/image pop-in);
@@ -81,6 +93,7 @@ export default function App() {
 
   return (
     <HashRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage {...shared} />} />
         <Route path="/about" element={<AboutPage {...shared} />} />
