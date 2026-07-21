@@ -583,7 +583,7 @@ export const PROJECTS = [
           { type: "h", text: "The second test caught what the polish hid" },
           {
             type: "p",
-            text: "With the visual system in place, a second round of task-based sessions with five participants caught the failures of detail — uneven image sizes and hard-to-read text on pages like Events and Resources. Images were scaled to one consistent size and the copy cleaned up for readability, and a few confusing page labels were reworded. Structure and polish fail differently; testing twice caught both.",
+            text: "With the visual system in place, a second round of task-based sessions with 14 participants caught the failures of detail — uneven image sizes and hard-to-read text on pages like Events and Resources. Images were scaled to one consistent size and the copy cleaned up for readability, and a few confusing page labels were reworded. Structure and polish fail differently; testing twice caught both.",
           },
         ],
       },
