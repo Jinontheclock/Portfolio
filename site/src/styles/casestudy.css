@@ -211,8 +211,6 @@
   display: block;
   width: 100%;
   height: 100%;
-  /* the video's white ground melts into the page background */
-  mix-blend-mode: multiply;
 }
 
 /* the journey animation: the video keeps its own near-square shape and

@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 
 /* TinyPaws case-study hero: the live-site screen recording playing inside
    a desktop monitor, above the headline. The monitor frame is baked into
-   the video itself; its white ground melts into the page background via
-   multiply, so the mockup reads as sitting on the page, not in a box.
+   the video, and the video's own background is the page background
+   (#FAFAFA), so the mockup reads as sitting on the page, not in a box.
    Loops silently like a GIF.
 
    The video markup is set as a raw HTML string: React omits the `muted`
