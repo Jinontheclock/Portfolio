@@ -665,6 +665,11 @@
     flex-direction: column;
     gap: 28px;
   }
+  /* the headline tracks the viewport so short taglines keep to one line
+     (22px left "home." orphaned on its own line at 390px) */
+  .cs-headline {
+    font-size: clamp(18px, 5.2vw, 21px);
+  }
   /* solution rows stack: text first, then the screens */
   .cs-solution-row {
     grid-template-columns: 1fr;
