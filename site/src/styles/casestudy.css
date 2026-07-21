@@ -267,7 +267,16 @@
   font: 700 var(--size-body) / 1.5 var(--font-ui);
   color: var(--text-primary);
 }
-.cs-block-h:first-of-type {
+/* a heading that opens its section (right after the number) sits flush,
+   but a heading that appears mid-section keeps the full 52px topic break;
+   solution titles keep their own rhythm inside the solution wrapper */
+.cs-section-no + .cs-block-h,
+.cs-solution > .cs-block-h {
+  margin-top: 0;
+}
+/* a section that opens with a solution row starts at the same 16px as any
+   other first block */
+.cs-section-no + .cs-solution {
   margin-top: 0;
 }
 .cs-block-tag {
