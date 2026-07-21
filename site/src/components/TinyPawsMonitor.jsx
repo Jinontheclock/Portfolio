@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import logoUrl from "../assets/tinypaws/tinypaws-logo.webp";
 
 /* TinyPaws case-study hero: the live-site screen recording playing inside
    a desktop monitor, above the headline. The monitor frame is baked into
@@ -48,10 +49,14 @@ export default function TinyPawsMonitor() {
   }, []);
 
   return (
-    <div
-      ref={hostRef}
-      className="cs-monitor"
-      dangerouslySetInnerHTML={{ __html: VIDEO_HTML }}
-    />
+    <div ref={hostRef} className="cs-monitor">
+      {/* the logo floats over the video's blank top-left corner, matching
+          the ProLog hero */}
+      <img className="cs-hero-logo" src={logoUrl} alt="TinyPaws" />
+      <div
+        className="cs-monitor-video"
+        dangerouslySetInnerHTML={{ __html: VIDEO_HTML }}
+      />
+    </div>
   );
 }

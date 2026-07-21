@@ -202,11 +202,14 @@
 }
 
 /* ── Hero scene (TinyPaws): the live-site recording inside a desktop
-   monitor, frame baked into the video ── */
+   monitor, frame baked into the video; the wordmark floats over the
+   video's blank top-left corner like the ProLog hero logo ── */
 .cs-monitor {
+  position: relative;
   margin-bottom: 24px;
   aspect-ratio: 2472 / 1362; /* the video's frame */
 }
+.cs-monitor-video,
 .cs-monitor video {
   display: block;
   width: 100%;
