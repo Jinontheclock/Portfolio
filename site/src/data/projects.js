@@ -527,7 +527,6 @@ export const PROJECTS = [
             type: "p",
             text: "The final wordmark hides a cat in the letterform: rounded, bubbly type with a silhouette curled into the P — playful enough for a kitten rescue, disciplined enough to run a website.",
           },
-          { type: "figure", graphic: "tinypaws-logo" },
           { type: "h", text: "Colours borrowed from a calico" },
           {
             type: "p",

@@ -1,6 +1,5 @@
 import personaEmily from "../assets/tinypaws/tinypaws-persona-emily.webp";
 import personaAlex from "../assets/tinypaws/tinypaws-persona-alex.webp";
-import logoImg from "../assets/tinypaws/tinypaws-logo.webp";
 import videoPoster from "../assets/tinypaws/tinypaws-video-poster.webp";
 import shotProcess from "../assets/tinypaws/tinypaws-shot-process.webp";
 import shotQuiz from "../assets/tinypaws/tinypaws-shot-quiz.webp";
@@ -135,16 +134,6 @@ export function TPPersonaAlexFigure() {
     <img
       src={personaAlex}
       alt="Persona: Alex Kim, 27 — a junior developer and first-time owner in a small apartment who needs beginner-friendly guides, budgeting tools, and easy navigation"
-      loading="lazy"
-    />
-  );
-}
-
-export function TPLogoFigure() {
-  return (
-    <img
-      src={logoImg}
-      alt="The TinyPaws wordmark: rounded orange bubble letterforms with a paw print over the y and a cat silhouette curled into the P"
       loading="lazy"
     />
   );
