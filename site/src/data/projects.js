@@ -632,8 +632,13 @@ export const PROJECTS = [
               "Scoped to one rescue in Vancouver, built to template for any volunteer-run shelter",
             ],
           },
-          { type: "cta", label: "Visit the live site", demo: true, href: "https://jinontheclock.github.io/TinyPaws/" },
-          { type: "cta", label: "Read the code on GitHub", href: "https://github.com/Jinontheclock/TinyPaws" },
+          {
+            type: "cta",
+            buttons: [
+              { label: "Visit the live site", demo: true, href: "https://jinontheclock.github.io/TinyPaws/" },
+              { label: "Read the code on GitHub", href: "https://github.com/Jinontheclock/TinyPaws" },
+            ],
+          },
         ],
       },
       {

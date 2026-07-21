@@ -166,22 +166,26 @@ function Block({ block, onDemo, demoHref }) {
       );
     case "cta": {
       /* call to action styled like the demo button, opening in a new tab.
-         The destination is block.href, or — while that's still a «TBD:…»
-         token — the project's embedded demo build (demo:true + demoHref).
-         With neither, the button renders disabled. */
-      const external = block.href && !block.href.includes("«TBD") ? block.href : null;
-      const target = external ?? (block.demo ? demoHref : null);
+         The destination is each button's href, or — while that's still a
+         «TBD:…» token — the project's embedded demo build (demo:true +
+         demoHref). With neither, the button renders disabled. A block can
+         carry several buttons (block.buttons) that share one row. */
+      const buttons = block.buttons ?? [block];
       return (
         <div className="cs-tryapp">
-          {target ? (
-            <a className="cs-tryapp-btn" href={target} target="_blank" rel="noreferrer">
-              {block.label}
-            </a>
-          ) : (
-            <button type="button" className="cs-tryapp-btn" disabled>
-              {block.label}
-            </button>
-          )}
+          {buttons.map((btn, i) => {
+            const external = btn.href && !btn.href.includes("«TBD") ? btn.href : null;
+            const target = external ?? (btn.demo ? demoHref : null);
+            return target ? (
+              <a key={i} className="cs-tryapp-btn" href={target} target="_blank" rel="noreferrer">
+                {btn.label}
+              </a>
+            ) : (
+              <button key={i} type="button" className="cs-tryapp-btn" disabled>
+                {btn.label}
+              </button>
+            );
+          })}
           {block.note && <span className="cs-tryapp-note">{block.note}</span>}
         </div>
       );
