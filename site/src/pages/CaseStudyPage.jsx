@@ -43,6 +43,8 @@ import {
   TPBANavFigure,
   TPBAStructureFigure,
   TPBACtaFigure,
+  TPMobileHomeFigure,
+  TPMobileProfileFigure,
   TINYPAWS_SHOTS,
 } from "../components/TinyPawsFigures.jsx";
 
@@ -84,6 +86,8 @@ const FIGURES = {
   "tinypaws-ba-nav": TPBANavFigure,
   "tinypaws-ba-structure": TPBAStructureFigure,
   "tinypaws-ba-cta": TPBACtaFigure,
+  "tinypaws-mobile-home": TPMobileHomeFigure,
+  "tinypaws-mobile-profile": TPMobileProfileFigure,
 };
 
 /* solution-row app/site screens, keyed per project (keys are unique

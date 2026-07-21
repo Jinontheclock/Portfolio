@@ -22,6 +22,8 @@ import baCtaAfter from "../assets/tinypaws/tinypaws-ba-cta-after.webp";
 import figStyleTile from "../assets/tinypaws/tinypaws-fig-styletile.webp";
 import figTokens from "../assets/tinypaws/tinypaws-fig-tokens.webp";
 import figContentModel from "../assets/tinypaws/tinypaws-fig-content-model.webp";
+import mobileHome from "../assets/tinypaws/tinypaws-mobile-home.webp";
+import mobileProfile from "../assets/tinypaws/tinypaws-mobile-profile.webp";
 
 /* Context figures for the TinyPaws case study. Figures whose source images
    the owner hasn't exported yet (brand exploration) are not registered —
@@ -152,6 +154,28 @@ export function TPVideoFigure() {
       playsInline
       preload="metadata"
       aria-label="The TinyPaws promotional film"
+    />
+  );
+}
+
+/* ── 05 Designing the Experience: the same site on a phone — responsive
+   proof. Two portrait screens share one row via the figure's graphics[]. ── */
+export function TPMobileHomeFigure() {
+  return (
+    <img
+      src={mobileHome}
+      alt="The TinyPaws home page on a phone — the wordmark with a hamburger menu, the 'Saving kittens, one paw at a time' headline, the Meet our kittens and match-quiz buttons, and the scrapbook photo collage"
+      loading="lazy"
+    />
+  );
+}
+
+export function TPMobileProfileFigure() {
+  return (
+    <img
+      src={mobileProfile}
+      alt="Mochi's cat profile on a phone — a portrait with photo thumbnails, an Available badge, and the facts table: sex, age, breed, and foster location"
+      loading="lazy"
     />
   );
 }

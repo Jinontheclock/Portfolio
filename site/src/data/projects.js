@@ -436,11 +436,11 @@ export const PROJECTS = [
             type: "p",
             text: "A rescue's website does one job: turn goodwill into homes. TinyPaws needed a site that could explain adoption to first-timers, prove its cats' histories to careful adopters, and make giving — time, foster space, money — feel as easy as browsing.",
           },
-          { type: "cta", label: "Visit the live site", demo: true, href: "https://jinontheclock.github.io/TinyPaws/" },
           {
             type: "p",
             text: "My part on the five-person team: co-designing the user experience, building the brand into a working design system, and writing the code the site runs on.",
           },
+          { type: "cta", label: "Visit the live site", demo: true, href: "https://jinontheclock.github.io/TinyPaws/" },
         ],
       },
       {
@@ -579,6 +579,11 @@ export const PROJECTS = [
             ],
             media: ["tinypaws-shot-involve", "tinypaws-shot-events", "tinypaws-shot-home"],
             caption: "Get involved, events, and the home page that ties the journey together.",
+          },
+          {
+            type: "figure",
+            graphics: ["tinypaws-mobile-home", "tinypaws-mobile-profile"],
+            caption: "Built responsive from the start — the home page and Mochi's profile on a phone.",
           },
           { type: "h", text: "The second test caught what the polish hid" },
           {
