@@ -337,15 +337,9 @@
   display: block;
 }
 /* wide (desktop-width) screenshots: the row breaks to one column — text
-   first, then the shots stacked at full content width, one per row */
+   first, then the three shots sharing one row at full content width */
 .cs-solution-row:has(.cs-shots--wide) {
   grid-template-columns: 1fr;
-}
-.cs-shots--wide {
-  flex-direction: column;
-}
-.cs-shots--wide img {
-  flex: none;
 }
 
 /* in-page figures with an optional caption below */
@@ -675,6 +669,10 @@
   .cs-solution-row {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+  /* the wide-screenshot trio is too small three-across on a phone */
+  .cs-shots--wide {
+    flex-direction: column;
   }
   /* hero: the journey takes the full width; the phone mockup moves up
      beside the chapter list, so the hero's own copy disappears */
