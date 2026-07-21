@@ -497,7 +497,7 @@ export const PROJECTS = [
           { type: "h", text: "The first test broke the structure, not the visuals" },
           {
             type: "p",
-            text: "Task-based sessions with «TBD: lo-fi 참가자 수» participants surfaced structural failures no amount of styling would have fixed — and both fixes shipped into the next fidelity.",
+            text: "Task-based sessions with «TBD: lo-fi 참가자 수» participants surfaced structural failures no amount of styling would have fixed — and all three fixes shipped into the next fidelity.",
           },
           {
             type: "figure",
@@ -523,12 +523,6 @@ export const PROJECTS = [
         id: "brand",
         label: "04 Building the Brand",
         blocks: [
-          { type: "h", text: "A hundred sketches before the mark" },
-          {
-            type: "figure",
-            graphic: "tinypaws-fig-brand-explore",
-            caption: "Wordmark and mark explorations — the cat slowly finding its way into the P.",
-          },
           {
             type: "p",
             text: "The final wordmark hides a cat in the letterform: rounded, bubbly type with a silhouette curled into the P — playful enough for a kitten rescue, disciplined enough to run a website.",
@@ -629,7 +623,7 @@ export const PROJECTS = [
           { type: "h", text: "Honest by construction" },
           {
             type: "p",
-            text: "Nothing on the site pretends to do more than it does. Forms validate and confirm success without sending anything, and say so. The match quiz is plain additive scoring over the cats' own records — a match quiz, never \"AI\". Donation buttons are marked as a demo. And the pages that were out of scope — shop, forum, login — simply don't exist, so there are no dead ends. A demo can still be honest about what it is.",
+            text: "Nothing on the site pretends to do more than it does. Forms validate and confirm success without sending anything, and say so. The match quiz is plain additive scoring over the cats' own records — a match quiz, never \"AI\". Donations and the gift shop run their full flows but stay labelled a demo — no card details are asked for and nothing is charged. And the pieces left out of scope — a forum, member logins — simply don't exist, so there are no dead ends. A demo can still be honest about what it is.",
           },
           {
             type: "list",
