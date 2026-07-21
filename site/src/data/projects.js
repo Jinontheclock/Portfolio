@@ -576,11 +576,6 @@ export const PROJECTS = [
             media: ["tinypaws-shot-involve", "tinypaws-shot-events", "tinypaws-shot-home"],
             caption: "Get involved, events, and the home page that ties the journey together.",
           },
-          {
-            type: "figure",
-            graphics: ["tinypaws-mobile-home", "tinypaws-mobile-profile"],
-            caption: "Built responsive from the start — the home page and Mochi's profile on a phone.",
-          },
           { type: "h", text: "The second test caught what the polish hid" },
           {
             type: "p",
