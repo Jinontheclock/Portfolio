@@ -21,6 +21,24 @@ function ScrollToTop() {
   return null;
 }
 
+// media-heavy case studies re-run the count-up cover on in-app entry, so
+// their hero video and figures never appear mid-load (first loads on any
+// route are already covered by the boot Preloader below)
+const COVERED_ROUTES = ["/work/tinypaws"];
+function CaseStudyLoader() {
+  const { pathname } = useLocation();
+  const [covering, setCovering] = useState(false);
+  const prev = useRef(pathname);
+  useEffect(() => {
+    if (pathname !== prev.current) {
+      prev.current = pathname;
+      if (COVERED_ROUTES.includes(pathname)) setCovering(true);
+    }
+  }, [pathname]);
+  if (!covering) return null;
+  return <Preloader onDone={() => setCovering(false)} />;
+}
+
 // the boot loader (0→100 count) covers the app's first load on ANY route so
 // no page is ever seen mid-assembly (font refits, hero SVG/image pop-in);
 // in-app navigation never re-triggers it
@@ -94,6 +112,7 @@ export default function App() {
   return (
     <HashRouter>
       <ScrollToTop />
+      <CaseStudyLoader />
       <Routes>
         <Route path="/" element={<LandingPage {...shared} />} />
         <Route path="/about" element={<AboutPage {...shared} />} />

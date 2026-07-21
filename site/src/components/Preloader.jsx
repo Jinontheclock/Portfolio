@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-/** Boot overlay: an opaque cover with a centered 0→100 count while the page
- *  underneath finishes assembling — webfonts, images, and fetch-injected
- *  heroes (the ProLog journey SVG). The pace is time-eased, but the final
- *  tick to 100 waits for actual readiness, so pages are only ever revealed
- *  complete, never mid-assembly. Shown once, on the app's first load. */
+/** Count-up overlay: an opaque cover with a centered 0→100 count while the
+ *  page underneath finishes assembling — webfonts, images, and the hero
+ *  videos (ProLog journey, TinyPaws monitor). The pace is time-eased, but
+ *  the final tick to 100 waits for actual readiness, so pages are only ever
+ *  revealed complete, never mid-assembly. Covers the app's first load, and
+ *  in-app entry into media-heavy case studies. */
 const PACE_MS = 1400; // the 0→99 run: quick start, easing out
 const MAX_WAIT_MS = 4500; // never hold the page hostage to a slow asset
 const HOLD_MS = 150; // beat at 100 before the fade starts
@@ -22,21 +23,21 @@ export default function Preloader({ onDone }) {
     let raf = 0;
     const timers = [];
 
-    // readiness = webfonts in, every <img> settled, and any fetch-injected
-    // hero (a .cs-journey host) holding its SVG — or the cap expired — plus
-    // two frames so the fonts-ready refits have painted before the reveal
+    // readiness = webfonts in, every eager <img> settled, and any hero
+    // video holding its first frame — or the cap expired — plus two frames
+    // so the fonts-ready refits have painted before the reveal
     const assetsSettled = async () => {
       await (document.fonts?.ready ?? Promise.resolve());
       for (;;) {
         if (cancelled) return;
-        const host = document.querySelector(".cs-journey");
-        const svgIn = !host || !!host.querySelector("svg");
+        const heroVid = document.querySelector(".cs-journey video, .cs-monitor video");
+        const vidIn = !heroVid || heroVid.readyState >= 2;
         // lazy images below the fold never load while the cover is up —
         // only eager (above-the-fold) images gate the reveal
         const imgsIn = [...document.querySelectorAll("img")]
           .filter((i) => i.loading !== "lazy")
           .every((i) => i.complete);
-        if (svgIn && imgsIn) return;
+        if (vidIn && imgsIn) return;
         await new Promise((r) => timers.push(setTimeout(r, 80)));
       }
     };
