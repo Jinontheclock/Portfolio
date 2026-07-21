@@ -436,10 +436,6 @@ export const PROJECTS = [
             type: "p",
             text: "A rescue's website does one job: turn goodwill into homes. TinyPaws needed a site that could explain adoption to first-timers, prove its cats' histories to careful adopters, and make giving — time, foster space, money — feel as easy as browsing.",
           },
-          {
-            type: "p",
-            text: "My part on the five-person team: co-designing the user experience, building the brand into a working design system, and writing the code the site runs on.",
-          },
           { type: "cta", label: "Visit the live site", demo: true, href: "https://jinontheclock.github.io/TinyPaws/" },
         ],
       },
@@ -588,7 +584,7 @@ export const PROJECTS = [
           { type: "h", text: "The second test caught what the polish hid" },
           {
             type: "p",
-            text: "With the visual system in place, a second round of task-based sessions with 14 participants caught the failures of detail — uneven image sizes and hard-to-read text on pages like Events and Resources. Images were scaled to one consistent size and the copy cleaned up for readability, and a few confusing page labels were reworded. Structure and polish fail differently; testing twice caught both.",
+            text: "With the visual system in place, a second round of testing, again with 14, caught the failures of detail — uneven image sizes and hard-to-read text on pages like Events and Resources. Images were scaled to one consistent size and the copy cleaned up for readability, and a few confusing page labels were reworded. Structure and polish fail differently; testing twice caught both.",
           },
         ],
       },
@@ -626,12 +622,16 @@ export const PROJECTS = [
             text: "Nothing on the site pretends to do more than it does. Forms validate and confirm success without sending anything, and say so. The match quiz is plain additive scoring over the cats' own records — a match quiz, never \"AI\". Donations and the gift shop run their full flows but stay labelled a demo — no card details are asked for and nothing is charged. And the pieces left out of scope — a forum, member logins — simply don't exist, so there are no dead ends. A demo can still be honest about what it is.",
           },
           {
-            type: "list",
+            type: "stats",
             items: [
-              "Fully responsive and keyboard-navigable, with WCAG AA contrast throughout",
-              "Lighthouse 100 across performance, accessibility, best practices, and SEO",
-              "Scoped to one rescue in Vancouver, built to template for any volunteer-run shelter",
+              { value: "Lighthouse 100", label: "across performance, accessibility, best practices, and SEO" },
+              { value: "WCAG AA", label: "contrast throughout — fully responsive and keyboard-navigable" },
+              { value: "Two rounds", label: "of usability testing — structure first, then detail" },
             ],
+          },
+          {
+            type: "p",
+            text: "Scoped to one Vancouver rescue, but built to template for any volunteer-run shelter.",
           },
           {
             type: "cta",
