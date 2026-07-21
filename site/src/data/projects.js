@@ -462,7 +462,7 @@ export const PROJECTS = [
           },
           {
             type: "p",
-            text: "Two personas kept the team honest about depth: Emily, a psychiatrist running a multi-cat household with high standards for care, and Alex, a first-time owner in a small apartment who needs guidance more than options. Every claim on their cards traces back to a cited source.",
+            text: "Two personas kept the team honest about depth: Emily, a psychiatrist running a multi-cat household with high standards for care, and Alex, a first-time owner in a small apartment who needs guidance more than options. Both were built from the research above, not invented.",
           },
           {
             type: "figure",
@@ -523,10 +523,6 @@ export const PROJECTS = [
         id: "brand",
         label: "04 Building the Brand",
         blocks: [
-          {
-            type: "p",
-            text: "The final wordmark hides a cat in the letterform: rounded, bubbly type with a silhouette curled into the P — playful enough for a kitten rescue, disciplined enough to run a website.",
-          },
           { type: "h", text: "Colours borrowed from a calico" },
           {
             type: "p",
