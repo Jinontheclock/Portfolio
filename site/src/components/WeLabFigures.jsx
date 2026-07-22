@@ -1,5 +1,4 @@
 import figOldShowcase from "../assets/welab/welab-fig-old-showcase.webp";
-import auditHomeTop from "../assets/welab/welab-audit-home-top.webp";
 import auditHomeFooter from "../assets/welab/welab-audit-home-footer.webp";
 import auditTaxTablet from "../assets/welab/welab-audit-tax-tablet.webp";
 import auditTax1200 from "../assets/welab/welab-audit-tax-1200.webp";
@@ -31,17 +30,14 @@ export function WLOldShowcaseFigure() {
    pages), each cell sized to its device class */
 const AUDIT_ROWS = [
   [
-    { src: auditHomeTop, w: 24, label: "Home — mobile", alt: "The old home page on a phone — the We Love A Battle Entertainment headline, studio blurb, and About Us button on a dark ground" },
-    { src: auditHomeFooter, w: 24, label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
-  ],
-  [
     { src: auditTaxTablet, w: 42, label: "Tax Credits — tablet, 1280px", alt: "The old Tax Credits page at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
     { src: auditTax1200, w: 31, label: "Tax Credits — 1200px, the layout hole", alt: "The old Tax Credits page at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
     { src: auditTaxMobile, w: 19, label: "Tax Credits — mobile", alt: "The old Tax Credits page on a phone — the incentive cards stacked in a single column" },
   ],
   [
-    { src: auditWhoWeAre, w: 48, label: "Who We Are", alt: "The old Who We Are page on desktop — the studio's collective statement beside oversized stat lines" },
-    { src: auditClients, w: 48, label: "Clients & Awards", alt: "The old Clients and Awards page on desktop — a logo wall under the Amazing Battles, Amazed Clients headline" },
+    { src: auditWhoWeAre, w: 41, label: "Who We Are", alt: "The old Who We Are page on desktop — the studio's collective statement beside oversized stat lines" },
+    { src: auditClients, w: 41, label: "Clients & Awards", alt: "The old Clients and Awards page on desktop — a logo wall under the Amazing Battles, Amazed Clients headline" },
+    { src: auditHomeFooter, w: 14, label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
   ],
 ];
 
