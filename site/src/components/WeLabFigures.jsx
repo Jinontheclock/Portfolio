@@ -36,10 +36,11 @@ const AUDIT_ROWS = [
     { src: auditTax1200, w: "calc((100% - 40px) * 0.3207)", label: "Tax Credits — 1200px, the layout hole", alt: "The old Tax Credits page at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
     { src: auditTaxMobile, w: "calc((100% - 40px) * 0.1421)", label: "Tax Credits — mobile", alt: "The old Tax Credits page on a phone — the incentive cards stacked in a single column" },
   ],
+  /* same treatment — 1.332 : 0.849 : 0.460 */
   [
-    { src: auditWhoWeAre, w: 41, label: "Who We Are", alt: "The old Who We Are page on desktop — the studio's collective statement beside oversized stat lines" },
-    { src: auditClients, w: 41, label: "Clients & Awards", alt: "The old Clients and Awards page on desktop — a logo wall under the Amazing Battles, Amazed Clients headline" },
-    { src: auditHomeFooter, w: 14, label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
+    { src: auditWhoWeAre, w: "calc((100% - 40px) * 0.5043)", label: "Who We Are", alt: "The old Who We Are page on desktop — the studio's collective statement beside oversized stat lines" },
+    { src: auditClients, w: "calc((100% - 40px) * 0.3215)", label: "Clients & Awards", alt: "The old Clients and Awards page on desktop — a logo wall under the Amazing Battles, Amazed Clients headline" },
+    { src: auditHomeFooter, w: "calc((100% - 40px) * 0.1742)", label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
   ],
 ];
 
@@ -50,6 +51,8 @@ export function WLOldLandingFigure() {
   return (
     <div className="wl-audit">
       <div className="wl-audit-row">
+        {/* widths in the pair's aspect-ratio proportion (0.479 : 0.177) so
+            both captures render at the same height */}
         <figure className="wl-audit-cell" style={{ width: "55%" }}>
           <img
             src={oldLandingDesktop}
@@ -58,7 +61,7 @@ export function WLOldLandingFigure() {
           />
           <figcaption>Landing — desktop</figcaption>
         </figure>
-        <figure className="wl-audit-cell" style={{ width: "21%" }}>
+        <figure className="wl-audit-cell" style={{ width: "20.34%" }}>
           <img
             src={oldLandingMobile}
             alt="The old landing page on a phone — the hero and the same two project cards stacked in one column"
