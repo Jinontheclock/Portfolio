@@ -87,7 +87,6 @@ export const PROJECTS = [
         label: "link",
         values: [
           { label: "Live Site", href: "https://weloveabattle.com/" },
-          { label: "Before/After Slider", href: "https://weloveabattle.com/project/a-winning-team/" },
         ],
       },
     ],
