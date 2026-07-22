@@ -123,14 +123,24 @@ html.lp-locked body {
   margin: 0 -12px calc(var(--size-lp-nav) * 0.305) -12px;
   margin: 0 -12px
     calc(round(calc(var(--size-lp-nav) * 1.25), 1px) / 2 - var(--size-lp-nav) * 0.32) -12px;
-  /* settles back to the resting spot when hover ends */
-  transition: transform 200ms var(--easing);
+  /* hidden at rest; fades in with the slide on hover, settles back after */
+  opacity: 0;
+  transition: transform 200ms var(--easing), opacity 200ms var(--easing);
 }
 
-/* Hover pushes the arrow rightward, easing in */
-.lp-navlink:hover .lp-arrow {
+/* Hover (or keyboard focus) reveals the arrow and pushes it rightward */
+.lp-navlink:hover .lp-arrow,
+.lp-navlink:focus-visible .lp-arrow {
+  opacity: 1;
   transform: translateX(var(--size-lp-arrow-shift));
-  transition: transform 200ms ease-in;
+  transition: transform 200ms ease-in, opacity 200ms ease-in;
+}
+
+/* no hover on touch screens — keep the arrows always visible there */
+@media (hover: none) {
+  .lp-arrow {
+    opacity: 1;
+  }
 }
 
 /* pinned to the viewport corner — follows the page padding horizontally so
