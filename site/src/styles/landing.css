@@ -8,11 +8,13 @@ body,
   height: 100%;
 }
 
-/* Kill the overscroll (rubber-band) bounce on every page while keeping
-   normal scrolling on About/Work */
+/* Kill the vertical overscroll (rubber-band) bounce on every page while
+   keeping normal scrolling on About/Work. Y-axis only — a blanket `none`
+   would also swallow the trackpad's horizontal swipe-back/forward history
+   gesture in Chrome and Safari */
 html,
 body {
-  overscroll-behavior: none;
+  overscroll-behavior-y: none;
   /* stop iOS Safari from inflating small text after layout — it re-enlarges
      the font-fitted copyright and pushes it past the viewport */
   -webkit-text-size-adjust: 100%;
@@ -27,7 +29,7 @@ body {
 html.lp-locked,
 html.lp-locked body {
   overflow: hidden;
-  overscroll-behavior: none;
+  overscroll-behavior-y: none;
 }
 
 .lp-root {
