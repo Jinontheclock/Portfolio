@@ -112,7 +112,7 @@ export const PROJECTS = [
         blocks: [
           {
             type: "p",
-            text: "The redesign started by reading the site the way a producer would: page by page, desktop and phone, against the sites of the VFX studios WeLAB competes with. Three problems came out of the audit — and they became the spine of the whole internship.",
+            text: "The redesign started by reading the site the way a producer would: page by page, desktop and phone, against the sites of the VFX studios WeLAB competes with. Two problems and one opportunity came out of the audit — and they became the spine of the whole internship.",
           },
           { type: "h", text: "Problem 01 — The work didn't show its magic" },
           {
@@ -134,10 +134,10 @@ export const PROJECTS = [
             graphic: "welab-fig-audit",
             caption: "The old site, annotated — what the audit flagged, page by page.",
           },
-          { type: "h", text: "Problem 03 — A studio in three countries, a site in one language" },
+          { type: "h", text: "The opportunity — a studio in three countries, a site in one language" },
           {
             type: "p",
-            text: "WeLAB operates from Vancouver, Calgary, and Guadalajara — but the site spoke only English, built for its US and Canadian clients. The Mexican market the studio wanted to grow into couldn't read it. Expansion wasn't a marketing problem; it was a website problem.",
+            text: "Through the first half of 2025, WeLAB's slate ran through its Canadian studios, and the site matched: English only, built for the US and Canadian clients it already had. Then the studio's map changed — starting with Shadow of God, a feature backed by Jalisco's film incentive programme, the push into Mexico stopped being a plan and became a slate. The site's own services page was already selling those incentives — in English. Growth wasn't waiting on marketing; it was waiting on the website.",
           },
         ],
       },
@@ -174,7 +174,7 @@ export const PROJECTS = [
             graphic: "welab-fig-figma-layout",
             caption: "The layout system and the recomposed landing page in Figma.",
           },
-          { type: "h", text: "Designed to speak Spanish", tag: "Problem 03" },
+          { type: "h", text: "Designed to speak Spanish", tag: "Opportunity" },
           {
             type: "p",
             text: "Bilingual isn't a translation dropped into the same boxes — «TBD: 언어 대응에서 실제 한 디자인 결정 1~2개(토글 위치, 긴 스페인어 문자열에서의 레이아웃 검증 등)».",
@@ -219,7 +219,7 @@ export const PROJECTS = [
             graphic: "welab-ba-layout",
             caption: "The landing page, before and after the rebuild.",
           },
-          { type: "h", text: "Two languages, one site", tag: "Problem 03" },
+          { type: "h", text: "Two languages, one site", tag: "Opportunity" },
           {
             type: "p",
             text: "«TBD: 스페인어 전환 구현 방식 — EN/ES 토글을 어떤 방법으로 구축했는지» Every page now serves both markets: the same site that sells BC and Alberta production incentives in English sells Jalisco's in Spanish.",
