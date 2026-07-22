@@ -112,21 +112,27 @@ export const PROJECTS = [
         blocks: [
           {
             type: "p",
-            text: "The redesign started by reading the site the way a producer would: page by page, desktop and phone, against the sites of the VFX studios WeLAB competes with.",
+            text: "The redesign started by reading the site the way a producer would: page by page, desktop and phone, against the sites of the VFX studios WeLAB competes with. Three problems came out of the audit — and they became the spine of the whole internship.",
           },
           {
             type: "figure",
             graphic: "welab-fig-audit",
             caption: "The old site, annotated — what the audit flagged, page by page.",
           },
-          { type: "h", text: "What the audit surfaced" },
+          { type: "h", text: "Problem 01 — The work didn't show its magic" },
           {
-            type: "list",
-            items: [
-              "«TBD: audit 발견 1 — 실제 발견한 문제만»",
-              "«TBD: audit 발견 2»",
-              "«TBD: audit 발견 3»",
-            ],
+            type: "p",
+            text: "WeLAB sells transformation: the same frame before the studio touched it, and after. But the site showed only finished stills and reels — a visitor had no way to see what the studio actually changed.",
+          },
+          { type: "h", text: "Problem 02 — Pages without a system" },
+          {
+            type: "p",
+            text: "Each page followed its own layout logic, and the landing page didn't lead anywhere: a producer arriving at the site wasn't guided toward the work, the services, or a reason to call. The site needed one layout system — and a front page composed like an argument.",
+          },
+          { type: "h", text: "Problem 03 — A studio in three countries, a site in one language" },
+          {
+            type: "p",
+            text: "WeLAB operates from Vancouver, Calgary, and Guadalajara — but the site spoke only English, built for its US and Canadian clients. The Mexican market the studio wanted to grow into couldn't read it. Expansion wasn't a marketing problem; it was a website problem.",
           },
         ],
       },
@@ -136,36 +142,53 @@ export const PROJECTS = [
         blocks: [
           {
             type: "p",
-            text: "Every task ran the same loop — mission, ideation, draft, feedback, implementation, feedback, completion. Weekly meetings set the missions; Discord carried the feedback between them, specific enough that each iteration knew exactly what had landed and what hadn't.",
+            text: "Every task ran the same loop — mission, ideation, draft, feedback, implementation, feedback, completion. Weekly meetings set the missions; Discord carried the feedback between them, specific enough that each iteration knew exactly what had landed and what hadn't. Each of the three problems went through that loop in Figma before anything touched the live site.",
           },
           {
             type: "figure",
             graphic: "welab-fig-workflow",
             caption: "One loop per task, with feedback built in twice.",
           },
+          { type: "h", text: "A stage for the before and after", tag: "Problem 01" },
           {
             type: "p",
-            text: "Layouts and flows were worked out in Figma before anything touched the live site — «TBD: 대표 재설계 페이지/플로우 1~2개».",
+            text: "The project-page showcase was designed around the comparison itself: where the frame pair sits, how the reveal reads, and how the page frames each shot as a piece of evidence rather than decoration.",
           },
           {
             type: "figure",
-            graphic: "welab-fig-figma-vs-live",
-            caption: "Designed in Figma, shipped in Bricks — «TBD: 페이지명».",
+            graphic: "welab-fig-figma-slider",
+            caption: "The showcase design in Figma — the comparison at the centre of the page.",
+          },
+          { type: "h", text: "One system, every page", tag: "Problem 02" },
+          {
+            type: "p",
+            text: "A layout system replaced the one-offs — «TBD: 시스템의 실제 구성 요소(그리드·섹션 패턴·타이포 스케일 등)» — and the landing page was recomposed to lead with the studio's strongest work: featured case studies first, services and locations behind them.",
+          },
+          {
+            type: "figure",
+            graphic: "welab-fig-figma-layout",
+            caption: "The layout system and the recomposed landing page in Figma.",
+          },
+          { type: "h", text: "Designed to speak Spanish", tag: "Problem 03" },
+          {
+            type: "p",
+            text: "Bilingual isn't a translation dropped into the same boxes — «TBD: 언어 대응에서 실제 한 디자인 결정 1~2개(토글 위치, 긴 스페인어 문자열에서의 레이아웃 검증 등)».",
+          },
+          {
+            type: "figure",
+            graphic: "welab-fig-figma-lang",
+            caption: "Designing for two languages — «TBD: 캡션 확정».",
           },
         ],
       },
       {
-        id: "slider",
-        label: "04 The Before/After Slider",
+        id: "build",
+        label: "04 Building in Bricks",
         blocks: [
+          { type: "h", text: "So I wrote it", tag: "Problem 01" },
           {
             type: "p",
-            text: "VFX has one perfect proof: the same frame, before and after. The studio wanted visitors to drag between the original plate and the finished shot — and Bricks had nothing that could do it. No native component supported an interactive overlay driven by the cursor.",
-          },
-          { type: "h", text: "So I wrote it" },
-          {
-            type: "p",
-            text: "Inside a custom HTML block, I layered the two frames and wrote plain JavaScript and CSS to clip the top layer to the cursor — hover or drag, and the original footage resolves into the final shot. No plugin, no library; just the code the builder was missing.",
+            text: "The design asked for something Bricks doesn't have: no native component supports an interactive overlay driven by the cursor. Inside a custom HTML block, I layered the two frames and wrote plain JavaScript and CSS to clip the top layer to the cursor — hover or drag, and the original footage resolves into the final shot. No plugin, no library; just the code the builder was missing.",
           },
           {
             type: "figure",
@@ -177,35 +200,35 @@ export const PROJECTS = [
             text: "It now runs on the studio's project pages — on A Winning Team, it carries the stadium crowd extensions WeLAB delivered across 161 shots for a Hallmark feature.",
           },
           { type: "cta", label: "See it live on A Winning Team", href: "https://weloveabattle.com/project/a-winning-team/" },
-        ],
-      },
-      {
-        id: "shipping",
-        label: "05 Shipping on WordPress",
-        blocks: [
+          { type: "h", text: "Rebuilt on the system", tag: "Problem 02" },
           {
             type: "p",
-            text: "«TBD: Bricks로 재구현/갱신한 실제 범위 — 어떤 페이지들을 어디까지 다시 지었는지»",
+            text: "«TBD: Bricks로 재구현한 실제 범위 — 어떤 페이지들을 어디까지 다시 지었는지 한두 문장»",
           },
-          { type: "h", text: "Every asset earned its format" },
           {
             type: "p",
-            text: "Logos and UI graphics shipped as SVG; photography and film stills as JPGs tuned to the resolution they actually render at. Media entered the WordPress library at the size the layout needed, not the size the camera produced — clarity kept, page weight cut.",
+            text: "Rebuilding was also the moment to make every page lighter. Logos and UI graphics shipped as SVG; photography and film stills as JPGs tuned to the resolution they actually render at. Media entered the WordPress library at the size the layout needed, not the size the camera produced — clarity kept, page weight cut.",
           },
           {
             type: "figure",
-            graphic: "welab-fig-responsive",
-            caption: "The same pages on desktop and phone — responsive from the rebuild, not patched after.",
+            graphic: "welab-ba-layout",
+            caption: "The landing page, before and after the rebuild.",
           },
+          { type: "h", text: "Two languages, one site", tag: "Problem 03" },
           {
             type: "p",
-            text: "«TBD: SEO·성능에서 실제로 한 작업 1~2개 — 실제 한 것만»",
+            text: "«TBD: 스페인어 전환 구현 방식 — EN/ES 토글을 어떤 방법으로 구축했는지» Every page now serves both markets: the same site that sells BC and Alberta production incentives in English sells Jalisco's in Spanish.",
+          },
+          {
+            type: "figure",
+            graphic: "welab-fig-lang-toggle",
+            caption: "The same page in English and Spanish — the toggle that opened the Mexican market.",
           },
         ],
       },
       {
         id: "outcomes",
-        label: "06 Outcomes",
+        label: "05 Outcomes",
         blocks: [
           {
             type: "p",
@@ -215,7 +238,7 @@ export const PROJECTS = [
             type: "stats",
             items: [
               { value: "«TBD: Lighthouse 실측»", label: "«TBD: 측정 후 문구»" },
-              { value: "«TBD: 규모 수치»", label: "«TBD: pages redesigned 등 실제 확인된 것»" },
+              { value: "Two languages", label: "English and Spanish — one site for clients from Vancouver to Guadalajara" },
               { value: "Shipped live", label: "to production, inside the studio's existing brand and stack" },
             ],
           },
@@ -223,7 +246,7 @@ export const PROJECTS = [
       },
       {
         id: "reflection",
-        label: "07 Reflection",
+        label: "06 Reflection",
         blocks: [
           { type: "h", text: "The mindset shift was the real deliverable" },
           {
