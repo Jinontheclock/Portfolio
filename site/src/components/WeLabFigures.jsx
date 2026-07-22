@@ -1,4 +1,5 @@
 import figAudit from "../assets/welab/welab-fig-audit.webp";
+import figOldShowcase from "../assets/welab/welab-fig-old-showcase.webp";
 
 /* Context figures for the WeLAB case study. Figures whose source images
    the owner hasn't provided yet are not registered — their blocks render
@@ -6,6 +7,16 @@ import figAudit from "../assets/welab/welab-fig-audit.webp";
 
 /* ── 02 Auditing the Live Site: the old weloveabattle.com, captured page
    by page across breakpoints. ── */
+export function WLOldShowcaseFigure() {
+  return (
+    <img
+      src={figOldShowcase}
+      alt="The old site's project page — The Challenge and The Solution sections each stacking a before frame above an after frame as separate stills, with no way to compare them directly"
+      loading="lazy"
+    />
+  );
+}
+
 export function WLAuditFigure() {
   return (
     <img
