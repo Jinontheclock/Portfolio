@@ -66,20 +66,178 @@ export const PROJECTS = [
     id: "welab",
     title: "WeLAB Entertainment",
     description:
-      "A short one- or two-line summary of the project and the problem it set out to solve.",
-    roles: "Product Design, Development",
+      "A live-site redesign for a VFX & animation studio — audited, redesigned in Figma, and rebuilt in Bricks, with custom code where the builder ran out",
+    roles: "UI/UX Design, Web Development",
+    headline: "Bringing a VFX studio's website up to its own standard.",
     intro: [
-      "WeLAB Entertainment — placeholder introduction. A couple of sentences describing what the product is, who it serves, and the context it was built in.",
-      "A second placeholder paragraph summarizing the approach and the outcome.",
+      "WeLAB — We Love A Battle Entertainment — is a VFX and animation studio working in film and TV from Vancouver, Calgary, and Guadalajara. Over a three-month practicum internship, I was the designer on its public site end to end: auditing the old weloveabattle.com, redesigning it in Figma, and rebuilding it in WordPress' Bricks builder — writing custom code where the builder ran out.",
     ],
     metaLeft: [
       { label: "category", values: ["Website"] },
       { label: "timeline", values: ["Mar 2026 – May 2026"] },
-      { label: "role", values: ["UI/UX Designer"] },
-      { label: "link", values: ["Website"] },
+      { label: "role", values: ["UI/UX Design", "Web Development"] },
+      {
+        label: "team",
+        values: ["Internship", "solo on the site, with the WeLAB team"],
+      },
     ],
-    metaRight: [{ label: "tool", values: ["WordPress", "Bricks Builder", "Figma"] }],
-    sections: PLACEHOLDER_SECTIONS,
+    metaRight: [
+      { label: "tool", values: ["Figma", "WordPress", "Bricks Builder"] },
+      {
+        label: "link",
+        values: [
+          { label: "Live Site", href: "https://weloveabattle.com/" },
+          { label: "Before/After Slider", href: "https://weloveabattle.com/project/a-winning-team/" },
+        ],
+      },
+    ],
+    sections: [
+      {
+        id: "brief",
+        label: "01 The Brief",
+        blocks: [
+          {
+            type: "p",
+            text: "A VFX studio's website is its showreel's front door: producers land on it deciding whether the studio is worth a call. WeLAB's site had fallen behind the work it was meant to sell. The brief: refine the UX/UI, update the content, improve the architecture, and make the site fast, responsive, and findable — up to the studio's own standard.",
+          },
+          { type: "cta", label: "Visit the live site", href: "https://weloveabattle.com/" },
+          {
+            type: "p",
+            text: "This wasn't a greenfield build. The site stayed live in production throughout, the brand was set, and the stack — WordPress with the Bricks builder — was the studio's, not mine. The job was to raise the site inside those lines.",
+          },
+        ],
+      },
+      {
+        id: "audit",
+        label: "02 Auditing the Live Site",
+        blocks: [
+          {
+            type: "p",
+            text: "The redesign started by reading the site the way a producer would: page by page, desktop and phone, against the sites of the VFX studios WeLAB competes with.",
+          },
+          {
+            type: "figure",
+            graphic: "welab-fig-audit",
+            caption: "The old site, annotated — what the audit flagged, page by page.",
+          },
+          { type: "h", text: "What the audit surfaced" },
+          {
+            type: "list",
+            items: [
+              "«TBD: audit 발견 1 — 실제 발견한 문제만»",
+              "«TBD: audit 발견 2»",
+              "«TBD: audit 발견 3»",
+            ],
+          },
+        ],
+      },
+      {
+        id: "design",
+        label: "03 Designing in Figma",
+        blocks: [
+          {
+            type: "p",
+            text: "Every task ran the same loop — mission, ideation, draft, feedback, implementation, feedback, completion. Weekly meetings set the missions; Discord carried the feedback between them, specific enough that each iteration knew exactly what had landed and what hadn't.",
+          },
+          {
+            type: "figure",
+            graphic: "welab-fig-workflow",
+            caption: "One loop per task, with feedback built in twice.",
+          },
+          {
+            type: "p",
+            text: "Layouts and flows were worked out in Figma before anything touched the live site — «TBD: 대표 재설계 페이지/플로우 1~2개».",
+          },
+          {
+            type: "figure",
+            graphic: "welab-fig-figma-vs-live",
+            caption: "Designed in Figma, shipped in Bricks — «TBD: 페이지명».",
+          },
+        ],
+      },
+      {
+        id: "slider",
+        label: "04 The Before/After Slider",
+        blocks: [
+          {
+            type: "p",
+            text: "VFX has one perfect proof: the same frame, before and after. The studio wanted visitors to drag between the original plate and the finished shot — and Bricks had nothing that could do it. No native component supported an interactive overlay driven by the cursor.",
+          },
+          { type: "h", text: "So I wrote it" },
+          {
+            type: "p",
+            text: "Inside a custom HTML block, I layered the two frames and wrote plain JavaScript and CSS to clip the top layer to the cursor — hover or drag, and the original footage resolves into the final shot. No plugin, no library; just the code the builder was missing.",
+          },
+          {
+            type: "figure",
+            graphic: "welab-ba-vfx",
+            caption: "Try it — the same interaction the live site runs, with real frames from WeLAB's work.",
+          },
+          {
+            type: "p",
+            text: "It now runs on the studio's project pages — on A Winning Team, it carries the stadium crowd extensions WeLAB delivered across 161 shots for a Hallmark feature.",
+          },
+          { type: "cta", label: "See it live on A Winning Team", href: "https://weloveabattle.com/project/a-winning-team/" },
+        ],
+      },
+      {
+        id: "shipping",
+        label: "05 Shipping on WordPress",
+        blocks: [
+          {
+            type: "p",
+            text: "«TBD: Bricks로 재구현/갱신한 실제 범위 — 어떤 페이지들을 어디까지 다시 지었는지»",
+          },
+          { type: "h", text: "Every asset earned its format" },
+          {
+            type: "p",
+            text: "Logos and UI graphics shipped as SVG; photography and film stills as JPGs tuned to the resolution they actually render at. Media entered the WordPress library at the size the layout needed, not the size the camera produced — clarity kept, page weight cut.",
+          },
+          {
+            type: "figure",
+            graphic: "welab-fig-responsive",
+            caption: "The same pages on desktop and phone — responsive from the rebuild, not patched after.",
+          },
+          {
+            type: "p",
+            text: "«TBD: SEO·성능에서 실제로 한 작업 1~2개 — 실제 한 것만»",
+          },
+        ],
+      },
+      {
+        id: "outcomes",
+        label: "06 Outcomes",
+        blocks: [
+          {
+            type: "p",
+            text: "The redesign shipped to production on the studio's live domain — everything this case study shows links to the real thing.",
+          },
+          {
+            type: "stats",
+            items: [
+              { value: "«TBD: Lighthouse 실측»", label: "«TBD: 측정 후 문구»" },
+              { value: "«TBD: 규모 수치»", label: "«TBD: pages redesigned 등 실제 확인된 것»" },
+              { value: "Shipped live", label: "to production, inside the studio's existing brand and stack" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "reflection",
+        label: "07 Reflection",
+        blocks: [
+          { type: "h", text: "The mindset shift was the real deliverable" },
+          {
+            type: "p",
+            text: "School work ends at the rubric; client work doesn't. I learned to research competing studios without being asked, to bring my supervisor questions early instead of guesses late, and to keep iterating past the point where a grade would have called it done.",
+          },
+          {
+            type: "p",
+            text: "WeLAB handed an intern full access to a production site — trust that changed how carefully I shipped. If I set up the next project, the asset pipeline comes first: knowing exactly which media exists, at what quality, before design starts.",
+          },
+        ],
+      },
+    ],
   },
   {
     id: "prolog",
