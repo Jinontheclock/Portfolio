@@ -149,6 +149,11 @@ export const PROJECTS = [
             type: "p",
             text: "Through the first half of 2025, WeLAB's slate ran through its Canadian studios, and the site matched: English only, built for the US and Canadian clients it already had. Then the studio's map changed — starting with Shadow of God, a feature backed by Jalisco's film incentive programme, the push into Mexico stopped being a plan and became a slate. The site's own services page was already selling those incentives — in English. Growth wasn't waiting on marketing; it was waiting on the website.",
           },
+          {
+            type: "figure",
+            graphic: "welab-fig-old-studios",
+            caption: "Citizens of the world, in one language — the studios section named three cities the site couldn't all speak to.",
+          },
         ],
       },
       {

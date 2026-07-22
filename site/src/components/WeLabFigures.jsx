@@ -8,6 +8,7 @@ import auditWhoWeAre from "../assets/welab/welab-audit-whoweare.webp";
 import auditClients from "../assets/welab/welab-audit-clients.webp";
 import oldLandingDesktop from "../assets/welab/welab-old-landing-desktop.webp";
 import oldLandingMobile from "../assets/welab/welab-old-landing-mobile.webp";
+import oldStudios from "../assets/welab/welab-old-studios.webp";
 
 /* Context figures for the WeLAB case study. Figures whose source images
    the owner hasn't provided yet are not registered — their blocks render
@@ -69,6 +70,18 @@ export function WLOldLandingFigure() {
         </figure>
       </div>
     </div>
+  );
+}
+
+/* Opportunity 02: the studios section — three cities, three time zones,
+   one English-only site */
+export function WLOldStudiosFigure() {
+  return (
+    <img
+      src={oldStudios}
+      alt="The site's Our Studios section — We Are Citizens of the World over local clocks for Guadalajara, Calgary, and Vancouver"
+      loading="lazy"
+    />
   );
 }
 

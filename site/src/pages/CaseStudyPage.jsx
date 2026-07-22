@@ -45,7 +45,12 @@ import {
   TPBACtaFigure,
   TINYPAWS_SHOTS,
 } from "../components/TinyPawsFigures.jsx";
-import { WLAuditFigure, WLOldShowcaseFigure, WLOldLandingFigure } from "../components/WeLabFigures.jsx";
+import {
+  WLAuditFigure,
+  WLOldShowcaseFigure,
+  WLOldLandingFigure,
+  WLOldStudiosFigure,
+} from "../components/WeLabFigures.jsx";
 
 /* hero scenes: live in-page animations a project can use instead of a
    video or the placeholder (see each project's heroScene field) */
@@ -83,6 +88,7 @@ const FIGURES = {
   "welab-fig-audit": WLAuditFigure,
   "welab-fig-old-showcase": WLOldShowcaseFigure,
   "welab-fig-old-landing": WLOldLandingFigure,
+  "welab-fig-old-studios": WLOldStudiosFigure,
   "tinypaws-fig-sitemap": TPSitemapFigure,
   "tinypaws-fig-lofi-grid": TPLofiGridFigure,
   "tinypaws-ba-nav": TPBANavFigure,
