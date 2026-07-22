@@ -401,7 +401,8 @@ export default function CaseStudyPage({ lang, setLang }) {
             {HeroScene ? null : project.heroVideo ? (
               /* hero media: silent autoplay loop, like a GIF. heroVideoRatio
                  (e.g. "1000 / 976") shows the file uncropped at its own
-                 shape; without it the video cover-fills the 5:2 band */
+                 shape; without it the video cover-fills the 5:2 band.
+                 Projects with no hero media render nothing here. */
               <video
                 className="cs-video"
                 src={`${import.meta.env.BASE_URL}${project.heroVideo}`}
@@ -413,9 +414,7 @@ export default function CaseStudyPage({ lang, setLang }) {
                 preload="metadata"
                 aria-hidden="true"
               />
-            ) : (
-              <div className="cs-image" aria-hidden="true"></div>
-            )}
+            ) : null}
 
             <div className="cs-sections">
               {project.sections.map((s) => (

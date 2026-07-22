@@ -155,14 +155,6 @@
   max-width: 100%;
 }
 
-/* ── Placeholder image ── */
-.cs-image {
-  margin-top: 40px;
-  width: 100%;
-  aspect-ratio: 5 / 2;
-  background: var(--surface-placeholder);
-}
-
 /* ── Hero scene (ProLog): the live journey animation and the phone mockup
    side by side above the headline, the logo overlapping the animation's
    top-left corner ── */
