@@ -16,13 +16,13 @@ const ArrowIcon = () => (
 
 export default function LandingPage({ lang, setLang, fadeClass = "" }) {
   const t = LANDING[lang] || LANDING.en;
-  // refit the hero when the language (and so the text) changes; on mobile
-  // sit at 85% of the width instead of edge-to-edge. The line box is locked
-  // to the English hero's height so switching language never shifts the nav.
-  const heroRef = useFitText(lang, {
+  // the hero heading is pinned to English in every language, so it fits
+  // once and never refits or fades on a language switch; on mobile it sits
+  // at 85% of the width instead of edge-to-edge
+  const heroRef = useFitText("en", {
     mobileRatio: 0.85,
     refText: LANDING.en.hero,
-    ratio: t.heroRatio ?? 1,
+    ratio: 1,
   });
   const navRef = useRef(null);
   // bottom-right copyright, one line (smaller cap on mobile)
@@ -67,15 +67,16 @@ export default function LandingPage({ lang, setLang, fadeClass = "" }) {
 
   return (
     <div className="lp-root">
-      {/* only the localized text fades on language switch — the arrows and
-          the language switcher below stay put */}
+      {/* only the localized nav text fades on language switch — the hero
+          heading stays English in every language, and the arrows and the
+          language switcher below stay put */}
       <div className="lp-hero">
         <h1
-          className={"lp-heading " + fadeClass}
+          className="lp-heading"
           ref={heroRef}
-          style={{ textIndent: t.heroIndent }}
+          style={{ textIndent: LANDING.en.heroIndent }}
         >
-          {t.hero}
+          {LANDING.en.hero}
         </h1>
         <nav className="lp-nav" ref={navRef}>
           <Link to="/work" className="lp-navlink">
