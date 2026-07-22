@@ -346,6 +346,34 @@
   grid-template-columns: 1fr;
 }
 
+/* ── WeLAB audit captures: rows of individual page shots, each cell sized
+   to its device class, with a small breakpoint label underneath ── */
+.wl-audit {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.wl-audit-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.wl-audit-cell {
+  margin: 0;
+  flex-shrink: 0;
+}
+.wl-audit-cell img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border, #d4d4d4);
+}
+.wl-audit-cell figcaption {
+  margin-top: 8px;
+  font: 400 12px / 1.4 var(--font-ui);
+  color: var(--text-muted);
+}
+
 /* in-page figures with an optional caption below */
 .cs-figure {
   margin: 20px 0;
