@@ -136,13 +136,6 @@ html.lp-locked body {
   transition: transform 200ms ease-in, opacity 200ms ease-in;
 }
 
-/* no hover on touch screens — keep the arrows always visible there */
-@media (hover: none) {
-  .lp-arrow {
-    opacity: 1;
-  }
-}
-
 /* pinned to the viewport corner — follows the page padding horizontally so
    English/日本語/한국어 share the hero and nav's left edge at every size */
 .lp-foot {
