@@ -6,6 +6,8 @@ import auditTax1200 from "../assets/welab/welab-audit-tax-1200.webp";
 import auditTaxMobile from "../assets/welab/welab-audit-tax-mobile.webp";
 import auditWhoWeAre from "../assets/welab/welab-audit-whoweare.webp";
 import auditClients from "../assets/welab/welab-audit-clients.webp";
+import oldLandingDesktop from "../assets/welab/welab-old-landing-desktop.webp";
+import oldLandingMobile from "../assets/welab/welab-old-landing-mobile.webp";
 
 /* Context figures for the WeLAB case study. Figures whose source images
    the owner hasn't provided yet are not registered — their blocks render
@@ -41,6 +43,34 @@ const AUDIT_ROWS = [
     { src: auditClients, w: 48, label: "Clients & Awards", alt: "The old Clients and Awards page on desktop — a logo wall under the Amazing Battles, Amazed Clients headline" },
   ],
 ];
+
+/* Opportunity 01: the old landing page leading with the same two project
+   cards, on desktop and on a phone — same cell/label treatment as the
+   audit rows */
+export function WLOldLandingFigure() {
+  return (
+    <div className="wl-audit">
+      <div className="wl-audit-row">
+        <figure className="wl-audit-cell" style={{ width: "55%" }}>
+          <img
+            src={oldLandingDesktop}
+            alt="The old landing page on desktop — the hero followed by the same two project cards, Torch of Rock and Roll and A Winning Team"
+            loading="lazy"
+          />
+          <figcaption>Landing — desktop</figcaption>
+        </figure>
+        <figure className="wl-audit-cell" style={{ width: "21%" }}>
+          <img
+            src={oldLandingMobile}
+            alt="The old landing page on a phone — the hero and the same two project cards stacked in one column"
+            loading="lazy"
+          />
+          <figcaption>Landing — mobile</figcaption>
+        </figure>
+      </div>
+    </div>
+  );
+}
 
 export function WLAuditFigure() {
   return (

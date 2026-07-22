@@ -139,6 +139,11 @@ export const PROJECTS = [
             type: "p",
             text: "The landing page still led with the same two project cards while the studio's slate moved on — its newest headline work wasn't on the front page at all. The studios WeLAB competes with lead with their strongest, freshest work. Out of that research I proposed a featured case-studies section, and the studio said yes.",
           },
+          {
+            type: "figure",
+            graphic: "welab-fig-old-landing",
+            caption: "The old landing page — the same two project cards, on desktop and on a phone.",
+          },
           { type: "h", text: "Opportunity 02 — A studio in three countries, a site in one language" },
           {
             type: "p",
