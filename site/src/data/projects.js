@@ -117,32 +117,41 @@ export const PROJECTS = [
           { type: "h", text: "Problem 01 — The work didn't show its magic" },
           {
             type: "p",
-            text: "WeLAB sells transformation: the same frame before the studio touched it, and after. But the site showed only finished stills and reels — a visitor had no way to see what the studio actually changed.",
+            text: "WeLAB sells transformation: the same frame before the studio touched it, and after. The old project pages had the evidence — original plates and finished shots — but ran them as a one-way scroll of separate full-width stills. VFX frames have to be shown big, so each pair cost a screen of scrolling, and a before never sat beside its after. A producer skimming for what WeLAB could deliver had to hold the comparison in their head: the work was all there, but the magic never happened in front of them.",
           },
           {
             type: "figure",
             graphic: "welab-fig-old-showcase",
-            caption: "How the old site showed the work — before and after as separate stills, stacked with no way to compare them.",
+            caption: "The Challenge and Solution sections of the A Winning Team project page on the old site.",
           },
           { type: "h", text: "Problem 02 — Pages without a system" },
           {
             type: "p",
-            text: "Each page followed its own layout logic — spacing, hierarchy, and components that didn't repeat. The audit caught it breaking in the open: at tablet widths, the services page's incentive cards collapsed into uneven columns and stray gaps. The site needed one layout system every page could inherit.",
+            text: "The site was responsive from desktop down to mobile — that much worked. What it lacked was a shared set of rules: type scale, grid, alignment, and components shifted from page to page, and the audit caught the cost in the open. At in-between widths, the services page's incentive cards fell out of their grid — three uneven columns at 1280px, a two-plus-one arrangement with a stray hole at 1200px.",
           },
           {
             type: "figure",
-            graphic: "welab-fig-audit",
-            caption: "The old site, annotated — what the audit flagged, page by page.",
+            graphic: "welab-fig-audit-responsive",
+            caption: "The Tax Credits section of the old Services page at 1280px, 1200px, and mobile widths.",
+          },
+          {
+            type: "p",
+            text: "The same looseness ran through the pages doing the most important talking: Who We Are sat on a grid that didn't quite hold, the client wall in Our Clients slipped out of alignment, and the home footer arranged its components by its own logic. Small things, one by one — but together they kept the site from reading as one designed system.",
+          },
+          {
+            type: "figure",
+            graphic: "welab-fig-audit-sections",
+            caption: "The Who We Are and Our Clients sections of the old About Us page, and the old home footer on mobile.",
           },
           { type: "h", text: "Opportunity 01 — A front page stuck in last year" },
           {
             type: "p",
-            text: "The landing page still led with the same two project cards while the studio's slate moved on — its newest headline work wasn't on the front page at all. The studios WeLAB competes with lead with their strongest, freshest work. Out of that research I proposed a featured case-studies section, and the studio said yes.",
+            text: "The landing page still led with the same two project cards while the studio's slate moved on — its newest headline work wasn't on the front page at all. And even as calls to action, the cards underdelivered: each one swallowed a full screen, the pair followed different layouts, and the Explore link sank somewhere in all that surface. The studios WeLAB competes with lead with their strongest, freshest work. Out of that research I proposed a featured case-studies section, and the studio said yes.",
           },
           {
             type: "figure",
             graphic: "welab-fig-old-landing",
-            caption: "The old landing page — the same two project cards, on desktop and on a phone.",
+            caption: "The project cards on the old landing page, on desktop and on a phone.",
           },
           { type: "h", text: "Opportunity 02 — A studio in three countries, a site in one language" },
           {
@@ -152,7 +161,7 @@ export const PROJECTS = [
           {
             type: "figure",
             graphic: "welab-fig-old-studios",
-            caption: "Citizens of the world, in one language — the studios section named three cities the site couldn't all speak to.",
+            caption: "The Our Studios section of the old landing page — the studio clocks for Guadalajara, Calgary, and Vancouver.",
           },
         ],
       },

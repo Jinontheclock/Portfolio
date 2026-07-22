@@ -25,24 +25,43 @@ export function WLOldShowcaseFigure() {
   );
 }
 
-/* the old site captured page by page — individual images laid out in rows
-   (home on mobile / the Tax Credits page across three widths / the desktop
-   pages), each cell sized to its device class */
-const AUDIT_ROWS = [
-  /* widths ∝ each capture's aspect ratio (1.229 : 0.734 : 0.325, of the
-     row minus its two 20px gaps) so all three render at the same height */
-  [
-    { src: auditTaxTablet, w: "calc((100% - 40px) * 0.5372)", label: "Tax Credits — tablet, 1280px", alt: "The old Tax Credits page at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-    { src: auditTax1200, w: "calc((100% - 40px) * 0.3207)", label: "Tax Credits — 1200px, the layout hole", alt: "The old Tax Credits page at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
-    { src: auditTaxMobile, w: "calc((100% - 40px) * 0.1421)", label: "Tax Credits — mobile", alt: "The old Tax Credits page on a phone — the incentive cards stacked in a single column" },
-  ],
-  /* same treatment — 1.332 : 0.849 : 0.460 */
-  [
-    { src: auditWhoWeAre, w: "calc((100% - 40px) * 0.5043)", label: "Who We Are", alt: "The old Who We Are page on desktop — the studio's collective statement beside oversized stat lines" },
-    { src: auditClients, w: "calc((100% - 40px) * 0.3215)", label: "Clients & Awards", alt: "The old Clients and Awards page on desktop — a logo wall under the Amazing Battles, Amazed Clients headline" },
-    { src: auditHomeFooter, w: "calc((100% - 40px) * 0.1742)", label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
-  ],
+/* the old site captured page by page — individual images laid out in rows,
+   each cell sized to its device class. Row widths ∝ aspect ratios so all
+   cells in a row render at the same height. */
+const AUDIT_TAX_ROW = [
+  { src: auditTaxTablet, w: "calc((100% - 40px) * 0.5372)", label: "Tax Credits — tablet, 1280px", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+  { src: auditTax1200, w: "calc((100% - 40px) * 0.3207)", label: "Tax Credits — 1200px, the layout hole", alt: "The old Tax Credits section at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
+  { src: auditTaxMobile, w: "calc((100% - 40px) * 0.1421)", label: "Tax Credits — mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
 ];
+
+const AUDIT_SECTIONS_ROW = [
+  { src: auditWhoWeAre, w: "calc((100% - 40px) * 0.5043)", label: "Who We Are", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+  { src: auditClients, w: "calc((100% - 40px) * 0.3215)", label: "Clients & Awards", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
+  { src: auditHomeFooter, w: "calc((100% - 40px) * 0.1742)", label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
+];
+
+function AuditRow({ row }) {
+  return (
+    <div className="wl-audit">
+      <div className="wl-audit-row">
+        {row.map((cell) => (
+          <figure key={cell.label} className="wl-audit-cell" style={{ width: cell.w }}>
+            <img src={cell.src} alt={cell.alt} loading="lazy" />
+            <figcaption>{cell.label}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function WLAuditResponsiveFigure() {
+  return <AuditRow row={AUDIT_TAX_ROW} />;
+}
+
+export function WLAuditSectionsFigure() {
+  return <AuditRow row={AUDIT_SECTIONS_ROW} />;
+}
 
 /* Opportunity 01: the old landing page leading with the same two project
    cards, on desktop and on a phone — same cell/label treatment as the
@@ -86,23 +105,3 @@ export function WLOldStudiosFigure() {
   );
 }
 
-export function WLAuditFigure() {
-  return (
-    <div className="wl-audit">
-      {AUDIT_ROWS.map((row, i) => (
-        <div key={i} className="wl-audit-row">
-          {row.map((cell) => (
-            <figure
-              key={cell.label}
-              className="wl-audit-cell"
-              style={{ width: typeof cell.w === "number" ? `${cell.w}%` : cell.w }}
-            >
-              <img src={cell.src} alt={cell.alt} loading="lazy" />
-              <figcaption>{cell.label}</figcaption>
-            </figure>
-          ))}
-        </div>
-      ))}
-    </div>
-  );
-}

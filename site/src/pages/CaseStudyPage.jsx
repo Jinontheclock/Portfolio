@@ -46,7 +46,8 @@ import {
   TINYPAWS_SHOTS,
 } from "../components/TinyPawsFigures.jsx";
 import {
-  WLAuditFigure,
+  WLAuditResponsiveFigure,
+  WLAuditSectionsFigure,
   WLOldShowcaseFigure,
   WLOldLandingFigure,
   WLOldStudiosFigure,
@@ -85,7 +86,8 @@ const FIGURES = {
   "tinypaws-fig-tokens": TPTokensFigure,
   "tinypaws-fig-content-model": TPContentModelFigure,
   "tinypaws-campaign-video": TPVideoFigure,
-  "welab-fig-audit": WLAuditFigure,
+  "welab-fig-audit-responsive": WLAuditResponsiveFigure,
+  "welab-fig-audit-sections": WLAuditSectionsFigure,
   "welab-fig-old-showcase": WLOldShowcaseFigure,
   "welab-fig-old-landing": WLOldLandingFigure,
   "welab-fig-old-studios": WLOldStudiosFigure,
