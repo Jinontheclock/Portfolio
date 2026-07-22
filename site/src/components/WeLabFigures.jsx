@@ -29,10 +29,12 @@ export function WLOldShowcaseFigure() {
    (home on mobile / the Tax Credits page across three widths / the desktop
    pages), each cell sized to its device class */
 const AUDIT_ROWS = [
+  /* widths ∝ each capture's aspect ratio (1.229 : 0.734 : 0.325, of the
+     row minus its two 20px gaps) so all three render at the same height */
   [
-    { src: auditTaxTablet, w: 42, label: "Tax Credits — tablet, 1280px", alt: "The old Tax Credits page at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-    { src: auditTax1200, w: 31, label: "Tax Credits — 1200px, the layout hole", alt: "The old Tax Credits page at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
-    { src: auditTaxMobile, w: 19, label: "Tax Credits — mobile", alt: "The old Tax Credits page on a phone — the incentive cards stacked in a single column" },
+    { src: auditTaxTablet, w: "calc((100% - 40px) * 0.5372)", label: "Tax Credits — tablet, 1280px", alt: "The old Tax Credits page at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+    { src: auditTax1200, w: "calc((100% - 40px) * 0.3207)", label: "Tax Credits — 1200px, the layout hole", alt: "The old Tax Credits page at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
+    { src: auditTaxMobile, w: "calc((100% - 40px) * 0.1421)", label: "Tax Credits — mobile", alt: "The old Tax Credits page on a phone — the incentive cards stacked in a single column" },
   ],
   [
     { src: auditWhoWeAre, w: 41, label: "Who We Are", alt: "The old Who We Are page on desktop — the studio's collective statement beside oversized stat lines" },
@@ -87,7 +89,11 @@ export function WLAuditFigure() {
       {AUDIT_ROWS.map((row, i) => (
         <div key={i} className="wl-audit-row">
           {row.map((cell) => (
-            <figure key={cell.label} className="wl-audit-cell" style={{ width: `${cell.w}%` }}>
+            <figure
+              key={cell.label}
+              className="wl-audit-cell"
+              style={{ width: typeof cell.w === "number" ? `${cell.w}%` : cell.w }}
+            >
               <img src={cell.src} alt={cell.alt} loading="lazy" />
               <figcaption>{cell.label}</figcaption>
             </figure>
