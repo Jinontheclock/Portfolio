@@ -114,20 +114,25 @@ export const PROJECTS = [
             type: "p",
             text: "The redesign started by reading the site the way a producer would: page by page, desktop and phone, against the sites of the VFX studios WeLAB competes with. Three problems came out of the audit — and they became the spine of the whole internship.",
           },
-          {
-            type: "figure",
-            graphic: "welab-fig-audit",
-            caption: "The old site, annotated — what the audit flagged, page by page.",
-          },
           { type: "h", text: "Problem 01 — The work didn't show its magic" },
           {
             type: "p",
             text: "WeLAB sells transformation: the same frame before the studio touched it, and after. But the site showed only finished stills and reels — a visitor had no way to see what the studio actually changed.",
           },
+          {
+            type: "figure",
+            graphic: "welab-fig-old-showcase",
+            caption: "How the old site showed the work — before and after as separate stills, stacked with no way to compare them.",
+          },
           { type: "h", text: "Problem 02 — Pages without a system" },
           {
             type: "p",
             text: "Each page followed its own layout logic, and the landing page didn't lead anywhere: a producer arriving at the site wasn't guided toward the work, the services, or a reason to call. The site needed one layout system — and a front page composed like an argument.",
+          },
+          {
+            type: "figure",
+            graphic: "welab-fig-audit",
+            caption: "The old site, annotated — what the audit flagged, page by page.",
           },
           { type: "h", text: "Problem 03 — A studio in three countries, a site in one language" },
           {
