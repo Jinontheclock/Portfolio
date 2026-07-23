@@ -177,10 +177,10 @@ export const PROJECTS = [
             graphic: "welab-fig-workflow",
             caption: "The iteration loop used for every mission.",
           },
-          { type: "h", text: "So I wrote it", tag: "Problem 01" },
+          { type: "h", text: "So I wired one in", tag: "Problem 01" },
           {
             type: "p",
-            text: "The showcase asked for something Bricks doesn't have: no native component supports an interactive overlay driven by the cursor. Inside a custom HTML block, I layered the two frames and wrote plain JavaScript and CSS to clip the top layer to the cursor — hover or drag, and the original footage resolves into the final shot. No plugin, no library; just the code the builder was missing. The audit's first finding closed where it opened: the before now sits in the same frame as its after, one drag apart.",
+            text: "The showcase asked for something Bricks doesn't have: no native component supports an interactive overlay driven by the cursor. Rather than reinvent the interaction, I picked a proven web component — img-comparison-slider — wired it into a custom HTML block, and wrote the chrome around it by hand: the divider, the handle, the labels, and how each scales down on mobile. Hover or drag, and the original footage resolves into the final shot; knowing what to build and what to borrow was the real call. The audit's first finding closed where it opened: the before now sits in the same frame as its after, one drag apart.",
           },
           {
             type: "figure",
