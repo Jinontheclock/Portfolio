@@ -52,10 +52,10 @@
    favour, floored at its ~1360px-viewport size so shrinking eats the left
    space first */
 .wk-text {
-  /* floored at 320px so the copy keeps a readable measure when the pair
+  /* floored at 400px so the copy keeps a readable measure when the pair
      is at its minimum size — the extra width comes out of the empty left
      space, not the thumbnail */
-  flex: 0 1 max(320px, calc((max(656px, 50vw - 24px) - 30px) * 0.40));
+  flex: 0 1 max(400px, calc((max(656px, 50vw - 24px) - 30px) * 0.40));
   min-width: 0;
   display: flex;
   flex-direction: column;
