@@ -176,17 +176,17 @@ export const PROJECTS = [
           {
             type: "figure",
             graphic: "welab-fig-workflow",
-            caption: "One loop per mission, with feedback built in twice.",
+            caption: "The iteration loop used for every mission.",
           },
           { type: "h", text: "So I wrote it", tag: "Problem 01" },
           {
             type: "p",
-            text: "The showcase asked for something Bricks doesn't have: no native component supports an interactive overlay driven by the cursor. Inside a custom HTML block, I layered the two frames and wrote plain JavaScript and CSS to clip the top layer to the cursor — hover or drag, and the original footage resolves into the final shot. No plugin, no library; just the code the builder was missing.",
+            text: "The showcase asked for something Bricks doesn't have: no native component supports an interactive overlay driven by the cursor. Inside a custom HTML block, I layered the two frames and wrote plain JavaScript and CSS to clip the top layer to the cursor — hover or drag, and the original footage resolves into the final shot. No plugin, no library; just the code the builder was missing. The audit's first finding closed where it opened: the before now sits in the same frame as its after, one drag apart.",
           },
           {
             type: "figure",
             graphic: "welab-ba-vfx",
-            caption: "Try it — the same interaction the live site runs, with real frames from WeLAB's work.",
+            caption: "Frames from A Winning Team's stadium crowd extension, in the same slider interaction that runs on the live site.",
           },
           {
             type: "p",
@@ -196,37 +196,37 @@ export const PROJECTS = [
           { type: "h", text: "One system, every page", tag: "Problem 02" },
           {
             type: "p",
-            text: "The layout system was built where it would live — directly in Bricks: «TBD: 시스템의 실제 구성(재사용 섹션 구조·스페이싱 규칙·타이포 위계 등 실제 한 것)». Rebuilding was also the moment to make every page lighter: logos and UI graphics shipped as SVG, photography and film stills as JPGs tuned to the resolution they actually render at — clarity kept, page weight cut.",
+            text: "The layout system was built where it would live — directly in Bricks: «TBD: 시스템의 실제 구성(재사용 섹션 구조·스페이싱 규칙·타이포 위계 등 실제 한 것)». Every page the audit flagged was rebuilt on those rules. Rebuilding was also the moment to make every page lighter: logos and UI graphics shipped as SVG, photography and film stills as JPGs tuned to the resolution they actually render at — clarity kept, page weight cut.",
           },
           {
             type: "figure",
             graphic: "welab-fig-layout-system",
-            caption: "«TBD: 시스템 도해 또는 대표 페이지 before/after 캡션»",
+            caption: "The Tax Credits section on the new site, at the same three widths the audit caught breaking.",
           },
           { type: "h", text: "The front page caught up", tag: "Opportunity 01" },
           {
             type: "p",
-            text: "The one mission that started in Figma. I designed the featured case-studies section as an argument for the studio's newest work — what a card owes a producer: the project, the scale, a reason to click — iterated it through the feedback loop, then built it in Bricks. The landing page now leads with the studio's three latest case studies instead of last year's two cards.",
+            text: "The one mission that started in Figma. I designed the featured case-studies section as an argument for the studio's newest work — what a card owes a producer: the project, the scale, a reason to click — iterated it through the weekly feedback loop, then built it in Bricks. Where the old cards each swallowed a screen and buried their link, the new section puts the studio's three newest case studies in front of a producer at a glance, on one grid, each with a clear way in. The landing page now leads with its freshest work instead of last year's two cards.",
           },
           {
             type: "figure",
             graphic: "welab-fig-figma-featured",
-            caption: "Designed in Figma, shipped in Bricks — the featured case-studies section.",
+            caption: "The featured case-studies section in Figma.",
           },
           {
             type: "figure",
             graphic: "welab-ba-landing",
-            caption: "The landing page, before and after.",
+            caption: "The old and new landing pages.",
           },
           { type: "h", text: "Two languages, one site", tag: "Opportunity 02" },
           {
             type: "p",
-            text: "Built on Polylang, the site now serves every page in English and Spanish — «TBD: 네가 실제로 한 작업 한 문장(토글 배치, 템플릿 이중언어 검증, 번역 워크플로 등)». The same site that sells BC and Alberta production incentives in English sells Jalisco's in Spanish.",
+            text: "Built on Polylang, the site now serves every page in English and Spanish through one set of templates rather than a duplicated site — «TBD: 네가 실제로 한 작업 한 문장(토글 배치, 템플릿 이중언어 검증, 번역 워크플로 등)». The same site that sells BC and Alberta production incentives in English sells Jalisco's in Spanish.",
           },
           {
             type: "figure",
             graphic: "welab-fig-lang-toggle",
-            caption: "The same page in English and Spanish — the toggle that opened the Mexican market.",
+            caption: "The same page on the live site, in English and in Spanish.",
           },
         ],
       },
