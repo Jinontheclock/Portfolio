@@ -121,12 +121,9 @@ export function WLFigmaFeaturedFigure() {
   return <AuditRows rows={[FIGMA_FEATURED_ROW]} />;
 }
 
-/* O01: the landing page, before and after — the old two-card front page
-   against the new featured case-studies section */
+/* O01: the shipped landing page — the new featured case-studies section
+   (the old landing already appears under ch02's Opportunity 01) */
 const LANDING_ROWS = [
-  [
-    { src: oldLandingDesktop, w: "32%", label: "Landing — before", alt: "The old landing page on desktop — the hero followed by the same two project cards, Torch of Rock and Roll and A Winning Team" },
-  ],
   [
     { src: afterFeatured, w: "100%", label: "Landing — after, the featured case-studies section", alt: "The new landing page's featured section — the studio's three newest case studies on one grid, each with a clear way in" },
   ],
