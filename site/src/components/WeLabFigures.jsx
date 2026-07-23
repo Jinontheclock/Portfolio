@@ -14,9 +14,6 @@ import footerBaAfter from "../assets/welab/welab-footer-ba-after.webp";
 import langEn from "../assets/welab/welab-lang-en.webp";
 import langEs from "../assets/welab/welab-lang-es.webp";
 import afterClients from "../assets/welab/welab-after-clients.webp";
-import afterTax1280 from "../assets/welab/welab-after-tax-1280.webp";
-import afterTax1200 from "../assets/welab/welab-after-tax-1200.webp";
-import afterTaxMobile from "../assets/welab/welab-after-tax-mobile.webp";
 import afterFeatured from "../assets/welab/welab-after-featured.webp";
 import figma2Col from "../assets/welab/welab-figma-featured-2col.webp";
 import figma3Col from "../assets/welab/welab-figma-featured-3col.webp";
@@ -96,11 +93,6 @@ const LAYOUT_ROWS = [
   [
     { src: auditClients, w: "calc((100% - 20px) * 0.4977)", label: "Clients & Awards — before", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
     { src: afterClients, w: "calc((100% - 20px) * 0.5023)", label: "Clients & Awards — after", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
-  ],
-  [
-    { src: afterTax1280, w: "calc((100% - 40px) * 0.4162)", label: "Tax Credits — after, 1280px", alt: "The rebuilt Tax Credits section at 1280px — the incentive cards holding their grid" },
-    { src: afterTax1200, w: "calc((100% - 40px) * 0.4641)", label: "Tax Credits — after, 1200px", alt: "The rebuilt Tax Credits section at 1200px — the cards reflowing without a stray gap" },
-    { src: afterTaxMobile, w: "calc((100% - 40px) * 0.1197)", label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
   ],
 ];
 
