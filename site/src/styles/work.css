@@ -37,7 +37,10 @@
 }
 
 .wk-text {
-  grid-column: 6 / 10;
+  /* start at col 7 — the exact column the case-study content column
+     (.cs-content, casestudy.css) starts at, so both pages' copy shares
+     one left edge at the screen's midline */
+  grid-column: 7 / 10;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -73,9 +76,17 @@
   margin-left: auto;
 }
 
-/* No tablet override: above the mobile breakpoint the card keeps the
-   desktop geometry, so the text column starts at col 6 — the same spot the
-   case-study pages start their copy — at every window size. */
+/* ── Small tablet (600–900px): at the desktop geometry both columns get
+   too skinny here, so the text stretches left across the row and the
+   thumbnail keeps a workable size ── */
+@media (max-width: 900px) {
+  .wk-text {
+    grid-column: 1 / 8;
+  }
+  .wk-image {
+    grid-column: 8 / 13;
+  }
+}
 
 /* ── Mobile: image above text, both indented from the left (Figma grid) ── */
 @media (max-width: 600px) {
