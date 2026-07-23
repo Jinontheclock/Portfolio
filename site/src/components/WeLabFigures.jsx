@@ -17,6 +17,11 @@ import afterTax1280 from "../assets/welab/welab-after-tax-1280.webp";
 import afterTax1200 from "../assets/welab/welab-after-tax-1200.webp";
 import afterTaxMobile from "../assets/welab/welab-after-tax-mobile.webp";
 import afterFeatured from "../assets/welab/welab-after-featured.webp";
+import figma2Col from "../assets/welab/welab-figma-featured-2col.webp";
+import figma3Col from "../assets/welab/welab-figma-featured-3col.webp";
+import figmaCarousel from "../assets/welab/welab-figma-featured-carousel.webp";
+import figma3ColHover from "../assets/welab/welab-figma-featured-3col-hover.webp";
+import figmaRows from "../assets/welab/welab-figma-featured-rows.webp";
 
 /* Context figures for the WeLAB case study. Figures whose source images
    the owner hasn't provided yet are not registered — their blocks render
@@ -100,6 +105,20 @@ const LAYOUT_ROWS = [
 
 export function WLLayoutSystemFigure() {
   return <AuditRows rows={LAYOUT_ROWS} />;
+}
+
+/* O01: the featured case-studies section explored in Figma — five layout
+   variants, one row, in the order they were presented */
+const FIGMA_FEATURED_ROW = [
+  { src: figma2Col, w: "calc((100% - 80px) / 5)", label: "2 columns", alt: "Figma exploration of the featured case-studies section — two cards side by side" },
+  { src: figma3Col, w: "calc((100% - 80px) / 5)", label: "3 columns", alt: "Figma exploration of the featured case-studies section — three cards side by side" },
+  { src: figmaCarousel, w: "calc((100% - 80px) / 5)", label: "carousel", alt: "Figma exploration of the featured case-studies section — one large card with the next peeking in from the edge" },
+  { src: figma3ColHover, w: "calc((100% - 80px) / 5)", label: "3 columns_hovering", alt: "Figma exploration of the featured case-studies section — the hovered card enlarged between two dimmed neighbours" },
+  { src: figmaRows, w: "calc((100% - 80px) / 5)", label: "rows", alt: "Figma exploration of the featured case-studies section — three full-width rows stacked" },
+];
+
+export function WLFigmaFeaturedFigure() {
+  return <AuditRows rows={[FIGMA_FEATURED_ROW]} />;
 }
 
 /* O01: the landing page, before and after — the old two-card front page
