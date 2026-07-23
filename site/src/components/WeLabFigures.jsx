@@ -121,11 +121,11 @@ export function WLFigmaFeaturedFigure() {
   return <AuditRows rows={[FIGMA_FEATURED_ROW]} />;
 }
 
-/* O01: the shipped landing page — the new featured case-studies section
+/* O01: the shipped featured case-studies UI, as it runs on the live site
    (the old landing already appears under ch02's Opportunity 01) */
 const LANDING_ROWS = [
   [
-    { src: afterFeatured, w: "100%", label: "Landing — after, the featured case-studies section", alt: "The new landing page's featured section — the studio's three newest case studies on one grid, each with a clear way in" },
+    { src: afterFeatured, w: "100%", label: "Featured case studies — shipped", alt: "The featured case-studies section on the live site — the studio's three newest case studies on one grid, each with a clear way in" },
   ],
 ];
 

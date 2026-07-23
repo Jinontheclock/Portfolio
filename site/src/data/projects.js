@@ -214,7 +214,7 @@ export const PROJECTS = [
           {
             type: "figure",
             graphic: "welab-ba-landing",
-            caption: "The old and new landing pages.",
+            caption: "The featured case-studies section on the live site.",
           },
           { type: "h", text: "The work pages learned Spanish", tag: "Opportunity 02" },
           {
