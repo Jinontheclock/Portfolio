@@ -48,10 +48,11 @@
   column-gap: 30px;
 }
 
-/* each side of the pair: half of (the right half of the screen), floored
-   at its ~1360px-viewport size so shrinking eats the left space first */
+/* the pair splits the right half of the screen 42/58 in the thumbnail's
+   favour, floored at its ~1360px-viewport size so shrinking eats the left
+   space first */
 .wk-text {
-  flex: 0 1 calc((max(656px, 50vw - 24px) - 30px) / 2);
+  flex: 0 1 calc((max(656px, 50vw - 24px) - 30px) * 0.42);
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -78,11 +79,11 @@
 }
 
 .wk-image {
-  /* modest thumbnail, ~7:5 like the Figma Work_Desktop frame; capped on
-     very wide screens */
-  flex: 0 1 calc((max(656px, 50vw - 24px) - 30px) / 2);
+  /* thumbnail, ~7:5 like the Figma Work_Desktop frame; capped on very
+     wide screens */
+  flex: 0 1 calc((max(656px, 50vw - 24px) - 30px) * 0.58);
   min-width: 0;
-  max-width: 360px;
+  max-width: 480px;
   aspect-ratio: 7 / 5;
   background: var(--surface-placeholder);
 }
