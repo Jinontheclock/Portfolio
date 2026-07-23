@@ -8,6 +8,10 @@ import auditClients from "../assets/welab/welab-audit-clients.webp";
 import oldLandingDesktop from "../assets/welab/welab-old-landing-desktop.webp";
 import oldLandingMobile from "../assets/welab/welab-old-landing-mobile.webp";
 import oldStudios from "../assets/welab/welab-old-studios.webp";
+import afterWhoWeAre from "../assets/welab/welab-after-whoweare.webp";
+import afterFooter from "../assets/welab/welab-after-footer.webp";
+import langEn from "../assets/welab/welab-lang-en-challenge.webp";
+import langEs from "../assets/welab/welab-lang-es-challenge.webp";
 
 /* Context figures for the WeLAB case study. Figures whose source images
    the owner hasn't provided yet are not registered — their blocks render
@@ -40,27 +44,58 @@ const AUDIT_SECTIONS_ROW = [
   { src: auditHomeFooter, w: "calc((100% - 40px) * 0.1742)", label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
 ];
 
-function AuditRow({ row }) {
+function AuditRows({ rows }) {
   return (
     <div className="wl-audit">
-      <div className="wl-audit-row">
-        {row.map((cell) => (
-          <figure key={cell.label} className="wl-audit-cell" style={{ width: cell.w }}>
-            <img src={cell.src} alt={cell.alt} loading="lazy" />
-            <figcaption>{cell.label}</figcaption>
-          </figure>
-        ))}
-      </div>
+      {rows.map((row, i) => (
+        <div key={i} className="wl-audit-row">
+          {row.map((cell) => (
+            <figure key={cell.label} className="wl-audit-cell" style={{ width: cell.w }}>
+              <img src={cell.src} alt={cell.alt} loading="lazy" />
+              <figcaption>{cell.label}</figcaption>
+            </figure>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }
 
 export function WLAuditResponsiveFigure() {
-  return <AuditRow row={AUDIT_TAX_ROW} />;
+  return <AuditRows rows={[AUDIT_TAX_ROW]} />;
 }
 
 export function WLAuditSectionsFigure() {
-  return <AuditRow row={AUDIT_SECTIONS_ROW} />;
+  return <AuditRows rows={[AUDIT_SECTIONS_ROW]} />;
+}
+
+/* ── 03 Designing and Building ── */
+
+/* P02: the two audit finds the rebuild is proven on — Who We Are and the
+   home footer, each before/after in one row (widths ∝ aspect ratios) */
+const LAYOUT_ROWS = [
+  [
+    { src: auditWhoWeAre, w: "calc((100% - 20px) * 0.4672)", label: "Who We Are — before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+    { src: afterWhoWeAre, w: "calc((100% - 20px) * 0.5328)", label: "Who We Are — after", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
+  ],
+  [
+    { src: auditHomeFooter, w: "20%", label: "Home footer — before", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
+    { src: afterFooter, w: "20.08%", label: "Home footer — after", alt: "The rebuilt home footer on a phone — the same components set on a consistent grid" },
+  ],
+];
+
+export function WLLayoutSystemFigure() {
+  return <AuditRows rows={LAYOUT_ROWS} />;
+}
+
+/* O02: the same project brief on the live site, in both languages */
+const LANG_ROW = [
+  { src: langEn, w: "calc((100% - 20px) * 0.5)", label: "English", alt: "A Winning Team's Challenge, Solution, and Our Take sections on the live site, in English" },
+  { src: langEs, w: "calc((100% - 20px) * 0.5)", label: "Spanish", alt: "The same sections in Spanish — El Reto, La Solución, and Nuestra Perspectiva" },
+];
+
+export function WLLangToggleFigure() {
+  return <AuditRows rows={[LANG_ROW]} />;
 }
 
 /* Opportunity 01: the old landing page leading with the same two project

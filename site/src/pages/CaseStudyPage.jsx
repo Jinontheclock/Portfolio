@@ -49,6 +49,8 @@ import { WLVfxSliderFigure } from "../components/WeLabSlider.jsx";
 import {
   WLAuditResponsiveFigure,
   WLAuditSectionsFigure,
+  WLLayoutSystemFigure,
+  WLLangToggleFigure,
   WLOldShowcaseFigure,
   WLOldLandingFigure,
   WLOldStudiosFigure,
@@ -93,6 +95,8 @@ const FIGURES = {
   "welab-fig-old-landing": WLOldLandingFigure,
   "welab-fig-old-studios": WLOldStudiosFigure,
   "welab-ba-vfx": WLVfxSliderFigure,
+  "welab-fig-layout-system": WLLayoutSystemFigure,
+  "welab-fig-lang-toggle": WLLangToggleFigure,
   "tinypaws-fig-sitemap": TPSitemapFigure,
   "tinypaws-fig-lofi-grid": TPLofiGridFigure,
   "tinypaws-ba-nav": TPBANavFigure,
