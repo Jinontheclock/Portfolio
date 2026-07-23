@@ -73,15 +73,9 @@
   margin-left: auto;
 }
 
-/* ── Tablet: text left, thumbnail right ── */
-@media (max-width: 1024px) {
-  .wk-text {
-    grid-column: 1 / 8;
-  }
-  .wk-image {
-    grid-column: 8 / 13;
-  }
-}
+/* No tablet override: above the mobile breakpoint the card keeps the
+   desktop geometry, so the text column starts at col 6 — the same spot the
+   case-study pages start their copy — at every window size. */
 
 /* ── Mobile: image above text, both indented from the left (Figma grid) ── */
 @media (max-width: 600px) {
