@@ -50,6 +50,8 @@
 }
 
 .wk-desc {
+  /* same measure as the case-study body copy (casestudy.css .cs-block-p) */
+  max-width: 67ch;
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
 }
