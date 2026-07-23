@@ -13,7 +13,8 @@ import footerBaBefore from "../assets/welab/welab-footer-ba-before.webp";
 import footerBaAfter from "../assets/welab/welab-footer-ba-after.webp";
 import langEn from "../assets/welab/welab-lang-en.webp";
 import langEs from "../assets/welab/welab-lang-es.webp";
-import afterClients from "../assets/welab/welab-after-clients.webp";
+import clientsBaBefore from "../assets/welab/welab-clients-ba-before.webp";
+import clientsBaAfter from "../assets/welab/welab-clients-ba-after.webp";
 import afterFeatured from "../assets/welab/welab-after-featured.webp";
 import figma2Col from "../assets/welab/welab-figma-featured-2col.webp";
 import figma3Col from "../assets/welab/welab-figma-featured-3col.webp";
@@ -91,8 +92,8 @@ const LAYOUT_ROWS = [
     { src: footerBaAfter, w: "20%", label: "Home footer — after", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
   ],
   [
-    { src: auditClients, w: "calc((100% - 20px) * 0.4977)", label: "Clients & Awards — before", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
-    { src: afterClients, w: "calc((100% - 20px) * 0.5023)", label: "Clients & Awards — after", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
+    { src: clientsBaBefore, w: "calc((100% - 20px) * 0.4982)", label: "Clients & Awards — before", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
+    { src: clientsBaAfter, w: "calc((100% - 20px) * 0.5018)", label: "Clients & Awards — after", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
   ],
 ];
 
