@@ -99,7 +99,6 @@ export const PROJECTS = [
             type: "p",
             text: "A VFX studio's website is its showreel's front door: producers land on it deciding whether the studio is worth a call. WeLAB's site had fallen behind the work it was meant to sell. The brief: refine the UX/UI, update the content, improve the architecture, and make the site fast, responsive, and findable — up to the studio's own standard.",
           },
-          { type: "cta", label: "Visit the live site", href: "https://weloveabattle.com/" },
           {
             type: "p",
             text: "This wasn't a greenfield build. The site stayed live in production throughout, the brand was set, and the stack — WordPress with the Bricks builder — was the studio's, not mine. The job was to raise the site inside those lines.",
@@ -246,6 +245,7 @@ export const PROJECTS = [
               { value: "Shipped live", label: "to production, inside the studio's existing brand and stack" },
             ],
           },
+          { type: "cta", label: "Visit the live site", href: "https://weloveabattle.com/" },
         ],
       },
       {
