@@ -15,6 +15,8 @@ import langEn from "../assets/welab/welab-lang-en.webp";
 import langEs from "../assets/welab/welab-lang-es.webp";
 import clientsBaBefore from "../assets/welab/welab-clients-ba-before.webp";
 import clientsBaAfter from "../assets/welab/welab-clients-ba-after.webp";
+import taxNewDesktop from "../assets/welab/welab-tax-new-desktop.webp";
+import taxNewMobile from "../assets/welab/welab-tax-new-mobile.webp";
 import afterFeatured from "../assets/welab/welab-after-featured.webp";
 import figma2Col from "../assets/welab/welab-figma-featured-2col.webp";
 import figma3Col from "../assets/welab/welab-figma-featured-3col.webp";
@@ -83,6 +85,10 @@ export function WLAuditSectionsFigure() {
 /* P02: the two audit finds the rebuild is proven on — Who We Are and the
    home footer, each before/after in one row (widths ∝ aspect ratios) */
 const LAYOUT_ROWS = [
+  [
+    { src: taxNewDesktop, w: "calc((100% - 20px) * 0.8286)", label: "Tax Credits — after, desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
+    { src: taxNewMobile, w: "calc((100% - 20px) * 0.1714)", label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
+  ],
   [
     { src: auditWhoWeAre, w: "calc((100% - 20px) * 0.4672)", label: "Who We Are — before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
     { src: afterWhoWeAre, w: "calc((100% - 20px) * 0.5328)", label: "Who We Are — after", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
