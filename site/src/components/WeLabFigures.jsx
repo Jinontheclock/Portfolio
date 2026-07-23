@@ -9,7 +9,8 @@ import oldLandingDesktop from "../assets/welab/welab-old-landing-desktop.webp";
 import oldLandingMobile from "../assets/welab/welab-old-landing-mobile.webp";
 import oldStudios from "../assets/welab/welab-old-studios.webp";
 import afterWhoWeAre from "../assets/welab/welab-after-whoweare.webp";
-import afterFooter from "../assets/welab/welab-after-footer.webp";
+import footerBaBefore from "../assets/welab/welab-footer-ba-before.webp";
+import footerBaAfter from "../assets/welab/welab-footer-ba-after.webp";
 import langEn from "../assets/welab/welab-lang-en.webp";
 import langEs from "../assets/welab/welab-lang-es.webp";
 import afterClients from "../assets/welab/welab-after-clients.webp";
@@ -89,8 +90,8 @@ const LAYOUT_ROWS = [
     { src: afterWhoWeAre, w: "calc((100% - 20px) * 0.5328)", label: "Who We Are — after", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
   ],
   [
-    { src: auditHomeFooter, w: "20%", label: "Home footer — before", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
-    { src: afterFooter, w: "20.08%", label: "Home footer — after", alt: "The rebuilt home footer on a phone — the same components set on a consistent grid" },
+    { src: footerBaBefore, w: "20%", label: "Home footer — before", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
+    { src: footerBaAfter, w: "20%", label: "Home footer — after", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
   ],
   [
     { src: auditClients, w: "calc((100% - 20px) * 0.4977)", label: "Clients & Awards — before", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
