@@ -191,7 +191,6 @@ export const PROJECTS = [
             type: "p",
             text: "It now runs on the studio's project pages — on A Winning Team, it carries the stadium crowd extensions WeLAB delivered across 161 shots for a Hallmark feature.",
           },
-          { type: "cta", label: "See it live on A Winning Team", href: "https://weloveabattle.com/project/a-winning-team/" },
           { type: "h", text: "One system, every page", tag: "Problem 02" },
           {
             type: "p",
