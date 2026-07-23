@@ -10,8 +10,8 @@ import oldLandingMobile from "../assets/welab/welab-old-landing-mobile.webp";
 import oldStudios from "../assets/welab/welab-old-studios.webp";
 import afterWhoWeAre from "../assets/welab/welab-after-whoweare.webp";
 import afterFooter from "../assets/welab/welab-after-footer.webp";
-import langEn from "../assets/welab/welab-lang-en-challenge.webp";
-import langEs from "../assets/welab/welab-lang-es-challenge.webp";
+import langEn from "../assets/welab/welab-lang-en.webp";
+import langEs from "../assets/welab/welab-lang-es.webp";
 import afterClients from "../assets/welab/welab-after-clients.webp";
 import afterTax1280 from "../assets/welab/welab-after-tax-1280.webp";
 import afterTax1200 from "../assets/welab/welab-after-tax-1200.webp";
@@ -133,10 +133,10 @@ export function WLLandingBAFigure() {
   return <AuditRows rows={LANDING_ROWS} />;
 }
 
-/* O02: the same project brief on the live site, in both languages */
+/* O02: the same project page on the live site, in both languages */
 const LANG_ROW = [
-  { src: langEn, w: "calc((100% - 20px) * 0.5)", label: "English", alt: "A Winning Team's Challenge, Solution, and Our Take sections on the live site, in English" },
-  { src: langEs, w: "calc((100% - 20px) * 0.5)", label: "Spanish", alt: "The same sections in Spanish — El Reto, La Solución, and Nuestra Perspectiva" },
+  { src: langEn, w: "calc((100% - 20px) * 0.5)", label: "English", alt: "The Game, Set, Love project page on the live site in English — credits, then The Challenge, Our Take, and The Solution" },
+  { src: langEs, w: "calc((100% - 20px) * 0.5)", label: "Spanish", alt: "The same page switched to Spanish — El Reto, Nuestra Perspectiva, and La Solución" },
 ];
 
 export function WLLangToggleFigure() {

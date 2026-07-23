@@ -224,7 +224,7 @@ export const PROJECTS = [
           {
             type: "figure",
             graphic: "welab-fig-lang-toggle",
-            caption: "The Challenge section of A Winning Team on the live site, in English and in Spanish.",
+            caption: "The same project page on the live site, in English and in Spanish.",
           },
         ],
       },
