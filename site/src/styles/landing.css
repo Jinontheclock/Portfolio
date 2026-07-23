@@ -125,16 +125,20 @@ html.lp-locked body {
   margin: 0 -12px calc(var(--size-lp-nav) * 0.305) -12px;
   margin: 0 -12px
     calc(round(calc(var(--size-lp-nav) * 1.25), 1px) / 2 - var(--size-lp-nav) * 0.32) -12px;
-  /* hidden at rest; fades in with the slide on hover, settles back after */
+  /* hidden at rest; fades in with the slide on hover, settles back after.
+     The rest transform cancels the column gap so the slide departs right
+     at the text's edge */
   opacity: 0;
+  transform: translateX(calc(-1 * var(--size-lp-arrow-gap)));
   transition: transform 200ms var(--easing), opacity 200ms var(--easing);
 }
 
-/* Hover (or keyboard focus) reveals the arrow and pushes it rightward */
+/* Hover (or keyboard focus) reveals the arrow and pushes it rightward —
+   settling at half the shift so it stays closer to the label */
 .lp-navlink:hover .lp-arrow,
 .lp-navlink:focus-visible .lp-arrow {
   opacity: 1;
-  transform: translateX(var(--size-lp-arrow-shift));
+  transform: translateX(calc(var(--size-lp-arrow-shift) / 2));
   transition: transform 200ms ease-in, opacity 200ms ease-in;
 }
 
