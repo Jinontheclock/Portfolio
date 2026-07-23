@@ -199,7 +199,7 @@ export const PROJECTS = [
           {
             type: "figure",
             graphic: "welab-fig-layout-system",
-            caption: "The Tax Credits section on the new site, at the same three widths the audit caught breaking.",
+            caption: "The Who We Are section and the home footer, before and after the rebuild.",
           },
           { type: "h", text: "The front page caught up", tag: "Opportunity 01" },
           {
@@ -216,15 +216,15 @@ export const PROJECTS = [
             graphic: "welab-ba-landing",
             caption: "The old and new landing pages.",
           },
-          { type: "h", text: "Two languages, one site", tag: "Opportunity 02" },
+          { type: "h", text: "The work pages learned Spanish", tag: "Opportunity 02" },
           {
             type: "p",
-            text: "Built on Polylang, the site now serves every page in English and Spanish through one set of templates rather than a duplicated site — «TBD: 네가 실제로 한 작업 한 문장(토글 배치, 템플릿 이중언어 검증, 번역 워크플로 등)». The same site that sells BC and Alberta production incentives in English sells Jalisco's in Spanish.",
+            text: "The language work turned out custom, like the slider. Thirteen of the studio's project case studies — including every recent VFX feature — now carry their copy in English and Spanish both, switched by an EN/ES toggle in the header: each brief lives on the page in two languages, and the toggle decides which one a producer reads. The rest of the site holds English for now — but the pages that actually sell the work already speak the market's language.",
           },
           {
             type: "figure",
             graphic: "welab-fig-lang-toggle",
-            caption: "The same page on the live site, in English and in Spanish.",
+            caption: "The Challenge section of A Winning Team on the live site, in English and in Spanish.",
           },
         ],
       },
@@ -234,13 +234,13 @@ export const PROJECTS = [
         blocks: [
           {
             type: "p",
-            text: "The redesign shipped to production on the studio's live domain — everything this case study shows links to the real thing.",
+            text: "The redesign shipped to production on the studio's live domain — everything this case study shows links to the real thing. A production site keeps moving after handover; this study shows the work as it shipped in May 2026.",
           },
           {
             type: "stats",
             items: [
               { value: "«TBD: Lighthouse 실측»", label: "«TBD: 측정 후 문구»" },
-              { value: "Two languages", label: "English and Spanish — one site for clients from Vancouver to Guadalajara" },
+              { value: "13 case studies", label: "now read in English and Spanish — the pages that sell the work to the Mexican market" },
               { value: "Shipped live", label: "to production, inside the studio's existing brand and stack" },
             ],
           },
