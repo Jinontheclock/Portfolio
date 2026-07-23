@@ -45,6 +45,7 @@ import {
   TPBACtaFigure,
   TINYPAWS_SHOTS,
 } from "../components/TinyPawsFigures.jsx";
+import { WLVfxSliderFigure } from "../components/WeLabSlider.jsx";
 import {
   WLAuditResponsiveFigure,
   WLAuditSectionsFigure,
@@ -91,6 +92,7 @@ const FIGURES = {
   "welab-fig-old-showcase": WLOldShowcaseFigure,
   "welab-fig-old-landing": WLOldLandingFigure,
   "welab-fig-old-studios": WLOldStudiosFigure,
+  "welab-ba-vfx": WLVfxSliderFigure,
   "tinypaws-fig-sitemap": TPSitemapFigure,
   "tinypaws-fig-lofi-grid": TPLofiGridFigure,
   "tinypaws-ba-nav": TPBANavFigure,
