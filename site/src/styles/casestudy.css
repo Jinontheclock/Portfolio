@@ -911,3 +911,71 @@
     width: 110px;
   }
 }
+
+/* ── WeLAB: the live site's before/after slider, embedded (ch03) ── */
+.wl-slider {
+  position: relative;
+  width: 100%;
+}
+.wl-slider img-comparison-slider {
+  --divider-width: 0px;
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  outline: none;
+}
+.wl-slider img-comparison-slider img {
+  width: 100%;
+  display: block;
+}
+.wl-slider [slot="handle"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+}
+.wl-slider [slot="handle"]::after {
+  content: "";
+  position: absolute;
+  top: -1000px;
+  bottom: -1000px;
+  left: 50%;
+  width: 2px;
+  background-color: #ffffff;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+.wl-slider [slot="handle"] svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.3));
+}
+.wl-slider-label {
+  position: absolute;
+  top: 24px;
+  padding: 6px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  font: 700 14px / 1.2 var(--font-ui);
+  letter-spacing: 1.5px;
+  border-radius: 10px;
+  z-index: 20;
+  pointer-events: none;
+}
+.wl-slider-label--left { left: 24px; }
+.wl-slider-label--right { right: 24px; }
+@media screen and (max-width: 1024px) {
+  .wl-slider-label {
+    top: 16px;
+    padding: 4px 8px;
+    font-size: 8px;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+  }
+  .wl-slider [slot="handle"] { width: 45px; height: 45px; }
+  .wl-slider-label--left { left: 16px; }
+  .wl-slider-label--right { right: 16px; }
+}
