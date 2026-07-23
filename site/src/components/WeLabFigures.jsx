@@ -12,6 +12,11 @@ import afterWhoWeAre from "../assets/welab/welab-after-whoweare.webp";
 import afterFooter from "../assets/welab/welab-after-footer.webp";
 import langEn from "../assets/welab/welab-lang-en-challenge.webp";
 import langEs from "../assets/welab/welab-lang-es-challenge.webp";
+import afterClients from "../assets/welab/welab-after-clients.webp";
+import afterTax1280 from "../assets/welab/welab-after-tax-1280.webp";
+import afterTax1200 from "../assets/welab/welab-after-tax-1200.webp";
+import afterTaxMobile from "../assets/welab/welab-after-tax-mobile.webp";
+import afterFeatured from "../assets/welab/welab-after-featured.webp";
 
 /* Context figures for the WeLAB case study. Figures whose source images
    the owner hasn't provided yet are not registered — their blocks render
@@ -82,10 +87,34 @@ const LAYOUT_ROWS = [
     { src: auditHomeFooter, w: "20%", label: "Home footer — before", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
     { src: afterFooter, w: "20.08%", label: "Home footer — after", alt: "The rebuilt home footer on a phone — the same components set on a consistent grid" },
   ],
+  [
+    { src: auditClients, w: "calc((100% - 20px) * 0.4977)", label: "Clients & Awards — before", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
+    { src: afterClients, w: "calc((100% - 20px) * 0.5023)", label: "Clients & Awards — after", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
+  ],
+  [
+    { src: afterTax1280, w: "calc((100% - 40px) * 0.4162)", label: "Tax Credits — after, 1280px", alt: "The rebuilt Tax Credits section at 1280px — the incentive cards holding their grid" },
+    { src: afterTax1200, w: "calc((100% - 40px) * 0.4641)", label: "Tax Credits — after, 1200px", alt: "The rebuilt Tax Credits section at 1200px — the cards reflowing without a stray gap" },
+    { src: afterTaxMobile, w: "calc((100% - 40px) * 0.1197)", label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
+  ],
 ];
 
 export function WLLayoutSystemFigure() {
   return <AuditRows rows={LAYOUT_ROWS} />;
+}
+
+/* O01: the landing page, before and after — the old two-card front page
+   against the new featured case-studies section */
+const LANDING_ROWS = [
+  [
+    { src: oldLandingDesktop, w: "32%", label: "Landing — before", alt: "The old landing page on desktop — the hero followed by the same two project cards, Torch of Rock and Roll and A Winning Team" },
+  ],
+  [
+    { src: afterFeatured, w: "100%", label: "Landing — after, the featured case-studies section", alt: "The new landing page's featured section — the studio's three newest case studies on one grid, each with a clear way in" },
+  ],
+];
+
+export function WLLandingBAFigure() {
+  return <AuditRows rows={LANDING_ROWS} />;
 }
 
 /* O02: the same project brief on the live site, in both languages */
