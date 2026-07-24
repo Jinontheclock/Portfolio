@@ -87,7 +87,7 @@ export const PROJECTS = [
       {
         label: "link",
         values: [
-          { label: "Live Site", href: "https://weloveabattle.com/" },
+          { label: "weloveabattle.com", href: "https://weloveabattle.com/" },
         ],
       },
     ],
