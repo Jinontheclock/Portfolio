@@ -24,7 +24,7 @@ function ScrollToTop() {
 // media-heavy case studies re-run the count-up cover on in-app entry, so
 // their hero video and figures never appear mid-load (first loads on any
 // route are already covered by the boot Preloader below)
-const COVERED_ROUTES = ["/work/tinypaws"];
+const COVERED_ROUTES = ["/work/tinypaws", "/work/welab"];
 function CaseStudyLoader() {
   const { pathname } = useLocation();
   const [covering, setCovering] = useState(false);

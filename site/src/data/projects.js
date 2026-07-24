@@ -68,6 +68,7 @@ export const PROJECTS = [
     description:
       "A live-site redesign for a VFX & animation studio — audited, redesigned, and rebuilt in Bricks, with custom code where the builder ran out",
     roles: "UI/UX Design, Web Development",
+    heroScene: "welab",
     headline: "Bringing a VFX studio's website up to its own standard.",
     intro: [
       "WeLAB — We Love A Battle Entertainment — is a VFX and animation studio working in film and TV from Vancouver, Calgary, and Guadalajara. Over a three-month practicum internship, I was the designer on its public site end to end: auditing the old weloveabattle.com, then redesigning and rebuilding it in WordPress' Bricks builder — in Figma where a mission called for it, in custom code where the builder ran out.",

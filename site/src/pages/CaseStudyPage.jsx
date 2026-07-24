@@ -6,6 +6,7 @@ import TryAppModal from "../components/TryAppModal.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
 import ProLogJourney from "../components/ProLogJourney.jsx";
 import TinyPawsMonitor from "../components/TinyPawsMonitor.jsx";
+import WeLabHero from "../components/WeLabHero.jsx";
 import prologMockupUrl from "../assets/prolog/prolog-mockup.webp";
 import {
   AudienceFigure,
@@ -61,7 +62,7 @@ import {
 
 /* hero scenes: live in-page animations a project can use instead of a
    video or the placeholder (see each project's heroScene field) */
-const HERO_SCENES = { journey: ProLogJourney, monitor: TinyPawsMonitor };
+const HERO_SCENES = { journey: ProLogJourney, monitor: TinyPawsMonitor, welab: WeLabHero };
 
 /* in-page figures a "figure" block can reference by name */
 const FIGURES = {
