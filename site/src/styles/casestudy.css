@@ -979,3 +979,24 @@
   .wl-slider-label--left { left: 16px; }
   .wl-slider-label--right { right: 16px; }
 }
+
+/* ── employer testimonial quote (WeLAB ch04) ── */
+.cs-quote {
+  margin: 44px 0;
+  padding-left: 24px;
+  border-left: 2px solid var(--text);
+  max-width: 62ch;
+}
+.cs-quote p {
+  margin: 0;
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  color: var(--text);
+}
+.cs-quote-cite {
+  display: block;
+  margin-top: 14px;
+  font: 500 0.82em / 1.4 var(--font-ui);
+  font-style: normal;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}

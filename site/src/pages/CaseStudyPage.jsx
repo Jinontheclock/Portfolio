@@ -217,6 +217,13 @@ function Block({ block, onDemo, demoHref }) {
     }
     case "tagline":
       return <p className="cs-tagline">{block.text}</p>;
+    case "quote":
+      return (
+        <blockquote className="cs-quote">
+          <p>{noOrphan(block.text)}</p>
+          {block.cite && <cite className="cs-quote-cite">{block.cite}</cite>}
+        </blockquote>
+      );
     case "solution":
       /* a Solution row: heading with its problem tag, then text on the
          left and the app screens on the right */
