@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import oldShowcaseChallenge from "../assets/welab/welab-old-showcase-challenge.webp";
 import oldShowcaseSolution from "../assets/welab/welab-old-showcase-solution.webp";
 import auditHomeFooter from "../assets/welab/welab-audit-home-footer.webp";
@@ -83,19 +84,40 @@ const AUDIT_SECTIONS_ROW = [
   { src: auditHomeFooter, w: UNIF(0.46), label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
 ];
 
+/* A cell may carry `ba: "before" | "after"`. The first cell of each side
+   gets a small chip on the capture itself, and an arrow marks where the
+   row crosses from the old state to the rebuilt one — so a comparison
+   reads as one at a glance, not as a line of screenshots with captions.
+   The chip sits bottom-left: measured across these captures, that corner
+   is the one reliably clear of content. */
 function AuditRows({ rows }) {
   return (
     <div className="wl-audit">
-      {rows.map((row, i) => (
-        <div key={i} className="wl-audit-row">
-          {row.map((cell) => (
-            <figure key={cell.label || cell.src} className="wl-audit-cell" style={{ width: cell.w }}>
-              <img src={cell.src} alt={cell.alt} loading="lazy" />
-              {cell.label && <figcaption>{cell.label}</figcaption>}
-            </figure>
-          ))}
-        </div>
-      ))}
+      {rows.map((row, i) => {
+        const firstOf = { before: row.findIndex((c) => c.ba === "before"), after: row.findIndex((c) => c.ba === "after") };
+        return (
+          <div key={i} className="wl-audit-row">
+            {row.map((cell, j) => (
+              <Fragment key={cell.label || cell.src}>
+                {j > 0 && cell.ba === "after" && row[j - 1].ba === "before" && (
+                  <span className="wl-ba-arrow" aria-hidden="true">
+                    →
+                  </span>
+                )}
+                <figure className="wl-audit-cell" style={{ width: cell.w }}>
+                  <span className="wl-cell-shot">
+                    <img src={cell.src} alt={cell.alt} loading="lazy" />
+                    {cell.ba && firstOf[cell.ba] === j && (
+                      <span className="wl-ba-chip">{cell.ba}</span>
+                    )}
+                  </span>
+                  {cell.label && <figcaption>{cell.label}</figcaption>}
+                </figure>
+              </Fragment>
+            ))}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -129,22 +151,22 @@ const LAYOUT_ROWS = [
      height, so this row is scaled to its own total (3.719) and renders
      shorter than the rest. */
   [
-    { src: auditTaxTablet, w: "calc((100% - 60px) * 0.3305)", label: "Tax Credits — before, 1280px", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-    { src: auditTaxMobile, w: "calc((100% - 60px) * 0.0874)", label: "Tax Credits — before, mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
-    { src: taxNewDesktop, w: "calc((100% - 60px) * 0.4824)", label: "Tax Credits — after, desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
-    { src: taxNewMobile, w: "calc((100% - 60px) * 0.0998)", label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
+    { src: auditTaxTablet, w: "calc((100% - 60px) * 0.3305)", ba: "before", label: "Tax Credits — before, 1280px", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+    { src: auditTaxMobile, w: "calc((100% - 60px) * 0.0874)", ba: "before", label: "Tax Credits — before, mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+    { src: taxNewDesktop, w: "calc((100% - 60px) * 0.4824)", ba: "after", label: "Tax Credits — after, desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
+    { src: taxNewMobile, w: "calc((100% - 60px) * 0.0998)", ba: "after", label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
   ],
   [
-    { src: auditWhoWeAre, w: UNIF(1.332), label: "Who We Are — before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
-    { src: afterWhoWeAre, w: UNIF(1.519), label: "Who We Are — after", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
+    { src: auditWhoWeAre, w: UNIF(1.332), label: "Who We Are — before", ba: "before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+    { src: afterWhoWeAre, w: UNIF(1.519), ba: "after", label: "Who We Are — after", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
   ],
   [
-    { src: footerBaBefore, w: UNIF(0.59), label: "Home footer — before", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
-    { src: footerBaAfter, w: UNIF(0.59), label: "Home footer — after", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
+    { src: footerBaBefore, w: UNIF(0.59), ba: "before", label: "Home footer — before", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
+    { src: footerBaAfter, w: UNIF(0.59), ba: "after", label: "Home footer — after", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
   ],
   [
-    { src: clientsBaBefore, w: UNIF(0.97), label: "Clients & Awards — before", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
-    { src: clientsBaAfter, w: UNIF(0.977), label: "Clients & Awards — after", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
+    { src: clientsBaBefore, w: UNIF(0.97), ba: "before", label: "Clients & Awards — before", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
+    { src: clientsBaAfter, w: UNIF(0.977), ba: "after", label: "Clients & Awards — after", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
   ],
 ];
 
@@ -172,8 +194,8 @@ const LANDING_ROWS = [
   [
     /* cropped to the project cards alone, so the pair compares like with
        like: the old front page's two cards against the new section */
-    { src: oldLandingCards, w: UNIF(0.859), label: "Landing — before", alt: "The old landing page's project cards — Torch of Rock and Roll and A Winning Team, each card taking a full screen of its own" },
-    { src: afterFeatured, w: UNIF(1.69), label: "Featured case studies — shipped", alt: "The featured case-studies section on the live site — the studio's three newest case studies on one grid, each with a clear way in" },
+    { src: oldLandingCards, w: UNIF(0.859), ba: "before", label: "Landing — before", alt: "The old landing page's project cards — Torch of Rock and Roll and A Winning Team, each card taking a full screen of its own" },
+    { src: afterFeatured, w: UNIF(1.69), ba: "after", label: "Featured case studies — shipped", alt: "The featured case-studies section on the live site — the studio's three newest case studies on one grid, each with a clear way in" },
   ],
 ];
 

@@ -1043,3 +1043,43 @@
     gap: 16px;
   }
 }
+
+/* ── before/after markers on the WeLAB comparison rows ──
+   A chip on the capture and an arrow at the crossover, so a row reads as
+   one comparison at a glance instead of a line of captioned screenshots.
+   Both are drawn in the portfolio's own paper/ink tokens (not the captured
+   site's palette), so they read as annotation laid over the screenshot. */
+.wl-cell-shot {
+  position: relative;
+  display: block;
+}
+.wl-ba-chip {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 3px 7px;
+  border-radius: 3px;
+  background: var(--bg);
+  color: var(--text-primary);
+  font: 500 9px / 1.2 var(--font-ui);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.wl-ba-arrow {
+  /* drawn inside the row's existing 20px gap: zero width, and the negative
+     margins cancel the extra flex gap the element would otherwise add, so
+     the row keeps the width its uniform-height math assumes */
+  flex: 0 0 auto;
+  width: 0;
+  margin: 0 -10px;
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+  /* the figure's caption sits below the image, so nudge up by about half
+     a caption block to centre the arrow on the captures themselves */
+  align-self: center;
+  margin-top: -13px;
+  color: var(--text-muted);
+  font: 400 12px / 1 var(--font-ui);
+}
