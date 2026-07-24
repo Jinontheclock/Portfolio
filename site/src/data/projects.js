@@ -245,6 +245,11 @@ export const PROJECTS = [
               { value: "Shipped live", label: "to production, inside the studio's existing brand and stack" },
             ],
           },
+          {
+            type: "quote",
+            text: "Handing an intern the keys to our live site isn't something we'd normally do — but the trust was there early, and Hajin never gave us a reason to second-guess it. His workflow was quick and his reporting kept everyone aligned; feedback went in cleanly and the work came back better each round. He brought strong ideas to the table and did the research to stand them up, then knew how to apply it. He left the site meaningfully better than he found it.",
+            cite: "Kenji, Creative Producer, WeLAB Entertainment",
+          },
           { type: "cta", label: "Visit the live site", href: "https://weloveabattle.com/" },
         ],
       },
