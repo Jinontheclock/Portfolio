@@ -6,6 +6,7 @@ import auditTaxMobile from "../assets/welab/welab-audit-tax-mobile.webp";
 import auditWhoWeAre from "../assets/welab/welab-audit-whoweare.webp";
 import auditClients from "../assets/welab/welab-audit-clients.webp";
 import oldLandingDesktop from "../assets/welab/welab-old-landing-desktop.webp";
+import oldLandingCards from "../assets/welab/welab-old-landing-cards.webp";
 import oldLandingMobile from "../assets/welab/welab-old-landing-mobile.webp";
 import oldStudios from "../assets/welab/welab-old-studios.webp";
 import afterWhoWeAre from "../assets/welab/welab-after-whoweare.webp";
@@ -159,7 +160,9 @@ export function WLFigmaFeaturedFigure() {
    (the old landing already appears under ch02's Opportunity 01) */
 const LANDING_ROWS = [
   [
-    { src: oldLandingDesktop, w: UNIF(0.479), label: "Landing — before", alt: "The old landing page on desktop — the hero followed by the same two project cards, Torch of Rock and Roll and A Winning Team" },
+    /* cropped to the project cards alone, so the pair compares like with
+       like: the old front page's two cards against the new section */
+    { src: oldLandingCards, w: UNIF(0.859), label: "Landing — before", alt: "The old landing page's project cards — Torch of Rock and Roll and A Winning Team, each card taking a full screen of its own" },
     { src: afterFeatured, w: UNIF(1.69), label: "Featured case studies — shipped", alt: "The featured case-studies section on the live site — the studio's three newest case studies on one grid, each with a clear way in" },
   ],
 ];
