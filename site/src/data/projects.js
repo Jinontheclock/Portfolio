@@ -112,7 +112,7 @@ export const PROJECTS = [
         blocks: [
           {
             type: "p",
-            text: "The redesign started by reading the site the way a producer would: page by page, desktop and phone, against the sites of the VFX studios WeLAB competes with. Two problems and two opportunities came out of the audit — and they became the spine of the whole internship.",
+            text: "The redesign started by reading the site the way a producer would: page by page, desktop and phone, against the sites of the VFX studios WeLAB competes with — studios that open with their newest work and let a producer scrub a shot from plate to final on the project page itself. Held to that bar, the audit surfaced two problems and two opportunities — and they became the spine of the whole internship.",
           },
           { type: "h", text: "Problem 01 — The work didn't show its magic" },
           {
@@ -192,10 +192,10 @@ export const PROJECTS = [
             type: "p",
             text: "It now runs on the studio's project pages — on A Winning Team, it carries the stadium crowd extensions WeLAB delivered across 161 shots for a Hallmark feature.",
           },
-          { type: "h", text: "One system, every page", tag: "Problem 02" },
+          { type: "h", text: "One grid, section by section", tag: "Problem 02" },
           {
             type: "p",
-            text: "The layout system was built where it would live — directly in Bricks: shared spacing and alignment rules, one type hierarchy, reusable sections and components for pages to inherit, and a single set of responsive breakpoints. Every page the audit flagged was rebuilt on those rules. Rebuilding was also the moment to make every page lighter: logos and UI graphics shipped as SVG, photography and film stills as JPGs tuned to the resolution they actually render at — clarity kept, page weight cut.",
+            text: "Rather than impose a top-down system, I reworked the flawed sections one at a time — directly in Bricks — realigning each to a consistent grid and tightening its spacing and hierarchy so the page read as one considered layout instead of a stack of one-offs. Every section the audit flagged went back onto that grid. Rebuilding was also the moment to right-size the media: logos and UI graphics as SVG, photography and film stills as JPGs tuned to the resolution they actually render at — every asset no heavier than the layout needs.",
           },
           {
             type: "figure",
@@ -205,7 +205,7 @@ export const PROJECTS = [
           { type: "h", text: "The front page caught up", tag: "Opportunity 01" },
           {
             type: "p",
-            text: "The one mission that started in Figma. I designed the featured case-studies section as an argument for the studio's newest work — what a card owes a producer: the project, the scale, a reason to click. Five layouts went through the weekly loop — two columns, three, a carousel, a hover-focus variant, full-width rows — before the three-column grid won and was built in Bricks. Where the old cards each swallowed a screen and buried their link, the new section puts the studio's three newest case studies in front of a producer at a glance, on one grid, each with a clear way in. The landing page now leads with its freshest work instead of last year's two cards.",
+            text: "The one mission that started in Figma. I designed the featured case-studies section as an argument for the studio's newest work — what a card owes a producer: the project, the scale, a reason to click. Five layouts went through the weekly loop — two columns, three, a carousel, a hover-focus variant, full-width rows. The direction from my supervisor was to keep three case studies in view at once — no scroll, no click — and three columns delivered it: room for each card to make its case, tight enough to compare at a glance, where the carousel hid two-thirds of the work and the rows dropped the third study below the fold. That was the layout built in Bricks. Where the old cards each swallowed a screen and buried their link, the new section puts the studio's three newest case studies in front of a producer at a glance, on one grid, each with a clear way in. The landing page now leads with its freshest work instead of last year's two cards.",
           },
           {
             type: "figure",
@@ -259,7 +259,7 @@ export const PROJECTS = [
           },
           {
             type: "p",
-            text: "WeLAB handed an intern full access to a production site — trust that changed how carefully I shipped. If I set up the next project, the asset pipeline comes first: knowing exactly which media exists, at what quality, before design starts.",
+            text: "WeLAB handed an intern full access to a production site — trust that changed how carefully I shipped. If I set up the next project, the asset pipeline comes first: knowing exactly which media exists, at what quality, before design starts. I'd also instrument the site from day one — the redesign shipped, but with no analytics baseline I can point to what I built, not yet to what it moved; next time I'd measure the before so the after has a number.",
           },
         ],
       },
