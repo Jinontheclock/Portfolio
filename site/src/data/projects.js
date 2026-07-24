@@ -194,17 +194,17 @@ export const PROJECTS = [
           { type: "h", text: "One system, every page", tag: "Problem 02" },
           {
             type: "p",
-            text: "The layout system was built where it would live — directly in Bricks: «TBD: 시스템의 실제 구성(재사용 섹션 구조·스페이싱 규칙·타이포 위계 등 실제 한 것)». Every page the audit flagged was rebuilt on those rules. Rebuilding was also the moment to make every page lighter: logos and UI graphics shipped as SVG, photography and film stills as JPGs tuned to the resolution they actually render at — clarity kept, page weight cut.",
+            text: "The layout system was built where it would live — directly in Bricks: shared spacing and alignment rules, one type hierarchy, reusable sections and components for pages to inherit, and a single set of responsive breakpoints. Every page the audit flagged was rebuilt on those rules. Rebuilding was also the moment to make every page lighter: logos and UI graphics shipped as SVG, photography and film stills as JPGs tuned to the resolution they actually render at — clarity kept, page weight cut.",
           },
           {
             type: "figure",
             graphic: "welab-fig-layout-system",
-            caption: "The Who We Are section and the home footer, before and after the rebuild.",
+            caption: "The rebuilt Tax Credits section, and the Who We Are, home footer, and Clients & Awards sections before and after the rebuild.",
           },
           { type: "h", text: "The front page caught up", tag: "Opportunity 01" },
           {
             type: "p",
-            text: "The one mission that started in Figma. I designed the featured case-studies section as an argument for the studio's newest work — what a card owes a producer: the project, the scale, a reason to click — iterated it through the weekly feedback loop, then built it in Bricks. Where the old cards each swallowed a screen and buried their link, the new section puts the studio's three newest case studies in front of a producer at a glance, on one grid, each with a clear way in. The landing page now leads with its freshest work instead of last year's two cards.",
+            text: "The one mission that started in Figma. I designed the featured case-studies section as an argument for the studio's newest work — what a card owes a producer: the project, the scale, a reason to click. Five layouts went through the weekly loop — two columns, three, a carousel, a hover-focus variant, full-width rows — before the three-column grid won and was built in Bricks. Where the old cards each swallowed a screen and buried their link, the new section puts the studio's three newest case studies in front of a producer at a glance, on one grid, each with a clear way in. The landing page now leads with its freshest work instead of last year's two cards.",
           },
           {
             type: "figure",

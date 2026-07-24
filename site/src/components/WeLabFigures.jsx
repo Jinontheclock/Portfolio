@@ -15,6 +15,7 @@ import langEn from "../assets/welab/welab-lang-en.webp";
 import langEs from "../assets/welab/welab-lang-es.webp";
 import clientsBaBefore from "../assets/welab/welab-clients-ba-before.webp";
 import clientsBaAfter from "../assets/welab/welab-clients-ba-after.webp";
+import figWorkflow from "../assets/welab/welab-fig-workflow.webp";
 import taxNewDesktop from "../assets/welab/welab-tax-new-desktop.webp";
 import taxNewMobile from "../assets/welab/welab-tax-new-mobile.webp";
 import afterFeatured from "../assets/welab/welab-after-featured.webp";
@@ -80,6 +81,17 @@ export function WLAuditSectionsFigure() {
   return <AuditRows rows={[AUDIT_SECTIONS_ROW]} />;
 }
 
+/* ── 03 Designing and Building: the mission loop ── */
+export function WLWorkflowFigure() {
+  return (
+    <img
+      src={figWorkflow}
+      alt="The iteration loop used for every mission — mission, ideation, draft, feedback, implementation, feedback, completion, with both feedback stages looping back to the step before them"
+      loading="lazy"
+    />
+  );
+}
+
 /* ── 03 Designing and Building ── */
 
 /* P02: the two audit finds the rebuild is proven on — Who We Are and the
@@ -113,7 +125,7 @@ const FIGMA_FEATURED_ROW = [
   { src: figma2Col, w: "calc((100% - 80px) / 5)", label: "2 columns", alt: "Figma exploration of the featured case-studies section — two cards side by side" },
   { src: figma3Col, w: "calc((100% - 80px) / 5)", label: "3 columns", alt: "Figma exploration of the featured case-studies section — three cards side by side" },
   { src: figmaCarousel, w: "calc((100% - 80px) / 5)", label: "carousel", alt: "Figma exploration of the featured case-studies section — one large card with the next peeking in from the edge" },
-  { src: figma3ColHover, w: "calc((100% - 80px) / 5)", label: "3 columns_hovering", alt: "Figma exploration of the featured case-studies section — the hovered card enlarged between two dimmed neighbours" },
+  { src: figma3ColHover, w: "calc((100% - 80px) / 5)", label: "3 columns — hover", alt: "Figma exploration of the featured case-studies section — the hovered card enlarged between two dimmed neighbours" },
   { src: figmaRows, w: "calc((100% - 80px) / 5)", label: "rows", alt: "Figma exploration of the featured case-studies section — three full-width rows stacked" },
 ];
 
