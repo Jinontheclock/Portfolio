@@ -180,7 +180,7 @@ export function WLOldLandingFigure() {
       <div className="wl-audit-row">
         {/* widths in the pair's aspect-ratio proportion (0.479 : 0.177) so
             both captures render at the same height */}
-        <figure className="wl-audit-cell" style={{ width: "55%" }}>
+        <figure className="wl-audit-cell" style={{ width: "40%" }}>
           <img
             src={oldLandingDesktop}
             alt="The old landing page on desktop — the hero followed by the same two project cards, Torch of Rock and Roll and A Winning Team"
@@ -188,7 +188,7 @@ export function WLOldLandingFigure() {
           />
           <figcaption>Landing — desktop</figcaption>
         </figure>
-        <figure className="wl-audit-cell" style={{ width: "20.34%" }}>
+        <figure className="wl-audit-cell" style={{ width: "14.78%" }}>
           <img
             src={oldLandingMobile}
             alt="The old landing page on a phone — the hero and the same two project cards stacked in one column"
