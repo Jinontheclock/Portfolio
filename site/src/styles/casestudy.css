@@ -1054,19 +1054,20 @@
   position: relative;
   display: block;
 }
+/* the crossover gap: 20px row gap + 24px here = 44px, wide enough for the
+   arrow to sit inside it rather than over the captures */
+.wl-cell--crossover {
+  margin-right: 24px;
+}
 /* two classes deep so it out-specifies `.cs-figure svg { width: 100% }` */
 .wl-cell-shot .wl-ba-arrow {
   position: absolute;
+  /* foot flush with the captures' bottom edge, centred in the 44px gap */
   bottom: 0;
-  /* centred on the 20px gap to the right of this capture */
-  left: calc(100% + 10px);
+  left: calc(100% + 22px);
   transform: translateX(-50%);
-  /* the icon is 6.3:1, so it reads only at a width the 20px gap can't give
-     it — it hangs in the 8px band under the captures instead, where the
-     page is light and the tail stays legible, its foot on the images' line */
-  width: 30px;
+  width: 36px;
   height: auto;
-  bottom: -6px;
   color: var(--text-primary);
   pointer-events: none;
 }
