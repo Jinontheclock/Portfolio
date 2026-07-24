@@ -113,9 +113,15 @@ export function WLWorkflowFigure() {
 /* P02: the two audit finds the rebuild is proven on — Who We Are and the
    home footer, each before/after in one row (widths ∝ aspect ratios) */
 const LAYOUT_ROWS = [
+  /* the only four-up row: the old captures sit left of the rebuilt pair, so
+     the fix reads across in one line. Four cells can't fit at the shared
+     height, so this row is scaled to its own total (3.719) and renders
+     shorter than the rest. */
   [
-    { src: taxNewDesktop, w: UNIF(1.794), label: "Tax Credits — after, desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
-    { src: taxNewMobile, w: UNIF(0.371), label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
+    { src: auditTaxTablet, w: "calc((100% - 60px) * 0.3305)", label: "Tax Credits — before, 1280px", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+    { src: auditTaxMobile, w: "calc((100% - 60px) * 0.0874)", label: "Tax Credits — before, mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+    { src: taxNewDesktop, w: "calc((100% - 60px) * 0.4824)", label: "Tax Credits — after, desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
+    { src: taxNewMobile, w: "calc((100% - 60px) * 0.0998)", label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
   ],
   [
     { src: auditWhoWeAre, w: UNIF(1.332), label: "Who We Are — before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
@@ -153,6 +159,7 @@ export function WLFigmaFeaturedFigure() {
    (the old landing already appears under ch02's Opportunity 01) */
 const LANDING_ROWS = [
   [
+    { src: oldLandingDesktop, w: UNIF(0.479), label: "Landing — before", alt: "The old landing page on desktop — the hero followed by the same two project cards, Torch of Rock and Roll and A Winning Team" },
     { src: afterFeatured, w: UNIF(1.69), label: "Featured case studies — shipped", alt: "The featured case-studies section on the live site — the studio's three newest case studies on one grid, each with a clear way in" },
   ],
 ];
