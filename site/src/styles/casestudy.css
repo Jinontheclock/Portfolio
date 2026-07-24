@@ -374,6 +374,36 @@
   color: var(--text-muted);
 }
 
+/* Uniform figure height: the audit and before/after comparison figures
+   share one image height so the case study reads evenly, row to row. Each
+   cell's width follows its capture's aspect ratio, so rows are free to
+   stop short of the column's full width — and wrap if one can't fit. Full-
+   page portrait pairs and the five-across Figma grid keep their own
+   width-based sizing (no --fit). Mobile drops the fixed height and falls
+   back to the width-based fill (the cells' aspect-ratio percentages). */
+.wl-audit--fit {
+  --wl-fig-h: 230px;
+}
+@media (min-width: 601px) {
+  .wl-audit--fit .wl-audit-row {
+    flex-wrap: wrap;
+    row-gap: 28px;
+  }
+  .wl-audit--fit .wl-audit-cell {
+    width: auto !important;
+  }
+  .wl-audit--fit .wl-audit-cell img {
+    width: auto;
+    height: var(--wl-fig-h);
+    max-width: 100%;
+  }
+}
+@media (min-width: 601px) and (max-width: 1100px) {
+  .wl-audit--fit {
+    --wl-fig-h: 190px;
+  }
+}
+
 /* in-page figures with an optional caption below */
 .cs-figure {
   margin: 20px 0;

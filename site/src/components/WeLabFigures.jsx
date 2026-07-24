@@ -33,10 +33,17 @@ import figmaRows from "../assets/welab/welab-figma-featured-rows.webp";
 
 export function WLOldShowcaseFigure() {
   return (
-    <img
-      src={figOldShowcase}
-      alt="The old site's project page — The Challenge and The Solution sections each stacking a before frame above an after frame as separate stills, with no way to compare them directly"
-      loading="lazy"
+    <AuditRows
+      fit
+      rows={[
+        [
+          {
+            src: figOldShowcase,
+            w: "100%",
+            alt: "The old site's project page — The Challenge and The Solution sections each stacking a before frame above an after frame as separate stills, with no way to compare them directly",
+          },
+        ],
+      ]}
     />
   );
 }
@@ -56,15 +63,20 @@ const AUDIT_SECTIONS_ROW = [
   { src: auditHomeFooter, w: "calc((100% - 40px) * 0.1742)", label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
 ];
 
-function AuditRows({ rows }) {
+/* `fit` = uniform image height across every row (width follows each
+   capture's aspect ratio, rows free to stop short of full width); without
+   it, cells fill their row by the aspect-ratio `w` percentages. The `w`
+   values are kept either way — they drive the width-based fill on mobile,
+   where the fixed-height rule is dropped. */
+function AuditRows({ rows, fit }) {
   return (
-    <div className="wl-audit">
+    <div className={"wl-audit" + (fit ? " wl-audit--fit" : "")}>
       {rows.map((row, i) => (
         <div key={i} className="wl-audit-row">
           {row.map((cell) => (
-            <figure key={cell.label} className="wl-audit-cell" style={{ width: cell.w }}>
+            <figure key={cell.label || cell.src} className="wl-audit-cell" style={{ width: cell.w }}>
               <img src={cell.src} alt={cell.alt} loading="lazy" />
-              <figcaption>{cell.label}</figcaption>
+              {cell.label && <figcaption>{cell.label}</figcaption>}
             </figure>
           ))}
         </div>
@@ -74,11 +86,11 @@ function AuditRows({ rows }) {
 }
 
 export function WLAuditResponsiveFigure() {
-  return <AuditRows rows={[AUDIT_TAX_ROW]} />;
+  return <AuditRows fit rows={[AUDIT_TAX_ROW]} />;
 }
 
 export function WLAuditSectionsFigure() {
-  return <AuditRows rows={[AUDIT_SECTIONS_ROW]} />;
+  return <AuditRows fit rows={[AUDIT_SECTIONS_ROW]} />;
 }
 
 /* ── 03 Designing and Building: the mission loop ── */
@@ -116,7 +128,7 @@ const LAYOUT_ROWS = [
 ];
 
 export function WLLayoutSystemFigure() {
-  return <AuditRows rows={LAYOUT_ROWS} />;
+  return <AuditRows fit rows={LAYOUT_ROWS} />;
 }
 
 /* O01: the featured case-studies section explored in Figma — five layout
@@ -142,7 +154,7 @@ const LANDING_ROWS = [
 ];
 
 export function WLLandingBAFigure() {
-  return <AuditRows rows={LANDING_ROWS} />;
+  return <AuditRows fit rows={LANDING_ROWS} />;
 }
 
 /* O02: the same project page on the live site, in both languages */
@@ -189,10 +201,17 @@ export function WLOldLandingFigure() {
    one English-only site */
 export function WLOldStudiosFigure() {
   return (
-    <img
-      src={oldStudios}
-      alt="The site's Our Studios section — We Are Citizens of the World over local clocks for Guadalajara, Calgary, and Vancouver"
-      loading="lazy"
+    <AuditRows
+      fit
+      rows={[
+        [
+          {
+            src: oldStudios,
+            w: "100%",
+            alt: "The site's Our Studios section — We Are Citizens of the World over local clocks for Guadalajara, Calgary, and Vancouver",
+          },
+        ],
+      ]}
     />
   );
 }
