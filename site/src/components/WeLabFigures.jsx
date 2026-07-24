@@ -34,12 +34,11 @@ import figmaRows from "../assets/welab/welab-figma-featured-rows.webp";
 export function WLOldShowcaseFigure() {
   return (
     <AuditRows
-      fit
       rows={[
         [
           {
             src: figOldShowcase,
-            w: "100%",
+            w: UNIF(1.773),
             alt: "The old site's project page — The Challenge and The Solution sections each stacking a before frame above an after frame as separate stills, with no way to compare them directly",
           },
         ],
@@ -48,29 +47,34 @@ export function WLOldShowcaseFigure() {
   );
 }
 
+/* The audit and before/after figures all share ONE image height so the
+   case study reads evenly, row to row. Each cell's width is its aspect
+   ratio over a shared reference (2.852 — the widest before/after row's
+   total AR), so every image resolves to the same height — (columnWidth −
+   20px) / 2.852 — at any screen width, and no row overflows or wraps.
+   Rows just stop short of the full column width, which is fine.
+   Full-page portrait pairs, the EN/ES pair, and the five-across Figma grid
+   keep their own width-based sizing (their shapes don't fit the shared
+   height). Helper: a cell's width as a fraction of the shared reference. */
+const UNIF = (ar) => `calc((100% - 20px) * ${(ar / 2.852).toFixed(4)})`;
+
 /* the old site captured page by page — individual images laid out in rows,
-   each cell sized to its device class. Row widths ∝ aspect ratios so all
-   cells in a row render at the same height. */
+   each cell sized to its device class */
 const AUDIT_TAX_ROW = [
-  { src: auditTaxTablet, w: "calc((100% - 40px) * 0.5372)", label: "Tax Credits — tablet, 1280px", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-  { src: auditTax1200, w: "calc((100% - 40px) * 0.3207)", label: "Tax Credits — 1200px, the layout hole", alt: "The old Tax Credits section at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
-  { src: auditTaxMobile, w: "calc((100% - 40px) * 0.1421)", label: "Tax Credits — mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+  { src: auditTaxTablet, w: UNIF(1.229), label: "Tax Credits — tablet, 1280px", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+  { src: auditTax1200, w: UNIF(0.734), label: "Tax Credits — 1200px, the layout hole", alt: "The old Tax Credits section at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
+  { src: auditTaxMobile, w: UNIF(0.325), label: "Tax Credits — mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
 ];
 
 const AUDIT_SECTIONS_ROW = [
-  { src: auditWhoWeAre, w: "calc((100% - 40px) * 0.5043)", label: "Who We Are", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
-  { src: auditClients, w: "calc((100% - 40px) * 0.3215)", label: "Clients & Awards", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
-  { src: auditHomeFooter, w: "calc((100% - 40px) * 0.1742)", label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
+  { src: auditWhoWeAre, w: UNIF(1.332), label: "Who We Are", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+  { src: auditClients, w: UNIF(0.849), label: "Clients & Awards", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
+  { src: auditHomeFooter, w: UNIF(0.46), label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
 ];
 
-/* `fit` = uniform image height across every row (width follows each
-   capture's aspect ratio, rows free to stop short of full width); without
-   it, cells fill their row by the aspect-ratio `w` percentages. The `w`
-   values are kept either way — they drive the width-based fill on mobile,
-   where the fixed-height rule is dropped. */
-function AuditRows({ rows, fit }) {
+function AuditRows({ rows }) {
   return (
-    <div className={"wl-audit" + (fit ? " wl-audit--fit" : "")}>
+    <div className="wl-audit">
       {rows.map((row, i) => (
         <div key={i} className="wl-audit-row">
           {row.map((cell) => (
@@ -86,11 +90,11 @@ function AuditRows({ rows, fit }) {
 }
 
 export function WLAuditResponsiveFigure() {
-  return <AuditRows fit rows={[AUDIT_TAX_ROW]} />;
+  return <AuditRows rows={[AUDIT_TAX_ROW]} />;
 }
 
 export function WLAuditSectionsFigure() {
-  return <AuditRows fit rows={[AUDIT_SECTIONS_ROW]} />;
+  return <AuditRows rows={[AUDIT_SECTIONS_ROW]} />;
 }
 
 /* ── 03 Designing and Building: the mission loop ── */
@@ -110,25 +114,25 @@ export function WLWorkflowFigure() {
    home footer, each before/after in one row (widths ∝ aspect ratios) */
 const LAYOUT_ROWS = [
   [
-    { src: taxNewDesktop, w: "calc((100% - 20px) * 0.8286)", label: "Tax Credits — after, desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
-    { src: taxNewMobile, w: "calc((100% - 20px) * 0.1714)", label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
+    { src: taxNewDesktop, w: UNIF(1.794), label: "Tax Credits — after, desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
+    { src: taxNewMobile, w: UNIF(0.371), label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
   ],
   [
-    { src: auditWhoWeAre, w: "calc((100% - 20px) * 0.4672)", label: "Who We Are — before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
-    { src: afterWhoWeAre, w: "calc((100% - 20px) * 0.5328)", label: "Who We Are — after", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
+    { src: auditWhoWeAre, w: UNIF(1.332), label: "Who We Are — before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+    { src: afterWhoWeAre, w: UNIF(1.519), label: "Who We Are — after", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
   ],
   [
-    { src: footerBaBefore, w: "20%", label: "Home footer — before", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
-    { src: footerBaAfter, w: "20%", label: "Home footer — after", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
+    { src: footerBaBefore, w: UNIF(0.59), label: "Home footer — before", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
+    { src: footerBaAfter, w: UNIF(0.59), label: "Home footer — after", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
   ],
   [
-    { src: clientsBaBefore, w: "calc((100% - 20px) * 0.4982)", label: "Clients & Awards — before", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
-    { src: clientsBaAfter, w: "calc((100% - 20px) * 0.5018)", label: "Clients & Awards — after", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
+    { src: clientsBaBefore, w: UNIF(0.97), label: "Clients & Awards — before", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
+    { src: clientsBaAfter, w: UNIF(0.977), label: "Clients & Awards — after", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
   ],
 ];
 
 export function WLLayoutSystemFigure() {
-  return <AuditRows fit rows={LAYOUT_ROWS} />;
+  return <AuditRows rows={LAYOUT_ROWS} />;
 }
 
 /* O01: the featured case-studies section explored in Figma — five layout
@@ -149,12 +153,12 @@ export function WLFigmaFeaturedFigure() {
    (the old landing already appears under ch02's Opportunity 01) */
 const LANDING_ROWS = [
   [
-    { src: afterFeatured, w: "100%", label: "Featured case studies — shipped", alt: "The featured case-studies section on the live site — the studio's three newest case studies on one grid, each with a clear way in" },
+    { src: afterFeatured, w: UNIF(1.69), label: "Featured case studies — shipped", alt: "The featured case-studies section on the live site — the studio's three newest case studies on one grid, each with a clear way in" },
   ],
 ];
 
 export function WLLandingBAFigure() {
-  return <AuditRows fit rows={LANDING_ROWS} />;
+  return <AuditRows rows={LANDING_ROWS} />;
 }
 
 /* O02: the same project page on the live site, in both languages */
@@ -202,12 +206,11 @@ export function WLOldLandingFigure() {
 export function WLOldStudiosFigure() {
   return (
     <AuditRows
-      fit
       rows={[
         [
           {
             src: oldStudios,
-            w: "100%",
+            w: UNIF(1.316),
             alt: "The site's Our Studios section — We Are Citizens of the World over local clocks for Guadalajara, Calgary, and Vancouver",
           },
         ],
