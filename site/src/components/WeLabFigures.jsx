@@ -1,4 +1,5 @@
-import figOldShowcase from "../assets/welab/welab-fig-old-showcase.webp";
+import oldShowcaseChallenge from "../assets/welab/welab-old-showcase-challenge.webp";
+import oldShowcaseSolution from "../assets/welab/welab-old-showcase-solution.webp";
 import auditHomeFooter from "../assets/welab/welab-audit-home-footer.webp";
 import auditTaxTablet from "../assets/welab/welab-audit-tax-tablet.webp";
 import auditTax1200 from "../assets/welab/welab-audit-tax-1200.webp";
@@ -32,15 +33,24 @@ import figmaRows from "../assets/welab/welab-figma-featured-rows.webp";
 
 /* ── 02 Auditing the Live Site ── */
 
+/* the old project page's two showcase sections, as the two captures they
+   are — each stacking a before frame above its after, no way to compare */
 export function WLOldShowcaseFigure() {
   return (
     <AuditRows
       rows={[
         [
           {
-            src: figOldShowcase,
-            w: UNIF(1.773),
-            alt: "The old site's project page — The Challenge and The Solution sections each stacking a before frame above an after frame as separate stills, with no way to compare them directly",
+            src: oldShowcaseChallenge,
+            w: UNIF(0.874),
+            label: "The Challenge",
+            alt: "The Challenge section of the old project page — the crowd plate and the finished shot as separate stills, stacked",
+          },
+          {
+            src: oldShowcaseSolution,
+            w: UNIF(0.874),
+            label: "The Solution",
+            alt: "The Solution section of the old project page — the sportscast plate and the finished broadcast graphics as separate stills, stacked",
           },
         ],
       ]}

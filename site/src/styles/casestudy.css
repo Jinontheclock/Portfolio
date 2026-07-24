@@ -1011,12 +1011,11 @@
   gap: 20px;
 }
 .wl-vfx-compare > * {
-  flex: 1 1 0;
+  flex: 0 0 auto; /* widths are set inline, from each capture's ratio */
   min-width: 0;
 }
 .wl-vfx-old {
   display: block;
-  width: 100%;
   height: auto;
   border-radius: 12px; /* matches the slider's corners */
 }

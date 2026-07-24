@@ -1,7 +1,7 @@
 import "img-comparison-slider";
 import crowdAfter from "../assets/welab/welab-awt-crowd-after.webp";
 import crowdBefore from "../assets/welab/welab-awt-crowd-before.webp";
-import figOldShowcase from "../assets/welab/welab-fig-old-showcase.webp";
+import figOldChallenge from "../assets/welab/welab-old-showcase-challenge.webp";
 
 /* ── 03 Designing and Building: the live site's before/after slider,
    embedded with the same web component + hand-written chrome (divider,
@@ -11,16 +11,19 @@ import figOldShowcase from "../assets/welab/welab-fig-old-showcase.webp";
 export function WLVfxSliderFigure() {
   return (
     <div className="wl-vfx-compare">
-      {/* the old page's answer, beside the new one: separate stills stacked
-          on the left, one draggable frame on the right. Both captures share
-          the same aspect ratio, so the halves render at the same height. */}
+      {/* the old page's answer beside the new one, on the same shot: the
+          crowd plate and its finished frame as separate stacked stills on
+          the left, one draggable frame on the right. Widths follow each
+          capture's aspect ratio over the shared reference (2.852), so both
+          render at the same height as every other figure in the study. */}
       <img
         className="wl-vfx-old"
-        src={figOldShowcase}
-        alt="The old site's project page — The Challenge and The Solution sections each stacking a before frame above an after frame as separate stills, with no way to compare them directly"
+        style={{ width: "calc((100% - 20px) * 0.3066)" }}
+        src={figOldChallenge}
+        alt="The Challenge section of the old project page — the crowd plate and the finished shot as separate stills, stacked with no way to compare them directly"
         loading="lazy"
       />
-      <div className="wl-slider">
+      <div className="wl-slider" style={{ width: "calc((100% - 20px) * 0.6234)" }}>
       <span className="wl-slider-label wl-slider-label--left" aria-hidden="true">
         AFTER
       </span>
