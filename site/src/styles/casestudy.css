@@ -1054,17 +1054,17 @@
   position: relative;
   display: block;
 }
-/* the crossover gap: 20px row gap + 24px here = 44px, wide enough for the
-   arrow to sit inside it rather than over the captures */
+/* the crossover gap: 20px row gap + 40px here = 60px, so the 38px arrow
+   sits inside it with room to breathe on both sides */
 .wl-cell--crossover {
-  margin-right: 24px;
+  margin-right: 40px;
 }
 /* two classes deep so it out-specifies `.cs-figure svg { width: 100% }` */
 .wl-cell-shot .wl-ba-arrow {
   position: absolute;
   /* foot flush with the captures' bottom edge, centred in the 44px gap */
   bottom: 0;
-  left: calc(100% + 22px);
+  left: calc(100% + 30px);
   transform: translateX(-50%);
   /* both sides given in whole pixels (38:6 is the icon's own 418:66, so it
      still fits exactly): at an auto height the box came out 5.67px tall and

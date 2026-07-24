@@ -68,7 +68,7 @@ export function WLOldShowcaseFigure() {
    Full-page portrait pairs, the EN/ES pair, and the five-across Figma grid
    keep their own width-based sizing (their shapes don't fit the shared
    height). Helper: a cell's width as a fraction of the shared reference. */
-const UNIF = (ar) => `calc((100% - 44px) * ${(ar / 2.852).toFixed(4)})`;
+const UNIF = (ar) => `calc((100% - 60px) * ${(ar / 2.852).toFixed(4)})`;
 
 /* the old site captured page by page — individual images laid out in rows,
    each cell sized to its device class */
@@ -87,7 +87,7 @@ const AUDIT_SECTIONS_ROW = [
 /* A cell may carry `ba: "before" | "after"`. Where a row crosses from the
    old state to the rebuilt one, the site's own long-tail arrow is drawn in
    the gap — so a comparison reads as one at a glance, not as a line of
-   screenshots with captions. That crossover gap widens to 44px (the cell
+   screenshots with captions. That crossover gap widens to 60px (the cell
    widths above budget for it, so the captures give up the space rather
    than the row), leaving the arrow room to sit inside it with its foot on
    the images' bottom edge. */
@@ -147,10 +147,10 @@ const LAYOUT_ROWS = [
      height, so this row is scaled to its own total (3.719) and renders
      shorter than the rest. */
   [
-    { src: auditTaxTablet, w: "calc((100% - 84px) * 0.3305)", ba: "before", label: "Tax Credits — before, 1280px", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-    { src: auditTaxMobile, w: "calc((100% - 84px) * 0.0874)", ba: "before", label: "Tax Credits — before, mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
-    { src: taxNewDesktop, w: "calc((100% - 84px) * 0.4824)", ba: "after", label: "Tax Credits — after, desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
-    { src: taxNewMobile, w: "calc((100% - 84px) * 0.0998)", ba: "after", label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
+    { src: auditTaxTablet, w: "calc((100% - 100px) * 0.3305)", ba: "before", label: "Tax Credits — before, 1280px", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+    { src: auditTaxMobile, w: "calc((100% - 100px) * 0.0874)", ba: "before", label: "Tax Credits — before, mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+    { src: taxNewDesktop, w: "calc((100% - 100px) * 0.4824)", ba: "after", label: "Tax Credits — after, desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
+    { src: taxNewMobile, w: "calc((100% - 100px) * 0.0998)", ba: "after", label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
   ],
   [
     { src: auditWhoWeAre, w: UNIF(1.332), label: "Who We Are — before", ba: "before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
