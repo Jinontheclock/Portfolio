@@ -240,7 +240,7 @@ export const PROJECTS = [
           {
             type: "stats",
             items: [
-              { value: "«TBD: Lighthouse 실측»", label: "«TBD: 측정 후 문구»" },
+              { value: "100 / 96 / 90", label: "Lighthouse SEO, best practices, and accessibility on the live site" },
               { value: "13 case studies", label: "now read in English and Spanish — the pages that sell the work to the Mexican market" },
               { value: "Shipped live", label: "to production, inside the studio's existing brand and stack" },
             ],
