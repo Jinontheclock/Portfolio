@@ -1076,3 +1076,42 @@
   color: var(--text-primary);
   pointer-events: none;
 }
+
+/* ── WeLAB figures on a phone ──
+   Side by side, these captures shrink to a hundred-odd pixels — too small to
+   read what the comparison is about. On a phone each one gets the column to
+   itself instead: the row stacks, every capture grows to the full width (tall
+   phone shots capped by viewport height so they don't run off the screen),
+   and the crossover arrow turns to point down the stack. It's anchored to
+   the figure rather than the capture here, so it lands in the space below the
+   caption instead of across it. */
+@media (max-width: 600px) {
+  .wl-audit-row {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 24px;
+  }
+  .wl-audit-cell {
+    width: auto !important; /* out-specifies the inline aspect-ratio widths */
+    max-width: 100%;
+    position: relative;
+  }
+  .wl-audit-cell img {
+    box-sizing: border-box; /* keep the 1px frame inside the column */
+    width: auto;
+    max-width: 100%;
+    max-height: 60vh;
+  }
+  .wl-cell-shot {
+    position: static;
+  }
+  .wl-cell--crossover {
+    margin-right: 0;
+    margin-bottom: 44px;
+  }
+  .wl-cell-shot .wl-ba-arrow {
+    left: 50%;
+    bottom: -34px;
+    transform: translateX(-50%) rotate(90deg);
+  }
+}
