@@ -1000,3 +1000,47 @@
   letter-spacing: 0.02em;
   color: var(--text-muted);
 }
+
+/* ── WeLAB ch03: the old page's stacked stills beside the new slider.
+   Both captures share an aspect ratio (~1.775), so equal halves render at
+   equal heights. The slider's chrome is sized for a full-width figure, so
+   it's scaled down here to suit the halved frame. ── */
+.wl-vfx-compare {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.wl-vfx-compare > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.wl-vfx-old {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px; /* matches the slider's corners */
+}
+.wl-vfx-compare .wl-slider-label {
+  top: 12px;
+  padding: 3px 8px;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  border-radius: 5px;
+}
+.wl-vfx-compare .wl-slider-label--left {
+  left: 12px;
+}
+.wl-vfx-compare .wl-slider-label--right {
+  right: 12px;
+}
+.wl-vfx-compare .wl-slider [slot="handle"] {
+  width: 48px;
+  height: 48px;
+}
+/* on a phone the halves would be too small to read or drag — stack them */
+@media (max-width: 600px) {
+  .wl-vfx-compare {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

@@ -1,6 +1,7 @@
 import "img-comparison-slider";
 import crowdAfter from "../assets/welab/welab-awt-crowd-after.webp";
 import crowdBefore from "../assets/welab/welab-awt-crowd-before.webp";
+import figOldShowcase from "../assets/welab/welab-fig-old-showcase.webp";
 
 /* ── 03 Designing and Building: the live site's before/after slider,
    embedded with the same web component + hand-written chrome (divider,
@@ -9,7 +10,17 @@ import crowdBefore from "../assets/welab/welab-awt-crowd-before.webp";
    the arrangement on the live project pages. ── */
 export function WLVfxSliderFigure() {
   return (
-    <div className="wl-slider">
+    <div className="wl-vfx-compare">
+      {/* the old page's answer, beside the new one: separate stills stacked
+          on the left, one draggable frame on the right. Both captures share
+          the same aspect ratio, so the halves render at the same height. */}
+      <img
+        className="wl-vfx-old"
+        src={figOldShowcase}
+        alt="The old site's project page — The Challenge and The Solution sections each stacking a before frame above an after frame as separate stills, with no way to compare them directly"
+        loading="lazy"
+      />
+      <div className="wl-slider">
       <span className="wl-slider-label wl-slider-label--left" aria-hidden="true">
         AFTER
       </span>
@@ -41,6 +52,7 @@ export function WLVfxSliderFigure() {
           </svg>
         </div>
       </img-comparison-slider>
+      </div>
     </div>
   );
 }
