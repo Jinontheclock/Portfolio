@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import ArrowIcon from "./ArrowIcon.jsx";
 import oldShowcaseChallenge from "../assets/welab/welab-old-showcase-challenge.webp";
 import oldShowcaseSolution from "../assets/welab/welab-old-showcase-solution.webp";
 import auditHomeFooter from "../assets/welab/welab-audit-home-footer.webp";
@@ -84,40 +84,30 @@ const AUDIT_SECTIONS_ROW = [
   { src: auditHomeFooter, w: UNIF(0.46), label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
 ];
 
-/* A cell may carry `ba: "before" | "after"`. The first cell of each side
-   gets a small chip on the capture itself, and an arrow marks where the
-   row crosses from the old state to the rebuilt one — so a comparison
-   reads as one at a glance, not as a line of screenshots with captions.
-   The chip sits bottom-left: measured across these captures, that corner
-   is the one reliably clear of content. */
+/* A cell may carry `ba: "before" | "after"`. Where a row crosses from the
+   old state to the rebuilt one, the site's own long-tail arrow is drawn in
+   the gap — so a comparison reads as one at a glance, not as a line of
+   screenshots with captions. It hangs off the last "before" capture, which
+   puts it in the gap and lines its foot up with the images' bottom edge
+   (the figure itself is taller — its caption sits below the image). */
 function AuditRows({ rows }) {
   return (
     <div className="wl-audit">
-      {rows.map((row, i) => {
-        const firstOf = { before: row.findIndex((c) => c.ba === "before"), after: row.findIndex((c) => c.ba === "after") };
-        return (
-          <div key={i} className="wl-audit-row">
-            {row.map((cell, j) => (
-              <Fragment key={cell.label || cell.src}>
-                {j > 0 && cell.ba === "after" && row[j - 1].ba === "before" && (
-                  <span className="wl-ba-arrow" aria-hidden="true">
-                    →
-                  </span>
+      {rows.map((row, i) => (
+        <div key={i} className="wl-audit-row">
+          {row.map((cell, j) => (
+            <figure key={cell.label || cell.src} className="wl-audit-cell" style={{ width: cell.w }}>
+              <span className="wl-cell-shot">
+                <img src={cell.src} alt={cell.alt} loading="lazy" />
+                {cell.ba === "before" && row[j + 1]?.ba === "after" && (
+                  <ArrowIcon className="wl-ba-arrow" />
                 )}
-                <figure className="wl-audit-cell" style={{ width: cell.w }}>
-                  <span className="wl-cell-shot">
-                    <img src={cell.src} alt={cell.alt} loading="lazy" />
-                    {cell.ba && firstOf[cell.ba] === j && (
-                      <span className="wl-ba-chip">{cell.ba}</span>
-                    )}
-                  </span>
-                  {cell.label && <figcaption>{cell.label}</figcaption>}
-                </figure>
-              </Fragment>
-            ))}
-          </div>
-        );
-      })}
+              </span>
+              {cell.label && <figcaption>{cell.label}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }

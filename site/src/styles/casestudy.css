@@ -1044,42 +1044,29 @@
   }
 }
 
-/* ── before/after markers on the WeLAB comparison rows ──
-   A chip on the capture and an arrow at the crossover, so a row reads as
-   one comparison at a glance instead of a line of captioned screenshots.
-   Both are drawn in the portfolio's own paper/ink tokens (not the captured
-   site's palette), so they read as annotation laid over the screenshot. */
+/* ── before/after crossover mark on the WeLAB comparison rows ──
+   The landing nav's long-tail arrow, drawn in the gap between the last
+   "before" capture and the first "after" one: absolutely placed against
+   the image box, so it costs the row no width (the uniform-height math
+   assumes an untouched 20px gap) and its foot lines up with the images'
+   bottom edge. */
 .wl-cell-shot {
   position: relative;
   display: block;
 }
-.wl-ba-chip {
+/* two classes deep so it out-specifies `.cs-figure svg { width: 100% }` */
+.wl-cell-shot .wl-ba-arrow {
   position: absolute;
-  left: 8px;
-  bottom: 8px;
-  padding: 3px 7px;
-  border-radius: 3px;
-  background: var(--bg);
+  bottom: 0;
+  /* centred on the 20px gap to the right of this capture */
+  left: calc(100% + 10px);
+  transform: translateX(-50%);
+  /* the icon is 6.3:1, so it reads only at a width the 20px gap can't give
+     it — it hangs in the 8px band under the captures instead, where the
+     page is light and the tail stays legible, its foot on the images' line */
+  width: 30px;
+  height: auto;
+  bottom: -6px;
   color: var(--text-primary);
-  font: 500 9px / 1.2 var(--font-ui);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   pointer-events: none;
-}
-.wl-ba-arrow {
-  /* drawn inside the row's existing 20px gap: zero width, and the negative
-     margins cancel the extra flex gap the element would otherwise add, so
-     the row keeps the width its uniform-height math assumes */
-  flex: 0 0 auto;
-  width: 0;
-  margin: 0 -10px;
-  display: flex;
-  justify-content: center;
-  overflow: visible;
-  /* the figure's caption sits below the image, so nudge up by about half
-     a caption block to centre the arrow on the captures themselves */
-  align-self: center;
-  margin-top: -13px;
-  color: var(--text-muted);
-  font: 400 12px / 1 var(--font-ui);
 }

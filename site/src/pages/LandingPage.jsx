@@ -1,18 +1,11 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import ArrowIcon from "../components/ArrowIcon.jsx";
 import LangSwitcher from "../components/LangSwitcher.jsx";
 import useFitText from "../hooks/useFitText.js";
 import useFitToWidth from "../hooks/useFitToWidth.js";
 import { LANDING } from "../i18n.js";
 
-/* Long-tail arrow traced from the Figma asset: thick tail, head peaking
-   at its left and tapering to the right tip. currentColor follows the theme. */
-const ArrowIcon = () => (
-  <svg className="lp-arrow" viewBox="0 0 418 66" aria-hidden="true">
-    <rect x="0" y="47" width="212" height="19" fill="currentColor" />
-    <path d="M209 0 L418 66 L209 66 Z" fill="currentColor" />
-  </svg>
-);
 
 export default function LandingPage({ lang, setLang, fadeClass = "" }) {
   const t = LANDING[lang] || LANDING.en;
@@ -86,7 +79,7 @@ export default function LandingPage({ lang, setLang, fadeClass = "" }) {
             >
               {t.work}
             </span>
-            <ArrowIcon />
+            <ArrowIcon className="lp-arrow" />
           </Link>
           <Link to="/about" className="lp-navlink">
             <span
@@ -95,7 +88,7 @@ export default function LandingPage({ lang, setLang, fadeClass = "" }) {
             >
               {t.about}
             </span>
-            <ArrowIcon />
+            <ArrowIcon className="lp-arrow" />
           </Link>
         </nav>
       </div>
