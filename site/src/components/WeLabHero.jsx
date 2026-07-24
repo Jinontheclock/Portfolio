@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import logoUrl from "../assets/welab/welab-logo.webp";
 import { isCovered, onCover, onReveal } from "../lib/preloaderBus.js";
 
 /* WeLAB case-study hero: the rebuilt live site playing inside a Studio
@@ -72,10 +73,14 @@ export default function WeLabHero() {
   }, []);
 
   return (
-    <div
-      ref={hostRef}
-      className="cs-monitor"
-      dangerouslySetInnerHTML={{ __html: VIDEO_HTML }}
-    />
+    <div ref={hostRef} className="cs-monitor">
+      {/* the wordmark floats over the video's blank top-left corner, like
+          the TinyPaws and ProLog heroes */}
+      <img className="cs-hero-logo" src={logoUrl} alt="WeLAB" />
+      <div
+        className="cs-monitor-video"
+        dangerouslySetInnerHTML={{ __html: VIDEO_HTML }}
+      />
+    </div>
   );
 }
