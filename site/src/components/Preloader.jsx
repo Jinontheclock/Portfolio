@@ -1,31 +1,45 @@
 import { useEffect, useRef, useState } from "react";
+import { beginCover, endCover } from "../lib/preloaderBus.js";
 
-/** Count-up overlay: an opaque cover with a centered 0→100 count while the
- *  page underneath finishes assembling — webfonts, images, and the hero
- *  videos (ProLog journey, TinyPaws monitor). The pace is time-eased, but
- *  the final tick to 100 waits for actual readiness, so pages are only ever
- *  revealed complete, never mid-assembly. Covers the app's first load, and
- *  in-app entry into media-heavy case studies. */
-const PACE_MS = 1400; // the 0→99 run: quick start, easing out
+/** Count-up cover: an opaque, page-bg-coloured cover held over the page
+ *  while it finishes assembling — webfonts, eager images, and the hero
+ *  videos (ProLog journey, TinyPaws monitor). The number is a courtesy for
+ *  slow loads only: if everything is ready inside a short grace window the
+ *  cover simply lifts and no digits are ever shown. Covers the app's first
+ *  load, and in-app entry into media-heavy case studies. */
+const GRACE_MS = 350; // ready within this → lift the cover, never show a number
+const MIN_SHOWN_MS = 500; // once the number appears, keep it up long enough to read
+const PACE_MS = 1400; // the 0→99 run, once the number is showing
 const MAX_WAIT_MS = 4500; // never hold the page hostage to a slow asset
 const HOLD_MS = 150; // beat at 100 before the fade starts
 const FADE_MS = 450; // keep in sync with .lp-loader's opacity transition
 
 export default function Preloader({ onDone }) {
   const [count, setCount] = useState(0);
+  const [showCount, setShowCount] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const doneRef = useRef(onDone);
   doneRef.current = onDone;
 
   useEffect(() => {
-    let ready = false;
     let cancelled = false;
+    let ready = false;
+    let shownAt = 0; // performance.now() when the number appeared (0 = never shown)
+    let covered = true;
     let raf = 0;
     const timers = [];
 
+    // the hero videos hold their play-through while this cover is up
+    beginCover();
+    const lift = () => {
+      if (covered) {
+        covered = false;
+        endCover();
+      }
+    };
+
     // readiness = webfonts in, every eager <img> settled, and any hero
-    // video holding its first frame — or the cap expired — plus two frames
-    // so the fonts-ready refits have painted before the reveal
+    // video holding its first frame — or the cap expired
     const assetsSettled = async () => {
       await (document.fonts?.ready ?? Promise.resolve());
       for (;;) {
@@ -50,18 +64,40 @@ export default function Preloader({ onDone }) {
       );
     });
 
-    const start = performance.now();
+    // only bring the number up if we're still waiting past the grace window
+    timers.push(
+      setTimeout(() => {
+        if (!cancelled && !ready) {
+          shownAt = performance.now();
+          setShowCount(true);
+        }
+      }, GRACE_MS),
+    );
+
+    const finish = () => {
+      setLeaving(true);
+      lift(); // page is on screen now; hero videos may play
+      timers.push(setTimeout(() => doneRef.current?.(), FADE_MS));
+    };
+
     const tick = (now) => {
-      const x = Math.min((now - start) / PACE_MS, 1);
-      const eased = 1 - Math.pow(1 - x, 3);
-      if (x >= 1 && ready) {
-        setCount(100);
-        timers.push(setTimeout(() => setLeaving(true), HOLD_MS));
-        timers.push(setTimeout(() => doneRef.current?.(), HOLD_MS + FADE_MS));
+      if (cancelled) return;
+      if (ready && shownAt === 0) {
+        // ready before the grace window — lift the cover, no number shown
+        finish();
         return;
       }
-      // hold at 99 until the page behind is actually ready
-      setCount(Math.min(99, Math.round(eased * 99)));
+      if (ready && now - shownAt >= MIN_SHOWN_MS) {
+        setCount(100);
+        timers.push(setTimeout(finish, HOLD_MS));
+        return;
+      }
+      if (shownAt !== 0) {
+        // hold at 99 until the page behind is actually ready
+        const x = Math.min((now - shownAt) / PACE_MS, 1);
+        const eased = 1 - Math.pow(1 - x, 3);
+        setCount(Math.min(99, Math.round(eased * 99)));
+      }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -70,12 +106,13 @@ export default function Preloader({ onDone }) {
       cancelled = true;
       cancelAnimationFrame(raf);
       timers.forEach(clearTimeout);
+      lift();
     };
   }, []);
 
   return (
     <div className={"lp-loader" + (leaving ? " is-leaving" : "")} aria-hidden="true">
-      <span className="lp-loader-count">{count}</span>
+      {showCount && <span className="lp-loader-count">{count}</span>}
     </div>
   );
 }

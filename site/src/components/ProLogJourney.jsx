@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import logoUrl from "../assets/prolog/prolog-logo.svg";
 import mockupUrl from "../assets/prolog/prolog-mockup.webp";
+import { isCovered, onCover, onReveal } from "../lib/preloaderBus.js";
 
 /* ProLog case-study hero: the logo, the journey animation, and the phone
    mockup side by side, sitting above the headline.
@@ -32,21 +33,43 @@ export default function ProLogJourney() {
     }
 
     // plays through once, then holds the final frame; the playhead only
-    // advances while the hero is on screen, so scrolling away doesn't
-    // burn through the play unseen. React drops the muted attribute from
-    // its rendered DOM, so re-assert it before playing or the browser's
-    // autoplay policy rejects the play() call.
+    // advances while the hero is on screen AND the page is uncovered, so
+    // neither scrolling away nor the boot loader burns through the play
+    // unseen. React drops the muted attribute from its rendered DOM, so
+    // re-assert it before playing or the autoplay policy rejects play().
+    let onScreen = false;
     let ended = false;
-    video.addEventListener("ended", () => (ended = true), { once: true });
+    const play = () => {
+      if (ended || !onScreen || isCovered()) return;
+      video.muted = true;
+      video.play().catch(() => {});
+    };
+    const onEnded = () => (ended = true);
+    video.addEventListener("ended", onEnded);
     const io = new IntersectionObserver(([e]) => {
-      if (ended) return;
-      if (e.isIntersecting) {
-        video.muted = true;
-        video.play().catch(() => {});
-      } else video.pause();
+      onScreen = e.isIntersecting;
+      if (onScreen) play();
+      else video.pause();
     });
     io.observe(video);
-    return () => io.disconnect();
+    // a cover going up resets the play-through to the first frame; the
+    // reveal starts it (from 0) once the page is actually on screen
+    const offCover = onCover(() => {
+      ended = false;
+      video.pause();
+      try {
+        video.currentTime = 0;
+      } catch {
+        /* not seekable yet — starts at 0 anyway */
+      }
+    });
+    const offReveal = onReveal(play);
+    return () => {
+      io.disconnect();
+      video.removeEventListener("ended", onEnded);
+      offCover();
+      offReveal();
+    };
   }, []);
 
   return (
