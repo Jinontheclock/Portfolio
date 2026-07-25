@@ -1078,40 +1078,35 @@
 }
 
 /* ── WeLAB figures on a phone ──
-   Side by side, these captures shrink to a hundred-odd pixels — too small to
-   read what the comparison is about. On a phone each one gets the column to
-   itself instead: the row stacks, every capture grows to the full width (tall
-   phone shots capped by viewport height so they don't run off the screen),
-   and the crossover arrow turns to point down the stack. It's anchored to
-   the figure rather than the capture here, so it lands in the space below the
-   caption instead of across it. */
+   The desktop sizing budgets every row against one shared height, so on a
+   narrow column the captures come out a hundred-odd pixels tall. Related
+   captures belong side by side, though, so instead of stacking them the row
+   simply fills the column here: each cell takes a share of the width in
+   proportion to its shape (--ar), which keeps a row's heights equal while
+   giving the captures every pixel the column has. The crossover gap and the
+   arrow shrink to leave more of it to the images. */
 @media (max-width: 600px) {
-  .wl-audit-row {
-    flex-direction: column;
-    align-items: flex-start;
-    row-gap: 24px;
-  }
   .wl-audit-cell {
-    width: auto !important; /* out-specifies the inline aspect-ratio widths */
-    max-width: 100%;
-    position: relative;
+    /* ×10 because flex only hands out a fraction of the free space when the
+       grow factors sum to less than 1 — scaling them keeps the proportions
+       and lets every row fill the column */
+    flex-grow: calc(var(--ar, 1) * 10);
+    flex-shrink: 1;
+    flex-basis: 0;
+    width: auto !important; /* out-specifies the inline desktop widths */
+    min-width: 0;
   }
   .wl-audit-cell img {
-    box-sizing: border-box; /* keep the 1px frame inside the column */
-    width: auto;
-    max-width: 100%;
-    max-height: 60vh;
-  }
-  .wl-cell-shot {
-    position: static;
+    box-sizing: border-box; /* keep the 1px frame inside the cell */
+    width: 100%;
   }
   .wl-cell--crossover {
-    margin-right: 0;
-    margin-bottom: 44px;
+    margin-right: 8px; /* 20px row gap + 8px = 28px for the arrow */
   }
   .wl-cell-shot .wl-ba-arrow {
-    left: 50%;
-    bottom: -34px;
-    transform: translateX(-50%) rotate(90deg);
+    /* 19x3 is the icon's ratio in whole pixels again, one size down */
+    width: 19px;
+    height: 3px;
+    left: calc(100% + 14px);
   }
 }
