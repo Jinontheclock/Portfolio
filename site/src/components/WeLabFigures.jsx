@@ -61,8 +61,8 @@ export function WLOldShowcaseFigure() {
 
 /* The audit and before/after figures all share ONE image height so the
    case study reads evenly, row to row. Each cell's width is its aspect
-   ratio over a shared reference (2.852 — the widest before/after row's
-   total AR), so every image resolves to the same height — (columnWidth −
+   ratio over a shared reference (2.852 — as much as the widest row on this
+   scale can spend), so every image resolves to the same height — (columnWidth −
    20px) / 2.852 — at any screen width, and no row overflows or wraps.
    Rows just stop short of the full column width, which is fine.
    Full-page portrait pairs, the EN/ES pair, and the five-across Figma grid
@@ -79,7 +79,7 @@ const AUDIT_TAX_ROW = [
 ];
 
 const AUDIT_SECTIONS_ROW = [
-  { src: auditWhoWeAre, ar: 1.332, w: UNIF(1.332), label: "Who We Are", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+  { src: auditWhoWeAre, ar: 1.537, w: UNIF(1.537), label: "Who We Are", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
   { src: auditClients, ar: 0.849, w: UNIF(0.849), label: "Clients & Awards", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
   { src: auditHomeFooter, ar: 0.46, w: UNIF(0.46), label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
 ];
@@ -154,9 +154,14 @@ const LAYOUT_ROWS = [
     { src: taxNewDesktop, ar: 1.794, w: "calc((100% - 100px) * 0.4824)", ba: "after", label: "Tax Credits — after, desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
     { src: taxNewMobile, ar: 0.371, w: "calc((100% - 100px) * 0.0998)", ba: "after", label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
   ],
+  /* both captures are cropped tight to the section, so this pair's shapes
+     add up past the shared reference: like the tax row it takes its own
+     total (3.329) and renders a shorter box. The sections inside still come
+     out the size they were before the crop — only the empty band above and
+     below each one is gone. */
   [
-    { src: auditWhoWeAre, ar: 1.332, w: UNIF(1.332), label: "Who We Are — before", ba: "before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
-    { src: afterWhoWeAre, ar: 1.519, w: UNIF(1.519), ba: "after", label: "Who We Are — after", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
+    { src: auditWhoWeAre, ar: 1.537, w: "calc((100% - 60px) * 0.4617)", label: "Who We Are — before", ba: "before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+    { src: afterWhoWeAre, ar: 1.792, w: "calc((100% - 60px) * 0.5383)", ba: "after", label: "Who We Are — after", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
   ],
   [
     { src: footerBaBefore, ar: 0.59, w: UNIF(0.59), ba: "before", label: "Home footer — before", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
