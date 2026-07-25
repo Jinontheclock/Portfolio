@@ -45,12 +45,10 @@ export function WLOldShowcaseFigure() {
         [
           {
             src: oldShowcaseChallenge, ar: 0.874,
-            w: UNIF(0.874),
             alt: "The Challenge section of the old project page — the crowd plate and the finished shot as separate stills, stacked",
           },
           {
             src: oldShowcaseSolution, ar: 0.874,
-            w: UNIF(0.874),
             alt: "The Solution section of the old project page — the sportscast plate and the finished broadcast graphics as separate stills, stacked",
           },
         ],
@@ -62,27 +60,27 @@ export function WLOldShowcaseFigure() {
 /* The audit and before/after figures all share ONE image height so the
    case study reads evenly, row to row. Each cell's width is its aspect
    ratio over a shared reference (2.852 — as much as the widest row on this
-   scale can spend), so every image resolves to the same height — (columnWidth −
-   20px) / 2.852 — at any screen width, and no row overflows or wraps.
-   Rows just stop short of the full column width, which is fine.
-   Full-page portrait pairs, the EN/ES pair, and the five-across Figma grid
-   keep their own width-based sizing (their shapes don't fit the shared
-   height). Helper: a cell's width as a fraction of the shared reference. */
+   scale can spend), so every image resolves to the same height —
+   (columnWidth − 60px) / 2.852 — at any screen width, and no row overflows
+   or wraps. Rows just stop short of the full column width, which is fine.
+   The 60px is the widest gap a row on this scale needs (a 20px row gap plus
+   the 40px a before/after crossover adds for the arrow), so budgeting it
+   everywhere keeps one height for all of them. */
 const UNIF = (ar) => `calc((100% - 60px) * ${(ar / 2.852).toFixed(4)})`;
 
 /* the old site captured page by page — individual images laid out in rows,
    each cell sized to its device class, unlabelled: the figure's own caption
    below reads them off left to right. */
 const AUDIT_TAX_ROW = [
-  { src: auditTaxTablet, ar: 1.229, w: UNIF(1.229), alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-  { src: auditTax1200, ar: 0.734, w: UNIF(0.734), alt: "The old Tax Credits section at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
-  { src: auditTaxMobile, ar: 0.325, w: UNIF(0.325), alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+  { src: auditTaxTablet, ar: 1.229, alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+  { src: auditTax1200, ar: 0.734, alt: "The old Tax Credits section at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
+  { src: auditTaxMobile, ar: 0.325, alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
 ];
 
 const AUDIT_SECTIONS_ROW = [
-  { src: auditWhoWeAre, ar: 1.537, w: UNIF(1.537), alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
-  { src: auditClients, ar: 0.849, w: UNIF(0.849), alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
-  { src: auditHomeFooter, ar: 0.46, w: UNIF(0.46), alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
+  { src: auditWhoWeAre, ar: 1.537, alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+  { src: auditClients, ar: 0.849, alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
+  { src: auditHomeFooter, ar: 0.46, alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
 ];
 
 /* A cell may carry `ba: "before" | "after"`. Where a row crosses from the
@@ -91,7 +89,11 @@ const AUDIT_SECTIONS_ROW = [
    screenshots with captions. That crossover gap widens to 60px (the cell
    widths above budget for it, so the captures give up the space rather
    than the row), leaving the arrow room to sit inside it with its foot on
-   the images' bottom edge. */
+   the images' bottom edge.
+   A cell states its shape once, as `ar`; its width follows from that on the
+   shared scale. Only rows that can't fit on that scale — the four-up, the
+   Who We Are pair, the Figma five-across, the EN/ES pair — carry their own
+   `w`, sized against their row's own total. */
 function AuditRows({ rows }) {
   return (
     <div className="wl-audit">
@@ -105,7 +107,7 @@ function AuditRows({ rows }) {
                 className={"wl-audit-cell" + (crossover ? " wl-cell--crossover" : "")}
                 /* --ar lets the phone layout share the row out in proportion
                    to each capture's shape (see casestudy.css) */
-                style={{ width: cell.w, "--ar": cell.ar }}
+                style={{ width: cell.w || UNIF(cell.ar), "--ar": cell.ar }}
               >
                 <span className="wl-cell-shot">
                   <img src={cell.src} alt={cell.alt} loading="lazy" />
@@ -171,12 +173,12 @@ const LAYOUT_ROWS = [
     { src: afterWhoWeAre, ar: 1.792, w: "calc((100% - 60px) * 0.5383)", ba: "after", label: "after\u00A0— Who We Are", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
   ],
   [
-    { src: footerBaBefore, ar: 0.59, w: UNIF(0.59), ba: "before", label: "before\u00A0— Home footer", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
-    { src: footerBaAfter, ar: 0.59, w: UNIF(0.59), ba: "after", label: "after\u00A0— Home footer", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
+    { src: footerBaBefore, ar: 0.59, ba: "before", label: "before\u00A0— Home footer", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
+    { src: footerBaAfter, ar: 0.59, ba: "after", label: "after\u00A0— Home footer", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
   ],
   [
-    { src: clientsBaBefore, ar: 0.97, w: UNIF(0.97), ba: "before", label: "before\u00A0— Clients & Awards", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
-    { src: clientsBaAfter, ar: 0.977, w: UNIF(0.977), ba: "after", label: "after\u00A0— Clients & Awards", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
+    { src: clientsBaBefore, ar: 0.97, ba: "before", label: "before\u00A0— Clients & Awards", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
+    { src: clientsBaAfter, ar: 0.977, ba: "after", label: "after\u00A0— Clients & Awards", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
   ],
 ];
 
@@ -204,8 +206,8 @@ const LANDING_ROWS = [
   [
     /* cropped to the project cards alone, so the pair compares like with
        like: the old front page's two cards against the new section */
-    { src: oldLandingCards, ar: 0.859, w: UNIF(0.859), ba: "before", label: "Landing — before", alt: "The old landing page's project cards — Torch of Rock and Roll and A Winning Team, each card taking a full screen of its own" },
-    { src: afterFeatured, ar: 1.69, w: UNIF(1.69), ba: "after", label: "Featured case studies — shipped", alt: "The featured case-studies section on the live site — the studio's three newest case studies on one grid, each with a clear way in" },
+    { src: oldLandingCards, ar: 0.859, ba: "before", label: "Landing — before", alt: "The old landing page's project cards — Torch of Rock and Roll and A Winning Team, each card taking a full screen of its own" },
+    { src: afterFeatured, ar: 1.69, ba: "after", label: "Featured case studies — shipped", alt: "The featured case-studies section on the live site — the studio's three newest case studies on one grid, each with a clear way in" },
   ],
 ];
 
@@ -224,31 +226,17 @@ export function WLLangToggleFigure() {
 }
 
 /* Opportunity 01: the old landing page leading with the same two project
-   cards, on desktop and on a phone — same cell treatment as the audit rows,
-   and like them unlabelled: the figure's caption below says what they are */
+   cards, on desktop and on a phone — like the audit rows and, like them,
+   unlabelled: the figure's caption below says what they are. Full-page
+   captures are far taller than the shared height, so this pair takes its own
+   widths, in its own aspect-ratio proportion (0.479 : 0.177). */
+const OLD_LANDING_ROW = [
+  { src: oldLandingDesktop, ar: 0.479, w: "40%", alt: "The old landing page on desktop — the hero followed by the same two project cards, Torch of Rock and Roll and A Winning Team" },
+  { src: oldLandingMobile, ar: 0.177, w: "14.78%", alt: "The old landing page on a phone — the hero and the same two project cards stacked in one column" },
+];
+
 export function WLOldLandingFigure() {
-  return (
-    <div className="wl-audit">
-      <div className="wl-audit-row">
-        {/* widths in the pair's aspect-ratio proportion (0.479 : 0.177) so
-            both captures render at the same height */}
-        <figure className="wl-audit-cell" style={{ width: "40%", "--ar": 0.479 }}>
-          <img
-            src={oldLandingDesktop}
-            alt="The old landing page on desktop — the hero followed by the same two project cards, Torch of Rock and Roll and A Winning Team"
-            loading="lazy"
-          />
-        </figure>
-        <figure className="wl-audit-cell" style={{ width: "14.78%", "--ar": 0.177 }}>
-          <img
-            src={oldLandingMobile}
-            alt="The old landing page on a phone — the hero and the same two project cards stacked in one column"
-            loading="lazy"
-          />
-        </figure>
-      </div>
-    </div>
-  );
+  return <AuditRows rows={[OLD_LANDING_ROW]} />;
 }
 
 /* Opportunity 02: the studios section — three cities, three time zones,
@@ -260,7 +248,6 @@ export function WLOldStudiosFigure() {
         [
           {
             src: oldStudios, ar: 1.316,
-            w: UNIF(1.316),
             alt: "The site's Our Studios section — We Are Citizens of the World over local clocks for Guadalajara, Calgary, and Vancouver",
           },
         ],

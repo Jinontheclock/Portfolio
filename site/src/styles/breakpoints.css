@@ -19,7 +19,6 @@
   --size-lp-nav-gap: clamp(4px, 1.16vw - 0.65px, 16px); /* 4 → 16 */
 
   /* inner pages */
-  --size-heading: 40px;
   --size-about-title: 48px; /* "Hajin Lee" */
   --size-section-label: 24px; /* Experiences / Education */
   --size-card-title: 28px; /* Work cards */
@@ -33,8 +32,6 @@
 @media (max-width: 1439px) {
   :root {
     --size-hero: 100px; /* pre-JS fallback only */
-
-    --size-heading: 36px;
     --size-about-title: 44px;
     --size-section-label: 22px;
     --size-card-title: 26px;
@@ -45,8 +42,6 @@
 @media (max-width: 1024px) {
   :root {
     --size-hero: 64px; /* pre-JS fallback only */
-
-    --size-heading: 32px;
     --size-about-title: 38px;
     --size-section-label: 20px;
     --size-card-title: 24px;
@@ -57,8 +52,6 @@
 @media (max-width: 600px) {
   :root {
     --size-hero: 32px; /* pre-JS fallback only */
-
-    --size-heading: 28px;
     --size-about-title: 32px;
     --size-section-label: 20px;
     --size-card-title: 22px;

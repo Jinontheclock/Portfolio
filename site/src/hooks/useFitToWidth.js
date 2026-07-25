@@ -3,8 +3,10 @@ import { useLayoutEffect, useRef } from "react";
 /** Scales a single nowrap line's font down so it fits its container width,
  *  never larger than maxPx (or mobileMax on ≤600px screens when given).
  *  Used for the Adobe tool row, which is wider than the narrow Skills column
- *  at body size. Refits on resize and font load. */
-export default function useFitToWidth(maxPx, { skipMobile = false, mobileMax = null } = {}) {
+ *  at body size, and for the two copyright lines. Refits on resize and font
+ *  load. The element has to be able to narrow below its own content (a flex
+ *  item needs min-width: 0) or there is no shortfall to measure. */
+export default function useFitToWidth(maxPx, { mobileMax = null } = {}) {
   const ref = useRef(null);
 
   useLayoutEffect(() => {
@@ -13,11 +15,6 @@ export default function useFitToWidth(maxPx, { skipMobile = false, mobileMax = n
 
     const fit = () => {
       const mobile = window.innerWidth <= 600;
-      // some rows wrap at the stylesheet size on mobile instead of shrinking
-      if (skipMobile && mobile) {
-        el.style.fontSize = "";
-        return;
-      }
       const cap = mobile && mobileMax != null ? mobileMax : maxPx;
       el.style.fontSize = cap + "px";
       const avail = el.clientWidth;
@@ -32,7 +29,7 @@ export default function useFitToWidth(maxPx, { skipMobile = false, mobileMax = n
     if (document.fonts?.ready) document.fonts.ready.then(fit);
     window.addEventListener("resize", fit);
     return () => window.removeEventListener("resize", fit);
-  }, [maxPx, skipMobile, mobileMax]);
+  }, [maxPx, mobileMax]);
 
   return ref;
 }
