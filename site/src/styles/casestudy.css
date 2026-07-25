@@ -1017,7 +1017,6 @@
 .wl-vfx-old {
   display: block;
   height: auto;
-  border-radius: 12px; /* matches the slider's corners */
 }
 .wl-vfx-compare .wl-slider-label {
   top: 12px;
