@@ -35,7 +35,9 @@ import figmaRows from "../assets/welab/welab-figma-featured-rows.webp";
 /* ── 02 Auditing the Live Site ── */
 
 /* the old project page's two showcase sections, as the two captures they
-   are — each stacking a before frame above its after, no way to compare */
+   are — each stacking a before frame above its after, no way to compare.
+   No cell labels: the figure's own caption below already names both
+   sections, and the shots carry the headings in the frame. */
 export function WLOldShowcaseFigure() {
   return (
     <AuditRows
@@ -44,13 +46,11 @@ export function WLOldShowcaseFigure() {
           {
             src: oldShowcaseChallenge, ar: 0.874,
             w: UNIF(0.874),
-            label: "The Challenge",
             alt: "The Challenge section of the old project page — the crowd plate and the finished shot as separate stills, stacked",
           },
           {
             src: oldShowcaseSolution, ar: 0.874,
             w: UNIF(0.874),
-            label: "The Solution",
             alt: "The Solution section of the old project page — the sportscast plate and the finished broadcast graphics as separate stills, stacked",
           },
         ],
@@ -71,21 +71,18 @@ export function WLOldShowcaseFigure() {
 const UNIF = (ar) => `calc((100% - 60px) * ${(ar / 2.852).toFixed(4)})`;
 
 /* the old site captured page by page — individual images laid out in rows,
-   each cell sized to its device class */
-/* `short` is the label a phone shows instead: at that width the full ones
-   wrap to three or four lines each, and the section name is already in the
-   figure's own caption right below, so the cells only have to say which
-   screen you're looking at. */
+   each cell sized to its device class. The labels only name the screen: the
+   section and the widths are both in the figure's own caption right below. */
 const AUDIT_TAX_ROW = [
-  { src: auditTaxTablet, ar: 1.229, w: UNIF(1.229), label: "Tax Credits — tablet, 1280px", short: "desktop", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-  { src: auditTax1200, ar: 0.734, w: UNIF(0.734), label: "Tax Credits — 1200px, the layout hole", short: "tablet", alt: "The old Tax Credits section at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
-  { src: auditTaxMobile, ar: 0.325, w: UNIF(0.325), label: "Tax Credits — mobile", short: "mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+  { src: auditTaxTablet, ar: 1.229, w: UNIF(1.229), label: "desktop", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+  { src: auditTax1200, ar: 0.734, w: UNIF(0.734), label: "tablet", alt: "The old Tax Credits section at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
+  { src: auditTaxMobile, ar: 0.325, w: UNIF(0.325), label: "mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
 ];
 
 const AUDIT_SECTIONS_ROW = [
-  { src: auditWhoWeAre, ar: 1.537, w: UNIF(1.537), label: "Who We Are", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
-  { src: auditClients, ar: 0.849, w: UNIF(0.849), label: "Clients & Awards", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
-  { src: auditHomeFooter, ar: 0.46, w: UNIF(0.46), label: "Home footer — mobile", alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
+  { src: auditWhoWeAre, ar: 1.537, w: UNIF(1.537), alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+  { src: auditClients, ar: 0.849, w: UNIF(0.849), alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
+  { src: auditHomeFooter, ar: 0.46, w: UNIF(0.46), alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
 ];
 
 /* A cell may carry `ba: "before" | "after"`. Where a row crosses from the
@@ -114,18 +111,7 @@ function AuditRows({ rows }) {
                   <img src={cell.src} alt={cell.alt} loading="lazy" />
                   {crossover && <ArrowIcon className="wl-ba-arrow" />}
                 </span>
-                {cell.label && (
-                  <figcaption>
-                    {cell.short ? (
-                      <>
-                        <span className="wl-label-wide">{cell.label}</span>
-                        <span className="wl-label-narrow">{cell.short}</span>
-                      </>
-                    ) : (
-                      cell.label
-                    )}
-                  </figcaption>
-                )}
+                {cell.label && <figcaption>{cell.label}</figcaption>}
               </figure>
             );
           })}
@@ -232,8 +218,8 @@ export function WLLangToggleFigure() {
 }
 
 /* Opportunity 01: the old landing page leading with the same two project
-   cards, on desktop and on a phone — same cell/label treatment as the
-   audit rows */
+   cards, on desktop and on a phone — same cell treatment as the audit rows,
+   and like them unlabelled: the figure's caption below says what they are */
 export function WLOldLandingFigure() {
   return (
     <div className="wl-audit">
@@ -246,7 +232,6 @@ export function WLOldLandingFigure() {
             alt="The old landing page on desktop — the hero followed by the same two project cards, Torch of Rock and Roll and A Winning Team"
             loading="lazy"
           />
-          <figcaption>Landing — desktop</figcaption>
         </figure>
         <figure className="wl-audit-cell" style={{ width: "14.78%", "--ar": 0.177 }}>
           <img
@@ -254,7 +239,6 @@ export function WLOldLandingFigure() {
             alt="The old landing page on a phone — the hero and the same two project cards stacked in one column"
             loading="lazy"
           />
-          <figcaption>Landing — mobile</figcaption>
         </figure>
       </div>
     </div>
