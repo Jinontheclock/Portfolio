@@ -59,10 +59,20 @@ import {
   WLOldLandingFigure,
   WLOldStudiosFigure,
 } from "../components/WeLabFigures.jsx";
+import {
+  COMPASS_FIGURES,
+  COMPASS_SHOTS,
+  CompassHero,
+} from "../components/CompassPlaceholders.jsx";
 
 /* hero scenes: live in-page animations a project can use instead of a
    video or the placeholder (see each project's heroScene field) */
-const HERO_SCENES = { journey: ProLogJourney, monitor: TinyPawsMonitor, welab: WeLabHero };
+const HERO_SCENES = {
+  journey: ProLogJourney,
+  monitor: TinyPawsMonitor,
+  welab: WeLabHero,
+  compass: CompassHero,
+};
 
 /* in-page figures a "figure" block can reference by name */
 const FIGURES = {
@@ -109,11 +119,12 @@ const FIGURES = {
   "tinypaws-ba-nav": TPBANavFigure,
   "tinypaws-ba-structure": TPBAStructureFigure,
   "tinypaws-ba-cta": TPBACtaFigure,
+  ...COMPASS_FIGURES,
 };
 
 /* solution-row app/site screens, keyed per project (keys are unique
    across projects, so one lookup serves them all) */
-const SHOTS = { ...PROLOG_SHOTS, ...TINYPAWS_SHOTS };
+const SHOTS = { ...PROLOG_SHOTS, ...TINYPAWS_SHOTS, ...COMPASS_SHOTS };
 import { getProject } from "../data/projects.js";
 import { noOrphan, noOrphanSegments } from "../lib/no-orphan.js";
 
