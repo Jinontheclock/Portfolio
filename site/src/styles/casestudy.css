@@ -1109,7 +1109,9 @@
     min-width: 0;
   }
   .wl-audit-cell img {
-    box-sizing: border-box; /* keep the 1px frame inside the cell */
+    /* at phone sizes the hairline frame reads as a stray outline around each
+       capture rather than a frame, so it comes off here */
+    border: 0;
     width: 100%;
   }
   .wl-cell--crossover {
