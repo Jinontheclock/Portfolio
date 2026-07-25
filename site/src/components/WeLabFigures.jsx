@@ -153,12 +153,13 @@ const LAYOUT_ROWS = [
   /* the only four-up row: the old captures sit left of the rebuilt pair, so
      the fix reads across in one line. Four cells can't fit at the shared
      height, so this row is scaled to its own total (3.719) and renders
-     shorter than the rest. */
+     shorter than the rest. One label per side, on the desktop capture that
+     opens each pair — four would only repeat before/after twice. */
   [
-    { src: auditTaxTablet, ar: 1.229, w: "calc((100% - 100px) * 0.3305)", ba: "before", label: "before\u00A0— desktop", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-    { src: auditTaxMobile, ar: 0.325, w: "calc((100% - 100px) * 0.0874)", ba: "before", label: "before\u00A0— mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
-    { src: taxNewDesktop, ar: 1.794, w: "calc((100% - 100px) * 0.4824)", ba: "after", label: "after\u00A0— desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
-    { src: taxNewMobile, ar: 0.371, w: "calc((100% - 100px) * 0.0998)", ba: "after", label: "after\u00A0— mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
+    { src: auditTaxTablet, ar: 1.229, w: "calc((100% - 100px) * 0.3305)", ba: "before", label: "before\u00A0— desktop and mobile", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+    { src: auditTaxMobile, ar: 0.325, w: "calc((100% - 100px) * 0.0874)", ba: "before", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+    { src: taxNewDesktop, ar: 1.794, w: "calc((100% - 100px) * 0.4824)", ba: "after", label: "after\u00A0— desktop and mobile", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
+    { src: taxNewMobile, ar: 0.371, w: "calc((100% - 100px) * 0.0998)", ba: "after", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
   ],
   /* both captures are cropped tight to the section, so this pair's shapes
      add up past the shared reference: like the tax row it takes its own
