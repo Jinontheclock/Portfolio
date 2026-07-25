@@ -1,4 +1,5 @@
 import "img-comparison-slider";
+import ArrowIcon from "./ArrowIcon.jsx";
 import crowdAfter from "../assets/welab/welab-awt-crowd-after.webp";
 import crowdBefore from "../assets/welab/welab-awt-crowd-before.webp";
 import figOldChallenge from "../assets/welab/welab-old-showcase-challenge.webp";
@@ -16,14 +17,19 @@ export function WLVfxSliderFigure() {
           the left, one draggable frame on the right. Widths follow each
           capture's aspect ratio over the shared reference (2.852), so both
           render at the same height as every other figure in the study. */}
-      <img
-        className="wl-vfx-old"
-        style={{ width: "calc((100% - 20px) * 0.3066)" }}
-        src={figOldChallenge}
-        alt="The Challenge section of the old project page — the crowd plate and the finished shot as separate stills, stacked with no way to compare them directly"
-        loading="lazy"
-      />
-      <div className="wl-slider" style={{ width: "calc((100% - 20px) * 0.6234)" }}>
+      <span
+        className="wl-cell-shot wl-cell--crossover wl-vfx-old-shot"
+        style={{ width: "calc((100% - 60px) * 0.3066)" }}
+      >
+        <img
+          className="wl-vfx-old"
+          src={figOldChallenge}
+          alt="The Challenge section of the old project page — the crowd plate and the finished shot as separate stills, stacked with no way to compare them directly"
+          loading="lazy"
+        />
+        <ArrowIcon className="wl-ba-arrow" />
+      </span>
+      <div className="wl-slider" style={{ width: "calc((100% - 60px) * 0.6234)" }}>
       <span className="wl-slider-label wl-slider-label--left" aria-hidden="true">
         AFTER
       </span>

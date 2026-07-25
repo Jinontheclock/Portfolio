@@ -1021,8 +1021,11 @@
   flex: 0 0 auto; /* widths are set inline, from each capture's ratio */
   min-width: 0;
 }
+/* the still carries the crossover arrow, so it sits in a shot wrapper and
+   fills it; the wrapper is the flex child that holds the inline width */
 .wl-vfx-old {
   display: block;
+  width: 100%;
   height: auto;
 }
 .wl-vfx-compare .wl-slider-label {
@@ -1046,11 +1049,16 @@
    rows: each half takes the share of the width its shape asks for (0.874 :
    1.778), so both still render at the same height */
 @media (max-width: 600px) {
+  /* 8px, like the audit rows, so the crossover gap works out to the same
+     28px and the arrow lands dead centre in it */
+  .wl-vfx-compare {
+    gap: 8px;
+  }
   .wl-vfx-compare > * {
     flex-basis: 0;
     width: auto !important; /* out-specifies the inline desktop widths */
   }
-  .wl-vfx-old {
+  .wl-vfx-old-shot {
     flex-grow: 8.74;
   }
   .wl-vfx-compare .wl-slider {
