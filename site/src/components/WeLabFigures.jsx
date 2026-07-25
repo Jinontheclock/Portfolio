@@ -72,10 +72,14 @@ const UNIF = (ar) => `calc((100% - 60px) * ${(ar / 2.852).toFixed(4)})`;
 
 /* the old site captured page by page — individual images laid out in rows,
    each cell sized to its device class */
+/* `short` is the label a phone shows instead: at that width the full ones
+   wrap to three or four lines each, and the section name is already in the
+   figure's own caption right below, so the cells only have to say which
+   screen you're looking at. */
 const AUDIT_TAX_ROW = [
-  { src: auditTaxTablet, ar: 1.229, w: UNIF(1.229), label: "Tax Credits — tablet, 1280px", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-  { src: auditTax1200, ar: 0.734, w: UNIF(0.734), label: "Tax Credits — 1200px, the layout hole", alt: "The old Tax Credits section at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
-  { src: auditTaxMobile, ar: 0.325, w: UNIF(0.325), label: "Tax Credits — mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+  { src: auditTaxTablet, ar: 1.229, w: UNIF(1.229), label: "Tax Credits — tablet, 1280px", short: "desktop", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+  { src: auditTax1200, ar: 0.734, w: UNIF(0.734), label: "Tax Credits — 1200px, the layout hole", short: "tablet", alt: "The old Tax Credits section at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
+  { src: auditTaxMobile, ar: 0.325, w: UNIF(0.325), label: "Tax Credits — mobile", short: "mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
 ];
 
 const AUDIT_SECTIONS_ROW = [
@@ -110,7 +114,18 @@ function AuditRows({ rows }) {
                   <img src={cell.src} alt={cell.alt} loading="lazy" />
                   {crossover && <ArrowIcon className="wl-ba-arrow" />}
                 </span>
-                {cell.label && <figcaption>{cell.label}</figcaption>}
+                {cell.label && (
+                  <figcaption>
+                    {cell.short ? (
+                      <>
+                        <span className="wl-label-wide">{cell.label}</span>
+                        <span className="wl-label-narrow">{cell.short}</span>
+                      </>
+                    ) : (
+                      cell.label
+                    )}
+                  </figcaption>
+                )}
               </figure>
             );
           })}

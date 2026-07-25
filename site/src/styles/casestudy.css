@@ -373,6 +373,11 @@
   font: 400 12px / 1.4 var(--font-ui);
   color: var(--text-muted);
 }
+/* a cell can carry a short label for narrow screens — see .wl-label-narrow
+   in the phone block below */
+.wl-label-narrow {
+  display: none;
+}
 
 /* in-page figures with an optional caption below */
 .cs-figure {
@@ -1128,6 +1133,14 @@
        capture rather than a frame, so it comes off here */
     border: 0;
     width: 100%;
+  }
+  /* the long label wraps to three or four lines in a column this narrow, so
+     where a cell offers a short one it takes over */
+  .wl-label-wide {
+    display: none;
+  }
+  .wl-label-narrow {
+    display: inline;
   }
   .wl-cell--crossover {
     margin-right: 20px; /* 8px row gap + 20px = 28px, room for the arrow */
