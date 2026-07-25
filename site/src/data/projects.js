@@ -132,7 +132,7 @@ export const PROJECTS = [
           {
             type: "figure",
             graphic: "welab-fig-audit-responsive",
-            caption: "The Tax Credits section of the old Services page at 1280px, 1200px, and mobile widths.",
+            caption: "The Tax Credits section of the old Services page at desktop, tablet and mobile widths.",
           },
           {
             type: "p",

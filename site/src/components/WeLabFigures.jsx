@@ -71,12 +71,12 @@ export function WLOldShowcaseFigure() {
 const UNIF = (ar) => `calc((100% - 60px) * ${(ar / 2.852).toFixed(4)})`;
 
 /* the old site captured page by page — individual images laid out in rows,
-   each cell sized to its device class. The labels only name the screen: the
-   section and the widths are both in the figure's own caption right below. */
+   each cell sized to its device class, unlabelled: the figure's own caption
+   below reads them off left to right. */
 const AUDIT_TAX_ROW = [
-  { src: auditTaxTablet, ar: 1.229, w: UNIF(1.229), label: "desktop", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-  { src: auditTax1200, ar: 0.734, w: UNIF(0.734), label: "tablet", alt: "The old Tax Credits section at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
-  { src: auditTaxMobile, ar: 0.325, w: UNIF(0.325), label: "mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+  { src: auditTaxTablet, ar: 1.229, w: UNIF(1.229), alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+  { src: auditTax1200, ar: 0.734, w: UNIF(0.734), alt: "The old Tax Credits section at 1200px — the incentive cards collapse into a two-plus-one arrangement leaving a stray gap" },
+  { src: auditTaxMobile, ar: 0.325, w: UNIF(0.325), alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
 ];
 
 const AUDIT_SECTIONS_ROW = [
