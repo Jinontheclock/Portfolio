@@ -225,6 +225,10 @@
   flex-shrink: 0;
 }
 .site-footer-copy {
+  /* lets the flex item narrow below its nowrap content so the fit hook sees
+     the shortfall and scales the line down — without this it overflowed the
+     page instead of shrinking */
+  min-width: 0;
   font: 400 12px/16px var(--font-ui);
   color: var(--grey-300); /* one step lighter — less noticeable */
   text-align: right;

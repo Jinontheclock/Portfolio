@@ -103,6 +103,17 @@
   display: flex;
   gap: 40px;
 }
+/* Side by side needs about 690px, and the content column drops under that at
+   1300px — from there the fixed label column plus the link value (one
+   unbreakable token, so it can't shrink to absorb the shortfall) pushed the
+   whole page into horizontal scroll. Stacking the two groups is the answer
+   the phone layout already used; it just has to start earlier. */
+@media (max-width: 1300px) {
+  .cs-meta {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
 
 .cs-meta-group {
   display: flex;
@@ -449,8 +460,7 @@
 .cs-stat::marker {
   color: var(--text-muted);
 }
-.cs-stat-value,
-.cs-stat-label {
+.cs-stat-value {
   font: inherit;
   color: inherit;
 }
@@ -677,11 +687,6 @@
     grid-column: 1 / 13;
     grid-row: 2;
   }
-  /* stack the two meta groups so long tool names don't overflow the width */
-  .cs-meta {
-    flex-direction: column;
-    gap: 20px;
-  }
   /* the label column only needs its own text here: at a fixed 92px the
      longest value ("solo on the site, with the WeLAB team") came out 1px
      wider than the space left for it and wrapped onto a second line */
@@ -861,9 +866,6 @@
   width: 100%;
   height: auto;
   background: #0f0f0f;
-}
-.cs-row-bottom {
-  align-items: flex-end;
 }
 .cs-insta-stack {
   display: flex;
