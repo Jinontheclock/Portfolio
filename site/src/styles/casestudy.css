@@ -1094,6 +1094,11 @@
    giving the captures every pixel the column has. The crossover gap and the
    arrow shrink to leave more of it to the images. */
 @media (max-width: 600px) {
+  /* every gap is width the captures don't get, and a five-across row loses
+     80px of a 350px column to them — 8px is enough separation here */
+  .wl-audit-row {
+    column-gap: 8px;
+  }
   .wl-audit-cell {
     /* ×10 because flex only hands out a fraction of the free space when the
        grow factors sum to less than 1 — scaling them keeps the proportions
@@ -1109,7 +1114,7 @@
     width: 100%;
   }
   .wl-cell--crossover {
-    margin-right: 8px; /* 20px row gap + 8px = 28px for the arrow */
+    margin-right: 20px; /* 8px row gap + 20px = 28px, room for the arrow */
   }
   .wl-cell-shot .wl-ba-arrow {
     /* 19x3 is the icon's ratio in whole pixels again, one size down */
