@@ -142,18 +142,23 @@ export function WLWorkflowFigure() {
 
 /* ── 03 Designing and Building ── */
 
-/* P02: the two audit finds the rebuild is proven on — Who We Are and the
-   home footer, each before/after in one row (widths ∝ aspect ratios) */
+/* P02: the audit finds the rebuild is proven on — Tax Credits, Who We Are,
+   the home footer, and Clients & Awards, each before/after in one row
+   (widths ∝ aspect ratios).
+   Labels lead with the state, then the screen or the section, so the eye
+   picks up before/after first. A non-breaking space glues the dash to the
+   state: a narrow cell then wraps as "before —" / "mobile" instead of
+   dropping the dash onto a line of its own. */
 const LAYOUT_ROWS = [
   /* the only four-up row: the old captures sit left of the rebuilt pair, so
      the fix reads across in one line. Four cells can't fit at the shared
      height, so this row is scaled to its own total (3.719) and renders
      shorter than the rest. */
   [
-    { src: auditTaxTablet, ar: 1.229, w: "calc((100% - 100px) * 0.3305)", ba: "before", label: "Tax Credits — before, 1280px", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-    { src: auditTaxMobile, ar: 0.325, w: "calc((100% - 100px) * 0.0874)", ba: "before", label: "Tax Credits — before, mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
-    { src: taxNewDesktop, ar: 1.794, w: "calc((100% - 100px) * 0.4824)", ba: "after", label: "Tax Credits — after, desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
-    { src: taxNewMobile, ar: 0.371, w: "calc((100% - 100px) * 0.0998)", ba: "after", label: "Tax Credits — after, mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
+    { src: auditTaxTablet, ar: 1.229, w: "calc((100% - 100px) * 0.3305)", ba: "before", label: "before\u00A0— desktop", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+    { src: auditTaxMobile, ar: 0.325, w: "calc((100% - 100px) * 0.0874)", ba: "before", label: "before\u00A0— mobile", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+    { src: taxNewDesktop, ar: 1.794, w: "calc((100% - 100px) * 0.4824)", ba: "after", label: "after\u00A0— desktop", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
+    { src: taxNewMobile, ar: 0.371, w: "calc((100% - 100px) * 0.0998)", ba: "after", label: "after\u00A0— mobile", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
   ],
   /* both captures are cropped tight to the section, so this pair's shapes
      add up past the shared reference: like the tax row it takes its own
@@ -161,16 +166,16 @@ const LAYOUT_ROWS = [
      out the size they were before the crop — only the empty band above and
      below each one is gone. */
   [
-    { src: auditWhoWeAre, ar: 1.537, w: "calc((100% - 60px) * 0.4617)", label: "Who We Are — before", ba: "before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
-    { src: afterWhoWeAre, ar: 1.792, w: "calc((100% - 60px) * 0.5383)", ba: "after", label: "Who We Are — after", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
+    { src: auditWhoWeAre, ar: 1.537, w: "calc((100% - 60px) * 0.4617)", label: "before\u00A0— Who We Are", ba: "before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+    { src: afterWhoWeAre, ar: 1.792, w: "calc((100% - 60px) * 0.5383)", ba: "after", label: "after\u00A0— Who We Are", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
   ],
   [
-    { src: footerBaBefore, ar: 0.59, w: UNIF(0.59), ba: "before", label: "Home footer — before", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
-    { src: footerBaAfter, ar: 0.59, w: UNIF(0.59), ba: "after", label: "Home footer — after", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
+    { src: footerBaBefore, ar: 0.59, w: UNIF(0.59), ba: "before", label: "before\u00A0— Home footer", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
+    { src: footerBaAfter, ar: 0.59, w: UNIF(0.59), ba: "after", label: "after\u00A0— Home footer", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
   ],
   [
-    { src: clientsBaBefore, ar: 0.97, w: UNIF(0.97), ba: "before", label: "Clients & Awards — before", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
-    { src: clientsBaAfter, ar: 0.977, w: UNIF(0.977), ba: "after", label: "Clients & Awards — after", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
+    { src: clientsBaBefore, ar: 0.97, w: UNIF(0.97), ba: "before", label: "before\u00A0— Clients & Awards", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
+    { src: clientsBaAfter, ar: 0.977, w: UNIF(0.977), ba: "after", label: "after\u00A0— Clients & Awards", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
   ],
 ];
 
