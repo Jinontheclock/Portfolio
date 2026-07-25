@@ -1036,11 +1036,19 @@
   width: 48px;
   height: 48px;
 }
-/* on a phone the halves would be too small to read or drag — stack them */
+/* on a phone the pair stays in its row and fills the column, like the audit
+   rows: each half takes the share of the width its shape asks for (0.874 :
+   1.778), so both still render at the same height */
 @media (max-width: 600px) {
-  .wl-vfx-compare {
-    flex-direction: column;
-    gap: 16px;
+  .wl-vfx-compare > * {
+    flex-basis: 0;
+    width: auto !important; /* out-specifies the inline desktop widths */
+  }
+  .wl-vfx-old {
+    flex-grow: 8.74;
+  }
+  .wl-vfx-compare .wl-slider {
+    flex-grow: 17.78;
   }
 }
 
