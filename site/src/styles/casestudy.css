@@ -682,6 +682,13 @@
     flex-direction: column;
     gap: 20px;
   }
+  /* the label column only needs its own text here: at a fixed 92px the
+     longest value ("solo on the site, with the WeLAB team") came out 1px
+     wider than the space left for it and wrapped onto a second line */
+  .cs-meta-row {
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 12px;
+  }
   /* chapter breaks breathe, but a phone screen needs less air than desktop */
   .cs-sections {
     gap: 112px;
