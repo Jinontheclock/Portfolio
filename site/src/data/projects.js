@@ -65,12 +65,6 @@ const COMPASS_SECTIONS = [
         text: "Contactless payment is not new here. TransLink switched it on across the whole system on 22 May 2018, the first agency in Canada to accept Interac Debit systemwide. Tap-to-pay has grown every year since — from over 10 million taps in 2019 to more than 25 million in 2025.",
       },
       {
-        type: "figure",
-        graphic: "compass-fig-taps",
-        caption:
-          "Tap-to-pay volumes, 2019–2025, from TransLink's annual accountability reports. TransLink publishes the same figure for 2023 and 2024; I have kept it as published rather than smoothing it.",
-      },
-      {
         type: "p",
         text: "And the system underneath is being replaced. Compass Modernization went to tender with a preliminary budget of $507 million, bids closed on 20 March 2026, and delivery is scheduled for late 2030 into early 2031. The RFP asks for something specific: an account-based system handling both closed-loop and open-loop fares.",
       },
@@ -94,10 +88,8 @@ const COMPASS_SECTIONS = [
         text: "Compass today is not one product. It is three, and none of them is a phone. There is a card in your pocket, a website you sign in to, and a machine in the station. Every rider moves between all three, and each one holds a different part of the job.",
       },
       {
-        type: "figure",
-        graphic: "compass-fig-segments",
-        caption:
-          "Who rides, and where their needs diverge. The segments are drawn from published ridership and programme figures, not from interviews.",
+        type: "p",
+        text: "Who is this for? Everyone the three surfaces already serve: commuters on stored value, the students who renew a U-Pass by hand each month, the concession riders who cannot buy their card from a machine, and visitors who arrive with a phone and no card. No interviews sit behind this project, and I found no published breakdown of riders by segment — so there is no segment chart here. Where a number exists this case study uses it; where it does not, nothing is invented.",
       },
       { type: "h", text: "The card", tag: "Surface 01" },
       {
@@ -186,11 +178,6 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: "In scope: every TransLink mode — bus, SkyTrain, SeaBus, West Coast Express — plus BC Ferries foot passenger fares. Out of scope on purpose: BC Ferries vehicle fares, BC Transit's Umo network, and the plastic card itself, which stays. Four decisions shape the rest of this project, and each one is a bet.",
       },
-      {
-        type: "figure",
-        graphic: "compass-fig-coverage",
-        caption: "What v1 covers, what it leaves out, and what waits for a later phase.",
-      },
       { type: "h", text: "One tap, two fare authorities", tag: "Bet 01" },
       {
         type: "p",
@@ -213,8 +200,9 @@ const COMPASS_SECTIONS = [
       },
       {
         type: "figure",
-        graphic: "compass-fig-roadmap",
-        caption: "Three phases, ordered by how much permission each one needs.",
+        graphic: "compass-fig-coverage-roadmap",
+        caption:
+          "What v1 covers, what it leaves out, and the three phases — ordered by how much permission each one needs.",
       },
       { type: "h", text: "The card stays", tag: "Bet 04" },
       {

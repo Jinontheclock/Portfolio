@@ -60,13 +60,11 @@ const fig = (label, note, ar) => {
   return C;
 };
 
-/* ── figure blocks — 25 keys ── */
+/* ── figure blocks — 22 keys ── */
 export const COMPASS_FIGURES = {
   /* 01 Context */
-  "compass-fig-timeline": fig("01 · Timeline strip", "2018 contactless → 2031 delivery", 16 / 4),
-  "compass-fig-taps": fig("01 · Tap-to-pay growth chart", "2019–2025, with the 2023/24 footnote", 16 / 8),
+  "compass-fig-timeline": fig("01 · Timeline strip", "2018 contactless → 2031 delivery", 16 / 5.2),
   /* 02 Plastic, Website, Vending Machine */
-  "compass-fig-segments": fig("02 · Rider segment map", "from published figures, not interviews", 16 / 8),
   "compass-fig-card": fig("02 · The physical card, annotated", "field capture — front and back", 16 / 7),
   "compass-fig-website": fig("02 · compasscard.ca, annotated", "field capture — AuditRows pattern", 16 / 9),
   "compass-fig-cvm": fig("02 · Compass Vending Machine, annotated", "field capture", 16 / 7),
@@ -74,9 +72,8 @@ export const COMPASS_FIGURES = {
   /* 03 Card-Based by Design */
   "compass-fig-system": fig("03 · Card-based vs account-based", "where the balance lives", 16 / 8),
   /* 04 Scope & Bets */
-  "compass-fig-coverage": fig("04 · Coverage map", "in / out / roadmap", 16 / 8),
   "compass-fig-ia": fig("04 · IA — the two layers", "what you tap / what you manage", 16 / 8),
-  "compass-fig-roadmap": fig("04 · Roadmap, ordered by permission", "three phases", 16 / 6),
+  "compass-fig-coverage-roadmap": fig("04 · Coverage + roadmap", "in / out / three phases, ordered by permission", 16 / 7),
   "compass-fig-wireframes": fig("04 · Lo-fi wireframe board", "6–10 frames, one board only", 16 / 9),
   /* 05 One Tap, Every Ride */
   "compass-fig-tap-moment": fig("05 · THE TAP MOMENT", "first hi-fi screen of the case study", 16 / 10),
