@@ -81,11 +81,11 @@ const COMPASS_SECTIONS = [
   },
   {
     id: "surfaces",
-    label: "02 Plastic, Website, Vending Machine",
+    label: "02 Three Products, No Phone",
     blocks: [
       {
         type: "p",
-        text: "Compass today is not one product. It is three, and none of them is a phone. There is a card in your pocket, a website you sign in to, and a machine in the station. Every rider moves between all three, and each one holds a different part of the job.",
+        text: "Compass today is three products: a card in your pocket, a website you sign in to, and a machine in the station. Every rider moves between all three, and each one holds a different part of the job — while the phone in that same pocket holds none of it.",
       },
       {
         type: "p",
@@ -132,7 +132,7 @@ const COMPASS_SECTIONS = [
         type: "figure",
         graphic: "compass-fig-balance-paths",
         caption:
-          "Five paths to one number, and the monthly loop that 140,000 students run by hand.",
+          "Five paths to one number — and the one that doesn't exist.",
       },
     ],
   },

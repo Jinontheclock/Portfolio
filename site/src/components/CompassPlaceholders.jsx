@@ -64,11 +64,11 @@ const fig = (label, note, ar) => {
 export const COMPASS_FIGURES = {
   /* 01 Context */
   "compass-fig-timeline": fig("01 · Timeline strip", "2018 contactless → 2031 delivery", 16 / 5.2),
-  /* 02 Plastic, Website, Vending Machine */
+  /* 02 Three Products, No Phone */
   "compass-fig-card": fig("02 · The physical card, annotated", "field capture — front and back", 16 / 7),
   "compass-fig-website": fig("02 · compasscard.ca, annotated", "field capture — AuditRows pattern", 16 / 9),
   "compass-fig-cvm": fig("02 · Compass Vending Machine, annotated", "field capture", 16 / 7),
-  "compass-fig-balance-paths": fig("02 · Five paths + the U-Pass monthly loop", "diagram", 16 / 8),
+  "compass-fig-balance-paths": fig("02 · Five paths — none is your phone", "diagram", 16 / 5.8),
   /* 03 Card-Based by Design */
   "compass-fig-system": fig("03 · Card-based vs account-based", "where the balance lives", 16 / 8),
   /* 04 Scope & Bets */
