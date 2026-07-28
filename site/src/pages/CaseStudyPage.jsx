@@ -64,6 +64,7 @@ import {
   COMPASS_SHOTS,
   CompassHero,
 } from "../components/CompassPlaceholders.jsx";
+import { COMPASS_ARTWORK } from "../components/CompassFigures.jsx";
 
 /* hero scenes: live in-page animations a project can use instead of a
    video or the placeholder (see each project's heroScene field) */
@@ -120,6 +121,8 @@ const FIGURES = {
   "tinypaws-ba-structure": TPBAStructureFigure,
   "tinypaws-ba-cta": TPBACtaFigure,
   ...COMPASS_FIGURES,
+  /* finished artwork wins over the placeholder of the same name */
+  ...COMPASS_ARTWORK,
 };
 
 /* solution-row app/site screens, keyed per project (keys are unique

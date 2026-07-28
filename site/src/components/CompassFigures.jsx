@@ -1,0 +1,36 @@
+import timelineImg from "../assets/compass/compass-fig-timeline.webp";
+import cardImg from "../assets/compass/compass-fig-card.webp";
+import websiteImg from "../assets/compass/compass-fig-website.webp";
+import balancePathsImg from "../assets/compass/compass-fig-balance-paths.webp";
+
+/* Finished artwork for the Compass Card case study, optimized from the
+   originals the owner supplied. Each key here replaces the labelled box of
+   the same name in CompassPlaceholders.jsx — spread after it in
+   CaseStudyPage's FIGURES, so a real figure always wins over its
+   placeholder. Everything not listed here is still a placeholder. */
+const art = (src, alt) => {
+  const C = () => <img src={src} alt={alt} loading="lazy" />;
+  C.displayName = `CompassFigure(${alt.slice(0, 24)})`;
+  return C;
+};
+
+export const COMPASS_ARTWORK = {
+  /* 01 Context */
+  "compass-fig-timeline": art(
+    timelineImg,
+    "A timeline of Compass payment: contactless live systemwide on 22 May 2018, modernization bids closed on 20 March 2026, and the system replacement scheduled for late 2030 into early 2031 — eight years of contactless payment behind us, another four to five before the underlying system changes",
+  ),
+  /* 02 Three Products, No Phone */
+  "compass-fig-card": art(
+    cardImg,
+    "Two reasons the plastic card stays: it is the only route to a discounted fare — $3.50 becomes $2.85 one-zone, $5.10 becomes $4.20 two-zone, $6.70 becomes $5.40 three-zone — and its printed card number and CVN are the only link between the card and an online account, retyped by hand to register, to transfer a card, and for every monthly U-Pass request",
+  ),
+  "compass-fig-website": art(
+    websiteImg,
+    "The card can do one thing: tap. Everything else runs through compasscard.ca — registering with the 20-digit card number and 3-digit code, then managing passes, stored value, AutoLoad, refunds and replacement, then adding value and waiting, because the site itself warns a new balance may take up to two hours to be ready for use",
+  ),
+  "compass-fig-balance-paths": art(
+    balancePathsImg,
+    "Five ways to reach a Compass balance — tapping a reader shows it only, compasscard.ca and the service line reload with up to a two-hour wait, a vending machine reloads instantly but sells no concession card, and a service centre serves you in person — and a sixth, greyed out: your phone, already in your pocket, with no path at all",
+  ),
+};
