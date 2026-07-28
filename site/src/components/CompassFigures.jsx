@@ -2,6 +2,7 @@ import timelineImg from "../assets/compass/compass-fig-timeline.webp";
 import cardImg from "../assets/compass/compass-fig-card.webp";
 import websiteImg from "../assets/compass/compass-fig-website.webp";
 import balancePathsImg from "../assets/compass/compass-fig-balance-paths.webp";
+import systemImg from "../assets/compass/compass-fig-system.webp";
 
 /* Finished artwork for the Compass Card case study, optimized from the
    originals the owner supplied. Each key here replaces the labelled box of
@@ -32,5 +33,10 @@ export const COMPASS_ARTWORK = {
   "compass-fig-balance-paths": art(
     balancePathsImg,
     "Five ways to reach a Compass balance — tapping a reader shows it only, compasscard.ca and the service line reload with up to a two-hour wait, a vending machine reloads instantly but sells no concession card, and a service centre serves you in person — and a sixth, greyed out: your phone, already in your pocket, with no path at all",
+  ),
+  /* 03 Card-Based by Design */
+  "compass-fig-system": art(
+    systemImg,
+    "Where the balance lives, side by side. Card-based today: the balance sits on the Compass Card, which reaches a reader on a bus or at a gate, and only later a server — the card is the record, a tap works offline, nothing changes until the card meets a reader, so an online reload takes up to two hours to land and an app has nothing real to show, which is why there isn't one. Account-based, what the RFP buys: the balance lives in an account on the server, with the card, a phone app and wallet, and a watch all reading from it — the account is the record, every device shows the real number, a reload lands where the balance lives with no two-hour wait, and an app stops being a copy",
   ),
 };
