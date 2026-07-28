@@ -105,7 +105,7 @@ const COMPASS_SECTIONS = [
       { type: "h", text: "The website", tag: "Surface 02" },
       {
         type: "p",
-        text: "Everything you might want to know or change about that card lives at compasscard.ca — balance, reload, passes, autoload, card transfer, lost-card replacement. A reload made online or over the phone takes up to two hours to reach the card. Replacing a Program pass card costs $25.",
+        text: "Everything you might want to know or change about that card lives at compasscard.ca — balance, reload, passes, autoload, card transfer, lost-card replacement. None of it happens where the card is: every change means a browser and a sign-in, and a reload made online or over the phone still takes up to two hours to reach the card. Replacing a Program pass card costs $25.",
       },
       {
         type: "figure",
