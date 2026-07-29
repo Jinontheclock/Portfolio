@@ -176,22 +176,22 @@ const COMPASS_SECTIONS = [
     blocks: [
       {
         type: "p",
-        text: "In scope: every TransLink mode — bus, SkyTrain, SeaBus, West Coast Express — plus BC Ferries foot passenger fares. Out of scope on purpose: BC Ferries vehicle fares, BC Transit's Umo network, and the plastic card itself, which stays. Four decisions shape the rest of this project, and each one is a bet.",
+        text: "This app is one place to ride both systems: pay, manage, check, ask. In scope: every TransLink mode — bus, SkyTrain, SeaBus, West Coast Express — plus BC Ferries foot passenger fares, read-only sailing status, and in-app support. Out of scope on purpose: BC Ferries vehicle fares — a booking, not a ride — BC Transit's Umo network, and the plastic card itself, which stays. Four decisions shape the rest of this project, and each one is a bet.",
       },
       { type: "h", text: "One tap, two fare authorities", tag: "Bet 01" },
       {
         type: "p",
-        text: "A walk-on trip from Vancouver to Victoria crosses three fare systems, and BC Ferries says so itself: fares for each transit provider must be purchased separately. An adult foot passenger fare is $19.10 against $2.85 for a one-zone tap — nothing alike as amounts, but the same gesture. The two organisations already share retail: TransLink vending machines stand at both Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards are sold in the shops onboard, and BC Ferries names the 620 and the 257 as its TransLink connections. Vehicle fares are out, because a vehicle fare carries a reservation, a vehicle class and deck capacity. That belongs to a booking system, not to a tap.",
+        text: "A walk-on trip from Vancouver to Victoria crosses three fare systems, and BC Ferries says so itself: fares for each transit provider must be purchased separately. An adult foot passenger fare is $19.10 against $2.85 for a one-zone tap — nothing alike as amounts, but the same gesture. The two organisations already share retail: TransLink vending machines stand at both Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards are sold in the shops onboard, and BC Ferries names the 620 and the 257 as its TransLink connections. Vehicle fares are out, because a vehicle fare carries a reservation, a vehicle class and deck capacity. That belongs to a booking system, not to a tap. Seeing a sailing's status is a different thing — that is information, and the app shows it read-only. Selling the vehicle fare stays with BC Ferries.",
       },
       { type: "h", text: "What you tap, what you manage", tag: "Bet 02" },
       {
         type: "p",
-        text: "The three surfaces collapse into two layers, not three. One layer is the thing you tap at a gate: it has to work in three seconds, in the rain, with a bag in the other hand. The other is everything the website was holding, which can take as long as it needs. Splitting the product this way is the single structural decision the rest of the design rests on.",
+        text: "The three surfaces collapse into two layers, not three. One layer is the thing you tap at a gate: it has to work in three seconds, in the rain, with a bag in the other hand. The other is everything that can take as long as it needs: what the website was holding, plus what today means a phone call — checking a sailing, asking a question. An in-app assistant answers the simple ones first and hands the rest to a person; the phone line and the counter both stay. Splitting the product this way is the single structural decision the rest of the design rests on.",
       },
       {
         type: "figure",
         graphic: "compass-fig-ia",
-        caption: "Two layers: what you tap, and what you manage.",
+        caption: "Two layers: what you tap — and everything else. Manage, check, ask.",
       },
       { type: "h", text: "Ordered by permission, not difficulty", tag: "Bet 03" },
       {
@@ -321,7 +321,7 @@ const COMPASS_SECTIONS = [
     blocks: [
       {
         type: "p",
-        text: "This is the layer that can take as long as it needs. Every task in it is one that compasscard.ca or a vending machine holds today.",
+        text: "This is the layer that can take as long as it needs. Every task in it is one that compasscard.ca, a vending machine or a phone call holds today.",
       },
       {
         type: "solution",
@@ -370,6 +370,11 @@ const COMPASS_SECTIONS = [
           "The plastic card and the pass share one balance, because they are one card. Tapping either draws from the same account.",
         ],
         media: ["compass-shot-card-01", "compass-shot-card-02"],
+      },
+      { type: "h", text: "Checking and asking" },
+      {
+        type: "p",
+        text: "Two more things live in this layer without a screen of their own in this case study. A sailing's status is checkable in the app, read-only — the information a walk-on actually needs, without pretending to be a booking system. And the simple questions that today mean a phone queue go to an in-app assistant first; anything it cannot answer is handed to a person. The service line and the counter both stay — this design adds a front door, it does not close the old ones.",
       },
       { type: "h", text: "The same task, two ways" },
       {
