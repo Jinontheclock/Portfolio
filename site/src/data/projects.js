@@ -176,12 +176,12 @@ const COMPASS_SECTIONS = [
     blocks: [
       {
         type: "p",
-        text: "This app is one place to ride both systems: pay, manage, check, ask. In scope: every TransLink mode — bus, SkyTrain, SeaBus, West Coast Express — plus BC Ferries foot passenger fares, read-only sailing status, and in-app support. Out of scope on purpose: BC Ferries vehicle fares — a booking, not a ride — BC Transit's Umo network, and the plastic card itself, which stays. Four decisions shape the rest of this project, and each one is a bet.",
+        text: "This app is one place to ride both systems: pay, manage, check, ask. v1 designs every TransLink mode — bus, SkyTrain, SeaBus, West Coast Express — plus BC Ferries foot passenger fares, read-only sailing status, and in-app support. Vehicle booking is in the product but last in the roadmap, because it needs the deepest partnership. BC Transit's Umo network waits for a phase of its own. And the plastic card stays. Four decisions shape the rest of this project, and each one is a bet.",
       },
       { type: "h", text: "One tap, two fare authorities", tag: "Bet 01" },
       {
         type: "p",
-        text: "A walk-on trip from Vancouver to Victoria crosses three fare systems, and BC Ferries says so itself: fares for each transit provider must be purchased separately. An adult foot passenger fare is $19.10 against $2.85 for a one-zone tap — nothing alike as amounts, but the same gesture. The two organisations already share retail: TransLink vending machines stand at both Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards are sold in the shops onboard, and BC Ferries names the 620 and the 257 as its TransLink connections. Vehicle fares are out, because a vehicle fare carries a reservation, a vehicle class and deck capacity. That belongs to a booking system, not to a tap. Seeing a sailing's status is a different thing — that is information, and the app shows it read-only. Selling the vehicle fare stays with BC Ferries.",
+        text: "A walk-on trip from Vancouver to Victoria crosses three fare systems, and BC Ferries says so itself: fares for each transit provider must be purchased separately. An adult foot passenger fare is $19.10 against $2.85 for a one-zone tap — nothing alike as amounts, but the same gesture. The two organisations already share retail: TransLink vending machines stand at both Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards are sold in the shops onboard, and BC Ferries names the 620 and the 257 as its TransLink connections. Vehicle fares are a different gesture — a reservation, a vehicle class, deck capacity. That is a booking, not a tap, so it enters the app as a booking flow, and it enters last: selling another operator's vehicle fares is the deepest integration on this roadmap. In v1 the app shows a sailing's status, read-only. The booking flow is sequenced, not cut.",
       },
       { type: "h", text: "What you tap, what you manage", tag: "Bet 02" },
       {
@@ -202,7 +202,7 @@ const COMPASS_SECTIONS = [
         type: "figure",
         graphic: "compass-fig-coverage-roadmap",
         caption:
-          "What v1 covers, what it leaves out, and the three phases — ordered by how much permission each one needs.",
+          "What v1 covers, what comes later, and the phases — ordered by how much permission each one needs.",
       },
       { type: "h", text: "The card stays", tag: "Bet 04" },
       {
@@ -374,7 +374,7 @@ const COMPASS_SECTIONS = [
       { type: "h", text: "Checking and asking" },
       {
         type: "p",
-        text: "Two more things live in this layer without a screen of their own in this case study. A sailing's status is checkable in the app, read-only — the information a walk-on actually needs, without pretending to be a booking system. And the simple questions that today mean a phone queue go to an in-app assistant first; anything it cannot answer is handed to a person. The service line and the counter both stay — this design adds a front door, it does not close the old ones.",
+        text: "Two more things live in this layer without a screen of their own in this case study. A sailing's status is checkable in the app — read-only in v1, with the vehicle booking flow it will one day sit beside sequenced for a later phase. And the simple questions that today mean a phone queue go to an in-app assistant first; anything it cannot answer is handed to a person. The service line and the counter both stay — this design adds front doors, it does not close the old ones.",
       },
       { type: "h", text: "The same task, two ways" },
       {
