@@ -4,6 +4,7 @@ import websiteImg from "../assets/compass/compass-fig-website.webp";
 import cvmImg from "../assets/compass/compass-fig-cvm.webp";
 import balancePathsImg from "../assets/compass/compass-fig-balance-paths.webp";
 import systemImg from "../assets/compass/compass-fig-system.webp";
+import iaImg from "../assets/compass/compass-fig-ia.webp";
 import coverageRoadmapImg from "../assets/compass/compass-fig-coverage-roadmap.webp";
 
 /* Finished artwork for the Compass Card case study, optimized from the
@@ -46,6 +47,10 @@ export const COMPASS_ARTWORK = {
     "Where the balance lives, side by side. Card-based today: the balance sits on the Compass Card, which reaches a reader on a bus or at a gate, and only later a server — the card is the record, a tap works offline, nothing changes until the card meets a reader, so an online reload takes up to two hours to land and an app has nothing real to show, which is why there isn't one. Account-based, what the RFP buys: the balance lives in an account on the server, with the card, a phone app and wallet, and a watch all reading from it — the account is the record, every device shows the real number, a reload lands where the balance lives with no two-hour wait, and an app stops being a copy",
   ),
   /* 04 Scope & Bets */
+  "compass-fig-ia": art(
+    iaImg,
+    "Three products today, collapsing into two layers. On the left: the card — a $6 refundable deposit, never expires, the only route to a discounted fare; the website, compasscard.ca — balance, reload, passes, autoload, transfer, replacement, all behind a sign-in and two hours away; the vending machine — instant reload, sells cards but no concession card; and, dashed in, the phone call — questions, refunds, a sailing's status. On the right: Layer 1, what you tap, in three seconds, in the rain, with one hand — the Wallet pass with Express Mode, a tap from the watch, balance at a glance, power reserve when the battery dies, and nothing that asks you to read. Layer 2, manage, check, ask, which takes as long as it needs — manage covers reload and autoload, passes, U-Pass renewal, trip history, a lost card and moving the balance across all cards; check is a sailing's status, read-only; ask is an in-app assistant first, a person for the rest, with the phone line and the counter both staying. The card, the machine, the line and the counter all stay: this design adds, it does not remove, and vehicle booking is a later phase on the roadmap",
+  ),
   "compass-fig-coverage-roadmap": art(
     coverageRoadmapImg,
     "Three phases, ordered by how much permission each needs. Phase 1, TransLink — bus, SkyTrain, SeaBus and West Coast Express, every mode from day one; permission needed: none, because TransLink sets its own fares, a one-zone trip being $2.85 on stored value. Phase 2, BC Ferries — foot passengers only, a $19.10 adult walk-on, the same gesture at nothing like the same amount; permission needed: a partner, though the two already share retail, with vending machines at Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards sold onboard, and TransLink routes named as connections; in v1 the app also shows sailing status, read-only, with vehicle booking sequenced as this partnership's last step. Phase 3, BC Transit's Umo network in Victoria, Kelowna and Whistler — a separate system and a separate fare authority; permission needed: the most, a new agreement across systems, so it waits: roadmap only, with nothing in v1 designed for it. v1 designs the first two. Sequenced, not cut: vehicle booking — a reservation, a vehicle class, deck capacity — is a booking flow, not a tap, and needs the deepest partnership, so it comes last; and the plastic card is not replaced — it stays, deposit and all; this design adds, it does not remove",
