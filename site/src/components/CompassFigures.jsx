@@ -1,6 +1,7 @@
 import timelineImg from "../assets/compass/compass-fig-timeline.webp";
 import cardImg from "../assets/compass/compass-fig-card.webp";
 import websiteImg from "../assets/compass/compass-fig-website.webp";
+import cvmImg from "../assets/compass/compass-fig-cvm.webp";
 import balancePathsImg from "../assets/compass/compass-fig-balance-paths.webp";
 import systemImg from "../assets/compass/compass-fig-system.webp";
 
@@ -29,6 +30,10 @@ export const COMPASS_ARTWORK = {
   "compass-fig-website": art(
     websiteImg,
     "The card can do one thing: tap. Everything else runs through compasscard.ca — registering with the 20-digit card number and 3-digit code, then managing passes, stored value, AutoLoad, refunds and replacement, then adding value and waiting, because the site itself warns a new balance may take up to two hours to be ready for use",
+  ),
+  "compass-fig-cvm": art(
+    cvmImg,
+    "A Compass Vending Machine in a station and two of its screens: the first offers Load Compass Card, View Balance, Buy New Compass Card, Buy Single Ticket, Buy Multiple Tickets and Upgrade Your Ticket; the purchase screen notes that a $6.00 deposit is added to a new card and that only adult cards can be purchased at the vending machines. It sells adult cards only — no concession card for seniors, youth and HandyCard holders, so the riders who most need the lower fare cannot buy their card where everyone else buys it, and a concession card means a counter, in person, in counter hours",
   ),
   "compass-fig-balance-paths": art(
     balancePathsImg,
