@@ -60,13 +60,12 @@ const fig = (label, note, ar) => {
   return C;
 };
 
-/* ── figure blocks — 16 still to draw. Chapters 01 to 03 are fully drawn now
-   (timeline; card, website, vending machine and five-paths; system), and
-   those keys are registered from CompassFigures.jsx instead. ── */
+/* ── figure blocks — 15 still to draw. Chapters 01 to 03 are fully drawn,
+   and ch04's coverage-and-roadmap diagram has landed too; those keys are
+   registered from CompassFigures.jsx instead. ── */
 export const COMPASS_FIGURES = {
   /* 04 Scope & Bets */
   "compass-fig-ia": fig("04 · IA — the two layers", "what you tap / what you manage", 16 / 8),
-  "compass-fig-coverage-roadmap": fig("04 · Coverage + roadmap", "in / out / three phases, ordered by permission", 16 / 7),
   "compass-fig-wireframes": fig("04 · Lo-fi wireframe board", "6–10 frames, one board only", 16 / 9),
   /* 05 One Tap, Every Ride */
   "compass-fig-tap-moment": fig("05 · THE TAP MOMENT", "first hi-fi screen of the case study", 16 / 10),

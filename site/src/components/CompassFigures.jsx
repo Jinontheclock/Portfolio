@@ -4,6 +4,7 @@ import websiteImg from "../assets/compass/compass-fig-website.webp";
 import cvmImg from "../assets/compass/compass-fig-cvm.webp";
 import balancePathsImg from "../assets/compass/compass-fig-balance-paths.webp";
 import systemImg from "../assets/compass/compass-fig-system.webp";
+import coverageRoadmapImg from "../assets/compass/compass-fig-coverage-roadmap.webp";
 
 /* Finished artwork for the Compass Card case study, optimized from the
    originals the owner supplied. Each key here replaces the labelled box of
@@ -43,5 +44,10 @@ export const COMPASS_ARTWORK = {
   "compass-fig-system": art(
     systemImg,
     "Where the balance lives, side by side. Card-based today: the balance sits on the Compass Card, which reaches a reader on a bus or at a gate, and only later a server — the card is the record, a tap works offline, nothing changes until the card meets a reader, so an online reload takes up to two hours to land and an app has nothing real to show, which is why there isn't one. Account-based, what the RFP buys: the balance lives in an account on the server, with the card, a phone app and wallet, and a watch all reading from it — the account is the record, every device shows the real number, a reload lands where the balance lives with no two-hour wait, and an app stops being a copy",
+  ),
+  /* 04 Scope & Bets */
+  "compass-fig-coverage-roadmap": art(
+    coverageRoadmapImg,
+    "Three phases, ordered by how much permission each needs. Phase 1, TransLink — bus, SkyTrain, SeaBus and West Coast Express, every mode from day one; permission needed: none, because TransLink sets its own fares, a one-zone trip being $2.85 on stored value. Phase 2, BC Ferries — foot passengers only, a $19.10 adult walk-on, the same gesture at nothing like the same amount; permission needed: a partner, though the two already share retail, with vending machines at Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards sold onboard, and TransLink routes named as connections. Phase 3, BC Transit's Umo network in Victoria, Kelowna and Whistler — a separate system and a separate fare authority; permission needed: the most, a new agreement across systems, so it waits: roadmap only, with nothing in v1 designed for it. v1 designs the first two. Out on purpose: BC Ferries vehicle fares, which carry a reservation, a vehicle class and deck capacity — a booking, not a tap — and the plastic card, which is not replaced; this design adds, it does not remove",
   ),
 };
