@@ -120,19 +120,14 @@ export default function CompassLofiBoard() {
         in chapters 05–07.
       </p>
 
-      <p className="cmp-lofi-layer">Layer 1 — what you tap</p>
+      <p className="cs-paragraph cmp-lofi-layer">Layer 1 — what you tap</p>
       <div className="cmp-lofi-row">
         {LAYER_1.map((f) => (
           <Frame key={f.label} {...f} />
         ))}
-        {/* the board's own aside, kept as text beside the first row */}
-        <div className="cmp-lofi-aside">
-          <p>grey on purpose — these frames decide structure, not style</p>
-          <p>check &amp; ask ship as concepts; the rest become hi-fi in 05–07</p>
-        </div>
       </div>
 
-      <p className="cmp-lofi-layer">Layer 2 — what you manage · check · ask</p>
+      <p className="cs-paragraph cmp-lofi-layer">Layer 2 — what you manage · check · ask</p>
       <div className="cmp-lofi-row">
         {LAYER_2.map((f) => (
           <Frame key={f.label} {...f} />
