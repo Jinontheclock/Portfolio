@@ -6,6 +6,7 @@ import balancePathsImg from "../assets/compass/compass-fig-balance-paths.webp";
 import systemImg from "../assets/compass/compass-fig-system.webp";
 import iaImg from "../assets/compass/compass-fig-ia.webp";
 import coverageRoadmapImg from "../assets/compass/compass-fig-coverage-roadmap.webp";
+import CompassLofiBoard from "./CompassLofiBoard.jsx";
 
 /* Finished artwork for the Compass Card case study, optimized from the
    originals the owner supplied. Each key here replaces the labelled box of
@@ -55,4 +56,6 @@ export const COMPASS_ARTWORK = {
     coverageRoadmapImg,
     "Three phases, ordered by how much permission each needs. Phase 1, TransLink — bus, SkyTrain, SeaBus and West Coast Express, every mode from day one; permission needed: none, because TransLink sets its own fares, a one-zone trip being $2.85 on stored value. Phase 2, BC Ferries — foot passengers only, a $19.10 adult walk-on, the same gesture at nothing like the same amount; permission needed: a partner, though the two already share retail, with vending machines at Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards sold onboard, and TransLink routes named as connections; in v1 the app also shows sailing status, read-only, with vehicle booking sequenced as this partnership's last step. Phase 3, BC Transit's Umo network in Victoria, Kelowna and Whistler — a separate system and a separate fare authority; permission needed: the most, a new agreement across systems, so it waits: roadmap only, with nothing in v1 designed for it. v1 designs the first two. Sequenced, not cut: vehicle booking — a reservation, a vehicle class, deck capacity — is a booking flow, not a tap, and needs the deepest partnership, so it comes last; and the plastic card is not replaced — it stays, deposit and all; this design adds, it does not remove",
   ),
+  /* composed in code from twelve separate frames, not a flat export */
+  "compass-fig-wireframes": CompassLofiBoard,
 };

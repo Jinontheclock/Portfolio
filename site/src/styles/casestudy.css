@@ -402,6 +402,98 @@
   width: 100%;
   height: auto;
 }
+/* ── Compass ch04: the lo-fi board ──
+   Twelve frames in two labelled rows, composed here rather than exported
+   flat so the labels stay real text. Cells share a row equally, so a row of
+   five and a row of seven both fill the column; each frame sits in a box
+   with the phone frames' shape, which lets the shorter watch frames centre
+   inside it and every label land on one line across the row. ── */
+.cmp-lofi-title {
+  margin: 0;
+  font: 700 var(--size-body) / 1.4 var(--font-ui);
+  color: var(--text-primary);
+}
+.cmp-lofi-sub {
+  margin: 4px 0 0;
+  max-width: 67ch;
+  font: 400 12px / 1.5 var(--font-ui);
+  color: var(--text-muted);
+}
+.cmp-lofi-layer {
+  margin: 28px 0 10px;
+  font: 400 11px / 1.4 var(--font-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.cmp-lofi-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.cmp-lofi-cell {
+  margin: 0;
+  flex: 1 1 0;
+  min-width: 0;
+}
+.cmp-lofi-shot {
+  /* the phone frames' own shape: the watch frames centre inside it */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 402 / 874;
+}
+/* two classes deep so it out-specifies `.cs-figure img { width: 100% }` */
+.cs-figure .cmp-lofi-shot img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+.cmp-lofi-cell figcaption {
+  margin-top: 8px;
+  font: 400 11px / 1.35 var(--font-ui);
+  color: var(--text-muted);
+}
+.cmp-lofi-cell figcaption b {
+  display: block;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.cmp-lofi-aside {
+  flex: 1.6 1 0;
+  min-width: 0;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cmp-lofi-aside p {
+  margin: 0;
+  font: 400 11px / 1.5 var(--font-ui);
+  color: var(--text-muted);
+}
+/* a phone screen can't hold seven frames across — the rows wrap into
+   threes, which keeps every frame wide enough to read */
+@media (max-width: 600px) {
+  .cmp-lofi-row {
+    flex-wrap: wrap;
+    row-gap: 20px;
+  }
+  .cmp-lofi-cell {
+    flex: 0 0 calc((100% - 24px) / 3);
+  }
+  /* the watch frames wrap onto a line of their own here, so they no longer
+     need the phone frames' box to keep the labels on one baseline — without
+     this they sit in a tall band of empty space */
+  .cmp-lofi-cell--watch .cmp-lofi-shot {
+    aspect-ratio: 187 / 223;
+  }
+  .cmp-lofi-aside {
+    flex-basis: 100%;
+  }
+}
+
 /* two or more figures side by side inside one figure block */
 .cs-figure-row {
   display: flex;
