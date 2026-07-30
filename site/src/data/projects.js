@@ -42,7 +42,7 @@ const PLACEHOLDER_SECTIONS = [
   },
 ];
 
-/* Compass Card — 8 chapters, 98 blocks. Structure and copy are final;
+/* Compass Card — 8 chapters, 100 blocks. Structure and copy are final;
    every figure and solution screen is a labelled placeholder until the
    artwork lands (see CompassPlaceholders.jsx). */
 const COMPASS_SECTIONS = [
@@ -100,7 +100,7 @@ const COMPASS_SECTIONS = [
         type: "figure",
         graphic: "compass-fig-card",
         caption:
-          "The card, front and back. A $6 deposit, no expiry, and the only route to a discounted fare.",
+          "The card, front and back: the fare gap that keeps it in every pocket, and the two numbers that link it to your account.",
       },
       { type: "h", text: "The website", tag: "Surface 02" },
       {
@@ -162,7 +162,7 @@ const COMPASS_SECTIONS = [
       { type: "h", text: "The agency's own admission" },
       {
         type: "p",
-        text: "That was 2019. The Compass Modernization RFP that closed in March 2026 asks for an account-based system handling both closed-loop and open-loop fares. Read plainly, that is the agency writing down that the current architecture is the constraint — and buying its way out of it.",
+        text: "That was 2019. The Compass Modernization RFP that closed in March 2026 asks for exactly the architecture this chapter has been describing: account-based, closed-loop and open-loop alike. Read plainly, that is the agency writing down that the current architecture is the constraint — and buying its way out of it.",
       },
       {
         type: "p",
@@ -183,7 +183,7 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: "A walk-on trip from Vancouver to Victoria crosses three fare systems, and BC Ferries says so itself: fares for each transit provider must be purchased separately. An adult foot passenger fare is $19.10 against $2.85 for a one-zone tap — nothing alike as amounts, but the same gesture. The two organisations already share retail: TransLink vending machines stand at both Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards are sold in the shops onboard, and BC Ferries names the 620 and the 257 as its TransLink connections. Vehicle fares are a different gesture — a reservation, a vehicle class, deck capacity. That is a booking, not a tap, so it enters the app as a booking flow, and it enters last: selling another operator's vehicle fares is the deepest integration on this roadmap. In v1 the app shows a sailing's status, read-only. The booking flow is sequenced, not cut.",
       },
-      { type: "h", text: "What you tap, what you manage", tag: "Bet 02" },
+      { type: "h", text: "What you tap, and everything else", tag: "Bet 02" },
       {
         type: "p",
         text: "The three surfaces collapse into two layers, not three. One layer is the thing you tap at a gate: it has to work in three seconds, in the rain, with a bag in the other hand. The other is everything that can take as long as it needs: what the website was holding, plus what today means a phone call — checking a sailing, asking a question. An in-app assistant answers the simple ones first and hands the rest to a person; the phone line and the counter both stay. Splitting the product this way is the single structural decision the rest of the design rests on.",
