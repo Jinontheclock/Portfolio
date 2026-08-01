@@ -321,7 +321,7 @@ const COMPASS_SECTIONS = [
     blocks: [
       {
         type: "p",
-        text: "This is the layer that can take as long as it needs. Every task in it is one that compasscard.ca, a vending machine or a phone call holds today.",
+        text: "This is the layer that can take as long as it needs. Every task in it is one that compasscard.ca, a vending machine or a phone call holds today. The lo-fi board's first pass spread it across four tabs; working the structure against a card-first model folded it into two — Compass Card and Tickets — with the account behind a single button.",
       },
       {
         type: "solution",
