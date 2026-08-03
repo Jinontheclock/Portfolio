@@ -196,7 +196,7 @@ function Block({ block, onDemo, demoHref }) {
       return (
         <div className="cs-tryapp">
           <button type="button" className="cs-tryapp-btn" onClick={onDemo}>
-            Try app
+            {block.label ?? "Try app"}
           </button>
           <span className="cs-tryapp-note">
             {block.note ?? "Runs the real app right here — no install needed."}

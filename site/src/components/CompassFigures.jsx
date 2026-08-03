@@ -6,6 +6,8 @@ import balancePathsImg from "../assets/compass/compass-fig-balance-paths.webp";
 import systemImg from "../assets/compass/compass-fig-system.webp";
 import iaImg from "../assets/compass/compass-fig-ia.webp";
 import coverageRoadmapImg from "../assets/compass/compass-fig-coverage-roadmap.webp";
+import typeImg from "../assets/compass/compass-fig-type.webp";
+import colourImg from "../assets/compass/compass-fig-colour.webp";
 import CompassLofiBoard from "./CompassLofiBoard.jsx";
 
 /* Finished artwork for the Compass Card case study, optimized from the
@@ -55,6 +57,15 @@ export const COMPASS_ARTWORK = {
   "compass-fig-coverage-roadmap": art(
     coverageRoadmapImg,
     "Three phases, ordered by how much permission each needs. Phase 1, TransLink — bus, SkyTrain, SeaBus and West Coast Express, every mode from day one; permission needed: none, because TransLink sets its own fares, a one-zone trip being $2.85 on stored value. Phase 2, BC Ferries — foot passengers only, a $19.10 adult walk-on, the same gesture at nothing like the same amount; permission needed: a partner, though the two already share retail, with vending machines at Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards sold onboard, and TransLink routes named as connections; in v1 the app also shows sailing status, read-only, with vehicle booking sequenced as this partnership's last step. Phase 3, BC Transit's Umo network in Victoria, Kelowna and Whistler — a separate system and a separate fare authority; permission needed: the most, a new agreement across systems, so it waits: roadmap only, with nothing in v1 designed for it. v1 designs the first two. Sequenced, not cut: vehicle booking — a reservation, a vehicle class, deck capacity — is a booking flow, not a tap, and needs the deepest partnership, so it comes last; and the plastic card is not replaced — it stays, deposit and all; this design adds, it does not remove",
+  ),
+  /* 05 The Visual System */
+  "compass-fig-type": art(
+    typeImg,
+    "FF Meta — three weights, seven steps. A lettering diagram marks cap height, x-height, baseline and descender, with Book, Medium and Bold the only three weights in the product. The scale as the app speaks it: $15.00, My Compass Card, Current pass, Monthly · 2-Zone, Your tap uses this pass, Plastic + Wallet pass · one balance, Stored value · Jul 28 — labelled Display 34/40 −0.4 Bold, Title 28/34 −0.3 Bold, Heading 24/30 −0.2 Medium, Subhead 20/26 0 Medium, Body 17/24 0 Book, Callout 14/20 +0.1 Book, Caption 12/16 +0.2 Medium, each mapped to its Apple text style. A table shows every step at base size, ×1.4 and ×2.0 — body 17 becoming 23.8 and 34 — against the requirement that text enlarge to 200%, and tabular lining figures keep $15.00 and $23.15 the same width, so the balance does not shift when it changes",
+  ),
+  "compass-fig-colour": art(
+    colourImg,
+    "Nine blues, three states, every pair measured. The Compass blue ramp runs 100 #D9EEFC to 900 #03223D with three anchor blues sampled from public Compass materials and the remaining six derived — not an official TransLink palette. Beside it, the neutrals: background #FAFAFA, panel #FFFFFF, divider #E8E8E8, divider strong #D4D4D4, secondary text #6B6B6B, ink #1A1A1A; and the three states: Paid green #146B45, Low balance amber #7A4F00, Declined red #B3261E. A table computes every pairing against WCAG — ink on panel 17.40 AAA, blue 600 on panel 6.67 AA, blue 500 on background 4.32 fails for body text, divider strong 1.48 decorative only. The rules beneath: blue as text starts at 600, 400 and lighter are fills and icons never text, navy 800 is a surface not a foreground, hero amounts wear ink not brand, status ships as colour + icon + word and never colour alone",
   ),
   /* composed in code from twelve separate frames, not a flat export */
   "compass-fig-wireframes": CompassLofiBoard,

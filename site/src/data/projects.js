@@ -501,10 +501,9 @@ const COMPASS_SECTIONS = [
         text: "The strongest evidence in this project came from things that were already published and things I could go and touch — a fare table, an RFP, a vending machine that will not sell a concession card. The weakest part is the part I could not do. I do not know how someone who has never used a transit wallet behaves on the first tap, and no amount of heuristic review substitutes for watching one person do it once. If this went further, that is the first thing I would buy.",
       },
       {
-        type: "cta",
+        type: "demo",
         label: "Open the prototype",
-        href: "«TBD: figma prototype URL»",
-        note: "The full flow, clickable.",
+        note: "The full flow, running right here — no install needed.",
       },
     ],
   },
@@ -531,6 +530,7 @@ export const PROJECTS = [
     ],
     metaRight: [{ label: "tool", values: ["Figma", "Adobe Creative Suite"] }],
     sections: COMPASS_SECTIONS,
+    demo: { src: "compass/" },
   },
   {
     id: "welab",
