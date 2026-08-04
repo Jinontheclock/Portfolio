@@ -667,20 +667,19 @@
 .tryapp-close:hover {
   opacity: 0.7;
 }
-/* The scaler carries the on-screen (scaled) footprint so the surrounding
-   layout reserves the right space; the phone inside is scaled from top-left. */
-.tryapp-phone-scaler {
+/* The iPhone 17 Pro mockup at its display size. The app renders in an
+   iframe scaled directly into the mockup's transparent screen window; the
+   device image rides on top, so its bezel, corners and island occlude the
+   app the way the real hardware would, and the black backing behind the
+   iframe reads as bezel through any uncovered sliver of the window. The
+   shadow follows the device's own silhouette. */
+.tryapp-phone {
   position: relative;
   align-self: center;
 }
-/* The iPhone 17 Pro mockup at its logical size, visually scaled via an
-   inline transform. The app renders in an iframe placed exactly behind the
-   mockup's transparent screen window; the device image rides on top, so its
-   bezel, corners and island occlude the app the way the real hardware
-   would. The shadow follows the device's own silhouette. */
-.tryapp-phone {
-  position: relative;
-  transform-origin: top left;
+.tryapp-screen-back {
+  position: absolute;
+  background: #050505;
 }
 .tryapp-frame {
   position: absolute;
