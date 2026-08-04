@@ -42,7 +42,7 @@ const PLACEHOLDER_SECTIONS = [
   },
 ];
 
-/* Compass Card — 8 chapters, 100 blocks. Structure and copy are final;
+/* Compass Card — 8 chapters, 90 blocks. Structure and copy are final;
    every figure and solution screen is a labelled placeholder until the
    artwork lands (see CompassPlaceholders.jsx). */
 const COMPASS_SECTIONS = [
@@ -376,36 +376,6 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: "Two more things live in this layer without a screen of their own in this case study. A sailing's status is checkable in the app — read-only in v1, with the vehicle booking flow it will one day sit beside sequenced for a later phase. And the simple questions that today mean a phone queue go to an in-app assistant first; anything it cannot answer is handed to a person. The service line and the counter both stay — this design adds front doors, it does not close the old ones.",
       },
-      { type: "h", text: "The same task, two ways" },
-      {
-        type: "p",
-        text: "The clearest way to show what changed is to put the two paths side by side and count them.",
-      },
-      {
-        type: "figure",
-        graphic: "compass-ba-task",
-        caption: "Checking a balance and topping up: on the website today, and in the app.",
-      },
-      { type: "h", text: "The moment it lands" },
-      {
-        type: "p",
-        text: "The reload flow exists to make one thing obvious — that the money is there now. Motion carries that; a static screen cannot.",
-      },
-      {
-        type: "figure",
-        graphic: "compass-fig-reload-motion",
-        caption: "Reload, from tap to available balance.",
-      },
-      { type: "h", text: "The monthly ritual, once" },
-      {
-        type: "p",
-        text: "U-Pass renewal is the flow with the most riders behind it and the least design attention on it today. It is the one screen in this project I would want instrumented first.",
-      },
-      {
-        type: "figure",
-        graphic: "compass-fig-upass",
-        caption: "Set once in September, and again in January. Not every month.",
-      },
       {
         type: "p",
         text: "None of these tasks is new. All of them already exist — just not anywhere a rider can reach while standing at a gate.",
@@ -423,17 +393,13 @@ const COMPASS_SECTIONS = [
       {
         type: "figure",
         graphic: "compass-fig-watch",
-        caption: "Three screens, and nothing that asks the rider to stop walking.",
+        caption:
+          "The same type, colour and card component at a third of the width — and nothing that asks the rider to stop walking.",
       },
       { type: "h", text: "Same tokens, one-third the width" },
       {
         type: "p",
         text: "The watch is not an extra deliverable here — it is the test of whether the foundations are a system or a style. The same type scale, the same colour set and the same card component have to survive at a third of the width, on a screen that is glanced at rather than read. If they had to be redrawn to fit, they were never a system.",
-      },
-      {
-        type: "figure",
-        graphic: "compass-fig-watch-mapping",
-        caption: "The same three foundations, at a third of the width.",
       },
       { type: "h", text: "What the watch deliberately cannot do" },
       {

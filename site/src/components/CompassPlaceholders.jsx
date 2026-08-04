@@ -70,13 +70,8 @@ export const COMPASS_FIGURES = {
   "compass-fig-component": fig("05 · Tap card component, every state", "foundations", 16 / 8),
   "compass-fig-tap-motion": fig("05 · Tap confirmation — motion", "mp4, inline figure", 16 / 9),
   "compass-fig-power-reserve": fig("05 · Power reserve screen", "", 16 / 9),
-  /* 06 Everything the Website Held */
-  "compass-ba-task": fig("06 · Before / after — the same task", "website vs app", 16 / 8),
-  "compass-fig-reload-motion": fig("06 · Reload flow — motion", "mp4, inline figure", 16 / 9),
-  "compass-fig-upass": fig("06 · U-Pass renewal screen", "", 16 / 9),
   /* 07 On the Wrist */
   "compass-fig-watch": fig("07 · Watch screens", "3–5 screens", 16 / 7),
-  "compass-fig-watch-mapping": fig("07 · Phone ↔ watch component mapping", "", 16 / 7),
   /* 08 What Held Up, What Didn't */
   "compass-fig-task-table": fig("08 · Task-step measurement table", "counted by hand", 16 / 8),
   "compass-fig-audit": fig("08 · Heuristic + accessibility findings", "", 16 / 8),
