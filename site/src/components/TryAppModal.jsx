@@ -16,6 +16,13 @@ const FRAME_W = MOCK.w / MOCK.scale; // ≈450.7
 const FRAME_H = MOCK.h / MOCK.scale; // ≈921.3
 const SCREEN_X = MOCK.x / MOCK.scale; // ≈24.4
 const SCREEN_Y = MOCK.y / MOCK.scale; // ≈23.6
+// The app is drawn a hair larger than the glass and clipped, so the window's
+// anti-aliased rim is covered by app rather than by the dark backing — no
+// black outline around the screen. ~2.4 logical px are cropped per side,
+// well inside every screen's margins.
+const OVERSCAN = 1.012;
+const OVER_X = (SCREEN_W * (OVERSCAN - 1)) / 2; // ≈2.4
+const OVER_Y = (SCREEN_H * (OVERSCAN - 1)) / 2; // ≈5.2
 
 function computeScale() {
   if (typeof window === "undefined") return 1;
@@ -188,9 +195,9 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
               src={src}
               title={`${title} interactive demo`}
               style={{
-                left: 6 * scale,
-                top: 6 * scale,
-                transform: `scale(${scale})`,
+                left: (6 - OVER_X) * scale,
+                top: (6 - OVER_Y) * scale,
+                transform: `scale(${scale * OVERSCAN})`,
                 transformOrigin: "top left",
               }}
             />
