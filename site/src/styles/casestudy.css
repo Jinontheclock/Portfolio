@@ -673,27 +673,32 @@
   position: relative;
   align-self: center;
 }
-/* Fixed-size iPhone 17 frame (402x874 screen + 6px bezel). Rendered at full
-   size and visually scaled via an inline transform, so the app always renders
-   at its designed width and the bezel/corners scale proportionally. */
+/* The iPhone 17 Pro mockup at its logical size, visually scaled via an
+   inline transform. The app renders in an iframe placed exactly behind the
+   mockup's transparent screen window; the device image rides on top, so its
+   bezel, corners and island occlude the app the way the real hardware
+   would. The shadow follows the device's own silhouette. */
 .tryapp-phone {
-  box-sizing: border-box;
-  padding: 6px;
-  background: linear-gradient(155deg, #1c1c1e 0%, #050506 60%);
-  border-radius: 54px;
+  position: relative;
   transform-origin: top left;
-  box-shadow:
-    0 40px 90px rgba(0, 0, 0, 0.55),
-    inset 0 0 0 1px #2a2a2c,
-    inset 0 0 0 2px #000;
 }
 .tryapp-frame {
+  position: absolute;
   width: 402px;
   height: 874px;
   border: none;
-  border-radius: 48px;
-  background: #fff;
+  /* the window's corner radius, so no app pixel peeks past the glass */
+  border-radius: 26px;
+  background: #fafafa;
   display: block;
+}
+.tryapp-phone-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  filter: drop-shadow(0 40px 90px rgba(0, 0, 0, 0.55));
 }
 /* web variant: a browser-like window. On desktop/laptop the iframe renders
    at a fixed desktop width and is scaled to fit (sizes set inline in JS) so

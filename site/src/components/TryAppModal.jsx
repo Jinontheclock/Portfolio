@@ -1,13 +1,18 @@
 import { useEffect, useLayoutEffect, useState } from "react";
+import frameImg from "../assets/iphone17-frame.webp";
 
-// iPhone 17 logical viewport (pt) + a bezel around it. The iframe always
-// renders the app at this fixed size so its fixed-width layouts never clip;
-// the whole frame is then visually scaled to fit the available space.
+// The phone is a real iPhone 17 Pro mockup: a 1720×3516 render whose screen
+// window — measured from its alpha channel — is 1534×3336 at (93, 90), which
+// is exactly a 402×874 viewport drawn at 3.816×. The iframe renders the app
+// at that logical size behind the window, and the whole device is scaled to
+// fit the available space.
 const SCREEN_W = 402;
 const SCREEN_H = 874;
-const BEZEL = 6;
-const FRAME_W = SCREEN_W + BEZEL * 2; // 414
-const FRAME_H = SCREEN_H + BEZEL * 2; // 886
+const MOCK = { w: 1720, h: 3516, x: 93, y: 90, scale: 1534 / SCREEN_W };
+const FRAME_W = MOCK.w / MOCK.scale; // ≈450.7
+const FRAME_H = MOCK.h / MOCK.scale; // ≈921.3
+const SCREEN_X = MOCK.x / MOCK.scale; // ≈24.4
+const SCREEN_Y = MOCK.y / MOCK.scale; // ≈23.6
 
 function computeScale() {
   if (typeof window === "undefined") return 1;
@@ -164,7 +169,15 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
             className="tryapp-phone"
             style={{ width: FRAME_W, height: FRAME_H, transform: `scale(${scale})` }}
           >
-            <iframe className="tryapp-frame" src={src} title={`${title} interactive demo`} />
+            <iframe
+              className="tryapp-frame"
+              src={src}
+              title={`${title} interactive demo`}
+              style={{ left: SCREEN_X, top: SCREEN_Y }}
+            />
+            {/* the device overlays its own screen, so the bezel, corners and
+                island sit above the app the way glass sits above pixels */}
+            <img className="tryapp-phone-img" src={frameImg} alt="" />
           </div>
         </div>
       </div>
