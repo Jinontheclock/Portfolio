@@ -16,11 +16,10 @@ const FRAME_W = MOCK.w / MOCK.scale; // ≈450.7
 const FRAME_H = MOCK.h / MOCK.scale; // ≈921.3
 const SCREEN_X = MOCK.x / MOCK.scale; // ≈24.4
 const SCREEN_Y = MOCK.y / MOCK.scale; // ≈23.6
-// The app is drawn a hair larger than the glass and clipped, so the window's
-// anti-aliased rim is covered by app rather than by the dark backing — no
-// black outline around the screen. ~2.4 logical px are cropped per side,
-// well inside every screen's margins.
-const OVERSCAN = 1.012;
+// The app is drawn a whisker larger than the glass and clipped, purely to
+// absorb sub-pixel rounding of the scaled iframe — under a logical pixel
+// per side, so the app still fits the glass exactly to the eye.
+const OVERSCAN = 1.004;
 const OVER_X = (SCREEN_W * (OVERSCAN - 1)) / 2; // ≈2.4
 const OVER_Y = (SCREEN_H * (OVERSCAN - 1)) / 2; // ≈5.2
 
