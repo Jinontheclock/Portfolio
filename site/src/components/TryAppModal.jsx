@@ -164,17 +164,17 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
           </button>
         </div>
         {/* The phone box sits at its final display size and nothing above the
-            iframe carries a transform — iOS Safari intermittently paints an
-            iframe at the wrong offset inside a scaled ancestor, so the scale
-            is applied to the iframe itself and the device image just fills
-            the box. The black backing behind the iframe reads as bezel
-            through any sliver of the window the app doesn't cover. */}
+            iframe carries a transform. The window is a clipping box laid
+            exactly over the mockup's transparent screen (with a small bleed
+            so its anti-aliased rim reads as bezel): whatever iOS Safari does
+            with the scaled iframe inside, the app can never paint outside
+            the phone's screen. */}
         <div
           className="tryapp-phone"
           style={{ width: FRAME_W * scale, height: FRAME_H * scale }}
         >
           <div
-            className="tryapp-screen-back"
+            className="tryapp-window"
             style={{
               left: (SCREEN_X - 6) * scale,
               top: (SCREEN_Y - 6) * scale,
@@ -182,18 +182,19 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
               height: (SCREEN_H + 12) * scale,
               borderRadius: 32 * scale,
             }}
-          />
-          <iframe
-            className="tryapp-frame"
-            src={src}
-            title={`${title} interactive demo`}
-            style={{
-              left: SCREEN_X * scale,
-              top: SCREEN_Y * scale,
-              transform: `scale(${scale})`,
-              transformOrigin: "top left",
-            }}
-          />
+          >
+            <iframe
+              className="tryapp-frame"
+              src={src}
+              title={`${title} interactive demo`}
+              style={{
+                left: 6 * scale,
+                top: 6 * scale,
+                transform: `scale(${scale})`,
+                transformOrigin: "top left",
+              }}
+            />
+          </div>
           {/* the device overlays its own screen, so the bezel, corners and
               island sit above the app the way glass sits above pixels */}
           <img className="tryapp-phone-img" src={FRAMES[frame] ?? frameOrange} alt="" />
