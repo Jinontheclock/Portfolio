@@ -530,7 +530,7 @@ export const PROJECTS = [
     ],
     metaRight: [{ label: "tool", values: ["Figma", "Adobe Creative Suite"] }],
     sections: COMPASS_SECTIONS,
-    demo: { src: "compass/" },
+    demo: { src: "compass/", frame: "blue" },
   },
   {
     id: "welab",

@@ -498,6 +498,7 @@ export default function CaseStudyPage({ lang, setLang }) {
             project.demo.src ? `${import.meta.env.BASE_URL}${project.demo.src}` : PROLOG_SRC
           }
           variant={project.demo.variant ?? "phone"}
+          frame={project.demo.frame ?? "orange"}
           title={project.title}
         />
       )}

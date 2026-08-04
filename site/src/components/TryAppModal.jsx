@@ -1,11 +1,14 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import frameImg from "../assets/iphone17-frame.webp";
+import frameOrange from "../assets/iphone17-frame.webp";
+import frameBlue from "../assets/iphone17-frame-blue.webp";
 
-// The phone is a real iPhone 17 Pro mockup: a 1720×3516 render whose screen
+// The phone is a real iPhone 17 mockup: a 1720×3516 render whose screen
 // window — measured from its alpha channel — is 1534×3336 at (93, 90), which
 // is exactly a 402×874 viewport drawn at 3.816×. The iframe renders the app
 // at that logical size behind the window, and the whole device is scaled to
-// fit the available space.
+// fit the available space. Both colourways share the same geometry, so each
+// project just picks its finish.
+const FRAMES = { orange: frameOrange, blue: frameBlue };
 const SCREEN_W = 402;
 const SCREEN_H = 874;
 const MOCK = { w: 1720, h: 3516, x: 93, y: 90, scale: 1534 / SCREEN_W };
@@ -56,7 +59,7 @@ function computeWebLayout() {
  *  where the site simply adapts to the frame instead of being scaled).
  *  Closes on backdrop click, the × button, or Escape; locks page scroll while
  *  open. The iframe is only mounted while open, so each open is a fresh load. */
-export default function TryAppModal({ open, onClose, src, title = "ProLog", variant = "phone" }) {
+export default function TryAppModal({ open, onClose, src, title = "ProLog", variant = "phone", frame = "orange" }) {
   const [scale, setScale] = useState(1);
   const [webLayout, setWebLayout] = useState(computeWebLayout);
 
@@ -177,7 +180,7 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
             />
             {/* the device overlays its own screen, so the bezel, corners and
                 island sit above the app the way glass sits above pixels */}
-            <img className="tryapp-phone-img" src={frameImg} alt="" />
+            <img className="tryapp-phone-img" src={FRAMES[frame] ?? frameOrange} alt="" />
           </div>
         </div>
       </div>
