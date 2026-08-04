@@ -171,11 +171,12 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
           </button>
         </div>
         {/* The phone box sits at its final display size and nothing above the
-            iframe carries a transform. The window is a clipping box laid
-            exactly over the mockup's transparent screen (with a small bleed
-            so its anti-aliased rim reads as bezel): whatever iOS Safari does
-            with the scaled iframe inside, the app can never paint outside
-            the phone's screen. */}
+            iframe carries a transform. The window is a transparent clipping
+            box laid exactly over the mockup's glass — it draws nothing of
+            its own, so the only frame on screen is the mockup's. Whatever
+            iOS Safari does with the scaled iframe inside, the app can never
+            paint outside the glass, and the overscan keeps the app covering
+            the window to its very rim. */}
         <div
           className="tryapp-phone"
           style={{ width: FRAME_W * scale, height: FRAME_H * scale }}
@@ -183,11 +184,11 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
           <div
             className="tryapp-window"
             style={{
-              left: (SCREEN_X - 6) * scale,
-              top: (SCREEN_Y - 6) * scale,
-              width: (SCREEN_W + 12) * scale,
-              height: (SCREEN_H + 12) * scale,
-              borderRadius: 32 * scale,
+              left: SCREEN_X * scale,
+              top: SCREEN_Y * scale,
+              width: SCREEN_W * scale,
+              height: SCREEN_H * scale,
+              borderRadius: 26 * scale,
             }}
           >
             <iframe
@@ -195,8 +196,8 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
               src={src}
               title={`${title} interactive demo`}
               style={{
-                left: (6 - OVER_X) * scale,
-                top: (6 - OVER_Y) * scale,
+                left: -OVER_X * scale,
+                top: -OVER_Y * scale,
                 transform: `scale(${scale * OVERSCAN})`,
                 transformOrigin: "top left",
               }}

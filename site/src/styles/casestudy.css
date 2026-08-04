@@ -670,21 +670,19 @@
 /* The iPhone 17 Pro mockup at its display size. The app renders in an
    iframe scaled directly into the mockup's transparent screen window; the
    device image rides on top, so its bezel, corners and island occlude the
-   app the way the real hardware would, and the black backing behind the
-   iframe reads as bezel through any uncovered sliver of the window. The
-   shadow follows the device's own silhouette. */
+   app the way the real hardware would. The shadow follows the device's own
+   silhouette. */
 .tryapp-phone {
   position: relative;
   align-self: center;
 }
-/* the clipping window over the mockup's transparent screen: the app can
-   never paint past it, and its own dark fill reads as bezel through any
-   sliver the app doesn't cover. isolation forces a compositing layer so
-   iOS actually clips the transformed iframe inside. */
+/* the clipping window over the mockup's glass: transparent — it draws
+   nothing, only clips, so the sole frame on screen is the mockup's own.
+   isolation forces a compositing layer so iOS actually clips the
+   transformed iframe inside. */
 .tryapp-window {
   position: absolute;
   overflow: hidden;
-  background: #050505;
   isolation: isolate;
 }
 .tryapp-frame {
