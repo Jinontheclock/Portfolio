@@ -135,9 +135,14 @@ import { noOrphan, noOrphanSegments } from "../lib/no-orphan.js";
 const PROLOG_SRC = `${import.meta.env.BASE_URL}prolog/`;
 
 function MetaGroup({ rows }) {
+  /* a row whose every value is still a «TBD:…» token stays off the page —
+     it returns on its own the moment the data gains its real value */
+  const ready = rows.filter(
+    (r) => !r.values.every((v) => typeof v === "string" && v.includes("«TBD")),
+  );
   return (
     <div className="cs-meta-group">
-      {rows.map((r) => (
+      {ready.map((r) => (
         <div key={r.label} className="cs-meta-row">
           <span className="cs-meta-label">{r.label}</span>
           <span className="cs-meta-values">

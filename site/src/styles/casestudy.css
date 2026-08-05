@@ -782,11 +782,12 @@
     grid-column: 1 / 13;
     grid-row: 2;
   }
-  /* the label column only needs its own text here: at a fixed 92px the
-     longest value ("solo on the site, with the WeLAB team") came out 1px
-     wider than the space left for it and wrapped onto a second line */
+  /* the label column stays fixed so every value starts on the same x —
+     but narrower than desktop's 92px, sized to the longest label
+     ("category"), so the longest value ("solo on the site, with the
+     WeLAB team") still clears its line without wrapping */
   .cs-meta-row {
-    grid-template-columns: max-content minmax(0, 1fr);
+    grid-template-columns: 76px minmax(0, 1fr);
     column-gap: 12px;
   }
   /* chapter breaks breathe, but a phone screen needs less air than desktop */
