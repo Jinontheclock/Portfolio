@@ -247,7 +247,7 @@ const COMPASS_SECTIONS = [
         type: "figure",
         graphic: "compass-fig-component",
         caption:
-          "One component, every state it has to reach: ready, reading, accepted, declined, low balance, expired pass.",
+          "One component, the five states it owns: default, low balance, pass expiring, pass expired, reported lost. Ready, reading and paid at the reader are Apple's Express Mode UI, not redesigned here.",
       },
       {
         type: "p",

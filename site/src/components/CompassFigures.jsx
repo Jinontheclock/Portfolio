@@ -8,6 +8,7 @@ import iaImg from "../assets/compass/compass-fig-ia.webp";
 import coverageRoadmapImg from "../assets/compass/compass-fig-coverage-roadmap.webp";
 import typeImg from "../assets/compass/compass-fig-type.webp";
 import colourImg from "../assets/compass/compass-fig-colour.webp";
+import componentImg from "../assets/compass/compass-fig-component.webp";
 import CompassLofiBoard from "./CompassLofiBoard.jsx";
 
 /* Finished artwork for the Compass Card case study, optimized from the
@@ -66,6 +67,10 @@ export const COMPASS_ARTWORK = {
   "compass-fig-colour": art(
     colourImg,
     "Nine blues, three states, every pair measured. The Compass blue ramp runs 100 #D9EEFC to 900 #03223D with three anchor blues sampled from public Compass materials and the remaining six derived — not an official TransLink palette. Beside it, the neutrals: background #FAFAFA, panel #FFFFFF, divider #E8E8E8, divider strong #D4D4D4, secondary text #6B6B6B, ink #1A1A1A; and the three states: Paid green #146B45, Low balance amber #7A4F00, Declined red #B3261E. A table computes every pairing against WCAG — ink on panel 17.40 AAA, blue 600 on panel 6.67 AA, blue 500 on background 4.32 fails for body text, divider strong 1.48 decorative only. The rules beneath: blue as text starts at 600, 400 and lighter are fills and icons never text, navy 800 is a surface not a foreground, hero amounts wear ink not brand, status ships as colour + icon + word and never colour alone",
+  ),
+  "compass-fig-component": art(
+    componentImg,
+    "One card component in its five owned states, labelled as drawn: DEFAULT — My Compass Card, Plastic + Wallet pass · one balance, stored value $15.00, Monthly · 2-Zone pass; LOW BALANCE — the same card with an olive warning band reading Low balance and $1.15 of stored value; PASS EXPIRING — the U-Pass BC card in program navy with a band reading Expires in 3 days, valid August, UBC; PASS EXPIRED — the same U-Pass with a red band reading Pass expired; and REPORTED LOST — the Compass card with a red band reading Reported lost. A note underneath: ready, reading and paid at the reader are Apple's Express Mode UI, not redesigned here — these five are the states the app owns",
   ),
   /* composed in code from twelve separate frames, not a flat export */
   "compass-fig-wireframes": CompassLofiBoard,
