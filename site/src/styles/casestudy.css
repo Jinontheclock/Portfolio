@@ -963,6 +963,17 @@
   height: auto;
   background: #0f0f0f;
 }
+/* a clip that is a whole phone screen rather than a film: shown at the
+   phone's own width so the type in it stays the size the app draws it */
+.cs-compass-motion {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  margin-inline: auto;
+  border-radius: 16px;
+  border: 1px solid var(--grey-100, #e5e5e5);
+}
 .cs-insta-stack {
   display: flex;
   flex-direction: column;

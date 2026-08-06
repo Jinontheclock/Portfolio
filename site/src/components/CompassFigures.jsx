@@ -9,6 +9,7 @@ import coverageRoadmapImg from "../assets/compass/compass-fig-coverage-roadmap.w
 import typeImg from "../assets/compass/compass-fig-type.webp";
 import colourImg from "../assets/compass/compass-fig-colour.webp";
 import componentImg from "../assets/compass/compass-fig-component.webp";
+import { useEffect, useRef } from "react";
 import CompassLofiBoard from "./CompassLofiBoard.jsx";
 
 /* Finished artwork for the Compass Card case study, optimized from the
@@ -22,7 +23,53 @@ const art = (src, alt) => {
   return C;
 };
 
+/* The tap confirmation, moving. The clip is the phone's whole screen, so it
+   is shown at the phone's proportions and capped narrow rather than run to
+   the column width — a 2.82s loop whose first and last frames are the same
+   pixels, so the seam cannot be seen.
+   It plays only while it is on screen, and a reader who has asked for less
+   motion gets the still the poster already holds: the confirmation, which
+   is the part the figure is about. */
+const TAP_MOTION = `${import.meta.env.BASE_URL}media/compass-card/compass-tap-motion.mp4`;
+const TAP_MOTION_POSTER = `${import.meta.env.BASE_URL}media/compass-card/compass-tap-motion-poster.jpg`;
+
+function TapMotionFigure() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return undefined;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return undefined;
+
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        video.muted = true;
+        video.play().catch(() => {});
+      } else video.pause();
+    });
+    io.observe(video);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      className="cs-compass-motion"
+      src={TAP_MOTION}
+      poster={TAP_MOTION_POSTER}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-label="The tap confirmation opening and closing: the history row unfolds to show the two taps, what the card was left holding, and the way back to the gate screen, then folds away again"
+    />
+  );
+}
+
 export const COMPASS_ARTWORK = {
+  /* 05 One Tap, Every Ride */
+  "compass-fig-tap-motion": TapMotionFigure,
+
   /* 01 Context */
   "compass-fig-timeline": art(
     timelineImg,
