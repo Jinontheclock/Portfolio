@@ -9,6 +9,7 @@
 - 애니메이션/트랜지션 전부 정지 (`reducedMotion: "reduce"` + CSS kill)
 - 폰트: **Fira Sans 대체**. 이 샌드박스에서 `use.typekit.net` 이 차단되어 FF Meta 를 받을 수 없습니다.
   하진님 로컬에서 `REAL_FONT=1 node capture.js` 로 돌리면 **동일 스크립트가 진짜 FF Meta 로** 재출력됩니다.
+  → **예외: `26-payment` 한 장만 진짜 FF Meta** 입니다 (아래 재촬영 항목 참조).
 - 스크립트: `capture.js` — **39 컷, 실패 0, 회귀 감지 0**
 - 촬영 중 자동 검사(`assertFixed`): `.tap-dismiss` UA 크롬 없음 / `.tap-mark--declined` 가 빨강(#c0362c) /
   `.tile-gold` 가 잉크 토큰(#8f6700) — 세 항목 모두 해당 화면마다 통과
@@ -52,6 +53,27 @@
 3. **`compass-shot-passes-02` 의 소스가 `02-card` → `35-passes-paid` 로 이동** (위 표 참조).
 4. `25-account` 에서 하단 버튼 블록이 사라지고 환불이 `CARD` 섹션의 평범한 한 줄이 됐습니다 (A-5).
 5. `26-payment` 이 `PRIMARY PAYMENT` → `AUTO PAYMENT` 순서로 바뀌고 `NOTIFICATION` 섹션이 없어졌습니다 (B-2).
+
+---
+
+## `26-payment` 재촬영 (CompassCard `8f47b92` 기준)
+
+결제수단이 Apple Pay 한 줄에서 **Apple Pay / Credit Card / PayPal / Gift Card 네 줄**로 늘고
+각 줄이 자기 마크를 달게 되면서, 38장 중 이 한 장만 화면이 바뀌었습니다. 그래서 이 한 장만 다시 찍었습니다.
+
+- 조건은 나머지와 동일: 402 × 874 @ `deviceScaleFactor: 3` → **1206 × 2622**, 상태바 **9:41** 고정,
+  `reducedMotion: "reduce"` + CSS 로 트랜지션·애니메이션 정지.
+- **폰트만 다릅니다 — 이 장은 진짜 FF Meta.** 이 컨테이너에는 Adobe Fonts 키트의 로컬 미러가 있어
+  네트워크 없이도 FF Meta 가 로드됩니다. 반대로 나머지 38장이 쓴 Fira Sans 는 이 컨테이너에 없어
+  대체 글꼴을 흉내 낼 수도 없었습니다. 둘 중 하나를 골라야 했고, **앱이 실제로 쓰는 글꼴**을 골랐습니다.
+- 촬영 중 검사: 타이틀 `Payment Method` / 네 줄의 라벨과 순서 / 각 줄의 마크가 실제로 디코드됐는지
+  (`naturalWidth > 0`) / 깨진 이미지 0 / 상태바가 **촬영 뒤에도** 9:41 인지 — 전부 통과.
+- 이 컷은 `CompassCaptures.jsx` 에 등록돼 있지 않습니다. 페이지에 그려지는 17장이 아니라
+  **기록용 39장** 쪽이라, 사이트 화면은 이 교체로 달라지지 않습니다.
+
+**남은 결함 하나**: 네 수단이 전부 등록되면 `Add payment method` 줄이 사라지는데,
+마지막 줄(`Gift Card`) 아래의 구분선은 남아 패널 바닥에 실선 한 줄이 떠 있습니다. 캡처에도 그대로 보입니다.
+앱 쪽 수정이라 손대지 않았습니다.
 
 ---
 
