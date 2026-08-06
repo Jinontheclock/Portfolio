@@ -73,6 +73,18 @@
   gap: 20px;
 }
 
+/* The photograph sits between the name and the first sentence, at the
+   content column's own width — it belongs to the column rather than
+   interrupting it, so it carries no frame, no radius and no caption. The
+   intrinsic size is on the element so the column does not reflow when the
+   file lands. */
+.ab-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 4px 0 8px;
+}
+
 .ab-paragraph {
   margin: 0;
   max-width: 67ch;

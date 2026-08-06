@@ -4,10 +4,19 @@ import { noOrphan } from "../lib/no-orphan.js";
 import SiteFooter from "../components/SiteFooter.jsx";
 import useFitToWidth from "../hooks/useFitToWidth.js";
 import useCanHover from "../hooks/useCanHover.js";
+import portrait from "../assets/about-portrait.webp";
 
 /* Name and its H/이/イ left-side-bearing compensation, per language */
 const NAME = { en: "Hajin L.", ko: "이 하진", ja: "イ　ハジン" };
 const NAME_INDENT = { en: "-0.1em", ko: "-0.085em", ja: "-0.08em" };
+
+/* The photograph under the name. Described rather than labelled: the three
+   prints behind it are the point — Bauhaus Dessau, Fallingwater, Habitat 67 */
+const PORTRAIT_ALT = {
+  en: "Hajin leaning against the rail of a gallery wall, in front of three black-and-white architectural prints: the Bauhaus building at Dessau with its name running down the facade, Frank Lloyd Wright's Fallingwater cantilevered over its waterfall, and Moshe Safdie's Habitat 67 stacked in concrete.",
+  ko: "갤러리 벽의 난간에 기대선 하진. 뒤로는 흑백 건축 사진 세 점이 걸려 있다 — 파사드에 이름이 세로로 적힌 데사우 바우하우스, 폭포 위로 캔틸레버가 뻗은 프랭크 로이드 라이트의 낙수장, 콘크리트가 층층이 쌓인 모셰 사프디의 해비타트 67.",
+  ja: "ギャラリーの壁の手すりに寄りかかるハジン。背後には白黒の建築写真が三点 — ファサードに名前が縦に入ったデッサウのバウハウス、滝の上に張り出したフランク・ロイド・ライトの落水荘、コンクリートが積み上がったモシェ・サフディのハビタット67。",
+};
 
 /* Hero sentence + body paragraphs per language */
 const ABOUT = {
@@ -338,6 +347,16 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
           </nav>
 
           <div className="ab-content">
+            {/* first thing under the name, and the first thing on the page
+                worth loading — no lazy attribute, or it arrives late */}
+            <img
+              className="ab-portrait"
+              src={portrait}
+              alt={PORTRAIT_ALT[lang] || PORTRAIT_ALT.en}
+              width="2000"
+              height="1354"
+              decoding="async"
+            />
             <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
             {about.body.map((para, i) => (
               <p key={i} className="ab-paragraph">
