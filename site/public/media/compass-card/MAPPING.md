@@ -15,7 +15,7 @@
 
 ---
 
-## projects.js 의 17 키 ↔ 캡처 파일
+## projects.js 의 16 키 ↔ 캡처 파일
 
 | 키 | 캡처 파일 | 상태 |
 |---|---|---|
@@ -25,7 +25,6 @@
 | `compass-shot-tap-02` | `04-history-open` | ○ Tap in Main St–Science World → Tap out Waterfront → **Balance $12.15** → View gate screen |
 | `compass-shot-ferry-01` | `07-gate-ferry` | △ `$19.10 Deducted · $5.00 Remaining` / BC Ferries · Adult foot passenger.<br>캡션이 "터미널 이름"을 말하는데 게이트 화면엔 터미널이 안 나옴 → 캡션을 ferry-02 쪽으로 옮기거나 문구 조정 필요 |
 | `compass-shot-ferry-02` | `06-history-ferry-open` | ○ `04:45 PM Tap in at Tsawwassen terminal −$19.10` / Balance $5.00 (터미널 이름 여기 있음) |
-| `compass-shot-boundary-01` | **없음** | ✕ 빌드에 Victoria / BC Transit 화면 자체가 없음 — **결정 필요** |
 | `compass-shot-balance-01` | `02-card` | ○ 잔액 `$12.15` 먼저, 히스토리 그 아래 |
 | `compass-shot-balance-02` | `03-history` | ○ 트립별 zone + fare, 11개 날짜 그룹 19줄 |
 | `compass-shot-reload-01` | `08-reload` | ○ $10 / $20 / $50 프리셋 |

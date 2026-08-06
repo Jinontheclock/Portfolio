@@ -69,7 +69,6 @@ export const COMPASS_FIGURES = {
   "compass-fig-colour": fig("05 · Colour + contrast board", "WCAG figures live here", 16 / 8),
   "compass-fig-component": fig("05 · Tap card component, every state", "foundations", 16 / 8),
   "compass-fig-tap-motion": fig("05 · Tap confirmation — motion", "mp4, inline figure", 16 / 9),
-  "compass-fig-power-reserve": fig("05 · Power reserve screen", "", 16 / 9),
   /* 07 On the Wrist */
   "compass-fig-watch": fig("07 · Watch screens", "3–5 screens", 16 / 7),
   /* 08 What Held Up, What Didn't */
@@ -104,7 +103,6 @@ export const COMPASS_SHOTS = {
   "compass-shot-tap-02": shot("Tap — confirmed"),
   "compass-shot-ferry-01": shot("Ferry tap"),
   "compass-shot-ferry-02": shot("Ferry — confirmed"),
-  "compass-shot-boundary-01": shot("Out of coverage — Victoria"),
   /* 06 */
   "compass-shot-balance-01": shot("Balance"),
   "compass-shot-balance-02": shot("Trip history"),

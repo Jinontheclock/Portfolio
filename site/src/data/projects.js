@@ -280,15 +280,6 @@ const COMPASS_SECTIONS = [
         ],
         media: ["compass-shot-ferry-01", "compass-shot-ferry-02"],
       },
-      {
-        type: "solution",
-        title: "What the app shows in Victoria",
-        paras: [
-          "BC Transit is out of scope for v1, and that creates a specific edge case: a rider steps off the ferry in Victoria and opens the app. Leaving that screen undesigned would be the same as pretending the gap is not there.",
-          "So the app says what it is and what it is not. It shows the pass as unusable here, names the operator that does run this network, and puts the roadmap phase on the screen rather than in a footnote.",
-        ],
-        media: ["compass-shot-boundary-01"],
-      },
       { type: "h", text: "What the gate sees" },
       {
         type: "p",
@@ -298,16 +289,6 @@ const COMPASS_SECTIONS = [
         type: "figure",
         graphic: "compass-fig-tap-motion",
         caption: "The confirmation, in the time it actually takes.",
-      },
-      { type: "h", text: "When the phone has no battery left" },
-      {
-        type: "p",
-        text: "A dead phone is the objection every transit wallet has to answer. On iPhone XS, XS Max and XR and later, Express Mode cards stay available in power reserve after the phone has shut down — so the ride home is not conditional on the battery. The design still assumes it can fail, which is one more reason the plastic card stays.",
-      },
-      {
-        type: "figure",
-        graphic: "compass-fig-power-reserve",
-        caption: "The last screen before the phone shuts down.",
       },
       {
         type: "p",
