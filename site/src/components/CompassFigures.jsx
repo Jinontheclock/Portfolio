@@ -11,6 +11,7 @@ import colourImg from "../assets/compass/compass-fig-colour.webp";
 import componentImg from "../assets/compass/compass-fig-component.webp";
 import { useEffect, useRef } from "react";
 import CompassLofiBoard from "./CompassLofiBoard.jsx";
+import CompassWatchRow from "./CompassWatchRow.jsx";
 
 /* Finished artwork for the Compass Card case study, optimized from the
    originals the owner supplied. Each key here replaces the labelled box of
@@ -121,4 +122,6 @@ export const COMPASS_ARTWORK = {
   ),
   /* composed in code from twelve separate frames, not a flat export */
   "compass-fig-wireframes": CompassLofiBoard,
+  /* 07 On the Wrist — five cuts of the running demo, composed here */
+  "compass-fig-watch": CompassWatchRow,
 };

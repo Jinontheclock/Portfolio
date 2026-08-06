@@ -541,6 +541,54 @@
   }
 }
 
+/* ── Compass ch07: the watch, five cuts across ──
+   Five shots of one session, so they are read along a line rather than down
+   a grid — the numbers only carry if the eye moves left to right. They stay
+   inside the text column: the caption says "a third of the width", and a
+   figure that ran edge to edge would be the largest thing on the page while
+   claiming to be the smallest screen in the system. ── */
+.cmp-watch-row {
+  /* five shares of the column, four 12px gaps */
+  --cmp-ww: calc((100% - 48px) / 5);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  row-gap: 20px;
+}
+.cmp-watch-cell {
+  margin: 0;
+  flex: 0 1 var(--cmp-ww);
+  min-width: 0;
+}
+/* two classes deep so it out-specifies `.cs-figure img { width: 100% }` */
+.cs-figure .cmp-watch-cell img {
+  width: 100%;
+  height: auto;
+}
+.cmp-watch-cell figcaption {
+  margin-top: 8px;
+  font: 400 11px / 1.35 var(--font-ui);
+  color: var(--text-muted);
+}
+.cmp-watch-cell figcaption b {
+  display: block;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+/* The wrap fires above the case study's own 1024 breakpoint, not at it.
+   Five across puts the cell at 174.6px at 1920 and 133.8px at 1512, where
+   the second line of each screen — "$12.15 Remaining", "Balance $32.15" —
+   still reads. At 1281 it is 110.7px and those lines are at the edge of
+   legible while the notes start wrapping to two ragged lines; by 1024 the
+   cell would be 101.8px, past it. So the row has to break before 1024
+   rather than on it. */
+@media (max-width: 1280px) {
+  .cmp-watch-row {
+    --cmp-ww: calc((100% - 24px) / 3);
+  }
+}
+
 /* two or more figures side by side inside one figure block */
 .cs-figure-row {
   display: flex;
