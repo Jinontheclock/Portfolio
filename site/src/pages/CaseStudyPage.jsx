@@ -65,6 +65,7 @@ import {
   CompassHero,
 } from "../components/CompassPlaceholders.jsx";
 import { COMPASS_ARTWORK } from "../components/CompassFigures.jsx";
+import { COMPASS_CAPTURES } from "../components/CompassCaptures.jsx";
 
 /* hero scenes: live in-page animations a project can use instead of a
    video or the placeholder (see each project's heroScene field) */
@@ -127,7 +128,9 @@ const FIGURES = {
 
 /* solution-row app/site screens, keyed per project (keys are unique
    across projects, so one lookup serves them all) */
-const SHOTS = { ...PROLOG_SHOTS, ...TINYPAWS_SHOTS, ...COMPASS_SHOTS };
+/* the real captures win over the placeholder of the same name, the way
+   the finished figures do above */
+const SHOTS = { ...PROLOG_SHOTS, ...TINYPAWS_SHOTS, ...COMPASS_SHOTS, ...COMPASS_CAPTURES };
 import { getProject } from "../data/projects.js";
 import { noOrphan, noOrphanSegments } from "../lib/no-orphan.js";
 
