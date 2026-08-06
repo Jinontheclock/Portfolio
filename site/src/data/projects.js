@@ -494,7 +494,12 @@ export const PROJECTS = [
       { label: "role", values: ["Product Designer", "Solo project"] },
       { label: "scope", values: ["iOS app", "watchOS app", "Apple Wallet pass"] },
     ],
-    metaRight: [{ label: "tool", values: ["Figma", "Adobe Creative Suite"] }],
+    metaRight: [
+      {
+        label: "tool",
+        values: ["Figma", "React", "Vite", "Playwright", "Adobe Creative Suite"],
+      },
+    ],
     sections: COMPASS_SECTIONS,
     demo: { src: "compass/", frame: "blue" },
   },
