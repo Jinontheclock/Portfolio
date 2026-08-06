@@ -108,7 +108,10 @@ function Frame({ src, label, note, alt, watch, layer }) {
           been scrolled */}
       {layer && <span className="cmp-lofi-group">{layer}</span>}
       <span className="cmp-lofi-shot">
-        <img src={src} alt={alt} loading="lazy" />
+        {/* twelve frames at eight kilobytes each: waiting for them to be
+            scrolled to would leave the right of the strip blank on the way
+            in, which reads as the row having run out rather than loading */}
+        <img src={src} alt={alt} decoding="async" />
       </span>
       <figcaption>
         <b>{label}</b>

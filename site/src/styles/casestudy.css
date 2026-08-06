@@ -446,10 +446,11 @@
   margin-right: calc(-1 * var(--page-margin));
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
-  /* snapping aligns a frame with the scrollport's edge, which would pull the
-     track's own margin out from under the first one — this keeps it */
-  scroll-padding-left: 0;
+  /* No snapping. Snapping to a frame's leading edge means the row can only
+     come to rest with a whole frame against the left, which leaves whatever
+     does not divide evenly as a gap on the right — and the last frame can
+     never sit flush against the margin. Free scrolling ends exactly where
+     the track does, which is where the margin is. */
   scrollbar-width: thin;
 }
 .cmp-lofi-track {
@@ -465,7 +466,6 @@
   margin: 0;
   flex: 0 0 var(--cmp-pw);
   min-width: 0;
-  scroll-snap-align: start;
 }
 /* in the rail a frame is a fixed width rather than a share of the column —
    a percentage cannot resolve against a track sized by its contents */
