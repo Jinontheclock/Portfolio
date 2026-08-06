@@ -462,9 +462,19 @@
      far one, so the last frame has somewhere to rest */
   padding: 0 24px 0 0;
 }
+/* The width is stated twice on purpose. `flex-basis` is what lays the frame
+   out, and `width` is what the track's `max-content` is allowed to read:
+   WebKit sizes a max-content flex container by asking each child how wide it
+   would like to be, and a child whose only stated size is a flex-basis
+   answers with its contents — here a 402px frame inside a 160px box. Twelve
+   of those made the track 4550px wide against the 1905px it holds, and the
+   whole difference showed up as white space past the last frame. Chromium
+   reads the flex-basis and never had it; the second declaration changes
+   nothing there. */
 .cmp-lofi-cell {
   margin: 0;
   flex: 0 0 var(--cmp-pw);
+  width: var(--cmp-pw);
   min-width: 0;
 }
 /* in the rail a frame is a fixed width rather than a share of the column —
@@ -493,8 +503,10 @@
     padding-right: 20px;
   }
 }
+/* same pair, at the watch frame's own share of the phone width */
 .cmp-lofi-cell--watch {
   flex-basis: calc(var(--cmp-pw) * 187 / 402);
+  width: calc(var(--cmp-pw) * 187 / 402);
 }
 .cmp-lofi-shot {
   display: flex;
