@@ -436,27 +436,20 @@
    between the element's own centre and the viewport's, which lands it edge
    to edge wherever in the grid it happens to be. */
 .cmp-lofi-rail {
-  /* Out to both edges of the screen, worked back from the grid rather than
-     from the viewport: this column's right edge already sits on the page's
-     side margin, so the right side is that margin negated, and the left is
-     the column's own width plus the six columns and six gaps in front of
-     it. Percentages here resolve against the column, so no `vw` is used and
-     the scrollbar cannot push the page into a horizontal scroll. */
+  /* The strip begins where every other block on the page begins — the left
+     edge of this column — and only the far end leaves it, running off the
+     right of the screen so what is out of sight is reached by scrolling
+     rather than hidden. The bleed is the page's own side margin negated;
+     no `vw` is involved, so the scrollbar cannot tip the page into
+     scrolling sideways. */
   --page-margin: 24px;
   margin-right: calc(-1 * var(--page-margin));
-  margin-left: calc(-100% - var(--page-margin) - 30px);
-  /* a band that reaches the edges has to carry the page under it: the
-     chapter list on the left is sticky, and unpainted frames would sit on
-     top of its words */
-  position: relative;
-  background: var(--bg);
-  padding-block: 4px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
   /* snapping aligns a frame with the scrollport's edge, which would pull the
      track's own margin out from under the first one — this keeps it */
-  scroll-padding-inline: var(--page-margin);
+  scroll-padding-left: 0;
   scrollbar-width: thin;
 }
 .cmp-lofi-track {
@@ -464,9 +457,9 @@
   align-items: flex-start;
   gap: 12px;
   width: max-content;
-  /* the page's own side margin, so the first and last frames are not flush
-     against the edge of the screen */
-  padding: 0 24px;
+  /* flush with the column on the near side; the page's own margin on the
+     far one, so the last frame has somewhere to rest */
+  padding: 0 24px 0 0;
 }
 .cmp-lofi-cell {
   margin: 0;
@@ -491,21 +484,13 @@
 .cmp-lofi-cell:not(:has(.cmp-lofi-group)) {
   padding-top: 23px;
 }
-/* the column starts one place earlier here — seven columns wide, so the walk
-   back is five of the twelve rather than six */
-@media (max-width: 1024px) {
-  .cmp-lofi-rail {
-    margin-left: calc((-100% + 180px) * 5 / 7 - var(--page-margin) - 150px);
-  }
-}
-/* stacked: the column is the page, so only its own margin is undone */
+/* the page's margin narrows on phones, and the bleed with it */
 @media (max-width: 600px) {
   .cmp-lofi-rail {
     --page-margin: 20px;
-    margin-left: calc(-1 * var(--page-margin));
   }
   .cmp-lofi-track {
-    padding: 0 20px;
+    padding-right: 20px;
   }
 }
 .cmp-lofi-cell--watch {

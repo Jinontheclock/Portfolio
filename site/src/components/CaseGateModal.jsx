@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { freezePage } from "../lib/freeze-page.js";
 
 /* Password gate for confidential case studies (projects with `locked` +
    `passwordHash`): a modal over the dimmed, blurred page. Checked
@@ -50,14 +51,13 @@ export default function CaseGateModal({ project, lang, onUnlocked, onDismiss }) 
 
   // freeze the page and listen for Escape while the gate is up
   useEffect(() => {
-    const prev = document.documentElement.style.overflow;
-    document.documentElement.style.overflow = "hidden";
+    const thaw = freezePage();
     const onKey = (e) => {
       if (e.key === "Escape") onDismiss?.();
     };
     document.addEventListener("keydown", onKey);
     return () => {
-      document.documentElement.style.overflow = prev;
+      thaw();
       document.removeEventListener("keydown", onKey);
     };
   }, [onDismiss]);
