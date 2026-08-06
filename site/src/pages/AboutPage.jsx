@@ -49,11 +49,15 @@ const ABOUT = {
   },
 };
 
+/* The rail. E-mail closes it because the copy above ends by asking for one;
+   a mailto: opens the reader's own mail client, so it is the one entry that
+   must not carry target="_blank" — the tab it opened would be left blank. */
 const LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/hajin-lee-ca" },
   { label: "Resume", href: "#" },
   { label: "GitHub", href: "https://github.com/Jinontheclock" },
   { label: "Instagram", href: "https://www.instagram.com/hj.archiv/" },
+  { label: "E-mail", href: "mailto:hajinlee.ca@gmail.com" },
 ];
 
 /* "What I did" descriptions per entry, per language */
