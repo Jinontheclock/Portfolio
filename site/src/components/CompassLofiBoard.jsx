@@ -17,7 +17,10 @@ import assistant from "../assets/compass/lofi/compass-lofi-assistant.webp";
    stay real text (readable, selectable, translatable) and the frames can be
    swapped one at a time as they become hi-fi in chapters 05 to 07. */
 
-const LAYER_1 = [
+const LAYER_1 = "Layer 1 — what you tap";
+const LAYER_2 = "Layer 2 — what you manage · check · ask";
+
+const FRAMES_1 = [
   {
     src: walletPass,
     label: "Wallet pass",
@@ -52,7 +55,7 @@ const LAYER_1 = [
   },
 ];
 
-const LAYER_2 = [
+const FRAMES_2 = [
   {
     src: home,
     label: "Home",
@@ -97,9 +100,13 @@ const LAYER_2 = [
   },
 ];
 
-function Frame({ src, label, note, alt, watch }) {
+function Frame({ src, label, note, alt, watch, layer }) {
   return (
     <figure className={"cmp-lofi-cell" + (watch ? " cmp-lofi-cell--watch" : "")}>
+      {/* the layer names ride with their group rather than sitting above the
+          strip, so they still say which frames they cover once the row has
+          been scrolled */}
+      {layer && <span className="cmp-lofi-group">{layer}</span>}
       <span className="cmp-lofi-shot">
         <img src={src} alt={alt} loading="lazy" />
       </span>
@@ -112,6 +119,13 @@ function Frame({ src, label, note, alt, watch }) {
 }
 
 export default function CompassLofiBoard() {
+  /* one strip, in layer order — the first frame of each layer carries the
+     layer's name */
+  const frames = [
+    ...FRAMES_1.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_1 : null })),
+    ...FRAMES_2.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_2 : null })),
+  ];
+
   return (
     <div className="cmp-lofi">
       <p className="cmp-lofi-title">Lo-fi — the first pass</p>
@@ -120,18 +134,12 @@ export default function CompassLofiBoard() {
         in chapters 05–07.
       </p>
 
-      <p className="cs-paragraph cmp-lofi-layer">Layer 1 — what you tap</p>
-      <div className="cmp-lofi-row">
-        {LAYER_1.map((f) => (
-          <Frame key={f.label} {...f} />
-        ))}
-      </div>
-
-      <p className="cs-paragraph cmp-lofi-layer">Layer 2 — what you manage · check · ask</p>
-      <div className="cmp-lofi-row">
-        {LAYER_2.map((f) => (
-          <Frame key={f.label} {...f} />
-        ))}
+      <div className="cmp-lofi-rail">
+        <div className="cmp-lofi-track">
+          {frames.map((f) => (
+            <Frame key={f.label} {...f} />
+          ))}
+        </div>
       </div>
     </div>
   );

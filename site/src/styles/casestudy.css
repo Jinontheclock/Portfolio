@@ -430,17 +430,83 @@
 .cmp-lofi-layer {
   margin: 28px 0 10px;
 }
-.cmp-lofi-row {
+/* Twelve frames do not fit a text column, and they are read by moving along
+   the row rather than down a grid — so the board leaves the column it sits
+   in and runs the width of the screen. The negative margin is half the gap
+   between the element's own centre and the viewport's, which lands it edge
+   to edge wherever in the grid it happens to be. */
+.cmp-lofi-rail {
+  /* Out to both edges of the screen, worked back from the grid rather than
+     from the viewport: this column's right edge already sits on the page's
+     side margin, so the right side is that margin negated, and the left is
+     the column's own width plus the six columns and six gaps in front of
+     it. Percentages here resolve against the column, so no `vw` is used and
+     the scrollbar cannot push the page into a horizontal scroll. */
+  --page-margin: 24px;
+  margin-right: calc(-1 * var(--page-margin));
+  margin-left: calc(-100% - var(--page-margin) - 30px);
+  /* a band that reaches the edges has to carry the page under it: the
+     chapter list on the left is sticky, and unpainted frames would sit on
+     top of its words */
+  position: relative;
+  background: var(--bg);
+  padding-block: 4px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  /* snapping aligns a frame with the scrollport's edge, which would pull the
+     track's own margin out from under the first one — this keeps it */
+  scroll-padding-inline: var(--page-margin);
+  scrollbar-width: thin;
+}
+.cmp-lofi-track {
   display: flex;
-  flex-wrap: wrap;
   align-items: flex-start;
   gap: 12px;
-  row-gap: 20px;
+  width: max-content;
+  /* the page's own side margin, so the first and last frames are not flush
+     against the edge of the screen */
+  padding: 0 24px;
 }
 .cmp-lofi-cell {
   margin: 0;
-  flex: 0 1 var(--cmp-pw);
+  flex: 0 0 var(--cmp-pw);
   min-width: 0;
+  scroll-snap-align: start;
+}
+/* in the rail a frame is a fixed width rather than a share of the column —
+   a percentage cannot resolve against a track sized by its contents */
+.cmp-lofi-rail {
+  --cmp-pw: 160px;
+}
+/* the layer name, carried by the first frame of its group */
+.cmp-lofi-group {
+  display: block;
+  margin-bottom: 8px;
+  font: 400 11px / 1.35 var(--font-ui);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+/* the frames without one keep their tops level with those that have it */
+.cmp-lofi-cell:not(:has(.cmp-lofi-group)) {
+  padding-top: 23px;
+}
+/* the column starts one place earlier here — seven columns wide, so the walk
+   back is five of the twelve rather than six */
+@media (max-width: 1024px) {
+  .cmp-lofi-rail {
+    margin-left: calc((-100% + 180px) * 5 / 7 - var(--page-margin) - 150px);
+  }
+}
+/* stacked: the column is the page, so only its own margin is undone */
+@media (max-width: 600px) {
+  .cmp-lofi-rail {
+    --page-margin: 20px;
+    margin-left: calc(-1 * var(--page-margin));
+  }
+  .cmp-lofi-track {
+    padding: 0 20px;
+  }
 }
 .cmp-lofi-cell--watch {
   flex-basis: calc(var(--cmp-pw) * 187 / 402);
