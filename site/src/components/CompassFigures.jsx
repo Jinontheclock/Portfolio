@@ -9,6 +9,7 @@ import coverageRoadmapImg from "../assets/compass/compass-fig-coverage-roadmap.w
 import typeImg from "../assets/compass/compass-fig-type.webp";
 import colourImg from "../assets/compass/compass-fig-colour.webp";
 import componentImg from "../assets/compass/compass-fig-component.webp";
+import auditImg from "../assets/compass/compass-fig-audit.webp";
 import { useEffect, useRef } from "react";
 import CompassLofiBoard from "./CompassLofiBoard.jsx";
 import CompassWatchRow from "./CompassWatchRow.jsx";
@@ -119,6 +120,11 @@ export const COMPASS_ARTWORK = {
   "compass-fig-component": art(
     componentImg,
     "One card component in its five owned states, labelled as drawn: DEFAULT — My Compass Card, Plastic + Wallet pass · one balance, stored value $15.00, Monthly · 2-Zone pass; LOW BALANCE — the same card with an olive warning band reading Low balance and $1.15 of stored value; PASS EXPIRING — the U-Pass BC card in program navy with a band reading Expires in 3 days, valid August, UBC; PASS EXPIRED — the same U-Pass with a red band reading Pass expired; and REPORTED LOST — the Compass card with a red band reading Reported lost. A note underneath: ready, reading and paid at the reader are Apple's Express Mode UI, not redesigned here — these five are the states the app owns",
+  ),
+  /* 08 What Held Up, What Didn't */
+  "compass-fig-audit": art(
+    auditImg,
+    "Seven heuristic findings beside the accessibility audit. The table sets each finding against the heuristic it breaks, a severity on NN/g's 0–4 scale, and what became of it: Request Refund closes the card on one tap — error prevention, 3 — fixed, a confirm step names the consequence; the refund is the only money action with no receipt — visibility of system status, 3 — fixed, the receipt screen states amount and closure; editable fields and tappable rows look like plain content — recognition rather than recall, 2 — left, the field frame is a design-system rule, not a one-screen patch; “Move Balance to New Card” opens a $6.00 replacement order — match between the system and the real world, 2 — fixed, renamed to match what it orders, fee shown; Cancel Reservation sits under the tab bar until you scroll — user control and freedom, 2 — fixed, the scroller clears the tab bar; a pass paid by Apple Pay is listed as a minus in a balance it never debits — consistency and standards, 2 — left, splitting the two histories is an IA change I'd test first; and two minus signs in one list, −$2.85 against -$2.85 — consistency and standards, 1 — fixed, one formatter and U+2212 throughout. Beside it, contrast against WCAG 2.1: Blue 500 #007CC2 on #FAFAFA measures 4.32 and fails AA 4.5, fixed by the rule that blue as text starts at 600; divider #D4D4D4 on panel measures 1.48, below the 3:1 non-text threshold, left because it separates and never means; status on white — success, warning, error — measures 5.29, 5.93 and 5.52, an AA pass. Then target size: the smallest tap target measured is 46.9 × 20 px, the See all link, which passes WCAG 2.5.8 Target Size (Minimum) at AA's 24 × 24 CSS px under the Spacing exception, its nearest neighbour 230 px centre to centre against a 24 px threshold — 75 interactive elements across 14 screens, measured at 402 × 874 CSS px. Under the table, the caveat the chapter opens with: one person reviewing their own work, which catches the obvious failures and misses the ones you are blind to",
   ),
   /* composed in code from twelve separate frames, not a flat export */
   "compass-fig-wireframes": CompassLofiBoard,
