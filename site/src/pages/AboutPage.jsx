@@ -466,15 +466,18 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
               height="1083"
               decoding="async"
             />
-            {/* the name reads under the photograph, so it lives in the
-                content column rather than in a grid row of its own */}
-            <h1
-              className="ab-title"
-              style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
-            >
-              {NAME[lang] || NAME.en}
-            </h1>
-            <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
+            {/* the name and the sentence that answers it share a line, sitting
+                on the same bottom edge — one opening statement rather than
+                two stacked ones */}
+            <div className="ab-lede">
+              <h1
+                className="ab-title"
+                style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
+              >
+                {NAME[lang] || NAME.en}
+              </h1>
+              <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
+            </div>
             {about.body.map((para, i) => (
               <p key={i} className="ab-paragraph">
                 {typeof para === "string"

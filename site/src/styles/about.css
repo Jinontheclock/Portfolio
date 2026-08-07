@@ -25,9 +25,25 @@
   padding: 0 24px;
 }
 
+/* Name on the left, the sentence it introduces on its right, the two
+   sharing a bottom edge. `last baseline` aligns the last line of each —
+   the name's only line against the sentence's closing one — which is what
+   reads as level; box-bottom alignment would leave the two sitting on
+   different amounts of descender space. */
+.ab-lede {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: last baseline;
+  /* row gap applies once the sentence drops below the name */
+  gap: 20px 28px;
+  /* the air the hero sentence used to carry below itself */
+  margin-bottom: 20px;
+}
+
 /* Sits inside the content column, under the photograph — the grid places
    the column, not the name. */
 .ab-title {
+  flex: none;
   margin: 0;
   font: 400 var(--size-about-title) / 1.2 var(--font-ui);
   letter-spacing: -0.01em;
@@ -122,10 +138,14 @@
   text-underline-offset: 3px;
 }
 
-/* extra air between the hero sentence and the body paragraphs (40px total
-   with the 20px content gap) */
+/* takes the rest of the line beside the name; the air below it now belongs
+   to the row the two share. The 380px basis is the point below which the
+   sentence would be reading in a slot too narrow for it — at that width it
+   wraps under the name instead of squeezing, which needs no breakpoint of
+   its own because it follows whatever the column can spare. */
 .ab-hero {
-  margin-bottom: 20px;
+  flex: 1 1 380px;
+  min-width: 0;
 }
 
 .ab-section {
@@ -264,6 +284,16 @@
   .ab-rail,
   .ab-content {
     grid-column: 1 / 13;
+  }
+  /* the phone reads one thing at a time: the name, then the sentence.
+     The basis has to go with it — down a column it would be read as a
+     height, and the sentence would sit in a 380px-tall box */
+  .ab-lede {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ab-hero {
+    flex: none;
   }
   /* link rail sits above the column as a single right-aligned row (no
      sticky on mobile); the em gap scales with the font so useFitToWidth can
