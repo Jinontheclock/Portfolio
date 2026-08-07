@@ -103,8 +103,8 @@
   }
 }
 
-/* ── Mobile: image above text, both indented from the left (the Figma
-   grid's cols 3–13 — 2/12 indent, 10/12 width) ── */
+/* ── Mobile: image above text, both running the full width between the
+   page margins — a phone has no room to spend on an indent ── */
 @media (max-width: 600px) {
   .wk-list {
     gap: 48px;
@@ -119,14 +119,12 @@
   .wk-image {
     order: -1;
     flex: none;
-    width: 83.33%;
+    width: 100%;
     max-width: none;
-    margin-left: 16.67%;
   }
   .wk-text {
     flex: none;
-    width: 83.33%;
-    margin-left: 16.67%;
+    width: 100%;
   }
 }
 
