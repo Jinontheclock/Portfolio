@@ -38,6 +38,8 @@
   gap: 20px 28px;
   /* the air the hero sentence used to carry below itself */
   margin-bottom: 20px;
+  /* the hero sentence asks how much room it was given — see .ab-hero */
+  container: lede / inline-size;
 }
 
 /* Sits inside the content column, under the photograph — the grid places
@@ -146,6 +148,20 @@
 .ab-hero {
   flex: 1 1 380px;
   min-width: 0;
+  /* The copy carries a newline after its opening clause, but that break is
+     only worth keeping when the rest still closes on one line: it needs
+     692px, and flowing freely the whole sentence needs only 474px for two.
+     So the break is off by default — which is also what a browser without
+     container queries gets, and it is the safe answer — and comes back
+     only where there is room. The row is 182px of name and gap wider than
+     the sentence, hence 880. */
+  white-space: normal;
+}
+
+@container lede (min-width: 880px) {
+  .ab-hero {
+    white-space: pre-line;
+  }
 }
 
 /* A section break has to out-measure the rhythm inside the sections or it
