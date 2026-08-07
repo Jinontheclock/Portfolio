@@ -49,14 +49,17 @@
    padding), a column is (100% − 330px)/12, so six of them plus their five
    gutters come to 50% − 15px. Take the pair's own 40px gap off that and
    the two tracks share 50% − 55px; the void gets what is left. At 2560
-   that lands on 720 and 481 — the proportion the drawing has. */
+   that lands on 720 and 481 — the proportion the drawing has.
+
+   No `align-items`: the two cells stretch to one shared height, which is
+   what lets the roles line sit on the thumbnail's bottom edge — see
+   .wk-specs and .wk-image. */
 .wk-card {
   grid-template-columns:
     calc(50% - 25px)
     minmax(0, 1.4958fr)
     minmax(0, 1fr);
   column-gap: 40px;
-  align-items: start;
 }
 
 .wk-text {
@@ -91,29 +94,64 @@
 }
 
 .wk-specs {
-  margin-top: 32px;
+  /* pushed to the bottom of the cell, and the cell shares its height with
+     the thumbnail — so this line closes on the thumbnail's bottom edge,
+     and everything above it lives inside the thumbnail's height. The flex
+     gap is the floor when there is no slack to take. */
+  margin-top: auto;
   font: 400 14px/1.5 var(--font-ui);
   color: var(--text);
 }
 
 .wk-image {
   /* thumbnail, ~7:5 like the Figma Work_Desktop frame; the right-hand
-     track, so its outer edge is the margin line the other pages close on */
+     track, so its outer edge is the margin line the other pages close on.
+     The ratio is a floor, not a fix: the box grows past 7:5 whenever the
+     text runs taller, so no text ever hangs below it. The percentage is
+     what does that — indefinite while the row is being sized, so the
+     ratio sets the row's minimum; definite afterwards, so the box takes
+     the whole row even when the text set it. (Stretch alignment alone
+     will not grow an aspect-ratio box in Chromium.) */
   grid-column: 3;
   min-width: 0;
+  /* both axes pinned to the grid area: with only the height set, a taller
+     row hands the ratio the height and gets a transferred width back —
+     the box walks off its track */
+  width: 100%;
+  height: 100%;
   aspect-ratio: 7 / 5;
   background: var(--surface-placeholder);
 }
 
-/* ── Tablet: About's column widens to seven of the twelve here, and the
-   pair follows it. Seven columns and their six gutters come to
-   58.333% − 12.5px; the pair's 40px gap comes off that as before ── */
+/* ── Laptop: at 1710 the longest summary takes a fourth line inside the
+   content column, so below that the pair spends the left half the other
+   pages keep empty — the copy walks out to the second column, where their
+   rail and title sit, and the thumbnail stays on the right margin. The
+   void track is one column and one gutter, less the pair's 40px gap:
+   (100% − 330px)/12 + 30px − 40px ── */
+@media (max-width: 1712px) {
+  .wk-card {
+    grid-template-columns:
+      calc((100% - 330px) / 12 - 10px)
+      minmax(0, 1.4958fr)
+      minmax(0, 1fr);
+  }
+}
+
+/* ── Tablet: the other pages' left columns fall back to the page margin
+   here (the case-study title to 1/5, the About rail to 1/4) — the void
+   track goes with them and the pair runs margin to margin ── */
 @media (max-width: 1024px) {
   .wk-card {
     grid-template-columns:
-      calc(41.6667% - 27.5px)
       minmax(0, 1.4958fr)
       minmax(0, 1fr);
+  }
+  .wk-text {
+    grid-column: 1;
+  }
+  .wk-image {
+    grid-column: 2;
   }
 }
 
@@ -134,6 +172,8 @@
     order: -1;
     flex: none;
     width: 100%;
+    /* back on its ratio alone — in the stack there is no row to fill */
+    height: auto;
   }
   .wk-text {
     flex: none;
