@@ -45,7 +45,11 @@
   align-items: flex-start;
   gap: 18px;
   position: sticky;
-  top: 84px;
+  /* pinned at its natural resting spot (header 40px + .ab-main's 84px top
+     padding) so it holds the exact same position whether scrolled or not —
+     no initial ride-up before it fixes. Same value, same reason, as the
+     case studies' .cs-left */
+  top: 124px;
   align-self: start;
 }
 
