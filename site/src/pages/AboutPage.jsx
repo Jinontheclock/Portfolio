@@ -108,7 +108,11 @@ const EXPERIENCES = [
     id: "welab",
     title: "UI/UX Designer",
     org: "WeLAB Entertainment",
-    period: { en: "Mar 2026 – May 2026", ko: "2026.03 – 2026.05", ja: "2026.03 – 2026.05" },
+    period: {
+      en: "Mar 2026 – May 2026",
+      ko: "2026.03 – 2026.05",
+      ja: "2026.03 – 2026.05",
+    },
     type: "Internship",
     location: "Vancouver, Canada",
   },
@@ -116,7 +120,11 @@ const EXPERIENCES = [
     id: "muji",
     title: "Visual Merchandiser",
     org: "MUJI Japan",
-    period: { en: "Apr 2022 – Sep 2024", ko: "2022.04 – 2024.09", ja: "2022.04 – 2024.09" },
+    period: {
+      en: "Apr 2022 – Sep 2024",
+      ko: "2022.04 – 2024.09",
+      ja: "2022.04 – 2024.09",
+    },
     type: "Full-time",
     location: "Tokyo, Japan",
   },
@@ -154,16 +162,25 @@ const SKILLS = {
         { main: "Product Design" },
         { main: "Design Systems", sub: "semantic tokens, component libraries" },
         { main: "Interaction Design & Prototyping" },
-        { main: "Visual & Graphic Design", sub: "typography, brand identity, motion" },
+        {
+          main: "Visual & Graphic Design",
+          sub: "typography, brand identity, motion",
+        },
         { main: "Accessibility", sub: "WCAG 2.1/2.2 AA" },
       ],
     },
     {
       label: "Research & Strategy",
       rows: [
-        { main: "User Research", sub: "interviews, surveys, contextual inquiry" },
+        {
+          main: "User Research",
+          sub: "interviews, surveys, contextual inquiry",
+        },
         { main: "Usability Testing", sub: "moderated/unmoderated" },
-        { main: "Journey Mapping", sub: "touchpoints, pain points, opportunities" },
+        {
+          main: "Journey Mapping",
+          sub: "touchpoints, pain points, opportunities",
+        },
         { main: "Information Architecture", sub: "wireframing, user flows" },
       ],
     },
@@ -172,7 +189,10 @@ const SKILLS = {
       rows: [
         { lead: "Languages", main: "HTML5, CSS3, JavaScript, TypeScript" },
         { lead: "Framework", main: "React, Next.js" },
-        { lead: "Styling & Animation", main: "Tailwind CSS, CSS Modules, GSAP" },
+        {
+          lead: "Styling & Animation",
+          main: "Tailwind CSS, CSS Modules, GSAP",
+        },
         { lead: "Workflow", main: "Git/GitHub, Vercel" },
       ],
     },
@@ -180,7 +200,10 @@ const SKILLS = {
       label: "Tools",
       rows: [
         { main: "Figma, Framer, WordPress", sub: "Design & Prototyping" },
-        { main: "Adobe Creative Suite", sub: "Adobe Illustrator, Photoshop, After Effects, InDesign" },
+        {
+          main: "Adobe Creative Suite",
+          sub: "Adobe Illustrator, Photoshop, After Effects, InDesign",
+        },
         { main: "Google Analytics (GA4)", sub: "Analytics" },
         { main: "Figma AI, Cursor, ChatGPT, Claude", sub: "AI" },
       ],
@@ -198,7 +221,10 @@ const SKILLS = {
         { main: "프로덕트 디자인" },
         { main: "디자인 시스템", sub: "시맨틱 토큰, 컴포넌트 라이브러리" },
         { main: "인터랙션 디자인 & 프로토타이핑" },
-        { main: "비주얼 & 그래픽 디자인", sub: "타이포그래피, 브랜드 아이덴티티, 모션" },
+        {
+          main: "비주얼 & 그래픽 디자인",
+          sub: "타이포그래피, 브랜드 아이덴티티, 모션",
+        },
         { main: "접근성", sub: "WCAG 2.1/2.2 AA" },
       ],
     },
@@ -216,7 +242,10 @@ const SKILLS = {
       rows: [
         { lead: "언어", main: "HTML5, CSS3, JavaScript, TypeScript" },
         { lead: "프레임워크", main: "React, Next.js" },
-        { lead: "스타일링 & 애니메이션", main: "Tailwind CSS, CSS Modules, GSAP" },
+        {
+          lead: "스타일링 & 애니메이션",
+          main: "Tailwind CSS, CSS Modules, GSAP",
+        },
         { lead: "워크플로우", main: "Git/GitHub, Vercel" },
       ],
     },
@@ -224,7 +253,10 @@ const SKILLS = {
       label: "툴",
       rows: [
         { main: "Figma, Framer, WordPress", sub: "디자인 & 프로토타이핑" },
-        { main: "Adobe Creative Suite", sub: "Adobe Illustrator, Photoshop, After Effects, InDesign" },
+        {
+          main: "Adobe Creative Suite",
+          sub: "Adobe Illustrator, Photoshop, After Effects, InDesign",
+        },
         { main: "Google Analytics (GA4)", sub: "애널리틱스" },
         { main: "Figma AI, Cursor, ChatGPT, Claude", sub: "AI" },
       ],
@@ -239,19 +271,34 @@ const SKILLS = {
       label: "デザイン",
       rows: [
         { main: "プロダクトデザイン" },
-        { main: "デザインシステム", sub: "セマンティックトークン、コンポーネントライブラリ" },
+        {
+          main: "デザインシステム",
+          sub: "セマンティックトークン、コンポーネントライブラリ",
+        },
         { main: "インタラクションデザイン & プロトタイピング" },
-        { main: "ビジュアル & グラフィックデザイン", sub: "タイポグラフィ、ブランドアイデンティティ、モーション" },
+        {
+          main: "ビジュアル & グラフィックデザイン",
+          sub: "タイポグラフィ、ブランドアイデンティティ、モーション",
+        },
         { main: "アクセシビリティ", sub: "WCAG 2.1/2.2 AA" },
       ],
     },
     {
       label: "リサーチ & ストラテジー",
       rows: [
-        { main: "ユーザーリサーチ", sub: "インタビュー、アンケート調査、コンテクスチュアルインクワイアリー" },
+        {
+          main: "ユーザーリサーチ",
+          sub: "インタビュー、アンケート調査、コンテクスチュアルインクワイアリー",
+        },
         { main: "ユーザビリティテスト", sub: "モデレーターあり/なし" },
-        { main: "ジャーニーマッピング", sub: "タッチポイント、ペインポイント、改善機会" },
-        { main: "情報アーキテクチャ(IA)", sub: "ワイヤーフレーム、ユーザーフロー" },
+        {
+          main: "ジャーニーマッピング",
+          sub: "タッチポイント、ペインポイント、改善機会",
+        },
+        {
+          main: "情報アーキテクチャ(IA)",
+          sub: "ワイヤーフレーム、ユーザーフロー",
+        },
       ],
     },
     {
@@ -259,15 +306,24 @@ const SKILLS = {
       rows: [
         { lead: "言語", main: "HTML5, CSS3, JavaScript, TypeScript" },
         { lead: "フレームワーク", main: "React, Next.js" },
-        { lead: "スタイリング & アニメーション", main: "Tailwind CSS, CSS Modules, GSAP" },
+        {
+          lead: "スタイリング & アニメーション",
+          main: "Tailwind CSS, CSS Modules, GSAP",
+        },
         { lead: "ワークフロー", main: "Git/GitHub, Vercel" },
       ],
     },
     {
       label: "ツール",
       rows: [
-        { main: "Figma, Framer, WordPress", sub: "デザイン & プロトタイピング" },
-        { main: "Adobe Creative Suite", sub: "Adobe Illustrator, Photoshop, After Effects, InDesign" },
+        {
+          main: "Figma, Framer, WordPress",
+          sub: "デザイン & プロトタイピング",
+        },
+        {
+          main: "Adobe Creative Suite",
+          sub: "Adobe Illustrator, Photoshop, After Effects, InDesign",
+        },
         { main: "Google Analytics (GA4)", sub: "アナリティクス" },
         { main: "Figma AI, Cursor, ChatGPT, Claude", sub: "AI" },
       ],
@@ -295,7 +351,11 @@ function Entry({ entry }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <button type="button" className="xp-head" onClick={() => setPinned((p) => !p)}>
+      <button
+        type="button"
+        className="xp-head"
+        onClick={() => setPinned((p) => !p)}
+      >
         <span className="xp-row">
           <span>{entry.title}</span>
           <span className="xp-right">{entry.period}</span>
@@ -351,10 +411,6 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
 
       <main className={"ab-main " + fadeClass}>
         <div className="ab-grid ab-layout">
-          <h1 className="ab-title" style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}>
-            {NAME[lang] || NAME.en}
-          </h1>
-
           <nav className="ab-rail" ref={railRef}>
             {LINKS.map((l) => (
               <a
@@ -370,8 +426,8 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
           </nav>
 
           <div className="ab-content">
-            {/* first thing under the name, and the first thing on the page
-                worth loading — no lazy attribute, or it arrives late */}
+            {/* opens the column, and the first thing on the page worth
+                loading — no lazy attribute, or it arrives late */}
             <img
               className="ab-portrait"
               src={portrait}
@@ -380,6 +436,14 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
               height="1083"
               decoding="async"
             />
+            {/* the name reads under the photograph, so it lives in the
+                content column rather than in a grid row of its own */}
+            <h1
+              className="ab-title"
+              style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
+            >
+              {NAME[lang] || NAME.en}
+            </h1>
             <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
             {about.body.map((para, i) => (
               <p key={i} className="ab-paragraph">
@@ -395,8 +459,14 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
                         <a
                           key={j}
                           href={seg.href}
-                          target={seg.href.startsWith("http") ? "_blank" : undefined}
-                          rel={seg.href.startsWith("http") ? "noreferrer" : undefined}
+                          target={
+                            seg.href.startsWith("http") ? "_blank" : undefined
+                          }
+                          rel={
+                            seg.href.startsWith("http")
+                              ? "noreferrer"
+                              : undefined
+                          }
                         >
                           {seg.text}
                         </a>

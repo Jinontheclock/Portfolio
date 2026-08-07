@@ -1,7 +1,8 @@
 /* About page — matches the Figma About frame.
    12-col grid (24px margins, 30px gutters): link rail on col 2, all
-   content in a narrow right-hand column on cols 9–12. No photo block.
-   The title sits in row 1; the rail top-aligns with the intro in row 2. */
+   content in a narrow right-hand column on cols 9–12, opening with the
+   photograph and the name. Both live in row 1, so the rail top-aligns with
+   the photograph. */
 
 .ab-root {
   display: flex;
@@ -24,9 +25,9 @@
   padding: 0 24px;
 }
 
+/* Sits inside the content column, under the photograph — the grid places
+   the column, not the name. */
 .ab-title {
-  grid-column: 9 / 13;
-  grid-row: 1;
   margin: 0;
   font: 400 var(--size-about-title) / 1.2 var(--font-ui);
   letter-spacing: -0.01em;
@@ -38,7 +39,7 @@
    Sticks while the content scrolls (like the case-study TOC). */
 .ab-rail {
   grid-column: 2 / 4;
-  grid-row: 2;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -67,22 +68,23 @@
 /* ── Right content column ── */
 .ab-content {
   grid-column: 9 / 13;
-  grid-row: 2;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* The photograph sits between the name and the first sentence, at the
-   content column's own width — it belongs to the column rather than
-   interrupting it, so it carries no frame, no radius and no caption. The
-   intrinsic size is on the element so the column does not reflow when the
-   file lands. */
+/* The photograph opens the column, at the column's own width — it belongs
+   to the column rather than interrupting it, so it carries no frame, no
+   radius and no caption. The intrinsic size is on the element so the column
+   does not reflow when the file lands. The extra few pixels under it set
+   the name a little further from the photograph than from the sentence it
+   introduces, which keeps the name reading with the copy. */
 .ab-portrait {
   display: block;
   width: 100%;
   height: auto;
-  margin: 4px 0 8px;
+  margin: 0 0 4px;
 }
 
 .ab-paragraph {
@@ -229,13 +231,12 @@
   .ab-rail {
     grid-column: 1 / 4;
   }
-  .ab-title,
   .ab-content {
     grid-column: 5 / 13;
   }
 }
 
-/* ── Mobile: single column — links row, name, then content ── */
+/* ── Mobile: single column — links row, then the content column ── */
 @media (max-width: 600px) {
   .ab-main {
     padding: 48px 0 220px;
@@ -247,14 +248,13 @@
   .ab-paragraph {
     max-width: none;
   }
-  .ab-title,
   .ab-rail,
   .ab-content {
     grid-column: 1 / 13;
   }
-  /* link rail sits above the name as a single right-aligned row (no sticky
-     on mobile); the em gap scales with the font so useFitToWidth can shrink
-     the line to fit */
+  /* link rail sits above the column as a single right-aligned row (no
+     sticky on mobile); the em gap scales with the font so useFitToWidth can
+     shrink the line to fit */
   .ab-rail {
     position: static;
     grid-row: 1;
@@ -268,12 +268,8 @@
     white-space: nowrap;
     letter-spacing: 0.04em;
   }
-  .ab-title {
-    grid-row: 2;
-    margin-bottom: 0;
-  }
   .ab-content {
-    grid-row: 3;
+    grid-row: 2;
   }
   /* Skills keeps the label-left layout on mobile (like the other tiers);
      narrow the label column so the item column gets more room */
