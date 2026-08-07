@@ -36,28 +36,18 @@
   opacity: 0.6;
 }
 
-/* Continuous responsive model: the pair sits against the right margin —
-   copy beside the thumbnail, the empty space out on the left — and it is
-   that left space that gives when the window changes. Both parts keep
-   their size across the whole desktop range; once the pair reaches the
-   second column it scales down in proportion until the mobile stack. */
+/* The card sits on the same twelve columns as the case studies and About
+   (the ab-grid class it already carries): copy on columns 2–8, thumbnail
+   on 9–12, the gutter between them. Sizes are therefore fractions of the
+   window — resize it and the card scales in proportion, exactly the way
+   the other two pages' columns do, with the same fixed 24px margins and
+   30px gutters. */
 .wk-card {
-  display: flex;
-  justify-content: flex-end;
-  column-gap: 40px;
-  /* the floor the pair shrinks against — the case-study title and the
-     About rail both open on the grid's second column, so the copy never
-     starts left of it: 24px + (width − 2·24px − 11·30px)/12 + 30px */
-  padding-left: calc(54px + (100% - 378px) / 12);
+  align-items: start;
 }
 
-/* fixed, formula-free sizes (nested math in flex-basis parsed unevenly
-   across engines): 718px copy + 480px thumbnail. 718 is About's body
-   measure — its 73ch, the width its paragraphs settle at once the column
-   stops being the limit — and it clears every card summary in two lines;
-   the longest, MUJI's, needs 698. */
 .wk-text {
-  flex: 0 1 718px;
+  grid-column: 2 / 9;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -79,8 +69,12 @@
 }
 
 .wk-desc {
-  /* the text column is the measure here — capping again would set the
-     summary narrower than the title and the roles line above and below it */
+  /* About's body measure. The column scales past it on wide screens —
+     without the cap the summaries would run to 100+ characters a line —
+     and under it the column itself takes over as the limit. Every summary
+     holds two lines while the measure is at least 698px (MUJI, the
+     longest, needs exactly that), which the column gives down to ~1266. */
+  max-width: 73ch;
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
 }
@@ -92,33 +86,33 @@
 }
 
 .wk-image {
-  /* thumbnail, ~7:5 like the Figma Work_Desktop frame */
-  flex: 0 1 480px;
+  /* thumbnail, ~7:5 like the Figma Work_Desktop frame; the width is the
+     four columns, so it scales with them */
+  grid-column: 9 / 13;
   min-width: 0;
-  max-width: 480px;
   aspect-ratio: 7 / 5;
   background: var(--surface-placeholder);
 }
 
-/* ── Tablet: the case-study title and the About rail fall back to the
-   page margin here, so the cards follow them ── */
+/* ── Tablet: the other pages' left columns fall back to the margin here
+   (the case-study title to 1/5, the About rail to 1/4) — the copy follows,
+   and the thumbnail keeps its four columns ── */
 @media (max-width: 1024px) {
-  .wk-card {
-    padding-left: 24px;
+  .wk-text {
+    grid-column: 1 / 9;
   }
 }
 
 /* ── Mobile: image above text, both indented from the left (the Figma
    grid's cols 3–13 — 2/12 indent, 10/12 width) ── */
 @media (max-width: 600px) {
-  .wk-card {
-    padding-left: 20px;
-  }
   .wk-list {
     gap: 48px;
     padding: 32px 0 220px;
   }
+  /* the stack leaves the grid — a flex column, like before it */
   .wk-card {
+    display: flex;
     flex-direction: column;
     row-gap: 16px;
   }
