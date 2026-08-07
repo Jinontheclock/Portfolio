@@ -92,7 +92,12 @@
 
 .ab-paragraph {
   margin: 0;
-  max-width: 67ch;
+  /* A word longer than the 67ch the case studies hold. Three of the four
+     paragraphs were closing on three words at 67ch, which left the column
+     looking ragged three times over; the extra measure pulls those tails
+     back up. It sits above the 80-characters-per-line ceiling the rest of
+     the site keeps to, which is the trade this page makes. */
+  max-width: 73ch;
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
   white-space: pre-line;
