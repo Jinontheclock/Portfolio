@@ -35,35 +35,40 @@
   opacity: 0.6;
 }
 
-/* Copy beside the thumbnail, the pair against the right margin — and the
-   pair occupies exactly the span the case studies' `.cs-content` and
-   About's `.ab-content` occupy, cols 7–12, six of the twelve. So the card
-   opens on the line their body copy opens on, closes on the line it
-   closes on, and grows and shrinks with the window by the same fractions;
-   the empty half on the left is the same empty half those pages carry.
+/* Copy beside the thumbnail, the pair always closing on the right margin.
+   Two tracks in a 1.4958 : 1 ratio with a 40px gap between them — the
+   718/480 proportion the card was drawn at, which is why the twelve
+   columns are not used here: that ratio is not a whole number of them.
+   The left edge is set by the padding instead, and the padding is where
+   the whole responsive behaviour lives.
 
-   Three tracks rather than the grid's twelve, because the pair is split
-   60/40 between copy and thumbnail — the 718/480 proportion the card was
-   drawn at — which is not a whole number of columns. The arithmetic: the
-   grid's content box is `100%` (the 24px margins are this element's own
-   padding), a column is (100% − 330px)/12, so six of them plus their five
-   gutters come to 50% − 15px. Take the pair's own 40px gap off that and
-   the two tracks share 50% − 55px; the void gets what is left. At 2560
-   that lands on 720 and 481 — the proportion the drawing has.
+   Wide, the pair is the content column of the other two pages exactly —
+   cols 7–12, the span the case studies' `.cs-content` and About's
+   `.ab-content` take. Six columns and their five gutters come to
+   50% − 15px of the grid's content box, which off the padding's own basis
+   (the full window, since .wk-list has no margins of its own) is
+   50% − 39px. So the card opens on the line their body copy opens on and
+   closes on the line it closes on.
+
+   Narrow, it stops shrinking at 900px: below that the summaries start
+   taking a fourth line. Instead of narrowing further the pair keeps the
+   size it has and spends the empty left half, sliding toward the margin
+   as the window closes — that is the inner `max()`. The two expressions
+   meet at 1878, so the handover is a width the card already had and
+   nothing jumps; the padding reaches the page margin on its own near 950,
+   which is why there is no breakpoint anywhere in here.
 
    No `align-items`: the two cells stretch to one shared height, which is
    what lets the roles line sit on the thumbnail's bottom edge — see
    .wk-specs and .wk-image. */
 .wk-card {
-  grid-template-columns:
-    calc(50% - 25px)
-    minmax(0, 1.4958fr)
-    minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.4958fr) minmax(0, 1fr);
   column-gap: 40px;
+  padding-left: max(24px, 100% - 24px - max(50% - 39px, 900px));
 }
 
 .wk-text {
-  grid-column: 2;
+  grid-column: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -112,7 +117,7 @@
      ratio sets the row's minimum; definite afterwards, so the box takes
      the whole row even when the text set it. (Stretch alignment alone
      will not grow an aspect-ratio box in Chromium.) */
-  grid-column: 3;
+  grid-column: 2;
   min-width: 0;
   /* both axes pinned to the grid area: with only the height set, a taller
      row hands the ratio the height and gets a transferred width back —
@@ -123,38 +128,6 @@
   background: var(--surface-placeholder);
 }
 
-/* ── Laptop: at 1710 the longest summary takes a fourth line inside the
-   content column, so below that the pair spends the left half the other
-   pages keep empty — the copy walks out to the second column, where their
-   rail and title sit, and the thumbnail stays on the right margin. The
-   void track is one column and one gutter, less the pair's 40px gap:
-   (100% − 330px)/12 + 30px − 40px ── */
-@media (max-width: 1712px) {
-  .wk-card {
-    grid-template-columns:
-      calc((100% - 330px) / 12 - 10px)
-      minmax(0, 1.4958fr)
-      minmax(0, 1fr);
-  }
-}
-
-/* ── Tablet: the other pages' left columns fall back to the page margin
-   here (the case-study title to 1/5, the About rail to 1/4) — the void
-   track goes with them and the pair runs margin to margin ── */
-@media (max-width: 1024px) {
-  .wk-card {
-    grid-template-columns:
-      minmax(0, 1.4958fr)
-      minmax(0, 1fr);
-  }
-  .wk-text {
-    grid-column: 1;
-  }
-  .wk-image {
-    grid-column: 2;
-  }
-}
-
 /* ── Mobile: image above text, both running the full width between the
    page margins — a phone has no room to spend on an indent ── */
 @media (max-width: 600px) {
@@ -162,11 +135,13 @@
     gap: 48px;
     padding: 32px 0 220px;
   }
-  /* the stack leaves the grid — a flex column, like before it */
+  /* the stack leaves the grid — a flex column, like before it — and gives
+     the padding back to .ab-grid's phone margin */
   .wk-card {
     display: flex;
     flex-direction: column;
     row-gap: 16px;
+    padding-left: 20px;
   }
   .wk-image {
     order: -1;
