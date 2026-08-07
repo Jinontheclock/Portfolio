@@ -149,24 +149,38 @@ const EDUCATION = [
   },
 ];
 
-/* Skills per language — same five-group schema in every language (1:1 rows).
-   Each row is one line: `main` plus an optional annotation around an em
-   dash — `sub` trails the main text (detail notes, Tools' category labels)
-   and `lead` precedes it (Development's sublabels). Program/tech names stay
-   in English in every language. */
+/* Skills per language — five groups in every language. Each row is one
+   line: `main` plus an optional annotation around an em dash — `sub` trails
+   the main text and `lead` precedes it. Program/tech names stay in English
+   in every language.
+
+   English leads with the label and trails the detail throughout, so every
+   row there is `main — sub`; Korean and Japanese still carry the earlier
+   copy, where the two technical groups put the sublabel in `lead`. The row
+   counts no longer match 1:1 across the three — English's technical group
+   is three rows against the other two languages' four. */
 const SKILLS = {
   en: [
     {
       label: "Design",
       rows: [
-        { main: "Product Design" },
-        { main: "Design Systems", sub: "semantic tokens, component libraries" },
-        { main: "Interaction Design & Prototyping" },
+        {
+          main: "Product Design",
+          sub: "end-to-end UX/UI, web & mobile platforms",
+        },
+        {
+          main: "Design Systems",
+          sub: "semantic tokens, component libraries, documentation",
+        },
+        {
+          main: "Interaction Design & Prototyping",
+          sub: "micro-interactions, high-fidelity prototypes",
+        },
         {
           main: "Visual & Graphic Design",
-          sub: "typography, brand identity, motion",
+          sub: "layout systems, typography, motion design",
         },
-        { main: "Accessibility", sub: "WCAG 2.1/2.2 AA" },
+        { main: "Accessibility (a11y)", sub: "WCAG 2.1/2.2 AA compliance" },
       ],
     },
     {
@@ -174,38 +188,52 @@ const SKILLS = {
       rows: [
         {
           main: "User Research",
-          sub: "interviews, surveys, contextual inquiry",
+          sub: "user interviews, surveys, contextual inquiry",
         },
-        { main: "Usability Testing", sub: "moderated/unmoderated" },
+        {
+          main: "Usability Testing",
+          sub: "moderated & unmoderated UT, feedback analysis",
+        },
         {
           main: "Journey Mapping",
-          sub: "touchpoints, pain points, opportunities",
+          sub: "user touchpoints, pain points, opportunity mapping",
         },
-        { main: "Information Architecture", sub: "wireframing, user flows" },
+        {
+          main: "Information Architecture",
+          sub: "sitemaps, content hierarchy, user flows",
+        },
       ],
     },
     {
-      label: "Development",
+      label: "Technical Literacy",
       rows: [
-        { lead: "Languages", main: "HTML5, CSS3, JavaScript, TypeScript" },
-        { lead: "Framework", main: "React, Next.js" },
         {
-          lead: "Styling & Animation",
-          main: "Tailwind CSS, CSS Modules, GSAP",
+          main: "Front-end Languages",
+          sub: "HTML5, CSS3, JavaScript, TypeScript",
         },
-        { lead: "Workflow", main: "Git/GitHub, Vercel" },
+        {
+          main: "Frameworks & Libraries",
+          sub: "React, Next.js, Tailwind CSS, GSAP",
+        },
+        {
+          main: "Development Workflow",
+          sub: "Git/GitHub, Vercel, WordPress (CMS)",
+        },
       ],
     },
     {
-      label: "Tools",
+      label: "Tools & AI Workflows",
       rows: [
-        { main: "Figma, Framer, WordPress", sub: "Design & Prototyping" },
+        { main: "Design & Prototyping", sub: "Figma, Framer" },
         {
-          main: "Adobe Creative Suite",
+          main: "Creative Suite",
           sub: "Adobe Illustrator, Photoshop, After Effects, InDesign",
         },
-        { main: "Google Analytics (GA4)", sub: "Analytics" },
-        { main: "Figma AI, Cursor, ChatGPT, Claude", sub: "AI" },
+        { main: "Analytics", sub: "Google Analytics (GA4)" },
+        {
+          main: "AI-Assisted Workflow",
+          sub: "Figma AI, Cursor, ChatGPT, Claude",
+        },
       ],
     },
     {
