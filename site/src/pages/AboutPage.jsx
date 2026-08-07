@@ -28,13 +28,13 @@ const MAILTO = "mailto:hajinlee.ca@gmail.com";
    a mail window is part of the sentence in each language's own grammar. */
 const ABOUT = {
   en: {
-    hero: "A Product Designer who uncovers user friction within complex environments and resolves it through clear structure and refined visual language.",
+    hero: "A Product Designer who uncovers user friction and transforms it into clear architecture and refined visual language.",
     body: [
-      "To me, great design means identifying the core friction of a challenge and guiding users intuitively to their goals. I analyze user pain points through a critical lens, creating the highest value when translating fragmented information into clear architecture and polished visuals.",
-      "In my recent projects, I focused on enhancing existing products by rebuilding layout systems to improve web usability and implementing new CTAs using custom code and libraries. On another project, I participated in the entire product lifecycle—spanning initial ideation, design, development, and marketing—to successfully launch a new service. Having experienced both sides, I can seamlessly adapt to any product cycle and agilely deliver the exact solutions the team needs.",
-      "I highly value the process of moving at the same pace and alignment with team members toward a shared vision. I believe our solutions become far more robust when we understand the languages of different functions and communicate with flexibility.",
+      "My design background is rooted in retail visual merchandising, where I designed physical customer journeys and visual hierarchies. Translating these touchpoints into the digital realm allows me to approach UX with a sharp focus on user behavior and brand strategy.",
+      "To me, great design means identifying core pain points and guiding users intuitively toward their goals. My experience spans the product lifecycle—from 0-to-1 launches to optimizing existing products through rebuilt layout systems and responsive UI components.",
+      "I adapt quickly to new product stages and collaborate flexibly with cross-functional teams to keep everyone aligned toward a shared vision.",
       [
-        "If you'd like to build clear, meaningful solutions together, or if you have an exciting opportunity, please feel free to reach out via ",
+        "If you'd like to build clear, meaningful solutions together, feel free to reach out via ",
         { text: "email", href: MAILTO },
         ".",
       ],

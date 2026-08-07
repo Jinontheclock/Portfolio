@@ -95,18 +95,19 @@
   white-space: pre-line;
 }
 
-/* a link inside the copy: the sentence's own colour, marked by the rule
-   under it rather than by a colour change — same treatment as the case
-   studies' inline links */
+/* a link inside the copy: sits in the sentence undisturbed and answers on
+   hover with the rule and the darker ink — the same pair the link rail
+   uses, so both links on the page behave alike */
 .ab-paragraph a {
   color: inherit;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
+  text-decoration: none;
   transition: color var(--duration-fast) var(--easing);
 }
 .ab-paragraph a:hover {
   color: var(--text-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 /* extra air between the hero sentence and the body paragraphs (40px total
