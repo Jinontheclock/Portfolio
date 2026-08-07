@@ -36,24 +36,26 @@
   opacity: 0.6;
 }
 
-/* Continuous responsive model: the card is a right-anchored flex row.
-   At full desktop the text + thumbnail pair fills the screen's right half
-   (text opening at the midline, where the case-study content column
-   starts). As the window narrows the pair HOLDS this size and the empty
-   left half absorbs the shrink; only once the pair reaches the left
-   margin does it start scaling down, until the mobile stack takes over. */
+/* Continuous responsive model: copy at the left margin, thumbnail at the
+   right, and the space between them is what gives when the window changes.
+   Both keep their size — the copy holds the measure the case studies and
+   About use, the thumbnail holds its 480px — so nothing reflows across the
+   range where the gap still has room to absorb the difference. Below that
+   they scale down in proportion until the mobile stack takes over. */
 .wk-card {
   display: flex;
-  justify-content: flex-end;
-  column-gap: 30px;
+  justify-content: space-between;
+  /* the floor, not the usual value — the gap is normally far wider */
+  column-gap: 40px;
 }
 
 /* fixed, formula-free sizes (nested math in flex-basis parsed unevenly
-   across engines): 560px copy + 480px thumbnail. The pair keeps these
-   sizes while the window shrinks — the empty left side absorbs it — and
-   below ~1120px both scale down in proportion until the mobile stack. */
+   across engines): 718px copy + 480px thumbnail. 718 is About's body
+   measure — its 73ch, the width its paragraphs settle at once the column
+   stops being the limit — and it clears every card summary in two lines;
+   the longest, MUJI's, needs 698. */
 .wk-text {
-  flex: 0 1 560px;
+  flex: 0 1 718px;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -75,8 +77,8 @@
 }
 
 .wk-desc {
-  /* same measure as the case-study body copy (casestudy.css .cs-block-p) */
-  max-width: 67ch;
+  /* the text column is the measure here — capping again would set the
+     summary narrower than the title and the roles line above and below it */
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
 }
