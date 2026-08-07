@@ -36,21 +36,18 @@
   opacity: 0.6;
 }
 
-/* Continuous responsive model: copy at the left margin, thumbnail at the
-   right, and the space between them is what gives when the window changes.
-   Both keep their size — the copy holds the measure the case studies and
-   About use, the thumbnail holds its 480px — so nothing reflows across the
-   range where the gap still has room to absorb the difference. Below that
-   they scale down in proportion until the mobile stack takes over. */
+/* Continuous responsive model: the pair sits against the right margin —
+   copy beside the thumbnail, the empty space out on the left — and it is
+   that left space that gives when the window changes. Both parts keep
+   their size across the whole desktop range; once the pair reaches the
+   second column it scales down in proportion until the mobile stack. */
 .wk-card {
   display: flex;
-  justify-content: space-between;
-  /* the floor, not the usual value — the gap is normally far wider */
+  justify-content: flex-end;
   column-gap: 40px;
-  /* opens where the other pages' leftmost text opens — the case-study
-     title and the About rail both sit on the grid's second column, so the
-     copy starts one column and one gutter in from the 24px margin:
-     24px + (width − 2·24px − 11·30px)/12 + 30px */
+  /* the floor the pair shrinks against — the case-study title and the
+     About rail both open on the grid's second column, so the copy never
+     starts left of it: 24px + (width − 2·24px − 11·30px)/12 + 30px */
   padding-left: calc(54px + (100% - 378px) / 12);
 }
 
