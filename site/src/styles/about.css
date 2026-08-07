@@ -148,8 +148,14 @@
   min-width: 0;
 }
 
+/* A section break has to out-measure the rhythm inside the sections or it
+   stops reading as a break: entries sit 40px apart and skill groups 48px,
+   and the old 40px margin left only 60px between sections once the
+   column's own 20px gap was added. 92px puts a clear pause between them —
+   roughly twice the widest interval inside — without approaching the
+   160px the case studies keep between chapters, which are longer reads. */
 .ab-section {
-  margin-top: 40px;
+  margin-top: 72px;
   display: flex;
   flex-direction: column;
   gap: 16px;
