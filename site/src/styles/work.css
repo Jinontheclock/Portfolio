@@ -1,8 +1,7 @@
-/* Work page — placeholder cards from the design system's WorkScreen,
-   laid on the same 12-col grid as About (24px margins, 30px gutters,
-   content on cols 5–12). Card anatomy from components/site/WorkCard.jsx:
-   text column (title 20px / description / lowercase roles) beside a
-   625×328-proportioned grey image block. */
+/* Work page — placeholder cards on the same 12-col grid as About and the
+   case studies (24px margins, 30px gutters). Card anatomy from
+   components/site/WorkCard.jsx: a grey thumbnail over the text block
+   (title 20px / kind / summary / lowercase roles). */
 
 .wk-main {
   flex: 1;
@@ -36,22 +35,27 @@
   opacity: 0.6;
 }
 
-/* The card sits on the same twelve columns as the case studies and About
-   (the ab-grid class it already carries), so its sizes are fractions of
-   the window and it scales in proportion the way their columns do, with
-   the same fixed 24px margins and 30px gutters.
+/* The card is one content column, not a spread: thumbnail over text, both
+   on the exact span the case studies' `.cs-content` and About's
+   `.ab-content` take — cols 7–12, against the right margin, six of the
+   twelve. So the card is the same width as the body copy on the other two
+   pages, opens on the same line, closes on the same line, and grows and
+   shrinks with the window by the same fractions they do; nothing about it
+   is a fixed size waiting for a breakpoint.
 
-   The copy takes columns 2–7 — the six the case-study and About content
-   columns take, so its measure is theirs at every width — and the
-   thumbnail takes the remaining five right up against it. Giving the copy
-   a seventh column left the summary's cap stranded in the middle of it:
-   474px of dead space at 2000px, 800px at 2560. */
+   Stacking is what makes that width work, and it is also About's own
+   arrangement — the photograph across the top of the column with the copy
+   under it. It is what the phone already showed; now every width shows
+   the same card. */
 .wk-card {
   align-items: start;
+  /* the interval About leaves between the photograph and the name */
+  row-gap: 20px;
 }
 
 .wk-text {
-  grid-column: 2 / 8;
+  grid-column: 7 / 13;
+  grid-row: 2;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -73,12 +77,10 @@
 }
 
 .wk-desc {
-  /* Looser than the 73ch the running copy keeps to, because a two-line
-     card summary is a glance rather than a read, and because a tighter cap
-     strands the column's right side as dead space beside the thumbnail.
-     At 90ch the column is the limit up to about 1850px — no gap at any
-     ordinary window — and past that the line stops growing. */
-  max-width: 90ch;
+  /* the measure About's paragraphs settle at once the column stops being
+     the limit — the same ceiling, so the summary reads at the same line
+     length the body copy does on a wide screen */
+  max-width: 73ch;
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
 }
@@ -90,45 +92,43 @@
 }
 
 .wk-image {
-  /* thumbnail, ~7:5 like the Figma Work_Desktop frame; the width is the
-     five columns beside the copy, so it scales with them */
-  grid-column: 8 / 13;
+  /* thumbnail, ~7:5 like the Figma Work_Desktop frame; it opens the column
+     at the column's own width, the way the About portrait does. Row 1
+     regardless of the source order — the text comes first in the markup so
+     a reader without the stylesheet meets the project's name before its
+     picture. */
+  grid-column: 7 / 13;
+  grid-row: 1;
   min-width: 0;
   aspect-ratio: 7 / 5;
   background: var(--surface-placeholder);
 }
 
-/* ── Tablet: the other pages' left columns fall back to the margin here
-   (the case-study title to 1/5, the About rail to 1/4) — the copy follows,
-   and the thumbnail keeps its five columns ── */
+/* ── Tablet: the column widens exactly where About's does ── */
 @media (max-width: 1024px) {
-  .wk-text {
-    grid-column: 1 / 8;
+  .wk-text,
+  .wk-image {
+    grid-column: 6 / 13;
   }
 }
 
-/* ── Mobile: image above text, both running the full width between the
-   page margins — a phone has no room to spend on an indent ── */
+/* ── Mobile: the same stack, now running the full width between the page
+   margins — a phone has no room to spend on an indent ── */
 @media (max-width: 600px) {
   .wk-list {
     gap: 48px;
     padding: 32px 0 220px;
   }
-  /* the stack leaves the grid — a flex column, like before it */
   .wk-card {
-    display: flex;
-    flex-direction: column;
     row-gap: 16px;
   }
+  .wk-text,
   .wk-image {
-    order: -1;
-    flex: none;
-    width: 100%;
-    max-width: none;
+    grid-column: 1 / 13;
   }
-  .wk-text {
-    flex: none;
-    width: 100%;
+  /* no measure cap on a phone — the viewport is the measure */
+  .wk-desc {
+    max-width: none;
   }
 }
 
