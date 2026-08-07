@@ -1,7 +1,7 @@
 /* Work page — placeholder cards on the same 12-col grid as About and the
    case studies (24px margins, 30px gutters). Card anatomy from
-   components/site/WorkCard.jsx: a grey thumbnail over the text block
-   (title 20px / kind / summary / lowercase roles). */
+   components/site/WorkCard.jsx: a text column (title 20px / kind /
+   summary / lowercase roles) beside a grey thumbnail. */
 
 .wk-main {
   flex: 1;
@@ -35,27 +35,32 @@
   opacity: 0.6;
 }
 
-/* The card is one content column, not a spread: thumbnail over text, both
-   on the exact span the case studies' `.cs-content` and About's
-   `.ab-content` take — cols 7–12, against the right margin, six of the
-   twelve. So the card is the same width as the body copy on the other two
-   pages, opens on the same line, closes on the same line, and grows and
-   shrinks with the window by the same fractions they do; nothing about it
-   is a fixed size waiting for a breakpoint.
+/* Copy beside the thumbnail, the pair against the right margin — and the
+   pair occupies exactly the span the case studies' `.cs-content` and
+   About's `.ab-content` occupy, cols 7–12, six of the twelve. So the card
+   opens on the line their body copy opens on, closes on the line it
+   closes on, and grows and shrinks with the window by the same fractions;
+   the empty half on the left is the same empty half those pages carry.
 
-   Stacking is what makes that width work, and it is also About's own
-   arrangement — the photograph across the top of the column with the copy
-   under it. It is what the phone already showed; now every width shows
-   the same card. */
+   Three tracks rather than the grid's twelve, because the pair is split
+   60/40 between copy and thumbnail — the 718/480 proportion the card was
+   drawn at — which is not a whole number of columns. The arithmetic: the
+   grid's content box is `100%` (the 24px margins are this element's own
+   padding), a column is (100% − 330px)/12, so six of them plus their five
+   gutters come to 50% − 15px. Take the pair's own 40px gap off that and
+   the two tracks share 50% − 55px; the void gets what is left. At 2560
+   that lands on 720 and 481 — the proportion the drawing has. */
 .wk-card {
+  grid-template-columns:
+    calc(50% - 25px)
+    minmax(0, 1.4958fr)
+    minmax(0, 1fr);
+  column-gap: 40px;
   align-items: start;
-  /* the interval About leaves between the photograph and the name */
-  row-gap: 20px;
 }
 
 .wk-text {
-  grid-column: 7 / 13;
-  grid-row: 2;
+  grid-column: 2;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -92,39 +97,47 @@
 }
 
 .wk-image {
-  /* thumbnail, ~7:5 like the Figma Work_Desktop frame; it opens the column
-     at the column's own width, the way the About portrait does. Row 1
-     regardless of the source order — the text comes first in the markup so
-     a reader without the stylesheet meets the project's name before its
-     picture. */
-  grid-column: 7 / 13;
-  grid-row: 1;
+  /* thumbnail, ~7:5 like the Figma Work_Desktop frame; the right-hand
+     track, so its outer edge is the margin line the other pages close on */
+  grid-column: 3;
   min-width: 0;
   aspect-ratio: 7 / 5;
   background: var(--surface-placeholder);
 }
 
-/* ── Tablet: the column widens exactly where About's does ── */
+/* ── Tablet: About's column widens to seven of the twelve here, and the
+   pair follows it. Seven columns and their six gutters come to
+   58.333% − 12.5px; the pair's 40px gap comes off that as before ── */
 @media (max-width: 1024px) {
-  .wk-text,
-  .wk-image {
-    grid-column: 6 / 13;
+  .wk-card {
+    grid-template-columns:
+      calc(41.6667% - 27.5px)
+      minmax(0, 1.4958fr)
+      minmax(0, 1fr);
   }
 }
 
-/* ── Mobile: the same stack, now running the full width between the page
-   margins — a phone has no room to spend on an indent ── */
+/* ── Mobile: image above text, both running the full width between the
+   page margins — a phone has no room to spend on an indent ── */
 @media (max-width: 600px) {
   .wk-list {
     gap: 48px;
     padding: 32px 0 220px;
   }
+  /* the stack leaves the grid — a flex column, like before it */
   .wk-card {
+    display: flex;
+    flex-direction: column;
     row-gap: 16px;
   }
-  .wk-text,
   .wk-image {
-    grid-column: 1 / 13;
+    order: -1;
+    flex: none;
+    width: 100%;
+  }
+  .wk-text {
+    flex: none;
+    width: 100%;
   }
   /* no measure cap on a phone — the viewport is the measure */
   .wk-desc {
