@@ -1,8 +1,9 @@
 export default {
   id: "tinypaws",
   title: "TinyPaws",
+  kind: "Academic Project · Web Design & Dev",
   description:
-    "A responsive website that turns a cluttered rescue-cat adoption process into one clear, welcoming journey",
+    "A clear adoption pathway for a rescue website—co-designing the UI, building the brand identity, and hand-coding the responsive site with Astro.",
   roles: "UI/UX Design, Web Development",
   heroScene: "monitor",
   headline: "A clear path from stray to safe home.",
@@ -24,7 +25,10 @@ export default {
     {
       label: "link",
       values: [
-        { label: "Live Site", href: "https://jinontheclock.github.io/TinyPaws/" },
+        {
+          label: "Live Site",
+          href: "https://jinontheclock.github.io/TinyPaws/",
+        },
         { label: "GitHub", href: "https://github.com/Jinontheclock/TinyPaws" },
       ],
     },
@@ -38,7 +42,12 @@ export default {
           type: "p",
           text: "A rescue's website does one job: turn goodwill into homes. TinyPaws needed a site that could explain adoption to first-timers, prove its cats' histories to careful adopters, and make giving — time, foster space, money — feel as easy as browsing.",
         },
-        { type: "cta", label: "Visit the live site", demo: true, href: "https://jinontheclock.github.io/TinyPaws/" },
+        {
+          type: "cta",
+          label: "Visit the live site",
+          demo: true,
+          href: "https://jinontheclock.github.io/TinyPaws/",
+        },
       ],
     },
     {
@@ -81,7 +90,8 @@ export default {
         {
           type: "figure",
           graphic: "tinypaws-fig-sitemap",
-          caption: "One map, three goals — the structure the whole site hangs on.",
+          caption:
+            "One map, three goals — the structure the whole site hangs on.",
         },
         {
           type: "p",
@@ -92,7 +102,10 @@ export default {
           graphic: "tinypaws-fig-lofi-grid",
           caption: "Lo-fi wireframes — structure first, personality later.",
         },
-        { type: "h", text: "The first test broke the structure, not the visuals" },
+        {
+          type: "h",
+          text: "The first test broke the structure, not the visuals",
+        },
         {
           type: "p",
           text: "Task-based sessions with 14 participants surfaced structural failures no amount of styling would have fixed — and all three fixes shipped into the next fidelity.",
@@ -129,7 +142,8 @@ export default {
         {
           type: "figure",
           graphic: "tinypaws-fig-styletile",
-          caption: "The style tile: palette, type scale, and interactive elements in one sheet.",
+          caption:
+            "The style tile: palette, type scale, and interactive elements in one sheet.",
         },
         { type: "h", text: "Beyond the screen" },
         {
@@ -155,7 +169,11 @@ export default {
           paras: [
             "A step-by-step process page shows exactly what happens between applying and bringing a cat home. A short match quiz narrows the gallery to cats that fit an adopter's home and habits — browsing becomes matching, and the application form arrives pre-contextualized.",
           ],
-          media: ["tinypaws-shot-process", "tinypaws-shot-quiz", "tinypaws-shot-form"],
+          media: [
+            "tinypaws-shot-process",
+            "tinypaws-shot-quiz",
+            "tinypaws-shot-form",
+          ],
           caption: "Process, match quiz, application — one guided path.",
         },
         {
@@ -165,7 +183,11 @@ export default {
           paras: [
             "Every profile leads with the facts adopters asked for: vaccination and spay-neuter status, medical notes, temperament, and the cat's own story. Trust is built by disclosure, not decoration.",
           ],
-          media: ["tinypaws-shot-adopt", "tinypaws-shot-profile", "tinypaws-shot-profile-medical"],
+          media: [
+            "tinypaws-shot-adopt",
+            "tinypaws-shot-profile",
+            "tinypaws-shot-profile-medical",
+          ],
           caption: "The gallery and profile: records first, cuteness second.",
         },
         {
@@ -175,8 +197,13 @@ export default {
           paras: [
             "Foster, volunteer, donate, and events live under one Get Involved roof, and adopters leave with resources — cost guides, behaviour help, and what to expect in the first weeks. The relationship outlives the transaction.",
           ],
-          media: ["tinypaws-shot-involve", "tinypaws-shot-events", "tinypaws-shot-home"],
-          caption: "Get involved, events, and the home page that ties the journey together.",
+          media: [
+            "tinypaws-shot-involve",
+            "tinypaws-shot-events",
+            "tinypaws-shot-home",
+          ],
+          caption:
+            "Get involved, events, and the home page that ties the journey together.",
         },
         { type: "h", text: "The second test caught what the polish hid" },
         {
@@ -201,7 +228,8 @@ export default {
         {
           type: "figure",
           graphic: "tinypaws-fig-tokens",
-          caption: "One sheet, one file — the style tile and the tokens.css it became.",
+          caption:
+            "One sheet, one file — the style tile and the tokens.css it became.",
         },
         { type: "h", text: "Content as data, matching as logic" },
         {
@@ -211,7 +239,8 @@ export default {
         {
           type: "figure",
           graphic: "tinypaws-fig-content-model",
-          caption: "One cat entry, three surfaces — the same record becomes a card, a full profile, and a quiz match.",
+          caption:
+            "One cat entry, three surfaces — the same record becomes a card, a full profile, and a quiz match.",
         },
         { type: "h", text: "Honest by construction" },
         {
@@ -221,9 +250,20 @@ export default {
         {
           type: "stats",
           items: [
-            { value: "Lighthouse 100", label: "across performance, accessibility, best practices, and SEO" },
-            { value: "WCAG AA", label: "contrast throughout — fully responsive and keyboard-navigable" },
-            { value: "Two rounds", label: "of usability testing — structure first, then detail" },
+            {
+              value: "Lighthouse 100",
+              label:
+                "across performance, accessibility, best practices, and SEO",
+            },
+            {
+              value: "WCAG AA",
+              label:
+                "contrast throughout — fully responsive and keyboard-navigable",
+            },
+            {
+              value: "Two rounds",
+              label: "of usability testing — structure first, then detail",
+            },
           ],
         },
         {
@@ -233,8 +273,15 @@ export default {
         {
           type: "cta",
           buttons: [
-            { label: "Visit the live site", demo: true, href: "https://jinontheclock.github.io/TinyPaws/" },
-            { label: "Read the code on GitHub", href: "https://github.com/Jinontheclock/TinyPaws" },
+            {
+              label: "Visit the live site",
+              demo: true,
+              href: "https://jinontheclock.github.io/TinyPaws/",
+            },
+            {
+              label: "Read the code on GitHub",
+              href: "https://github.com/Jinontheclock/TinyPaws",
+            },
           ],
         },
       ],

@@ -912,13 +912,14 @@ const COMPASS_SECTIONS = [
 export default {
   id: "compass-card",
   title: "Compass Card",
+  kind: "Concept Project · iOS & watchOS",
   description: {
-    en: "A concept iOS and watchOS app for BC's transit fare card — designed on the account-based system TransLink has already put out to tender",
+    en: "Redesigning Metro Vancouver's transit fare card system into an intuitive iOS and watchOS experience based on TransLink's upcoming account-based model.",
     ja: "TransLinkがすでに入札にかけたアカウントベースのシステムの上に設計した、BC州の交通運賃カードのiOS・watchOSコンセプトアプリ",
     ko: "TransLink가 이미 입찰에 부친 계정 기반 시스템 위에 설계한, BC주 교통 요금 카드의 iOS·watchOS 콘셉트 앱",
   },
   roles: {
-    en: "Product Design",
+    en: "Product Design, Systems UX",
     ja: "プロダクトデザイン",
     ko: "프로덕트 디자인",
   },

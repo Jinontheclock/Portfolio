@@ -1,13 +1,14 @@
 export default {
   id: "welab",
   title: "WeLAB Entertainment",
+  kind: "Client Project · Live Site",
   description: {
-    en: "A live-site redesign for a VFX & animation studio — audited, redesigned, and rebuilt in Bricks, with custom code where the builder ran out",
+    en: "An end-to-end website audit, redesign, and custom WordPress development for a VFX studio—rebuilding layouts and interactions with Bricks Builder and custom code.",
     ja: "VFX・アニメーションスタジオの本番サイトのリデザイン — 監査から再設計、Bricksでの再構築まで。ビルダーで届かないところは自前のコードで",
     ko: "VFX·애니메이션 스튜디오의 운영 사이트 리디자인 — 감사에서 재설계, Bricks 재구축까지. 빌더가 한계에 다다른 곳은 직접 코드로",
   },
   roles: {
-    en: "UI/UX Design, Web Development",
+    en: "UI/UX Design, Web Development (Internship)",
     ja: "UI/UXデザイン、ウェブ開発",
     ko: "UI/UX 디자인, 웹 개발",
   },

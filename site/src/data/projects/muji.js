@@ -34,12 +34,14 @@ const PLACEHOLDER_SECTIONS = [
 export default {
   id: "muji",
   title: "MUJI",
+  kind: "Retail & Spatial UX",
   // company confidentiality: gate the case study behind a password
   locked: true,
-  passwordHash: "9caa7c2feef38ddfb33aebdc7988e72d88f5b4c5caa43e67a8fd880fbaf56421",
+  passwordHash:
+    "9caa7c2feef38ddfb33aebdc7988e72d88f5b4c5caa43e67a8fd880fbaf56421",
   description:
-    "A short one- or two-line summary of the project and the problem it set out to solve.",
-  roles: "Visual Merchandising, Branding",
+    "Driving in-store visual communication strategies and spatial layout optimization to enhance customer journeys and duty-free shopping experiences for international travelers.",
+  roles: "Visual Merchandising, Spatial UX, Brand Strategy",
   intro: [
     "MUJI — placeholder introduction. A couple of sentences describing what the project is, who it serves, and the context it was built in.",
     "A second placeholder paragraph summarizing the approach and the outcome.",

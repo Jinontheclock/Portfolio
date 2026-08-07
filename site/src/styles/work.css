@@ -66,6 +66,14 @@
   color: var(--text-primary);
 }
 
+/* What kind of project it was and what it ran on — the line that answers
+   both questions before the summary has to. Set like the summary rather
+   than like the small print underneath it, because it is read first. */
+.wk-kind {
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  color: var(--text);
+}
+
 .wk-desc {
   /* same measure as the case-study body copy (casestudy.css .cs-block-p) */
   max-width: 67ch;

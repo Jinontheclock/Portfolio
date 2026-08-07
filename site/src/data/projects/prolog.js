@@ -1,13 +1,14 @@
 export default {
   id: "prolog",
   title: "ProLog",
+  kind: "0-to-1 Product · Mobile App",
   description: {
-    en: "A mobile app that turns fragmented apprenticeship records into one clear roadmap for neurodivergent tradespeople",
+    en: "A mobile platform transforming 6,000 hours of fragmented apprenticeship records into a clear, accessible roadmap tailored for neurodivergent tradespeople.",
     ja: "散らばっていた見習いの記録を一つの明確なロードマップに変える、ニューロダイバージェントな技能者のためのモバイルアプリ",
     ko: "흩어져 있던 견습 기록을 하나의 분명한 로드맵으로 바꾸는, 신경다양인 기능인을 위한 모바일 앱",
   },
   roles: {
-    en: "Product Design, Research, Branding",
+    en: "Product Design, Lead Development",
     ja: "プロダクトデザイン、リサーチ、ブランディング",
     ko: "프로덕트 디자인, 리서치, 브랜딩",
   },
