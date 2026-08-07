@@ -47,6 +47,11 @@
   justify-content: space-between;
   /* the floor, not the usual value — the gap is normally far wider */
   column-gap: 40px;
+  /* opens where the other pages' leftmost text opens — the case-study
+     title and the About rail both sit on the grid's second column, so the
+     copy starts one column and one gutter in from the 24px margin:
+     24px + (width − 2·24px − 11·30px)/12 + 30px */
+  padding-left: calc(54px + (100% - 378px) / 12);
 }
 
 /* fixed, formula-free sizes (nested math in flex-basis parsed unevenly
@@ -98,9 +103,20 @@
   background: var(--surface-placeholder);
 }
 
+/* ── Tablet: the case-study title and the About rail fall back to the
+   page margin here, so the cards follow them ── */
+@media (max-width: 1024px) {
+  .wk-card {
+    padding-left: 24px;
+  }
+}
+
 /* ── Mobile: image above text, both indented from the left (the Figma
    grid's cols 3–13 — 2/12 indent, 10/12 width) ── */
 @media (max-width: 600px) {
+  .wk-card {
+    padding-left: 20px;
+  }
   .wk-list {
     gap: 48px;
     padding: 32px 0 220px;
