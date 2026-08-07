@@ -65,9 +65,12 @@
   text-underline-offset: 3px;
 }
 
-/* ── Right content column ── */
+/* ── Right content column ──
+   Same span as the case studies' `.cs-content`, on the same 12 columns —
+   both pages put `ab-grid` on the wrapper, so matching the span is enough
+   to put the two measures at the same width and the same left edge. */
 .ab-content {
-  grid-column: 9 / 13;
+  grid-column: 7 / 13;
   grid-row: 1;
   display: flex;
   flex-direction: column;
@@ -233,7 +236,7 @@
     grid-column: 1 / 4;
   }
   .ab-content {
-    grid-column: 5 / 13;
+    grid-column: 6 / 13;
   }
 }
 
