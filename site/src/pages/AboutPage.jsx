@@ -28,7 +28,7 @@ const MAILTO = "mailto:hajinlee.ca@gmail.com";
    a mail window is part of the sentence in each language's own grammar. */
 const ABOUT = {
   en: {
-    hero: "A Product Designer who uncovers user friction and transforms it into clear architecture and refined visual language.",
+    hero: "A Product Designer who\nuncovers user friction and transforms it into clear architecture and refined visual language.",
     body: [
       "My design background is rooted in retail visual merchandising, where I designed physical customer journeys and visual hierarchies. Translating these touchpoints into the digital realm allows me to approach UX with a sharp focus on user behavior and brand strategy.",
       "To me, great design means identifying core pain points and guiding users intuitively toward their goals. My experience spans the product lifecycle—from 0-to-1 launches to optimizing existing products through rebuilt layout systems and responsive UI components.",
