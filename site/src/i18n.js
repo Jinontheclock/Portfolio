@@ -37,3 +37,13 @@ export const LANDING = {
     aboutIndent: "-0.029em",
   },
 };
+
+/* Browser tab / bookmark / search-result name. Held in all three languages
+   so the structure is there, but all three read English on purpose: the
+   wordmark, the header pills and every other fixed label on this site are
+   English, and a tab that alone switched script would read as a different
+   site. */
+export const PAGE_TITLE = {
+  work: { en: "Work — HAJIN", ja: "Work — HAJIN", ko: "Work — HAJIN" },
+  about: { en: "About — HAJIN", ja: "About — HAJIN", ko: "About — HAJIN" },
+};

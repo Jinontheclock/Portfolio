@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
@@ -131,7 +131,8 @@ const FIGURES = {
 /* the real captures win over the placeholder of the same name, the way
    the finished figures do above */
 const SHOTS = { ...PROLOG_SHOTS, ...TINYPAWS_SHOTS, ...COMPASS_SHOTS, ...COMPASS_CAPTURES };
-import { getProject } from "../data/projects.js";
+import { getProject } from "../data/projects/index.js";
+import { resolve } from "../data/projects/resolve.js";
 import { noOrphan, noOrphanSegments } from "../lib/no-orphan.js";
 
 // ProLog is exported to the Portfolio under /prolog/ (see site/public/prolog)
@@ -317,7 +318,12 @@ function Block({ block, onDemo, demoHref }) {
  *  right, built from each section's block list. */
 export default function CaseStudyPage({ lang, setLang }) {
   const { id } = useParams();
-  const project = getProject(id);
+  const raw = getProject(id);
+  /* One pass folds every { en, ja, ko } node in the project down to the
+     language on screen, so nothing below this line knows translations
+     exist. Memoised because resolve() returns a fresh object every call,
+     and the scroll spy below keys its effect on `project`. */
+  const project = useMemo(() => (raw ? resolve(raw, lang) : null), [raw, lang]);
   const [demoOpen, setDemoOpen] = useState(false);
   // section currently in view (null = the intro block above the sections)
   const [activeId, setActiveId] = useState(null);

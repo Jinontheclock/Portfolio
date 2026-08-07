@@ -51,3 +51,21 @@
 :lang(ja) .type-body-s,    .type-body-s:lang(ja)    { line-height: 1.8; letter-spacing: 0.05em; }
 :lang(ja) .type-label,     .type-label:lang(ja)     { letter-spacing: 0.1em; }
 :lang(ja) .type-caption,   .type-caption:lang(ja)   { letter-spacing: 0.05em; }
+
+/* ── Line breaking, per language ──
+   App.jsx already mirrors the displayed language onto <html lang>, so these
+   hang off the root and cover every page at once. */
+
+/* Korean: a line may not break inside an eojeol — the basic rule of Hangul
+   setting. overflow-wrap is the escape hatch for the exceptions, a long URL
+   with nowhere else to break. */
+:root[lang="ko"] {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Japanese: kinsoku — 。、」 and their kin never start a line. */
+:root[lang="ja"] {
+  line-break: strict;
+  overflow-wrap: break-word;
+}

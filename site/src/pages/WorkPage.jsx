@@ -1,17 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
-import { PROJECTS } from "../data/projects.js";
+import { PROJECTS } from "../data/projects/index.js";
+import { resolve } from "../data/projects/resolve.js";
+import { PAGE_TITLE } from "../i18n.js";
 
 export default function WorkPage({ lang, setLang }) {
   const navigate = useNavigate();
+  const projects = useMemo(() => resolve(PROJECTS, lang), [lang]);
   // a locked project asks for its password right here, before navigating
   const [gateProject, setGateProject] = useState(null);
   useEffect(() => {
-    document.title = "Work — HAJIN";
-  }, []);
+    document.title = PAGE_TITLE.work[lang] || PAGE_TITLE.work.en;
+  }, [lang]);
 
   return (
     <div className="ab-root">
@@ -19,7 +22,7 @@ export default function WorkPage({ lang, setLang }) {
 
       <main className="wk-main">
         <div className="wk-list">
-          {PROJECTS.map((p) => (
+          {projects.map((p) => (
             <Link
               key={p.id}
               to={`/work/${p.id}`}

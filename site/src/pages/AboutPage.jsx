@@ -4,6 +4,7 @@ import { noOrphan, noOrphanSegments } from "../lib/no-orphan.js";
 import SiteFooter from "../components/SiteFooter.jsx";
 import useFitToWidth from "../hooks/useFitToWidth.js";
 import useCanHover from "../hooks/useCanHover.js";
+import { PAGE_TITLE } from "../i18n.js";
 import portrait from "../assets/about-portrait.webp";
 
 /* Name and its H/이/イ left-side-bearing compensation, per language */
@@ -331,8 +332,8 @@ function SkillRow({ row }) {
 
 export default function AboutPage({ lang, setLang, fadeClass = "" }) {
   useEffect(() => {
-    document.title = "About — HAJIN";
-  }, []);
+    document.title = PAGE_TITLE.about[lang] || PAGE_TITLE.about.en;
+  }, [lang]);
 
   // on mobile the rail is a single row above the name; shrink to fit one line
   const railRef = useFitToWidth(12);
