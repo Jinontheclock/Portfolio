@@ -37,17 +37,21 @@
 }
 
 /* The card sits on the same twelve columns as the case studies and About
-   (the ab-grid class it already carries): copy on columns 2–8, thumbnail
-   on 9–12, the gutter between them. Sizes are therefore fractions of the
-   window — resize it and the card scales in proportion, exactly the way
-   the other two pages' columns do, with the same fixed 24px margins and
-   30px gutters. */
+   (the ab-grid class it already carries), so its sizes are fractions of
+   the window and it scales in proportion the way their columns do, with
+   the same fixed 24px margins and 30px gutters.
+
+   The copy takes columns 2–7 — the six the case-study and About content
+   columns take, so its measure is theirs at every width — and the
+   thumbnail takes the remaining five right up against it. Giving the copy
+   a seventh column left the summary's cap stranded in the middle of it:
+   474px of dead space at 2000px, 800px at 2560. */
 .wk-card {
   align-items: start;
 }
 
 .wk-text {
-  grid-column: 2 / 9;
+  grid-column: 2 / 8;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -69,12 +73,12 @@
 }
 
 .wk-desc {
-  /* About's body measure. The column scales past it on wide screens —
-     without the cap the summaries would run to 100+ characters a line —
-     and under it the column itself takes over as the limit. Every summary
-     holds two lines while the measure is at least 698px (MUJI, the
-     longest, needs exactly that), which the column gives down to ~1266. */
-  max-width: 73ch;
+  /* Looser than the 73ch the running copy keeps to, because a two-line
+     card summary is a glance rather than a read, and because a tighter cap
+     strands the column's right side as dead space beside the thumbnail.
+     At 90ch the column is the limit up to about 1850px — no gap at any
+     ordinary window — and past that the line stops growing. */
+  max-width: 90ch;
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
 }
@@ -87,8 +91,8 @@
 
 .wk-image {
   /* thumbnail, ~7:5 like the Figma Work_Desktop frame; the width is the
-     four columns, so it scales with them */
-  grid-column: 9 / 13;
+     five columns beside the copy, so it scales with them */
+  grid-column: 8 / 13;
   min-width: 0;
   aspect-ratio: 7 / 5;
   background: var(--surface-placeholder);
@@ -96,10 +100,10 @@
 
 /* ── Tablet: the other pages' left columns fall back to the margin here
    (the case-study title to 1/5, the About rail to 1/4) — the copy follows,
-   and the thumbnail keeps its four columns ── */
+   and the thumbnail keeps its five columns ── */
 @media (max-width: 1024px) {
   .wk-text {
-    grid-column: 1 / 9;
+    grid-column: 1 / 8;
   }
 }
 
