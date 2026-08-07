@@ -82,22 +82,22 @@ const LINKS = [
 /* "What I did" descriptions per entry, per language */
 const DESCRIPTIONS = {
   welab: {
-    en: "Executed both the UI/UX design and hands-on WordPress development for the agency's portfolio website renewal project.\nEnhanced the web layout system using Bricks Builder and custom code, while integrating multi-language support and advanced CTA functionalities. Focused on optimizing overall site performance through template redesign and SEO management.",
+    en: "Executed the UI/UX redesign and custom WordPress development for the agency's portfolio website using Bricks Builder and custom code. Enhanced web usability and site performance by implementing multi-language support, custom CTA features, and SEO strategies.",
     ko: "에이전시의 포트폴리오 웹사이트 리뉴얼 프로젝트에서 UI/UX 디자인과 WordPress을 통해 직접 구현하였습니다.\nBricksbuilder와 커스텀 코드를 활용해 웹의 레이아웃 시스템을 개선하고 다개국어 및 CTA 관련 기능을 추가했습니다. 템플릿 리디자인과 SEO 매니지먼트에 참여하며 웹사이트의 전반적인 성능 최적화에 집중했습니다.",
     ja: "エイジェンシーのポートフォリオWebサイトのリニューアルプロジェクトにおいて、UI/UXデザインからWordPressによる直接実装までを一貫して担当しました。\nBricks Builderとカスタムコードを活用してWebサイトのレイアウトシステムを改善し、多言語対応およびCTA関連機能を追加しました。テンプレートのリデザインやSEOマネジメントにも携わり、Webサイト全体のパフォーマンス最適化に注力しました。",
   },
   muji: {
-    en: "Driven visual communication strategies and enhanced in-store customer experiences to strengthen core branding.\nFocused on formulating marketing frameworks and optimizing the duty-free shopping journey (UX) tailored for inbound international travelers. Led strategic projects specializing in store layout and display optimization.",
+    en: "Drove visual communication strategies and store layout optimization to enhance in-store customer journeys and brand presence. Formulated strategic frameworks to optimize the duty-free shopping experience (UX) tailored for inbound international travelers.",
     ko: "브랜딩 강화를 위해 비주얼 커뮤니케이션과 오프라인 매장 경험을 증진하는 프로젝트를 수행했습니다.\n특히 인바운드 고객층을 타겟으로 한 마케팅 및 면세 쇼핑 관련 고객 여정(UX) 개선을 위한 전략 수립에 집중했습니다. 이와 더불어 매장 레이아웃 및 디스플레이 최적화를 위한 프로젝트들을 주도했습니다.",
     ja: "ブランディング強化のため、ビジュアルコミュニケーションの最適化とオフライン店舗における顧客体験（UX）の向上を目的としたプロジェクトを遂行しました。\n特にインバウンド（訪日外国人）顧客層をターゲットとしたマーケティングや、免税ショッピングに伴うカスタマージャーニーの改善に向けた戦略立案に注力しました。これに加え、店舗レイアウトおよびディスプレイ最適化のためのプロジェクトを主導しました。",
   },
   bcit: {
-    en: "Focused on mastering cross-disciplinary project execution by blending digital design, frontend programming, and marketing.\nImmersed myself in UI/UX design primarily for web and app products, gaining hands-on experience driving interactive prototyping and the overall development process.",
+    en: "Mastered cross-disciplinary product execution by integrating UI/UX design, front-end development, and marketing for web and mobile platforms. Built practical expertise in interactive prototyping, layout systems, and end-to-end development workflows.",
     ko: "디지털 디자인, 프론트엔드 프로그래밍, 마케팅을 융합적으로 학습하며 프로젝트 수행 역량을 다지는 데 집중하였습니다.\n주로 앱과 웹 중심의 프로덕트를 위한 UIUX 디자인을 깊게 연구하였으며, 프로토타입 구현과 개발 프로세스를 주도적으로 경험했습니다.",
     ja: "デジタルデザイン、フロントエンドプログラミング、マーケティングを融合的に学びながら、プロジェクト遂行能力を高めることに注力しました。\n主にアプリやWebを中心としたプロダクトのUI/UXデザインを深く研究し、インタラクティブなプロトタイプ実装や開発プロセスの推進を主体的に経験しました。",
   },
   inha: {
-    en: "Completed interdisciplinary studies across the end-to-end apparel industry, including design, textiles, marketing, and business.\nConcentrated on fashion merchandising and market analysis, focusing deeply on bridging strategic business insights with visual communication skills.",
+    en: "Completed interdisciplinary studies in fashion design, merchandising, and market analysis across the apparel industry. Bridged strategic business insights with visual communication to understand user behavior and brand positioning.",
     ko: "디자인, 패턴, 섬유, 마케팅, 비즈니스 등 의류 산업 전반의 프로세스를 아우르는 각 분야를 학습을 진행했습니다.\n제품 기획과 시장 흐름을 분석하는 머천다이징을 중심으로, 비즈니스 관점과 시각적 커뮤니케이션 능력을 결합하는 데 집중했습니다.",
     ja: "デザイン、パターン、繊維、マーケティング、ビジネスなど、アパレル産業全般のプロセスを網羅する各分野の学習を行いました。\n製品企画や市場トレンドを分析するマーチャンダイジング（MD）を中心に、ビジネス的な視点とビジュアルコミュニケーション能力を結合させることに注力しました。",
   },
