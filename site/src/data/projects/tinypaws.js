@@ -7,7 +7,7 @@ export default {
   /* Work-card thumbnail: the case study's own hero clip, cropped to the
      card's proportions and without the logo the hero floats over it. The
      card rests on the poster and plays under the pointer.
-     scripts/build-tinypaws-thumb.py makes both. */
+     scripts/build-card-videos.py makes all three files. */
   video: {
     /* VP9 first so a Chromium without the proprietary codecs still plays
        it; H.264 is what everything else takes */

@@ -1,7 +1,33 @@
+import cardPoster from "../../assets/welab/welab-card-poster.webp";
+
 export default {
   id: "welab",
   title: "WeLAB Entertainment",
   kind: "Client Project · Live Site",
+  /* Work-card thumbnail: the case study's own hero clip, cropped to the
+     card's proportions and without the wordmark the hero floats over it.
+     The card rests on the poster and plays under the pointer.
+     scripts/build-card-videos.py makes all three files. */
+  video: {
+    /* VP9 first so a Chromium without the proprietary codecs still plays
+       it; H.264 is what everything else takes */
+    sources: [
+      {
+        src: `${import.meta.env.BASE_URL}media/welab/welab-card.webm`,
+        type: "video/webm",
+      },
+      {
+        src: `${import.meta.env.BASE_URL}media/welab/welab-card.mp4`,
+        type: "video/mp4",
+      },
+    ],
+    poster: cardPoster,
+  },
+  thumbAlt: {
+    en: "The rebuilt WeLAB site on a desktop monitor, open at the home page",
+    ja: "デスクトップモニターに映る、作り直したWeLABのサイトのホーム",
+    ko: "데스크톱 모니터에 띄운, 다시 만든 WeLAB 사이트의 홈",
+  },
   description: {
     en: "An end-to-end website audit, redesign, and custom WordPress development for a VFX studio—rebuilding layouts and interactions with Bricks Builder and custom code.",
     ja: "VFX・アニメーションスタジオの本番サイトのリデザイン — 監査から再設計、Bricksでの再構築まで。ビルダーで届かないところは自前のコードで",
