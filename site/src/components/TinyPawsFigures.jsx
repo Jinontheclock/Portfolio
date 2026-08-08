@@ -43,7 +43,7 @@ export function TPContentModelFigure() {
   return (
     <img
       src={figContentModel}
-      alt="One cat's data entry branching into three rendered surfaces — a gallery card, a full profile, and a match-quiz result"
+      alt="One cat's entry branching into the three surfaces it renders. On the left, cats/ash.json — name Ash, age 1 year, breed Grey Tabby, a temperament array, a medical object of vaccinated and spayed_neutered, status available, and the quiz answers the match runs on. On the right, the three surfaces the same record becomes, each listed by the fields it draws from and shown as the screen itself: the gallery card, the full profile with its temperament tags and medical box, and the quiz result with Ash as the best of three matches"
       loading="lazy"
     />
   );
