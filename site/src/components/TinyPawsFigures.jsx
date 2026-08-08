@@ -33,7 +33,7 @@ export function TPTokensFigure() {
   return (
     <img
       src={figTokens}
-      alt="The TinyPaws style tile beside the tokens.css file it became — the same colours, type sizes, and radii as CSS custom properties"
+      alt="The TinyPaws style tile beside the tokens.css file it became. On the left the palette as swatches with their hex values — Orange #DC6E00, Orange-ink #A65300, Deep brown #301800, Cream #F5ECD8, Off-white #FFFDF6, Background #FFF7E6, Taupe #6F5B4A — then the typography, Fredoka SemiBold for display over its size scale with Lexend for body, and the three corner radii drawn as shapes: pill, card and input. On the right the same values as CSS custom properties — the colour group from --paw-orange to --paw-taupe with --paw-cream-deep among them, --font-display and --font-body, and --radius-pill, --radius-card and --radius-input — with a line drawn from the orange swatch to the --paw-orange line it became"
       loading="lazy"
     />
   );
