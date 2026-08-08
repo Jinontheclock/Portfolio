@@ -1,7 +1,29 @@
+import cardPoster from "../../assets/tinypaws/tinypaws-card-poster.webp";
+
 export default {
   id: "tinypaws",
   title: "TinyPaws",
   kind: "Academic Project · Web Design & Dev",
+  /* Work-card thumbnail: the case study's own hero clip, cropped to the
+     card's proportions and without the logo the hero floats over it. The
+     card rests on the poster and plays under the pointer.
+     scripts/build-tinypaws-thumb.py makes both. */
+  video: {
+    /* VP9 first so a Chromium without the proprietary codecs still plays
+       it; H.264 is what everything else takes */
+    sources: [
+      {
+        src: `${import.meta.env.BASE_URL}media/tinypaws/tinypaws-card.webm`,
+        type: "video/webm",
+      },
+      {
+        src: `${import.meta.env.BASE_URL}media/tinypaws/tinypaws-card.mp4`,
+        type: "video/mp4",
+      },
+    ],
+    poster: cardPoster,
+  },
+  thumbAlt: "The TinyPaws site on a desktop monitor, open at the home page",
   description:
     "A clear adoption pathway for a rescue website—co-designing the UI, building the brand identity, and hand-coding the responsive site with Astro.",
   roles: "UI/UX Design, Web Development",

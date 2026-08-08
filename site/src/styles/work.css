@@ -39,10 +39,10 @@
 @media (hover: hover) {
   .wk-card-link .wk-image {
     filter: grayscale(1);
-    /* longer than --duration-base, which is as slow as the token set
-       goes; the two speeds it offers are both meant for state changes
-       small enough to happen at the edge of attention */
-    transition: filter 450ms var(--easing);
+    /* a step past --duration-base, which is as slow as the token set
+       goes; both speeds it offers are meant for changes small enough to
+       happen at the edge of attention, and this one is looked at */
+    transition: filter 300ms var(--easing);
   }
   .wk-card-link:hover .wk-image,
   .wk-card-link:focus-visible .wk-image {
@@ -147,15 +147,17 @@
   overflow: hidden;
 }
 
-/* One frame of a card's thumbnail. All of a project's frames sit on top of
-   one another and only the current one is opaque, so the change from one
-   to the next is a cross-fade in place rather than a swap. The pictures
-   are 4:3 and the box is 7:5, so `cover` trims about 5% off the top and
-   bottom rather than letting the ratio letterbox.
+/* One layer of a card's thumbnail — a still, or the clip that plays over
+   its poster. All of a project's layers sit on top of one another and only
+   the current one is opaque, so a change is a cross-fade in place rather
+   than a swap; it is also what lets the clip be stopped and rewound behind
+   a poster that is already covering it. MUJI's stills are 4:3 in a 7:5
+   box, so `cover` trims about 5% off the top and bottom rather than
+   letting the ratio letterbox; the TinyPaws clip is cut to 7:5 already.
 
    Two speeds, one per direction of travel. Stepping through the walk is
    quick — the beat is 1.1s and a slow dissolve would leave no still to
-   read. Coming to rest takes the colour's own 450ms instead, so the last
+   read. Coming to rest takes the colour's own 300ms instead, so the last
    frame returning to the first lands on the same instant the colour
    finishes draining: one thing settling, not a picture swapping inside a
    fade. */
@@ -165,7 +167,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 450ms var(--easing);
+  transition: opacity 300ms var(--easing);
 }
 
 .wk-image.is-walking .wk-frame {

@@ -68,6 +68,7 @@ export default function WorkPage({ lang, setLang }) {
               </div>
               <WorkThumb
                 thumbs={p.thumbs}
+                video={p.video}
                 alt={p.thumbAlt}
                 hovered={hovered === p.id}
               />
