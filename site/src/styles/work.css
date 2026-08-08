@@ -22,17 +22,32 @@
   color: inherit;
   cursor: pointer;
 }
-.wk-card-link .wk-image,
 .wk-card-link .wk-title {
-  transition:
-    opacity var(--duration-fast) var(--easing),
-    filter var(--duration-fast) var(--easing);
+  transition: opacity var(--duration-fast) var(--easing);
 }
-.wk-card-link:hover .wk-image {
-  filter: brightness(0.97);
-}
-.wk-card-link:hover .wk-title {
+.wk-card-link:hover .wk-title,
+.wk-card-link:focus-visible .wk-title {
   opacity: 0.6;
+}
+
+/* The thumbnails rest in grey and answer the pointer in their own colour.
+   Slower than the title's dimming — a picture regaining its colour is a
+   thing to watch, and at the title's speed it reads as a flash.
+
+   Only where there is a pointer to hover with: on a touch screen the
+   colour would never arrive, so those readers get it from the start. */
+@media (hover: hover) {
+  .wk-card-link .wk-image {
+    filter: grayscale(1);
+    /* longer than --duration-base, which is as slow as the token set
+       goes; the two speeds it offers are both meant for state changes
+       small enough to happen at the edge of attention */
+    transition: filter 450ms var(--easing);
+  }
+  .wk-card-link:hover .wk-image,
+  .wk-card-link:focus-visible .wk-image {
+    filter: grayscale(0);
+  }
 }
 
 /* Copy beside the thumbnail, the pair always closing on the right margin.
@@ -126,6 +141,30 @@
   height: 100%;
   aspect-ratio: 7 / 5;
   background: var(--surface-placeholder);
+  /* the frames stack inside it, and the grey shows through until one
+     loads — a project with no artwork yet is just the grey */
+  position: relative;
+  overflow: hidden;
+}
+
+/* One frame of a card's thumbnail. All of a project's frames sit on top of
+   one another and only the current one is opaque, so the change from one
+   to the next is a cross-fade in place rather than a swap. The pictures
+   are 4:3 and the box is 7:5, so `cover` trims about 5% off the top and
+   bottom rather than letting the ratio letterbox. */
+.wk-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity var(--duration-base) var(--easing);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wk-frame {
+    transition: none;
+  }
 }
 
 /* ── Mobile: image above text, both running the full width between the

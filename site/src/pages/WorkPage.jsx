@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
+import WorkThumb from "../components/WorkThumb.jsx";
 import { PROJECTS } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { PAGE_TITLE } from "../i18n.js";
@@ -12,6 +13,9 @@ export default function WorkPage({ lang, setLang }) {
   const projects = useMemo(() => resolve(PROJECTS, lang), [lang]);
   // a locked project asks for its password right here, before navigating
   const [gateProject, setGateProject] = useState(null);
+  /* which card the pointer is over — the thumbnails cycle off this, and a
+     card is one link, so the card is where the hover has to be read */
+  const [hovered, setHovered] = useState(null);
   useEffect(() => {
     document.title = PAGE_TITLE.work[lang] || PAGE_TITLE.work.en;
   }, [lang]);
@@ -33,6 +37,12 @@ export default function WorkPage({ lang, setLang }) {
                   setGateProject(p);
                 }
               }}
+              onMouseEnter={() => setHovered(p.id)}
+              onMouseLeave={() => setHovered((id) => (id === p.id ? null : id))}
+              /* a card reached by keyboard behaves like one under the
+                 pointer — same colour, same walk through the frames */
+              onFocus={() => setHovered(p.id)}
+              onBlur={() => setHovered((id) => (id === p.id ? null : id))}
             >
               <div className="wk-text">
                 <span className="wk-title">
@@ -56,7 +66,11 @@ export default function WorkPage({ lang, setLang }) {
                 <span className="wk-desc">{p.description}</span>
                 <span className="wk-specs">{p.roles}</span>
               </div>
-              <div className="wk-image" aria-hidden="true"></div>
+              <WorkThumb
+                thumbs={p.thumbs}
+                alt={p.thumbAlt}
+                hovered={hovered === p.id}
+              />
             </Link>
           ))}
         </div>

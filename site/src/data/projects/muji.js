@@ -1,3 +1,7 @@
+import thumb1 from "../../assets/muji/muji-thumb-1.webp";
+import thumb2 from "../../assets/muji/muji-thumb-2.webp";
+import thumb3 from "../../assets/muji/muji-thumb-3.webp";
+
 const PLACEHOLDER_SECTIONS = [
   {
     id: "s1",
@@ -39,6 +43,10 @@ export default {
   locked: true,
   passwordHash:
     "9caa7c2feef38ddfb33aebdc7988e72d88f5b4c5caa43e67a8fd880fbaf56421",
+  /* Work-card thumbnail. The first is what the card rests on; hovering
+     walks the rest in order and returns to the first on the way out. */
+  thumbs: [thumb1, thumb2, thumb3],
+  thumbAlt: "MUJI storefront, floor plan and shop-floor illustrations",
   description:
     "Driving in-store visual communication strategies and spatial layout optimization to enhance customer journeys and duty-free shopping experiences for international travelers.",
   roles: "Visual Merchandising, Spatial UX, Brand Strategy",
