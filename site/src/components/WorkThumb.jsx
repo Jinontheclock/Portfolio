@@ -25,6 +25,8 @@ export default function WorkThumb({ thumbs, alt, hovered }) {
   useEffect(() => {
     if (timer.current) clearInterval(timer.current);
     if (!hovered || !thumbs || thumbs.length < 2) {
+      /* the walk stops where it is and the first frame comes back over it
+         — the fade is the stop, so there is nothing to wind down */
       setFrame(0);
       return undefined;
     }
@@ -41,7 +43,12 @@ export default function WorkThumb({ thumbs, alt, hovered }) {
   if (!thumbs?.length) return <div className="wk-image" aria-hidden="true" />;
 
   return (
-    <div className="wk-image">
+    /* `is-walking` is the quick cross-fade the walk uses; without it the
+       frames take the slower one, which is the colour's own — so when the
+       pointer leaves, the last frame dissolving back to the first and the
+       colour draining out of it finish together, as one settling rather
+       than a snap inside a fade */
+    <div className={hovered ? "wk-image is-walking" : "wk-image"}>
       {thumbs.map((src, i) => (
         <img
           key={src}
