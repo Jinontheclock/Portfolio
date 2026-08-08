@@ -10,6 +10,7 @@ import typeImg from "../assets/compass/compass-fig-type.webp";
 import colourImg from "../assets/compass/compass-fig-colour.webp";
 import componentImg from "../assets/compass/compass-fig-component.webp";
 import auditImg from "../assets/compass/compass-fig-audit.webp";
+import tapMomentImg from "../assets/compass/compass-fig-tap-moment.webp";
 import { useEffect, useRef } from "react";
 import CompassLofiBoard from "./CompassLofiBoard.jsx";
 import CompassWatchRow from "./CompassWatchRow.jsx";
@@ -70,6 +71,10 @@ function TapMotionFigure() {
 
 export const COMPASS_ARTWORK = {
   /* 05 One Tap, Every Ride */
+  "compass-fig-tap-moment": art(
+    tapMomentImg,
+    "The tap, photographed at the gate. An iPhone held one-handed against the round Compass reader on a SkyTrain fare gate, its screen showing the Wallet pass in Express Mode — the blue Compass card at the top of the stack, Balance CAD$15.00, Hold Near Reader — with the rest of the wallet, a bank card, behind it. The reader wears the Compass wordmark, the contactless waves and the network marks; the gate beside it carries another reader, and the row of gates runs on behind. Nothing was opened, unlocked or read: the phone was already in hand",
+  ),
   "compass-fig-tap-motion": TapMotionFigure,
 
   /* 01 Context */
