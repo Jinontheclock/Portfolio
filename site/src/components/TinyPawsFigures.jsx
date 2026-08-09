@@ -54,7 +54,7 @@ export function TPStyleTileFigure() {
   return (
     <img
       src={figStyleTile}
-      alt="The TinyPaws brand board — logo variants, the Fredoka and Lexend type scale, the calico-drawn colour palette with hex values, and the five brand-mission icons"
+      alt="The TinyPaws brand board. The logo in its two forms, wordmark and paw monogram. The palette with each colour's job and hex — Orange #DC6E00 for action, Orange ink #A65300 for action, Deep brown #301800 for structure and text, Cream #F5ECD8 for surfaces, Off-white #FFFDF6 for raised surfaces, Background #FFF7E6 as the base, Taupe #6F5B4A for bands — under a note that small text on cream takes the darkened orange while the brighter one is for buttons and large type. The type scale, one line of the same sentence at each step: H1 64px, H2 40, H3 32 in Fredoka SemiBold at 115% line height, H4 24 and buttons 20 in Fredoka Medium, body 16 and small 14 in Lexend Regular at 165%. And the five mission icons: rescue and rehabilitate, foster-based support, forever home, community education, lifelong advocacy"
       loading="lazy"
     />
   );
