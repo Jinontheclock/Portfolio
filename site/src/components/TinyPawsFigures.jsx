@@ -123,7 +123,7 @@ export function TPPersonaEmilyFigure() {
   return (
     <img
       src={personaEmily}
-      alt="Persona: Emily Green, 33 — a psychiatrist with a multi-cat household who provides premium care, researches cat behaviour, and wants a second cat that will get along with her current one"
+      alt="Persona: Emily Green, 33, a psychiatrist in private practice, single, owns a small townhouse outside the city. «Seeking expert, reliable guidance for multi-cat integration.» An experienced owner working from home, looking to adopt a second cat to keep the first company and wanting science-backed guidance for the transition. Her pain points: conflicting, ungrounded advice about multi-cat behaviour, and how hard it is to find ongoing care resources and transparent medical history on rescue sites. What she needs from the site: a topic-based, expert-backed care hub built for quick scanning, and medical and vaccination status visible on the profile cards themselves"
       loading="lazy"
     />
   );
@@ -133,7 +133,7 @@ export function TPPersonaAlexFigure() {
   return (
     <img
       src={personaAlex}
-      alt="Persona: Alex Kim, 27 — a junior developer and first-time owner in a small apartment who needs beginner-friendly guides, budgeting tools, and easy navigation"
+      alt="Persona: Alex Kim, 27, a junior back-end developer, in a relationship, living in a city apartment. «Looking for a transparent, stress-free path to first-time adoption.» Eager to adopt his first cat but overwhelmed by complex application forms, vague costs, and conflicting care information. His pain points: unclear adoption steps and unexpected fees that lead to dropped applications, and confusing navigation and inconsistent care advice that create decision fatigue. What he needs from the site: an adoption roadmap with the fees broken out up front, step-by-step progress and clear calls to action, and filters for apartment suitability, budget-friendly care and beginner fit"
       loading="lazy"
     />
   );

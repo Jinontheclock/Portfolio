@@ -78,20 +78,20 @@ export default {
       blocks: [
         {
           type: "p",
-          text: "We surveyed and interviewed cat owners and adopters across BC, and read the wider evidence — BC SPCA statistics, pet-adoption studies, and the forums where adopters compare notes on what rescue sites never tell them.",
+          text: "We surveyed and interviewed cat owners across BC, synthesizing qualitative user research with BC SPCA statistics, adoption studies, and community forums.",
         },
-        { type: "h", text: "Three things adopters kept saying" },
+        { type: "h", text: "Three Key Findings" },
         {
           type: "list",
           items: [
-            "Adoption sites feel long, unclear, and hard to navigate — motivated adopters give up mid-way.",
-            "Transparent medical, behaviour, and vaccination records are the single biggest trust factor.",
-            "Support after adoption day is missing almost everywhere — and it's what first-timers fear most.",
+            "High Friction: Unclear and lengthy adoption flows cause even highly motivated adopters to give up mid-way.",
+            "Trust Through Transparency: Upfront access to medical, behavioral, and vaccination records is the single biggest trust factor.",
+            "The Post-Adoption Gap: Ongoing support after adoption day is missing almost everywhere—creating anxiety for first-time owners.",
           ],
         },
         {
           type: "p",
-          text: "Two personas kept the team honest about depth: Emily, a psychiatrist running a multi-cat household with high standards for care, and Alex, a first-time owner in a small apartment who needs guidance more than options. Both were built from the research above, not invented.",
+          text: "To translate these insights into actionable design decisions, we developed two research-backed personas: Emily (an experienced multi-cat owner) and Alex (a first-time adopter needing guidance).",
         },
         {
           type: "figure",
