@@ -33,7 +33,7 @@ export function TPTokensFigure() {
   return (
     <img
       src={figTokens}
-      alt="The TinyPaws style tile beside the tokens.css file it became. On the left the palette as swatches with their hex values — Orange #DC6E00, Orange-ink #A65300, Deep brown #301800, Cream #F5ECD8, Off-white #FFFDF6, Background #FFF7E6, Taupe #6F5B4A — then the typography, Fredoka SemiBold for display over its size scale with Lexend for body, and the three corner radii drawn as shapes: pill, card and input. On the right the same values as CSS custom properties — the colour group from --paw-orange to --paw-taupe with --paw-cream-deep among them, --font-display and --font-body, and --radius-pill, --radius-card and --radius-input — with a line drawn from the orange swatch to the --paw-orange line it became"
+      alt="The TinyPaws style tile beside the tokens.css file it became. On the left the palette as swatches with their hex values — Orange #DC6E00, Orange-ink #A65300, Deep brown #301800, Cream #F5ECD8, Off-white #FFFDF6, Background #FFF7E6, Taupe #6F5B4A — then the typography, Fredoka SemiBold for display over its size scale with Lexend for body, and the three corner radii drawn as shapes: pill, card and input. On the right the same values as CSS custom properties — the color group from --paw-orange to --paw-taupe with --paw-cream-deep among them, --font-display and --font-body, and --radius-pill, --radius-card and --radius-input — with a line drawn from the orange swatch to the --paw-orange line it became"
       loading="lazy"
     />
   );
@@ -54,7 +54,7 @@ export function TPStyleTileFigure() {
   return (
     <img
       src={figStyleTile}
-      alt="The TinyPaws brand board. The logo in its two forms, wordmark and paw monogram. The palette with each colour's job and hex — Orange #DC6E00 for action, Orange ink #A65300 for action, Deep brown #301800 for structure and text, Cream #F5ECD8 for surfaces, Off-white #FFFDF6 for raised surfaces, Background #FFF7E6 as the base, Taupe #6F5B4A for bands — under a note that small text on cream takes the darkened orange while the brighter one is for buttons and large type. The type scale, one line of the same sentence at each step: H1 64px, H2 40, H3 32 in Fredoka SemiBold at 115% line height, H4 24 and buttons 20 in Fredoka Medium, body 16 and small 14 in Lexend Regular at 165%. And the five mission icons: rescue and rehabilitate, foster-based support, forever home, community education, lifelong advocacy"
+      alt="The TinyPaws brand board. The logo in its two forms, wordmark and paw monogram. The palette with each color's job and hex — Orange #DC6E00 for action, Orange ink #A65300 for action, Deep brown #301800 for structure and text, Cream #F5ECD8 for surfaces, Off-white #FFFDF6 for raised surfaces, Background #FFF7E6 as the base, Taupe #6F5B4A for bands — under a note that small text on cream takes the darkened orange while the brighter one is for buttons and large type. The type scale, one line of the same sentence at each step: H1 64px, H2 40, H3 32 in Fredoka SemiBold at 115% line height, H4 24 and buttons 20 in Fredoka Medium, body 16 and small 14 in Lexend Regular at 165%. And the five mission icons: rescue and rehabilitate, foster-based support, forever home, community education, lifelong advocacy"
       loading="lazy"
     />
   );
@@ -77,7 +77,7 @@ export function TPLofiGridFigure() {
   return (
     <img
       src={figLofiGrid}
-      alt="A grid of low-fidelity wireframes covering the full site — home, adoption, cat profiles, forms, volunteer and events pages in grey boxes"
+      alt="A grid of low-fidelity wireframes covering the full site — home, adoption, cat profiles, forms, volunteer and events pages in gray boxes"
       loading="lazy"
     />
   );
@@ -123,7 +123,7 @@ export function TPPersonaEmilyFigure() {
   return (
     <img
       src={personaEmily}
-      alt="Persona: Emily Green, 33, a psychiatrist in private practice, single, owns a small townhouse outside the city. «Seeking expert, reliable guidance for multi-cat integration.» An experienced owner working from home, looking to adopt a second cat to keep the first company and wanting science-backed guidance for the transition. Her pain points: conflicting, ungrounded advice about multi-cat behaviour, and how hard it is to find ongoing care resources and transparent medical history on rescue sites. What she needs from the site: a topic-based, expert-backed care hub built for quick scanning, and medical and vaccination status visible on the profile cards themselves"
+      alt="Persona: Emily Green, 33, a psychiatrist in private practice, single, owns a small townhouse outside the city. «Seeking expert, reliable guidance for multi-cat integration.» An experienced owner working from home, looking to adopt a second cat to keep the first company and wanting science-backed guidance for the transition. Her pain points: conflicting, ungrounded advice about multi-cat behavior, and how hard it is to find ongoing care resources and transparent medical history on rescue sites. What she needs from the site: a topic-based, expert-backed care hub built for quick scanning, and medical and vaccination status visible on the profile cards themselves"
       loading="lazy"
     />
   );
@@ -190,7 +190,7 @@ export const TINYPAWS_SHOTS = {
   },
   "tinypaws-shot-events": {
     src: shotEvents,
-    alt: "Upcoming events: a kitten adoption day card with its date, time, and community-centre location",
+    alt: "Upcoming events: a kitten adoption day card with its date, time, and community-center location",
   },
   "tinypaws-shot-home": {
     src: shotHome,

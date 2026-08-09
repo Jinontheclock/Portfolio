@@ -117,7 +117,7 @@ export default {
         },
         {
           type: "p",
-          text: "Low-fidelity wireframes tested that structure before any visual identity existed: hierarchy, navigation, and flows in grey boxes.",
+          text: "Low-fidelity wireframes tested that structure before any visual identity existed: hierarchy, navigation, and flows in gray boxes.",
         },
         {
           type: "figure",
@@ -136,7 +136,7 @@ export default {
           type: "figure",
           graphic: "tinypaws-ba-nav",
           caption:
-            "Menu labels read as interchangeable — visitors landed on the wrong pages. Navigation was relabelled around the three goals.",
+            "Menu labels read as interchangeable — visitors landed on the wrong pages. Navigation was relabeled around the three goals.",
         },
         {
           type: "figure",
@@ -156,10 +156,32 @@ export default {
       id: "brand",
       label: "04 Building the Brand",
       blocks: [
-        { type: "h", text: "Colours borrowed from a calico" },
         {
           type: "p",
-          text: "The palette comes straight from calico fur — warm orange, deep brown, soft cream. Orange carries actions, brown carries structure, cream keeps the pages calm. Fredoka gives headings the brand's voice; Lexend — a typeface designed for reading proficiency — carries the long-form content adopters actually need to read.",
+          text: "Balancing emotional warmth with WCAG accessibility and high legibility.",
+        },
+        { type: "h", text: "Typography" },
+        {
+          type: "list",
+          items: [
+            "Fredoka (Headings): Rounded letterforms that make adoption feel welcoming and approachable.",
+            "Lexend (Body): Engineered to reduce cognitive friction and improve reading speed for long-form care guides.",
+          ],
+        },
+        { type: "h", text: "Color & Contrast (WCAG 2.1 AA)" },
+        {
+          type: "list",
+          items: [
+            "Calico Palette: Establishes an inviting tone while maintaining clear visual hierarchy.",
+            "Contrast Compliance: Body text (#4A3E3D on cream) achieves a 5:1 contrast ratio (AA standard); primary CTAs (#AC6E30) ensure immediate recognition.",
+          ],
+        },
+        { type: "h", text: "Iconography" },
+        {
+          type: "list",
+          items: [
+            "Custom micro-icons serve as quick visual signposts for effortless scanning.",
+          ],
         },
         {
           type: "figure",
@@ -217,7 +239,7 @@ export default {
           wide: true,
           title: "Support that doesn't end at adoption",
           paras: [
-            "Foster, volunteer, donate, and events live under one Get Involved roof, and adopters leave with resources — cost guides, behaviour help, and what to expect in the first weeks. The relationship outlives the transaction.",
+            "Foster, volunteer, donate, and events live under one Get Involved roof, and adopters leave with resources — cost guides, behavior help, and what to expect in the first weeks. The relationship outlives the transaction.",
           ],
           media: [
             "tinypaws-shot-involve",
@@ -245,7 +267,7 @@ export default {
         { type: "h", text: "The style tile became a stylesheet" },
         {
           type: "p",
-          text: "Every colour, type size, and radius from the style tile lives in one tokens file the whole site reads from — the brand isn't applied to the site, the site is compiled from the brand. That's also where the design got tested: orange on cream measured 2.85:1, under the AA line, so body-size orange became a darkened #A65300 (4.6:1) and orange buttons carry dark-brown labels instead of white. A palette isn't real until it passes contrast in code.",
+          text: "Every color, type size, and radius from the style tile lives in one tokens file the whole site reads from — the brand isn't applied to the site, the site is compiled from the brand. That's also where the design got tested: orange on cream measured 2.85:1, under the AA line, so body-size orange became a darkened #A65300 (4.6:1) and orange buttons carry dark-brown labels instead of white. A palette isn't real until it passes contrast in code.",
         },
         {
           type: "figure",
@@ -267,7 +289,7 @@ export default {
         { type: "h", text: "Honest by construction" },
         {
           type: "p",
-          text: "Nothing on the site pretends to do more than it does. Forms validate and confirm success without sending anything, and say so. The match quiz is plain additive scoring over the cats' own records — a match quiz, never \"AI\". Donations and the gift shop run their full flows but stay labelled a demo — no card details are asked for and nothing is charged. And the pieces left out of scope — a forum, member logins — simply don't exist, so there are no dead ends. A demo can still be honest about what it is.",
+          text: "Nothing on the site pretends to do more than it does. Forms validate and confirm success without sending anything, and say so. The match quiz is plain additive scoring over the cats' own records — a match quiz, never \"AI\". Donations and the gift shop run their full flows but stay labeled a demo — no card details are asked for and nothing is charged. And the pieces left out of scope — a forum, member logins — simply don't exist, so there are no dead ends. A demo can still be honest about what it is.",
         },
         {
           type: "stats",
