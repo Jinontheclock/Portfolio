@@ -294,17 +294,9 @@ export default {
         },
         {
           type: "cta",
-          buttons: [
-            {
-              label: "Visit the live site",
-              demo: true,
-              href: "https://jinontheclock.github.io/TinyPaws/",
-            },
-            {
-              label: "Read the code on GitHub",
-              href: "https://github.com/Jinontheclock/TinyPaws",
-            },
-          ],
+          label: "Visit the live site",
+          demo: true,
+          href: "https://jinontheclock.github.io/TinyPaws/",
         },
       ],
     },
