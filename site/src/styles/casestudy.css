@@ -370,7 +370,10 @@
   min-width: 0;
   width: 100%;
   height: auto;
-  border-radius: 16px;
+  /* square corners on every screenshot: the rounding was the page's, not
+     the screen's, and it read as a frame the shot didn't have. The hairline
+     stays — it is what separates a pale screenshot from the page. */
+  border-radius: 0;
   border: 1px solid var(--grey-100, #e5e5e5);
   display: block;
 }
@@ -1151,7 +1154,8 @@
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 16px;
+  /* square, like every other screenshot on these pages */
+  border-radius: 0;
   border: 1px solid var(--grey-100, #e5e5e5);
 }
 /* stacked columns on mobile: pairs return to the 110px frame width */
@@ -1173,7 +1177,8 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: 12px;
+  /* square, like every other screenshot on these pages */
+  border-radius: 0;
   outline: none;
 }
 .wl-slider img-comparison-slider img {
