@@ -219,6 +219,29 @@
   height: 100%;
 }
 
+/* ── The clip moved off the logo ──
+   The mockup starts 17.1% into the frame and the logo is min(17%, 140px)
+   wide, so below about 1750px — where the 17% branch wins — the two meet
+   exactly: 1px apart at 1512, touching at 1024. Moving the clip right
+   opens that gap without resizing either, since the frame carries 19%
+   of blank on its right to give back: 4% is 29px of daylight in the
+   content column and 50 on a wide screen, and the mockup's right edge
+   still lands at 85% of the frame.
+
+   What hangs over the right edge is the clip's own blank margin, the page
+   colour, so it cannot be seen — but it would reach past the page margin
+   and give the page a scrollbar, hence the clip.
+
+   On the modifier rather than .cs-monitor itself: the WeLAB hero is the
+   same component shape with the same 17.1% frame, so it has the same
+   collision, but moving it was not asked for. */
+.cs-monitor--offset {
+  overflow: hidden;
+}
+.cs-monitor--offset .cs-monitor-video {
+  transform: translateX(4%);
+}
+
 /* the journey animation: the video keeps its own near-square shape and
    scales with the space it's given; its baked-in background matches the
    page (#FAFAFA) so it never reads as a media box */

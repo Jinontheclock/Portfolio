@@ -74,7 +74,7 @@ export default function TinyPawsMonitor() {
   }, []);
 
   return (
-    <div ref={hostRef} className="cs-monitor">
+    <div ref={hostRef} className="cs-monitor cs-monitor--offset">
       {/* the logo floats over the video's blank top-left corner, matching
           the ProLog hero */}
       <img className="cs-hero-logo" src={logoUrl} alt="TinyPaws" />
