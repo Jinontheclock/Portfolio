@@ -25,13 +25,13 @@ export default {
   },
   thumbAlt: "The TinyPaws site on a desktop monitor, open at the home page",
   description:
-    "A clear adoption pathway for a rescue website—co-designing the UI, building the brand identity, and hand-coding the responsive site with Astro.",
+    "A clear adoption pathway for a rescue website — co-designing the UX, building the brand identity, and hand-coding the responsive site with Astro.",
   roles: "UI/UX Design, Web Development",
   heroScene: "monitor",
   headline: "A clear path from stray to safe home.",
   demo: { src: "tinypaws/", variant: "web" },
   intro: [
-    "TinyPaws is the website of a volunteer-run kitten rescue in Vancouver — the rescue's front door, where adopters decide whether to trust, apply, or leave. On a five-person team, I co-designed the UX, built the visual identity, and hand-coded the site itself. Created for MDIA 2003 Project 1 at BCIT.",
+    "TinyPaws is a concept website for a volunteer-run kitten rescue in Vancouver — the rescue's front door, where adopters decide whether to trust, apply, or leave. On a five-person team, I co-designed the UX, built the visual identity, and hand-coded the site itself. Created at BCIT.",
   ],
   metaLeft: [
     { label: "category", values: ["Website"] },
@@ -78,20 +78,20 @@ export default {
       blocks: [
         {
           type: "p",
-          text: "We surveyed and interviewed cat owners across BC, synthesizing qualitative user research with BC SPCA statistics, adoption studies, and community forums.",
+          text: "We surveyed and interviewed 14 cat owners across BC, synthesizing qualitative user research with BC SPCA statistics, adoption studies, and community forums.",
         },
-        { type: "h", text: "Three Key Findings" },
+        { type: "h", text: "Three key findings" },
         {
           type: "list",
           items: [
-            "High Friction: Unclear and lengthy adoption flows cause even highly motivated adopters to give up mid-way.",
+            "High Friction: Unclear and lengthy adoption flows cause even highly motivated adopters to give up midway.",
             "Trust Through Transparency: Upfront access to medical, behavioral, and vaccination records is the single biggest trust factor.",
-            "The Post-Adoption Gap: Ongoing support after adoption day is missing almost everywhere—creating anxiety for first-time owners.",
+            "The Post-Adoption Gap: Ongoing support after adoption day is missing almost everywhere — creating anxiety for first-time owners.",
           ],
         },
         {
           type: "p",
-          text: "To translate these insights into actionable design decisions, we developed two research-backed personas: Emily (an experienced multi-cat owner) and Alex (a first-time adopter needing guidance).",
+          text: "We distilled these findings into two personas: Emily (an experienced multi-cat owner) and Alex (a first-time adopter needing guidance).",
         },
         {
           type: "figure",
@@ -107,7 +107,7 @@ export default {
       blocks: [
         {
           type: "p",
-          text: "The sitemap was rebuilt around the three things visitors actually come to do — adopt, get involved, give. Every page had to earn its place under one of those goals; content that served none of them was cut or folded in.",
+          text: "The sitemap was built around the three things visitors actually come to do — adopt, get involved, give. Every page had to earn its place under one of those goals; content that served none of them was cut or folded in.",
         },
         {
           type: "figure",
@@ -158,7 +158,7 @@ export default {
       blocks: [
         {
           type: "p",
-          text: "Balancing emotional warmth with WCAG accessibility and high legibility.",
+          text: "The brand had to balance emotional warmth with legibility and accessibility.",
         },
         { type: "h", text: "Typography" },
         {
@@ -173,15 +173,13 @@ export default {
           type: "list",
           items: [
             "Calico Palette: Establishes an inviting tone while maintaining clear visual hierarchy.",
-            "Contrast Compliance: Body text (#4A3E3D on cream) achieves a 5:1 contrast ratio (AA standard); primary CTAs (#AC6E30) ensure immediate recognition.",
+            "Contrast Compliance: Body text (#301800 on cream) reads at 15.7:1, well past AA; primary CTAs use the brand orange (#DC6E00) for immediate recognition.",
           ],
         },
         { type: "h", text: "Iconography" },
         {
-          type: "list",
-          items: [
-            "Custom micro-icons serve as quick visual signposts for effortless scanning.",
-          ],
+          type: "p",
+          text: "Custom micro-icons act as quick visual signposts for scanning.",
         },
         {
           type: "figure",
@@ -210,7 +208,7 @@ export default {
           wide: true,
           title: "A guided adoption journey",
           paras: [
-            "A step-by-step process page shows exactly what happens between applying and bringing a cat home. A short match quiz narrows the gallery to cats that fit an adopter's home and habits — browsing becomes matching, and the application form arrives pre-contextualized.",
+            "A step-by-step process page shows exactly what happens between applying and bringing a cat home. A short match quiz narrows the gallery to cats that fit an adopter's home and habits — browsing becomes matching, and the application form already knows which cat it's for.",
           ],
           media: [
             "tinypaws-shot-process",
@@ -251,7 +249,7 @@ export default {
         { type: "h", text: "The second test caught what the polish hid" },
         {
           type: "p",
-          text: "With the visual system in place, a second round of testing, again with 14, caught the failures of detail — uneven image sizes and hard-to-read text on pages like Events and Resources. Images were scaled to one consistent size and the copy cleaned up for readability, and a few confusing page labels were reworded. Structure and polish fail differently; testing twice caught both.",
+          text: "With the visual system in place, a second round of testing, again with 14 participants, caught the failures of detail — uneven image sizes and hard-to-read text on pages like Events and Resources. Images were scaled to one consistent size, copy was cleaned up for readability, and a few confusing page labels were reworded.",
         },
       ],
     },
@@ -261,7 +259,7 @@ export default {
       blocks: [
         {
           type: "p",
-          text: "I built the site in code myself — semantic HTML, design-token CSS, and just enough JavaScript, with no CMS behind it. A rescue's site is content, not software: cats, events, guides. That made a static build the honest choice — fast, cheap to run, and driven by a design system that is the site's source of truth rather than a theme's approximation of it.",
+          text: "I built the site in code myself with Astro — semantic HTML, design-token CSS, and just enough JavaScript, with no CMS behind it. A rescue's site is content, not software: cats, events, guides. That made a static build the honest choice — fast, cheap to run, and driven by a design system that serves as the site's single source of truth.",
         },
         { type: "h", text: "The style tile became a stylesheet" },
         {
@@ -325,7 +323,7 @@ export default {
       id: "reflection",
       label: "07 Reflection",
       blocks: [
-        { type: "h", text: "Two tests, two different failures." },
+        { type: "h", text: "Two tests, two different failures" },
         {
           type: "p",
           text: "Low fidelity broke where the structure was wrong; high fidelity broke where the details lied. Neither round would have caught the other's problems — the order mattered as much as the testing.",
