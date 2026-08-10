@@ -199,7 +199,6 @@ export default {
           graphic: "tinypaws-campaign-video",
           caption: "The promotional film.",
         },
-        { type: "tagline", text: "Small paws, safe homes." },
       ],
     },
     {
