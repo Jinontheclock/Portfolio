@@ -9,7 +9,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "TransLink runs the transit system for Metro Vancouver — buses, SkyTrain, SeaBus and the West Coast Express. In 2025 it carried 237.6 million passenger journeys across 396.3 million boardings. That was 1.5% down on the year before: the first annual decline TransLink has reported.",
+          en: "TransLink runs the transit system for Metro Vancouver — buses, SkyTrain, SeaBus and the West Coast Express. In 2025 it carried 237.6 million passenger journeys across 396.3 million boardings. That was 1.4% down on the year before: the first annual decline since the post-pandemic recovery began.",
           ja: "TransLinkはメトロバンクーバーの公共交通を運営しています。バス、SkyTrain、SeaBus、West Coast Expressです。2025年の輸送人員は2億3,760万人、乗車回数は3億9,630万回でした。前年から1.5%の減少であり、TransLinkが報告した初めての年間減少です。",
           ko: "TransLink는 메트로밴쿠버의 대중교통을 운영합니다. 버스, SkyTrain, SeaBus, West Coast Express입니다. 2025년 수송 인원은 2억 3,760만 명, 승차 건수는 3억 9,630만 건이었습니다. 전년보다 1.5% 줄어든 수치이고, TransLink가 보고한 첫 연간 감소입니다.",
         },
@@ -26,7 +26,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "Contactless payment is not new here. TransLink switched it on across the whole system on 22 May 2018, the first agency in Canada to accept Interac Debit systemwide. Tap-to-pay has grown every year since — from over 10 million taps in 2019 to more than 25 million in 2025.",
+          en: "Contactless payment is not new here. TransLink switched it on across the whole system on 22 May 2018, the first agency in Canada to take contactless credit cards; Interac Debit followed systemwide in January 2023, another Canadian first. Tap-to-pay has grown every year since — from over 10 million taps in 2019 to more than 25 million in 2025.",
           ja: "タッチ決済そのものは、ここでは新しいものではありません。TransLinkは2018年5月22日に全システムでこれを開始し、Interac Debitを全線で受け入れたカナダ初の交通事業者になりました。以来タッチ決済は毎年伸び、2019年に1,000万回を超えていたタッチは、2025年には2,500万回を超えました。",
           ko: "비접촉 결제 자체는 여기서 새로운 것이 아닙니다. TransLink는 2018년 5월 22일 전 시스템에 이 결제를 열었고, Interac Debit을 전 구간에서 받은 캐나다 최초의 운영 기관이었습니다. 이후 비접촉 결제는 매년 늘어, 2019년 1,000만 건이 넘던 태그가 2025년에는 2,500만 건을 넘었습니다.",
         },
@@ -159,7 +159,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "There are five ways to find out how much is on a Compass Card: tap it on a reader, sign in to compasscard.ca, use a vending machine, call the service line, or visit a service centre. There is no sixth. And for the roughly 140,000 students a month on a U-Pass BC, the routine is heavier still: request the pass by hand from the 16th of each month, type a 20-digit card number and a 3-digit verification number, then wait up to 24 hours for it to activate. There is no autoload, and no refund if you forget.",
+          en: "There are five ways to find out how much is on a Compass Card: tap it on a reader, sign in to compasscard.ca, use a vending machine, call the service line, or visit a service center. There is no sixth. And for the roughly 140,000 students a month on a U-Pass BC, the routine is heavier still: request the pass by hand from the 16th of each month, type a 20-digit card number and a 3-digit verification number, then wait up to 24 hours for it to activate. There is no autoload, and no refund if you forget.",
           ja: "Compassカードにいくら残っているかを確かめる方法は五つあります。リーダーにタッチする、compasscard.caにサインインする、券売機を使う、サービスラインに電話する、サービスセンターの窓口に行く。六つ目はありません。そして、毎月U-Pass BCを使うおよそ14万人の学生には、手順がさらに重くなります。毎月16日から自分で定期券を申請し、20桁のカード番号と3桁の確認番号を入力し、有効になるまで最大24時間待ちます。オートチャージはなく、忘れた場合の払い戻しもありません。",
           ko: "Compass 카드에 얼마가 남았는지 확인하는 방법은 다섯 가지입니다. 리더기에 태그하기, compasscard.ca에 로그인하기, 무인 발매기 이용하기, 고객센터에 전화하기, 고객센터 창구를 찾아가기. 여섯 번째는 없습니다. 그리고 매달 U-Pass BC를 쓰는 약 14만 명의 학생에게는 절차가 더 무겁습니다. 매달 16일부터 직접 정기권을 신청하고, 20자리 카드 번호와 3자리 확인 번호를 입력한 뒤, 활성화까지 최대 24시간을 기다립니다. 자동 충전은 없고, 잊어버렸을 때의 환불도 없습니다.",
         },
@@ -258,7 +258,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "This app is one place to ride both systems: pay, manage, check, ask. v1 designs every TransLink mode — bus, SkyTrain, SeaBus, West Coast Express — plus BC Ferries foot passenger fares, read-only sailing status, and in-app support. Vehicle booking is in the product but last in the roadmap, because it needs the deepest partnership. BC Transit's Umo network waits for a phase of its own. And the plastic card stays. Four decisions shape the rest of this project, and each one is a bet.",
+          en: "This app is one place to ride both systems: pay, manage, check, ask. v1 covers every TransLink mode — bus, SkyTrain, SeaBus, West Coast Express — plus BC Ferries foot passenger fares, read-only sailing status, and in-app support. Vehicle booking is in the product but last in the roadmap, because it needs the deepest partnership. BC Transit's Umo network waits for a phase of its own. And the plastic card stays. Four decisions shape the rest of this project, and each one is a bet.",
           ja: "このアプリは、二つのシステムを一つの場所で乗るためのものです。支払い、管理、確認、問い合わせ。v1ではTransLinkのすべてのモード——バス、SkyTrain、SeaBus、West Coast Express——に加えて、BC Ferriesの徒歩乗船運賃、参照専用の運航状況、アプリ内サポートを設計します。車両予約はプロダクトの中にはありますが、ロードマップでは最後です。最も深い連携が必要だからです。BC TransitのUmoネットワークは、独立したフェーズを待ちます。そしてプラスチックのカードは残ります。四つの決定がこのプロジェクトの残りを形づくり、そのどれもが賭けです。",
           ko: "이 앱은 두 시스템을 한 자리에서 타기 위한 것입니다. 결제하고, 관리하고, 확인하고, 물어봅니다. v1은 TransLink의 모든 수단 — 버스, SkyTrain, SeaBus, West Coast Express — 에 더해 BC Ferries의 도보 승객 요금, 읽기 전용 운항 정보, 앱 안의 문의 창구를 설계합니다. 차량 예약은 제품 안에 있지만 로드맵에서는 가장 뒤입니다. 가장 깊은 협력이 필요하기 때문입니다. BC Transit의 Umo 네트워크는 별도의 단계를 기다립니다. 그리고 플라스틱 카드는 남습니다. 네 개의 결정이 이 프로젝트의 나머지를 만들고, 각각은 승부수입니다.",
         },
@@ -275,9 +275,17 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "A walk-on trip from Vancouver to Victoria crosses three fare systems, and BC Ferries says so itself: fares for each transit provider must be purchased separately. An adult foot passenger fare is $19.10 against $2.85 for a one-zone tap — nothing alike as amounts, but the same gesture. The two organisations already share retail: TransLink vending machines stand at both Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards are sold in the shops onboard, and BC Ferries names the 620 and the 257 as its TransLink connections. Vehicle fares are a different gesture — a reservation, a vehicle class, deck capacity. That is a booking, not a tap, so it enters the app as a booking flow, and it enters last: selling another operator's vehicle fares is the deepest integration on this roadmap. In v1 the app shows a sailing's status, read-only. The booking flow is sequenced, not cut.",
-          ja: "バンクーバーからビクトリアまで徒歩で向かう移動は、三つの運賃体系をまたぎます。BC Ferries自身がこう書いています。各交通事業者の運賃は別々に購入する必要がある、と。大人の徒歩乗船運賃は19.10ドル、1ゾーンのタッチは2.85ドルです。金額としては似ても似つきませんが、動作は同じです。二つの組織はすでに販売の窓口を共有しています。TsawwassenとHorseshoe Bayの両方にTransLinkの券売機が置かれ、チャージ済みのCompassカードが船内の売店で売られ、BC Ferriesは620番と257番を自社のTransLink接続路線として案内しています。車両運賃は動作そのものが違います。予約があり、車両クラスがあり、デッキの容量がある。それはタッチではなく予約なので、アプリには予約フローとして入り、順番としては最後に入ります。他社の車両運賃を売ることが、このロードマップで最も深い連携だからです。v1では、アプリは運航状況を参照専用で表示します。予約フローは削ったのではなく、順番を後ろに置いたのです。",
-          ko: "밴쿠버에서 빅토리아까지 걸어서 가는 여정은 세 개의 요금 체계를 지납니다. BC Ferries 스스로도 그렇게 적어 두었습니다. 각 교통사업자의 요금은 따로 구매해야 한다고. 성인 도보 승객 요금은 19.10달러, 1존 태그는 2.85달러입니다. 금액으로는 닮은 구석이 없지만, 동작은 같습니다. 두 조직은 이미 판매 창구를 공유하고 있습니다. Tsawwassen과 Horseshoe Bay 양쪽에 TransLink 무인 발매기가 서 있고, 충전된 Compass 카드가 선내 매점에서 팔리며, BC Ferries는 620번과 257번을 자사의 TransLink 연계 노선으로 안내합니다. 차량 요금은 동작 자체가 다릅니다. 예약, 차량 등급, 갑판 용량이 걸립니다. 그건 태그가 아니라 예약이라서, 앱에는 예약 흐름으로 들어오고, 순서로는 가장 마지막에 들어옵니다. 다른 사업자의 차량 요금을 파는 일이 이 로드맵에서 가장 깊은 연동이기 때문입니다. v1에서 앱은 운항 상태를 읽기 전용으로 보여줍니다. 예약 흐름은 잘라낸 것이 아니라, 순서를 뒤로 미룬 것입니다.",
+          en: "A walk-on trip from Vancouver to Victoria crosses three fare systems, and BC Ferries says so itself: fares for each transit provider must be purchased separately. An adult foot passenger fare is $19.10 against $2.85 for a one-zone tap — nothing alike as amounts, but the same gesture. The two organizations already share retail: TransLink vending machines stand at both Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards are sold in the shops onboard, and BC Ferries names the 620 and the 257 as its TransLink connections.",
+          ja: "バンクーバーからビクトリアまで徒歩で向かう移動は、三つの運賃体系をまたぎます。BC Ferries自身がこう書いています。各交通事業者の運賃は別々に購入する必要がある、と。大人の徒歩乗船運賃は19.10ドル、1ゾーンのタッチは2.85ドルです。金額としては似ても似つきませんが、動作は同じです。二つの組織はすでに販売の窓口を共有しています。TsawwassenとHorseshoe Bayの両方にTransLinkの券売機が置かれ、チャージ済みのCompassカードが船内の売店で売られ、BC Ferriesは620番と257番を自社のTransLink接続路線として案内しています。",
+          ko: "밴쿠버에서 빅토리아까지 걸어서 가는 여정은 세 개의 요금 체계를 지납니다. BC Ferries 스스로도 그렇게 적어 두었습니다. 각 교통사업자의 요금은 따로 구매해야 한다고. 성인 도보 승객 요금은 19.10달러, 1존 태그는 2.85달러입니다. 금액으로는 닮은 구석이 없지만, 동작은 같습니다. 두 조직은 이미 판매 창구를 공유하고 있습니다. Tsawwassen과 Horseshoe Bay 양쪽에 TransLink 무인 발매기가 서 있고, 충전된 Compass 카드가 선내 매점에서 팔리며, BC Ferries는 620번과 257번을 자사의 TransLink 연계 노선으로 안내합니다.",
+        },
+      },
+      {
+        type: "p",
+        text: {
+          en: "Vehicle fares are a different gesture — a reservation, a vehicle class, deck capacity. That is a booking, not a tap, so it enters the app as a booking flow, and it enters last: selling another operator's vehicle fares is the deepest integration on this roadmap. In v1 the app shows a sailing's status, read-only. The booking flow is sequenced, not cut.",
+          ja: "車両運賃は動作そのものが違います。予約があり、車両クラスがあり、デッキの容量がある。それはタッチではなく予約なので、アプリには予約フローとして入り、順番としては最後に入ります。他社の車両運賃を売ることが、このロードマップで最も深い連携だからです。v1では、アプリは運航状況を参照専用で表示します。予約フローは削ったのではなく、順番を後ろに置いたのです。",
+          ko: "차량 요금은 동작 자체가 다릅니다. 예약, 차량 등급, 갑판 용량이 걸립니다. 그건 태그가 아니라 예약이라서, 앱에는 예약 흐름으로 들어오고, 순서로는 가장 마지막에 들어옵니다. 다른 사업자의 차량 요금을 파는 일이 이 로드맵에서 가장 깊은 연동이기 때문입니다. v1에서 앱은 운항 상태를 읽기 전용으로 보여줍니다. 예약 흐름은 잘라낸 것이 아니라, 순서를 뒤로 미룬 것입니다.",
         },
       },
       {
@@ -401,7 +409,7 @@ const COMPASS_SECTIONS = [
       {
         type: "h",
         text: {
-          en: "One colour does the work of a status word",
+          en: "One color does the work of a status word",
           ja: "一つの色が、状態を告げる言葉の役割を担う",
           ko: "색 하나가 상태를 알리는 단어의 몫을 한다",
         },
@@ -410,7 +418,7 @@ const COMPASS_SECTIONS = [
         type: "figure",
         graphic: "compass-fig-colour",
         caption: {
-          en: "Every pairing checked against WCAG contrast minimums, so a colour never carries a meaning on its own.",
+          en: "Every pairing checked against WCAG contrast minimums, so a color never carries a meaning on its own.",
           ja: "すべての組み合わせをWCAGのコントラスト最小基準で確認。色だけが意味を背負うことがないように。",
           ko: "모든 조합을 WCAG 명도 대비 최소 기준으로 확인. 색 혼자서는 어떤 의미도 지지 않게.",
         },
@@ -435,7 +443,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "Those three decisions — the scale, the colour set and the card component — make every screen that follows. What changes from screen to screen is only which case the rider is in.",
+          en: "Those three decisions — the scale, the color set and the card component — make every screen that follows. What changes from screen to screen is only which case the rider is in.",
           ja: "この三つの決定——タイプスケール、カラーセット、カードコンポーネント——が、以降のすべての画面をつくります。画面ごとに変わるのは、利用者がどのケースにいるかだけです。",
           ko: "이 세 가지 결정 — 타입 스케일, 색 세트, 카드 컴포넌트 — 이 이후의 모든 화면을 만듭니다. 화면마다 달라지는 것은 승객이 어떤 경우에 놓여 있는지뿐입니다.",
         },
@@ -625,7 +633,7 @@ const COMPASS_SECTIONS = [
         tag: { en: "↔ Surface 02", ja: "↔ 接点 02", ko: "↔ 접점 02" },
         paras: [
           {
-            en: "Roughly 140,000 students request a U-Pass by hand every month from the 16th, typing a 20-digit card number and a 3-digit verification number, then waiting up to 24 hours for it to activate. Miss the window and there is no refund.",
+            en: "Today's routine is the one chapter 02 counted: requested by hand every month, 20 digits plus 3, up to 24 hours to activate, no refund for a missed window.",
             ja: "およそ14万人の学生が、毎月16日から自分でU-Passを申請します。20桁のカード番号と3桁の確認番号を入力し、有効になるまで最大24時間待ちます。期間を逃せば、払い戻しはありません。",
             ko: "약 14만 명의 학생이 매달 16일부터 직접 U-Pass를 신청합니다. 20자리 카드 번호와 3자리 확인 번호를 입력하고, 활성화까지 최대 24시간을 기다립니다. 기간을 놓치면 환불은 없습니다.",
           },
@@ -669,7 +677,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "Two more things live in this layer without a screen of their own in this case study. A sailing's status is checkable in the app — read-only in v1, with the vehicle booking flow it will one day sit beside sequenced for a later phase. And the simple questions that today mean a phone queue go to an in-app assistant first; anything it cannot answer is handed to a person. The service line and the counter both stay — this design adds front doors, it does not close the old ones.",
+          en: "Two more things live in this layer without a screen of their own in this case study. A sailing's status is checkable in the app — read-only in v1; the vehicle booking flow it will one day sit beside is sequenced for a later phase. And the simple questions that today mean a phone queue go to an in-app assistant first; anything it cannot answer is handed to a person. The service line and the counter both stay — this design adds front doors, it does not close the old ones.",
           ja: "このレイヤーには、このケーススタディで独立した画面を持たないものが、あと二つあります。一つは運航状況の確認です。v1では参照専用で、いつかその隣に並ぶ車両予約フローは後のフェーズに送っています。もう一つは、いまなら電話の待ち行列を意味する簡単な質問です。こうした質問はまずアプリ内のアシスタントへ渡り、答えられないものは人に引き継がれます。電話回線もカウンターも、どちらも残ります。この設計は入口を増やすものであって、もとからある入口を閉じるものではありません。",
           ko: "이 레이어에는 이 케이스스터디에 별도의 화면 없이 들어 있는 것이 두 가지 더 있습니다. 하나는 운항 상태 확인입니다. v1에서는 읽기 전용이고, 언젠가 그 옆에 놓일 차량 예약 흐름은 뒤 단계로 미뤄 두었습니다. 다른 하나는 오늘이라면 전화 대기열을 뜻하는 간단한 질문들입니다. 이런 질문은 먼저 앱 안의 어시스턴트로 가고, 답하지 못하는 것은 사람에게 넘어갑니다. 고객센터 전화선과 창구는 둘 다 남습니다. 이 설계는 들어오는 문을 늘리는 것이지, 원래 있던 문을 닫는 것이 아닙니다.",
         },
@@ -700,7 +708,7 @@ const COMPASS_SECTIONS = [
         type: "figure",
         graphic: "compass-fig-watch",
         caption: {
-          en: "The same type, colour and card component at a third of the width — and nothing that asks the rider to stop walking.",
+          en: "The same type, color and card component at a third of the width — and nothing that asks the rider to stop walking.",
           ja: "同じタイポグラフィ、同じ配色、同じカードコンポーネントを3分の1の幅で。しかも、利用者の足を止めさせるものは一つもない。",
           ko: "같은 타이포, 같은 색, 같은 카드 컴포넌트를 1/3 폭에서 — 그리고 승객을 멈춰 세우는 요소는 하나도 없이.",
         },
@@ -716,7 +724,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "The watch is not an extra deliverable here — it is the test of whether the foundations are a system or a style. The same type scale, the same colour set and the same card component have to survive at a third of the width, on a screen that is glanced at rather than read. If they had to be redrawn to fit, they were never a system.",
+          en: "The watch is not an extra deliverable here — it is the test of whether the foundations are a system or a style. The same type scale, the same color set and the same card component have to survive at a third of the width, on a screen that is glanced at rather than read. If they had to be redrawn to fit, they were never a system.",
           ja: "ここでのウォッチは、成果物を一つ増やしただけのものではありません。基盤がシステムなのかスタイルなのかを見分けるためのテストです。同じタイプスケール、同じカラーセット、同じカードコンポーネントが、3分の1の幅で、しかも「読む」画面ではなく「ちらりと見る」画面で、そのまま通用しなければなりません。収めるために描き直す必要があったなら、それは最初からシステムではなかったということです。",
           ko: "여기서 워치는 산출물을 하나 더 늘린 것이 아닙니다. 기반이 시스템인지 스타일인지 가려내는 시험입니다. 같은 타입 스케일, 같은 컬러 세트, 같은 카드 컴포넌트가 1/3 폭에서, 그것도 읽는 화면이 아니라 흘긋 보는 화면에서 그대로 버텨야 합니다. 맞추기 위해 다시 그려야 했다면, 그것은 애초에 시스템이 아니었습니다.",
         },
@@ -914,7 +922,7 @@ export default {
   title: "Compass Card",
   kind: "Concept Project · iOS & watchOS",
   description: {
-    en: "Redesigning Metro Vancouver's transit fare card system into an intuitive iOS and watchOS experience based on TransLink's upcoming account-based model.",
+    en: "Redesigning Metro Vancouver's transit fare card system into an iOS and watchOS experience built on TransLink's upcoming account-based model.",
     ja: "TransLinkがすでに入札にかけたアカウントベースのシステムの上に設計した、BC州の交通運賃カードのiOS・watchOSコンセプトアプリ",
     ko: "TransLink가 이미 입찰에 부친 계정 기반 시스템 위에 설계한, BC주 교통 요금 카드의 iOS·watchOS 콘셉트 앱",
   },
@@ -959,7 +967,13 @@ export default {
     },
     {
       label: { en: "timeline", ja: "期間", ko: "기간" },
-      values: ["«TBD: timeline»"],
+      values: [
+        {
+          en: "Jun 2026 – Aug 2026",
+          ja: "2026年6月〜8月",
+          ko: "2026년 6월~8월",
+        },
+      ],
     },
     {
       label: { en: "role", ja: "役割", ko: "역할" },
