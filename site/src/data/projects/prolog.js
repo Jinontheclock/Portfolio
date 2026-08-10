@@ -3,12 +3,12 @@ export default {
   title: "ProLog",
   kind: "0-to-1 Product · Mobile App",
   description: {
-    en: "A mobile platform transforming 6,000 hours of fragmented apprenticeship records into a clear, accessible roadmap tailored for neurodivergent tradespeople.",
+    en: "A mobile platform that turns a fragmented 6,000-hour apprenticeship into one clear, accessible roadmap, designed for neurodivergent apprentices.",
     ja: "散らばっていた見習いの記録を一つの明確なロードマップに変える、ニューロダイバージェントな技能者のためのモバイルアプリ",
     ko: "흩어져 있던 견습 기록을 하나의 분명한 로드맵으로 바꾸는, 신경다양인 기능인을 위한 모바일 앱",
   },
   roles: {
-    en: "Product Design, Lead Development",
+    en: "Lead Development, UX/UI Design",
     ja: "プロダクトデザイン、リサーチ、ブランディング",
     ko: "프로덕트 디자인, 리서치, 브랜딩",
   },
@@ -286,7 +286,7 @@ export default {
               ko: "기록하는 방식이 사람마다 다릅니다. 공식 포털, 종이 작업일지, 고용주나 노조의 기록. ProLog는 이 시스템들을 버리게 하는 것이 아니라, 그 위에 얹혀 동기화되어야 합니다.",
             },
             {
-              en: "Competency boundaries blur on real job sites — apprentices get asked to work above or below their level, and sign-offs don't keep up.",
+              en: "Competency boundaries blur on real job sites — and sign-offs don't keep up.",
               ja: "実際の現場では技能項目の境界が曖昧になります。自分のレベルより上または下の仕事を求められ、承認がその速さに追いつきません。",
               ko: "실제 현장에서는 역량 항목의 경계가 흐려집니다. 자기 레벨보다 높거나 낮은 일을 요구받고, 승인은 그 속도를 따라가지 못합니다.",
             },
@@ -313,7 +313,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "We distilled these into two contrasting personas — a first-year apprentice finding her footing, and a Level 4 veteran closing out his ticket — Izzy holding it together with sticky notes and handmade study guides, Jordan overwhelmed by wordy PDFs and long resource lists. They kept every feature decision anchored to a real person's week.",
+            en: "We distilled these into two contrasting personas: Izzy, a Level 2 apprentice finding her footing with sticky notes and handmade study guides, and Jordan, a Level 4 veteran closing out his ticket, overwhelmed by wordy PDFs and long resource lists. They kept every feature decision anchored to a real person's week.",
             ja: "これらを、対照的な二つのペルソナに絞り込みました。ようやく足場を固めつつある1年目の見習いと、資格取得を終えようとしているレベル4のベテランです。Izzyはふせんと自作の学習資料でどうにか進捗をつなぎとめていて、Jordanは言葉の多いPDFと長い資料リストに圧倒されています。この二人が、すべての機能の判断を実在する一人の一週間につなぎとめました。",
             ko: "이것들을 서로 대비되는 페르소나 둘로 압축했습니다. 이제 막 자리를 잡아 가는 1년 차 견습생, 그리고 자격 취득을 마무리하는 레벨 4 베테랑입니다. Izzy는 포스트잇과 직접 만든 학습 자료로 겨우 진행 상황을 붙들고 있고, Jordan은 말 많은 PDF와 긴 자료 목록에 짓눌려 있습니다. 이 둘이 모든 기능 결정을 실제 한 사람의 한 주에 붙들어 두었습니다.",
           },
@@ -451,9 +451,14 @@ export default {
           tag: { en: "↔ Problem 03", ja: "↔ 課題 03", ko: "↔ 문제 03" },
           paras: [
             {
-              en: "Beyond tracking, ProLog folds in the support apprentices otherwise hunt for. A finance view lays out expected expenses for the term — tuition, tools, books — next to the grants and support programs they can apply to. A study section covers every competency in the level, built around the short, practical formats apprentices told us they use — summaries, text-to-speech, and AI-generated quizzes that refresh on every attempt, up to a full exam prep. Reminders are created automatically from the user's own records: tuition due Sunday, EI application by the 31st, certification expiring next Friday.",
-              ja: "ProLogは進捗の管理にとどまらず、見習いが自分で探し回るしかなかった支援まで内側に取り込みます。お金の画面は、その学期にかかる費用を整理して見せます — 授業料、工具、教材。その隣には、申請できる助成金と支援制度が並びます。学習の画面はそのレベルの技能項目をすべて扱いますが、見習いたちが実際に使っていると話してくれた短く実用的な形式に合わせて作りました — 要約、読み上げ、そして試すたびに問題が入れ替わるAI生成のクイズから、試験対策一式まで。リマインダーは利用者自身の記録から自動で作られます。日曜が授業料の納付日、31日までに雇用保険(EI)の申請、来週金曜に切れる資格。",
-              ko: "ProLog는 진행 상황 추적을 넘어, 견습생이 아니면 직접 찾아다녀야 하는 지원까지 안으로 끌어들입니다. 재정 화면은 그 학기에 들어갈 비용을 정리해 보여 줍니다 — 수업료, 공구, 교재. 그 옆에는 신청할 수 있는 보조금과 지원 제도가 나란히 놓입니다. 학습 화면은 해당 레벨의 역량 항목을 전부 다루되, 견습생들이 실제로 쓴다고 말한 짧고 실용적인 형식에 맞춰 만들었습니다 — 요약, 텍스트 음성 변환, 그리고 시도할 때마다 새로 나오는 AI 생성 퀴즈부터 전체 시험 대비까지. 알림은 사용자 자신의 기록에서 자동으로 만들어집니다. 일요일이 수업료 납부일, 31일까지 고용보험(EI) 신청, 다음 주 금요일에 만료되는 자격증.",
+              en: "Beyond tracking, ProLog folds in the support apprentices otherwise hunt for. A finance view lays out expected expenses for the term — tuition, tools, books — next to the grants and support programs they can apply to. A study section covers every competency in the level, built around the short, practical formats apprentices told us they use — summaries, text-to-speech, and AI-generated quizzes that refresh on every attempt, through to full exam prep.",
+              ja: "ProLogは進捗の管理にとどまらず、見習いが自分で探し回るしかなかった支援まで内側に取り込みます。お金の画面は、その学期にかかる費用を整理して見せます — 授業料、工具、教材。その隣には、申請できる助成金と支援制度が並びます。学習の画面はそのレベルの技能項目をすべて扱いますが、見習いたちが実際に使っていると話してくれた短く実用的な形式に合わせて作りました — 要約、読み上げ、そして試すたびに問題が入れ替わるAI生成のクイズから、試験対策一式まで。",
+              ko: "ProLog는 진행 상황 추적을 넘어, 견습생이 아니면 직접 찾아다녀야 하는 지원까지 안으로 끌어들입니다. 재정 화면은 그 학기에 들어갈 비용을 정리해 보여 줍니다 — 수업료, 공구, 교재. 그 옆에는 신청할 수 있는 보조금과 지원 제도가 나란히 놓입니다. 학습 화면은 해당 레벨의 역량 항목을 전부 다루되, 견습생들이 실제로 쓴다고 말한 짧고 실용적인 형식에 맞춰 만들었습니다 — 요약, 텍스트 음성 변환, 그리고 시도할 때마다 새로 나오는 AI 생성 퀴즈부터 전체 시험 대비까지.",
+            },
+            {
+              en: "Reminders are created automatically from the user's own records: tuition due Sunday, EI application by the 31st, certification expiring next Friday.",
+              ja: "リマインダーは利用者自身の記録から自動で作られます。日曜が授業料の納付日、31日までに雇用保険(EI)の申請、来週金曜に切れる資格。",
+              ko: "알림은 사용자 자신의 기록에서 자동으로 만들어집니다. 일요일이 수업료 납부일, 31일까지 고용보험(EI) 신청, 다음 주 금요일에 만료되는 자격증.",
             },
             {
               en: "For Jordan — a Level 4 who dreads the wordy PDFs and buried deadlines — the grant he qualifies for and his ticket-renewal date surface before he has to go hunting for them.",
@@ -505,7 +510,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "Identity and system built across the 8-person team — my part: co-designing the components and implementing the full system in React Native.",
+            en: "The identity and system were built across the eight-person team — my part was co-designing the components and implementing the full system in React Native.",
             ja: "アイデンティティとシステムは8名のチーム全体で作りました。私が担当したのは、コンポーネントを共同でデザインすることと、システム全体をReact Nativeで実装することです。",
             ko: "아이덴티티와 시스템은 8명 팀이 함께 만들었습니다. 제가 맡은 부분은 컴포넌트를 함께 디자인한 것과, 시스템 전체를 React Native로 구현한 것입니다.",
           },
@@ -613,7 +618,7 @@ export default {
         {
           type: "h",
           text: {
-            en: "A working build, not just a prototype.",
+            en: "A working build, not just a prototype",
             ja: "プロトタイプではなく、実際に動くビルド。",
             ko: "프로토타입이 아니라, 실제로 동작하는 빌드다.",
           },
@@ -640,7 +645,7 @@ export default {
               ko: "기능직에서 충분히 대표되지 못하는 사람들을 위한 디지털 솔루션을 학생들이 만드는 자리인 ConnectHER Technology Showcase에서 직접 발표했다. 청중에는 BC주 AI·신기술 정무장관, 연방 하원의원 2명, 버나비 시장이 있었다",
             },
             {
-              en: "Presented at SSE Y2WD",
+              en: "Presented at SSE Y2WD, a BCIT student design and technology showcase",
               ja: "SSE Y2WDで発表した",
               ko: "SSE Y2WD에서 발표했다",
             },
@@ -648,11 +653,6 @@ export default {
               en: "Recognized with a certificate from MP Jake Sawatzky, presented to each participating team",
               ja: "Jake Sawatzky連邦下院議員から証書を受け取った。参加チーム全員に贈られた証書だ",
               ko: "Jake Sawatzky 연방 하원의원이 수여한 증서를 받았다. 참가 팀 전원에게 준 증서다",
-            },
-            {
-              en: "Task-based testing with five apprentices shipped three improvements before the showcase",
-              ja: "見習い5人と行ったタスクベースのテストで、ショーケースの前に三件の改善を反映した",
-              ko: "견습생 5명과 한 과업 기반 테스트로 쇼케이스 전에 세 가지를 개선해 반영했다",
             },
             {
               en: "Scoped to the electrical apprenticeship in BC, with an expansion path toward all skilled trades across Canada",
@@ -701,7 +701,7 @@ export default {
         {
           type: "h",
           text: {
-            en: "Research earned its keep in the details.",
+            en: "Research earned its keep in the details",
             ja: "リサーチが効いたのは、細部だった。",
             ko: "리서치는 디테일에서 제 몫을 했다.",
           },
@@ -717,7 +717,7 @@ export default {
         {
           type: "h",
           text: {
-            en: "Building the design made me a better designer.",
+            en: "Building the design made me a better designer",
             ja: "デザインを自分で実装して、デザイナーとして伸びた。",
             ko: "디자인을 직접 구현해 보면서 더 나은 디자이너가 됐다.",
           },
