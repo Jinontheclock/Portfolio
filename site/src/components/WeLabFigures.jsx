@@ -104,7 +104,14 @@ function AuditRows({ rows }) {
             return (
               <figure
                 key={cell.label || cell.src}
-                className={"wl-audit-cell" + (crossover ? " wl-cell--crossover" : "")}
+                className={
+                  "wl-audit-cell" +
+                  (crossover ? " wl-cell--crossover" : "") +
+                  /* a before/after caption sits above its capture, top left,
+                     like the shared BeforeAfter pairs — variant labels
+                     (“2 columns”, “English”) stay below */
+                  (cell.ba ? " wl-cell--ba" : "")
+                }
                 /* --ar lets the phone layout share the row out in proportion
                    to each capture's shape (see casestudy.css) */
                 style={{ width: cell.w || UNIF(cell.ar), "--ar": cell.ar }}

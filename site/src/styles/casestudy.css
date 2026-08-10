@@ -410,6 +410,29 @@
   font: 400 12px / 1.4 var(--font-ui);
   color: var(--text-muted);
 }
+/* A before/after caption moves above its capture, top left, and takes the
+   voice of the shared pairs' .cs-ba-label — same size, tracking and case —
+   so every before/after on every case study is announced the same way.
+   The cells without ba (“2 columns”, “English”) keep their caption below:
+   those name variants, not states. Ordered by flex rather than by markup
+   so the caption stays a figcaption. */
+.wl-cell--ba {
+  display: flex;
+  flex-direction: column;
+}
+.wl-cell--ba figcaption {
+  order: -1;
+  margin: 0 0 6px;
+  font: 400 11px / 1.4 var(--font-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+/* the rows are top-aligned, and in the four-up row only the desktop
+   capture of each pair carries the label — the caption line's height is
+   reserved on its unlabelled partner so the captures stay level */
+.wl-cell--ba:not(:has(figcaption)) {
+  padding-top: calc(11px * 1.4 + 6px);
+}
 
 /* in-page figures with an optional caption below */
 .cs-figure {
