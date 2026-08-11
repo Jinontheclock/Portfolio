@@ -296,6 +296,9 @@ function Block({ block, onDemo, demoHref }) {
             <p className="cs-paragraph">{noOrphan(block.text)}</p>
           </div>
           <figure className="cs-ba-set-media">
+            {block.title && (
+              <span className="cs-figure-title">{noOrphan(block.title)}</span>
+            )}
             <Figure />
             {block.caption && (
               <figcaption className="cs-figure-caption">
