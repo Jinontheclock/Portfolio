@@ -519,6 +519,14 @@
   overflow-x: auto;
   scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
+  /* the carousel ignores the right page margin: the scroller runs to the
+     window edge so the next screen peeks in from the bleed, and the
+     trailing padding hands the margin back at the end of the scroll. The
+     border-box keeps the padding out of the width the screens size
+     against, so they stay matched to the before/after cells */
+  box-sizing: border-box;
+  margin-right: calc(-1 * var(--page-margin, 24px));
+  padding-right: var(--page-margin, 24px);
 }
 .cs-shots:not(.cs-shots--wide) img {
   flex: 0 0 auto;
