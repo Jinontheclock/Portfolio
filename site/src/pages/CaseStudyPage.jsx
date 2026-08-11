@@ -290,6 +290,11 @@ function Block({ block, onDemo, demoHref }) {
       if (!Figures.length) return null;
       return (
         <figure className="cs-figure">
+          {/* what a figure IS goes above it, in the before/after labels'
+              voice; the caption below keeps only what it shows */}
+          {block.title && (
+            <span className="cs-figure-title">{noOrphan(block.title)}</span>
+          )}
           <div className={Figures.length > 1 ? "cs-figure-row" : undefined}>
             {Figures.map((Figure, i) => (
               <Figure key={i} />

@@ -792,6 +792,19 @@
   min-width: 0;
 }
 
+/* A figure's title, above the image — the same voice, size and case as
+   the before/after labels, so everything announced above an image on
+   these pages is announced the same way. The rule across the case
+   studies: what a figure is goes above it, what it shows stays below. */
+.cs-figure-title {
+  display: block;
+  margin-bottom: 6px;
+  font: 400 11px / 1.4 var(--font-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
 .cs-figure-caption {
   margin-top: 6px;
   font: 400 13px / 1.5 var(--font-ui);

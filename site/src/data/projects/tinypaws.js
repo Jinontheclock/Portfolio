@@ -126,7 +126,8 @@ export default {
         {
           type: "figure",
           graphic: "tinypaws-fig-lofi-grid",
-          caption: "Lo-fi wireframes — structure first, personality later.",
+          title: "Lo-fi wireframes",
+          caption: "Structure first, personality later.",
         },
         {
           type: "h",
@@ -143,16 +144,20 @@ export default {
             "Menu labels read as interchangeable — visitors landed on the wrong pages. Navigation was relabeled around the three goals.",
         },
         {
+          type: "p",
+          text: "Content-heavy pages overwhelmed at a glance. Sections were condensed into a consistent hierarchy visitors could scan in seconds.",
+        },
+        {
           type: "figure",
           graphic: "tinypaws-ba-structure",
-          caption:
-            "Content-heavy pages overwhelmed at a glance. Sections were condensed into a consistent hierarchy visitors could scan in seconds.",
+        },
+        {
+          type: "p",
+          text: "Buttons behaved inconsistently — some looked clickable but weren't, others hid where visitors couldn't find them. Every action became one clear, consistent orange control.",
         },
         {
           type: "figure",
           graphic: "tinypaws-ba-cta",
-          caption:
-            "Buttons behaved inconsistently — some looked clickable but weren't, others hid where visitors couldn't find them. Every action became one clear, consistent orange control.",
         },
       ],
     },
@@ -188,8 +193,6 @@ export default {
         {
           type: "figure",
           graphic: "tinypaws-fig-styletile",
-          caption:
-            "The style tile: palette, type scale, and interactive elements in one sheet.",
         },
         { type: "h", text: "Beyond the screen" },
         {
@@ -199,7 +202,7 @@ export default {
         {
           type: "figure",
           graphic: "tinypaws-campaign-video",
-          caption: "The promotional film.",
+          title: "The promotional film",
         },
       ],
     },
