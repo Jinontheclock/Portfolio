@@ -18,8 +18,8 @@ export function WLVfxSliderFigure() {
           each capture's aspect ratio over the shared reference (2.852), so
           both render at the same height as every other figure here. */}
       <div
-        className="wl-vfx-col--before wl-cell--crossover"
-        style={{ width: "calc((100% - 60px) * 0.3066)" }}
+        className="wl-vfx-col--before"
+        style={{ width: "calc((100% - 40px) * 0.3066)" }}
       >
         <span className="cs-ba-label">Before</span>
         <span className="wl-cell-shot wl-vfx-old-shot">
@@ -31,7 +31,7 @@ export function WLVfxSliderFigure() {
           />
         </span>
       </div>
-      <div className="wl-vfx-col--after" style={{ width: "calc((100% - 60px) * 0.6234)" }}>
+      <div className="wl-vfx-col--after" style={{ width: "calc((100% - 40px) * 0.6234)" }}>
         <span className="cs-ba-label">After</span>
         <div className="wl-slider">
       <span className="wl-slider-label wl-slider-label--left" aria-hidden="true">

@@ -60,12 +60,12 @@ export function WLOldShowcaseFigure() {
    case study reads evenly, row to row. Each cell's width is its aspect
    ratio over a shared reference (2.852 — as much as the widest row on this
    scale can spend), so every image resolves to the same height —
-   (columnWidth − 60px) / 2.852 — at any screen width, and no row overflows
+   (columnWidth − 40px) / 2.852 — at any screen width, and no row overflows
    or wraps. Rows just stop short of the full column width, which is fine.
-   The 60px is the widest gap a row on this scale needs (a 20px row gap plus
-   the 40px a before/after crossover adds for the arrow), so budgeting it
-   everywhere keeps one height for all of them. */
-const UNIF = (ar) => `calc((100% - 60px) * ${(ar / 2.852).toFixed(4)})`;
+   The 40px is the widest gap a row on this scale needs (the three-up's two
+   20px row gaps — the arrow's crossover allowance is gone, handed back to
+   the images), so budgeting it everywhere keeps one height for all. */
+const UNIF = (ar) => `calc((100% - 40px) * ${(ar / 2.852).toFixed(4)})`;
 
 /* the old site captured page by page — individual images laid out in rows,
    each cell sized to its device class, unlabelled: the figure's own caption
@@ -84,9 +84,8 @@ const AUDIT_SECTIONS_ROW = [
 
 /* A cell may carry `ba: "before" | "after"`. Every pair is announced the
    way the shared BeforeAfter pairs are — Before and After labels above
-   the captures — and where a row crosses from the old state to the
-   rebuilt one the gap widens to 60px (the cell widths above budget for
-   it), so the two states still read as two groups.
+   the captures; the labels alone separate the two states, so the
+   crossover keeps the plain row gap.
    A cell states its shape once, as `ar`; its width follows from that on the
    shared scale. Only rows that can't fit on that scale — the four-up, the
    Who We Are pair, the Figma five-across, the EN/ES pair — carry their own
@@ -96,14 +95,12 @@ function AuditRows({ rows }) {
     <div className="wl-audit">
       {rows.map((row, i) => (
         <div key={i} className="wl-audit-row">
-          {row.map((cell, j) => {
-            const crossover = cell.ba === "before" && row[j + 1]?.ba === "after";
+          {row.map((cell) => {
             return (
               <figure
                 key={cell.label || cell.src}
                 className={
                   "wl-audit-cell" +
-                  (crossover ? " wl-cell--crossover" : "") +
                   /* a before/after caption sits above its capture, top left,
                      like the shared BeforeAfter pairs — variant labels
                      (“2 columns”, “English”) stay below */
@@ -161,10 +158,10 @@ const LAYOUT_ROWS = [
      shorter than the rest. One label per side, on the desktop capture that
      opens each pair — four would only repeat before/after twice. */
   [
-    { src: auditTaxTablet, ar: 1.229, w: "calc((100% - 100px) * 0.3305)", ba: "before", label: "Before", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-    { src: auditTaxMobile, ar: 0.325, w: "calc((100% - 100px) * 0.0874)", ba: "before", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
-    { src: taxNewDesktop, ar: 1.794, w: "calc((100% - 100px) * 0.4824)", ba: "after", label: "After", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
-    { src: taxNewMobile, ar: 0.371, w: "calc((100% - 100px) * 0.0998)", ba: "after", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
+    { src: auditTaxTablet, ar: 1.229, w: "calc((100% - 60px) * 0.3305)", ba: "before", label: "Before", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+    { src: auditTaxMobile, ar: 0.325, w: "calc((100% - 60px) * 0.0874)", ba: "before", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+    { src: taxNewDesktop, ar: 1.794, w: "calc((100% - 60px) * 0.4824)", ba: "after", label: "After", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
+    { src: taxNewMobile, ar: 0.371, w: "calc((100% - 60px) * 0.0998)", ba: "after", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
   ],
   /* both captures are cropped tight to the section, so this pair's shapes
      add up past the shared reference: like the tax row it takes its own
@@ -172,8 +169,8 @@ const LAYOUT_ROWS = [
      out the size they were before the crop — only the empty band above and
      below each one is gone. */
   [
-    { src: auditWhoWeAre, ar: 1.537, w: "calc((100% - 60px) * 0.4617)", label: "Before", ba: "before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
-    { src: afterWhoWeAre, ar: 1.792, w: "calc((100% - 60px) * 0.5383)", ba: "after", label: "After", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
+    { src: auditWhoWeAre, ar: 1.537, w: "calc((100% - 20px) * 0.4617)", label: "Before", ba: "before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+    { src: afterWhoWeAre, ar: 1.792, w: "calc((100% - 20px) * 0.5383)", ba: "after", label: "After", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
   ],
   [
     { src: footerBaBefore, ar: 0.59, ba: "before", label: "Before", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },

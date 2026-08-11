@@ -1532,8 +1532,8 @@
   flex: 0 0 auto; /* widths are set inline, from each capture's ratio */
   min-width: 0;
 }
-/* the still carries the crossover arrow, so it sits in a shot wrapper and
-   fills it; the wrapper is the flex child that holds the inline width */
+/* the still fills its labelled column; the column is the flex child that
+   holds the inline width */
 .wl-vfx-old {
   display: block;
   width: 100%;
@@ -1560,8 +1560,7 @@
    rows: each half takes the share of the width its shape asks for (0.874 :
    1.778), so both still render at the same height */
 @media (max-width: 600px) {
-  /* 8px, like the audit rows, so the crossover seam works out to the
-     same 28px */
+  /* 8px, like the audit rows */
   .wl-vfx-compare {
     gap: 8px;
   }
@@ -1577,17 +1576,12 @@
   }
 }
 
-/* ── before/after crossover on the WeLAB comparison rows ──
+/* ── before/after on the WeLAB comparison rows ──
    Every capture carries its Before/After label above (the shared pairs'
-   voice); the crossover itself is marked by nothing but a wider gap. */
+   voice); the rows keep nothing but their plain gap between states. */
 .wl-cell-shot {
   position: relative;
   display: block;
-}
-/* the crossover gap: 20px row gap + 40px here = 60px, a clear seam
-   between the old state and the rebuilt one */
-.wl-cell--crossover {
-  margin-right: 40px;
 }
 
 /* ── WeLAB figures on a phone ──
@@ -1596,8 +1590,7 @@
    captures belong side by side, though, so instead of stacking them the row
    simply fills the column here: each cell takes a share of the width in
    proportion to its shape (--ar), which keeps a row's heights equal while
-   giving the captures every pixel the column has. The crossover gap and the
-   arrow shrink to leave more of it to the images. */
+   giving the captures every pixel the column has. */
 @media (max-width: 600px) {
   /* every gap is width the captures don't get, and a five-across row loses
      80px of a 350px column to them — 8px is enough separation here */
@@ -1619,8 +1612,5 @@
        capture rather than a frame, so it comes off here */
     border: 0;
     width: 100%;
-  }
-  .wl-cell--crossover {
-    margin-right: 20px; /* 8px row gap + 20px = 28px, the crossover seam */
   }
 }
