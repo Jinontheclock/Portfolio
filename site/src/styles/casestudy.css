@@ -1091,6 +1091,10 @@
   min-width: 0;
   padding: 10px 4px;
   font: 400 var(--size-body) / 1.5 var(--font-ui);
+  /* never below 16px: a smaller editable field makes iOS Safari zoom the
+     whole viewport on focus — and the gate autofocuses, so the modal
+     opened zoomed, grew a scrollbar, and left the page magnified */
+  font-size: max(16px, var(--size-body));
   color: #fafafa;
   caret-color: #fafafa;
   text-align: left;
