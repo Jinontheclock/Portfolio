@@ -28,6 +28,12 @@
      no initial ride-up before it fixes */
   top: 180px;
   align-self: start;
+  /* a sticky item yields when its MARGIN box hits its grid area's bottom
+     — which used to hand the rail a footer-height shove on viewports
+     where it fit otherwise. Pulling the margin box up lets the border box
+     ride past that edge, so the rail holds its seat to the very end on
+     any window tall enough to show it at all */
+  margin-bottom: -120px;
 }
 
 /* clicking the title returns to the intro */
@@ -539,6 +545,27 @@
   flex: 0 0 auto;
   width: calc(50% - 6px);
   scroll-snap-align: start;
+}
+/* the carousel's scrollbar wears the pull-quote rule's line — 2px of the
+   same ink on no track. Chrome and Safari take the exact line through the
+   -webkit path; Firefox has no 2px, so it gets its thin variant, scoped
+   apart because Chrome ignores the -webkit path once the standard
+   properties are set */
+.cs-shots:not(.cs-shots--wide)::-webkit-scrollbar {
+  height: 2px;
+}
+.cs-shots:not(.cs-shots--wide)::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cs-shots:not(.cs-shots--wide)::-webkit-scrollbar-thumb {
+  background: var(--text);
+  border-radius: 0;
+}
+@supports not selector(::-webkit-scrollbar) {
+  .cs-shots:not(.cs-shots--wide) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--text) transparent;
+  }
 }
 .cs-shots img {
   flex: 1;
