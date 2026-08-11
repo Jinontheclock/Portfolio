@@ -118,7 +118,8 @@
 .cs-meta-group {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  /* each tag row stands apart from the next — shared by every case study */
+  gap: 12px;
 }
 
 .cs-meta-row {
@@ -486,6 +487,20 @@
   gap: 12px;
 }
 .cs-solution-media {
+  margin: 0;
+}
+/* ── A usability fix on its own row: the explanation as body copy on the
+   left, the labelled before/after pair on the right — the solution rows'
+   grid, so the two chapters answer each other. Lives beside that grid so
+   both sit before their shared phone-width overrides ── */
+.cs-ba-set {
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 24px;
+  align-items: start;
+}
+.cs-ba-set-media {
   margin: 0;
 }
 .cs-shots {
@@ -1113,6 +1128,11 @@
   }
   /* solution rows stack: text first, then the screens */
   .cs-solution-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  /* the usability-fix rows stack the same way */
+  .cs-ba-set {
     grid-template-columns: 1fr;
     gap: 16px;
   }

@@ -284,6 +284,23 @@ function Block({ block, onDemo, demoHref }) {
           </div>
         </div>
       );
+    case "ba": {
+      /* one usability fix per row: what broke and what changed as body copy
+         on the left, the labelled before/after pair on the right — the
+         solution rows' shape, carried over to the testing chapter */
+      const Figure = FIGURES[block.graphic];
+      if (!Figure) return null;
+      return (
+        <div className="cs-ba-set">
+          <div className="cs-ba-set-text">
+            <p className="cs-paragraph">{noOrphan(block.text)}</p>
+          </div>
+          <figure className="cs-ba-set-media">
+            <Figure />
+          </figure>
+        </div>
+      );
+    }
     case "figure": {
       const names = block.graphics ?? [block.graphic];
       const Figures = names.map((n) => FIGURES[n]).filter(Boolean);

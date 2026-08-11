@@ -172,8 +172,9 @@ export function TypeFigure() {
   );
 }
 
-/* ── Usability-testing fixes: labelled before/after screen pairs, each
-   pair a column with its own caption so the three fixes share one row
+/* ── Usability-testing fixes: labelled before/after screen pairs. Each
+   fix explains itself in body copy beside the pair (the "ba" block in
+   prolog.js), so the pairs carry no captions of their own
    (BeforeAfter itself is shared — see components/BeforeAfter.jsx) ── */
 export function BAProgressFigure() {
   return (
@@ -181,7 +182,6 @@ export function BAProgressFigure() {
       before={baProgressBefore}
       after={baProgressAfter}
       name="Progress dashboard"
-      caption="Hour totals read as static labels — participants couldn't tell what the numbers were made of. Now the journey map leads, and every figure breaks down on tap."
     />
   );
 }
@@ -192,7 +192,6 @@ export function BANavigationFigure() {
       before={baNavBefore}
       after={baNavAfter}
       name="Competency navigation"
-      caption="A flat list buried a hundred competencies behind search. Navigation was rebuilt around how apprentices actually study — by Line, by level, one thumb."
     />
   );
 }
@@ -203,7 +202,6 @@ export function BAVisualCuesFigure() {
       before={baCuesBefore}
       after={baCuesAfter}
       name="Hour tracking"
-      caption="Grey-on-grey states didn't read as tappable. Contrast, hierarchy, and interaction cues were strengthened across the system — if it's orange, it moves you forward."
     />
   );
 }
