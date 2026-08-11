@@ -14,8 +14,9 @@ import { isCovered, onCover, onReveal } from "../lib/preloaderBus.js";
    pass appearing in the stack (ch04's bet is "adds a phone; does not take
    away a card"). Once the pass is home the phone makes room, sliding left
    as the watch rides in from off-stage right — the card now lives on every
-   wrist and screen — and the loop fades home through the page background,
-   no rewind.
+   wrist and screen. The sequence plays once and settles there: the tap
+   clip hands the screen back to the wallet and the two-device still holds,
+   the same play-through-once ending as the other heroes.
 
    Built as a live in-page animation (like ProLogJourney), not a video:
    two wallet stills layered in the phone's screen window plus the existing
@@ -23,19 +24,19 @@ import { isCovered, onCover, onReveal } from "../lib/preloaderBus.js";
    scene is laid out at a fixed logical size and the whole thing scales to
    the space it's given, so every distance holds at any width. */
 
-/* ── timing: the ~7.7s loop, one entry per storyboard beat ── */
+/* ── timing: the ~7.6s play-through, one entry per storyboard beat ── */
 const PHASES = [
-  ["rest", 900], //  the still: card on the left, Wallet waiting on the right
-  ["fly", 800], //   the card moves onto the screen's pass slot (decelerate)
-  ["land", 400], //  cross-fade: physical card -> the pass, appearing in place
-  ["hold", 700], //  breath — the pass has its home
-  ["slide", 900], // the phone makes room; the watch rides in from the right
-  ["duo", 800], //   both devices hold, the pass on each
-  ["tap", 2500], //  the screen plays the tap: zone, fare charged, balance
-  ["back", 700], //  the scene fades through the page; the loop starts over
+  ["rest", 900], //   the still: card on the left, Wallet waiting on the right
+  ["fly", 800], //    the card moves onto the screen's pass slot (decelerate)
+  ["land", 400], //   cross-fade: physical card -> the pass, appearing in place
+  ["hold", 700], //   breath — the pass has its home
+  ["slide", 900], //  the phone makes room; the watch rides in from the right
+  ["duo", 800], //    both devices hold, the pass on each
+  ["tap", 2500], //   the screen plays the tap: zone, fare charged, balance
+  ["settle", 600], // the tap clip hands the screen back to the wallet
+  ["end", 0], //      terminal: phone and watch hold, side by side
 ];
 const FADE_TAP_MS = 300; // wallet -> tap clip screen change inside "tap"
-const FADE_REST_MS = 500; // the opening still fading back in after "back"
 const DUR = Object.fromEntries(PHASES); // the CSS reads its durations from here
 
 /* ── geometry ──
@@ -140,19 +141,23 @@ export default function CompassHero() {
     return () => ro.disconnect();
   }, [L]);
 
-  /* the loop: a phase timer that only runs while the hero is on screen and
-     the page is uncovered (same contract as usePlayThroughOnce) */
+  /* the play-through: a phase timer that only advances while the hero is on
+     screen and the page is uncovered (usePlayThroughOnce's contract). The
+     sequence runs once and holds its final two-device still; scrolling away
+     mid-play restarts the story, but a finished play stays finished. A
+     cover going up rewinds it for a fresh play on the reveal. */
   useEffect(() => {
     if (still) return;
     let timer = null;
     let running = false;
+    let ended = false;
     let onScreen = false;
     const video = () => videoRef.current;
     const stop = () => {
       clearTimeout(timer);
       running = false;
       video()?.pause();
-      setPhase("rest");
+      if (!ended) setPhase("rest");
     };
     const run = (idx) => {
       const [name, ms] = PHASES[idx];
@@ -167,14 +172,19 @@ export default function CompassHero() {
             /* not seekable yet — it starts at 0 anyway */
           }
           v.play().catch(() => {});
-        } else if (name === "rest") {
+        } else if (name === "end") {
           v.pause();
         }
       }
-      timer = setTimeout(() => run((idx + 1) % PHASES.length), ms);
+      if (idx + 1 < PHASES.length) {
+        timer = setTimeout(() => run(idx + 1), ms);
+      } else {
+        running = false;
+        ended = true;
+      }
     };
     const start = () => {
-      if (running || !onScreen || isCovered()) return;
+      if (running || ended || !onScreen || isCovered()) return;
       running = true;
       run(0);
     };
@@ -184,7 +194,10 @@ export default function CompassHero() {
       else stop();
     });
     io.observe(bandRef.current);
-    const offCover = onCover(stop);
+    const offCover = onCover(() => {
+      ended = false;
+      stop();
+    });
     const offReveal = onReveal(start);
     return () => {
       io.disconnect();
@@ -208,9 +221,8 @@ export default function CompassHero() {
           "--cmp-t-fly": `${DUR.fly}ms`,
           "--cmp-t-land": `${DUR.land}ms`,
           "--cmp-t-slide": `${DUR.slide}ms`,
-          "--cmp-t-back": `${DUR.back}ms`,
+          "--cmp-t-settle": `${DUR.settle}ms`,
           "--cmp-t-tap": `${FADE_TAP_MS}ms`,
-          "--cmp-t-rest": `${FADE_REST_MS}ms`,
         }}
       >
         <div ref={sceneRef} className="cmp-hero-scene" style={{ width: L.w, height: L.h }}>

@@ -272,26 +272,17 @@
   left: 0;
   transform-origin: top left;
 }
-/* the loop's way home: the whole scene fades through the page background
-   ("back"), everything snaps to its opening pose unseen, and the still
-   fades back in ("rest") — no element ever animates backwards */
-.cmp-hero-band[data-phase="back"] .cmp-hero-scene {
-  opacity: 0;
-  transition: opacity var(--cmp-t-back) ease;
-}
-.cmp-hero-band[data-phase="rest"] .cmp-hero-scene {
-  transition: opacity var(--cmp-t-rest) ease;
-}
 .cmp-hero-phone {
   position: absolute;
 }
 /* the duo: once the pass is home the phone slides to its two-up seat and
    the watch rides in from past the band's right edge, on one decelerating
-   beat; both then hold through the tap and fade out with the scene */
+   beat; both then hold through the tap and stay — the sequence ends here */
 .cmp-hero-band[data-phase="slide"] .cmp-hero-phone,
 .cmp-hero-band[data-phase="duo"] .cmp-hero-phone,
 .cmp-hero-band[data-phase="tap"] .cmp-hero-phone,
-.cmp-hero-band[data-phase="back"] .cmp-hero-phone {
+.cmp-hero-band[data-phase="settle"] .cmp-hero-phone,
+.cmp-hero-band[data-phase="end"] .cmp-hero-phone {
   transform: translateX(var(--cmp-phone-slide));
 }
 .cmp-hero-watch {
@@ -301,7 +292,8 @@
 .cmp-hero-band[data-phase="slide"] .cmp-hero-watch,
 .cmp-hero-band[data-phase="duo"] .cmp-hero-watch,
 .cmp-hero-band[data-phase="tap"] .cmp-hero-watch,
-.cmp-hero-band[data-phase="back"] .cmp-hero-watch {
+.cmp-hero-band[data-phase="settle"] .cmp-hero-watch,
+.cmp-hero-band[data-phase="end"] .cmp-hero-watch {
   transform: translateX(0);
 }
 .cmp-hero-band[data-phase="slide"] .cmp-hero-phone,
@@ -331,8 +323,8 @@
   will-change: transform, opacity;
 }
 
-/* the pass layer: appears with the card's landing, holds from there, and
-   leaves only with the whole-scene fade */
+/* the pass layer: appears with the card's landing and never leaves — it
+   is the settled screen the ending holds */
 .cmp-hero-wallet--pass {
   opacity: 0;
 }
@@ -341,7 +333,8 @@
 .cmp-hero-band[data-phase="slide"] .cmp-hero-wallet--pass,
 .cmp-hero-band[data-phase="duo"] .cmp-hero-wallet--pass,
 .cmp-hero-band[data-phase="tap"] .cmp-hero-wallet--pass,
-.cmp-hero-band[data-phase="back"] .cmp-hero-wallet--pass,
+.cmp-hero-band[data-phase="settle"] .cmp-hero-wallet--pass,
+.cmp-hero-band[data-phase="end"] .cmp-hero-wallet--pass,
 .cmp-hero-band[data-phase="still"] .cmp-hero-wallet--pass {
   opacity: 1;
 }
@@ -349,15 +342,16 @@
   transition: opacity var(--cmp-t-land) ease;
 }
 
-/* the card: flies once (decelerating), cross-fades out as the pass appears,
-   and is next seen already home in the fading-in opening still — the
-   return never replays the flight */
+/* the card: flies once (decelerating) and cross-fades out as the pass
+   appears — from there on it lives as the pass on the two screens */
 .cmp-hero-band[data-phase="fly"] .cmp-hero-card,
 .cmp-hero-band[data-phase="land"] .cmp-hero-card,
 .cmp-hero-band[data-phase="hold"] .cmp-hero-card,
 .cmp-hero-band[data-phase="slide"] .cmp-hero-card,
 .cmp-hero-band[data-phase="duo"] .cmp-hero-card,
-.cmp-hero-band[data-phase="tap"] .cmp-hero-card {
+.cmp-hero-band[data-phase="tap"] .cmp-hero-card,
+.cmp-hero-band[data-phase="settle"] .cmp-hero-card,
+.cmp-hero-band[data-phase="end"] .cmp-hero-card {
   transform: var(--cmp-fly);
 }
 .cmp-hero-band[data-phase="fly"] .cmp-hero-card {
@@ -371,21 +365,23 @@
 .cmp-hero-band[data-phase="slide"] .cmp-hero-card,
 .cmp-hero-band[data-phase="duo"] .cmp-hero-card,
 .cmp-hero-band[data-phase="tap"] .cmp-hero-card,
-.cmp-hero-band[data-phase="back"] .cmp-hero-card {
+.cmp-hero-band[data-phase="settle"] .cmp-hero-card,
+.cmp-hero-band[data-phase="end"] .cmp-hero-card {
   opacity: 0;
 }
 
-/* the tap clip: a screen change into the playing video; it holds through
-   the whole-scene fade so the screen never pops mid-return */
+/* the tap clip: a screen change into the playing video, then it hands
+   the screen back — fading out over "settle" to the wallet beneath, the
+   still the ending keeps */
 .cmp-hero-tap {
   opacity: 0;
 }
-.cmp-hero-band[data-phase="tap"] .cmp-hero-tap,
-.cmp-hero-band[data-phase="back"] .cmp-hero-tap {
-  opacity: 1;
-}
 .cmp-hero-band[data-phase="tap"] .cmp-hero-tap {
+  opacity: 1;
   transition: opacity var(--cmp-t-tap) ease;
+}
+.cmp-hero-band[data-phase="settle"] .cmp-hero-tap {
+  transition: opacity var(--cmp-t-settle) ease;
 }
 
 /* hero video (replaces the placeholder when a project sets heroVideo):
