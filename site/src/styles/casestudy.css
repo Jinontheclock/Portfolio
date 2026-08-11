@@ -613,6 +613,8 @@
 .wl-audit-cell {
   margin: 0;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 .wl-audit-cell img {
   display: block;
@@ -620,32 +622,22 @@
   height: auto;
   border: 1px solid var(--border, #d4d4d4);
 }
+/* Every cell label — Before/After and the variant names alike — sits
+   above its capture, top left, in the shared pairs' .cs-ba-label voice:
+   what a capture is goes above it, the same rule the figures follow.
+   Ordered by flex rather than by markup so the label stays a figcaption. */
 .wl-audit-cell figcaption {
-  margin-top: 8px;
-  font: 400 12px / 1.4 var(--font-ui);
-  color: var(--text-muted);
-}
-/* A before/after caption moves above its capture, top left, and takes the
-   voice of the shared pairs' .cs-ba-label — same size, tracking and case —
-   so every before/after on every case study is announced the same way.
-   The cells without ba (“2 columns”, “English”) keep their caption below:
-   those name variants, not states. Ordered by flex rather than by markup
-   so the caption stays a figcaption. */
-.wl-cell--ba {
-  display: flex;
-  flex-direction: column;
-}
-.wl-cell--ba figcaption {
   order: -1;
   margin: 0 0 6px;
   font: 400 11px / 1.4 var(--font-ui);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: var(--text-muted);
 }
-/* the rows are top-aligned, and in the four-up row only the desktop
-   capture of each pair carries the label — the caption line's height is
-   reserved on its unlabelled partner so the captures stay level */
-.wl-cell--ba:not(:has(figcaption)) {
+/* the rows are top-aligned, and in the four-up only the leading capture
+   of each pair carries the label — the label line's height is reserved
+   on the unlabelled cells of any labelled row, so captures stay level */
+.wl-audit-row:has(figcaption) .wl-audit-cell:not(:has(figcaption)) {
   padding-top: calc(11px * 1.4 + 6px);
 }
 
@@ -1583,6 +1575,13 @@
   position: relative;
   display: block;
 }
+/* devices showing the same state sit closer than the states sit apart:
+   the pair's leader pulls its partner 12px into the 20px row gap (-> 8px),
+   so Before reads as one group and After as the other; the four-up's
+   width budget counts its gaps as 8 + 20 + 8 */
+.wl-cell--paired {
+  margin-right: -12px;
+}
 
 /* ── WeLAB figures on a phone ──
    The desktop sizing budgets every row against one shared height, so on a
@@ -1596,6 +1595,9 @@
      80px of a 350px column to them — 8px is enough separation here */
   .wl-audit-row {
     column-gap: 8px;
+  }
+  .wl-cell--paired {
+    margin-right: -4px; /* the same-state huddle, on the 8px gap (-> 4px) */
   }
   .wl-audit-cell {
     /* ×10 because flex only hands out a fraction of the free space when the

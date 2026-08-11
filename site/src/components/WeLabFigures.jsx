@@ -95,16 +95,17 @@ function AuditRows({ rows }) {
     <div className="wl-audit">
       {rows.map((row, i) => (
         <div key={i} className="wl-audit-row">
-          {row.map((cell) => {
+          {row.map((cell, j) => {
+            const paired = cell.ba && row[j + 1]?.ba === cell.ba;
             return (
               <figure
                 key={cell.label || cell.src}
                 className={
                   "wl-audit-cell" +
-                  /* a before/after caption sits above its capture, top left,
-                     like the shared BeforeAfter pairs — variant labels
-                     (“2 columns”, “English”) stay below */
-                  (cell.ba ? " wl-cell--ba" : "")
+                  /* a same-state device pair huddles: the leader pulls its
+                     partner in, so Before reads as one group, After as the
+                     other (see .wl-cell--paired) */
+                  (paired ? " wl-cell--paired" : "")
                 }
                 /* --ar lets the phone layout share the row out in proportion
                    to each capture's shape (see casestudy.css) */
@@ -158,10 +159,10 @@ const LAYOUT_ROWS = [
      shorter than the rest. One label per side, on the desktop capture that
      opens each pair — four would only repeat before/after twice. */
   [
-    { src: auditTaxTablet, ar: 1.229, w: "calc((100% - 60px) * 0.3305)", ba: "before", label: "Before", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
-    { src: auditTaxMobile, ar: 0.325, w: "calc((100% - 60px) * 0.0874)", ba: "before", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
-    { src: taxNewDesktop, ar: 1.794, w: "calc((100% - 60px) * 0.4824)", ba: "after", label: "After", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
-    { src: taxNewMobile, ar: 0.371, w: "calc((100% - 60px) * 0.0998)", ba: "after", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
+    { src: auditTaxTablet, ar: 1.229, w: "calc((100% - 36px) * 0.3305)", ba: "before", label: "Before", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+    { src: auditTaxMobile, ar: 0.325, w: "calc((100% - 36px) * 0.0874)", ba: "before", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
+    { src: taxNewDesktop, ar: 1.794, w: "calc((100% - 36px) * 0.4824)", ba: "after", label: "After", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
+    { src: taxNewMobile, ar: 0.371, w: "calc((100% - 36px) * 0.0998)", ba: "after", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
   ],
   /* both captures are cropped tight to the section, so this pair's shapes
      add up past the shared reference: like the tax row it takes its own
