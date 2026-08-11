@@ -1,5 +1,4 @@
 import "img-comparison-slider";
-import ArrowIcon from "./ArrowIcon.jsx";
 import crowdAfter from "../assets/welab/welab-ba-awt-crowd-after.webp";
 import crowdBefore from "../assets/welab/welab-ba-awt-crowd-before.webp";
 import figOldChallenge from "../assets/welab/welab-old-showcase-challenge.webp";
@@ -14,22 +13,27 @@ export function WLVfxSliderFigure() {
     <div className="wl-vfx-compare">
       {/* the old page's answer beside the new one, on the same shot: the
           crowd plate and its finished frame as separate stacked stills on
-          the left, one draggable frame on the right. Widths follow each
-          capture's aspect ratio over the shared reference (2.852), so both
-          render at the same height as every other figure in the study. */}
-      <span
-        className="wl-cell-shot wl-cell--crossover wl-vfx-old-shot"
+          the left, one draggable frame on the right, each announced by its
+          Before/After label like every pair in the study. Widths follow
+          each capture's aspect ratio over the shared reference (2.852), so
+          both render at the same height as every other figure here. */}
+      <div
+        className="wl-vfx-col--before wl-cell--crossover"
         style={{ width: "calc((100% - 60px) * 0.3066)" }}
       >
-        <img
-          className="wl-vfx-old"
-          src={figOldChallenge}
-          alt="The Challenge section of the old project page — the crowd plate and the finished shot as separate stills, stacked with no way to compare them directly"
-          loading="lazy"
-        />
-        <ArrowIcon className="wl-ba-arrow" />
-      </span>
-      <div className="wl-slider" style={{ width: "calc((100% - 60px) * 0.6234)" }}>
+        <span className="cs-ba-label">Before</span>
+        <span className="wl-cell-shot wl-vfx-old-shot">
+          <img
+            className="wl-vfx-old"
+            src={figOldChallenge}
+            alt="The Challenge section of the old project page — the crowd plate and the finished shot as separate stills, stacked with no way to compare them directly"
+            loading="lazy"
+          />
+        </span>
+      </div>
+      <div className="wl-vfx-col--after" style={{ width: "calc((100% - 60px) * 0.6234)" }}>
+        <span className="cs-ba-label">After</span>
+        <div className="wl-slider">
       <span className="wl-slider-label wl-slider-label--left" aria-hidden="true">
         AFTER
       </span>
@@ -61,6 +65,7 @@ export function WLVfxSliderFigure() {
           </svg>
         </div>
       </img-comparison-slider>
+        </div>
       </div>
     </div>
   );

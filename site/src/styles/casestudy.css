@@ -1560,8 +1560,8 @@
    rows: each half takes the share of the width its shape asks for (0.874 :
    1.778), so both still render at the same height */
 @media (max-width: 600px) {
-  /* 8px, like the audit rows, so the crossover gap works out to the same
-     28px and the arrow lands dead centre in it */
+  /* 8px, like the audit rows, so the crossover seam works out to the
+     same 28px */
   .wl-vfx-compare {
     gap: 8px;
   }
@@ -1569,45 +1569,25 @@
     flex-basis: 0;
     width: auto !important; /* out-specifies the inline desktop widths */
   }
-  .wl-vfx-old-shot {
+  .wl-vfx-col--before {
     flex-grow: 8.74;
   }
-  .wl-vfx-compare .wl-slider {
+  .wl-vfx-col--after {
     flex-grow: 17.78;
   }
 }
 
-/* ── before/after crossover mark on the WeLAB comparison rows ──
-   The landing nav's long-tail arrow, drawn in the gap between the last
-   "before" capture and the first "after" one: absolutely placed against
-   the image box, so it costs the row no width (the uniform-height math
-   assumes an untouched 20px gap) and its foot lines up with the images'
-   bottom edge. */
+/* ── before/after crossover on the WeLAB comparison rows ──
+   Every capture carries its Before/After label above (the shared pairs'
+   voice); the crossover itself is marked by nothing but a wider gap. */
 .wl-cell-shot {
   position: relative;
   display: block;
 }
-/* the crossover gap: 20px row gap + 40px here = 60px, so the 38px arrow
-   sits inside it with room to breathe on both sides */
+/* the crossover gap: 20px row gap + 40px here = 60px, a clear seam
+   between the old state and the rebuilt one */
 .wl-cell--crossover {
   margin-right: 40px;
-}
-/* two classes deep so it out-specifies `.cs-figure svg { width: 100% }` */
-.wl-cell-shot .wl-ba-arrow {
-  position: absolute;
-  /* foot flush with the captures' bottom edge, centred in the 44px gap */
-  bottom: 0;
-  left: calc(100% + 30px);
-  transform: translateX(-50%);
-  /* both sides given in whole pixels (38:6 is the icon's own 418:66, so it
-     still fits exactly): at an auto height the box came out 5.67px tall and
-     the 1.6px tail landed on a different sub-pixel offset in each row, so
-     the same arrow rasterised two device pixels thick in one row and nearly
-     four in another. Integer sizing renders every one identically. */
-  width: 38px;
-  height: 6px;
-  color: var(--text-primary);
-  pointer-events: none;
 }
 
 /* ── WeLAB figures on a phone ──
@@ -1641,12 +1621,6 @@
     width: 100%;
   }
   .wl-cell--crossover {
-    margin-right: 20px; /* 8px row gap + 20px = 28px, room for the arrow */
-  }
-  .wl-cell-shot .wl-ba-arrow {
-    /* 19x3 is the icon's ratio in whole pixels again, one size down */
-    width: 19px;
-    height: 3px;
-    left: calc(100% + 14px);
+    margin-right: 20px; /* 8px row gap + 20px = 28px, the crossover seam */
   }
 }

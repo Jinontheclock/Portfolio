@@ -1,4 +1,3 @@
-import ArrowIcon from "./ArrowIcon.jsx";
 import oldShowcaseChallenge from "../assets/welab/welab-old-showcase-challenge.webp";
 import oldShowcaseSolution from "../assets/welab/welab-old-showcase-solution.webp";
 import auditHomeFooter from "../assets/welab/welab-audit-home-footer.webp";
@@ -83,13 +82,11 @@ const AUDIT_SECTIONS_ROW = [
   { src: auditHomeFooter, ar: 0.46, alt: "The old home page footer on a phone — Light the Fire Within headline, contact button, social icons, and the WeLAB wordmark" },
 ];
 
-/* A cell may carry `ba: "before" | "after"`. Where a row crosses from the
-   old state to the rebuilt one, the site's own long-tail arrow is drawn in
-   the gap — so a comparison reads as one at a glance, not as a line of
-   screenshots with captions. That crossover gap widens to 60px (the cell
-   widths above budget for it, so the captures give up the space rather
-   than the row), leaving the arrow room to sit inside it with its foot on
-   the images' bottom edge.
+/* A cell may carry `ba: "before" | "after"`. Every pair is announced the
+   way the shared BeforeAfter pairs are — Before and After labels above
+   the captures — and where a row crosses from the old state to the
+   rebuilt one the gap widens to 60px (the cell widths above budget for
+   it), so the two states still read as two groups.
    A cell states its shape once, as `ar`; its width follows from that on the
    shared scale. Only rows that can't fit on that scale — the four-up, the
    Who We Are pair, the Figma five-across, the EN/ES pair — carry their own
@@ -118,7 +115,6 @@ function AuditRows({ rows }) {
               >
                 <span className="wl-cell-shot">
                   <img src={cell.src} alt={cell.alt} loading="lazy" />
-                  {crossover && <ArrowIcon className="wl-ba-arrow" />}
                 </span>
                 {cell.label && <figcaption>{cell.label}</figcaption>}
               </figure>
@@ -165,9 +161,9 @@ const LAYOUT_ROWS = [
      shorter than the rest. One label per side, on the desktop capture that
      opens each pair — four would only repeat before/after twice. */
   [
-    { src: auditTaxTablet, ar: 1.229, w: "calc((100% - 100px) * 0.3305)", ba: "before", label: "before\u00A0— desktop and mobile", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
+    { src: auditTaxTablet, ar: 1.229, w: "calc((100% - 100px) * 0.3305)", ba: "before", label: "Before", alt: "The old Tax Credits section at tablet width — Vancouver, Calgary, and Guadalajara incentive cards in three uneven columns" },
     { src: auditTaxMobile, ar: 0.325, w: "calc((100% - 100px) * 0.0874)", ba: "before", alt: "The old Tax Credits section on a phone — the incentive cards stacked in a single column" },
-    { src: taxNewDesktop, ar: 1.794, w: "calc((100% - 100px) * 0.4824)", ba: "after", label: "after\u00A0— desktop and mobile", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
+    { src: taxNewDesktop, ar: 1.794, w: "calc((100% - 100px) * 0.4824)", ba: "after", label: "After", alt: "The rebuilt Tax Credits section on desktop — Vancouver, Calgary, and Guadalajara incentive cards holding three even columns" },
     { src: taxNewMobile, ar: 0.371, w: "calc((100% - 100px) * 0.0998)", ba: "after", alt: "The rebuilt Tax Credits section on a phone — the incentive cards stacked in one clean column" },
   ],
   /* both captures are cropped tight to the section, so this pair's shapes
@@ -176,16 +172,16 @@ const LAYOUT_ROWS = [
      out the size they were before the crop — only the empty band above and
      below each one is gone. */
   [
-    { src: auditWhoWeAre, ar: 1.537, w: "calc((100% - 60px) * 0.4617)", label: "before\u00A0— Who We Are", ba: "before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
-    { src: afterWhoWeAre, ar: 1.792, w: "calc((100% - 60px) * 0.5383)", ba: "after", label: "after\u00A0— Who We Are", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
+    { src: auditWhoWeAre, ar: 1.537, w: "calc((100% - 60px) * 0.4617)", label: "Before", ba: "before", alt: "The Who We Are section of the old About Us page — the studio's collective statement beside oversized stat lines" },
+    { src: afterWhoWeAre, ar: 1.792, w: "calc((100% - 60px) * 0.5383)", ba: "after", label: "After", alt: "The rebuilt Who We Are section — the statement, supporting copy, and stat lines aligned on one grid" },
   ],
   [
-    { src: footerBaBefore, ar: 0.59, ba: "before", label: "before\u00A0— Home footer", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
-    { src: footerBaAfter, ar: 0.59, ba: "after", label: "after\u00A0— Home footer", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
+    { src: footerBaBefore, ar: 0.59, ba: "before", label: "Before", alt: "The old home page footer on a phone — social icons spilling onto a second row under the Contact Us button" },
+    { src: footerBaAfter, ar: 0.59, ba: "after", label: "After", alt: "The rebuilt home footer on a phone — the same components aligned, the social icons on one row" },
   ],
   [
-    { src: clientsBaBefore, ar: 0.97, ba: "before", label: "before\u00A0— Clients & Awards", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
-    { src: clientsBaAfter, ar: 0.977, ba: "after", label: "after\u00A0— Clients & Awards", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
+    { src: clientsBaBefore, ar: 0.97, ba: "before", label: "Before", alt: "The Our Clients section of the old About Us page — a logo wall under the Amazing Battles, Amazed Clients headline" },
+    { src: clientsBaAfter, ar: 0.977, ba: "after", label: "After", alt: "The rebuilt Our Clients section — the logo wall realigned on the shared grid" },
   ],
 ];
 
@@ -213,8 +209,8 @@ const LANDING_ROWS = [
   [
     /* cropped to the project cards alone, so the pair compares like with
        like: the old front page's two cards against the new section */
-    { src: oldLandingCards, ar: 0.859, ba: "before", label: "Landing — before", alt: "The old landing page's project cards — Torch of Rock and Roll and A Winning Team, each card taking a full screen of its own" },
-    { src: afterFeatured, ar: 1.69, ba: "after", label: "Featured case studies — shipped", alt: "The featured case-studies section on the live site — the studio's three newest case studies on one grid, each with a clear way in" },
+    { src: oldLandingCards, ar: 0.859, ba: "before", label: "Before", alt: "The old landing page's project cards — Torch of Rock and Roll and A Winning Team, each card taking a full screen of its own" },
+    { src: afterFeatured, ar: 1.69, ba: "after", label: "After", alt: "The featured case-studies section on the live site — the studio's three newest case studies on one grid, each with a clear way in" },
   ],
 ];
 
