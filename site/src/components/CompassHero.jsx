@@ -1,17 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import frameBlue from "../assets/iphone-17-pro-blue.webp";
 import cardUrl from "../assets/compass/compass-hero-card.webp";
+import watchUrl from "../assets/compass/compass-hero-watch.webp";
 import walletRestUrl from "../assets/compass/compass-hero-wallet-rest.webp";
 import walletPassUrl from "../assets/compass/compass-hero-wallet-pass.webp";
 import { isCovered, onCover, onReveal } from "../lib/preloaderBus.js";
 
 /* Compass Card case-study hero: the physical card appears as a pass in the
-   phone's Wallet, then the tap confirmation plays on the screen — the scene
-   that opens chapter 05's "the card you already have, on the device you
-   already carry". The card is never absorbed or taken away: it flies to the
-   screen and cross-fades into the pass appearing in the stack (ch04's bet is
-   "adds a phone; does not take away a card"), and the loop returns home with
-   a plain cross-fade, no rewind.
+   phone's Wallet, the watch joins from the wing, then the tap confirmation
+   plays on the screen — the scene that opens chapter 05's "the card you
+   already have, on the device you already carry". The card is never
+   absorbed or taken away: it flies to the screen and cross-fades into the
+   pass appearing in the stack (ch04's bet is "adds a phone; does not take
+   away a card"). Once the pass is home the phone makes room, sliding left
+   as the watch rides in from off-stage right — the card now lives on every
+   wrist and screen — and the loop fades home through the page background,
+   no rewind.
 
    Built as a live in-page animation (like ProLogJourney), not a video:
    two wallet stills layered in the phone's screen window plus the existing
@@ -19,16 +23,19 @@ import { isCovered, onCover, onReveal } from "../lib/preloaderBus.js";
    scene is laid out at a fixed logical size and the whole thing scales to
    the space it's given, so every distance holds at any width. */
 
-/* ── timing: the ~6.5s loop, one entry per storyboard beat ── */
+/* ── timing: the ~7.7s loop, one entry per storyboard beat ── */
 const PHASES = [
-  ["rest", 800], //  the still: card on the left, Wallet waiting on the right
+  ["rest", 900], //  the still: card on the left, Wallet waiting on the right
   ["fly", 800], //   the card moves onto the screen's pass slot (decelerate)
   ["land", 400], //  cross-fade: physical card -> the pass, appearing in place
-  ["hold", 1000], // breath — the pass has its home
+  ["hold", 700], //  breath — the pass has its home
+  ["slide", 900], // the phone makes room; the watch rides in from the right
+  ["duo", 800], //   both devices hold, the pass on each
   ["tap", 2500], //  the screen plays the tap: zone, fare charged, balance
-  ["back", 1000], // cross-fade to the opening still; the loop starts over
+  ["back", 700], //  the scene fades through the page; the loop starts over
 ];
 const FADE_TAP_MS = 300; // wallet -> tap clip screen change inside "tap"
+const FADE_REST_MS = 500; // the opening still fading back in after "back"
 const DUR = Object.fromEntries(PHASES); // the CSS reads its durations from here
 
 /* ── geometry ──
@@ -39,13 +46,15 @@ const MOCK = { w: 1720, h: 3516, x: 93, y: 90, sw: 1534 };
 const SCREEN = { w: 402, h: 874, r: 26 };
 const PASS_SLOT = { x: 10, y: 268, w: 382, h: 248 };
 const CARD_AR = 1280 / 805; // the card art's own proportion
+const WATCH_AR = 1572 / 2412; // the watch still's proportion
 const PHONE_CAP = 350; // the phone never renders wider than this
 
 /* the desktop band and the tighter phone-width composition: same scene,
-   the card just starts closer so the flight stays in frame */
+   the card just starts closer so the flight stays in frame. The watch
+   keeps the thumbnail's watch-to-phone proportion (1300:1700). */
 const SCENES = {
-  desktop: { w: 1200, h: 525, phoneX: 720, phoneTop: 12, phoneH: 500, cardX: 100, cardW: 340 },
-  mobile: { w: 620, h: 540, phoneX: 350, phoneTop: 10, phoneH: 520, cardX: 12, cardW: 280 },
+  desktop: { w: 1200, h: 525, phoneX: 720, phoneTop: 12, phoneH: 500, cardX: 100, cardW: 340, watchH: 380, duoGap: 90 },
+  mobile: { w: 620, h: 540, phoneX: 350, phoneTop: 10, phoneH: 520, cardX: 12, cardW: 280, watchH: 398, duoGap: 40 },
 };
 
 function layout(g) {
@@ -65,13 +74,31 @@ function layout(g) {
   const k = (PASS_SLOT.w * s) / g.cardW;
   const dx = g.phoneX + screen.x + (PASS_SLOT.x + PASS_SLOT.w / 2) * s - (g.cardX + g.cardW / 2);
   const dy = g.phoneTop + screen.y + (PASS_SLOT.y + PASS_SLOT.h / 2) * s - (cardY + cardH / 2);
-  return { ...g, phoneW, screen, cardY, cardH, fly: `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(${k.toFixed(3)})` };
+  // the duo: phone and watch centred as a pair; the phone slides left to its
+  // duo seat and the watch starts one band-width past its own, off-stage
+  const watchW = g.watchH * WATCH_AR;
+  const duoPhoneX = (g.w - (phoneW + g.duoGap + watchW)) / 2;
+  const watchX = duoPhoneX + phoneW + g.duoGap;
+  const watchY = g.phoneTop + (g.phoneH - g.watchH) / 2;
+  return {
+    ...g,
+    phoneW,
+    screen,
+    cardY,
+    cardH,
+    watchW,
+    watchX,
+    watchY,
+    fly: `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(${k.toFixed(3)})`,
+    phoneSlide: `${(duoPhoneX - g.phoneX).toFixed(1)}px`,
+    watchEnter: `${(g.w + 40 - watchX).toFixed(1)}px`,
+  };
 }
 
 const VIDEO_SRC = `${import.meta.env.BASE_URL}media/compass-card/compass-tap-motion.mp4`;
 const POSTER_SRC = `${import.meta.env.BASE_URL}media/compass-card/compass-tap-motion-poster.jpg`;
 const ARIA =
-  "A physical Compass Card appears as a pass in Apple Wallet, then a tap confirmation plays — zone, fare charged, balance remaining";
+  "A physical Compass Card appears as a pass in Apple Wallet, an Apple Watch slides in beside the phone, then a tap confirmation plays — zone, fare charged, balance remaining";
 
 const useMedia = (query) => {
   const [match, setMatch] = useState(() => window.matchMedia(query).matches);
@@ -176,10 +203,14 @@ export default function CompassHero() {
         style={{
           aspectRatio: `${L.w} / ${L.h}`,
           "--cmp-fly": L.fly,
+          "--cmp-phone-slide": L.phoneSlide,
+          "--cmp-watch-enter": L.watchEnter,
           "--cmp-t-fly": `${DUR.fly}ms`,
           "--cmp-t-land": `${DUR.land}ms`,
+          "--cmp-t-slide": `${DUR.slide}ms`,
           "--cmp-t-back": `${DUR.back}ms`,
           "--cmp-t-tap": `${FADE_TAP_MS}ms`,
+          "--cmp-t-rest": `${FADE_REST_MS}ms`,
         }}
       >
         <div ref={sceneRef} className="cmp-hero-scene" style={{ width: L.w, height: L.h }}>
@@ -212,6 +243,12 @@ export default function CompassHero() {
             </div>
             <img className="cmp-hero-frame" src={frameBlue} alt="" />
           </div>
+          <img
+            className="cmp-hero-watch"
+            src={watchUrl}
+            alt=""
+            style={{ left: L.watchX, top: L.watchY, width: L.watchW }}
+          />
           <img
             className="cmp-hero-card"
             src={cardUrl}

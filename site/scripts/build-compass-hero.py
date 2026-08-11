@@ -22,7 +22,7 @@ underneath. The watch frame is one of the case-study stills — its screen is
 painted, so the video goes on top; screen and video are both black-backed,
 which makes a plain rectangle overlay seamless (no corner mask needed).
 The recorder's virtual-time capture delivers CSS-resolution frames at an
-exact 30fps, so APP_RECT is simply the whole frame.
+exact 60fps, so APP_RECT is simply the whole frame.
 """
 
 import json
@@ -39,7 +39,7 @@ OUT = ROOT / "public" / "media" / "compass-card"
 
 CANVAS = (3500, 1928)
 BG = "0xFAFAFA"
-FPS = 30
+FPS = 60
 DURATION = 10
 
 GAP = 300

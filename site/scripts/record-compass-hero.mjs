@@ -11,9 +11,9 @@
  *   public/media/compass-card/raw/trims.json
  *
  * Capture is deterministic, not realtime: after the page settles, CDP
- * virtual time steps the renderer exactly 1/30s per frame and each frame
+ * virtual time steps the renderer exactly 1/60s per frame and each frame
  * is screenshotted. Every CSS transition and timer
- * lands on the virtual clock, so motion samples perfectly at 30fps no
+ * lands on the virtual clock, so motion samples perfectly at 60fps no
  * matter how slow the headless renderer is — realtime recordVideo capped
  * out at an uneven 25fps and judddered through the screen transitions.
  * initialVirtualTime pins the demos' clocks to 9:41.
@@ -30,11 +30,26 @@ import { mkdirSync, rmSync, writeFileSync } from 'fs';
 
 const BASE = process.env.BASE || 'http://localhost:8199/Portfolio';
 const OUT = 'public/media/compass-card/raw';
-const FPS = 30;
+const FPS = 60;
 mkdirSync(OUT, { recursive: true });
 
+/* Virtual time only drives the renderer's main thread. The demos' screen
+   pushes are transform transitions, which normally animate on the
+   compositor thread with the real clock — under stepped capture they sat
+   at their first frame for the whole grant and snapped to the end (the
+   "judder"). These flags force every animation onto the main thread and
+   make the compositor draw whatever the step produced, so the pushes
+   sample perfectly along the virtual clock. */
 const browser = await chromium.launch({
   executablePath: process.env.CHROME_PATH || undefined,
+  args: [
+    '--disable-threaded-animation',
+    '--disable-threaded-scrolling',
+    '--run-all-compositor-stages-before-draw',
+    '--disable-checker-imaging',
+    '--disable-image-animation-resync',
+    '--disable-new-content-rendering-timeout',
+  ],
 });
 const trims = {};
 
@@ -87,6 +102,13 @@ async function record(name, viewport, prepare, frames, actions) {
     const act = actions[i];
     if (act) await page.mouse.click(act[0], act[1]);
     await step();
+    /* keyframe animations advance on the virtual clock but nothing forces
+       the main thread to restyle between grants, so a pure capture loop
+       screenshots the last committed frame — every screen push froze at
+       its first pose and snapped at the end. A forced synchronous style
+       recalc each step makes the current animation pose get committed;
+       with it, the pushes sample perfectly (A/B verified). */
+    await page.evaluate(() => getComputedStyle(document.body).transform);
     if (i % 60 === 0) console.log(`  ${name} ${i}/${frames}`);
     /* jpeg: the png encoder is what made this loop minutes-slow, and the
        x264 crf-12 intermediate swallows q92 artefacts anyway. Bare capture
