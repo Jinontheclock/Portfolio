@@ -1,7 +1,28 @@
+import cardPoster from "../../assets/prolog/prolog-card-poster.webp";
+
 export default {
   id: "prolog",
   title: "ProLog",
   kind: "0-to-1 Product · Mobile App",
+  /* Work-card thumbnail: the app itself running in the two phone mockups —
+     the dashboard counting up on the iPhone, a skills quiz being worked
+     through on the Galaxy. scripts/record-prolog-hero.mjs records the
+     screens, scripts/build-prolog-hero.py composites and cuts the card. */
+  video: {
+    sources: [
+      {
+        src: `${import.meta.env.BASE_URL}media/prolog/prolog-card.webm`,
+        type: "video/webm",
+      },
+      {
+        src: `${import.meta.env.BASE_URL}media/prolog/prolog-card.mp4`,
+        type: "video/mp4",
+      },
+    ],
+    poster: cardPoster,
+  },
+  thumbAlt:
+    "The ProLog app on an iPhone and a Galaxy — the dashboard filling in on one, a skills quiz being solved on the other",
   description: {
     en: "A mobile platform that turns a fragmented 6,000-hour apprenticeship into one clear, accessible roadmap, designed for neurodivergent apprentices.",
     ja: "散らばっていた見習いの記録を一つの明確なロードマップに変える、ニューロダイバージェントな技能者のためのモバイルアプリ",
