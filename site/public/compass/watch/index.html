@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Compass on the wrist</title>
+<style>
+  /* The watchOS side of the Compass concept, playable: the five screens
+     from the case study wired into their two real flows. Tap the card to
+     reload (only +$20 is scripted — the others nudge); tap Express Mode
+     to ride through a reader tap. The page is sized to the watch display
+     (886x1296 source) and scales to whatever holds it. */
+  html, body { margin: 0; height: 100%; background: #000; }
+  #stage { position: relative; height: 100%; margin: 0 auto; aspect-ratio: 886 / 1296; overflow: hidden; }
+  #stage img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    opacity: 0; transition: opacity 180ms ease; pointer-events: none;
+  }
+  #stage img.on { opacity: 1; }
+  .zone { position: absolute; left: 0; right: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .shake { animation: nudge 320ms ease; }
+  @keyframes nudge {
+    25% { transform: translateX(-7px); }
+    60% { transform: translateX(5px); }
+    85% { transform: translateX(-2px); }
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <img id="s-wallet"   src="wallet.webp"   alt="Wallet: the Compass card, $15.00, Express Mode" class="on" />
+  <img id="s-reload"   src="reload.webp"   alt="Reload: Balance $15.00, +$10 +$20 +$50" />
+  <img id="s-added"    src="added.webp"    alt="+$20.00 Added — Balance $35.00" />
+  <img id="s-reader"   src="reader.webp"   alt="Hold Near Reader" />
+  <img id="s-deducted" src="deducted.webp" alt="$2.85 Deducted — $12.15 Remaining" />
+</div>
+<script>
+  const stage = document.getElementById("stage");
+  const screens = {};
+  for (const img of stage.querySelectorAll("img")) screens[img.id.slice(2)] = img;
+
+  let zones = [];
+  let timer = null;
+  function show(name) {
+    clearTimeout(timer);
+    for (const z of zones) z.remove();
+    zones = [];
+    for (const [id, img] of Object.entries(screens)) img.classList.toggle("on", id === name);
+    const zone = (top, height, onTap) => {
+      const z = document.createElement("div");
+      z.className = "zone";
+      z.style.top = top + "%";
+      z.style.height = height + "%";
+      z.addEventListener("click", onTap);
+      stage.appendChild(z);
+      zones.push(z);
+    };
+    if (name === "wallet") {
+      zone(12, 43, () => show("reload"));            // the card -> Reload
+      zone(60, 22, () => show("reader"));            // Express Mode -> a tap
+    } else if (name === "reload") {
+      zone(29, 16, (e) => nudge(e));                 // +$10 (not scripted)
+      zone(51, 16, () => show("added"));             // +$20 -> Added
+      zone(73, 16, (e) => nudge(e));                 // +$50 (not scripted)
+    } else if (name === "reader") {
+      // the reader reads on its own, like the real gesture
+      timer = setTimeout(() => show("deducted"), 1500);
+    } else {
+      zone(0, 100, () => show("wallet"));            // added / deducted -> home
+    }
+  }
+  function nudge(e) {
+    stage.classList.remove("shake");
+    void stage.offsetWidth;
+    stage.classList.add("shake");
+  }
+  show("wallet");
+</script>
+</body>
+</html>

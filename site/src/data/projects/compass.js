@@ -1,3 +1,5 @@
+import cardPoster from "../../assets/compass/compass-card-poster.webp";
+
 /* Compass Card — 8 chapters, 90 blocks. Structure and copy are final;
    every figure and solution screen is a labelled placeholder until the
    artwork lands (see CompassPlaceholders.jsx). */
@@ -923,6 +925,26 @@ export default {
   id: "compass-card",
   title: "Compass Card",
   kind: "Concept Project · iOS & watchOS",
+  /* Work-card thumbnail: the concept running in both its devices — the
+     Apple Wallet link-up on the iPhone, a reload and a reader tap on the
+     watch. scripts/record-compass-hero.mjs records the screens (the watch
+     side drives the playable demo at public/compass/watch/), and
+     scripts/build-compass-hero.py composites and cuts the card. */
+  video: {
+    sources: [
+      {
+        src: `${import.meta.env.BASE_URL}media/compass-card/compass-card.webm`,
+        type: "video/webm",
+      },
+      {
+        src: `${import.meta.env.BASE_URL}media/compass-card/compass-card.mp4`,
+        type: "video/mp4",
+      },
+    ],
+    poster: cardPoster,
+  },
+  thumbAlt:
+    "The Compass concept on an iPhone and an Apple Watch — the pass joining Apple Wallet on one, a reload and a reader tap on the other",
   description: {
     en: "Redesigning Metro Vancouver's transit fare card system into an iOS and watchOS experience built on TransLink's upcoming account-based model.",
     ja: "TransLinkがすでに入札にかけたアカウントベースのシステムの上に設計した、BC州の交通運賃カードのiOS・watchOSコンセプトアプリ",
