@@ -285,9 +285,9 @@ function Block({ block, onDemo, demoHref }) {
         </div>
       );
     case "ba": {
-      /* one usability fix per row: what broke and what changed as body copy
-         on the left, the labelled before/after pair on the right — the
-         solution rows' shape, carried over to the testing chapter */
+      /* a side-by-side row: body copy on the left, a figure on the right —
+         the solution rows' shape. Born for the usability-fix pairs, and
+         the same seat serves any figure whose story reads beside it */
       const Figure = FIGURES[block.graphic];
       if (!Figure) return null;
       return (
@@ -297,6 +297,11 @@ function Block({ block, onDemo, demoHref }) {
           </div>
           <figure className="cs-ba-set-media">
             <Figure />
+            {block.caption && (
+              <figcaption className="cs-figure-caption">
+                {noOrphan(block.caption)}
+              </figcaption>
+            )}
           </figure>
         </div>
       );

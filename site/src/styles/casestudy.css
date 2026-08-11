@@ -519,6 +519,17 @@
 .cs-ba-set-media {
   margin: 0;
 }
+/* audit captures seated beside their copy give up the full-column widths
+   they were measured at and share the media column out by shape instead —
+   the phone layout's recipe (see the .wl-audit-cell rule in the 600px
+   block), promoted to every width inside this seat */
+.cs-ba-set-media .wl-audit-cell {
+  flex-grow: calc(var(--ar, 1) * 10);
+  flex-shrink: 1;
+  flex-basis: 0;
+  width: auto !important;
+  min-width: 0;
+}
 .cs-shots {
   display: flex;
   align-items: flex-start;

@@ -212,16 +212,13 @@ export default {
           },
         },
         {
-          type: "p",
+          type: "ba",
+          graphic: "welab-fig-old-landing",
           text: {
             en: "The landing page still led with the same two project cards while the studio's slate moved on — its newest headline work wasn't on the front page at all. And even as calls to action, the cards underdelivered: each one swallowed a full screen, the pair followed different layouts, and the Explore link sank somewhere in all that surface. The studios WeLAB competes with lead with their strongest, freshest work. Out of that research I proposed a featured case-studies section, and the studio said yes.",
             ja: "スタジオのラインナップは動き続けているのに、ランディングページは相変わらず同じプロジェクトカード二枚で始まっていました。最新の代表作はトップページに一つもありませんでした。そしてCTAとしても、このカードは役目を果たしていませんでした。一枚が画面全体を飲み込み、二枚のレイアウトは互いに違い、Exploreリンクはその広い面積のどこかに沈んでいました。WeLABが競合するスタジオは、いちばん強く、いちばん新しい作品でサイトを開きます。この調査を根拠に注目ケーススタディのセクションを提案し、スタジオはこれを受け入れました。",
             ko: "스튜디오의 라인업은 계속 움직이는데, 랜딩 페이지는 여전히 같은 프로젝트 카드 두 장으로 시작하고 있었습니다. 가장 최근의 대표작은 첫 화면에 아예 없었습니다. 그리고 CTA로서도 이 카드들은 제 몫을 하지 못했습니다. 한 장이 화면 전체를 삼켰고, 두 장의 레이아웃이 서로 달랐으며, Explore 링크는 그 넓은 면적 어딘가에 가라앉아 있었습니다. WeLAB이 경쟁하는 스튜디오들은 가장 강하고 가장 최근인 작업으로 사이트를 엽니다. 이 조사를 근거로 대표 케이스 스터디 섹션을 제안했고, 스튜디오가 받아들였습니다.",
           },
-        },
-        {
-          type: "figure",
-          graphic: "welab-fig-old-landing",
           caption: {
             en: "The project cards on the old landing page, on desktop and on a phone.",
             ja: "旧ランディングページのプロジェクトカードを、デスクトップとスマートフォンで見たところ。",
@@ -237,16 +234,13 @@ export default {
           },
         },
         {
-          type: "p",
+          type: "ba",
+          graphic: "welab-fig-old-studios",
           text: {
             en: "Through the first half of 2025, WeLAB's slate ran through its Canadian studios, and the site matched: English only, built for the US and Canadian clients it already had. Then the studio's map changed — starting with Shadow of God, a feature backed by Jalisco's film incentive program, the push into Mexico stopped being a plan and became a slate. The site's own services page was already selling those incentives — in English. Growth wasn't waiting on marketing; it was waiting on the website.",
             ja: "2025年前半まで、WeLABのラインナップはカナダのスタジオを通して回っていて、サイトもそれに合っていました。英語のみ、すでに抱えている米国とカナダのクライアントに向けたサイトです。そこでスタジオの地図が変わりました。ハリスコ州の映像インセンティブ制度の支援を受けた長編『Shadow of God』を皮切りに、メキシコ進出は計画ではなく実際のラインナップになりました。当のサイトのServicesページは、そのインセンティブをすでに売っていました — 英語で。成長が待っていたのはマーケティングではなく、ウェブサイトでした。",
             ko: "2025년 상반기까지 WeLAB의 라인업은 캐나다 스튜디오들을 통해 돌아갔고, 사이트도 거기에 맞춰져 있었습니다. 영어 단일 언어, 이미 확보한 미국과 캐나다 클라이언트를 위한 사이트였습니다. 그러다 스튜디오의 지도가 바뀌었습니다. 할리스코주 영상 인센티브 제도의 지원을 받은 장편 〈Shadow of God〉을 시작으로, 멕시코 진출은 계획이 아니라 실제 라인업이 됐습니다. 정작 사이트의 Services 페이지는 그 인센티브를 이미 팔고 있었습니다 — 영어로. 성장이 기다리고 있던 것은 마케팅이 아니라 웹사이트였습니다.",
           },
-        },
-        {
-          type: "figure",
-          graphic: "welab-fig-old-studios",
           caption: {
             en: "The Our Studios section of the old landing page — the studio clocks for Guadalajara, Calgary, and Vancouver.",
             ja: "旧ランディングページのOur Studiosセクション — グアダラハラ・カルガリー・バンクーバーのスタジオ時計。",
