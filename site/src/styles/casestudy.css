@@ -540,6 +540,8 @@
   box-sizing: border-box;
   margin-right: calc(-1 * var(--page-margin, 24px));
   padding-right: var(--page-margin, 24px);
+  /* daylight between the screens and the scrollbar's ink line */
+  padding-bottom: 10px;
 }
 .cs-shots:not(.cs-shots--wide) img {
   flex: 0 0 auto;
