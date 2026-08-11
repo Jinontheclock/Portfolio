@@ -166,6 +166,9 @@ def source_chain(label, spec, out):
     tail = f"crop={spec['app_rect']},scale={hole[2]}:{hole[3]}:flags=lanczos"
     if "cut" in t:
         a, b = t["cut"]
+        # open on the action: 0.3s of the resting state, then the splice
+        # lands straight on the progress animation
+        t = {**t, "lead": max(t["lead"], a - 0.3)}
         return (
             f"[{label}]split[{out}s1][{out}s2];"
             f"[{out}s1]trim=start={t['lead']}:end={a},setpts=PTS-STARTPTS[{out}a];"

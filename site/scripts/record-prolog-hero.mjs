@@ -65,7 +65,9 @@ async function record(name, viewport, flow) {
     },
   });
   const page = await context.newPage();
-  await page.clock.setFixedTime(new Date(new Date().toDateString() + ' 09:41:00'));
+  /* pin the clock's display to 9:41 but let time RUN — a fixed Date.now
+     freezes React Native's JS-driven Animated timings (the count-up bars) */
+  await page.clock.setSystemTime(new Date(new Date().toDateString() + ' 09:41:00'));
   const recStart = Date.now();
   const marks = await flow(page);
   /* keep a beat of lead so the cut lands just before first paint settles */
@@ -97,13 +99,15 @@ await record('prolog-screen-dashboard', { width: 402, height: 874 }, async (page
   await glideScroll(page, 560, 1900);       // down to Overall Progress
   await page.waitForTimeout(2600);
   await glideScroll(page, 0, 1500);         // settle back on the journey
-  await page.waitForTimeout(2300);
+  await page.waitForTimeout(3200);
   return { contentAt, cut: [tapAt + 30, dialogGoneAt + 250] };
 });
 
 /* ── Galaxy · Skills: into the level exam, three questions at a human pace ── */
 await record('prolog-screen-quiz', { width: 412, height: 872 }, async (page) => {
-  await page.goto(`${BASE}/My_Skills`, { waitUntil: 'networkidle' });
+  /* the Galaxy wears no iOS pill — the app's ?chrome=android boot flag
+     drops the home-indicator zone and seats the nav bar on the edge */
+  await page.goto(`${BASE}/My_Skills?chrome=android`, { waitUntil: 'networkidle' });
   await page.getByText('Exam Prep').first().waitFor();
   const contentAt = Date.now();
   await page.waitForTimeout(1500);          // a beat on the Skills tab
