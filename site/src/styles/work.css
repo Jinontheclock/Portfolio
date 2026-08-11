@@ -13,7 +13,8 @@
   display: flex;
   flex-direction: column;
   gap: 63px;
-  padding: 48px 0 400px;
+  /* the 112px of air below the header is shared with the About page */
+  padding: 112px 0 400px;
 }
 
 /* cards are links to the case-study detail page */
@@ -185,7 +186,8 @@
 @media (max-width: 600px) {
   .wk-list {
     gap: 48px;
-    padding: 32px 0 220px;
+    /* same header air as the About page's phone value */
+    padding: 64px 0 220px;
   }
   /* the stack leaves the grid — a flex column, like before it — and gives
      the padding back to .ab-grid's phone margin */

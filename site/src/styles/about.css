@@ -15,7 +15,8 @@
 .ab-main {
   flex: 1;
   box-sizing: border-box;
-  padding: 84px 0 400px;
+  /* the 112px of air below the header is shared with the Work page */
+  padding: 112px 0 400px;
 }
 
 .ab-grid {
@@ -65,11 +66,11 @@
   align-items: flex-start;
   gap: 18px;
   position: sticky;
-  /* pinned at its natural resting spot (header 40px + .ab-main's 84px top
+  /* pinned at its natural resting spot (header 40px + .ab-main's 112px top
      padding) so it holds the exact same position whether scrolled or not —
-     no initial ride-up before it fixes. Same value, same reason, as the
-     case studies' .cs-left */
-  top: 124px;
+     no initial ride-up before it fixes. Same reason as the case studies'
+     .cs-left, whose own padding sets its own number */
+  top: 152px;
   align-self: start;
 }
 
@@ -308,7 +309,7 @@
 /* ── Mobile: single column — links row, then the content column ── */
 @media (max-width: 600px) {
   .ab-main {
-    padding: 48px 0 220px;
+    padding: 64px 0 220px;
   }
   .ab-grid {
     padding: 0 20px;
