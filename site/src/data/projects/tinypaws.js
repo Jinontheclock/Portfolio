@@ -31,7 +31,11 @@ export default {
   headline: "A clear path from stray to safe home.",
   demo: { src: "tinypaws/", variant: "web" },
   intro: [
-    "TinyPaws is a concept website for a volunteer-run kitten rescue in Vancouver — the rescue's front door, where adopters decide whether to trust, apply, or leave. On a five-person team, I co-designed the UX, built the visual identity, and hand-coded the site itself. Created at BCIT.",
+    [
+      "TinyPaws is a concept website for a volunteer-run kitten rescue in Vancouver — the rescue's front door, where adopters decide whether to trust, apply, or leave. On a five-person team, I co-designed the UX, built the visual identity, and hand-coded the site itself. Created at ",
+      { text: "BCIT", href: "https://www.bcit.ca/outlines/20241079749/" },
+      ".",
+    ],
   ],
   metaLeft: [
     { label: "category", values: ["Website"] },
