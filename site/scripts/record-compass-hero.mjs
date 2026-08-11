@@ -38,8 +38,12 @@ const browser = await chromium.launch({
 });
 const trims = {};
 
-/* nine-forty-one today, in epoch seconds, for the virtual clock's base */
+/* The virtual clock opens just before 9:41; the pre-roll below advances
+   it past the minute boundary so the demos' already-mounted clocks tick
+   over to 9:41 before the first frame is taken. */
 const NINE_41 = new Date(new Date().toDateString() + ' 09:41:00').getTime() / 1000;
+const CLOCK_BASE = NINE_41 - 30;
+const PREROLL_MS = 65_000;
 
 async function record(name, viewport, prepare, frames, actions) {
   const context = await browser.newContext({ viewport, deviceScaleFactor: 2 });
@@ -54,15 +58,15 @@ async function record(name, viewport, prepare, frames, actions) {
      arrives; a rare regrant costs one extra 33ms of virtual time. */
   await client.send('Emulation.setVirtualTimePolicy', {
     policy: 'pause',
-    initialVirtualTime: NINE_41,
+    initialVirtualTime: CLOCK_BASE,
   });
-  const step = async () => {
+  const step = async (budget = 1000 / FPS) => {
     for (let attempt = 0; attempt < 3; attempt++) {
       const expired = new Promise((r) =>
         client.once('Emulation.virtualTimeBudgetExpired', () => r(true)));
       await client.send('Emulation.setVirtualTimePolicy', {
         policy: 'pauseIfNetworkFetchesPending',
-        budget: 1000 / FPS,
+        budget,
         maxVirtualTimeTaskStarvationCount: 5000,
       });
       const ok = await Promise.race([
@@ -73,6 +77,8 @@ async function record(name, viewport, prepare, frames, actions) {
     }
     throw new Error('virtual time stalled');
   };
+
+  await step(PREROLL_MS); // roll the clocks over the 9:41 boundary
 
   const dir = `${OUT}/frames-${name}`;
   rmSync(dir, { recursive: true, force: true });
@@ -117,14 +123,14 @@ await record(
     await page.waitForTimeout(700);
     await page.getByRole('button', { name: 'Login' }).last().click();
     await page.waitForTimeout(1300);
-    await page.getByText('My Compass Card').first().click();
-    await page.getByText('Add to Apple Wallet').first().waitFor();
-    await page.waitForTimeout(700); // detail settles; capture opens here
+    await page.getByText('My Compass Card').first().waitFor();
+    await page.waitForTimeout(700); // the card list settles; capture opens here
   },
   sec(10.5),
   {
-    [sec(2.4)]: [297, 707],  // Add to Apple Wallet
-    [sec(5.4)]: [201, 390],  // open the Compass pass; hold on the balance
+    [sec(1.8)]: [201, 233],  // the card tile -> its detail
+    [sec(4.2)]: [297, 707],  // Add to Apple Wallet
+    [sec(7.0)]: [201, 390],  // open the Compass pass; hold on the balance
   },
 );
 
