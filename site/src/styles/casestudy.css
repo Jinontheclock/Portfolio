@@ -6,7 +6,8 @@
 .cs-main {
   flex: 1;
   box-sizing: border-box;
-  padding: 84px 0 400px;
+  /* the 140px of air below the header is shared with Work and About */
+  padding: 140px 0 400px;
 }
 
 .cs-grid {
@@ -18,10 +19,10 @@
   grid-column: 2 / 6;
   grid-row: 1 / 3;
   position: sticky;
-  /* pinned at its natural resting spot (header 40px + .cs-main's 84px top
+  /* pinned at its natural resting spot (header 40px + .cs-main's 140px top
      padding) so it holds the exact same position whether scrolled or not —
      no initial ride-up before it fixes */
-  top: 124px;
+  top: 180px;
   align-self: start;
 }
 
@@ -477,7 +478,8 @@
 }
 .cs-solution-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  /* text leads: 6:4, the words carrying the row and the screens beside it */
+  grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
   gap: 24px;
   align-items: start;
 }
@@ -496,7 +498,8 @@
 .cs-ba-set {
   margin: 20px 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  /* the solution rows' 6:4, so the two chapters keep answering each other */
+  grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
   gap: 24px;
   align-items: start;
 }
@@ -506,7 +509,21 @@
 .cs-shots {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
+}
+/* Every phone screen in a solution row renders at one shared size — the
+   width of a before/after cell, so all the screens on the page match —
+   and a row with more than two becomes a carousel, scrolling inside its
+   own column. The wide (desktop-shot) rows keep their flexible sizing. */
+.cs-shots:not(.cs-shots--wide) {
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+.cs-shots:not(.cs-shots--wide) img {
+  flex: 0 0 auto;
+  width: calc(50% - 6px);
+  scroll-snap-align: start;
 }
 .cs-shots img {
   flex: 1;
