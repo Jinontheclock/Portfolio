@@ -42,17 +42,22 @@ BG = "0xFAFAFA"
 FPS = 30
 DURATION = 10
 
+# the pair is centred on the canvas around this gap
+GAP = 300
+_IP_W, _GX_W, _TOP, _H = 832, 826, 114, 1700
+_LEFT = (CANVAS[0] - (_IP_W + GAP + _GX_W)) // 2
+
 # frame file, placement (x, y, w, h) on the canvas, app crop in the capture
 IPHONE = {
     "frame": FRAMES / "iphone-17-pro-orange.png",
-    "place": (831, 114, 832, 1700),
+    "place": (_LEFT, _TOP, _IP_W, _H),
     "clip": RAW / "prolog-screen-dashboard.webm",
     "trim_key": "prolog-screen-dashboard",
     "app_rect": "402:874:0:0",
 }
 GALAXY = {
     "frame": FRAMES / "galaxy-s25-navy.png",
-    "place": (1843, 114, 826, 1700),
+    "place": (_LEFT + _IP_W + GAP, _TOP, _GX_W, _H),
     "clip": RAW / "prolog-screen-quiz.webm",
     "trim_key": "prolog-screen-quiz",
     "app_rect": "412:872:0:0",
@@ -153,14 +158,28 @@ preview.alpha_composite(gshot, gx_hole[:2])
 preview.convert("RGB").save(RAW / "hero-layout-preview.png")
 
 # ── master composite ──
-t_dash = trims[IPHONE["trim_key"]]
-t_quiz = trims[GALAXY["trim_key"]]
+def source_chain(label, spec, out):
+    """trim the lead — and splice out the marked span, if one was recorded —
+    then crop the app region and scale it into its screen hole."""
+    t = trims[spec["trim_key"]]
+    hole = ip_hole if spec is IPHONE else gx_hole
+    tail = f"crop={spec['app_rect']},scale={hole[2]}:{hole[3]}:flags=lanczos"
+    if "cut" in t:
+        a, b = t["cut"]
+        return (
+            f"[{label}]split[{out}s1][{out}s2];"
+            f"[{out}s1]trim=start={t['lead']}:end={a},setpts=PTS-STARTPTS[{out}a];"
+            f"[{out}s2]trim=start={b},setpts=PTS-STARTPTS[{out}b];"
+            f"[{out}a][{out}b]concat=n=2:v=1:a=0,{tail}[{out}];"
+        )
+    return f"[{label}]trim=start={t['lead']},setpts=PTS-STARTPTS,{tail}[{out}];"
+
+
 graph = (
     f"color=c={BG}:s={CANVAS[0]}x{CANVAS[1]}:d={DURATION}:r={FPS}[bg];"
-    f"[0:v]trim=start={t_dash},setpts=PTS-STARTPTS,"
-    f"crop={IPHONE['app_rect']},scale={ip_hole[2]}:{ip_hole[3]}:flags=lanczos[dash];"
-    f"[1:v]trim=start={t_quiz},setpts=PTS-STARTPTS,"
-    f"crop={GALAXY['app_rect']},scale={gx_hole[2]}:{gx_hole[3]}:flags=lanczos[quiz];"
+    + source_chain("0:v", IPHONE, "dash")
+    + source_chain("1:v", GALAXY, "quiz")
+    +
     f"[4:v]loop=loop=-1:size=1,scale={gx_hole[2]}:{gx_hole[3]}[qmask];"
     f"[quiz][qmask]alphamerge[quizm];"
     f"[bg][dash]overlay={ip_hole[0]}:{ip_hole[1]}[a];"

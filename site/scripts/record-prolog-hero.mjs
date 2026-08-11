@@ -67,28 +67,38 @@ async function record(name, viewport, flow) {
   const page = await context.newPage();
   await page.clock.setFixedTime(new Date(new Date().toDateString() + ' 09:41:00'));
   const recStart = Date.now();
-  const contentAt = await flow(page);
+  const marks = await flow(page);
   /* keep a beat of lead so the cut lands just before first paint settles */
-  trims[name] = Math.max(0, (contentAt - recStart) / 1000 - 0.2);
+  const rel = (t) => Math.max(0, (t - recStart) / 1000);
+  trims[name] = { lead: Math.max(0, rel(marks.contentAt) - 0.2) };
+  if (marks.cut) trims[name].cut = marks.cut.map(rel);
   const video = page.video();
   await context.close();
   await video.saveAs(`${OUT}/${name}.webm`);
-  console.log(`${name}: trimmed lead ${trims[name].toFixed(2)}s`);
+  console.log(`${name}:`, JSON.stringify(trims[name]));
 }
 
-/* ── iPhone · Dashboard: count-up, unlock, then a glide down the page ── */
+/* ── iPhone · Dashboard: count-up, unlock, then a glide down the page.
+   The demo's "Updating Progress" dialog sits between the tap and the
+   animation — its span is marked here and spliced out in the build, so
+   the cut reads as tap → the orange line moving. ── */
 await record('prolog-screen-dashboard', { width: 402, height: 874 }, async (page) => {
   await page.goto(`${BASE}/Dashboard`, { waitUntil: 'networkidle' });
   await page.getByText('Overall Progress').first().waitFor();
   const contentAt = Date.now();
-  await page.waitForTimeout(2200);          // boot fill animation plays out
-  await page.mouse.click(352, 130);         // sync: the demo's count-up to 100%
-  await page.waitForTimeout(4300);          // journey unlock + counters
+  await page.waitForTimeout(1600);          // boot beat on the journey
+  const tapAt = Date.now();                 // marked before the press — the
+  await page.mouse.click(352, 130);         // dialog is up within the click
+  const dialog = page.getByText('Updating Progress').first();
+  await dialog.waitFor();
+  await dialog.waitFor({ state: 'hidden', timeout: 8000 });
+  const dialogGoneAt = Date.now();
+  await page.waitForTimeout(2800);          // journey unlock + counters
   await glideScroll(page, 560, 1900);       // down to Overall Progress
   await page.waitForTimeout(2600);
   await glideScroll(page, 0, 1500);         // settle back on the journey
-  await page.waitForTimeout(2000);
-  return contentAt;
+  await page.waitForTimeout(2300);
+  return { contentAt, cut: [tapAt + 30, dialogGoneAt + 250] };
 });
 
 /* ── Galaxy · Skills: into the level exam, three questions at a human pace ── */
@@ -136,7 +146,7 @@ await record('prolog-screen-quiz', { width: 412, height: 872 }, async (page) => 
   await answer(2);
   await answer(0, true);
   await page.waitForTimeout(1800);          // hold on the answered state
-  return contentAt;
+  return { contentAt };
 });
 
 writeFileSync(`${OUT}/trims.json`, JSON.stringify(trims, null, 2));
