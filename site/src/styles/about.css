@@ -15,8 +15,8 @@
 .ab-main {
   flex: 1;
   box-sizing: border-box;
-  /* the 112px of air below the header is shared with the Work page */
-  padding: 112px 0 400px;
+  /* the 120px of air below the header is shared with the Work page */
+  padding: 120px 0 400px;
 }
 
 .ab-grid {
@@ -66,11 +66,11 @@
   align-items: flex-start;
   gap: 18px;
   position: sticky;
-  /* pinned at its natural resting spot (header 40px + .ab-main's 112px top
+  /* pinned at its natural resting spot (header 40px + .ab-main's 120px top
      padding) so it holds the exact same position whether scrolled or not —
      no initial ride-up before it fixes. Same reason as the case studies'
      .cs-left, whose own padding sets its own number */
-  top: 152px;
+  top: 160px;
   align-self: start;
 }
 

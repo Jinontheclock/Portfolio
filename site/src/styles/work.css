@@ -13,8 +13,8 @@
   display: flex;
   flex-direction: column;
   gap: 63px;
-  /* the 112px of air below the header is shared with the About page */
-  padding: 112px 0 400px;
+  /* the 120px of air below the header is shared with the About page */
+  padding: 120px 0 400px;
 }
 
 /* cards are links to the case-study detail page */
