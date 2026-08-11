@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
+import { HashRouter, Routes, Route, useLocation, useParams } from "react-router-dom";
 import useLang from "./hooks/useLang.js";
 import Preloader from "./components/Preloader.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
@@ -29,7 +29,10 @@ function CaseStudyLoader() {
   const { pathname } = useLocation();
   const [covering, setCovering] = useState(false);
   const prev = useRef(pathname);
-  useEffect(() => {
+  // layout effect: the cover must be up BEFORE the new page's first paint,
+  // or the half-assembled hero flashes for a frame — the exact thing the
+  // cover exists to hide
+  useLayoutEffect(() => {
     if (pathname !== prev.current) {
       prev.current = pathname;
       if (COVERED_ROUTES.includes(pathname)) setCovering(true);
@@ -37,6 +40,14 @@ function CaseStudyLoader() {
   }, [pathname]);
   if (!covering) return null;
   return <Preloader onDone={() => setCovering(false)} />;
+}
+
+// remount the case-study page whenever :id changes, so per-project state
+// (the password gate, the demo modal, the scroll spy) never carries over
+// from one project to the next
+function CaseStudyRoute(props) {
+  const { id } = useParams();
+  return <CaseStudyPage key={id} {...props} />;
 }
 
 // the boot loader (0→100 count) covers the app's first load on ANY route so
@@ -62,7 +73,13 @@ export default function App() {
   const scrollKeep = useRef(null);
 
   useEffect(() => {
-    if (lang === displayLang) return;
+    if (lang === displayLang) {
+      // a switch reverted mid-fade cancels the pending swap (cleanup below
+      // cleared the timeout) — without this the fade-out class would stay
+      // applied and the content would hold at opacity 0
+      setFadingOut(false);
+      return;
+    }
     setFadingOut(true);
     const t = setTimeout(() => {
       scrollKeep.current = document.documentElement.scrollHeight - window.scrollY;
@@ -117,7 +134,7 @@ export default function App() {
         <Route path="/" element={<LandingPage {...shared} />} />
         <Route path="/about" element={<AboutPage {...shared} />} />
         <Route path="/work" element={<WorkPage {...shared} />} />
-        <Route path="/work/:id" element={<CaseStudyPage {...shared} />} />
+        <Route path="/work/:id" element={<CaseStudyRoute {...shared} />} />
       </Routes>
       {booting && <Preloader onDone={() => setBooting(false)} />}
     </HashRouter>

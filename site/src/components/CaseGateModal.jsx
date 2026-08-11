@@ -31,6 +31,10 @@ const GATE_COPY = {
 };
 
 async function sha256Hex(text) {
+  // crypto.subtle only exists on secure origins (https / localhost); on a
+  // plain-http preview it is undefined and digesting would throw — return
+  // null so the gate shows its normal error instead of dying silently
+  if (!globalThis.crypto?.subtle) return null;
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
@@ -65,7 +69,7 @@ export default function CaseGateModal({ project, lang, onUnlocked, onDismiss }) 
   const tryUnlock = async (e) => {
     e.preventDefault();
     const hex = await sha256Hex(pw.trim());
-    if (hex === project.passwordHash) {
+    if (hex && hex === project.passwordHash) {
       try {
         sessionStorage.setItem(`cs-unlocked-${project.id}`, "1");
       } catch {}

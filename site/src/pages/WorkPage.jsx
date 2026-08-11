@@ -8,7 +8,7 @@ import { PROJECTS } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { PAGE_TITLE } from "../i18n.js";
 
-export default function WorkPage({ lang, setLang }) {
+export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const navigate = useNavigate();
   const projects = useMemo(() => resolve(PROJECTS, lang), [lang]);
   // a locked project asks for its password right here, before navigating
@@ -24,7 +24,10 @@ export default function WorkPage({ lang, setLang }) {
     <div className="ab-root">
       <SiteHeader current="work" />
 
-      <main className="wk-main">
+      {/* the localized content cross-fades on language switches, matching
+          Landing and About — without this the switch reads as a dead delay
+          followed by a text snap */}
+      <main className={"wk-main " + fadeClass}>
         <div className="wk-list">
           {projects.map((p) => (
             <Link

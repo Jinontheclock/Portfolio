@@ -248,7 +248,9 @@ const COMPASS_SECTIONS = [
     ],
   },
   {
-    id: { en: "scope", ja: "範囲", ko: "범위" },
+    /* ids are internal keys (DOM anchors, TOC keys, the scroll spy) and
+       must not vary by language — only labels localize */
+    id: "scope",
     label: {
       en: "04 Scope & Bets",
       ja: "04 スコープと賭け",

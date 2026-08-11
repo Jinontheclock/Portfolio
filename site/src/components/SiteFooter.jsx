@@ -16,8 +16,23 @@ export default function SiteFooter({ lang, setLang }) {
       <div className="site-footer-menus">
         <Dropdown
           direction="up"
-          renderTrigger={(toggle) => (
-            <span className="site-footer-toggle" onClick={toggle}>
+          renderTrigger={(toggle, open) => (
+            <span
+              className="site-footer-toggle"
+              role="button"
+              tabIndex={0}
+              aria-haspopup="menu"
+              aria-expanded={open}
+              onClick={toggle}
+              onKeyDown={(e) => {
+                // the drop-up must open from the keyboard too; its items are
+                // real buttons, so from here Tab reaches them
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  toggle(e);
+                }
+              }}
+            >
               {LANG_LABELS[lang]}
             </span>
           )}

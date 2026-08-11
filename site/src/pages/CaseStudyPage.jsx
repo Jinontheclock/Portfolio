@@ -268,9 +268,14 @@ function Block({ block, onDemo, demoHref }) {
               {/* wide: landscape desktop screenshots stack vertically instead
                   of sharing one row like the portrait phone shots */}
               <div className={"cs-shots" + (block.wide ? " cs-shots--wide" : "")}>
-                {block.media.map((m) => (
-                  <img key={m} src={SHOTS[m].src} alt={SHOTS[m].alt} loading="lazy" />
-                ))}
+                {/* an unregistered key renders nothing rather than throwing
+                    mid-render and blanking the whole page (same defence as
+                    the figure branch below) */}
+                {block.media
+                  .filter((m) => SHOTS[m])
+                  .map((m) => (
+                    <img key={m} src={SHOTS[m].src} alt={SHOTS[m].alt} loading="lazy" />
+                  ))}
               </div>
               {block.caption && (
                 <figcaption className="cs-figure-caption">{block.caption}</figcaption>
@@ -316,7 +321,7 @@ function Block({ block, onDemo, demoHref }) {
 /** One shared case-study layout for every project: title + table of contents
  *  on the left, the content (headline, intro, meta, image, sections) on the
  *  right, built from each section's block list. */
-export default function CaseStudyPage({ lang, setLang }) {
+export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   const { id } = useParams();
   const raw = getProject(id);
   /* One pass folds every { en, ja, ko } node in the project down to the
@@ -385,7 +390,8 @@ export default function CaseStudyPage({ lang, setLang }) {
     <div className="ab-root">
       <SiteHeader current="work" />
 
-      <main className="cs-main">
+      {/* cross-fades on language switches, matching the other pages */}
+      <main className={"cs-main " + fadeClass}>
         <div className="ab-grid cs-grid">
           {/* title + chapters stick together; the title doubles as the
               "back to intro" control */}

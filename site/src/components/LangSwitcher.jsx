@@ -14,7 +14,18 @@ export default function LangSwitcher({ value = "en", onChange, direction = "colu
         <span
           key={l.code}
           lang={l.code}
+          role="button"
+          tabIndex={0}
+          aria-pressed={value === l.code}
           onClick={() => onChange && onChange(l.code)}
+          onKeyDown={(e) => {
+            // spans take no keyboard activation of their own — without this
+            // the language cannot be changed at all without a pointer
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onChange && onChange(l.code);
+            }
+          }}
           className="lang-switcher-item"
           style={{ color: value === l.code ? "var(--text-primary)" : "var(--text-faint)" }}
         >

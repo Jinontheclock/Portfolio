@@ -73,7 +73,9 @@ const ABOUT = {
    must not carry target="_blank" — the tab it opened would be left blank. */
 const LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/hajin-lee-ca" },
-  { label: "Resume", href: "#" },
+  // no href yet: renders inert until the PDF exists — a placeholder "#"
+  // would hash-navigate the visitor back to the landing page
+  { label: "Resume", href: null },
   { label: "GitHub", href: "https://github.com/Jinontheclock" },
   { label: "Instagram", href: "https://www.instagram.com/hj.archiv/" },
   { label: "E-mail", href: MAILTO },
@@ -442,17 +444,23 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
       <main className={"ab-main " + fadeClass}>
         <div className="ab-grid ab-layout">
           <nav className="ab-rail" ref={railRef}>
-            {LINKS.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className="ab-rail-link"
-                target={l.href.startsWith("http") ? "_blank" : undefined}
-                rel={l.href.startsWith("http") ? "noreferrer" : undefined}
-              >
-                {l.label}
-              </a>
-            ))}
+            {LINKS.map((l) =>
+              l.href ? (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  className="ab-rail-link"
+                  target={l.href.startsWith("http") ? "_blank" : undefined}
+                  rel={l.href.startsWith("http") ? "noreferrer" : undefined}
+                >
+                  {l.label}
+                </a>
+              ) : (
+                <span key={l.label} className="ab-rail-link is-pending" aria-disabled="true">
+                  {l.label}
+                </span>
+              )
+            )}
           </nav>
 
           <div className="ab-content">

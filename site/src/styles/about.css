@@ -89,6 +89,13 @@
   text-underline-offset: 3px;
 }
 
+/* an entry whose destination doesn't exist yet: visible but inert */
+.ab-rail-link.is-pending {
+  color: var(--text-faint);
+  cursor: default;
+  pointer-events: none;
+}
+
 /* ── Right content column ──
    Same span as the case studies' `.cs-content`, on the same 12 columns —
    both pages put `ab-grid` on the wrapper, so matching the span is enough
@@ -305,6 +312,10 @@
   }
   .ab-grid {
     padding: 0 20px;
+    /* everything spans the full 12 columns on a phone, so the gaps are
+       pure width: at 30px the 11 of them alone total 330px and push the
+       grid past a 320px screen */
+    column-gap: 12px;
   }
   /* no measure cap on a phone — the viewport is the measure */
   .ab-paragraph {
@@ -339,6 +350,10 @@
   .ab-rail-link {
     white-space: nowrap;
     letter-spacing: 0.04em;
+    /* on the desktop rail the links keep body size, but in this one-line
+       row they must follow the size useFitToWidth sets on the nav — an
+       absolute size here would leave only the gaps able to shrink */
+    font-size: 1em;
   }
   .ab-content {
     grid-row: 2;
