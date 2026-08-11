@@ -5,8 +5,8 @@ and cuts the Work-card video — the Compass sibling of build-prolog-hero.py.
     python3 scripts/build-compass-hero.py           (needs ffmpeg, pillow, numpy)
 
 Inputs
-    public/media/compass-card/raw/compass-screen-wallet.webm  (iPhone screen)
-    public/media/compass-card/raw/compass-screen-watch.webm   (watch screen)
+    public/media/compass-card/raw/compass-screen-wallet.mp4   (iPhone screen, 402x874)
+    public/media/compass-card/raw/compass-screen-watch.mp4    (watch screen, 444x648)
     public/media/compass-card/raw/trims.json
     public/media/compass-card/frames/iphone-17-pro-blue.png
     public/media/compass-card/frames/apple-watch.png
@@ -21,8 +21,8 @@ The iPhone frame has a transparent screen hole, so its video slides
 underneath. The watch frame is one of the case-study stills — its screen is
 painted, so the video goes on top; screen and video are both black-backed,
 which makes a plain rectangle overlay seamless (no corner mask needed).
-Playwright records at CSS resolution, so APP_RECT crops the app out of the
-letterboxed capture, as in the ProLog build.
+The recorder's virtual-time capture delivers CSS-resolution frames at an
+exact 30fps, so APP_RECT is simply the whole frame.
 """
 
 import json
@@ -48,15 +48,15 @@ _WATCH_H = 1300  # the watch sits smaller than the phone, centred on its height
 
 IPHONE = {
     "frame": FRAMES / "iphone-17-pro-blue.png",
-    "clip": RAW / "compass-screen-wallet.webm",
+    "clip": RAW / "compass-screen-wallet.mp4",
     "trim_key": "compass-screen-wallet",
     "app_rect": "402:874:0:0",
 }
 WATCH = {
     "frame": FRAMES / "apple-watch.png",
-    "clip": RAW / "compass-screen-watch.webm",
+    "clip": RAW / "compass-screen-watch.mp4",
     "trim_key": "compass-screen-watch",
-    "app_rect": "443:648:0:0",
+    "app_rect": "444:648:0:0",
     # the display area inside the still — measured as the union of pixels
     # that differ between the five case-study watch shots
     "screen": (331, 537, 886, 1296),
