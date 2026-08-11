@@ -115,14 +115,3 @@ export const COMPASS_SHOTS = {
   "compass-shot-card-01": shot("Lost card"),
   "compass-shot-card-02": shot("Cards — one balance"),
 };
-
-/* ── hero ──
-   heroScene renders straight into .cs-content with no wrapper, so this
-   supplies its own .cs-figure to pick up the existing sizing rules. */
-export function CompassHero() {
-  return (
-    <figure className="cs-figure">
-      <Box label="HERO SCENE" note="placeholder — see v4 §9 decision 4" ar={16 / 7} />
-    </figure>
-  );
-}

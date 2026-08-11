@@ -256,6 +256,104 @@
   object-fit: contain;
 }
 
+/* ── Hero scene (Compass): the physical card appears as a Wallet pass, then
+   the tap confirmation plays. The scene is laid out at a fixed logical size
+   in CompassHero.jsx and scaled to the band with a transform, so only
+   transform/opacity ever animate; every phase below is a beat of its
+   storyboard, keyed by data-phase, with durations fed from the component's
+   timing table (the --cmp-t-* variables). ── */
+.cmp-hero-band {
+  position: relative;
+  overflow: hidden;
+}
+.cmp-hero-scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+}
+.cmp-hero-phone {
+  position: absolute;
+}
+.cmp-hero-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.cmp-hero-screen {
+  position: absolute;
+  overflow: hidden;
+}
+.cmp-hero-wallet,
+.cmp-hero-tap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.cmp-hero-card {
+  position: absolute;
+  will-change: transform, opacity;
+}
+
+/* the pass layer: appears with the card's landing, holds through the tap,
+   and fades home with everything else */
+.cmp-hero-wallet--pass {
+  opacity: 0;
+}
+.cmp-hero-band[data-phase="land"] .cmp-hero-wallet--pass,
+.cmp-hero-band[data-phase="hold"] .cmp-hero-wallet--pass,
+.cmp-hero-band[data-phase="tap"] .cmp-hero-wallet--pass,
+.cmp-hero-band[data-phase="still"] .cmp-hero-wallet--pass {
+  opacity: 1;
+}
+.cmp-hero-band[data-phase="land"] .cmp-hero-wallet--pass {
+  transition: opacity var(--cmp-t-land) ease;
+}
+.cmp-hero-band[data-phase="back"] .cmp-hero-wallet--pass {
+  transition: opacity var(--cmp-t-back) ease;
+}
+
+/* the card: flies once (decelerating), cross-fades out as the pass appears,
+   and fades back in already home — the return never replays the flight */
+.cmp-hero-band[data-phase="fly"] .cmp-hero-card,
+.cmp-hero-band[data-phase="land"] .cmp-hero-card,
+.cmp-hero-band[data-phase="hold"] .cmp-hero-card,
+.cmp-hero-band[data-phase="tap"] .cmp-hero-card {
+  transform: var(--cmp-fly);
+}
+.cmp-hero-band[data-phase="fly"] .cmp-hero-card {
+  transition: transform var(--cmp-t-fly) cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cmp-hero-band[data-phase="land"] .cmp-hero-card {
+  opacity: 0;
+  transition: opacity var(--cmp-t-land) ease;
+}
+.cmp-hero-band[data-phase="hold"] .cmp-hero-card,
+.cmp-hero-band[data-phase="tap"] .cmp-hero-card {
+  opacity: 0;
+}
+.cmp-hero-band[data-phase="back"] .cmp-hero-card {
+  transition: opacity var(--cmp-t-back) ease;
+}
+
+/* the tap clip: a screen change into the playing video. On the way home it
+   clears in the first half of the return — the app closes back to the
+   wallet before the wallet fades to its waiting state, so the cross-fade
+   never blends all three screens at once */
+.cmp-hero-tap {
+  opacity: 0;
+}
+.cmp-hero-band[data-phase="tap"] .cmp-hero-tap {
+  opacity: 1;
+  transition: opacity var(--cmp-t-tap) ease;
+}
+.cmp-hero-band[data-phase="back"] .cmp-hero-tap {
+  transition: opacity calc(var(--cmp-t-back) / 2) ease;
+}
+
 /* hero video (replaces the placeholder when a project sets heroVideo):
    same 5:2 media band as the design, video cover-cropped into it */
 .cs-video {

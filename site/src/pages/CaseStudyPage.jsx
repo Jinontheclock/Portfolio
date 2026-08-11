@@ -62,8 +62,8 @@ import {
 import {
   COMPASS_FIGURES,
   COMPASS_SHOTS,
-  CompassHero,
 } from "../components/CompassPlaceholders.jsx";
+import CompassHero from "../components/CompassHero.jsx";
 import { COMPASS_ARTWORK } from "../components/CompassFigures.jsx";
 import { COMPASS_CAPTURES } from "../components/CompassCaptures.jsx";
 

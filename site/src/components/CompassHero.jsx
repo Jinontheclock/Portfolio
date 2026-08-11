@@ -1,0 +1,225 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+import frameBlue from "../assets/iphone-17-pro-blue.webp";
+import cardUrl from "../assets/compass/compass-hero-card.webp";
+import walletRestUrl from "../assets/compass/compass-hero-wallet-rest.webp";
+import walletPassUrl from "../assets/compass/compass-hero-wallet-pass.webp";
+import { isCovered, onCover, onReveal } from "../lib/preloaderBus.js";
+
+/* Compass Card case-study hero: the physical card appears as a pass in the
+   phone's Wallet, then the tap confirmation plays on the screen — the scene
+   that opens chapter 05's "the card you already have, on the device you
+   already carry". The card is never absorbed or taken away: it flies to the
+   screen and cross-fades into the pass appearing in the stack (ch04's bet is
+   "adds a phone; does not take away a card"), and the loop returns home with
+   a plain cross-fade, no rewind.
+
+   Built as a live in-page animation (like ProLogJourney), not a video:
+   two wallet stills layered in the phone's screen window plus the existing
+   tap-motion clip, everything animated with transform/opacity only. The
+   scene is laid out at a fixed logical size and the whole thing scales to
+   the space it's given, so every distance holds at any width. */
+
+/* ── timing: the ~6.5s loop, one entry per storyboard beat ── */
+const PHASES = [
+  ["rest", 800], //  the still: card on the left, Wallet waiting on the right
+  ["fly", 800], //   the card moves onto the screen's pass slot (decelerate)
+  ["land", 400], //  cross-fade: physical card -> the pass, appearing in place
+  ["hold", 1000], // breath — the pass has its home
+  ["tap", 2500], //  the screen plays the tap: zone, fare charged, balance
+  ["back", 1000], // cross-fade to the opening still; the loop starts over
+];
+const FADE_TAP_MS = 300; // wallet -> tap clip screen change inside "tap"
+const DUR = Object.fromEntries(PHASES); // the CSS reads its durations from here
+
+/* ── geometry ──
+   The phone mockup is TryAppModal's: a 1720x3516 render whose screen window
+   is 1534x3336 at (93,90) — a 402x874 viewport. The pass slot is where the
+   Compass pass sits in the wallet still, measured in those screen coords. */
+const MOCK = { w: 1720, h: 3516, x: 93, y: 90, sw: 1534 };
+const SCREEN = { w: 402, h: 874, r: 26 };
+const PASS_SLOT = { x: 10, y: 268, w: 382, h: 248 };
+const CARD_AR = 1280 / 805; // the card art's own proportion
+const PHONE_CAP = 350; // the phone never renders wider than this
+
+/* the desktop band and the tighter phone-width composition: same scene,
+   the card just starts closer so the flight stays in frame */
+const SCENES = {
+  desktop: { w: 1200, h: 525, phoneX: 720, phoneTop: 12, phoneH: 500, cardX: 100, cardW: 340 },
+  mobile: { w: 620, h: 540, phoneX: 350, phoneTop: 10, phoneH: 520, cardX: 12, cardW: 280 },
+};
+
+function layout(g) {
+  const phoneW = (g.phoneH * MOCK.w) / MOCK.h;
+  const s = ((phoneW * MOCK.sw) / MOCK.w) / SCREEN.w; // screen px per app px
+  const screen = {
+    x: (phoneW * MOCK.x) / MOCK.w,
+    y: (g.phoneH * MOCK.y) / MOCK.h,
+    w: SCREEN.w * s,
+    h: SCREEN.h * s,
+    r: SCREEN.r * s,
+  };
+  const cardH = g.cardW / CARD_AR;
+  const cardY = (g.h - cardH) / 2;
+  // the flight: translate the card's centre onto the slot's centre, scaled
+  // down to the slot's width
+  const k = (PASS_SLOT.w * s) / g.cardW;
+  const dx = g.phoneX + screen.x + (PASS_SLOT.x + PASS_SLOT.w / 2) * s - (g.cardX + g.cardW / 2);
+  const dy = g.phoneTop + screen.y + (PASS_SLOT.y + PASS_SLOT.h / 2) * s - (cardY + cardH / 2);
+  return { ...g, phoneW, screen, cardY, cardH, fly: `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(${k.toFixed(3)})` };
+}
+
+const VIDEO_SRC = `${import.meta.env.BASE_URL}media/compass-card/compass-tap-motion.mp4`;
+const POSTER_SRC = `${import.meta.env.BASE_URL}media/compass-card/compass-tap-motion-poster.jpg`;
+const ARIA =
+  "A physical Compass Card appears as a pass in Apple Wallet, then a tap confirmation plays — zone, fare charged, balance remaining";
+
+const useMedia = (query) => {
+  const [match, setMatch] = useState(() => window.matchMedia(query).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const onChange = () => setMatch(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [query]);
+  return match;
+};
+
+export default function CompassHero() {
+  const mobile = useMedia("(max-width: 768px)");
+  /* reduced motion holds the settled composition instead: the physical card
+     beside the phone with the pass on screen — card in hand AND on the
+     phone, the adds-not-replaces read with no animation at all */
+  const still = useMedia("(prefers-reduced-motion: reduce)");
+  const L = useMemo(() => layout(SCENES[mobile ? "mobile" : "desktop"]), [mobile]);
+
+  const bandRef = useRef(null);
+  const sceneRef = useRef(null);
+  const videoRef = useRef(null);
+  const [phase, setPhase] = useState("rest");
+
+  /* fit: scale the fixed-size scene to the band's width (phone capped) —
+     resize is the only thing that ever touches layout */
+  useEffect(() => {
+    const band = bandRef.current;
+    const scene = sceneRef.current;
+    const fit = () => {
+      const scale = Math.min(band.clientWidth / L.w, PHONE_CAP / L.phoneW);
+      band.style.height = `${Math.round(L.h * scale)}px`;
+      scene.style.transform = `translateX(${Math.round((band.clientWidth - L.w * scale) / 2)}px) scale(${scale})`;
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(band);
+    return () => ro.disconnect();
+  }, [L]);
+
+  /* the loop: a phase timer that only runs while the hero is on screen and
+     the page is uncovered (same contract as usePlayThroughOnce) */
+  useEffect(() => {
+    if (still) return;
+    let timer = null;
+    let running = false;
+    let onScreen = false;
+    const video = () => videoRef.current;
+    const stop = () => {
+      clearTimeout(timer);
+      running = false;
+      video()?.pause();
+      setPhase("rest");
+    };
+    const run = (idx) => {
+      const [name, ms] = PHASES[idx];
+      setPhase(name);
+      const v = video();
+      if (v) {
+        if (name === "tap") {
+          v.muted = true; // React drops the attribute; autoplay needs it back
+          try {
+            v.currentTime = 0;
+          } catch {
+            /* not seekable yet — it starts at 0 anyway */
+          }
+          v.play().catch(() => {});
+        } else if (name === "rest") {
+          v.pause();
+        }
+      }
+      timer = setTimeout(() => run((idx + 1) % PHASES.length), ms);
+    };
+    const start = () => {
+      if (running || !onScreen || isCovered()) return;
+      running = true;
+      run(0);
+    };
+    const io = new IntersectionObserver(([e]) => {
+      onScreen = e.isIntersecting;
+      if (onScreen) start();
+      else stop();
+    });
+    io.observe(bandRef.current);
+    const offCover = onCover(stop);
+    const offReveal = onReveal(start);
+    return () => {
+      io.disconnect();
+      offCover();
+      offReveal();
+      clearTimeout(timer);
+    };
+  }, [still]);
+
+  return (
+    <figure className="cs-figure cmp-hero" role="img" aria-label={ARIA}>
+      <div
+        ref={bandRef}
+        className="cmp-hero-band"
+        data-phase={still ? "still" : phase}
+        style={{
+          aspectRatio: `${L.w} / ${L.h}`,
+          "--cmp-fly": L.fly,
+          "--cmp-t-fly": `${DUR.fly}ms`,
+          "--cmp-t-land": `${DUR.land}ms`,
+          "--cmp-t-back": `${DUR.back}ms`,
+          "--cmp-t-tap": `${FADE_TAP_MS}ms`,
+        }}
+      >
+        <div ref={sceneRef} className="cmp-hero-scene" style={{ width: L.w, height: L.h }}>
+          <div
+            className="cmp-hero-phone"
+            style={{ left: L.phoneX, top: L.phoneTop, width: L.phoneW, height: L.phoneH }}
+          >
+            {/* the screen window sits under the frame image, like the glass
+                under the bezel; three stacked layers, faded by phase */}
+            <div
+              className="cmp-hero-screen"
+              style={{ left: L.screen.x, top: L.screen.y, width: L.screen.w, height: L.screen.h, borderRadius: L.screen.r }}
+            >
+              <img className="cmp-hero-wallet" src={walletRestUrl} alt="" />
+              <img className="cmp-hero-wallet cmp-hero-wallet--pass" src={walletPassUrl} alt="" />
+              {!still && (
+                <video
+                  ref={videoRef}
+                  className="cmp-hero-tap"
+                  src={VIDEO_SRC}
+                  poster={POSTER_SRC}
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  aria-hidden="true"
+                  tabIndex={-1}
+                />
+              )}
+            </div>
+            <img className="cmp-hero-frame" src={frameBlue} alt="" />
+          </div>
+          <img
+            className="cmp-hero-card"
+            src={cardUrl}
+            alt=""
+            style={{ left: L.cardX, top: L.cardY, width: L.cardW }}
+          />
+        </div>
+      </div>
+    </figure>
+  );
+}
