@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import frameOrange from "../assets/iphone17-frame.webp";
-import frameBlue from "../assets/iphone17-frame-blue.webp";
+import frameOrange from "../assets/iphone-17-pro-orange.webp";
+import frameBlue from "../assets/iphone-17-pro-blue.webp";
 import { freezePage } from "../lib/freeze-page.js";
 
 // The phone is a real iPhone 17 mockup: a 1720×3516 render whose screen

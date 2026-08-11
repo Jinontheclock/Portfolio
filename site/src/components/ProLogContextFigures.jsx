@@ -19,7 +19,7 @@ import baNavBefore from "../assets/prolog/prolog-ba-nav-before.webp";
 import baNavAfter from "../assets/prolog/prolog-ba-nav-after.webp";
 import baCuesBefore from "../assets/prolog/prolog-ba-cues-before.webp";
 import baCuesAfter from "../assets/prolog/prolog-ba-cues-after.webp";
-import campInsta3 from "../assets/prolog/prolog-campaign-insta-3.webp";
+import campInsta3 from "../assets/prolog/prolog-campaign-insta.webp";
 import personaIzzy from "../assets/prolog/prolog-persona-izzy.webp";
 import personaJordan from "../assets/prolog/prolog-persona-jordan.webp";
 import shotJourney1 from "../assets/prolog/prolog-shot-journey-dashboard-1.webp";
@@ -209,7 +209,7 @@ export function BAVisualCuesFigure() {
 }
 
 /* ── Beyond the screen: the promotional campaign set ── */
-const CAMPAIGN_VIDEO = `${import.meta.env.BASE_URL}media/prolog/prolog_video.mp4`;
+const CAMPAIGN_VIDEO = `${import.meta.env.BASE_URL}media/prolog/prolog-campaign-video.mp4`;
 
 export function CampaignVideoFigure() {
   return (

@@ -1,7 +1,7 @@
 import "img-comparison-slider";
 import ArrowIcon from "./ArrowIcon.jsx";
-import crowdAfter from "../assets/welab/welab-awt-crowd-after.webp";
-import crowdBefore from "../assets/welab/welab-awt-crowd-before.webp";
+import crowdAfter from "../assets/welab/welab-ba-awt-crowd-after.webp";
+import crowdBefore from "../assets/welab/welab-ba-awt-crowd-before.webp";
 import figOldChallenge from "../assets/welab/welab-old-showcase-challenge.webp";
 
 /* ── 03 Designing and Building: the live site's before/after slider,

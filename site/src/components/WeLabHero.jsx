@@ -13,7 +13,7 @@ import usePlayThroughOnce from "../hooks/usePlayThroughOnce.js";
    play() is allowed (React drops the muted attribute); preload="auto"
    lets the first frame decode behind the cover without playing. */
 
-const VIDEO_SRC = `${import.meta.env.BASE_URL}media/welab/welab-hero-mockup-real.mp4`;
+const VIDEO_SRC = `${import.meta.env.BASE_URL}media/welab/welab-hero-mockup.mp4`;
 const VIDEO_HTML = `<video src="${VIDEO_SRC}" muted playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>`;
 
 export default function WeLabHero() {

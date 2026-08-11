@@ -22,7 +22,7 @@ QUALITY = 86
 OUT.mkdir(parents=True, exist_ok=True)
 
 for i in (1, 2, 3):
-    src = SRC / f"muji_{i}.png"
+    src = SRC / f"muji-thumb-{i}.png"
     im = Image.open(src)
     # the alpha channel is fully opaque in all three; drop it rather than
     # carry a channel of 255s through the encoder

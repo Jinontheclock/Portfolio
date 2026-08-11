@@ -1,8 +1,8 @@
-import wallet from "../assets/compass/watch/w1-wallet.webp";
-import reload from "../assets/compass/watch/w2-reload.webp";
-import reader from "../assets/compass/watch/w3-reader.webp";
-import deducted from "../assets/compass/watch/w4-deducted.webp";
-import added from "../assets/compass/watch/w5-added.webp";
+import wallet from "../assets/compass/watch/compass-watch-1-wallet.webp";
+import reload from "../assets/compass/watch/compass-watch-2-reload.webp";
+import reader from "../assets/compass/watch/compass-watch-3-reader.webp";
+import deducted from "../assets/compass/watch/compass-watch-4-deducted.webp";
+import added from "../assets/compass/watch/compass-watch-5-added.webp";
 
 /* 07 On the Wrist — the watch, cut by cut. Five shots of the running demo
    rather than one exported board: the labels stay real text, and a screen

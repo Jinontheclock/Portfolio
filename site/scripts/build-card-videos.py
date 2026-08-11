@@ -36,7 +36,7 @@ CARDS = {
     # source clip 2472×1362, mockup at x 423–1995, y 100–1303
     "tinypaws": {"src": "tinypaws-hero-monitor.mp4", "crop": "1904:1360:257:2"},
     # source clip 3500×1928, mockup at x 600–2825, y 144–1845
-    "welab": {"src": "welab-hero-mockup-real.mp4", "crop": "2688:1920:368:8"},
+    "welab": {"src": "welab-hero-mockup.mp4", "crop": "2688:1920:368:8"},
 }
 
 # 1120 wide covers a card thumbnail at 2× on any ordinary window (345px at

@@ -140,7 +140,7 @@ export function TPPersonaAlexFigure() {
 }
 
 /* the promotional film lives in public/media (too big to inline) */
-const TP_VIDEO = `${import.meta.env.BASE_URL}media/tinypaws/TinypawsPromotionalVideo.mp4`;
+const TP_VIDEO = `${import.meta.env.BASE_URL}media/tinypaws/tinypaws-campaign-video.mp4`;
 
 export function TPVideoFigure() {
   return (

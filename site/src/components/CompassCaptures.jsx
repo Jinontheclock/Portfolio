@@ -4,7 +4,7 @@
 
    Every capture is 402 × 874 logical at deviceScaleFactor 3 (1206 × 2622),
    the status bar pinned to 9:41 and every transition stopped, so a row of
-   them reads as one set. They live in `public/` rather than `src/assets/`
+   them reads as one set. They ship as `compass-screen-*.png` in `public/` rather than `src/assets/`
    because there are thirty-nine of them and only these seventeen are wired
    to the page; the rest are the record the set was chosen from.
 
@@ -14,7 +14,7 @@
 
 const AT = `${import.meta.env.BASE_URL}media/compass-card/`;
 
-const shot = (file, alt) => ({ src: `${AT}${file}.png`, alt });
+const shot = (file, alt) => ({ src: `${AT}compass-screen-${file}.png`, alt });
 
 export const COMPASS_CAPTURES = {
   /* 05 — One Tap, Every Ride */
