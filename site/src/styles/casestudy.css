@@ -680,6 +680,11 @@
      row spends 4 widths + 3 gaps, the first row 3 widths + 2 watch widths +
      4 gaps, and neither may round into an extra wrap */
   --cmp-pw: calc((100% - 44px) / 4);
+  /* and the board is what a frame's width is a share of. The rail can't be
+     asked — its track is sized by its own contents, so a percentage inside
+     it has nothing to resolve against (which is why the frames are a fixed
+     width there). A query unit reads this box instead, one level up. */
+  container-type: inline-size;
 }
 .cmp-lofi-title {
   margin: 0;
@@ -806,10 +811,15 @@
   font-weight: 700;
   color: var(--text-primary);
 }
-/* a phone screen fits three frames across, not four */
+/* a phone screen fits three frames across, not four. Stated on the rail
+   rather than on the board: the rail sets its own `--cmp-pw` above, and a
+   value inherited from an ancestor never reaches past that. Three widths
+   and the two gaps between them fill the column exactly, which leaves the
+   fourth frame showing in the bleed — the rail says it scrolls by having
+   something already over the edge. */
 @media (max-width: 600px) {
-  .cmp-lofi {
-    --cmp-pw: calc((100% - 28px) / 3);
+  .cmp-lofi-rail {
+    --cmp-pw: calc((100cqi - 24px) / 3);
   }
 }
 
