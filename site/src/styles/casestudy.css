@@ -1422,11 +1422,13 @@
   border-radius: 0;
   border: 1px solid var(--grey-100, #e5e5e5);
 }
-/* stacked columns on mobile: pairs return to the 110px frame width */
+/* on a phone the pair spends the whole row — two cells splitting the
+   content width, because at the old fixed 110px the screens were too
+   small to read */
 @media (max-width: 600px) {
   .cs-ba-cell {
-    flex: 0 0 auto;
-    width: 110px;
+    flex: 1;
+    min-width: 0;
   }
 }
 
