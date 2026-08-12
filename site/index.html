@@ -3,7 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Each page sets its own document.title once it is on screen; this one
+         is the default a crawler and the first paint get. -->
     <title>HAJIN, Product Designer</title>
+    <meta
+      name="description"
+      content="Hajin Lee — Product Designer in Vancouver, BC. Case studies in product design, design systems, and front-end development: Compass Card, WeLAB, ProLog, TinyPaws."
+    />
+    <meta name="author" content="Hajin Lee" />
+    <link rel="canonical" href="https://jinontheclock.github.io/Portfolio/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HAJIN" />
+    <meta property="og:title" content="HAJIN, Product Designer" />
+    <meta
+      property="og:description"
+      content="Product Designer in Vancouver, BC. Case studies in product design, design systems, and front-end development."
+    />
+    <meta property="og:url" content="https://jinontheclock.github.io/Portfolio/" />
+    <!-- og:image waits on the 1200×630 artwork. A tag pointing at a file that
+         404s is worse than no tag: the crawler caches the miss and the link
+         previews blank. Uncomment these four and the twitter:image below once
+         `public/og-image.png` exists — the URL must stay absolute. -->
+    <!--
+    <meta property="og:image" content="https://jinontheclock.github.io/Portfolio/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="HAJIN — Product Designer. Case study thumbnails from the portfolio."
+    />
+    -->
+    <meta property="og:locale" content="en_CA" />
+    <meta property="og:locale:alternate" content="ja_JP" />
+    <meta property="og:locale:alternate" content="ko_KR" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HAJIN, Product Designer" />
+    <meta
+      name="twitter:description"
+      content="Product Designer in Vancouver, BC. Case studies in product design, design systems, and front-end development."
+    />
+    <!--
+    <meta name="twitter:image" content="https://jinontheclock.github.io/Portfolio/og-image.png" />
+    -->
+
+    <!-- Icons. %BASE_URL% is what Vite writes the deploy's base into, so these
+         hold whether the site is served from /Portfolio/ or a domain root. -->
+    <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="%BASE_URL%favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
+    <meta name="theme-color" content="#FAFAFA" />
   </head>
   <body>
     <div id="root"></div>

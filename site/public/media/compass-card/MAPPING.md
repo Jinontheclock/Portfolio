@@ -13,6 +13,8 @@
 - 스크립트: `capture.js` — **39 컷, 실패 0, 회귀 감지 0**
 - 촬영 중 자동 검사(`assertFixed`): `.tap-dismiss` UA 크롬 없음 / `.tap-mark--declined` 가 빨강(#c0362c) /
   `.tile-gold` 가 잉크 토큰(#8f6700) — 세 항목 모두 해당 화면마다 통과
+  → **`.tile-gold` 검사는 이제 밝은 배경의 타일에만 해당합니다.** U-Pass 카드 면 위의
+  `.card-tile--upass .tile-gold` 는 브랜드 골드(#f5b314)입니다 (아래 재촬영 항목 참조).
 
 ---
 
@@ -34,7 +36,7 @@
 | `compass-shot-passes-01` | `12-passes` | ○ Monthly / DayPass / zone 선택 한 화면 |
 | `compass-shot-passes-02` | **`35-passes-paid`** ← 변경 | ○ "Current pass · Monthly · 2-Zone · expires Aug 31".<br>**C-2 로 시드 카드에서 패스를 뺐기 때문에 더 이상 `02-card` 에 없습니다.** 구매를 끝낸 뒤 화면인 `35-passes-paid` 로 옮깁니다 |
 | `compass-shot-upass-01` | `36-upass-typed` | ○ BCIT + 학번 `A01234567` 입력됨 + "No 20-digit number to enter" |
-| `compass-shot-upass-02` | `16-upass-done` | ○ U-Pass BC / August — Renewed / Auto-renew on |
+| `compass-shot-upass-02` | `16-upass-done` | ○ U-Pass BC / August — Renewed / Auto-renew on. 카드 면의 `U`·`BC` 는 브랜드 골드 #f5b314 (아래 참조) |
 | `compass-shot-card-01` | `18-lost-frozen` | ○ Unfreeze Card 상태 + "This card is frozen" |
 | `compass-shot-card-02` | `20-replace` | ○ "$25.00 applies to Program pass cards" |
 
@@ -53,6 +55,26 @@
 3. **`compass-shot-passes-02` 의 소스가 `02-card` → `35-passes-paid` 로 이동** (위 표 참조).
 4. `25-account` 에서 하단 버튼 블록이 사라지고 환불이 `CARD` 섹션의 평범한 한 줄이 됐습니다 (A-5).
 5. `26-payment` 이 `PRIMARY PAYMENT` → `AUTO PAYMENT` 순서로 바뀌고 `NOTIFICATION` 섹션이 없어졌습니다 (B-2).
+
+---
+
+## `16-upass-done` 골드 교체 (CompassCard `22e280f` + U-Pass 골드 수정 기준)
+
+U-Pass 카드 면의 `U` 와 `BC` 가 밝은 배경용 잉크 골드(#8f6700)를 쓰고 있었습니다. 그 카드는
+네이비(#00355f)라 잉크 골드는 거기서 대비 2.45 로 가장 어두운 선택이었고, 프로그램의 실제
+브랜드 골드(#f5b314)가 같은 자리에서 6.77 로 읽힙니다. 앱을 고쳤습니다 —
+`.card-tile--upass .tile-gold` 만 브랜드 골드로, 흰 배경 타일은 잉크 골드 그대로.
+
+**이 한 장은 다시 렌더하지 않고 원본 위에서 두 글자만 다시 합성했습니다.** 원본 39컷이 쓴
+Fira Sans 대체 환경이 이 컨테이너에 없어, 화면을 통째로 다시 그리면 상태바 시계와 탭바 라벨의
+웨이트가 나머지 열여섯 장과 어긋납니다(전체 픽셀의 2.08% 가 달라짐). 대신 바뀐 앱을 실제로
+띄워 같은 화면을 before/after 로 찍고, 그 두 장에서 색 대응표를 읽어 원본에 적용했습니다.
+
+- 실제 렌더의 변화량: 워드마크 상자 안 **5,303 px**, 그 밖은 0 px
+- 대응표로 다시 합성한 원본: 같은 **5,303 px**, 상자 밖 변화 **0 px**, 남은 잉크 골드 **0 px**
+- 대응표를 실제 렌더에 되먹여 본 자기검사: 어긋난 픽셀 48개, 최대 채널 오차 2/255
+  (한 색이 두 색으로 갈리는 가장자리 픽셀 — 눈에 보이는 차이가 아닙니다)
+- 나머지 38컷은 손대지 않았습니다. 이 골드는 이 화면에만 나옵니다.
 
 ---
 

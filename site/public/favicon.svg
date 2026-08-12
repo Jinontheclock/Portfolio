@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="HAJIN">
+  <!-- The wordmark's own H, taken as an outline from Spoqa Han Sans Neo
+       Regular so the tab carries the same letter the header does. Ink tile,
+       paper letter: the site's two colours, the way round that still reads
+       at sixteen pixels against a light browser chrome. -->
+  <rect width="100" height="100" rx="22" fill="#0F0F0F" />
+  <g transform="translate(21.24 79) scale(0.07913 -0.07913)" fill="#FAFAFA">
+    <path d="M100 0H193V346H535V0H627V733H535V426H193V733H100Z" />
+  </g>
+</svg>

@@ -19,6 +19,9 @@ import assistant from "../assets/compass/lofi/compass-lofi-assistant.webp";
 
 const LAYER_1 = "Layer 1 — what you tap";
 const LAYER_2 = "Layer 2 — what you manage · check · ask";
+/* the wrist is the tap layer too, but the two frames are a different device
+   and close the board rather than interrupting the phones */
+const LAYER_1_WRIST = "Layer 1 — on the wrist";
 
 const FRAMES_1 = [
   {
@@ -39,6 +42,9 @@ const FRAMES_1 = [
     note: "same gesture, different authority",
     alt: "Lo-fi phone frame: a BC Ferries walk-on tag, a confirmation tick, and $19.10 for an adult foot passenger",
   },
+];
+
+const FRAMES_WRIST = [
   {
     src: watchBalance,
     label: "Watch — balance",
@@ -122,11 +128,13 @@ function Frame({ src, label, note, alt, watch, layer }) {
 }
 
 export default function CompassLofiBoard() {
-  /* one strip, in layer order — the first frame of each layer carries the
-     layer's name */
+  /* one strip, in layer order — the first frame of each group carries the
+     group's name. The wrist comes last: two frames of another device, read
+     after the phone is understood rather than in the middle of it. */
   const frames = [
     ...FRAMES_1.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_1 : null })),
     ...FRAMES_2.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_2 : null })),
+    ...FRAMES_WRIST.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_1_WRIST : null })),
   ];
 
   return (

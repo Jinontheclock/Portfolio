@@ -770,24 +770,24 @@
     padding-right: 20px;
   }
 }
-/* same pair, at the watch frame's own share of the phone width */
-.cmp-lofi-cell--watch {
-  flex-basis: calc(var(--cmp-pw) * 187 / 402);
-  width: calc(var(--cmp-pw) * 187 / 402);
-}
 .cmp-lofi-shot {
   display: flex;
   align-items: center;
   justify-content: center;
   aspect-ratio: 402 / 874;
 }
-/* the watch box is watch-wide but phone-tall: at 187 units wide against the
-   phone frame's 874 tall, its height resolves to exactly the phone box's, so
-   the shorter frame centres in it and every label lands on one line. (A
-   height in a custom property can't do this — a percentage there resolves
-   against the parent's height, which is auto.) */
-.cmp-lofi-cell--watch .cmp-lofi-shot {
-  aspect-ratio: 187 / 874;
+/* The watch takes the same width as the phones — the board is read across,
+   and a frame drawn at a third of its neighbours' width reads as a lesser
+   idea rather than a smaller screen. Its box stays phone-shaped, so the
+   watch centres in it and every label along the strip lands on one line. */
+/* A wireframe is the same near-white as the page, so without a line it has
+   no edge — the hairline is what makes it a screen rather than a shape
+   floating on the page. The watch is drawn black and already has one. */
+.cmp-lofi-cell:not(.cmp-lofi-cell--watch) .cmp-lofi-shot img {
+  border: 1px solid var(--border);
+  /* the line grows inward — outside the max-width it would widen the frame
+     past its cell and push the label a line off its neighbours' baseline */
+  box-sizing: border-box;
 }
 /* two classes deep so it out-specifies `.cs-figure img { width: 100% }` */
 .cs-figure .cmp-lofi-shot img {
@@ -810,13 +810,6 @@
 @media (max-width: 600px) {
   .cmp-lofi {
     --cmp-pw: calc((100% - 28px) / 3);
-  }
-  /* the watch frames wrap onto a line of their own here, so they no longer
-     need the phone box's height to keep the labels on one baseline — without
-     it they sit in a tall band of empty space */
-  .cmp-lofi-cell--watch .cmp-lofi-shot {
-    height: auto;
-    aspect-ratio: 187 / 223;
   }
 }
 

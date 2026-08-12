@@ -31,7 +31,7 @@ const ABOUT = {
     hero: "A Product Designer who\nuncovers user friction and transforms it into clear architecture and refined visual language.",
     body: [
       "My design background is rooted in retail visual merchandising, where I designed physical customer journeys and visual hierarchies. Translating these touchpoints into the digital realm allows me to approach UX with a sharp focus on user behavior and brand strategy.",
-      "To me, great design means identifying core pain points and guiding users intuitively toward their goals. My experience spans the product lifecycle—from 0-to-1 launches to optimizing existing products through rebuilt layout systems and responsive UI components.",
+      "To me, great design means identifying core pain points and guiding users intuitively toward their goals. My experience spans the product lifecycle — from 0-to-1 launches to optimizing existing products through rebuilt layout systems and responsive UI components.",
       "I adapt quickly to new product stages and collaborate flexibly with cross-functional teams to keep everyone aligned toward a shared vision.",
       [
         "If you'd like to build clear, meaningful solutions together, feel free to reach out via ",
