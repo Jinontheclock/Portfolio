@@ -639,6 +639,11 @@
   text-transform: uppercase;
   color: var(--text-muted);
 }
+/* a label too long for its phone cell ships a short form alongside the
+   full one; only one of the pair shows at a time (swapped at 600px) */
+.wl-label-short {
+  display: none;
+}
 /* the rows are top-aligned, and in the four-up only the leading capture
    of each pair carries the label — the label line's height is reserved
    on the unlabelled cells of any labelled row, so captures stay level */
@@ -1625,5 +1630,24 @@
        capture rather than a frame, so it comes off here */
     border: 0;
     width: 100%;
+  }
+  /* a five-across cell here is ~64px, and at the desktop label size half the
+     variant names wrap — which staggers the captures below them. Small
+     enough that every name holds one line (nowrap backstops rounding),
+     and looser tracking goes with the size */
+  .wl-audit-cell figcaption {
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .wl-audit-row:has(figcaption) .wl-audit-cell:not(:has(figcaption)) {
+    padding-top: calc(9px * 1.4 + 6px); /* the label line at its phone size */
+  }
+  /* the long/short label swap (see .wl-label-short) */
+  .wl-label-full {
+    display: none;
+  }
+  .wl-label-short {
+    display: inline;
   }
 }

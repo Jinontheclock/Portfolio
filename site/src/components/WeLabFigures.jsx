@@ -114,7 +114,18 @@ function AuditRows({ rows }) {
                 <span className="wl-cell-shot">
                   <img src={cell.src} alt={cell.alt} loading="lazy" />
                 </span>
-                {cell.label && <figcaption>{cell.label}</figcaption>}
+                {cell.label && (
+                  <figcaption>
+                    {cell.labelShort ? (
+                      <>
+                        <span className="wl-label-full">{cell.label}</span>
+                        <span className="wl-label-short">{cell.labelShort}</span>
+                      </>
+                    ) : (
+                      cell.label
+                    )}
+                  </figcaption>
+                )}
               </figure>
             );
           })}
@@ -193,7 +204,10 @@ const FIGMA_FEATURED_ROW = [
   { src: figma2Col, ar: 0.96, w: "calc((100% - 80px) / 5)", label: "2 columns", alt: "Figma exploration of the featured case-studies section — two cards side by side" },
   { src: figma3Col, ar: 0.96, w: "calc((100% - 80px) / 5)", label: "3 columns", alt: "Figma exploration of the featured case-studies section — three cards side by side" },
   { src: figmaCarousel, ar: 0.96, w: "calc((100% - 80px) / 5)", label: "carousel", alt: "Figma exploration of the featured case-studies section — one large card with the next peeking in from the edge" },
-  { src: figma3ColHover, ar: 0.96, w: "calc((100% - 80px) / 5)", label: "3 columns — hover", alt: "Figma exploration of the featured case-studies section — the hovered card enlarged between two dimmed neighbours" },
+  /* the one label a five-across phone cell can't hold on one line, so it
+     carries a short form: next to "3 columns", "hover" alone still reads
+     as that layout's hover state */
+  { src: figma3ColHover, ar: 0.96, w: "calc((100% - 80px) / 5)", label: "3 columns — hover", labelShort: "hover", alt: "Figma exploration of the featured case-studies section — the hovered card enlarged between two dimmed neighbours" },
   { src: figmaRows, ar: 0.96, w: "calc((100% - 80px) / 5)", label: "rows", alt: "Figma exploration of the featured case-studies section — three full-width rows stacked" },
 ];
 
