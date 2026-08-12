@@ -524,16 +524,13 @@ const COMPASS_SECTIONS = [
         },
       },
       {
-        type: "p",
+        type: "ba",
+        graphic: "compass-fig-tap-motion",
         text: {
           en: "The pass presents the same MIFARE DESFire EV1 profile the plastic card presents today, so from the reader's side nothing has to change. That is the point: the rider is not being asked to adopt a new payment method, and the agency is not being asked to replace a reader.",
           ja: "パスは、いまプラスチックのカードが提示しているのと同じMIFARE DESFire EV1のプロファイルを提示します。リーダー側で変えるものは何もありません。そこが要点です。利用者に新しい決済手段を受け入れてくれと求めておらず、交通事業者にリーダーを取り替えてくれとも求めていません。",
           ko: "패스는 오늘 플라스틱 카드가 내보이는 것과 같은 MIFARE DESFire EV1 프로파일을 내보입니다. 리더기 쪽에서는 바뀔 것이 없습니다. 그게 핵심입니다. 승객에게 새 결제 수단을 받아들이라고 요구하지 않고, 운영 기관에 리더기를 교체하라고 요구하지도 않습니다.",
         },
-      },
-      {
-        type: "figure",
-        graphic: "compass-fig-tap-motion",
         caption: {
           en: "The confirmation, in the time it actually takes.",
           ja: "実際にかかる時間の中での、確認画面。",
