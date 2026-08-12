@@ -536,10 +536,11 @@
   gap: 12px;
 }
 /* Every phone screen in a solution row renders at one shared size — the
-   width of a before/after cell, so all the screens on the page match —
-   and a row with more than two becomes a carousel, scrolling inside its
-   own column. The wide (desktop-shot) rows keep their flexible sizing. */
-.cs-shots:not(.cs-shots--wide) {
+   width of a before/after cell, so all the screens on the page match.
+   Only a row with a THIRD screen becomes a carousel (a pair fits whole,
+   so it gets no scroller and no scrollbar), scrolling inside its own
+   column. The wide (desktop-shot) rows keep their flexible sizing. */
+.cs-shots:not(.cs-shots--wide):has(img:nth-child(3)) {
   overflow-x: auto;
   scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
@@ -564,18 +565,18 @@
    -webkit path; Firefox has no 2px, so it gets its thin variant, scoped
    apart because Chrome ignores the -webkit path once the standard
    properties are set */
-.cs-shots:not(.cs-shots--wide)::-webkit-scrollbar {
+.cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar {
   height: 2px;
 }
-.cs-shots:not(.cs-shots--wide)::-webkit-scrollbar-track {
+.cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar-track {
   background: transparent;
 }
-.cs-shots:not(.cs-shots--wide)::-webkit-scrollbar-thumb {
+.cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar-thumb {
   background: var(--text);
   border-radius: 0;
 }
 @supports not selector(::-webkit-scrollbar) {
-  .cs-shots:not(.cs-shots--wide) {
+  .cs-shots:not(.cs-shots--wide):has(img:nth-child(3)) {
     scrollbar-width: thin;
     scrollbar-color: var(--text) transparent;
   }
