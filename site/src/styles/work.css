@@ -24,12 +24,31 @@
   color: inherit;
   cursor: pointer;
 }
-.wk-card-link .wk-title {
-  transition: opacity var(--duration-fast) var(--easing);
-}
-.wk-card-link:hover .wk-title,
-.wk-card-link:focus-visible .wk-title {
-  opacity: 0.6;
+/* The copy rests in grey and answers the pointer, the way the thumbnail
+   beside it does — one card lighting as one thing. Each line comes back
+   to its own colour rather than to a shared black, so the title still
+   outranks the summary once the card is lit.
+
+   Guarded like the thumbnail: without a pointer there is no hover to
+   arrive, and unlike a picture this is the reading matter, so a touch
+   screen gets it at full strength from the start. */
+@media (hover: hover) {
+  .wk-card-link .wk-text > * {
+    color: var(--text-muted);
+    transition: color var(--duration-fast) var(--easing);
+  }
+  .wk-card-link:hover .wk-title,
+  .wk-card-link:focus-visible .wk-title {
+    color: var(--text-primary);
+  }
+  .wk-card-link:hover .wk-kind,
+  .wk-card-link:focus-visible .wk-kind,
+  .wk-card-link:hover .wk-desc,
+  .wk-card-link:focus-visible .wk-desc,
+  .wk-card-link:hover .wk-specs,
+  .wk-card-link:focus-visible .wk-specs {
+    color: var(--text);
+  }
 }
 
 /* The thumbnails rest in grey and answer the pointer in their own colour.
