@@ -28,13 +28,13 @@ const MAILTO = "mailto:hajinlee.ca@gmail.com";
    a mail window is part of the sentence in each language's own grammar. */
 const ABOUT = {
   en: {
-    hero: "A Product Designer who\nuncovers user friction and transforms it into clear architecture and refined visual language.",
+    hero: "A Product Designer who\nfinds where users get stuck, and turns that into clear structure and a visual language that holds up.",
     body: [
-      "My design background is rooted in retail visual merchandising, where I designed physical customer journeys and visual hierarchies. Translating these touchpoints into the digital realm allows me to approach UX with a sharp focus on user behavior and brand strategy.",
-      "To me, great design means identifying core pain points and guiding users intuitively toward their goals. My experience spans the product lifecycle — from 0-to-1 launches to optimizing existing products through rebuilt layout systems and responsive UI components.",
-      "I adapt quickly to new product stages and collaborate flexibly with cross-functional teams to keep everyone aligned toward a shared vision.",
+      "I started in retail visual merchandising, where I designed physical customer journeys and visual hierarchies. Moving that work onto screens did not change the questions I ask: where does someone look first, and what do they do next.",
+      "Good design, to me, is mostly a matter of finding the problem underneath the one you were handed, then getting out of the user's way. I have worked at both ends of a product's life: launching from nothing, and going back into something that already shipped to rebuild its layout system and its responsive components.",
+      "What I care about most is working at the same pace as the people around me. Designers, developers and marketers describe the same problem in different vocabularies, and the solution gets sturdier when you can follow all of them.",
       [
-        "If you'd like to build clear, meaningful solutions together, feel free to reach out via ",
+        "If you are working on something like this, I would like to hear about it. Write me an ",
         { text: "email", href: MAILTO },
         ".",
       ],
@@ -86,22 +86,22 @@ const LINKS = [
    below are the break. Keep one when adding a sentence. */
 const DESCRIPTIONS = {
   welab: {
-    en: "Executed the UI/UX redesign and custom WordPress development for the agency's portfolio website using Bricks Builder and custom code.\nEnhanced web usability and site performance by implementing multi-language support, custom CTA features, and SEO strategies.",
+    en: "Redesigned and rebuilt the studio's public site in WordPress with Bricks Builder, writing custom code where the builder ran out.\nAdded multi-language support and new CTA components, and worked on the site's SEO.",
     ko: "에이전시의 포트폴리오 웹사이트 리뉴얼 프로젝트에서 UI/UX 디자인과 WordPress을 통해 직접 구현하였습니다.\nBricksbuilder와 커스텀 코드를 활용해 웹의 레이아웃 시스템을 개선하고 다개국어 및 CTA 관련 기능을 추가했습니다. 템플릿 리디자인과 SEO 매니지먼트에 참여하며 웹사이트의 전반적인 성능 최적화에 집중했습니다.",
     ja: "エイジェンシーのポートフォリオWebサイトのリニューアルプロジェクトにおいて、UI/UXデザインからWordPressによる直接実装までを一貫して担当しました。\nBricks Builderとカスタムコードを活用してWebサイトのレイアウトシステムを改善し、多言語対応およびCTA関連機能を追加しました。テンプレートのリデザインやSEOマネジメントにも携わり、Webサイト全体のパフォーマンス最適化に注力しました。",
   },
   muji: {
-    en: "Drove visual communication strategies and store layout optimization to enhance in-store customer journeys and brand presence.\nFormulated strategic frameworks to optimize the duty-free shopping experience (UX) tailored for inbound international travelers.",
+    en: "Planned in-store visual communication and floor layouts, which set how customers moved through the space.\nWorked on the duty-free shopping experience for inbound international travelers.",
     ko: "브랜딩 강화를 위해 비주얼 커뮤니케이션과 오프라인 매장 경험을 증진하는 프로젝트를 수행했습니다.\n특히 인바운드 고객층을 타겟으로 한 마케팅 및 면세 쇼핑 관련 고객 여정(UX) 개선을 위한 전략 수립에 집중했습니다. 이와 더불어 매장 레이아웃 및 디스플레이 최적화를 위한 프로젝트들을 주도했습니다.",
     ja: "ブランディング強化のため、ビジュアルコミュニケーションの最適化とオフライン店舗における顧客体験（UX）の向上を目的としたプロジェクトを遂行しました。\n特にインバウンド（訪日外国人）顧客層をターゲットとしたマーケティングや、免税ショッピングに伴うカスタマージャーニーの改善に向けた戦略立案に注力しました。これに加え、店舗レイアウトおよびディスプレイ最適化のためのプロジェクトを主導しました。",
   },
   bcit: {
-    en: "Mastered cross-disciplinary product execution by integrating UI/UX design, front-end development, and marketing for web and mobile platforms.\nBuilt practical expertise in interactive prototyping, layout systems, and end-to-end development workflows.",
+    en: "Studied UI/UX design alongside front-end development and marketing, and built web and mobile products end to end.\nMost of my time went to prototyping and layout systems.",
     ko: "디지털 디자인, 프론트엔드 프로그래밍, 마케팅을 융합적으로 학습하며 프로젝트 수행 역량을 다지는 데 집중하였습니다.\n주로 앱과 웹 중심의 프로덕트를 위한 UIUX 디자인을 깊게 연구하였으며, 프로토타입 구현과 개발 프로세스를 주도적으로 경험했습니다.",
     ja: "デジタルデザイン、フロントエンドプログラミング、マーケティングを融合的に学びながら、プロジェクト遂行能力を高めることに注力しました。\n主にアプリやWebを中心としたプロダクトのUI/UXデザインを深く研究し、インタラクティブなプロトタイプ実装や開発プロセスの推進を主体的に経験しました。",
   },
   inha: {
-    en: "Completed interdisciplinary studies in fashion design, merchandising, and market analysis across the apparel industry.\nBridged strategic business insights with visual communication to understand user behavior and brand positioning.",
+    en: "Studied fashion design, merchandising and market analysis.\nThe merchandising side is where I first learned to read what people buy and why, which is closer to UX research than it sounds.",
     ko: "디자인, 패턴, 섬유, 마케팅, 비즈니스 등 의류 산업 전반의 프로세스를 아우르는 각 분야를 학습을 진행했습니다.\n제품 기획과 시장 흐름을 분석하는 머천다이징을 중심으로, 비즈니스 관점과 시각적 커뮤니케이션 능력을 결합하는 데 집중했습니다.",
     ja: "デザイン、パターン、繊維、マーケティング、ビジネスなど、アパレル産業全般のプロセスを網羅する各分野の学習を行いました。\n製品企画や市場トレンドを分析するマーチャンダイジング（MD）を中心に、ビジネス的な視点とビジュアルコミュニケーション能力を結合させることに注力しました。",
   },
@@ -154,12 +154,12 @@ const EDUCATION = [
 ];
 
 /* Skills per language — five groups in every language. Each row is one
-   line: `main` plus an optional annotation around an em dash — `sub` trails
+   line: `main` plus an optional annotation after a colon. `sub` trails
    the main text and `lead` precedes it. Program/tech names stay in English
    in every language.
 
    English leads with the label and trails the detail throughout, so every
-   row there is `main — sub`; Korean and Japanese still carry the earlier
+   row there is `main: sub`; Korean and Japanese still carry the earlier
    copy, where the two technical groups put the sublabel in `lead`. The row
    counts no longer match 1:1 across the three — English's technical group
    is three rows against the other two languages' four. */
@@ -408,16 +408,16 @@ function Entry({ entry }) {
 }
 
 /** One skill line at body size: the main text plus an optional annotated
- *  part around an em dash — `lead` precedes it (Development's sublabels),
+ *  part after a colon. `lead` precedes it (Development's sublabels),
  *  `sub` trails it (detail notes, Tools' category labels). Inline flow, so
  *  long lines wrap like prose. The note spans share the section's uniform
  *  primary color; the class just keeps the structure restylable. */
 function SkillRow({ row }) {
   return (
     <div className="ab-skill-row">
-      {row.lead && <span className="ab-skill-note">{`${row.lead} — `}</span>}
+      {row.lead && <span className="ab-skill-note">{`${row.lead}: `}</span>}
       {row.main}
-      {row.sub && <span className="ab-skill-note">{` — ${row.sub}`}</span>}
+      {row.sub && <span className="ab-skill-note">{`: ${row.sub}`}</span>}
     </div>
   );
 }
