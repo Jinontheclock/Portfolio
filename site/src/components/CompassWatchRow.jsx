@@ -51,11 +51,11 @@ export default function CompassWatchRow() {
     <div className="cmp-watch-row">
       {CUTS.map(({ src, label, note, alt }) => (
         <figure className="cmp-watch-cell" key={label}>
+          {/* the cut's name above the screen, in the shared label voice;
+              the note below keeps only what it shows */}
+          <span className="cs-figure-title">{label}</span>
           <img src={src} alt={alt} loading="lazy" />
-          <figcaption>
-            <b>{label}</b>
-            <span>{note}</span>
-          </figcaption>
+          <figcaption>{note}</figcaption>
         </figure>
       ))}
     </div>

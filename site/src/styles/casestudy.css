@@ -565,18 +565,22 @@
    -webkit path; Firefox has no 2px, so it gets its thin variant, scoped
    apart because Chrome ignores the -webkit path once the standard
    properties are set */
-.cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar {
+.cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar,
+.cmp-lofi-rail::-webkit-scrollbar {
   height: 2px;
 }
-.cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar-track {
+.cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar-track,
+.cmp-lofi-rail::-webkit-scrollbar-track {
   background: transparent;
 }
-.cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar-thumb {
+.cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar-thumb,
+.cmp-lofi-rail::-webkit-scrollbar-thumb {
   background: var(--text);
   border-radius: 0;
 }
 @supports not selector(::-webkit-scrollbar) {
-  .cs-shots:not(.cs-shots--wide):has(img:nth-child(3)) {
+  .cs-shots:not(.cs-shots--wide):has(img:nth-child(3)),
+  .cmp-lofi-rail {
     scrollbar-width: thin;
     scrollbar-color: var(--text) transparent;
   }
@@ -708,7 +712,6 @@
      does not divide evenly as a gap on the right — and the last frame can
      never sit flush against the margin. Free scrolling ends exactly where
      the track does, which is where the margin is. */
-  scrollbar-width: thin;
 }
 .cmp-lofi-track {
   display: flex;
@@ -738,6 +741,8 @@
    a percentage cannot resolve against a track sized by its contents */
 .cmp-lofi-rail {
   --cmp-pw: 160px;
+  /* daylight between the frames and the scrollbar's ink line */
+  padding-bottom: 10px;
 }
 /* the layer name, carried by the first frame of its group */
 .cmp-lofi-group {
@@ -839,11 +844,6 @@
   margin-top: 8px;
   font: 400 11px / 1.35 var(--font-ui);
   color: var(--text-muted);
-}
-.cmp-watch-cell figcaption b {
-  display: block;
-  font-weight: 700;
-  color: var(--text-primary);
 }
 /* The wrap fires above the case study's own 1024 breakpoint, not at it.
    Five across puts the cell at 174.6px at 1920 and 133.8px at 1512, where
@@ -1366,6 +1366,11 @@
   margin-inline: auto;
   border-radius: 16px;
   border: 1px solid var(--grey-100, #e5e5e5);
+}
+/* in its side-by-side seat the clip sits at the lo-fi frames' height —
+   348px tall at the phone's own proportions is a 160px width */
+.cs-ba-set-media .cs-compass-motion {
+  max-width: 160px;
 }
 .cs-insta-stack {
   display: flex;
