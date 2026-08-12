@@ -17,22 +17,22 @@ import assistant from "../assets/compass/lofi/compass-lofi-assistant.webp";
    stay real text (readable, selectable, translatable) and the frames can be
    swapped one at a time as they become hi-fi in chapters 05 to 07. */
 
-const LAYER_1 = "Layer 1 — what you tap";
-const LAYER_2 = "Layer 2 — what you manage · check · ask";
+const LAYER_1 = "Layer 1: what you tap";
+const LAYER_2 = "Layer 2: what you manage · check · ask";
 /* the wrist is the tap layer too, but the two frames are a different device
    and close the board rather than interrupting the phones */
-const LAYER_1_WRIST = "Layer 1 — on the wrist";
+const LAYER_1_WRIST = "Layer 1: on the wrist";
 
 const FRAMES_1 = [
   {
     src: walletPass,
     label: "Wallet pass",
-    note: "no unlock — the pass itself",
+    note: "no unlock, the pass itself",
     alt: "Lo-fi phone frame: a Compass card face reading $15.00 with Express Mode ready, and the line hold near reader",
   },
   {
     src: tapConfirmed,
-    label: "Tap — confirmed",
+    label: "Tap confirmed",
     note: "the reader's own words, kept",
     alt: "Lo-fi phone frame: a confirmation tick over $2.50 Deducted and $12.50 Remaining",
   },
@@ -47,14 +47,14 @@ const FRAMES_1 = [
 const FRAMES_WRIST = [
   {
     src: watchBalance,
-    label: "Watch — balance",
+    label: "Watch: balance",
     watch: true,
     note: "the number, nothing else",
     alt: "Lo-fi watch frame: Compass, $15.00, ready to tap",
   },
   {
     src: watchQuickCharge,
-    label: "Watch — quick charge",
+    label: "Watch: quick charge",
     watch: true,
     note: "reload without the phone",
     alt: "Lo-fi watch frame: Quick charge, with three amounts to add",
@@ -139,10 +139,10 @@ export default function CompassLofiBoard() {
 
   return (
     <div className="cmp-lofi">
-      <p className="cmp-lofi-title">Lo-fi — the first pass</p>
+      <p className="cmp-lofi-title">Lo-fi: the first pass</p>
       <p className="cmp-lofi-sub">
-        Twelve frames, one board. These decide structure, not style — most become hi-fi screens
-        in chapters 05–07.
+        Twelve frames, one board. These decide structure, not style. Most become hi-fi screens
+        in chapters 05 to 07.
       </p>
 
       <div className="cmp-lofi-rail">

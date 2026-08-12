@@ -207,7 +207,7 @@ const FIGMA_FEATURED_ROW = [
   /* the one label a five-across phone cell can't hold on one line, so it
      carries a short form: next to "3 columns", "hover" alone still reads
      as that layout's hover state */
-  { src: figma3ColHover, ar: 0.96, w: "calc((100% - 80px) / 5)", label: "3 columns — hover", labelShort: "hover", alt: "Figma exploration of the featured case-studies section — the hovered card enlarged between two dimmed neighbours" },
+  { src: figma3ColHover, ar: 0.96, w: "calc((100% - 80px) / 5)", label: "3 columns: hover", labelShort: "hover", alt: "Figma exploration of the featured case-studies section — the hovered card enlarged between two dimmed neighbours" },
   { src: figmaRows, ar: 0.96, w: "calc((100% - 80px) / 5)", label: "rows", alt: "Figma exploration of the featured case-studies section — three full-width rows stacked" },
 ];
 
