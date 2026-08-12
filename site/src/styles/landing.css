@@ -217,7 +217,20 @@ html.lp-locked body {
   font: 400 24px/1 var(--font-ui);
   /* fixed-width digits so the number doesn't jitter while counting */
   font-variant-numeric: tabular-nums;
+  /* The number darkens as it climbs: the muted grey at 0, the page's own
+     ink at 100. `--lp-count` is the count itself, handed over inline by
+     Preloader.jsx, so the colour tracks the digits frame for frame with no
+     transition to lag behind them. Mixed in oklab, which spaces the ramp
+     the way an eye reads it rather than the way sRGB numbers fall.
+
+     The flat colour comes first as the fallback: a browser without
+     color-mix() keeps what the number looked like before. */
   color: var(--text-primary);
+  color: color-mix(
+    in oklab,
+    var(--text-primary) calc(var(--lp-count, 100) * 1%),
+    var(--text-muted)
+  );
   animation: lp-loader-in 240ms ease-out;
 }
 @keyframes lp-loader-in {

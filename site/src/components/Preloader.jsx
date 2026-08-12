@@ -112,7 +112,14 @@ export default function Preloader({ onDone }) {
 
   return (
     <div className={"lp-loader" + (leaving ? " is-leaving" : "")} aria-hidden="true">
-      {showCount && <span className="lp-loader-count">{count}</span>}
+      {/* the count rides out to the stylesheet as well as into the text: the
+          number darkens as it climbs, and which two colours it runs between
+          is the stylesheet's business, not this component's */}
+      {showCount && (
+        <span className="lp-loader-count" style={{ "--lp-count": String(count) }}>
+          {count}
+        </span>
+      )}
     </div>
   );
 }
