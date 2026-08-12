@@ -50,10 +50,12 @@
     <meta name="twitter:image" content="https://jinontheclock.github.io/Portfolio/og-image.png" />
     -->
 
-    <!-- Icons. %BASE_URL% is what Vite writes the deploy's base into, so these
-         hold whether the site is served from /Portfolio/ or a domain root. -->
-    <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="%BASE_URL%favicon.ico" sizes="32x32" />
+    <!-- Icons, cut from the uploaded mark. %BASE_URL% is what Vite writes the
+         deploy's base into, so these hold whether the site is served from
+         /Portfolio/ or a domain root. No SVG here on purpose: a browser
+         prefers an SVG icon over every other size given, so one left in
+         place would be the icon and these would never be reached. -->
+    <link rel="icon" href="%BASE_URL%favicon.ico" sizes="48x48 32x32 16x16" />
     <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
     <meta name="theme-color" content="#FAFAFA" />
   </head>
