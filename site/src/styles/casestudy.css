@@ -1153,6 +1153,9 @@
     grid-column: 1 / 13;
     grid-row: 1;
     position: static; /* no sticky tracking on mobile */
+    /* the desktop rail's sticky-yield allowance — static here, the pulled
+       margin only dragged the hero up over the chapter list */
+    margin-bottom: 0;
   }
   .cs-title {
     margin-bottom: 24px;
