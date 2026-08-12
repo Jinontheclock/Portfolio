@@ -188,7 +188,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "The absence of an app is not an oversight. It is what the architecture allows.",
+          en: "The architecture is what rules an app out.",
           ja: "アプリがないのは、見落としではありません。アーキテクチャが許す範囲が、そこまでなのです。",
           ko: "앱이 없는 것은 실수가 아닙니다. 아키텍처가 허용하는 범위가 거기까지입니다.",
         },
@@ -242,7 +242,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "So this project does not design around the limitation. It designs the thing that becomes possible once the limitation is gone.",
+          en: "So this project designs for what becomes possible once that limitation is gone.",
           ja: "だからこのプロジェクトは、制約を避けて設計しません。制約がなくなった後に可能になるものを設計します。",
           ko: "그래서 이 프로젝트는 제약을 피해 가며 설계하지 않습니다. 제약이 사라진 다음에 가능해지는 것을 설계합니다.",
         },
@@ -540,7 +540,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "None of this is a new payment method. It is the card that already exists, on the device the rider already carries.",
+          en: "This is the card that already exists, running on the device the rider already carries.",
           ja: "このどれも、新しい決済手段ではありません。すでに存在しているカードを、利用者がすでに持ち歩いている端末の上に載せただけです。",
           ko: "이 중 어느 것도 새로운 결제 수단이 아닙니다. 이미 존재하는 카드를, 승객이 이미 들고 다니는 기기 위에 올린 것입니다.",
         },
@@ -686,7 +686,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "None of these tasks is new. All of them already exist, just not anywhere a rider can reach while standing at a gate.",
+          en: "Every one of these tasks already exists somewhere. What changes is that a rider can reach them while standing at a gate.",
           ja: "これらの作業に、新しいものは一つもありません。すべてすでに存在しています。ただ、利用者が改札の前に立ったまま手を伸ばせる場所には、ないだけです。",
           ko: "이 작업들 중 새로운 것은 하나도 없습니다. 전부 이미 존재합니다. 다만 승객이 개찰구 앞에 선 채로 닿을 수 있는 곳에는 없을 뿐입니다.",
         },
@@ -725,7 +725,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "The watch is not an extra deliverable here: it is the test of whether the foundations are a system or a style. The same type scale, the same color set and the same card component have to survive at a third of the width, on a screen that is glanced at rather than read. If they had to be redrawn to fit, they were never a system.",
+          en: "The watch tests whether the foundations are a system or a style. The same type scale, the same color set and the same card component have to survive at a third of the width, on a screen that is glanced at rather than read. If they had to be redrawn to fit, they were never a system.",
           ja: "ここでのウォッチは、成果物を一つ増やしただけのものではありません。基盤がシステムなのかスタイルなのかを見分けるためのテストです。同じタイプスケール、同じカラーセット、同じカードコンポーネントが、3分の1の幅で、しかも「読む」画面ではなく「ちらりと見る」画面で、そのまま通用しなければなりません。収めるために描き直す必要があったなら、それは最初からシステムではなかったということです。",
           ko: "여기서 워치는 산출물을 하나 더 늘린 것이 아닙니다. 기반이 시스템인지 스타일인지 가려내는 시험입니다. 같은 타입 스케일, 같은 컬러 세트, 같은 카드 컴포넌트가 1/3 폭에서, 그것도 읽는 화면이 아니라 흘긋 보는 화면에서 그대로 버텨야 합니다. 맞추기 위해 다시 그려야 했다면, 그것은 애초에 시스템이 아니었습니다.",
         },
@@ -742,7 +742,7 @@ const COMPASS_SECTIONS = [
         type: "list",
         items: [
           {
-            en: "Buy or change a pass. A purchase is a decision, and a decision needs a screen you can read.",
+            en: "Buy or change a pass. Spending money needs a screen you can actually read.",
             ja: "定期券の購入・変更。購入は判断であり、判断するには読める画面が要ります。",
             ko: "정기권 구매·변경. 구매는 판단이고, 판단하려면 읽을 수 있는 화면이 필요합니다.",
           },
@@ -752,7 +752,7 @@ const COMPASS_SECTIONS = [
             ko: "U-Pass 카드 번호 입력. 스무 자리는 손목에서 다룰 것이 아닙니다.",
           },
           {
-            en: "Show trip history beyond the last fare. History is for reviewing, and reviewing is a sitting-down task.",
+            en: "Show trip history beyond the last fare. Reviewing past trips is something you do sitting down.",
             ja: "直前の運賃より前の利用履歴の表示。履歴は振り返るためのもので、振り返るのは腰を据えてやることです。",
             ko: "직전 요금을 넘어서는 이용 내역 표시. 내역은 되짚어 보는 것이고, 되짚어 보는 일은 앉아서 하는 일입니다.",
           },
@@ -766,7 +766,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "The list is short on purpose. Every item on it is something a rider would only ever do standing still, and a watch is what you use when you are not.",
+          en: "The list is short on purpose. Every item on it is something a rider would only ever do standing still, and the watch is for the times they are moving.",
           ja: "リストが短いのは意図した結果です。ここに並ぶ項目はどれも、利用者が立ち止まっているときにしかしないことで、ウォッチは立ち止まっていないときに使うものです。",
           ko: "목록이 짧은 것은 의도한 결과입니다. 여기 올라온 항목은 전부 승객이 멈춰 선 상태에서만 하는 일이고, 워치는 멈춰 서 있지 않을 때 쓰는 물건입니다.",
         },
@@ -850,7 +850,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "I started this project believing BC Ferries required foot passengers to reserve in advance, which would have made a single tap impossible without a booking system behind it. That was wrong: BC Ferries' own release says customers can arrive at the terminal and buy a foot passenger fare without booking ahead. Losing the premise made the case stronger, because the real friction was the sentence next to it: fares for each transit provider must be purchased separately. Three fare systems on one journey is a better problem than a booking requirement, and it is the one that actually exists.",
+          en: "I started this project believing BC Ferries required foot passengers to reserve in advance, which would have made a single tap impossible without a booking system behind it. That was wrong: BC Ferries' own release says customers can arrive at the terminal and buy a foot passenger fare without booking ahead. Losing the premise made the case stronger, because the friction sat in the sentence next to it: fares for each transit provider must be purchased separately. Three fare systems on one journey is a better problem than a booking requirement, and it is the one that actually exists.",
           ja: "このプロジェクトを始めた時点で、私はBC Ferriesが徒歩乗船の利用者に事前予約を求めていると思い込んでいました。もしそうなら、背後に予約システムを用意しない限り、ワンタッチでの乗船は成り立ちません。しかし、それは誤りでした。BC Ferries自身のリリースによれば、利用者は予約なしでターミナルに着いてから徒歩乗船の運賃を購入できます。前提が崩れたことで、むしろケースは強くなりました。本当の摩擦は、その隣の一文にあったからです。各交通事業者の運賃は、それぞれ別に購入しなければならない。一つの移動に運賃体系が三つあるという問題は、予約義務よりも良い問題であり、何より実際に存在している問題です。",
           ko: "저는 이 프로젝트를 시작할 때 BC Ferries가 도보 승객에게 사전 예약을 요구한다고 알고 있었습니다. 그렇다면 뒤에 예약 시스템을 붙이지 않고서는 한 번의 태그가 불가능했을 겁니다. 그런데 그것이 틀렸습니다. BC Ferries가 직접 낸 보도자료에 따르면, 승객은 예약 없이 터미널에 도착해 도보 승객 요금을 구매할 수 있습니다. 전제가 무너지면서 오히려 케이스는 단단해졌습니다. 진짜 마찰은 그 옆 문장에 있었기 때문입니다. 각 교통 사업자의 요금은 따로 구매해야 한다는 것. 한 번의 여정에 요금 체계가 셋이라는 문제는 예약 의무보다 더 나은 문제이고, 무엇보다 실제로 존재하는 문제입니다.",
         },
@@ -960,7 +960,7 @@ export default {
   },
   intro: [
     {
-      en: "Compass is the fare card for Metro Vancouver: every bus, SkyTrain, SeaBus and West Coast Express journey in the region runs through it. You can already tap a phone at a TransLink gate, but what you tap is a bank card, not your Compass Card. The card itself is still a piece of plastic, and everything about that card (balance, reload, passes, U-Pass) lives on a website and in station vending machines.",
+      en: "Compass is the fare card for Metro Vancouver. Every bus, SkyTrain, SeaBus and West Coast Express journey in the region runs through it. You can already tap a phone at a TransLink gate, but what you tap is a bank card, not your Compass Card. The card itself is still a piece of plastic, and everything about that card (balance, reload, passes, U-Pass) lives on a website and in station vending machines.",
       ja: "Compassはメトロバンクーバーの交通運賃カードです。この地域のバス、SkyTrain、SeaBus、West Coast Expressの乗車は、すべてこのカードを通じて行われます。TransLinkの改札でスマートフォンをかざすこと自体は、すでにできます。ただし、そこで読み取られるのはクレジットカードのタッチ決済であって、本人のCompassカードではありません。カード自体はいまも一枚のプラスチックで、残高・チャージ・定期券・U-Passといったカードにまつわるすべては、ウェブサイトと駅の券売機の中にあります。",
       ko: "Compass는 메트로밴쿠버의 교통 요금 카드입니다. 이 지역의 버스, SkyTrain, SeaBus, West Coast Express 이용은 모두 이 카드를 거칩니다. TransLink 개찰구에서 폰을 대는 것은 이미 됩니다. 다만 그때 태그되는 것은 비접촉 신용·체크카드이지, 본인의 Compass 카드가 아닙니다. 카드 자체는 여전히 플라스틱 한 장이고, 잔액·충전·정기권·U-Pass처럼 그 카드에 관한 모든 것은 웹사이트와 역 안의 무인 발매기에 들어 있습니다.",
     },

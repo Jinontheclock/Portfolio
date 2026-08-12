@@ -82,20 +82,20 @@ export default {
       blocks: [
         {
           type: "p",
-          text: "We surveyed and interviewed 14 cat owners across BC, synthesizing qualitative user research with BC SPCA statistics, adoption studies, and community forums.",
+          text: "We surveyed and interviewed 14 cat owners across BC, then read that against BC SPCA statistics, adoption studies, and community forums.",
         },
         { type: "h", text: "Three key findings" },
         {
           type: "list",
           items: [
-            "High Friction: Unclear and lengthy adoption flows cause even highly motivated adopters to give up midway.",
-            "Trust Through Transparency: Upfront access to medical, behavioral, and vaccination records is the single biggest trust factor.",
-            "The Post-Adoption Gap: Ongoing support after adoption day is missing almost everywhere, which leaves first-time owners anxious.",
+            "Unclear and lengthy adoption flows cause even highly motivated adopters to give up midway.",
+            "Upfront access to medical, behavioral, and vaccination records is the single biggest trust factor.",
+            "Ongoing support after adoption day is missing almost everywhere, which leaves first-time owners anxious.",
           ],
         },
         {
           type: "p",
-          text: "We distilled these findings into two personas: Emily (an experienced multi-cat owner) and Alex (a first-time adopter needing guidance).",
+          text: "We distilled these findings into two personas: Emily (an experienced multi-cat owner) and Alex (a first-time adopter who needs guidance).",
         },
         {
           type: "figure",
@@ -173,16 +173,16 @@ export default {
         {
           type: "list",
           items: [
-            "Fredoka (Headings): Rounded letterforms that make adoption feel welcoming and approachable.",
-            "Lexend (Body): Engineered to reduce cognitive friction and improve reading speed for long-form care guides.",
+            "Fredoka (headings): rounded letterforms that keep the tone friendly.",
+            "Lexend (body): built for reading speed, which matters most in the long care guides.",
           ],
         },
         { type: "h", text: "Color & Contrast (WCAG 2.1 AA)" },
         {
           type: "list",
           items: [
-            "Calico Palette: Establishes an inviting tone while maintaining clear visual hierarchy.",
-            "Contrast Compliance: Body text (#301800 on cream) reads at 15.7:1, well past AA; primary CTAs use the brand orange (#DC6E00) for immediate recognition.",
+            "The calico palette keeps the tone inviting without flattening the hierarchy.",
+            "Body text (#301800 on cream) reads at 15.7:1, well past AA. Primary CTAs use the brand orange (#DC6E00) for immediate recognition.",
           ],
         },
         { type: "h", text: "Iconography" },
@@ -229,14 +229,14 @@ export default {
           wide: true,
           title: "Cat profiles that earn trust",
           paras: [
-            "Every profile leads with the facts adopters asked for: vaccination and spay-neuter status, medical notes, temperament, and the cat's own story.",
+            "Every profile leads with the facts adopters asked for: vaccination and spay-neuter status, medical notes, temperament, and the cat's own story. Adopters trust what they can check, so the records come first.",
           ],
           media: [
             "tinypaws-shot-adopt",
             "tinypaws-shot-profile",
             "tinypaws-shot-profile-medical",
           ],
-          caption: "The gallery and profile: records first, cuteness second.",
+          caption: "The gallery and profile, with the records above the photos.",
         },
         {
           type: "solution",
@@ -266,7 +266,7 @@ export default {
       blocks: [
         {
           type: "p",
-          text: "I built the site in code myself with Astro: semantic HTML, design-token CSS, and just enough JavaScript, with no CMS behind it. What a rescue publishes is content rather than software, mostly cats, events and care guides. That made a static build the honest choice, fast and cheap to run, with a design system as the site's single source of truth.",
+          text: "I built the site in code myself with Astro: semantic HTML, design-token CSS, and just enough JavaScript, with no CMS behind it. A rescue site is mostly content: cats, events and care guides. That made a static build the honest choice, fast and cheap to run, with a design system as the site's single source of truth.",
         },
         { type: "h", text: "The style tile became a stylesheet" },
         {
@@ -316,7 +316,7 @@ export default {
         },
         {
           type: "p",
-          text: "Scoped to one Vancouver rescue, but built to template for any volunteer-run shelter.",
+          text: "Scoped to one Vancouver rescue, but the structure would carry to any volunteer-run shelter.",
         },
         {
           type: "cta",

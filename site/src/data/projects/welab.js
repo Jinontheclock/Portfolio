@@ -46,7 +46,7 @@ export default {
   },
   intro: [
     {
-      en: "WeLAB (We Love A Battle Entertainment) is a VFX and animation studio working in film and TV from Vancouver, Calgary, and Guadalajara. Over a three-month practicum internship, I was the designer on its public site end to end: auditing the old weloveabattle.com, then redesigning and rebuilding it in WordPress with Bricks Builder, in Figma where a mission called for it and in custom code where the builder ran out.",
+      en: "WeLAB (We Love A Battle Entertainment) is a VFX and animation studio working in film and TV from Vancouver, Calgary, and Guadalajara. Over a three-month practicum internship, I was the designer on its public site end to end: auditing the old weloveabattle.com, then redesigning and rebuilding it in WordPress with Bricks Builder, working in Figma where a mission called for it and in custom code where the builder ran out.",
       ja: "WeLAB(We Love A Battle Entertainment)は、バンクーバー、カルガリー、グアダラハラを拠点に映画とテレビの仕事をしているVFX・アニメーションスタジオです。私は3か月の実習インターンシップの間、このスタジオの公式サイトのデザイナーを最初から最後まで担当しました。既存のweloveabattle.comを監査し、WordPressのBricksビルダー上で設計し直し、作り直しました。ミッションが求めるところではFigmaで、ビルダーで届かないところは自前のコードで。",
       ko: "WeLAB(We Love A Battle Entertainment)은 밴쿠버, 캘거리, 과달라하라를 거점으로 영화와 TV 작업을 하는 VFX·애니메이션 스튜디오입니다. 저는 3개월 현장실습 인턴십 동안 이 스튜디오 공식 사이트의 디자이너를 처음부터 끝까지 맡았습니다. 기존 weloveabattle.com을 감사하고, WordPress의 Bricks 빌더 위에서 다시 설계하고 다시 만들었습니다. 미션이 요구하는 곳에서는 Figma로, 빌더가 한계에 다다른 곳에서는 직접 코드로.",
     },
@@ -105,7 +105,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "A VFX studio's website is its showreel's front door: producers land on it deciding whether the studio is worth a call. WeLAB's site had fallen behind the work it was meant to sell. The brief: refine the UX/UI, update the content, improve the architecture, and make the site fast, responsive, and findable, all up to the studio's own standard.",
+            en: "A VFX studio's website is its showreel's front door: producers land on it deciding whether the studio is worth a call. WeLAB's site had fallen behind the work it was meant to sell. The brief: refine the UX/UI, update the content, improve the architecture, and make the site fast, responsive, and findable, all of it up to the studio's own standard.",
             ja: "VFXスタジオのウェブサイトは、ショーリールへの玄関です。プロデューサーはここに降り立ち、このスタジオに連絡する価値があるかを判断します。WeLABのサイトは、そのサイトが売るべき作品に追いつけていませんでした。与件はこうです。UX/UIを磨き、コンテンツを更新し、構造を改善し、速く、レスポンシブで、検索から見つかるサイトにすること。スタジオ自身の基準に届くまで。",
             ko: "VFX 스튜디오의 웹사이트는 쇼릴로 들어가는 현관입니다. 프로듀서는 여기에 도착해 이 스튜디오에 연락할 가치가 있는지를 판단합니다. WeLAB의 사이트는 정작 그 사이트가 팔아야 할 작업물보다 뒤처져 있었습니다. 브리프는 이렇습니다. UX/UI를 다듬고, 콘텐츠를 갱신하고, 구조를 개선하고, 빠르고 반응형이며 검색에서 찾을 수 있는 사이트로 만들 것. 스튜디오 자신의 기준에 닿을 때까지.",
           },
@@ -286,7 +286,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "The before/after showcase asked for something Bricks doesn't have: no native component supports an interactive overlay driven by the cursor. Rather than reinvent the interaction, I picked a proven web component (img-comparison-slider), wired it into a custom HTML block, and wrote the chrome around it by hand: the divider, the handle, the labels, and how each scales down on mobile. Hover or drag, and the original footage resolves into the final shot. The judgment was in knowing what to build and what to borrow. The audit's first finding closed where it opened: the before now sits in the same frame as its after, one drag apart.",
+            en: "The before/after showcase asked for something Bricks doesn't have: no native component supports an interactive overlay driven by the cursor. Rather than reinvent the interaction, I picked a proven web component (img-comparison-slider), wired it into a custom HTML block, then wrote the chrome around it by hand: the divider, the handle, the labels, and how each scales down on mobile. Hover or drag, and the original footage resolves into the final shot. The judgment was in knowing what to build and what to borrow. The audit's first finding closed where it opened: the before now sits in the same frame as its after, one drag apart.",
             ja: "このショーケースは、Bricksにないものを求めました。カーソルで動くインタラクティブなオーバーレイをサポートするネイティブコンポーネントがありません。インタラクションを一から作り直すのではなく、実績のあるWebコンポーネントであるimg-comparison-sliderを選び、カスタムHTMLブロックに組み込み、その周辺のUIを自分で書きました。仕切り線、ハンドル、ラベル、そしてそれぞれがモバイルでどう縮むかまで。ホバーするかドラッグすると、元のフッテージが最終ショットへとほどけていきます。何を作り、何を借りるかを見極めることが、本当の判断でした。監査の最初の発見は、それが開いた場所で閉じました。ビフォーはいま、アフターと同じフレームの中、ドラッグ一回の距離にあります。",
             ko: "이 쇼케이스는 Bricks에 없는 것을 요구했습니다. 커서로 움직이는 인터랙티브 오버레이를 지원하는 기본 컴포넌트가 없습니다. 인터랙션을 처음부터 다시 만드는 대신, 검증된 웹 컴포넌트인 img-comparison-slider를 골라 커스텀 HTML 블록에 짜 넣고, 그 주변 UI를 직접 작성했습니다. 구분선, 핸들, 라벨, 그리고 각각이 모바일에서 어떻게 줄어드는지까지. 호버하거나 드래그하면 원본 푸티지가 최종 샷으로 풀립니다. 무엇을 만들고 무엇을 빌려올지 판단하는 것이 진짜 결정이었습니다. 감사의 첫 번째 발견은 그것이 열린 자리에서 닫혔습니다. 비포는 이제 애프터와 같은 프레임 안에, 드래그 한 번 거리에 있습니다.",
           },
@@ -389,7 +389,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "The language work turned out custom, like the slider. Thirteen of the studio's project case studies (including every recent VFX feature) now carry their copy in English and Spanish both, switched by an EN/ES toggle in the header: each brief lives on the page in two languages, and the toggle decides which one a producer reads. The rest of the site holds English for now, but the pages that actually sell the work already speak the market's language.",
+            en: "The language work turned out custom, like the slider. Thirteen of the studio's project case studies (including every recent VFX feature) now carry their copy in both English and Spanish, switched by an EN/ES toggle in the header: each brief lives on the page in two languages, and the toggle decides which one a producer reads. The rest of the site holds English for now, but the pages that actually sell the work already speak the market's language.",
             ja: "言語対応も、スライダーと同じく自前で作ることになりました。スタジオのプロジェクトケーススタディ13件が、いまは英語とスペイン語の二言語で本文を持っています。最近のVFX長編はすべて含まれます。切り替えはヘッダーのEN/ESトグルで行います。各プロジェクトの紹介文がページ上に二言語で同居し、プロデューサーがどちらを読むかはトグルが決めます。サイトの残りは当面は英語のままです。ただ、実際に作品を売っているページは、すでに市場の言語で話しています。",
             ko: "언어 작업도 슬라이더와 마찬가지로 직접 만드는 쪽이 됐습니다. 스튜디오의 프로젝트 케이스 스터디 13건이 이제 영어와 스페인어 두 언어로 본문을 갖고 있습니다. 최근 VFX 장편은 전부 포함됩니다. 전환은 헤더의 EN/ES 토글로 이뤄집니다. 각 프로젝트 소개글이 페이지 위에 두 언어로 함께 살아 있고, 프로듀서가 어느 쪽을 읽을지는 토글이 정합니다. 사이트의 나머지는 당분간 영어로 둡니다. 다만 실제로 작업을 파는 페이지는 이미 시장의 언어로 말하고 있습니다.",
           },
@@ -485,7 +485,7 @@ export default {
         {
           type: "h",
           text: {
-            en: "The mindset shift was the real deliverable",
+            en: "The habits mattered more than the deliverables",
             ja: "本当の成果物は、考え方の変化だった",
             ko: "진짜 산출물은 사고방식의 변화였다",
           },

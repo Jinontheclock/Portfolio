@@ -176,7 +176,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "One in five Canadians is neurodivergent, yet the system remains rigid and text-heavy. For them especially, an already demanding pathway becomes a navigation problem.",
+            en: "One in five Canadians is neurodivergent, yet the system remains rigid and text-heavy. For those apprentices especially, an already demanding pathway becomes a navigation problem.",
             ja: "カナダ人の5人に1人はニューロダイバージェントです。それでも制度は硬直したままで、文字ばかりです。彼らにとっては特に、ただでさえ負担の大きい課程が、まず道を探すことから問題になります。",
             ko: "캐나다인 5명 중 1명은 신경다양인입니다. 그런데도 제도는 여전히 경직되어 있고 글자 위주입니다. 이들에게는 특히, 그러잖아도 만만찮은 과정이 길을 찾는 일부터 문제가 됩니다.",
           },
@@ -216,7 +216,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "The sharpest concern in our interviews: discrepancies between the hours apprentices actually worked and the hours officially recorded, with no clear way to fix them. What proof counts? Who do you escalate to? Hard-earned progress quietly goes missing, delaying progression and draining motivation.",
+            en: "The sharpest concern in our interviews: discrepancies between the hours apprentices actually worked and the hours officially recorded, with no clear way to fix them. What proof counts? Who do you escalate to? Hard-earned progress quietly goes missing, which delays the next level and drains motivation.",
             ja: "インタビューで最も鋭く出てきた不安はこれでした。実際に働いた時間と公式に記録された時間が食い違うのに、それを直す道筋がはっきりしないこと。どの証拠が認められるのか。誰に申し立てればいいのか。苦労して積み上げた進捗が音もなく消え、次の段階が遅れ、意欲が削られます。",
             ko: "인터뷰에서 가장 날카롭게 나온 걱정은 이것이었습니다. 실제로 일한 시간과 공식적으로 기록된 시간이 어긋나는데, 그것을 바로잡을 방법이 분명하지 않다는 것. 어떤 증빙이 인정될까? 누구에게 이의를 제기해야 할까? 힘들게 쌓은 진행 상황이 소리 없이 사라지고, 다음 단계가 늦어지고, 의욕이 깎입니다.",
           },
@@ -317,7 +317,7 @@ export default {
               ko: "지원은 있지만 쓰이지 않습니다. ‘누구에게 물어야 할지 모르겠다’는 말이 몇 번이고 나왔고, 자기가 대상인 줄도 몰랐던 지원 제도 이야기도 함께 나왔습니다.",
             },
             {
-              en: "Short, practical formats win: videos under two minutes, checklists, and links to official sources beat long documents every time.",
+              en: "Short, practical formats work best: videos under two minutes, checklists, and links to official sources rather than long documents.",
               ja: "短くて実用的な形式が勝ちます。2分以内の動画、チェックリスト、公式の情報源への直接のリンクが、長い資料に毎回勝ります。",
               ko: "짧고 실용적인 형식이 이깁니다. 2분 이하의 영상, 체크리스트, 공식 출처로 바로 가는 링크가 긴 문서를 언제나 앞섭니다.",
             },
@@ -326,7 +326,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "The friction we heard most (overwhelm from fragmented, text-heavy information) is exactly what neurodivergent apprentices feel most sharply. Designing for that edge sharpened ProLog for every apprentice.",
+            en: "The friction we heard most (overwhelm from fragmented, text-heavy information) is exactly what neurodivergent apprentices feel most sharply. Designing for that edge made ProLog clearer for every apprentice.",
             ja: "最も多く聞いた不便は、散らばっていて文字ばかりの情報に圧倒される感覚でした。そしてそれは、ニューロダイバージェントな見習いが最も鋭く感じている、まさにその地点です。その端を基準に設計した結果、ProLogはすべての見習いにとってより明快なアプリになりました。",
             ko: "가장 많이 들은 불편은 흩어져 있고 글자만 많은 정보에 짓눌리는 느낌이었습니다. 그리고 이것은 신경다양인 견습생이 가장 날카롭게 느끼는 바로 그 지점입니다. 그 끝단을 기준으로 설계한 결과, ProLog는 모든 견습생에게 더 또렷한 앱이 되었습니다.",
           },
@@ -361,7 +361,7 @@ export default {
               ko: "정보의 출처는 하나로 — 진행 상황, 시간, 돈, 학습을 앱 하나 안에.",
             },
             {
-              en: "Nothing goes missing: no progress, no requirement, no deadline.",
+              en: "Nothing gets lost: progress, requirements and deadlines all stay tracked.",
               ja: "何も失われないように — 進捗も、要件も、期限も。",
               ko: "아무것도 사라지지 않게 — 진행 상황도, 요건도, 기한도.",
             },
@@ -419,7 +419,7 @@ export default {
               ko: "ProLog의 대시보드는 자격 취득을 하나의 로드맵으로 바꿉니다. 지금까지 기록한 시간, 현재 레벨에서 남은 시간, Red Seal까지 남은 시간 — 그 옆에 역량 항목과 재정 상황이 나란히 놓입니다. 벅차게 느껴질 때마다 대시보드는 지금 어디에 있고 앞에 무엇이 남았는지를 정확히 보여 줍니다.",
             },
             {
-              en: "Every figure is tappable: hours break down by competency, so exploring your own progress is the default interaction, not a dead end.",
+              en: "Every figure is tappable: hours break down by competency, so apprentices can dig into their own progress instead of hitting a dead end.",
               ja: "数値はすべてタップできます。時間は技能項目ごとに分解されるので、自分の進捗を掘り下げていくことが、行き止まりではなくデフォルトの操作になります。",
               ko: "모든 수치는 탭할 수 있습니다. 시간은 역량 항목별로 쪼개져 나오고, 그래서 자기 진행 상황을 직접 파고드는 것이 막다른 화면이 아니라 기본 동작이 됩니다.",
             },
@@ -523,7 +523,7 @@ export default {
         {
           type: "ba",
           graphic: "prolog-ba-visual-cues",
-          text: "Grey-on-grey states didn't read as tappable. Contrast, hierarchy, and interaction cues were strengthened across the system: if it's orange, it moves you forward.",
+          text: "Gray-on-gray states didn't read as tappable. Contrast, hierarchy, and interaction cues were strengthened across the system.",
         },
       ],
     },
@@ -571,7 +571,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "Industrial-inspired neutrals ground the interface, with a single bold orange reserved for progress and key actions. That rule carries through every interactive state: orange for actions you can take now, grey for information that waits, dimmed for steps not yet unlocked.",
+            en: "Industrial-inspired neutrals ground the interface, with a single bold orange reserved for progress and key actions. That rule carries through every interactive state: orange for actions you can take now, gray for information that waits, dimmed for steps not yet unlocked.",
             ja: "工業現場から取ったニュートラルカラーがインターフェースの土台をつくり、濃いオレンジ一色だけを進捗と主要な操作に残します。このルールはすべてのインタラクション状態にそのまま通ります。いま実行できる操作はオレンジ、待っている情報はグレー、まだ解放されていない段階は暗く。",
             ko: "산업 현장에서 가져온 뉴트럴 색이 인터페이스의 바닥을 잡아 주고, 진한 주황 하나만 진행 상황과 핵심 동작에 남겨 둡니다. 이 규칙은 모든 인터랙션 상태에 그대로 이어집니다. 지금 할 수 있는 동작은 주황, 기다리는 정보는 회색, 아직 열리지 않은 단계는 흐리게.",
           },
@@ -588,7 +588,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "The type system prioritizes glanceability, with clear weight contrast, generous sizing, and numerals treated as first-class content: “You've completed 1,240 hours, keep going.”",
+            en: "The type system prioritizes glanceability, with clear weight contrast, generous sizing, and numerals treated as first-class content: \"You've completed 1,240 hours, keep going.\"",
             ja: "タイプシステムが最優先するのは、ひと目で読み取れることです。ウェイトのコントラストをはっきりさせ、サイズを大きめに取り、数字を本文と対等なコンテンツとして扱います — “You've completed 1,240 hours, keep going.”",
             ko: "타입 시스템은 한눈에 읽히는 것을 가장 앞에 둡니다. 굵기 대비를 분명히 하고, 크기를 넉넉하게 잡고, 숫자를 본문과 동등한 콘텐츠로 다룹니다 — “You've completed 1,240 hours, keep going.”",
           },
@@ -646,7 +646,7 @@ export default {
         {
           type: "h",
           text: {
-            en: "A working build, not just a prototype",
+            en: "A build that actually runs",
             ja: "プロトタイプではなく、実際に動くビルド。",
             ko: "프로토타입이 아니라, 실제로 동작하는 빌드다.",
           },
