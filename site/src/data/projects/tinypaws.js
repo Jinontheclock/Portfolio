@@ -100,8 +100,6 @@ export default {
         {
           type: "figure",
           graphics: ["tinypaws-persona-emily", "tinypaws-persona-alex"],
-          caption:
-            "Emily (experienced, multi-cat) and Alex (first-time): the two depths of need the site serves.",
         },
       ],
     },
@@ -127,7 +125,6 @@ export default {
           type: "figure",
           graphic: "tinypaws-fig-lofi-grid",
           title: "Lo-fi wireframes",
-          caption: "Structure first, personality later.",
         },
         {
           type: "h",

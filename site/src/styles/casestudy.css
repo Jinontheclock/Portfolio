@@ -3,6 +3,15 @@
    on the left, the scrolling content (intro, meta, image, body sections) on
    the right. Placeholder content lives in CaseStudyPage.jsx. */
 
+/* The corner a bare screen capture gets. A screenshot with square corners
+   reads as a slab of pixels; this rounds it back into a screen. It is only
+   for captures shown on their own: anything that already carries an edge of
+   its own is left square, and so is anything that is not a screen. See the
+   selector list further down for what takes it. */
+:root {
+  --radius-capture: 8px;
+}
+
 .cs-main {
   flex: 1;
   box-sizing: border-box;
@@ -590,10 +599,9 @@
   min-width: 0;
   width: 100%;
   height: auto;
-  /* square corners on every screenshot: the rounding was the page's, not
-     the screen's, and it read as a frame the shot didn't have. The hairline
-     stays — it is what separates a pale screenshot from the page. */
-  border-radius: 0;
+  /* a bare capture takes the screen's own corner; the hairline stays, since
+     it is what separates a pale screenshot from the page */
+  border-radius: var(--radius-capture);
   border: 1px solid var(--grey-100, #e5e5e5);
   display: block;
 }
@@ -621,10 +629,13 @@
   display: flex;
   flex-direction: column;
 }
+/* every audit capture is a bare screen of the site, so it takes the
+   capture corner along with its hairline */
 .wl-audit-cell img {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: var(--radius-capture);
   border: 1px solid var(--border, #d4d4d4);
 }
 /* Every cell label — Before/After and the variant names alike — sits
@@ -1426,8 +1437,8 @@
   width: 100%;
   height: auto;
   display: block;
-  /* square, like every other screenshot on these pages */
-  border-radius: 0;
+  /* rounded like every other bare screen capture on these pages */
+  border-radius: var(--radius-capture);
   border: 1px solid var(--grey-100, #e5e5e5);
 }
 /* on a phone the pair spends the whole row — two cells splitting the
@@ -1545,10 +1556,14 @@
 }
 /* the still fills its labelled column; the column is the flex child that
    holds the inline width */
+/* The old project page, captured as a screen, so it takes the capture
+   corner. Its neighbour in this row does not: the slider is the feature
+   itself running, not a picture of one. */
 .wl-vfx-old {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: var(--radius-capture);
 }
 .wl-vfx-compare .wl-slider-label {
   top: 12px;
