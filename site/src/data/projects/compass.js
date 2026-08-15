@@ -12,8 +12,8 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: {
           en: "TransLink runs the transit system for Metro Vancouver: buses, SkyTrain, SeaBus and the West Coast Express. In 2025 it carried 237.6 million passenger journeys across 396.3 million boardings. That was 1.4% down on the year before: the first annual decline since the post-pandemic recovery began.",
-          ja: "TransLinkはメトロバンクーバーの公共交通を運営しています。バス、SkyTrain、SeaBus、West Coast Expressです。2025年の輸送人員は2億3,760万人、乗車回数は3億9,630万回でした。前年から1.5%の減少であり、TransLinkが報告した初めての年間減少です。",
-          ko: "TransLink는 메트로밴쿠버의 대중교통을 운영합니다. 버스, SkyTrain, SeaBus, West Coast Express입니다. 2025년 수송 인원은 2억 3,760만 명, 승차 건수는 3억 9,630만 건이었습니다. 전년보다 1.5% 줄어든 수치이고, TransLink가 보고한 첫 연간 감소입니다.",
+          ja: "TransLinkはメトロバンクーバーの公共交通を運営しています。バス、SkyTrain、SeaBus、West Coast Expressです。2025年の輸送人員は2億3,760万人、乗車回数は3億9,630万回でした。前年から1.4%の減少で、パンデミック後の回復が始まって以降では初めての年間減少です。",
+          ko: "TransLink는 메트로밴쿠버의 대중교통을 운영합니다. 버스, SkyTrain, SeaBus, West Coast Express입니다. 2025년 수송 인원은 2억 3,760만 명, 승차 건수는 3억 9,630만 건이었습니다. 전년보다 1.4% 줄어든 수치이고, 팬데믹 이후 회복이 시작된 뒤로는 첫 연간 감소입니다.",
         },
       },
       {
@@ -29,8 +29,8 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: {
           en: "Contactless payment is not new here. TransLink switched it on across the whole system on 22 May 2018, the first agency in Canada to take contactless credit cards; Interac Debit followed systemwide in January 2023, another Canadian first. Tap-to-pay has grown every year since, from over 10 million taps in 2019 to more than 25 million in 2025.",
-          ja: "タッチ決済そのものは、ここでは新しいものではありません。TransLinkは2018年5月22日に全システムでこれを開始し、Interac Debitを全線で受け入れたカナダ初の交通事業者になりました。以来タッチ決済は毎年伸び、2019年に1,000万回を超えていたタッチは、2025年には2,500万回を超えました。",
-          ko: "비접촉 결제 자체는 여기서 새로운 것이 아닙니다. TransLink는 2018년 5월 22일 전 시스템에 이 결제를 열었고, Interac Debit을 전 구간에서 받은 캐나다 최초의 운영 기관이었습니다. 이후 비접촉 결제는 매년 늘어, 2019년 1,000만 건이 넘던 태그가 2025년에는 2,500만 건을 넘었습니다.",
+          ja: "タッチ決済そのものは、ここでは新しいものではありません。TransLinkは2018年5月22日に全システムでこれを開始し、タッチ決済のクレジットカードを受け入れたカナダ初の交通事業者になりました。Interac Debitの全線対応は2023年1月で、これもカナダで初めてでした。以来タッチ決済は毎年伸び、2019年に1,000万回を超えていたタッチは、2025年には2,500万回を超えました。",
+          ko: "비접촉 결제 자체는 여기서 새로운 것이 아닙니다. TransLink는 2018년 5월 22일 전 시스템에 이 결제를 열었고, 비접촉 신용카드를 받은 캐나다 최초의 운영 기관이었습니다. Interac Debit의 전 구간 도입은 2023년 1월로, 이것도 캐나다 최초였습니다. 이후 비접촉 결제는 매년 늘어, 2019년 1,000만 건이 넘던 태그가 2025년에는 2,500만 건을 넘었습니다.",
         },
       },
       {
@@ -189,8 +189,8 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: {
           en: "The architecture is what rules an app out.",
-          ja: "アプリがないのは、見落としではありません。アーキテクチャが許す範囲が、そこまでなのです。",
-          ko: "앱이 없는 것은 실수가 아닙니다. 아키텍처가 허용하는 범위가 거기까지입니다.",
+          ja: "アプリを不可能にしているのは、アーキテクチャそのものです。",
+          ko: "앱을 불가능하게 만드는 것은 아키텍처 자체입니다.",
         },
       },
       {
@@ -243,8 +243,8 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: {
           en: "So this project designs for what becomes possible once that limitation is gone.",
-          ja: "だからこのプロジェクトは、制約を避けて設計しません。制約がなくなった後に可能になるものを設計します。",
-          ko: "그래서 이 프로젝트는 제약을 피해 가며 설계하지 않습니다. 제약이 사라진 다음에 가능해지는 것을 설계합니다.",
+          ja: "だからこのプロジェクトは、その制約がなくなった後に可能になるものを設計します。",
+          ko: "그래서 이 프로젝트는 그 제약이 사라진 다음에 가능해지는 것을 설계합니다.",
         },
       },
     ],
@@ -263,8 +263,8 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: {
           en: "This app is one place to ride both systems: pay, manage, check, ask. v1 covers every TransLink mode (bus, SkyTrain, SeaBus, West Coast Express) plus BC Ferries foot passenger fares, read-only sailing status, and in-app support. Vehicle booking is in the product but last in the roadmap, because it needs the deepest partnership. BC Transit's Umo network waits for a phase of its own. And the plastic card stays. Four decisions shape the rest of this project, and each one is a bet.",
-          ja: "このアプリは、二つのシステムを一つの場所で乗るためのものです。支払い、管理、確認、問い合わせ。v1ではTransLinkのすべてのモード——バス、SkyTrain、SeaBus、West Coast Express——に加えて、BC Ferriesの徒歩乗船運賃、参照専用の運航状況、アプリ内サポートを設計します。車両予約はプロダクトの中にはありますが、ロードマップでは最後です。最も深い連携が必要だからです。BC TransitのUmoネットワークは、独立したフェーズを待ちます。そしてプラスチックのカードは残ります。四つの決定がこのプロジェクトの残りを形づくり、そのどれもが賭けです。",
-          ko: "이 앱은 두 시스템을 한 자리에서 타기 위한 것입니다. 결제하고, 관리하고, 확인하고, 물어봅니다. v1은 TransLink의 모든 수단 — 버스, SkyTrain, SeaBus, West Coast Express — 에 더해 BC Ferries의 도보 승객 요금, 읽기 전용 운항 정보, 앱 안의 문의 창구를 설계합니다. 차량 예약은 제품 안에 있지만 로드맵에서는 가장 뒤입니다. 가장 깊은 협력이 필요하기 때문입니다. BC Transit의 Umo 네트워크는 별도의 단계를 기다립니다. 그리고 플라스틱 카드는 남습니다. 네 개의 결정이 이 프로젝트의 나머지를 만들고, 각각은 승부수입니다.",
+          ja: "このアプリは、二つのシステムを一つの場所で乗るためのものです。支払い、管理、確認、問い合わせ。v1ではTransLinkのすべてのモード（バス、SkyTrain、SeaBus、West Coast Express）に加えて、BC Ferriesの徒歩乗船運賃、参照専用の運航状況、アプリ内サポートを設計します。車両予約はプロダクトの中にはありますが、ロードマップでは最後です。最も深い連携が必要だからです。BC TransitのUmoネットワークは、独立したフェーズを待ちます。そしてプラスチックのカードは残ります。四つの決定がこのプロジェクトの残りを形づくり、そのどれもが賭けです。",
+          ko: "이 앱은 두 시스템을 한 자리에서 타기 위한 것입니다. 결제하고, 관리하고, 확인하고, 물어봅니다. v1은 TransLink의 모든 수단(버스, SkyTrain, SeaBus, West Coast Express)에 더해 BC Ferries의 도보 승객 요금, 읽기 전용 운항 정보, 앱 안의 문의 창구를 설계합니다. 차량 예약은 제품 안에 있지만 로드맵에서는 가장 뒤입니다. 가장 깊은 협력이 필요하기 때문입니다. BC Transit의 Umo 네트워크는 별도의 단계를 기다립니다. 그리고 플라스틱 카드는 남습니다. 네 개의 결정이 이 프로젝트의 나머지를 만들고, 각각은 승부수입니다.",
         },
       },
       {
@@ -305,8 +305,8 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: {
           en: "The three surfaces collapse into two layers, not three. One layer is the thing you tap at a gate: it has to work in three seconds, in the rain, with a bag in the other hand. The other is everything that can take as long as it needs: what the website was holding, plus what today means a phone call, like checking a sailing or asking a question. An in-app assistant answers the simple ones first and hands the rest to a person; the phone line and the counter both stay. Splitting the product this way is the single structural decision the rest of the design rests on.",
-          ja: "三つの接点は、三つではなく二つのレイヤーに畳まれます。一つは、改札でタッチするものです。3秒で、雨の中で、もう片方の手に荷物を持ったまま動かなければなりません。もう一つは、必要なだけ時間をかけていいものすべてです。ウェブサイトが抱えていたものに、いまは電話をかけなければならないこと——運航の確認、問い合わせ——が加わります。アプリ内のアシスタントが簡単なものから答え、残りは人に渡します。電話回線もカウンターも、どちらも残ります。プロダクトをこう分けたことが、以降の設計すべてが乗っている唯一の構造的な決定です。",
-          ko: "세 개의 접점은 세 개가 아니라 두 개의 레이어로 접힙니다. 하나는 개찰구에서 태그하는 것입니다. 3초 안에, 빗속에서, 다른 손에는 짐을 든 채로 동작해야 합니다. 다른 하나는 필요한 만큼 시간을 써도 되는 전부입니다. 웹사이트가 쥐고 있던 것들에, 오늘은 전화를 걸어야 하는 일 — 운항 확인, 문의 — 이 더해집니다. 앱 안의 어시스턴트가 간단한 것부터 답하고 나머지는 사람에게 넘깁니다. 전화선과 창구는 둘 다 남습니다. 제품을 이렇게 가른 것이, 나머지 설계 전체가 올라앉은 단 하나의 구조적 결정입니다.",
+          ja: "三つの接点は、三つではなく二つのレイヤーに畳まれます。一つは、改札でタッチするものです。3秒で、雨の中で、もう片方の手に荷物を持ったまま動かなければなりません。もう一つは、必要なだけ時間をかけていいものすべてです。ウェブサイトが抱えていたものに、いまは電話をかけなければならないこと、つまり運航の確認や問い合わせが加わります。アプリ内のアシスタントが簡単なものから答え、残りは人に渡します。電話回線もカウンターも、どちらも残ります。プロダクトをこう分けたことが、以降の設計すべてが乗っている唯一の構造的な決定です。",
+          ko: "세 개의 접점은 세 개가 아니라 두 개의 레이어로 접힙니다. 하나는 개찰구에서 태그하는 것입니다. 3초 안에, 빗속에서, 다른 손에는 짐을 든 채로 동작해야 합니다. 다른 하나는 필요한 만큼 시간을 써도 되는 전부입니다. 웹사이트가 쥐고 있던 것들에, 오늘은 전화를 걸어야 하는 일, 그러니까 운항 확인이나 문의가 더해집니다. 앱 안의 어시스턴트가 간단한 것부터 답하고 나머지는 사람에게 넘깁니다. 전화선과 창구는 둘 다 남습니다. 제품을 이렇게 가른 것이, 나머지 설계 전체가 올라앉은 단 하나의 구조적 결정입니다.",
         },
       },
       {
@@ -314,8 +314,8 @@ const COMPASS_SECTIONS = [
         graphic: "compass-fig-ia",
         caption: {
           en: "Two layers: what you tap, and everything else. Manage, check, ask.",
-          ja: "二つのレイヤー。タッチするもの、そしてそれ以外のすべて——管理、確認、問い合わせ。",
-          ko: "두 개의 레이어. 태그하는 것, 그리고 나머지 전부 — 관리, 확인, 문의.",
+          ja: "二つのレイヤー。タッチするもの、そしてそれ以外のすべて。管理、確認、問い合わせです。",
+          ko: "두 개의 레이어. 태그하는 것, 그리고 나머지 전부. 관리, 확인, 문의입니다.",
         },
       },
       {
@@ -340,8 +340,8 @@ const COMPASS_SECTIONS = [
         graphic: "compass-fig-coverage-roadmap",
         caption: {
           en: "What v1 covers, what comes later, and the phases, ordered by how much permission each one needs.",
-          ja: "v1がカバーする範囲、後から来るもの、そしてフェーズ——必要な許可の大きさ順。",
-          ko: "v1이 덮는 범위, 나중에 오는 것, 그리고 각 단계 — 필요한 허락의 크기 순.",
+          ja: "v1がカバーする範囲、後から来るもの、そしてフェーズ。必要な許可の大きさ順に並べています。",
+          ko: "v1이 덮는 범위, 나중에 오는 것, 그리고 각 단계. 필요한 허락의 크기 순으로 놓았습니다.",
         },
       },
       {
@@ -448,8 +448,8 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: {
           en: "Those three decisions (the scale, the color set and the card component) make every screen that follows. What changes from screen to screen is only which case the rider is in.",
-          ja: "この三つの決定——タイプスケール、カラーセット、カードコンポーネント——が、以降のすべての画面をつくります。画面ごとに変わるのは、利用者がどのケースにいるかだけです。",
-          ko: "이 세 가지 결정 — 타입 스케일, 색 세트, 카드 컴포넌트 — 이 이후의 모든 화면을 만듭니다. 화면마다 달라지는 것은 승객이 어떤 경우에 놓여 있는지뿐입니다.",
+          ja: "この三つの決定（タイプスケール、カラーセット、カードコンポーネント）が、以降のすべての画面をつくります。画面ごとに変わるのは、利用者がどのケースにいるかだけです。",
+          ko: "이 세 가지 결정(타입 스케일, 색 세트, 카드 컴포넌트)이 이후의 모든 화면을 만듭니다. 화면마다 달라지는 것은 승객이 어떤 경우에 놓여 있는지뿐입니다.",
         },
       },
       {
@@ -483,7 +483,7 @@ const COMPASS_SECTIONS = [
         paras: [
           {
             en: "The confirmation has to be readable in the time it takes to keep moving. Zone, fare charged, balance remaining: in that order, because that is the order the rider cares about.",
-            ja: "確認画面は、歩みを止めないあいだに読めなければなりません。ゾーン、引かれた運賃、残りの残高——この順です。利用者が気にする順が、そうだからです。",
+            ja: "確認画面は、歩みを止めないあいだに読めなければなりません。ゾーン、引かれた運賃、残りの残高。この順にしたのは、利用者が気にする順がそうだからです。",
             ko: "확인 화면은 걸음을 멈추지 않는 동안에 읽혀야 합니다. 존, 차감된 요금, 남은 잔액 순서입니다. 승객이 궁금해하는 순서가 그렇기 때문입니다.",
           },
           {
@@ -541,8 +541,8 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: {
           en: "This is the card that already exists, running on the device the rider already carries.",
-          ja: "このどれも、新しい決済手段ではありません。すでに存在しているカードを、利用者がすでに持ち歩いている端末の上に載せただけです。",
-          ko: "이 중 어느 것도 새로운 결제 수단이 아닙니다. 이미 존재하는 카드를, 승객이 이미 들고 다니는 기기 위에 올린 것입니다.",
+          ja: "すでに存在しているカードが、利用者がすでに持ち歩いている端末の上で動くというだけのことです。",
+          ko: "이미 존재하는 카드가 승객이 이미 들고 다니는 기기 위에서 동작하는 것뿐입니다.",
         },
       },
     ],
@@ -635,8 +635,8 @@ const COMPASS_SECTIONS = [
         paras: [
           {
             en: "Today's routine is the one chapter 02 counted: requested by hand every month, 20 digits plus 3, up to 24 hours to activate, no refund for a missed window.",
-            ja: "およそ14万人の学生が、毎月16日から自分でU-Passを申請します。20桁のカード番号と3桁の確認番号を入力し、有効になるまで最大24時間待ちます。期間を逃せば、払い戻しはありません。",
-            ko: "약 14만 명의 학생이 매달 16일부터 직접 U-Pass를 신청합니다. 20자리 카드 번호와 3자리 확인 번호를 입력하고, 활성화까지 최대 24시간을 기다립니다. 기간을 놓치면 환불은 없습니다.",
+            ja: "いまの手順は、02章で数えたとおりです。毎月自分で申請し、20桁と3桁を入力し、有効化まで最大24時間、期限を逃せば払い戻しはありません。",
+            ko: "지금의 절차는 02장에서 센 그대로입니다. 매달 직접 신청하고, 20자리와 3자리를 입력하고, 활성화까지 최대 24시간, 기간을 놓치면 환불은 없습니다.",
           },
           {
             en: "The app holds the institution link and renews on the date, as a notice rather than a task. The 20-digit number is typed once at setup, or not at all if the card is already on the account.",
@@ -687,8 +687,8 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: {
           en: "Every one of these tasks already exists somewhere. What changes is that a rider can reach them while standing at a gate.",
-          ja: "これらの作業に、新しいものは一つもありません。すべてすでに存在しています。ただ、利用者が改札の前に立ったまま手を伸ばせる場所には、ないだけです。",
-          ko: "이 작업들 중 새로운 것은 하나도 없습니다. 전부 이미 존재합니다. 다만 승객이 개찰구 앞에 선 채로 닿을 수 있는 곳에는 없을 뿐입니다.",
+          ja: "ここに挙げた作業は、どれもすでにどこかに存在しています。変わるのは、利用者が改札の前に立ったままそこへ手を伸ばせるようになることです。",
+          ko: "여기 적은 작업은 전부 이미 어딘가에 존재합니다. 달라지는 것은 승객이 개찰구 앞에 선 채로 거기에 닿을 수 있게 된다는 점입니다.",
         },
       },
     ],
@@ -711,7 +711,7 @@ const COMPASS_SECTIONS = [
         caption: {
           en: "The same type, color and card component at a third of the width, and nothing that asks the rider to stop walking.",
           ja: "同じタイポグラフィ、同じ配色、同じカードコンポーネントを3分の1の幅で。しかも、利用者の足を止めさせるものは一つもない。",
-          ko: "같은 타이포, 같은 색, 같은 카드 컴포넌트를 1/3 폭에서 — 그리고 승객을 멈춰 세우는 요소는 하나도 없이.",
+          ko: "같은 타이포, 같은 색, 같은 카드 컴포넌트를 1/3 폭에서. 그리고 승객을 멈춰 세우는 요소는 하나도 없이.",
         },
       },
       {
@@ -726,8 +726,8 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: {
           en: "The watch tests whether the foundations are a system or a style. The same type scale, the same color set and the same card component have to survive at a third of the width, on a screen that is glanced at rather than read. If they had to be redrawn to fit, they were never a system.",
-          ja: "ここでのウォッチは、成果物を一つ増やしただけのものではありません。基盤がシステムなのかスタイルなのかを見分けるためのテストです。同じタイプスケール、同じカラーセット、同じカードコンポーネントが、3分の1の幅で、しかも「読む」画面ではなく「ちらりと見る」画面で、そのまま通用しなければなりません。収めるために描き直す必要があったなら、それは最初からシステムではなかったということです。",
-          ko: "여기서 워치는 산출물을 하나 더 늘린 것이 아닙니다. 기반이 시스템인지 스타일인지 가려내는 시험입니다. 같은 타입 스케일, 같은 컬러 세트, 같은 카드 컴포넌트가 1/3 폭에서, 그것도 읽는 화면이 아니라 흘긋 보는 화면에서 그대로 버텨야 합니다. 맞추기 위해 다시 그려야 했다면, 그것은 애초에 시스템이 아니었습니다.",
+          ja: "ウォッチは、基盤がシステムなのかスタイルなのかを見分けるテストです。同じタイプスケール、同じカラーセット、同じカードコンポーネントが、3分の1の幅で、しかも「読む」画面ではなく「ちらりと見る」画面で、そのまま通用しなければなりません。収めるために描き直す必要があったなら、それは最初からシステムではなかったということです。",
+          ko: "워치는 기반이 시스템인지 스타일인지 가려내는 시험입니다. 같은 타입 스케일, 같은 컬러 세트, 같은 카드 컴포넌트가 1/3 폭에서, 그것도 읽는 화면이 아니라 흘긋 보는 화면에서 그대로 버텨야 합니다. 맞추기 위해 다시 그려야 했다면, 그것은 애초에 시스템이 아니었습니다.",
         },
       },
       {
@@ -743,8 +743,8 @@ const COMPASS_SECTIONS = [
         items: [
           {
             en: "Buy or change a pass. Spending money needs a screen you can actually read.",
-            ja: "定期券の購入・変更。購入は判断であり、判断するには読める画面が要ります。",
-            ko: "정기권 구매·변경. 구매는 판단이고, 판단하려면 읽을 수 있는 화면이 필요합니다.",
+            ja: "定期券の購入・変更。お金を使うには、きちんと読める画面が要ります。",
+            ko: "정기권 구매·변경. 돈을 쓰는 일에는 제대로 읽히는 화면이 필요합니다.",
           },
           {
             en: "Enter a U-Pass card number. Twenty digits do not belong on a wrist.",
@@ -753,8 +753,8 @@ const COMPASS_SECTIONS = [
           },
           {
             en: "Show trip history beyond the last fare. Reviewing past trips is something you do sitting down.",
-            ja: "直前の運賃より前の利用履歴の表示。履歴は振り返るためのもので、振り返るのは腰を据えてやることです。",
-            ko: "직전 요금을 넘어서는 이용 내역 표시. 내역은 되짚어 보는 것이고, 되짚어 보는 일은 앉아서 하는 일입니다.",
+            ja: "直前の運賃より前の利用履歴の表示。過去の移動を見返すのは、腰を据えてやることです。",
+            ko: "직전 요금을 넘어서는 이용 내역 표시. 지난 이동을 되짚어 보는 일은 앉아서 하는 일입니다.",
           },
           {
             en: "Replace or transfer a card. Anything irreversible stays where it can be confirmed properly.",
@@ -810,8 +810,8 @@ const COMPASS_SECTIONS = [
         graphic: "compass-fig-task-table",
         caption: {
           en: "Steps to complete each task today, and in the design. Counted by hand; no user testing was carried out.",
-          ja: "各タスクの完了に必要なステップ数 — 現行と設計案。手作業でカウント。ユーザーテストは実施していない。",
-          ko: "각 태스크를 끝내는 데 필요한 스텝 수 — 현재와 설계안. 직접 손으로 셌으며, 사용자 테스트는 진행하지 않았음.",
+          ja: "各タスクの完了に必要なステップ数。現行と設計案の比較です。手作業でカウントし、ユーザーテストは実施していません。",
+          ko: "각 태스크를 끝내는 데 필요한 스텝 수. 현재와 설계안을 비교했습니다. 직접 손으로 셌고, 사용자 테스트는 진행하지 않았습니다.",
         },
       },
       {
@@ -835,8 +835,8 @@ const COMPASS_SECTIONS = [
         graphic: "compass-fig-audit",
         caption: {
           en: "Heuristic findings and the accessibility audit, with what changed and what I left.",
-          ja: "ヒューリスティック評価の結果とアクセシビリティ監査 — 直したものと、そのまま残したもの。",
-          ko: "휴리스틱 점검 결과와 접근성 감사 — 고친 것과 그대로 둔 것.",
+          ja: "ヒューリスティック評価の結果とアクセシビリティ監査。直したものと、そのまま残したものを併記しています。",
+          ko: "휴리스틱 점검 결과와 접근성 감사. 고친 것과 그대로 둔 것을 함께 적었습니다.",
         },
       },
       {
@@ -851,8 +851,8 @@ const COMPASS_SECTIONS = [
         type: "p",
         text: {
           en: "I started this project believing BC Ferries required foot passengers to reserve in advance, which would have made a single tap impossible without a booking system behind it. That was wrong: BC Ferries' own release says customers can arrive at the terminal and buy a foot passenger fare without booking ahead. Losing the premise made the case stronger, because the friction sat in the sentence next to it: fares for each transit provider must be purchased separately. Three fare systems on one journey is a better problem than a booking requirement, and it is the one that actually exists.",
-          ja: "このプロジェクトを始めた時点で、私はBC Ferriesが徒歩乗船の利用者に事前予約を求めていると思い込んでいました。もしそうなら、背後に予約システムを用意しない限り、ワンタッチでの乗船は成り立ちません。しかし、それは誤りでした。BC Ferries自身のリリースによれば、利用者は予約なしでターミナルに着いてから徒歩乗船の運賃を購入できます。前提が崩れたことで、むしろケースは強くなりました。本当の摩擦は、その隣の一文にあったからです。各交通事業者の運賃は、それぞれ別に購入しなければならない。一つの移動に運賃体系が三つあるという問題は、予約義務よりも良い問題であり、何より実際に存在している問題です。",
-          ko: "저는 이 프로젝트를 시작할 때 BC Ferries가 도보 승객에게 사전 예약을 요구한다고 알고 있었습니다. 그렇다면 뒤에 예약 시스템을 붙이지 않고서는 한 번의 태그가 불가능했을 겁니다. 그런데 그것이 틀렸습니다. BC Ferries가 직접 낸 보도자료에 따르면, 승객은 예약 없이 터미널에 도착해 도보 승객 요금을 구매할 수 있습니다. 전제가 무너지면서 오히려 케이스는 단단해졌습니다. 진짜 마찰은 그 옆 문장에 있었기 때문입니다. 각 교통 사업자의 요금은 따로 구매해야 한다는 것. 한 번의 여정에 요금 체계가 셋이라는 문제는 예약 의무보다 더 나은 문제이고, 무엇보다 실제로 존재하는 문제입니다.",
+          ja: "このプロジェクトを始めた時点で、私はBC Ferriesが徒歩乗船の利用者に事前予約を求めていると思い込んでいました。もしそうなら、背後に予約システムを用意しない限り、ワンタッチでの乗船は成り立ちません。しかし、それは誤りでした。BC Ferries自身のリリースによれば、利用者は予約なしでターミナルに着いてから徒歩乗船の運賃を購入できます。前提が崩れたことで、むしろケースは強くなりました。摩擦は、その隣の一文のほうにあったからです。各交通事業者の運賃は、それぞれ別に購入しなければならない。一つの移動に運賃体系が三つあるという問題は、予約義務よりも良い問題であり、何より実際に存在している問題です。",
+          ko: "저는 이 프로젝트를 시작할 때 BC Ferries가 도보 승객에게 사전 예약을 요구한다고 알고 있었습니다. 그렇다면 뒤에 예약 시스템을 붙이지 않고서는 한 번의 태그가 불가능했을 겁니다. 그런데 그것이 틀렸습니다. BC Ferries가 직접 낸 보도자료에 따르면, 승객은 예약 없이 터미널에 도착해 도보 승객 요금을 구매할 수 있습니다. 전제가 무너지면서 오히려 케이스는 단단해졌습니다. 마찰은 그 옆 문장에 있었기 때문입니다. 각 교통 사업자의 요금은 따로 구매해야 한다는 것. 한 번의 여정에 요금 체계가 셋이라는 문제는 예약 의무보다 더 나은 문제이고, 무엇보다 실제로 존재하는 문제입니다.",
         },
       },
       {
@@ -944,13 +944,13 @@ export default {
     "The Compass concept on an iPhone and an Apple Watch: the pass joining Apple Wallet on one, a reload and a reader tap on the other",
   description: {
     en: "Redesigning Metro Vancouver's transit fare card system into an iOS and watchOS experience built on TransLink's upcoming account-based model.",
-    ja: "TransLinkがすでに入札にかけたアカウントベースのシステムの上に設計した、BC州の交通運賃カードのiOS・watchOSコンセプトアプリ",
-    ko: "TransLink가 이미 입찰에 부친 계정 기반 시스템 위에 설계한, BC주 교통 요금 카드의 iOS·watchOS 콘셉트 앱",
+    ja: "TransLinkがすでに入札にかけたアカウントベースのシステムの上に設計した、メトロバンクーバーの交通運賃カードのiOS・watchOSコンセプトアプリです。",
+    ko: "TransLink가 이미 입찰에 부친 계정 기반 시스템 위에 설계한, 메트로밴쿠버 교통 요금 카드의 iOS·watchOS 콘셉트 앱입니다.",
   },
   roles: {
     en: "Product Design, Systems UX",
-    ja: "プロダクトデザイン",
-    ko: "프로덕트 디자인",
+    ja: "プロダクトデザイン、システムUX",
+    ko: "프로덕트 디자인, 시스템 UX",
   },
   heroScene: "compass",
   headline: {
