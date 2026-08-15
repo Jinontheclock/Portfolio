@@ -15,8 +15,8 @@ const NAME_INDENT = { en: "-0.1em", ko: "-0.085em", ja: "-0.08em" };
    prints behind it are the point — Bauhaus Dessau, Fallingwater, Habitat 67 */
 const PORTRAIT_ALT = {
   en: "Hajin leaning against the rail of a gallery wall, in front of three black-and-white architectural prints: the Bauhaus building at Dessau with its name running down the facade, Frank Lloyd Wright's Fallingwater cantilevered over its waterfall, and Moshe Safdie's Habitat 67 stacked in concrete.",
-  ko: "갤러리 벽의 난간에 기대선 하진. 뒤로는 흑백 건축 사진 세 점이 걸려 있다 — 파사드에 이름이 세로로 적힌 데사우 바우하우스, 폭포 위로 캔틸레버가 뻗은 프랭크 로이드 라이트의 낙수장, 콘크리트가 층층이 쌓인 모셰 사프디의 해비타트 67.",
-  ja: "ギャラリーの壁の手すりに寄りかかるハジン。背後には白黒の建築写真が三点 — ファサードに名前が縦に入ったデッサウのバウハウス、滝の上に張り出したフランク・ロイド・ライトの落水荘、コンクリートが積み上がったモシェ・サフディのハビタット67。",
+  ko: "갤러리 벽의 난간에 기대선 하진. 뒤로는 흑백 건축 사진 세 점이 걸려 있다. 파사드에 이름이 세로로 적힌 데사우 바우하우스, 폭포 위로 캔틸레버가 뻗은 프랭크 로이드 라이트의 낙수장, 콘크리트가 층층이 쌓인 모셰 사프디의 해비타트 67.",
+  ja: "ギャラリーの壁の手すりに寄りかかるハジン。背後には白黒の建築写真が三点。ファサードに名前が縦に入ったデッサウのバウハウス、滝の上に張り出したフランク・ロイド・ライトの落水荘、コンクリートが積み上がったモシェ・サフディのハビタット67。",
 };
 
 /* The one address on the page. The closing paragraph and the rail both link
@@ -44,21 +44,21 @@ const ABOUT = {
     hero: "사용자가 막히는 지점을 찾아, 명료한 구조와 단단한 시각 언어로 옮기는 프로덕트 디자이너.",
     body: [
       "저는 리테일 비주얼 머천다이징에서 시작했습니다. 매장에서 고객이 지나는 동선과 시선의 위계를 설계하는 일이었습니다. 그 일이 화면으로 옮겨왔다고 해서 제가 던지는 질문이 달라지지는 않았습니다. 사람은 어디를 먼저 보는가, 그리고 그다음에 무엇을 하는가.",
-      "제가 생각하는 좋은 디자인은 대개 건네받은 과제 아래에 깔린 문제를 찾아내는 일, 그리고 그다음에는 사용자의 앞을 비켜 주는 일입니다. 저는 프로덕트 수명의 양쪽 끝에서 모두 일해 봤습니다. 아무것도 없는 상태에서 출시까지 만들어 봤고, 이미 배포된 프로덕트로 돌아가 레이아웃 시스템과 반응형 컴포넌트를 다시 짜기도 했습니다.",
+      "제가 생각하는 좋은 디자인은 대개 건네받은 과제 아래에 깔린 문제를 찾아내는 일, 그리고 그다음에는 사용자의 앞을 비켜 주는 일입니다. 저는 프로덕트 수명 주기의 양쪽 끝에서 모두 일해 봤습니다. 아무것도 없는 상태에서 출시까지 만들어 봤고, 이미 배포된 프로덕트로 돌아가 레이아웃 시스템과 반응형 컴포넌트를 다시 짜기도 했습니다.",
       "제가 가장 중요하게 여기는 것은 함께 일하는 사람들과 같은 호흡으로 움직이는 일입니다. 디자이너와 개발자, 마케터는 같은 문제를 서로 다른 언어로 말합니다. 그 언어를 모두 따라갈 수 있을 때 솔루션이 더 단단해진다고 믿습니다.",
       [
         "이런 일을 하고 계시다면 이야기를 들어 보고 싶습니다. ",
         { text: "이메일", href: MAILTO },
-        "로 연락 주세요.",
+        "로 연락 주시면 좋겠습니다.",
       ],
     ],
   },
   ja: {
-    hero: "ユーザーがつまずく場所を見つけ、それを明快な構造と、揺るがないビジュアル言語に落とし込むプロダクトデザイナーです。",
+    hero: "ユーザーがつまずくポイントを見つけ、それを明快な構造と、揺るがないビジュアル言語に落とし込むプロダクトデザイナーです。",
     body: [
       "私はリテールのビジュアルマーチャンダイジングから始めました。店舗の中で顧客が通る動線と、視線の優先順位を設計する仕事です。それが画面上の仕事になっても、私が立てる問いは変わりませんでした。人はどこを最初に見るのか、そして次に何をするのか。",
       "私が考える良いデザインは、多くの場合、渡された課題の下にある問題を見つけ出すこと、そしてそのあとはユーザーの前から退くことです。プロダクトのライフサイクルの両端で仕事をしてきました。何もないところから立ち上げたこともあれば、すでにリリースされたプロダクトに戻ってレイアウトシステムとレスポンシブコンポーネントを組み直したこともあります。",
-      "私が最も大切にしているのは、一緒に働く人たちと同じ歩幅で進むことです。デザイナーとエンジニア、マーケターは、同じ課題をそれぞれ違う言葉で説明します。その言葉をすべて追えるとき、ソリューションはより堅牢になると考えています。",
+      "私が最も大切にしているのは、一緒に働く人たちと同じ歩幅で進むことです。デザイナーとエンジニア、マーケターは、同じ課題をそれぞれ違う言葉で説明します。その言葉をすべて追えるとき、解決策はより確かなものになると考えています。",
       [
         "こうした仕事に取り組んでいらっしゃる方は、ぜひお話を聞かせてください。",
         { text: "メール", href: MAILTO },
@@ -88,10 +88,10 @@ const DESCRIPTIONS = {
   welab: {
     en: "Redesigned and rebuilt the studio's public site in WordPress with Bricks Builder, writing custom code where the builder ran out.\nAdded multi-language support and new CTA components, and worked on the site's SEO.",
     ko: "스튜디오 공식 사이트를 WordPress와 Bricks Builder로 다시 설계하고 다시 만들었습니다. 빌더로 해결되지 않는 부분은 직접 코드를 썼습니다.\n다국어 지원과 새 CTA 컴포넌트를 추가했고, 사이트 SEO 작업에도 참여했습니다.",
-    ja: "スタジオの公式サイトをWordPressとBricks Builderで設計し直し、作り直しました。ビルダーで届かないところは自分でコードを書きました。\n多言語対応と新しいCTAコンポーネントを追加し、サイトのSEOにも取り組みました。",
+    ja: "スタジオの公式サイトをWordPressとBricks Builderで設計し直し、作り直しました。ビルダーだけでは手が届かないところは自分でコードを書きました。\n多言語対応と新しいCTAコンポーネントを追加し、サイトのSEOにも取り組みました。",
   },
   muji: {
-    en: "Planned in-store visual communication and floor layouts, which set how customers moved through the space.\nWorked on the duty-free shopping experience for inbound international travelers.",
+    en: "Planned in-store visual communication and floor layouts, which set how customers moved through the space.\nTook on improving the duty-free shopping experience for inbound international travelers.",
     ko: "매장 내 비주얼 커뮤니케이션과 매장 레이아웃을 기획했습니다. 고객이 공간을 어떻게 지나는지가 여기서 정해졌습니다.\n인바운드 외국인 고객을 위한 면세 쇼핑 경험 개선을 맡았습니다.",
     ja: "店内のビジュアルコミュニケーションと売場レイアウトを企画しました。お客様が空間をどう歩くかは、ここで決まります。\nインバウンドのお客様に向けた免税ショッピング体験の改善に取り組みました。",
   },
@@ -103,7 +103,7 @@ const DESCRIPTIONS = {
   inha: {
     en: "Studied fashion design, merchandising and market analysis.\nThe merchandising side is where I first learned to read what people buy and why, which is closer to UX research than it sounds.",
     ko: "패션 디자인과 머천다이징, 시장 분석을 공부했습니다.\n사람들이 무엇을 왜 사는지 읽는 법은 머천다이징에서 처음 배웠습니다. 생각보다 UX 리서치와 가까운 일이었습니다.",
-    ja: "ファッションデザインとマーチャンダイジング、市場分析を学びました。\n人が何を、なぜ買うのかを読む方法は、マーチャンダイジングで最初に学びました。思っていたよりUXリサーチに近い仕事でした。",
+    ja: "ファッションデザインとマーチャンダイジング、市場分析を学びました。\n人が何を、なぜ買うのかを読み解く力は、マーチャンダイジングで最初に身につけました。思っていたよりUXリサーチに近い仕事でした。",
   },
 };
 
@@ -328,7 +328,7 @@ const SKILLS = {
           sub: "タッチポイント、ペインポイント、改善機会",
         },
         {
-          main: "情報アーキテクチャ(IA)",
+          main: "情報アーキテクチャ（IA）",
           sub: "ワイヤーフレーム、ユーザーフロー",
         },
       ],
