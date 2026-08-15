@@ -25,13 +25,13 @@ export default {
     "The ProLog app on an iPhone and a Galaxy: the dashboard filling in on one, a skills quiz being solved on the other",
   description: {
     en: "A mobile platform that turns a fragmented 6,000-hour apprenticeship into one clear, accessible roadmap, designed for neurodivergent apprentices.",
-    ja: "散らばっていた見習いの記録を一つの明確なロードマップに変える、ニューロダイバージェントな技能者のためのモバイルアプリ",
-    ko: "흩어져 있던 견습 기록을 하나의 분명한 로드맵으로 바꾸는, 신경다양인 기능인을 위한 모바일 앱",
+    ja: "バラバラだった6,000時間の見習い課程を、一つの明快で見通しのきくロードマップに変えるモバイルアプリ。ニューロダイバージェントな見習いのために設計しました。",
+    ko: "흩어져 있던 6,000시간의 견습 과정을 하나의 분명하고 접근하기 쉬운 로드맵으로 바꾸는 모바일 앱. 신경다양인 견습생을 위해 설계했습니다.",
   },
   roles: {
     en: "Lead Development, UX/UI Design",
-    ja: "プロダクトデザイン、リサーチ、ブランディング",
-    ko: "프로덕트 디자인, 리서치, 브랜딩",
+    ja: "リード開発、UX/UIデザイン",
+    ko: "리드 개발, UX/UI 디자인",
   },
   heroScene: "journey",
   headline: {
@@ -143,8 +143,8 @@ export default {
           type: "p",
           text: {
             en: "Becoming a certified tradesperson in British Columbia takes about four years: roughly 6,000 logged work hours, four levels of technical training, and around a hundred competencies per level, all verified against SkilledTradesBC records.",
-            ja: "ブリティッシュコロンビア州で資格を取得した技能者になるまでには、約4年かかります。記録された就業時間およそ6,000時間、技術訓練4レベル、レベルごとに約100の技能項目 — そのすべてがSkilledTradesBCの記録と照合して検証されます。",
-            ko: "브리티시컬럼비아주에서 자격을 취득한 기능인이 되기까지는 약 4년이 걸립니다. 기록된 근무 시간 약 6,000시간, 기술 교육 4개 레벨, 레벨마다 약 100개의 역량 항목 — 이 전부를 SkilledTradesBC 기록과 대조해 검증받아야 합니다.",
+            ja: "ブリティッシュコロンビア州で資格を取得した技能者になるまでには、約4年かかります。記録された就業時間およそ6,000時間、技術訓練4レベル、レベルごとに約100の技能項目。そのすべてがSkilledTradesBCの記録と照合して検証されます。",
+            ko: "브리티시컬럼비아주에서 자격을 취득한 기능인이 되기까지는 약 4년이 걸립니다. 기록된 근무 시간 약 6,000시간, 기술 교육 4개 레벨, 레벨마다 약 100개의 역량 항목. 이 전부를 SkilledTradesBC 기록과 대조해 검증받아야 합니다.",
           },
         },
         {
@@ -192,8 +192,8 @@ export default {
           type: "h",
           text: {
             en: "Problem 01: No map of the journey",
-            ja: "課題 01 — 道のりの地図がない",
-            ko: "문제 01 — 여정의 지도가 없다",
+            ja: "課題 01：道のりの地図がない",
+            ko: "문제 01: 여정의 지도가 없다",
           },
         },
         {
@@ -209,8 +209,8 @@ export default {
           type: "h",
           text: {
             en: "Problem 02: Hours lost in the system",
-            ja: "課題 02 — 制度の中で消える時間",
-            ko: "문제 02 — 제도 안에서 사라지는 시간",
+            ja: "課題 02：制度の中で消える時間",
+            ko: "문제 02: 제도 안에서 사라지는 시간",
           },
         },
         {
@@ -226,8 +226,8 @@ export default {
           type: "h",
           text: {
             en: "Problem 03: Scattered support",
-            ja: "課題 03 — 散らばった支援",
-            ko: "문제 03 — 흩어진 지원",
+            ja: "課題 03：散らばった支援",
+            ko: "문제 03: 흩어진 지원",
           },
         },
         {
@@ -248,8 +248,8 @@ export default {
           type: "p",
           text: {
             en: "We surveyed and interviewed twelve apprentices across BC (electrical, plumbing, HVAC, welding, power engineering, ironworking, and landscaping), from first-year apprentices to journeypersons, union and non-union alike. Alongside, we reviewed the ecosystem they navigate: SkilledTradesBC portals and success-story profiles, competency documents, and the forum threads where apprentices ask each other what the official channels don't answer.",
-            ja: "私たちはBC州全域の見習い12人に調査とインタビューを行いました。電気、配管、空調、溶接、動力設備、鉄骨、造園 — 1年目の見習いから資格を取得した熟練工まで、労組加入・非加入を問わず話を聞きました。あわせて、彼らがたどるエコシステムも調べました。SkilledTradesBCのポータルと資格取得者の紹介記事、技能項目の資料、そして公式の窓口が答えてくれないことを見習い同士が尋ね合うフォーラムのスレッドまで。",
-            ko: "저희는 BC주 전역의 견습생 12명을 설문하고 인터뷰했습니다. 전기, 배관, 냉난방공조, 용접, 동력 설비, 철골, 조경 — 1년 차 견습생부터 자격을 취득한 숙련공까지, 노조 소속과 비소속을 가리지 않았습니다. 이와 함께 이들이 헤쳐 나가는 생태계도 살펴봤습니다. SkilledTradesBC 포털과 자격 취득 사례 소개, 역량 항목 문서, 그리고 공식 창구가 답해 주지 않는 것을 견습생끼리 서로 묻는 포럼 스레드까지.",
+            ja: "私たちはBC州全域の見習い12人に調査とインタビューを行いました。電気、配管、空調、溶接、動力設備、鉄骨、造園。1年目の見習いから資格を取得した熟練工まで、労組加入・非加入を問わず話を聞きました。あわせて、彼らがたどるエコシステムも調べました。SkilledTradesBCのポータルと資格取得者の紹介記事、技能項目の資料、そして公式の窓口が答えてくれないことを見習い同士が尋ね合うフォーラムのスレッドまで。",
+            ko: "저희는 BC주 전역의 견습생 12명을 설문하고 인터뷰했습니다. 전기, 배관, 냉난방공조, 용접, 동력 설비, 철골, 조경. 1년 차 견습생부터 자격을 취득한 숙련공까지, 노조 소속과 비소속을 가리지 않았습니다. 이와 함께 이들이 헤쳐 나가는 생태계도 살펴봤습니다. SkilledTradesBC 포털과 자격 취득 사례 소개, 역량 항목 문서, 그리고 공식 창구가 답해 주지 않는 것을 견습생끼리 서로 묻는 포럼 스레드까지.",
           },
         },
         { type: "figure", graphic: "prolog-participants" },
@@ -260,8 +260,8 @@ export default {
               value: "11/12",
               label: {
                 en: "knew their next-level requirements: the information just lived in four different places",
-                ja: "次のレベルの要件を知っていた — 情報が4か所に分かれていただけ",
-                ko: "다음 레벨의 요건을 알고 있었다 — 정보가 4곳에 나뉘어 있었을 뿐",
+                ja: "次のレベルの要件を知っていた。情報が4か所に分かれていただけ",
+                ko: "다음 레벨의 요건을 알고 있었다. 정보가 4곳에 나뉘어 있었을 뿐",
               },
             },
             {
@@ -308,18 +308,18 @@ export default {
             },
             {
               en: "Competency boundaries blur on real job sites, and sign-offs don't keep up.",
-              ja: "実際の現場では技能項目の境界が曖昧になります。自分のレベルより上または下の仕事を求められ、承認がその速さに追いつきません。",
-              ko: "실제 현장에서는 역량 항목의 경계가 흐려집니다. 자기 레벨보다 높거나 낮은 일을 요구받고, 승인은 그 속도를 따라가지 못합니다.",
+              ja: "実際の現場では技能項目の境界が曖昧になり、承認がその速さに追いつきません。",
+              ko: "실제 현장에서는 역량 항목의 경계가 흐려지고, 승인은 그 속도를 따라가지 못합니다.",
             },
             {
               en: 'Support exists but goes unused: "not sure who to ask" came up again and again, alongside funding programs apprentices didn\'t know they qualified for.',
               ja: "支援はあるのに使われていません。「誰に聞けばいいのか分からない」という言葉が何度も出てきましたし、自分が対象だと知らなかった支援制度の話も同じように出てきました。",
-              ko: "지원은 있지만 쓰이지 않습니다. ‘누구에게 물어야 할지 모르겠다’는 말이 몇 번이고 나왔고, 자기가 대상인 줄도 몰랐던 지원 제도 이야기도 함께 나왔습니다.",
+              ko: '지원은 있지만 쓰이지 않습니다. "누구에게 물어야 할지 모르겠다"는 말이 몇 번이고 나왔고, 자기가 대상인 줄도 몰랐던 지원 제도 이야기도 함께 나왔습니다.',
             },
             {
               en: "Short, practical formats work best: videos under two minutes, checklists, and links to official sources rather than long documents.",
-              ja: "短くて実用的な形式が勝ちます。2分以内の動画、チェックリスト、公式の情報源への直接のリンクが、長い資料に毎回勝ります。",
-              ko: "짧고 실용적인 형식이 이깁니다. 2분 이하의 영상, 체크리스트, 공식 출처로 바로 가는 링크가 긴 문서를 언제나 앞섭니다.",
+              ja: "短くて実用的な形式がいちばん効きます。2分以内の動画、チェックリスト、公式の情報源への直接のリンク。長い資料ではありません。",
+              ko: "짧고 실용적인 형식이 가장 잘 통합니다. 2분 이하의 영상, 체크리스트, 공식 출처로 바로 가는 링크. 긴 문서가 아닙니다.",
             },
           ],
         },
@@ -335,8 +335,8 @@ export default {
           type: "p",
           text: {
             en: "We distilled these into two contrasting personas: Izzy, a Level 2 apprentice finding her footing with sticky notes and handmade study guides, and Jordan, a Level 4 veteran closing out his ticket, overwhelmed by wordy PDFs and long resource lists. They kept every feature decision anchored to a real person's week.",
-            ja: "これらを、対照的な二つのペルソナに絞り込みました。ようやく足場を固めつつある1年目の見習いと、資格取得を終えようとしているレベル4のベテランです。Izzyはふせんと自作の学習資料でどうにか進捗をつなぎとめていて、Jordanは言葉の多いPDFと長い資料リストに圧倒されています。この二人が、すべての機能の判断を実在する一人の一週間につなぎとめました。",
-            ko: "이것들을 서로 대비되는 페르소나 둘로 압축했습니다. 이제 막 자리를 잡아 가는 1년 차 견습생, 그리고 자격 취득을 마무리하는 레벨 4 베테랑입니다. Izzy는 포스트잇과 직접 만든 학습 자료로 겨우 진행 상황을 붙들고 있고, Jordan은 말 많은 PDF와 긴 자료 목록에 짓눌려 있습니다. 이 둘이 모든 기능 결정을 실제 한 사람의 한 주에 붙들어 두었습니다.",
+            ja: "これらを、対照的な二つのペルソナに絞り込みました。ふせんと自作の学習資料でどうにか進捗をつなぎとめている、ようやく足場を固めつつあるレベル2のIzzy。そして、言葉の多いPDFと長い資料リストに圧倒されながら資格取得を終えようとしている、レベル4のベテランJordanです。この二人が、すべての機能の判断を実在する一人の一週間につなぎとめました。",
+            ko: "이것들을 서로 대비되는 페르소나 둘로 압축했습니다. 포스트잇과 직접 만든 학습 자료로 겨우 진행 상황을 붙들고 있는, 이제 막 자리를 잡아 가는 레벨 2의 Izzy. 그리고 말 많은 PDF와 긴 자료 목록에 짓눌린 채 자격 취득을 마무리하는, 레벨 4 베테랑 Jordan입니다. 이 둘이 모든 기능 결정을 실제 한 사람의 한 주에 붙들어 두었습니다.",
           },
         },
         {
@@ -344,8 +344,8 @@ export default {
           graphics: ["prolog-persona-izzy", "prolog-persona-jordan"],
           caption: {
             en: "Izzy (Level 2, entry) and Jordan (Level 4, veteran): the two ends of the journey ProLog serves.",
-            ja: "Izzy（レベル2、入り口）とJordan（レベル4、ベテラン） — ProLogが向き合う道のりの両端。",
-            ko: "Izzy(레벨 2, 초입)와 Jordan(레벨 4, 베테랑) — ProLog가 상대하는 여정의 양 끝.",
+            ja: "Izzy（レベル2、入り口）とJordan（レベル4、ベテラン）。ProLogが向き合う道のりの両端です。",
+            ko: "Izzy(레벨 2, 초입)와 Jordan(레벨 4, 베테랑). ProLog가 상대하는 여정의 양 끝입니다.",
           },
         },
         {
@@ -357,23 +357,23 @@ export default {
           items: [
             {
               en: "One source of truth: progress, hours, money, and study in a single app.",
-              ja: "情報の出どころは一つに — 進捗、時間、お金、学習を一つのアプリの中に。",
-              ko: "정보의 출처는 하나로 — 진행 상황, 시간, 돈, 학습을 앱 하나 안에.",
+              ja: "情報の出どころは一つに。進捗、時間、お金、学習を一つのアプリの中に。",
+              ko: "정보의 출처는 하나로. 진행 상황, 시간, 돈, 학습을 앱 하나 안에.",
             },
             {
               en: "Nothing gets lost: progress, requirements and deadlines all stay tracked.",
-              ja: "何も失われないように — 進捗も、要件も、期限も。",
-              ko: "아무것도 사라지지 않게 — 진행 상황도, 요건도, 기한도.",
+              ja: "何も失われないように。進捗も要件も期限も、記録に残り続けます。",
+              ko: "아무것도 잃지 않게. 진행 상황도 요건도 기한도 계속 기록에 남습니다.",
             },
             {
               en: "Complement the system, don't replace it: sync with SkilledTradesBC records and export back to them.",
-              ja: "制度を置き換えず、補うこと — SkilledTradesBCの記録と同期し、そちらへ書き戻すこと。",
-              ko: "제도를 대체하지 말고 보완할 것 — SkilledTradesBC 기록과 동기화하고, 다시 그쪽으로 내보낼 것.",
+              ja: "制度を置き換えるのではなく補うこと。SkilledTradesBCの記録と同期し、そちらへ書き戻します。",
+              ko: "제도를 대체하지 말고 보완할 것. SkilledTradesBC 기록과 동기화하고, 다시 그쪽으로 내보냅니다.",
             },
             {
               en: "Built for neurodivergent users: information in small chunks, visual progress, reminders, and text-to-speech, on a phone, one-handed.",
-              ja: "ニューロダイバージェントな利用者を基準に作ること — 小さく分けた情報、目に見える進捗、リマインダー、読み上げ。スマートフォンで、片手で。",
-              ko: "신경다양인 사용자를 기준으로 만들 것 — 작게 나뉜 정보, 눈에 보이는 진행 상황, 알림, 텍스트 음성 변환. 스마트폰에서, 한 손으로.",
+              ja: "ニューロダイバージェントな利用者を基準に作ること。小さく分けた情報、目に見える進捗、リマインダー、読み上げ。スマートフォンで、片手で。",
+              ko: "신경다양인 사용자를 기준으로 만들 것. 작게 나뉜 정보, 눈에 보이는 진행 상황, 알림, 텍스트 음성 변환. 스마트폰에서, 한 손으로.",
             },
           ],
         },
@@ -400,8 +400,8 @@ export default {
           graphic: "prolog-fig-midfi-grid",
           caption: {
             en: "Sixty mid-fi screens mapped every state (quiz right and wrong, filters, drawers) before a single hi-fi pixel.",
-            ja: "ハイファイのピクセルを一つも描く前に、ミドルファイの画面60枚であらゆる状態を洗い出した — クイズの正解と不正解、フィルター、ドロワーまで。",
-            ko: "하이파이 픽셀을 단 하나도 그리기 전에, 미드파이 화면 60개로 모든 상태를 그렸다 — 퀴즈 정답과 오답, 필터, 드로어까지.",
+            ja: "ハイファイのピクセルを一つも描く前に、ミドルファイの画面60枚であらゆる状態を洗い出した。クイズの正解と不正解、フィルター、ドロワーまで。",
+            ko: "하이파이 픽셀을 단 하나도 그리기 전에, 미드파이 화면 60개로 모든 상태를 그렸다. 퀴즈 정답과 오답, 필터, 드로어까지.",
           },
         },
         {
@@ -415,13 +415,13 @@ export default {
           paras: [
             {
               en: "ProLog's dashboard turns certification into a single roadmap: hours tracked, hours left in the current level, and hours until Red Seal, with competency and finance status alongside. Whenever it gets overwhelming, the dashboard shows exactly where you are and what's ahead.",
-              ja: "ProLogのダッシュボードは、資格取得を一つのロードマップに変えます。これまでに記録した時間、いまのレベルで残っている時間、Red Sealまでに残っている時間 — その隣に技能項目とお金の状況が並びます。手に負えないと感じるたびに、ダッシュボードはいまどこにいて、この先に何が残っているかを正確に見せます。",
-              ko: "ProLog의 대시보드는 자격 취득을 하나의 로드맵으로 바꿉니다. 지금까지 기록한 시간, 현재 레벨에서 남은 시간, Red Seal까지 남은 시간 — 그 옆에 역량 항목과 재정 상황이 나란히 놓입니다. 벅차게 느껴질 때마다 대시보드는 지금 어디에 있고 앞에 무엇이 남았는지를 정확히 보여 줍니다.",
+              ja: "ProLogのダッシュボードは、資格取得を一つのロードマップに変えます。これまでに記録した時間、いまのレベルで残っている時間、Red Sealまでに残っている時間。その隣に技能項目とお金の状況が並びます。手に負えないと感じるたびに、ダッシュボードはいまどこにいて、この先に何が残っているかを正確に見せます。",
+              ko: "ProLog의 대시보드는 자격 취득을 하나의 로드맵으로 바꿉니다. 지금까지 기록한 시간, 현재 레벨에서 남은 시간, Red Seal까지 남은 시간. 그 옆에 역량 항목과 재정 상황이 나란히 놓입니다. 벅차게 느껴질 때마다 대시보드는 지금 어디에 있고 앞에 무엇이 남았는지를 정확히 보여 줍니다.",
             },
             {
               en: "Every figure is tappable: hours break down by competency, so apprentices can dig into their own progress instead of hitting a dead end.",
-              ja: "数値はすべてタップできます。時間は技能項目ごとに分解されるので、自分の進捗を掘り下げていくことが、行き止まりではなくデフォルトの操作になります。",
-              ko: "모든 수치는 탭할 수 있습니다. 시간은 역량 항목별로 쪼개져 나오고, 그래서 자기 진행 상황을 직접 파고드는 것이 막다른 화면이 아니라 기본 동작이 됩니다.",
+              ja: "数値はすべてタップできます。時間は技能項目ごとに分解されるので、見習いは行き止まりに突き当たらずに、自分の進捗を掘り下げていけます。",
+              ko: "모든 수치는 탭할 수 있습니다. 시간은 역량 항목별로 쪼개져 나오고, 견습생은 막다른 화면에 부딪히는 대신 자기 진행 상황을 직접 파고들 수 있습니다.",
             },
             {
               en: "For Izzy, who holds her progress together across sticky notes and a paper journal, one tappable total replaces the pile she used to reconstruct by hand.",
@@ -436,8 +436,8 @@ export default {
           ],
           caption: {
             en: "The dashboard: journey path, hours, competencies, and what's next, all on one screen.",
-            ja: "道のりの経路、時間、技能項目、次にやること — ダッシュボードの一画面。",
-            ko: "여정 경로, 시간, 역량 항목, 다음에 할 일 — 대시보드 한 화면.",
+            ja: "道のりの経路、時間、技能項目、次にやること。ダッシュボードの一画面です。",
+            ko: "여정 경로, 시간, 역량 항목, 다음에 할 일. 대시보드 한 화면입니다.",
           },
         },
         {
@@ -451,15 +451,15 @@ export default {
           paras: [
             {
               en: "ProLog links to a user's SkilledTradesBC account and paystub records, and cross-checks the two in real time. When a discrepancy appears (say, 30 hours short of what the paystubs prove), ProLog flags it immediately, with a full report already generated and ready to send to the employer in one tap. What used to be a silent delay becomes an item you can resolve.",
-              ja: "ProLogは利用者のSkilledTradesBCのアカウントと給与明細の記録をつなぎ、この二つをリアルタイムで突き合わせます。食い違いが出たとき — たとえば給与明細が証明する時間より30時間足りないとき — ProLogはすぐにそれを検知します。雇用主へ送る報告書はすでに作られていて、ワンタップで送れます。これまで静かに遅れていくだけだったものが、片づけられる項目になります。",
-              ko: "ProLog는 사용자의 SkilledTradesBC 계정과 급여명세서 기록을 연결해, 둘을 실시간으로 대조합니다. 불일치가 생기면 — 이를테면 급여명세서가 증명하는 것보다 30시간이 모자라면 — ProLog가 곧바로 잡아냅니다. 고용주에게 보낼 보고서는 이미 만들어져 있어서, 탭 한 번이면 보낼 수 있습니다. 조용히 늦어지기만 하던 일이 처리할 수 있는 항목이 됩니다.",
+              ja: "ProLogは利用者のSkilledTradesBCのアカウントと給与明細の記録をつなぎ、この二つをリアルタイムで突き合わせます。食い違いが出たとき、たとえば給与明細が証明する時間より30時間足りないとき、ProLogはすぐにそれを検知します。雇用主へ送る報告書はすでに作られていて、ワンタップで送れます。これまで静かに遅れていくだけだったものが、片づけられる項目になります。",
+              ko: "ProLog는 사용자의 SkilledTradesBC 계정과 급여명세서 기록을 연결해, 둘을 실시간으로 대조합니다. 불일치가 생기면, 이를테면 급여명세서가 증명하는 것보다 30시간이 모자라면, ProLog가 곧바로 잡아냅니다. 고용주에게 보낼 보고서는 이미 만들어져 있어서, 탭 한 번이면 보낼 수 있습니다. 조용히 늦어지기만 하던 일이 처리할 수 있는 항목이 됩니다.",
             },
           ],
           media: ["manual-scanning", "work-paystub-records", "work-hours"],
           caption: {
             en: "Scan a paystub, keep the record, catch the gap: the discrepancy flag does the chasing.",
-            ja: "給与明細をスキャンし、記録を残し、抜けを捕まえる — 追いかける仕事は不一致の検知が肩代わりする。",
-            ko: "급여명세서를 스캔하고, 기록을 남기고, 빈틈을 잡아낸다 — 쫓아다니는 일은 불일치 감지가 대신한다.",
+            ja: "給与明細をスキャンし、記録を残し、抜けを捕まえます。追いかける仕事は不一致の検知が肩代わりします。",
+            ko: "급여명세서를 스캔하고, 기록을 남기고, 빈틈을 잡아냅니다. 쫓아다니는 일은 불일치 감지가 대신합니다.",
           },
         },
         {
@@ -473,8 +473,8 @@ export default {
           paras: [
             {
               en: "Beyond tracking, ProLog folds in the support apprentices otherwise hunt for. A finance view lays out expected expenses for the term (tuition, tools, books) next to the grants and support programs they can apply to. A study section covers every competency in the level, built around the short, practical formats apprentices told us they use: summaries, text-to-speech, and AI-generated quizzes that refresh on every attempt, through to full exam prep.",
-              ja: "ProLogは進捗の管理にとどまらず、見習いが自分で探し回るしかなかった支援まで内側に取り込みます。お金の画面は、その学期にかかる費用を整理して見せます — 授業料、工具、教材。その隣には、申請できる助成金と支援制度が並びます。学習の画面はそのレベルの技能項目をすべて扱いますが、見習いたちが実際に使っていると話してくれた短く実用的な形式に合わせて作りました — 要約、読み上げ、そして試すたびに問題が入れ替わるAI生成のクイズから、試験対策一式まで。",
-              ko: "ProLog는 진행 상황 추적을 넘어, 견습생이 아니면 직접 찾아다녀야 하는 지원까지 안으로 끌어들입니다. 재정 화면은 그 학기에 들어갈 비용을 정리해 보여 줍니다 — 수업료, 공구, 교재. 그 옆에는 신청할 수 있는 보조금과 지원 제도가 나란히 놓입니다. 학습 화면은 해당 레벨의 역량 항목을 전부 다루되, 견습생들이 실제로 쓴다고 말한 짧고 실용적인 형식에 맞춰 만들었습니다 — 요약, 텍스트 음성 변환, 그리고 시도할 때마다 새로 나오는 AI 생성 퀴즈부터 전체 시험 대비까지.",
+              ja: "ProLogは進捗の管理にとどまらず、見習いが自分で探し回るしかなかった支援まで内側に取り込みます。お金の画面は、その学期にかかる費用を整理して見せます。授業料、工具、教材です。その隣には、申請できる助成金と支援制度が並びます。学習の画面はそのレベルの技能項目をすべて扱いますが、見習いたちが実際に使っていると話してくれた短く実用的な形式に合わせて作りました。要約、読み上げ、そして試すたびに問題が入れ替わるAI生成のクイズから、試験対策一式までです。",
+              ko: "ProLog는 진행 상황 추적을 넘어, 견습생이 아니면 직접 찾아다녀야 하는 지원까지 안으로 끌어들입니다. 재정 화면은 그 학기에 들어갈 비용을 정리해 보여 줍니다. 수업료, 공구, 교재입니다. 그 옆에는 신청할 수 있는 보조금과 지원 제도가 나란히 놓입니다. 학습 화면은 해당 레벨의 역량 항목을 전부 다루되, 견습생들이 실제로 쓴다고 말한 짧고 실용적인 형식에 맞춰 만들었습니다. 요약, 텍스트 음성 변환, 그리고 시도할 때마다 새로 나오는 AI 생성 퀴즈부터 전체 시험 대비까지입니다.",
             },
             {
               en: "Reminders are created automatically from the user's own records: tuition due Sunday, EI application by the 31st, certification expiring next Friday.",
@@ -490,8 +490,8 @@ export default {
           media: ["work-finance", "competency-exam-prep", "dashboard-reminder"],
           caption: {
             en: "Finance, study, and reminders: the support apprentices used to hunt for.",
-            ja: "お金、学習、リマインダー — 見習いが自分で探し回るしかなかった支援。",
-            ko: "재정, 학습, 알림 — 견습생이 직접 찾아다녀야 했던 지원.",
+            ja: "お金、学習、リマインダー。見習いが自分で探し回るしかなかった支援です。",
+            ko: "재정, 학습, 알림. 견습생이 직접 찾아다녀야 했던 지원입니다.",
           },
         },
         {
@@ -513,17 +513,29 @@ export default {
         {
           type: "ba",
           graphic: "prolog-ba-progress",
-          text: "Hour totals read as static labels: participants couldn't tell what the numbers were made of. Now the journey map leads, and every figure breaks down on tap.",
+          text: {
+            en: "Hour totals read as static labels: participants couldn't tell what the numbers were made of. Now the journey map leads, and every figure breaks down on tap.",
+            ja: "時間の合計が動かないラベルに見えてしまい、参加者はその数字が何の積み重ねなのかを読み取れませんでした。いまは道のりマップが先頭に立ち、どの数値もタップすると内訳が開きます。",
+            ko: "시간 합계가 움직이지 않는 라벨처럼 보여서, 참가자들은 그 숫자가 무엇으로 쌓인 것인지 읽어내지 못했습니다. 지금은 여정 맵이 앞에 서고, 어떤 수치든 탭하면 내역이 열립니다.",
+          },
         },
         {
           type: "ba",
           graphic: "prolog-ba-navigation",
-          text: "A flat list buried a hundred competencies behind search. Navigation was rebuilt around how apprentices actually study: by Line, by level, one thumb.",
+          text: {
+            en: "A flat list buried a hundred competencies behind search. Navigation was rebuilt around how apprentices actually study: by Line, by level, one thumb.",
+            ja: "平らなリストでは、100ほどの技能項目が検索の奥に埋もれていました。ナビゲーションは、見習いが実際に勉強する順序に合わせて作り直しました。Lineごと、レベルごと、片手の親指で。",
+            ko: "평평한 목록에서는 100개 가까운 역량 항목이 검색 뒤에 묻혀 있었습니다. 내비게이션은 견습생이 실제로 공부하는 순서에 맞춰 다시 짰습니다. Line 단위로, 레벨 단위로, 한 손 엄지로.",
+          },
         },
         {
           type: "ba",
           graphic: "prolog-ba-visual-cues",
-          text: "Gray-on-gray states didn't read as tappable. Contrast, hierarchy, and interaction cues were strengthened across the system.",
+          text: {
+            en: "Gray-on-gray states didn't read as tappable. Contrast, hierarchy, and interaction cues were strengthened across the system.",
+            ja: "グレーの上にグレーの状態表示は、押せるものとして読まれませんでした。コントラスト、階層、操作の手がかりをシステム全体で強めています。",
+            ko: "회색 위에 회색인 상태 표시는 누를 수 있는 것으로 읽히지 않았습니다. 대비와 위계, 조작 단서를 시스템 전체에서 강화했습니다.",
+          },
         },
       ],
     },
@@ -555,8 +567,8 @@ export default {
           type: "p",
           text: {
             en: "The ProLog mark is the product in miniature: rounded nodes linked along a winding path (the same journey map the dashboard draws) with a single orange block marking where you are now. The rule that runs through the whole system starts here: if it's orange, it moves you forward.",
-            ja: "ProLogのマークは、製品を縮めたものです。曲がりくねった道に沿って丸いノードが連なり — ダッシュボードが描くのと同じ道のりマップです — いまいる場所は一つのオレンジのブロックで示されます。システム全体を貫くルールはここから始まります。オレンジ色なら、前へ進むためのものです。",
-            ko: "ProLog 마크는 제품을 축소해 놓은 것입니다. 굽은 길을 따라 둥근 노드들이 이어지고 — 대시보드가 그리는 바로 그 여정 맵입니다 — 지금 있는 자리는 주황 블록 하나로 표시됩니다. 시스템 전체를 관통하는 규칙이 여기서 시작합니다. 주황색이면 앞으로 나아가기 위한 것입니다.",
+            ja: "ProLogのマークは、製品を縮めたものです。曲がりくねった道に沿って丸いノードが連なります。ダッシュボードが描くのと同じ道のりマップで、いまいる場所は一つのオレンジのブロックで示されます。システム全体を貫くルールはここから始まります。オレンジ色なら、前へ進むためのものです。",
+            ko: "ProLog 마크는 제품을 축소해 놓은 것입니다. 굽은 길을 따라 둥근 노드들이 이어집니다. 대시보드가 그리는 바로 그 여정 맵이고, 지금 있는 자리는 주황 블록 하나로 표시됩니다. 시스템 전체를 관통하는 규칙이 여기서 시작합니다. 주황색이면 앞으로 나아가기 위한 것입니다.",
           },
         },
         { type: "figure", graphic: "prolog-logo" },
@@ -589,8 +601,8 @@ export default {
           type: "p",
           text: {
             en: "The type system prioritizes glanceability, with clear weight contrast, generous sizing, and numerals treated as first-class content: \"You've completed 1,240 hours, keep going.\"",
-            ja: "タイプシステムが最優先するのは、ひと目で読み取れることです。ウェイトのコントラストをはっきりさせ、サイズを大きめに取り、数字を本文と対等なコンテンツとして扱います — “You've completed 1,240 hours, keep going.”",
-            ko: "타입 시스템은 한눈에 읽히는 것을 가장 앞에 둡니다. 굵기 대비를 분명히 하고, 크기를 넉넉하게 잡고, 숫자를 본문과 동등한 콘텐츠로 다룹니다 — “You've completed 1,240 hours, keep going.”",
+            ja: "タイプシステムが最優先するのは、ひと目で読み取れることです。ウェイトのコントラストをはっきりさせ、サイズを大きめに取り、数字を本文と対等なコンテンツとして扱います。たとえば「You've completed 1,240 hours, keep going.」のように。",
+            ko: "타입 시스템은 한눈에 읽히는 것을 가장 앞에 둡니다. 굵기 대비를 분명히 하고, 크기를 넉넉하게 잡고, 숫자를 본문과 동등한 콘텐츠로 다룹니다. 예를 들면 \"You've completed 1,240 hours, keep going.\"처럼.",
           },
         },
         { type: "figure", graphic: "prolog-type" },
@@ -606,8 +618,8 @@ export default {
           type: "p",
           text: {
             en: "The identity extends to a promotional campaign (video, brochure, billboard, stickers, and social media) built on the same visual system.",
-            ja: "アイデンティティは、プロモーションのキャンペーンにも広がります。映像、パンフレット、屋外広告、ステッカー、ソーシャルメディア — どれも同じビジュアルシステムの上で作りました。",
-            ko: "아이덴티티는 홍보 캠페인까지 이어집니다. 영상, 브로슈어, 옥외 광고, 스티커, 소셜 미디어 — 전부 같은 비주얼 시스템 위에서 만들었습니다.",
+            ja: "アイデンティティは、プロモーションのキャンペーンにも広がります。映像、パンフレット、屋外広告、ステッカー、ソーシャルメディア。どれも同じビジュアルシステムの上で作りました。",
+            ko: "아이덴티티는 홍보 캠페인까지 이어집니다. 영상, 브로슈어, 옥외 광고, 스티커, 소셜 미디어. 전부 같은 비주얼 시스템 위에서 만들었습니다.",
           },
         },
         {
@@ -633,8 +645,8 @@ export default {
           graphic: "prolog-campaign-instagram",
           caption: {
             en: "Instagram carousel: the frames connect into one continuous scene as you swipe.",
-            ja: "Instagramのカルーセル — スワイプすると、フレームがつながって一つの場面になる。",
-            ko: "Instagram 캐러셀 — 넘길 때마다 프레임이 이어져 하나의 장면이 된다.",
+            ja: "Instagramのカルーセル。スワイプすると、フレームがつながって一つの場面になります。",
+            ko: "Instagram 캐러셀. 넘길 때마다 프레임이 이어져 하나의 장면이 됩니다.",
           },
         },
       ],
@@ -647,8 +659,8 @@ export default {
           type: "h",
           text: {
             en: "A build that actually runs",
-            ja: "プロトタイプではなく、実際に動くビルド。",
-            ko: "프로토타입이 아니라, 실제로 동작하는 빌드다.",
+            ja: "実際に動くビルド",
+            ko: "실제로 동작하는 빌드",
           },
         },
         {
@@ -674,8 +686,8 @@ export default {
             },
             {
               en: "Presented at SSE Y2WD, a BCIT student design and technology showcase",
-              ja: "SSE Y2WDで発表した",
-              ko: "SSE Y2WD에서 발표했다",
+              ja: "BCITの学生によるデザイン・技術のショーケース、SSE Y2WDで発表した",
+              ko: "BCIT 학생 디자인·기술 쇼케이스인 SSE Y2WD에서 발표했다",
             },
             {
               en: "Recognized with a certificate from MP Jake Sawatzky, presented to each participating team",
