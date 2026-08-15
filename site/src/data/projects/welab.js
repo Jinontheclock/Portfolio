@@ -30,13 +30,13 @@ export default {
   },
   description: {
     en: "An end-to-end website audit, redesign, and WordPress development for a VFX studio: rebuilding layouts and interactions with Bricks Builder and custom code.",
-    ja: "VFX・アニメーションスタジオの本番サイトのリデザイン — 監査から再設計、Bricksでの再構築まで。ビルダーで届かないところは自前のコードで",
-    ko: "VFX·애니메이션 스튜디오의 운영 사이트 리디자인 — 감사에서 재설계, Bricks 재구축까지. 빌더가 한계에 다다른 곳은 직접 코드로",
+    ja: "VFXスタジオのサイトを、監査からリデザイン、WordPressでの実装まで一貫して担当。レイアウトとインタラクションをBricks Builderと自前のコードで作り直しました。",
+    ko: "VFX 스튜디오 사이트를 감사부터 리디자인, WordPress 구현까지 처음부터 끝까지 맡았습니다. 레이아웃과 인터랙션을 Bricks Builder와 직접 쓴 코드로 다시 만들었습니다.",
   },
   roles: {
     en: "UI/UX Design, Web Development (Internship)",
-    ja: "UI/UXデザイン、ウェブ開発",
-    ko: "UI/UX 디자인, 웹 개발",
+    ja: "UI/UXデザイン、ウェブ開発（インターンシップ）",
+    ko: "UI/UX 디자인, 웹 개발(인턴십)",
   },
   heroScene: "welab",
   headline: {
@@ -114,8 +114,8 @@ export default {
           type: "p",
           text: {
             en: "This wasn't a greenfield build. The site stayed live in production throughout, the brand was set, and the stack (WordPress with Bricks Builder) was the studio's, not mine. The job was to raise the site inside those lines.",
-            ja: "ゼロから作る案件ではありませんでした。サイトは作業の間ずっと本番で動いたままでしたし、ブランドはすでに決まっていて、スタックも私のものではなくスタジオのものでした — WordPressとBricksビルダー。私の仕事は、その線の内側でサイトを引き上げることでした。",
-            ko: "백지에서 시작하는 프로젝트가 아니었습니다. 사이트는 작업 내내 운영 상태로 살아 있었고, 브랜드는 이미 정해져 있었으며, 스택도 제 것이 아니라 스튜디오의 것이었습니다 — WordPress와 Bricks 빌더. 제 일은 그 선 안에서 사이트를 끌어올리는 것이었습니다.",
+            ja: "ゼロから作る案件ではありませんでした。サイトは作業の間ずっと本番で動いたままでしたし、ブランドはすでに決まっていて、スタックも私のものではなくスタジオのもの、WordPressとBricks Builderでした。私の仕事は、その線の内側でサイトを引き上げることでした。",
+            ko: "백지에서 시작하는 프로젝트가 아니었습니다. 사이트는 작업 내내 운영 상태로 살아 있었고, 브랜드는 이미 정해져 있었으며, 스택도 제 것이 아니라 스튜디오의 것, WordPress와 Bricks Builder였습니다. 제 일은 그 선 안에서 사이트를 끌어올리는 것이었습니다.",
           },
         },
       ],
@@ -140,8 +140,8 @@ export default {
           type: "h",
           text: {
             en: "Problem 01: The work didn't show its magic",
-            ja: "課題 01 — 作品の魔法が見えなかった",
-            ko: "문제 01 — 작업의 마법이 보이지 않았다",
+            ja: "課題 01：作品の魔法が見えなかった",
+            ko: "문제 01: 작업의 마법이 보이지 않았다",
           },
         },
         {
@@ -165,8 +165,8 @@ export default {
           type: "h",
           text: {
             en: "Problem 02: Pages without a system",
-            ja: "課題 02 — システムのないページ",
-            ko: "문제 02 — 시스템 없는 페이지",
+            ja: "課題 02：システムのないページ",
+            ko: "문제 02: 시스템 없는 페이지",
           },
         },
         {
@@ -207,8 +207,8 @@ export default {
           type: "h",
           text: {
             en: "Opportunity 01: A front page stuck in last year",
-            ja: "機会 01 — 去年で止まったトップページ",
-            ko: "기회 01 — 작년에 멈춰 있는 첫 화면",
+            ja: "機会 01：去年で止まったトップページ",
+            ko: "기회 01: 작년에 멈춰 있는 첫 화면",
           },
         },
         {
@@ -229,8 +229,8 @@ export default {
           type: "h",
           text: {
             en: "Opportunity 02: A studio in three countries, a site in one language",
-            ja: "機会 02 — 三か国のスタジオ、一言語のサイト",
-            ko: "기회 02 — 세 나라의 스튜디오, 한 언어의 사이트",
+            ja: "機会 02：三か国のスタジオ、一言語のサイト",
+            ko: "기회 02: 세 나라의 스튜디오, 한 언어의 사이트",
           },
         },
         {
@@ -238,8 +238,8 @@ export default {
           graphic: "welab-fig-old-studios",
           text: {
             en: "Through the first half of 2025, WeLAB's slate ran through its Canadian studios, and the site matched: English only, built for the US and Canadian clients it already had. Then the studio's map changed. Starting with Shadow of God, a feature backed by Jalisco's film incentive program, the push into Mexico stopped being a plan and became a slate. The site's own services page was already selling those incentives, in English. Growth wasn't waiting on marketing; it was waiting on the website.",
-            ja: "2025年前半まで、WeLABのラインナップはカナダのスタジオを通して回っていて、サイトもそれに合っていました。英語のみ、すでに抱えている米国とカナダのクライアントに向けたサイトです。そこでスタジオの地図が変わりました。ハリスコ州の映像インセンティブ制度の支援を受けた長編『Shadow of God』を皮切りに、メキシコ進出は計画ではなく実際のラインナップになりました。当のサイトのServicesページは、そのインセンティブをすでに売っていました — 英語で。成長が待っていたのはマーケティングではなく、ウェブサイトでした。",
-            ko: "2025년 상반기까지 WeLAB의 라인업은 캐나다 스튜디오들을 통해 돌아갔고, 사이트도 거기에 맞춰져 있었습니다. 영어 단일 언어, 이미 확보한 미국과 캐나다 클라이언트를 위한 사이트였습니다. 그러다 스튜디오의 지도가 바뀌었습니다. 할리스코주 영상 인센티브 제도의 지원을 받은 장편 〈Shadow of God〉을 시작으로, 멕시코 진출은 계획이 아니라 실제 라인업이 됐습니다. 정작 사이트의 Services 페이지는 그 인센티브를 이미 팔고 있었습니다 — 영어로. 성장이 기다리고 있던 것은 마케팅이 아니라 웹사이트였습니다.",
+            ja: "2025年前半まで、WeLABのラインナップはカナダのスタジオを通して回っていて、サイトもそれに合っていました。英語のみ、すでに抱えている米国とカナダのクライアントに向けたサイトです。そこでスタジオの地図が変わりました。ハリスコ州の映像インセンティブ制度の支援を受けた長編『Shadow of God』を皮切りに、メキシコ進出は計画ではなく実際のラインナップになりました。当のサイトのServicesページは、そのインセンティブをすでに売っていました。しかも英語で。成長が待っていたのはマーケティングではなく、ウェブサイトでした。",
+            ko: "2025년 상반기까지 WeLAB의 라인업은 캐나다 스튜디오들을 통해 돌아갔고, 사이트도 거기에 맞춰져 있었습니다. 영어 단일 언어, 이미 확보한 미국과 캐나다 클라이언트를 위한 사이트였습니다. 그러다 스튜디오의 지도가 바뀌었습니다. 할리스코주 영상 인센티브 제도의 지원을 받은 장편 〈Shadow of God〉을 시작으로, 멕시코 진출은 계획이 아니라 실제 라인업이 됐습니다. 정작 사이트의 Services 페이지는 그 인센티브를 이미 팔고 있었습니다. 그것도 영어로. 성장이 기다리고 있던 것은 마케팅이 아니라 웹사이트였습니다.",
           },
           title: {
             en: "The Our Studios section of the old landing page",
@@ -287,8 +287,8 @@ export default {
           type: "p",
           text: {
             en: "The before/after showcase asked for something Bricks doesn't have: no native component supports an interactive overlay driven by the cursor. Rather than reinvent the interaction, I picked a proven web component (img-comparison-slider), wired it into a custom HTML block, then wrote the chrome around it by hand: the divider, the handle, the labels, and how each scales down on mobile. Hover or drag, and the original footage resolves into the final shot. The judgment was in knowing what to build and what to borrow. The audit's first finding closed where it opened: the before now sits in the same frame as its after, one drag apart.",
-            ja: "このショーケースは、Bricksにないものを求めました。カーソルで動くインタラクティブなオーバーレイをサポートするネイティブコンポーネントがありません。インタラクションを一から作り直すのではなく、実績のあるWebコンポーネントであるimg-comparison-sliderを選び、カスタムHTMLブロックに組み込み、その周辺のUIを自分で書きました。仕切り線、ハンドル、ラベル、そしてそれぞれがモバイルでどう縮むかまで。ホバーするかドラッグすると、元のフッテージが最終ショットへとほどけていきます。何を作り、何を借りるかを見極めることが、本当の判断でした。監査の最初の発見は、それが開いた場所で閉じました。ビフォーはいま、アフターと同じフレームの中、ドラッグ一回の距離にあります。",
-            ko: "이 쇼케이스는 Bricks에 없는 것을 요구했습니다. 커서로 움직이는 인터랙티브 오버레이를 지원하는 기본 컴포넌트가 없습니다. 인터랙션을 처음부터 다시 만드는 대신, 검증된 웹 컴포넌트인 img-comparison-slider를 골라 커스텀 HTML 블록에 짜 넣고, 그 주변 UI를 직접 작성했습니다. 구분선, 핸들, 라벨, 그리고 각각이 모바일에서 어떻게 줄어드는지까지. 호버하거나 드래그하면 원본 푸티지가 최종 샷으로 풀립니다. 무엇을 만들고 무엇을 빌려올지 판단하는 것이 진짜 결정이었습니다. 감사의 첫 번째 발견은 그것이 열린 자리에서 닫혔습니다. 비포는 이제 애프터와 같은 프레임 안에, 드래그 한 번 거리에 있습니다.",
+            ja: "ビフォー・アフターのショーケースは、Bricksにないものを求めました。カーソルで動くインタラクティブなオーバーレイをサポートするネイティブコンポーネントがありません。インタラクションを一から作り直すのではなく、実績のあるWebコンポーネントであるimg-comparison-sliderを選び、カスタムHTMLブロックに組み込み、その周辺のUIを自分で書きました。仕切り線、ハンドル、ラベル、そしてそれぞれがモバイルでどう縮むかまで。ホバーするかドラッグすると、元のフッテージが最終ショットへとほどけていきます。何を作り、何を借りるかを見極めることが、本当の判断でした。監査の最初の発見は、それが開いた場所で閉じました。ビフォーはいま、アフターと同じフレームの中、ドラッグ一回の距離にあります。",
+            ko: "비포·애프터 쇼케이스는 Bricks에 없는 것을 요구했습니다. 커서로 움직이는 인터랙티브 오버레이를 지원하는 기본 컴포넌트가 없습니다. 인터랙션을 처음부터 다시 만드는 대신, 검증된 웹 컴포넌트인 img-comparison-slider를 골라 커스텀 HTML 블록에 짜 넣고, 그 주변 UI를 직접 작성했습니다. 구분선, 핸들, 라벨, 그리고 각각이 모바일에서 어떻게 줄어드는지까지. 호버하거나 드래그하면 원본 푸티지가 최종 샷으로 풀립니다. 무엇을 만들고 무엇을 빌려올지 판단하는 것이 진짜 결정이었습니다. 감사의 첫 번째 발견은 그것이 열린 자리에서 닫혔습니다. 비포는 이제 애프터와 같은 프레임 안에, 드래그 한 번 거리에 있습니다.",
           },
         },
         {
@@ -486,8 +486,8 @@ export default {
           type: "h",
           text: {
             en: "The habits mattered more than the deliverables",
-            ja: "本当の成果物は、考え方の変化だった",
-            ko: "진짜 산출물은 사고방식의 변화였다",
+            ja: "成果物よりも、仕事の習慣のほうが残った",
+            ko: "산출물보다 일하는 습관이 더 많이 남았다",
           },
         },
         {
@@ -495,7 +495,7 @@ export default {
           text: {
             en: "School work ends at the rubric; client work doesn't. I learned to research competing studios without being asked, to bring my supervisor questions early instead of guesses late, and to keep iterating past the point where a grade would have called it done.",
             ja: "学校の課題は評価基準で終わりますが、クライアントの仕事はそこで終わりません。私は、言われなくても競合スタジオを調べること、遅れて推測を出す代わりに早い段階で指導担当に質問を持っていくこと、そして成績なら「終わり」と判定していた地点を越えてなお磨き続けることを学びました。",
-            ko: "학교 과제는 평가 기준에서 끝나지만, 클라이언트 일은 거기서 끝나지 않습니다. 저는 시키지 않아도 경쟁 스튜디오를 조사하는 법, 늦게 추측을 내놓는 대신 일찍 지도 담당자에게 질문을 가져가는 법, 그리고 학점이라면 ‘끝’이라고 했을 지점을 지나서도 계속 다듬는 법을 배웠습니다.",
+            ko: "학교 과제는 평가 기준에서 끝나지만, 클라이언트 일은 거기서 끝나지 않습니다. 저는 시키지 않아도 경쟁 스튜디오를 조사하는 법, 늦게 추측을 내놓는 대신 일찍 지도 담당자에게 질문을 가져가는 법, 그리고 학점이라면 '끝'이라고 했을 지점을 지나서도 계속 다듬는 법을 배웠습니다.",
           },
         },
         {
@@ -503,7 +503,7 @@ export default {
           text: {
             en: "WeLAB handed an intern full access to a production site, and that trust changed how carefully I shipped. If I set up the next project, the asset pipeline comes first: knowing exactly which media exists, at what quality, before design starts. I'd also instrument the site from day one. The redesign shipped, but with no analytics baseline I can point to what I built, not yet to what it moved; next time I'd measure the before so the after has a number.",
             ja: "WeLABはインターンに本番サイトのフルアクセスを渡しました。その信頼が、私がどれだけ慎重にリリースするかを変えました。次のプロジェクトを自分で立ち上げるなら、まずアセットパイプラインです。デザインを始める前に、どのメディアがどの品質で存在するのかを正確に把握しておくこと。そして、サイトへの計測を初日から入れます。リデザインはリリースされましたが、アナリティクスのベースラインがないため、私は自分が何を作ったかは示せても、それが何を動かしたかはまだ示せません。次は「前」を測って、「後」に数字がつくようにします。",
-            ko: "WeLAB은 인턴에게 운영 사이트의 전체 권한을 넘겼습니다. 그 신뢰가 제가 얼마나 조심스럽게 배포하는지를 바꿔 놓았습니다. 다음 프로젝트를 제가 세팅한다면 에셋 파이프라인이 먼저입니다. 디자인을 시작하기 전에 어떤 미디어가 어떤 품질로 존재하는지를 정확히 아는 일입니다. 그리고 사이트에 계측을 첫날부터 붙이겠습니다. 리디자인은 배포됐지만, 애널리틱스 기준선이 없기 때문에 저는 제가 무엇을 만들었는지는 가리킬 수 있어도 그것이 무엇을 움직였는지는 아직 가리킬 수 없습니다. 다음에는 ‘전’을 측정해서 ‘후’에 숫자가 붙게 하겠습니다.",
+            ko: "WeLAB은 인턴에게 운영 사이트의 전체 권한을 넘겼습니다. 그 신뢰가 제가 얼마나 조심스럽게 배포하는지를 바꿔 놓았습니다. 다음 프로젝트를 제가 세팅한다면 에셋 파이프라인이 먼저입니다. 디자인을 시작하기 전에 어떤 미디어가 어떤 품질로 존재하는지를 정확히 아는 일입니다. 그리고 사이트에 계측을 첫날부터 붙이겠습니다. 리디자인은 배포됐지만, 애널리틱스 기준선이 없기 때문에 저는 제가 무엇을 만들었는지는 가리킬 수 있어도 그것이 무엇을 움직였는지는 아직 가리킬 수 없습니다. 다음에는 '전'을 측정해서 '후'에 숫자가 붙게 하겠습니다.",
           },
         },
       ],
