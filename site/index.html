@@ -22,19 +22,15 @@
       content="Product Designer in Vancouver, BC. Case studies in product design, design systems, and front-end development."
     />
     <meta property="og:url" content="https://jinontheclock.github.io/Portfolio/" />
-    <!-- og:image waits on the 1200×630 artwork. A tag pointing at a file that
-         404s is worse than no tag: the crawler caches the miss and the link
-         previews blank. Uncomment these four and the twitter:image below once
-         `public/og-image.png` exists — the URL must stay absolute. -->
-    <!--
+    <!-- The URL stays absolute: OG crawlers do not resolve relative paths, so
+         a move to a custom domain has to bring these two with it. -->
     <meta property="og:image" content="https://jinontheclock.github.io/Portfolio/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="HAJIN — Product Designer. Case study thumbnails from the portfolio."
+      content="HAJIN, Product Designer. The four case studies shown in their device mockups."
     />
-    -->
     <meta property="og:locale" content="en_CA" />
     <meta property="og:locale:alternate" content="ja_JP" />
     <meta property="og:locale:alternate" content="ko_KR" />
@@ -46,9 +42,7 @@
       name="twitter:description"
       content="Product Designer in Vancouver, BC. Case studies in product design, design systems, and front-end development."
     />
-    <!--
     <meta name="twitter:image" content="https://jinontheclock.github.io/Portfolio/og-image.png" />
-    -->
 
     <!-- Icons, cut from the uploaded mark. %BASE_URL% is what Vite writes the
          deploy's base into, so these hold whether the site is served from

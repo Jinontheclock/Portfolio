@@ -72,7 +72,6 @@ export const COMPASS_FIGURES = {
   /* 07 On the Wrist */
   "compass-fig-watch": fig("07 · Watch screens", "3–5 screens", 16 / 7),
   /* 08 What Held Up, What Didn't */
-  "compass-fig-task-table": fig("08 · Task-step measurement table", "counted by hand", 16 / 8),
   "compass-fig-audit": fig("08 · Heuristic + accessibility findings", "", 16 / 8),
 };
 
