@@ -26,7 +26,7 @@ export function WLVfxSliderFigure() {
           <img
             className="wl-vfx-old"
             src={figOldChallenge}
-            alt="The Challenge section of the old project page — the crowd plate and the finished shot as separate stills, stacked with no way to compare them directly"
+            alt="The Challenge section of the old project page: the crowd plate and the finished shot as separate stills, stacked with no way to compare them directly"
             loading="lazy"
           />
         </span>
@@ -44,12 +44,12 @@ export function WLVfxSliderFigure() {
         <img
           slot="first"
           src={crowdAfter}
-          alt="After — the finished shot: the stadium crowd digitally extended to a full house"
+          alt="After. The finished shot: the stadium crowd digitally extended to a full house"
         />
         <img
           slot="second"
           src={crowdBefore}
-          alt="Before — the original plate: one row of extras in front of a bluescreen"
+          alt="Before. The original plate: one row of extras in front of a bluescreen"
         />
         <div slot="handle" className="wl-slider-handle">
           <svg viewBox="-8 -3 16 6" xmlns="http://www.w3.org/2000/svg">

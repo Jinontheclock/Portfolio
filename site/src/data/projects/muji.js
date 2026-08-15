@@ -46,7 +46,11 @@ export default {
   /* Work-card thumbnail. The first is what the card rests on; hovering
      walks the rest in order and returns to the first on the way out. */
   thumbs: [thumb1, thumb2, thumb3],
-  thumbAlt: "MUJI storefront, floor plan and shop-floor illustrations",
+  thumbAlt: {
+    en: "MUJI storefront, floor plan and shop-floor illustrations",
+    ja: "無印良品の店頭、売場の平面図、売場のイラスト",
+    ko: "무인양품 매장 외관, 매장 평면도, 매장 일러스트",
+  },
   description:
     "Driving in-store visual communication strategies and spatial layout optimization to enhance customer journeys and duty-free shopping experiences for international travelers.",
   roles: "Visual Merchandising, Spatial UX, Brand Strategy",

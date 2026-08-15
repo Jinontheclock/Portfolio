@@ -99,7 +99,7 @@ function layout(g) {
 const VIDEO_SRC = `${import.meta.env.BASE_URL}media/compass-card/compass-tap-motion.mp4`;
 const POSTER_SRC = `${import.meta.env.BASE_URL}media/compass-card/compass-tap-motion-poster.jpg`;
 const ARIA =
-  "A physical Compass Card appears as a pass in Apple Wallet, an Apple Watch slides in beside the phone, then a tap confirmation plays — zone, fare charged, balance remaining";
+  "A physical Compass Card appears as a pass in Apple Wallet, an Apple Watch slides in beside the phone, then a tap confirmation plays: zone, fare charged, balance remaining";
 
 const useMedia = (query) => {
   const [match, setMatch] = useState(() => window.matchMedia(query).matches);

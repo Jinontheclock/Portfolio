@@ -23,7 +23,11 @@ export default {
     ],
     poster: cardPoster,
   },
-  thumbAlt: "The TinyPaws site on a desktop monitor, open at the home page",
+  thumbAlt: {
+    en: "The TinyPaws site on a desktop monitor, open at the home page",
+    ja: "デスクトップモニターに映るTinyPawsのサイト。ホームが開いている",
+    ko: "데스크톱 모니터에 띄운 TinyPaws 사이트. 홈 화면이 열려 있다",
+  },
   description: {
     en: "A clear adoption pathway for a rescue website: co-designing the UX, building the brand identity, and hand-coding the responsive site with Astro.",
     ja: "保護団体のサイトに、迷いのない譲渡までの道すじを。UXの共同設計、ブランドアイデンティティの構築、そしてAstroによるレスポンシブサイトの実装まで担当しました。",

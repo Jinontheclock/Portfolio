@@ -28,7 +28,7 @@ export const COMPASS_CAPTURES = {
   ),
   "compass-shot-tap-01": shot(
     "05-gate-bus",
-    "The gate's own confirmation screen after a bus tap — a green check, Accepted, and $2.85 Deducted · $12.15 Remaining above 1-Zone · Stored value.",
+    "The gate's own confirmation screen after a bus tap: a green check, Accepted, and $2.85 Deducted · $12.15 Remaining above 1-Zone · Stored value.",
   ),
   "compass-shot-tap-02": shot(
     "04-history-open",
@@ -58,7 +58,7 @@ export const COMPASS_CAPTURES = {
   ),
   "compass-shot-reload-02": shot(
     "34-reload-paid",
-    "Reload complete — $20.00 added, and a line stating the money is available at the gate right away rather than in two hours.",
+    "Reload complete: $20.00 added, and a line stating the money is available at the gate right away rather than in two hours.",
   ),
   "compass-shot-passes-01": shot(
     "12-passes",
@@ -74,7 +74,7 @@ export const COMPASS_CAPTURES = {
   ),
   "compass-shot-upass-02": shot(
     "16-upass-done",
-    "The U-Pass connected — the programme card in its gold, the month it covers marked Renewed, and auto-renew left on.",
+    "The U-Pass connected: the programme card in its gold, the month it covers marked Renewed, and auto-renew left on.",
   ),
   "compass-shot-card-01": shot(
     "18-lost-frozen",

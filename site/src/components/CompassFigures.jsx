@@ -98,7 +98,7 @@ export const COMPASS_ARTWORK = {
   ),
   "compass-fig-balance-paths": art(
     balancePathsImg,
-    "Five ways to reach a Compass balance — tapping a reader shows it only, compasscard.ca and the service line reload with up to a two-hour wait, a vending machine reloads instantly but sells no concession card, and a service center serves you in person — and a sixth, grayed out: your phone, already in your pocket, with no path at all",
+    "Five ways to reach a Compass balance (tapping a reader shows it only, compasscard.ca and the service line reload with up to a two-hour wait, a vending machine reloads instantly but sells no concession card, and a service center serves you in person), and a sixth, grayed out: your phone, already in your pocket, with no path at all",
   ),
   /* 03 Card-Based by Design */
   "compass-fig-system": art(
@@ -117,7 +117,7 @@ export const COMPASS_ARTWORK = {
   /* 05 The Visual System */
   "compass-fig-type": art(
     typeImg,
-    "FF Meta — three weights, seven steps. A lettering diagram marks cap height, x-height, baseline and descender, with Book, Medium and Bold the only three weights in the product. The scale as the app speaks it: $15.00, My Compass Card, Current pass, Monthly · 2-Zone, Your tap uses this pass, Plastic + Wallet pass · one balance, Stored value · Jul 28 — labelled Display 34/40 −0.4 Bold, Title 28/34 −0.3 Bold, Heading 24/30 −0.2 Medium, Subhead 20/26 0 Medium, Body 17/24 0 Book, Callout 14/20 +0.1 Book, Caption 12/16 +0.2 Medium, each mapped to its Apple text style. A table shows every step at base size, ×1.4 and ×2.0 — body 17 becoming 23.8 and 34 — against the requirement that text enlarge to 200%, and tabular lining figures keep $15.00 and $23.15 the same width, so the balance does not shift when it changes",
+    "FF Meta: three weights, seven steps. A lettering diagram marks cap height, x-height, baseline and descender, with Book, Medium and Bold the only three weights in the product. The scale as the app speaks it: $15.00, My Compass Card, Current pass, Monthly · 2-Zone, Your tap uses this pass, Plastic + Wallet pass · one balance, Stored value · Jul 28 — labelled Display 34/40 −0.4 Bold, Title 28/34 −0.3 Bold, Heading 24/30 −0.2 Medium, Subhead 20/26 0 Medium, Body 17/24 0 Book, Callout 14/20 +0.1 Book, Caption 12/16 +0.2 Medium, each mapped to its Apple text style. A table shows every step at base size, ×1.4 and ×2.0 — body 17 becoming 23.8 and 34 — against the requirement that text enlarge to 200%, and tabular lining figures keep $15.00 and $23.15 the same width, so the balance does not shift when it changes",
   ),
   "compass-fig-colour": art(
     colourImg,

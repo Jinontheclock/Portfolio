@@ -19,7 +19,7 @@ export default function BeforeAfter({
           <span className="cs-ba-label">Before</span>
           <img
             src={before}
-            alt={beforeAlt ?? `${name} — before the usability fixes`}
+            alt={beforeAlt ?? `${name}: before the usability fixes`}
             loading="lazy"
           />
         </div>
@@ -27,7 +27,7 @@ export default function BeforeAfter({
           <span className="cs-ba-label">After</span>
           <img
             src={after}
-            alt={afterAlt ?? `${name} — after the usability fixes`}
+            alt={afterAlt ?? `${name}: after the usability fixes`}
             loading="lazy"
           />
         </div>

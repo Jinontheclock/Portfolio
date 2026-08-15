@@ -21,8 +21,11 @@ export default {
     ],
     poster: cardPoster,
   },
-  thumbAlt:
-    "The ProLog app on an iPhone and a Galaxy: the dashboard filling in on one, a skills quiz being solved on the other",
+  thumbAlt: {
+    en: "The ProLog app on an iPhone and a Galaxy: the dashboard filling in on one, a skills quiz being solved on the other",
+    ja: "iPhoneとGalaxyで動くProLogのアプリ。片方はダッシュボードの進捗が埋まっていき、もう片方はスキルのクイズを解いている",
+    ko: "iPhone과 Galaxy에서 동작하는 ProLog 앱. 한쪽은 대시보드 진행률이 채워지고, 다른 쪽은 스킬 퀴즈를 푸는 화면",
+  },
   description: {
     en: "A mobile platform that turns a fragmented 6,000-hour apprenticeship into one clear, accessible roadmap, designed for neurodivergent apprentices.",
     ja: "バラバラだった6,000時間の見習い課程を、一つの明快で見通しのきくロードマップに変えるモバイルアプリ。ニューロダイバージェントな見習いのために設計しました。",

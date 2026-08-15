@@ -67,7 +67,7 @@ export function TPSitemapFigure() {
   return (
     <img
       src={figSitemap}
-      alt="TinyPaws sitemap — the home page branching into cats, events, donations, information, volunteering, and fostering"
+      alt="TinyPaws sitemap: the home page branching into cats, events, donations, information, volunteering, and fostering"
       loading="lazy"
     />
   );
@@ -77,7 +77,7 @@ export function TPLofiGridFigure() {
   return (
     <img
       src={figLofiGrid}
-      alt="A grid of low-fidelity wireframes covering the full site — home, adoption, cat profiles, forms, volunteer and events pages in gray boxes"
+      alt="A grid of low-fidelity wireframes covering the full site: home, adoption, cat profiles, forms, volunteer and events pages in gray boxes"
       loading="lazy"
     />
   );
@@ -89,8 +89,8 @@ export function TPBANavFigure() {
       before={baNavBefore}
       after={baNavAfter}
       name="Navigation"
-      beforeAlt='Before — a cluttered navigation bar with seven overlapping labels including both "Cats" and "Adopt"'
-      afterAlt="After — a streamlined navigation bar reorganized around adopt, get involved, and give"
+      beforeAlt='Before: a cluttered navigation bar with seven overlapping labels including both "Cats" and "Adopt"'
+      afterAlt="After: a streamlined navigation bar reorganized around adopt, get involved, and give"
     />
   );
 }
@@ -101,8 +101,8 @@ export function TPBAStructureFigure() {
       before={baStructureBefore}
       after={baStructureAfter}
       name="Information page"
-      beforeAlt="Before — an information page that is a dense wall of text with no visual grouping"
-      afterAlt="After — the same content condensed into scannable sections and cards"
+      beforeAlt="Before: an information page that is a dense wall of text with no visual grouping"
+      afterAlt="After: the same content condensed into scannable sections and cards"
     />
   );
 }
@@ -113,8 +113,8 @@ export function TPBACtaFigure() {
       before={baCtaBefore}
       after={baCtaAfter}
       name="Call to action"
-      beforeAlt="Before — flat, ambiguous buttons that don't read as clickable"
-      afterAlt="After — consistent orange call-to-action buttons across the site"
+      beforeAlt="Before: flat, ambiguous buttons that don't read as clickable"
+      afterAlt="After: consistent orange call-to-action buttons across the site"
     />
   );
 }
@@ -166,7 +166,7 @@ export const TINYPAWS_SHOTS = {
   },
   "tinypaws-shot-quiz": {
     src: shotQuiz,
-    alt: "The match quiz — five questions, thirty seconds, a simple scoring quiz matched against the cats in care right now",
+    alt: "The match quiz: five questions, thirty seconds, a simple scoring quiz matched against the cats in care right now",
   },
   "tinypaws-shot-form": {
     src: shotForm,

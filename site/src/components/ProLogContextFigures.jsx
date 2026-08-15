@@ -118,7 +118,7 @@ export function MidfiGridFigure() {
   return (
     <img
       src={midfiGridImg}
-      alt="A wide board of about sixty mid-fidelity screens — login, dashboard, skills and quizzes with right and wrong states, reminders, finances and settings — mapping the whole app before hi-fi design"
+      alt="A wide board of about sixty mid-fidelity screens (login, dashboard, skills and quizzes with right and wrong states, reminders, finances and settings), mapping the whole app before hi-fi design"
       loading="lazy"
     />
   );
@@ -257,7 +257,7 @@ export function ShowcaseCrowdFigure() {
   return (
     <img
       src={showcaseCrowd}
-      alt="The showcase audience — students and guests filling the BCIT lecture hall"
+      alt="The showcase audience: students and guests filling the BCIT lecture hall"
       loading="lazy"
     />
   );

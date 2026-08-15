@@ -940,8 +940,11 @@ export default {
     ],
     poster: cardPoster,
   },
-  thumbAlt:
-    "The Compass concept on an iPhone and an Apple Watch: the pass joining Apple Wallet on one, a reload and a reader tap on the other",
+  thumbAlt: {
+    en: "The Compass concept on an iPhone and an Apple Watch: the pass joining Apple Wallet on one, a reload and a reader tap on the other",
+    ja: "iPhoneとApple Watchで見せるCompassのコンセプト。片方はApple Walletにパスが加わるところ、もう片方はチャージとリーダーへのタッチ",
+    ko: "iPhone과 Apple Watch로 보여주는 Compass 콘셉트. 한쪽은 Apple Wallet에 패스가 들어가는 장면, 다른 쪽은 충전과 리더기 태그",
+  },
   description: {
     en: "Redesigning Metro Vancouver's transit fare card system into an iOS and watchOS experience built on TransLink's upcoming account-based model.",
     ja: "TransLinkがすでに入札にかけたアカウントベースのシステムの上に設計した、メトロバンクーバーの交通運賃カードのiOS・watchOSコンセプトアプリです。",
