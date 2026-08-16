@@ -405,6 +405,34 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
 
   const gateActive = !!project.locked && !unlocked;
 
+  /* A locked case study is not rendered and then covered — it is not
+     rendered. Layering the gate over a finished page leaves the whole study
+     in the DOM, one deleted node away from anyone who opens devtools, which
+     is not what "covered by a company confidentiality policy" should mean.
+     Only the title stands behind the gate, and it is already on the Work
+     card. */
+  if (gateActive) {
+    return (
+      <div className="ab-root">
+        <SiteHeader current="work" />
+        <main className="cs-main">
+          <div className="ab-grid cs-grid">
+            <div className="cs-left">
+              <h1 className="cs-title">{project.title}</h1>
+            </div>
+          </div>
+        </main>
+        <SiteFooter lang={lang} setLang={setLang} />
+        <CaseGateModal
+          project={project}
+          lang={lang}
+          onDismiss={() => navigate("/work")}
+          onUnlocked={() => setUnlocked(true)}
+        />
+      </div>
+    );
+  }
+
   const scrollTo = (sectionId) => {
     if (!sectionId) {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -530,15 +558,6 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       </main>
 
       <SiteFooter lang={lang} setLang={setLang} />
-
-      {gateActive && (
-        <CaseGateModal
-          project={project}
-          lang={lang}
-          onDismiss={() => navigate("/work")}
-          onUnlocked={() => setUnlocked(true)}
-        />
-      )}
 
       {project.demo && (
         <TryAppModal

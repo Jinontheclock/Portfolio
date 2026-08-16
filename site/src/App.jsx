@@ -101,23 +101,31 @@ export default function App() {
     const pin = () =>
       window.scrollTo(0, document.documentElement.scrollHeight - keep);
     pin();
-    // late reflows — the new language's font subset resolving a beat after
-    // the swap — change the page height again after that first restore.
-    // Hold the bottom distance through the fade-in (body is height:100%, so
-    // no resize event exists to hook; an interval survives frame throttling
-    // where a rAF loop can stall), letting go early if the user scrolls.
-    const iv = setInterval(pin, 60);
-    const end = setTimeout(() => clearInterval(iv), 1500);
-    const stop = () => {
-      clearInterval(iv);
-      clearTimeout(end);
-    };
-    window.addEventListener("wheel", stop, { once: true, passive: true });
-    window.addEventListener("touchstart", stop, { once: true, passive: true });
+
+    /* Late reflows — the new language's font subset resolving a beat after
+       the swap — change the page height again after that first restore, so
+       the bottom distance has to be held a moment longer.
+
+       Watching the document's own height says exactly that, and only fires
+       when it actually changes. Polling on a timer said it 16 times a
+       second whether or not anything moved, and could only be called off by
+       wheel and touchstart: scrolling by keyboard, dragging the scrollbar,
+       or clicking a chapter in the table of contents all got yanked back
+       for a second and a half. */
+    const doc = document.documentElement;
+    const ro = new ResizeObserver(() => pin());
+    ro.observe(doc);
+
+    const stop = () => ro.disconnect();
+    const end = setTimeout(stop, 1500);
+    /* any deliberate scroll hands control back immediately */
+    const events = ["wheel", "touchstart", "keydown", "pointerdown"];
+    events.forEach((e) => window.addEventListener(e, stop, { once: true, passive: true }));
+
     return () => {
       stop();
-      window.removeEventListener("wheel", stop);
-      window.removeEventListener("touchstart", stop);
+      clearTimeout(end);
+      events.forEach((e) => window.removeEventListener(e, stop));
     };
   }, [displayLang]);
 

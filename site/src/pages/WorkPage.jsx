@@ -8,9 +8,31 @@ import { PROJECTS } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { PAGE_TITLE } from "../i18n.js";
 
+/* Everything a card renders, plus what the gate needs to challenge one.
+   The case-study bodies behind these five projects come to a quarter of a
+   megabyte of section blocks, and resolve() rebuilds every node it walks —
+   so handing it whole projects meant reconstructing all of that, on every
+   language switch, to fill in ten fields. The slice is taken once at module
+   load; only the language fold repeats. */
+const CARD_FIELDS = [
+  "id",
+  "locked",
+  "passwordHash",
+  "title",
+  "kind",
+  "description",
+  "roles",
+  "thumbs",
+  "thumbAlt",
+  "video",
+];
+const PROJECT_CARDS = PROJECTS.map((p) =>
+  Object.fromEntries(CARD_FIELDS.filter((k) => k in p).map((k) => [k, p[k]])),
+);
+
 export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const navigate = useNavigate();
-  const projects = useMemo(() => resolve(PROJECTS, lang), [lang]);
+  const projects = useMemo(() => resolve(PROJECT_CARDS, lang), [lang]);
   // a locked project asks for its password right here, before navigating
   const [gateProject, setGateProject] = useState(null);
   /* which card the pointer is over — the thumbnails cycle off this, and a
