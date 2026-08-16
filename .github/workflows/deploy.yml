@@ -12,7 +12,10 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  # Never cancel a deploy that is already publishing. Two pushes a minute
+  # apart would otherwise kill the first mid-upload and leave the live site
+  # on the older build with both runs reporting done.
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -28,9 +31,10 @@ jobs:
           cache: npm
           cache-dependency-path: site/package-lock.json
       - run: npm ci
-      # The site lives at jinontheclock.github.io/Portfolio/, so asset URLs
-      # need the /Portfolio/ prefix in this build only (local dev stays at /).
-      - run: npm run build -- --base=/Portfolio/
+      # No --base here on purpose: vite.config.js reads public/CNAME and picks
+      # the base and the absolute URLs from it, so moving to a domain is one
+      # file rather than a flag to remember in this workflow.
+      - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -22,9 +22,14 @@ export default function usePlayThroughOnce(ref) {
       const showEnd = () => {
         video.currentTime = Math.max(0, video.duration - 0.05);
       };
-      if (video.readyState >= 1) showEnd();
-      else video.addEventListener("loadedmetadata", showEnd, { once: true });
-      return;
+      if (video.readyState >= 1) {
+        showEnd();
+        return;
+      }
+      video.addEventListener("loadedmetadata", showEnd, { once: true });
+      // navigating away before the metadata lands would otherwise leave the
+      // listener writing currentTime on a detached element
+      return () => video.removeEventListener("loadedmetadata", showEnd);
     }
 
     let onScreen = false;

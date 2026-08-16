@@ -11,7 +11,7 @@
       content="Hajin Lee — Product Designer in Vancouver, BC. Case studies in product design, design systems, and front-end development: Compass Card, WeLAB, ProLog, TinyPaws."
     />
     <meta name="author" content="Hajin Lee" />
-    <link rel="canonical" href="https://jinontheclock.github.io/Portfolio/" />
+    <link rel="canonical" href="%SITE_URL%" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -21,10 +21,10 @@
       property="og:description"
       content="Product Designer in Vancouver, BC. Case studies in product design, design systems, and front-end development."
     />
-    <meta property="og:url" content="https://jinontheclock.github.io/Portfolio/" />
+    <meta property="og:url" content="%SITE_URL%" />
     <!-- The URL stays absolute: OG crawlers do not resolve relative paths, so
          a move to a custom domain has to bring these two with it. -->
-    <meta property="og:image" content="https://jinontheclock.github.io/Portfolio/og-image.png" />
+    <meta property="og:image" content="%SITE_URL%og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
@@ -42,11 +42,11 @@
       name="twitter:description"
       content="Product Designer in Vancouver, BC. Case studies in product design, design systems, and front-end development."
     />
-    <meta name="twitter:image" content="https://jinontheclock.github.io/Portfolio/og-image.png" />
+    <meta name="twitter:image" content="%SITE_URL%og-image.png" />
 
-    <!-- Icons, cut from the uploaded mark. %BASE_URL% is what Vite writes the
-         deploy's base into, so these hold whether the site is served from
-         /Portfolio/ or a domain root. No SVG here on purpose: a browser
+    <!-- Icons, cut from the uploaded mark. The base token below is filled in
+         with the deploy's base, so these hold whether the site is served from
+         a project path or a domain root. No SVG here on purpose: a browser
          prefers an SVG icon over every other size given, so one left in
          place would be the icon and these would never be reached. -->
     <link rel="icon" href="%BASE_URL%favicon.ico" sizes="48x48 32x32 16x16" />

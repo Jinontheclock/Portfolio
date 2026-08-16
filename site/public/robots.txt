@@ -1,2 +1,14 @@
 User-agent: *
 Allow: /
+
+# The three embedded demos are the artifacts the case studies are written
+# about, not pages of this site. Left crawlable they compete with the
+# portfolio for its own domain: tinypaws alone is 30-odd standalone pages
+# carrying their own titles and canonicals.
+Disallow: /tinypaws/
+Disallow: /prolog/
+Disallow: /compass/
+
+# Source footage and masters. Served because Vite publishes public/ whole,
+# but nothing here is a page.
+Disallow: /media/

@@ -12,6 +12,7 @@ const GATE_COPY = {
     body: "This project is covered by a company confidentiality policy.",
     placeholder: "Password",
     error: "Incorrect password.",
+    insecure: "This page has to be on https to check a password. Try again once the certificate is live.",
     submit: "Unlock",
   },
   ko: {
@@ -19,6 +20,7 @@ const GATE_COPY = {
     body: "사내 보안 규정에 따라 보호된 프로젝트입니다.",
     placeholder: "비밀번호",
     error: "비밀번호가 올바르지 않습니다.",
+    insecure: "비밀번호를 확인하려면 https 연결이 필요합니다. 인증서가 발급된 뒤 다시 시도해 주세요.",
     submit: "잠금 해제",
   },
   ja: {
@@ -26,6 +28,7 @@ const GATE_COPY = {
     body: "社内規定により保護されたプロジェクトです。",
     placeholder: "パスワード",
     error: "パスワードが正しくありません。",
+    insecure: "パスワードの確認にはhttps接続が必要です。証明書が有効になってから、もう一度お試しください。",
     submit: "ロック解除",
   },
 };
@@ -49,6 +52,10 @@ export function isUnlocked(projectId) {
 
 export default function CaseGateModal({ project, lang, onUnlocked, onDismiss }) {
   const [pw, setPw] = useState("");
+  /* false | "wrong" | "insecure" — a plain-http origin has no crypto.subtle,
+     so the password can never match there. Saying "incorrect password" then
+     sends someone hunting for a typo that is not there; a new custom domain
+     serves plain http until its certificate is issued. */
   const [error, setError] = useState(false);
   const [shake, setShake] = useState(false);
   const copy = GATE_COPY[lang] || GATE_COPY.en;
@@ -75,7 +82,7 @@ export default function CaseGateModal({ project, lang, onUnlocked, onDismiss }) 
       } catch {}
       onUnlocked();
     } else {
-      setError(true);
+      setError(hex === null ? "insecure" : "wrong");
       setShake(true);
       setTimeout(() => setShake(false), 450);
     }
@@ -107,7 +114,7 @@ export default function CaseGateModal({ project, lang, onUnlocked, onDismiss }) 
           </button>
         </div>
         <p className="cs-gate-error" aria-live="polite">
-          {error ? copy.error : " "}
+          {error === "insecure" ? copy.insecure : error ? copy.error : " "}
         </p>
       </form>
     </div>
