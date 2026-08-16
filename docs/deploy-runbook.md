@@ -98,7 +98,11 @@ on it until the Worker claims it.
 6. **Retire the GitHub Pages workflow** once Cloudflare is serving:
    `.github/workflows/deploy.yml` → change `on:` to `workflow_dispatch` only,
    so two hosts are not publishing the same commit. Do not delete it; it is
-   the way back.
+   the way back. *(Done — the workflow now runs only when started by hand.)*
+
+   Stopping the workflow stops new publishes; the last build it published
+   stays up at `jinontheclock.github.io/Portfolio/` until GitHub Pages is
+   switched off in Settings → Pages → Source → None.
 
 Do not add a `_redirects` file, and do not change `not_found_handling` to
 `single-page-application`. The build already writes a real page for every

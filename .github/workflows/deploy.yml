@@ -1,8 +1,16 @@
 name: Deploy to GitHub Pages
 
+# The site is served from hajin-lee.com by Cloudflare, so this no longer
+# runs on a push: two hosts publishing the same commit is duplicate content,
+# and the copy this workflow builds claims github.io as its own canonical.
+#
+# It is kept, and kept working, because it is the way back. Running it by
+# hand republishes jinontheclock.github.io/Portfolio from whatever main is
+# at; restoring the push trigger below returns the site to GitHub Pages
+# entirely. Nothing else has to change — GitHub Actions sets neither
+# CF_PAGES nor WORKERS_CI, so this build picks the /Portfolio/ base and the
+# github.io canonical on its own.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
