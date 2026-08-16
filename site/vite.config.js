@@ -11,9 +11,9 @@ import { LANGS, DEFAULT_LANG, HTML_LANG, OG_LOCALE, withLang } from "./src/lib/l
 
    Two hosts, read in this order:
 
-     SITE_DOMAIN=example.com   a build environment variable. This is the one
-                               to set on Cloudflare Pages, which serves from
-                               the root and has no CNAME file.
+     SITE_DOMAIN=example.com   a build environment variable. Only a staging
+                               build needs this; Cloudflare is recognised on
+                               its own below.
      public/CNAME              GitHub Pages' own custom-domain mechanism.
      neither                   the project page at /Portfolio/, where every
                                asset URL needs that prefix or it 404s.
@@ -29,16 +29,21 @@ const fromCname = fs.existsSync(cnameFile)
 
 const domain = (fromEnv || fromCname).replace(/^https?:\/\//, "").replace(/\/$/, "");
 
-/* Cloudflare Pages always serves from the root, so a build there is rooted
-   even before a custom domain is attached — otherwise the first deploy on
-   the *.pages.dev preview URL would come up blank. */
-const onCloudflare = Boolean(process.env.CF_PAGES);
+/* Cloudflare serves from the root, so a build there is rooted even before a
+   custom domain is attached — otherwise the first deploy on the preview
+   subdomain would come up blank.
+
+   Both of Cloudflare's CI systems are checked because the site can be built
+   by either: CF_PAGES is set by Pages, WORKERS_CI by Workers Builds, which
+   is what deploys the Worker described in wrangler.jsonc. Neither is ever
+   set locally or on GitHub Actions. */
+const onCloudflare = Boolean(process.env.CF_PAGES || process.env.WORKERS_CI);
 const rooted = Boolean(domain) || onCloudflare;
 
 /* The site's canonical home, now that there is one. A Cloudflare build
-   defaults to it rather than to the *.pages.dev URL it happens to be
-   deployed at: forgetting SITE_DOMAIN would otherwise publish 24 pages of
-   canonical, og:url and hreflang pointing at a preview host. SITE_DOMAIN
+   defaults to it rather than to the workers.dev or pages.dev URL it happens
+   to be deployed at: forgetting SITE_DOMAIN would otherwise publish 24 pages
+   of canonical, og:url and hreflang pointing at a preview host. SITE_DOMAIN
    still overrides, which is what a staging project would set.
 
    GitHub Pages is deliberately not included. While that workflow is the one

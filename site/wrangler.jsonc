@@ -1,0 +1,26 @@
+{
+  // Must match the Worker's name in the Cloudflare dashboard, or the build
+  // is rejected before it deploys.
+  "name": "hajin-lee",
+  "compatibility_date": "2026-08-16",
+
+  // A Worker with no script at all: there is no "main", so every request is
+  // answered straight from the built files and none of them is billed as a
+  // Worker request. "binding" is deliberately absent — it is only valid
+  // alongside a script.
+  //
+  // "directory" is relative to this file, so it is site/dist, the same
+  // artifact the GitHub Pages workflow publishes.
+  //
+  // not_found_handling has to be stated rather than guessed. Pages used to
+  // sniff the output and decide for itself; Workers does not. "404-page"
+  // serves dist/404.html for an unmatched path, which is what GitHub Pages
+  // does today and what a cold deep link relies on: the build writes a real
+  // page for all 24 route-and-language combinations, and 404.html boots the
+  // app for anything else. "single-page-application" would be wrong here —
+  // it would return the site-wide head with a 200 for every typo.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
