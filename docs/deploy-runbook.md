@@ -6,9 +6,14 @@ order. Nothing else in the repo hardcodes a host.
 | Source | Base | Canonical / og:url |
 |---|---|---|
 | `SITE_DOMAIN=example.com` (build env var) | `/` | `https://example.com/` |
-| `CF_PAGES` set, no `SITE_DOMAIN` | `/` | `$CF_PAGES_URL` |
+| `CF_PAGES` set, no `SITE_DOMAIN` | `/` | `https://hajin-lee.com/` |
 | `site/public/CNAME` | `/` | the domain in that file |
 | none of the above | `/Portfolio/` | `https://jinontheclock.github.io/Portfolio/` |
+
+`hajin-lee.com` is the canonical home, so a Cloudflare build defaults to it
+rather than to whatever `*.pages.dev` URL it was deployed at — forgetting
+`SITE_DOMAIN` cannot publish a preview host as canonical. Set `SITE_DOMAIN`
+only for a staging project that should claim a different address.
 
 Every build prints what it picked:
 
@@ -38,8 +43,11 @@ Check that line first when something 404s after a move.
 Do these in order. The site keeps serving from GitHub Pages the whole time
 until the last step.
 
-1. **Buy the domain and put it on Cloudflare** (Registrar or nameservers).
-2. **Create the Pages project** against this repo:
+The domain is already on Cloudflare: `hajin-lee.com` is served by the
+`nia`/`wilson` nameservers with no A or CNAME record yet, so nothing answers
+on it until a Pages project claims it.
+
+1. **Create the Pages project** against this repo:
 
    | Setting | Value |
    |---|---|
@@ -47,20 +55,27 @@ until the last step.
    | Root directory | `site` |
    | Build command | `npm run build` |
    | Build output directory | `dist` |
-   | Environment variables | `NODE_VERSION=22`, `SITE_DOMAIN=<the canonical domain>` |
+   | Environment variables | `NODE_VERSION=22` |
 
    Build output is `dist`, not `site/dist`: the root directory already puts
    the build inside `site/`, so `site/dist` would resolve to
    `site/site/dist` and the deploy would find nothing.
 
-   Leave `SITE_DOMAIN` unset for the first deploy if you want to check the
-   `*.pages.dev` URL first — `CF_PAGES` alone roots the build correctly.
+   `SITE_DOMAIN` is not needed: the build already knows the canonical
+   domain. Set it only if this project should claim a different address.
 
-3. **Check the `*.pages.dev` deploy** against the list below before pointing
-   the domain at it.
-4. **Add both apex and `www`** under Custom domains, and redirect one to the
-   other. Decide which is canonical first and set `SITE_DOMAIN` to exactly
-   that, or `canonical` will disagree with where visitors land.
+2. **Check the `*.pages.dev` deploy** against the list below before pointing
+   the domain at it. Its pages will already say `hajin-lee.com` in their
+   canonical and og tags, which is correct — that is where they are headed.
+3. **Add the custom domain.** In the Pages project, Custom domains → add
+   `hajin-lee.com`, then `www.hajin-lee.com`. Because the zone is already on
+   this account, Cloudflare writes the DNS records itself; there is nothing
+   to add by hand in the DNS tab.
+4. **Redirect `www` to the apex.** The apex is canonical — every canonical,
+   og:url and hreflang across the 24 built pages says `hajin-lee.com` with
+   no `www`. A visitor landing on `www` while the tags point elsewhere is
+   the one mismatch worth avoiding. Rules → Redirect Rules, `www` → apex,
+   301.
 5. **Turn on Always Use HTTPS.**
 6. **Retire the GitHub Pages workflow** once Cloudflare is serving:
    `.github/workflows/deploy.yml` → change `on:` to `workflow_dispatch` only,

@@ -35,11 +35,22 @@ const domain = (fromEnv || fromCname).replace(/^https?:\/\//, "").replace(/\/$/,
 const onCloudflare = Boolean(process.env.CF_PAGES);
 const rooted = Boolean(domain) || onCloudflare;
 
+/* The site's canonical home, now that there is one. A Cloudflare build
+   defaults to it rather than to the *.pages.dev URL it happens to be
+   deployed at: forgetting SITE_DOMAIN would otherwise publish 24 pages of
+   canonical, og:url and hreflang pointing at a preview host. SITE_DOMAIN
+   still overrides, which is what a staging project would set.
+
+   GitHub Pages is deliberately not included. While that workflow is the one
+   serving the site, its pages have to claim github.io — pointing them at a
+   domain that is not live yet would be a false canonical. */
+const CANONICAL_DOMAIN = "hajin-lee.com";
+
 const BUILD_BASE = rooted ? "/" : "/Portfolio/";
 const SITE_URL = domain
   ? `https://${domain}/`
-  : onCloudflare && process.env.CF_PAGES_URL
-    ? `${process.env.CF_PAGES_URL.replace(/\/$/, "")}/`
+  : onCloudflare
+    ? `https://${CANONICAL_DOMAIN}/`
     : "https://jinontheclock.github.io/Portfolio/";
 
 /* The old absolute URLs, as they appear inside the two prebuilt demos. */
