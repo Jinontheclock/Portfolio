@@ -52,12 +52,17 @@ answered from static assets are free and unbilled. `site/wrangler.jsonc` is
 what makes that work — it declares a Worker with no script at all, so every
 request is answered straight from `site/dist`.
 
-Do these in order. The site keeps serving from GitHub Pages the whole time
+**The move happened on 2026-08-16 and all six steps below are done.** They
+are kept as the procedure, not as a to-do list: this is how the site got
+where it is, and how it would be stood up again on a fresh account. Each
+step notes what actually happened where that is worth knowing.
+
+Do these in order. The site kept serving from GitHub Pages the whole time
 until the last step.
 
-The domain is already on Cloudflare: `hajin-lee.com` is served by the
-`nia`/`wilson` nameservers with no A or CNAME record yet, so nothing answers
-on it until the Worker claims it.
+The domain was already on Cloudflare: `hajin-lee.com` was served by the
+`nia`/`wilson` nameservers with no A or CNAME record, so nothing answered
+on it until the Worker claimed it.
 
 1. **Create the Worker** from this repo: Workers & Pages → Create
    application → Import a repository → `Jinontheclock/Portfolio`.
@@ -91,18 +96,61 @@ on it until the Worker claims it.
    is nothing to add by hand in the DNS tab.
 4. **Redirect `www` to the apex.** The apex is canonical — every canonical,
    og:url and hreflang across the 24 built pages says `hajin-lee.com` with
-   no `www`. A visitor landing on `www` while the tags point elsewhere is
-   the one mismatch worth avoiding. Rules → Redirect Rules, `www` → apex,
-   301.
-5. **Turn on Always Use HTTPS.**
+   no `www`. Both hostnames answer, because step 3 attached both to the
+   Worker, so without this rule the same 24 pages are reachable at an
+   address none of their own tags admit to.
+
+   Rules → Overview → the **Redirect from WWW to root** template, then:
+
+   | Field | Value |
+   |---|---|
+   | Request URL | `https://www.*` |
+   | Target URL | `https://${1}` |
+   | Status | `301` |
+   | Preserve query string | **on** |
+
+   **Turn `Preserve query string` on.** The template hands it to you off.
+   Left off, the redirect drops everything after the `?`, so a visitor
+   arriving from a campaign or a tracked link — `?utm_source=…` — lands on
+   the right page with the attribution stripped, and analytics records
+   direct traffic that was not direct.
+
+   **Cloudflare will warn that the rule may not apply, and deploying anyway
+   is correct.** Choose `Ignore and deploy rule anyway`. The warning is a
+   false negative: the pre-flight check looks for an `A`, `AAAA` or `CNAME`
+   record on `www` and finds none, because step 3 attached `www` as a Worker
+   custom domain and that writes a record of type `Worker`, which the check
+   does not recognise.
+
+   **Do not accept the offer to `Create a new proxied DNS record`.** `www`
+   already has a record — the Worker custom domain — and a second one
+   collides with it.
+
+   The rule wins over the Worker because Redirect Rules run earlier in
+   Cloudflare's request pipeline than Workers do: the 301 is answered before
+   the Worker is ever reached. If that order ever changes and `www` starts
+   serving the site instead of redirecting, the fallback is to stop
+   attaching `www` to the Worker at all — remove it from the Worker's
+   Domains & Routes, add a **proxied `AAAA` record on `www` pointing at
+   `100::`** (the documented discard address for proxy-only records), and
+   the same rule applies unchanged, now against a record type the check
+   recognises too.
+
+5. **Turn on Always Use HTTPS.** This also covers `http://www…`, which
+   otherwise matches nothing: the rule in step 4 is written against
+   `https://www.*`, and a plain-HTTP request never reaches it. Always Use
+   HTTPS upgrades the scheme first, and the `www` rule matches the result.
+   Two hops rather than one, which is fine — the second is a 301 as well.
+
 6. **Retire the GitHub Pages workflow** once Cloudflare is serving:
    `.github/workflows/deploy.yml` → change `on:` to `workflow_dispatch` only,
    so two hosts are not publishing the same commit. Do not delete it; it is
-   the way back. *(Done — the workflow now runs only when started by hand.)*
+   the way back, and it needs no edit to be one.
 
-   Stopping the workflow stops new publishes; the last build it published
+   Stopping the workflow stops new publishes. The last build it published
    stays up at `jinontheclock.github.io/Portfolio/` until GitHub Pages is
-   switched off in Settings → Pages → Source → None.
+   unpublished in Settings → Pages; see *Leaving the old address up* below
+   for why that was left as a separate decision.
 
 Do not add a `_redirects` file, and do not change `not_found_handling` to
 `single-page-application`. The build already writes a real page for every
@@ -141,6 +189,32 @@ In a browser, on the new host:
   e.g. `/work/nope`, which should land on Work rather than a host 404 page.
 - All three languages.
 
+Then the hostnames, which the browser will not show you honestly because it
+follows redirects silently:
+
+```sh
+# a www deep link keeps its path AND its query string
+curl -s -o /dev/null -w '%{num_redirects} %{url_effective}\n' -L \
+  'https://www.hajin-lee.com/work/compass-card/?x=1'
+# 1 https://hajin-lee.com/work/compass-card/?x=1
+
+# plain http on www lands in the same place, in two hops
+curl -s -o /dev/null -w '%{num_redirects} %{url_effective}\n' -L \
+  'http://www.hajin-lee.com/work/prolog/'
+# 2 https://hajin-lee.com/work/prolog/
+
+# and the apex redirects nowhere at all
+curl -s -o /dev/null -w '%{num_redirects} %{url_effective}\n' -L \
+  'https://hajin-lee.com/'
+# 0 https://hajin-lee.com/
+```
+
+The last one is the one to actually run. A `www` rule written a little too
+broadly — matching `*hajin-lee.com` rather than `www.hajin-lee.com` —
+matches the apex as well and sends it to itself, and the front page becomes
+an infinite redirect. It fails on the home page, which is the last place
+anyone thinks to check after a change that was about `www`.
+
 The Compass demo's Adobe Fonts kit needs nothing on a host move. Adobe
 dropped Typekit's per-kit domain allowlist when web projects replaced kits,
 so `use.typekit.net/aqa6xjt.css` serves the same fonts from any host. What
@@ -149,11 +223,28 @@ kit missing 500 or 600 silently changes the demo's type scale.
 
 ## Leaving the old address up
 
-`jinontheclock.github.io/Portfolio/` keeps working while the workflow is
-enabled, and the canonical it emits points at itself. Once Cloudflare is
-answering on the domain, both hosts serving the same content is duplicate
-content, and the GitHub copy still claims to be canonical. Retire the
-workflow rather than leaving both up.
+`.github/workflows/deploy.yml` now has `workflow_dispatch` as its only
+trigger, so nothing publishes to `jinontheclock.github.io/Portfolio/` on a
+push any more. That was the part that mattered: while it ran on push, every
+commit went to both hosts, and the GitHub copy declares *itself* canonical —
+`vite.config.js` gives a GitHub Pages build the github.io canonical on
+purpose, because pointing it at a domain it is not serving would be a lie.
+Two addresses each claiming to be the original of the same 24 pages is
+duplicate content, and on a portfolio that is being read by people hiring,
+the cost is the wrong address surfacing in a search.
+
+GitHub Pages itself was left switchable rather than switched off in repo
+Settings. An old copy that nothing links to and nothing updates costs
+nothing to leave sitting there, and it is the fastest way back: run the
+workflow by hand and the old address is serving again in a couple of
+minutes. Unpublishing it is a separate decision, and the thing to weigh is
+whether `jinontheclock.github.io/Portfolio` was ever written on a résumé or
+an application — those links 404 the moment it comes down, and links already
+in other people's hands cannot be corrected.
+
+Note that `jinontheclock.github.io/TinyPaws/` is a different repository's
+Pages site, and the TinyPaws case study links to it in three places.
+Unpublishing this one does not touch it.
 
 ## Rolling back
 
