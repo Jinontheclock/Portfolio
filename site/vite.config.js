@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { ROUTES, PROJECT_IDS, DEFAULT_TITLE, DEFAULT_DESCRIPTION } from "./seo-routes.js";
 
 /* Where this site lives, and therefore what every asset URL has to start
    with, is decided here rather than in a build flag someone has to remember.
@@ -94,6 +95,79 @@ const injectSiteUrl = () => ({
   transformIndexHtml: (html) => html.split("%SITE_URL%").join(SITE_URL),
 });
 
+/* One static page per route, plus a 404 that boots the app.
+
+   The site is client-rendered, so a crawler that runs JavaScript would
+   eventually see the right title — but the unfurlers behind LinkedIn, Slack
+   and iMessage do not run any, and they read the first HTML they are given.
+   Writing dist/work/prolog/index.html with ProLog's own title and
+   description is what makes a shared case-study link preview as that case
+   study. The SPA takes over from there.
+
+   404.html is the fallback both GitHub Pages and Cloudflare Pages serve for
+   an unmatched path, which is how a deep link survives a cold load. */
+const prerenderRoutes = () => ({
+  name: "prerender-routes",
+  apply: "build",
+  closeBundle() {
+    const dist = path.join(here, "dist");
+    const shell = fs.readFileSync(path.join(dist, "index.html"), "utf8");
+
+    const missing = PROJECT_IDS.filter((id) => !ROUTES.some((r) => r.path === `work/${id}`));
+    if (missing.length) {
+      this.error(`seo-routes.js has no entry for: ${missing.join(", ")}`);
+    }
+
+    /* Swap the four head strings that differ per page. The values written
+       at build already carry SITE_URL, so they are matched by content. */
+    const swap = (html, route) => {
+      const url = SITE_URL + route.path + (route.path ? "/" : "");
+      let out = html
+        .replace(/<title>[^<]*<\/title>/, `<title>${route.title}</title>`)
+        .split(`content="${DEFAULT_DESCRIPTION}"`)
+        .join(`content="${route.description}"`)
+        .split(`content="${DEFAULT_TITLE}"`)
+        .join(`content="${route.title}"`)
+        .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
+        .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${url}$2`);
+      if (route.noindex) {
+        out = out.replace(/<\/title>/, `</title>\n    <meta name="robots" content="noindex" />`);
+      }
+      return out;
+    };
+
+    const written = [];
+    for (const route of ROUTES) {
+      const html = swap(shell, route);
+      const dir = route.path ? path.join(dist, route.path) : dist;
+      fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(path.join(dir, "index.html"), html);
+      written.push(route.path || "/");
+    }
+
+    /* the fallback keeps the site-wide head; it is not a real page */
+    fs.writeFileSync(path.join(dist, "404.html"), shell);
+
+    const indexable = ROUTES.filter((r) => !r.noindex);
+    const urls = indexable
+      .map((r) => `  <url><loc>${SITE_URL}${r.path}${r.path ? "/" : ""}</loc></url>`)
+      .join("\n");
+    fs.writeFileSync(
+      path.join(dist, "sitemap.xml"),
+      `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+    );
+
+    /* robots.txt ships from public/ without knowing the host, so the
+       Sitemap line is appended here where SITE_URL is known */
+    const robots = path.join(dist, "robots.txt");
+    if (fs.existsSync(robots)) {
+      fs.appendFileSync(robots, `\nSitemap: ${SITE_URL}sitemap.xml\n`);
+    }
+
+    this.info(`prerendered ${written.length} routes + 404.html, sitemap has ${indexable.length} urls`);
+  },
+});
+
 export default defineConfig(({ command }) => {
   if (command === "build") {
     // eslint-disable-next-line no-console
@@ -101,6 +175,6 @@ export default defineConfig(({ command }) => {
   }
   return {
     base: command === "build" ? BUILD_BASE : "/",
-    plugins: [react(), injectSiteUrl(), rewritePrebuiltDemos()],
+    plugins: [react(), injectSiteUrl(), rewritePrebuiltDemos(), prerenderRoutes()],
   };
 });

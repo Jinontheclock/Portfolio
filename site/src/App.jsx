@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { HashRouter, Routes, Route, useLocation, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, useParams } from "react-router-dom";
 import useLang from "./hooks/useLang.js";
 import Preloader from "./components/Preloader.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
@@ -134,8 +134,15 @@ export default function App() {
   const fadeClass = fadingOut ? "lang-fade-out" : "lang-fade-in";
   const shared = { lang: displayLang, setLang, fadeClass };
 
+  /* Real paths, not #fragments. A crawler is handed the same document for
+     every #route, so the four case studies did not exist as far as search
+     was concerned and every shared link previewed as the same card. The
+     build writes a static page per route to match (see vite.config.js), and
+     404.html catches anything else so a deep link survives a cold load.
+     basename carries the deploy's base, which is /Portfolio/ on the project
+     page and / on a domain. */
   return (
-    <HashRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ScrollToTop />
       <CaseStudyLoader />
       <Routes>
@@ -145,6 +152,6 @@ export default function App() {
         <Route path="/work/:id" element={<CaseStudyRoute {...shared} />} />
       </Routes>
       {booting && <Preloader onDone={() => setBooting(false)} />}
-    </HashRouter>
+    </BrowserRouter>
   );
 }
