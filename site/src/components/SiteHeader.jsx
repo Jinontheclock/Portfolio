@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import PillButton from "./PillButton.jsx";
+import useLangPath from "../hooks/useLangPath.js";
+import { splitLang } from "../lib/lang-routes.js";
 
 const PAGES = [
   { key: "work", label: "Work", path: "/work" },
@@ -14,6 +16,9 @@ const PAGES = [
 export default function SiteHeader({ current, children }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const langPath = useLangPath();
+  // the pills compare where the reader is without the language prefix
+  const here = splitLang(pathname).rest;
   const [atTop, setAtTop] = useState(true);
 
   useEffect(() => {
@@ -33,12 +38,12 @@ export default function SiteHeader({ current, children }) {
           onClick={() => {
             // compare routes, not the highlighted section — a case-study page
             // highlights Work but still needs the button to reach /work
-            if (pathname !== p.path) navigate(p.path);
+            if (here !== p.path) navigate(langPath(p.path));
           }}
         />
       ))}
       {children}
-      <Link to="/" className="site-wordmark">
+      <Link to={langPath("/")} className="site-wordmark">
         HAJIN
       </Link>
     </header>

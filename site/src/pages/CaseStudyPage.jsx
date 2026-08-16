@@ -134,6 +134,7 @@ const SHOTS = { ...PROLOG_SHOTS, ...TINYPAWS_SHOTS, ...COMPASS_SHOTS, ...COMPASS
 import { getProject } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { noOrphan, noOrphanSegments } from "../lib/no-orphan.js";
+import useLangPath from "../hooks/useLangPath.js";
 
 // ProLog is exported to the Portfolio under /prolog/ (see site/public/prolog)
 const PROLOG_SRC = `${import.meta.env.BASE_URL}prolog/`;
@@ -353,6 +354,7 @@ function Block({ block, onDemo, demoHref }) {
  *  right, built from each section's block list. */
 export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   const { id } = useParams();
+  const langPath = useLangPath();
   const raw = getProject(id);
   /* One pass folds every { en, ja, ko } node in the project down to the
      language on screen, so nothing below this line knows translations
@@ -396,7 +398,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, [project]);
 
-  if (!project) return <Navigate to="/work" replace />;
+  if (!project) return <Navigate to={langPath("/work")} replace />;
 
   const HeroScene = project.heroScene ? HERO_SCENES[project.heroScene] : null;
 
@@ -426,7 +428,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
         <CaseGateModal
           project={project}
           lang={lang}
-          onDismiss={() => navigate("/work")}
+          onDismiss={() => navigate(langPath("/work"))}
           onUnlocked={() => setUnlocked(true)}
         />
       </div>

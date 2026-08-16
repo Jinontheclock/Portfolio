@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { BrowserRouter, Routes, Route, useLocation, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, useNavigate, useParams } from "react-router-dom";
 import useLang from "./hooks/useLang.js";
+import { LANGS, splitLang, swapLang, withLang } from "./lib/lang-routes.js";
 import Preloader from "./components/Preloader.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
@@ -35,7 +36,9 @@ function CaseStudyLoader() {
   useLayoutEffect(() => {
     if (pathname !== prev.current) {
       prev.current = pathname;
-      if (COVERED_ROUTES.includes(pathname)) setCovering(true);
+      // compare without the language prefix: /ko/work/welab is the same
+      // heavy page as /work/welab and needs the same cover
+      if (COVERED_ROUTES.includes(splitLang(pathname).rest)) setCovering(true);
     }
   }, [pathname]);
   if (!covering) return null;
@@ -55,8 +58,44 @@ function CaseStudyRoute(props) {
 // in-app navigation never re-triggers it
 let booted = false;
 
+/* The four pages, rendered once per language. */
+const PAGES = [
+  { path: "", element: LandingPage },
+  { path: "about", element: AboutPage },
+  { path: "work", element: WorkPage },
+  { path: "work/:id", element: CaseStudyRoute },
+];
+
 export default function App() {
-  const { lang, setLang } = useLang();
+  return (
+    /* Real paths, not #fragments. A crawler is handed the same document for
+       every #route, so the case studies did not exist as far as search was
+       concerned and every shared link previewed as the same card. The build
+       writes a static page per route and language to match (see
+       vite.config.js), and 404.html catches anything else so a deep link
+       survives a cold load. basename carries the deploy's base, which is
+       /Portfolio/ on the project page and / on a domain. */
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <Site />
+    </BrowserRouter>
+  );
+}
+
+function Site() {
+  /* The URL says which language this is; nothing else does. That is what
+     makes /ko/work/prolog a link someone can send, and what hreflang needs
+     to point at. The stored preference only decides where a bare visit to
+     the root goes (see useLang), and never overrides a language already in
+     the path. */
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const urlLang = splitLang(pathname).lang;
+  const { remember } = useLang();
+  const setLang = (code) => {
+    remember(code);
+    navigate(swapLang(pathname, code));
+  };
+  const lang = urlLang;
   const [booting, setBooting] = useState(!booted);
   useEffect(() => {
     booted = true;
@@ -134,24 +173,25 @@ export default function App() {
   const fadeClass = fadingOut ? "lang-fade-out" : "lang-fade-in";
   const shared = { lang: displayLang, setLang, fadeClass };
 
-  /* Real paths, not #fragments. A crawler is handed the same document for
-     every #route, so the four case studies did not exist as far as search
-     was concerned and every shared link previewed as the same card. The
-     build writes a static page per route to match (see vite.config.js), and
-     404.html catches anything else so a deep link survives a cold load.
-     basename carries the deploy's base, which is /Portfolio/ on the project
-     page and / on a domain. */
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <>
       <ScrollToTop />
       <CaseStudyLoader />
       <Routes>
-        <Route path="/" element={<LandingPage {...shared} />} />
-        <Route path="/about" element={<AboutPage {...shared} />} />
-        <Route path="/work" element={<WorkPage {...shared} />} />
-        <Route path="/work/:id" element={<CaseStudyRoute {...shared} />} />
+        {LANGS.flatMap((l) =>
+          PAGES.map((p) => {
+            const Page = p.element;
+            return (
+              <Route
+                key={l + "/" + p.path}
+                path={withLang(l, p.path ? `/${p.path}` : "/")}
+                element={<Page {...shared} />}
+              />
+            );
+          }),
+        )}
       </Routes>
       {booting && <Preloader onDone={() => setBooting(false)} />}
-    </BrowserRouter>
+    </>
   );
 }

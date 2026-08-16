@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { ROUTES, PROJECT_IDS, DEFAULT_TITLE, DEFAULT_DESCRIPTION } from "./seo-routes.js";
+import { LANGS, DEFAULT_LANG, HTML_LANG, OG_LOCALE, withLang } from "./src/lib/lang-routes.js";
 
 /* Where this site lives, and therefore what every asset URL has to start
    with, is decided here rather than in a build flag someone has to remember.
@@ -95,14 +96,18 @@ const injectSiteUrl = () => ({
   transformIndexHtml: (html) => html.split("%SITE_URL%").join(SITE_URL),
 });
 
-/* One static page per route, plus a 404 that boots the app.
+/* One static page per route AND language, plus a 404 that boots the app.
 
    The site is client-rendered, so a crawler that runs JavaScript would
    eventually see the right title — but the unfurlers behind LinkedIn, Slack
    and iMessage do not run any, and they read the first HTML they are given.
-   Writing dist/work/prolog/index.html with ProLog's own title and
-   description is what makes a shared case-study link preview as that case
-   study. The SPA takes over from there.
+   Writing dist/ko/work/prolog/index.html with ProLog's Korean description,
+   lang="ko" and its own canonical is what makes a Korean link preview and
+   index as Korean. The SPA takes over from there.
+
+   Each page also carries the full hreflang set, which is the only way to
+   tell a search engine that these are three translations of one page rather
+   than three competing documents. English is x-default and sits at the root.
 
    404.html is the fallback both GitHub Pages and Cloudflare Pages serve for
    an unmatched path, which is how a deep link survives a cold load. */
@@ -118,53 +123,96 @@ const prerenderRoutes = () => ({
       this.error(`seo-routes.js has no entry for: ${missing.join(", ")}`);
     }
 
-    /* Swap the four head strings that differ per page. The values written
-       at build already carry SITE_URL, so they are matched by content. */
-    const swap = (html, route) => {
-      const url = SITE_URL + route.path + (route.path ? "/" : "");
+    /* absolute URL of a route in a language, always with a trailing slash */
+    const urlFor = (lang, routePath) => {
+      const rel = withLang(lang, routePath ? `/${routePath}` : "/").replace(/^\//, "");
+      return SITE_URL + (rel ? `${rel}/` : "");
+    };
+
+    const hreflangFor = (routePath) =>
+      [
+        ...LANGS.map(
+          (l) => `    <link rel="alternate" hreflang="${HTML_LANG[l]}" href="${urlFor(l, routePath)}" />`,
+        ),
+        `    <link rel="alternate" hreflang="x-default" href="${urlFor(DEFAULT_LANG, routePath)}" />`,
+      ].join("\n");
+
+    const swap = (html, route, lang) => {
+      const url = urlFor(lang, route.path);
+      const description = route.description[lang] || route.description[DEFAULT_LANG];
       let out = html
+        .replace(/<html lang="[^"]*"/, `<html lang="${HTML_LANG[lang]}"`)
         .replace(/<title>[^<]*<\/title>/, `<title>${route.title}</title>`)
+        /* The <meta name="description"> is what a search result actually
+           prints, and it carries different copy from og:description, so it
+           is matched by tag rather than by content. It is also written
+           across several lines in index.html. */
+        .replace(
+          /<meta\s+name="description"\s+content="[^"]*"\s*\/>/s,
+          `<meta name="description" content="${description}" />`,
+        )
         .split(`content="${DEFAULT_DESCRIPTION}"`)
-        .join(`content="${route.description}"`)
+        .join(`content="${description}"`)
         .split(`content="${DEFAULT_TITLE}"`)
         .join(`content="${route.title}"`)
         .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
-        .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${url}$2`);
+        .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${url}$2`)
+        /* this page's own locale leads; the other two stay as alternates */
+        .replace(/(<meta property="og:locale" content=")[^"]*(")/, `$1${OG_LOCALE[lang]}$2`)
+        /* the alternates are the other two languages, whichever this is */
+        .replace(
+          /[ \t]*<meta property="og:locale:alternate"[^>]*>\n/g,
+          "",
+        );
+
+      const alternates = LANGS.filter((l) => l !== lang)
+        .map((l) => `    <meta property="og:locale:alternate" content="${OG_LOCALE[l]}" />\n`)
+        .join("");
+      out = out.replace(
+        /(<meta property="og:locale" content="[^"]*" \/>\n)/,
+        `$1${alternates}${hreflangFor(route.path)}\n`,
+      );
+
       if (route.noindex) {
         out = out.replace(/<\/title>/, `</title>\n    <meta name="robots" content="noindex" />`);
       }
       return out;
     };
 
-    const written = [];
-    for (const route of ROUTES) {
-      const html = swap(shell, route);
-      const dir = route.path ? path.join(dist, route.path) : dist;
-      fs.mkdirSync(dir, { recursive: true });
-      fs.writeFileSync(path.join(dir, "index.html"), html);
-      written.push(route.path || "/");
+    let written = 0;
+    for (const lang of LANGS) {
+      for (const route of ROUTES) {
+        const rel = withLang(lang, route.path ? `/${route.path}` : "/").replace(/^\//, "");
+        const dir = rel ? path.join(dist, rel) : dist;
+        fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(path.join(dir, "index.html"), swap(shell, route, lang));
+        written++;
+      }
     }
 
     /* the fallback keeps the site-wide head; it is not a real page */
     fs.writeFileSync(path.join(dist, "404.html"), shell);
 
-    const indexable = ROUTES.filter((r) => !r.noindex);
-    const urls = indexable
-      .map((r) => `  <url><loc>${SITE_URL}${r.path}${r.path ? "/" : ""}</loc></url>`)
-      .join("\n");
+    const urls = LANGS.flatMap((lang) =>
+      ROUTES.filter((r) => !r.noindex).map((r) => {
+        const alts = LANGS.map(
+          (l) => `    <xhtml:link rel="alternate" hreflang="${HTML_LANG[l]}" href="${urlFor(l, r.path)}"/>`,
+        ).join("\n");
+        return `  <url>\n    <loc>${urlFor(lang, r.path)}</loc>\n${alts}\n  </url>`;
+      }),
+    ).join("\n");
     fs.writeFileSync(
       path.join(dist, "sitemap.xml"),
-      `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+      `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`,
     );
 
-    /* robots.txt ships from public/ without knowing the host, so the
-       Sitemap line is appended here where SITE_URL is known */
     const robots = path.join(dist, "robots.txt");
     if (fs.existsSync(robots)) {
       fs.appendFileSync(robots, `\nSitemap: ${SITE_URL}sitemap.xml\n`);
     }
 
-    this.info(`prerendered ${written.length} routes + 404.html, sitemap has ${indexable.length} urls`);
+    const indexable = ROUTES.filter((r) => !r.noindex).length * LANGS.length;
+    this.info(`prerendered ${written} pages (${ROUTES.length} routes x ${LANGS.length} languages) + 404.html, sitemap has ${indexable} urls`);
   },
 });
 

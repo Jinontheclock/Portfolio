@@ -7,6 +7,7 @@ import WorkThumb from "../components/WorkThumb.jsx";
 import { PROJECTS } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { PAGE_TITLE } from "../i18n.js";
+import useLangPath from "../hooks/useLangPath.js";
 
 /* Everything a card renders, plus what the gate needs to challenge one.
    The case-study bodies behind these five projects come to a quarter of a
@@ -32,6 +33,7 @@ const PROJECT_CARDS = PROJECTS.map((p) =>
 
 export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const navigate = useNavigate();
+  const langPath = useLangPath();
   const projects = useMemo(() => resolve(PROJECT_CARDS, lang), [lang]);
   // a locked project asks for its password right here, before navigating
   const [gateProject, setGateProject] = useState(null);
@@ -54,7 +56,7 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
           {projects.map((p) => (
             <Link
               key={p.id}
-              to={`/work/${p.id}`}
+              to={langPath(`/work/${p.id}`)}
               className="ab-grid wk-card wk-card-link"
               onClick={(e) => {
                 if (p.locked && !isUnlocked(p.id)) {
@@ -112,7 +114,7 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
           onUnlocked={() => {
             const id = gateProject.id;
             setGateProject(null);
-            navigate(`/work/${id}`);
+            navigate(langPath(`/work/${id}`));
           }}
         />
       )}

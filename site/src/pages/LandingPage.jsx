@@ -5,10 +5,12 @@ import LangSwitcher from "../components/LangSwitcher.jsx";
 import useFitText from "../hooks/useFitText.js";
 import useFitToWidth from "../hooks/useFitToWidth.js";
 import { LANDING } from "../i18n.js";
+import useLangPath from "../hooks/useLangPath.js";
 
 
 export default function LandingPage({ lang, setLang, fadeClass = "" }) {
   const t = LANDING[lang] || LANDING.en;
+  const langPath = useLangPath();
   // the hero heading is pinned to English in every language, so it fits
   // once and never refits or fades on a language switch; on mobile it sits
   // at 85% of the width instead of edge-to-edge
@@ -72,7 +74,7 @@ export default function LandingPage({ lang, setLang, fadeClass = "" }) {
           {LANDING.en.hero}
         </h1>
         <nav className="lp-nav" ref={navRef}>
-          <Link to="/work" className="lp-navlink">
+          <Link to={langPath("/work")} className="lp-navlink">
             <span
               className={"lp-navlink-text " + fadeClass}
               style={{ textIndent: t.workIndent }}
@@ -81,7 +83,7 @@ export default function LandingPage({ lang, setLang, fadeClass = "" }) {
             </span>
             <ArrowIcon className="lp-arrow" />
           </Link>
-          <Link to="/about" className="lp-navlink">
+          <Link to={langPath("/about")} className="lp-navlink">
             <span
               className={"lp-navlink-text " + fadeClass}
               style={{ textIndent: t.aboutIndent }}
