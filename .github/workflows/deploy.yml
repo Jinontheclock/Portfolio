@@ -31,9 +31,9 @@ jobs:
           cache: npm
           cache-dependency-path: site/package-lock.json
       - run: npm ci
-      # No --base here on purpose: vite.config.js reads public/CNAME and picks
-      # the base and the absolute URLs from it, so moving to a domain is one
-      # file rather than a flag to remember in this workflow.
+      # No --base here on purpose: vite.config.js decides the base and the
+      # absolute URLs from SITE_DOMAIN, CF_PAGES or public/CNAME, and prints
+      # what it picked. See docs/deploy-runbook.md.
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
