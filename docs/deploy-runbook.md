@@ -67,9 +67,11 @@ until the last step.
    so two hosts are not publishing the same commit. Do not delete it; it is
    the way back.
 
-Do not add a `_redirects` file. This site uses `HashRouter`, so every route
-is already one document, and a catch-all rewrite would swallow the demo
-paths under `public/`.
+Do not add a `_redirects` file. The build already writes a real page for
+every route plus a `404.html`, which both hosts serve for an unmatched path,
+so deep links resolve without a rewrite rule. A catch-all `/* /index.html`
+would swallow the demo paths under `public/` and hand every case study the
+site-wide head instead of its own.
 
 ## Verifying a move
 
@@ -89,8 +91,15 @@ In a browser, on the new host:
   site`). This is where a base mistake shows up first.
 - Favicon in the tab, no `apple-touch-icon` 404.
 - Hero videos and Work card videos play.
-- A hash route pasted in cold, e.g. `/#/work/compass-card`.
+- A deep link pasted in cold, e.g. `/work/compass-card/`, and one bad path,
+  e.g. `/work/nope`, which should land on Work rather than a host 404 page.
 - All three languages.
+
+The Compass demo's Adobe Fonts kit needs nothing on a host move. Adobe
+dropped Typekit's per-kit domain allowlist when web projects replaced kits,
+so `use.typekit.net/aqa6xjt.css` serves the same fonts from any host. What
+the kit must keep is `ff-meta-web-pro` at 400, 500, 600 and 700 — a slimmer
+kit missing 500 or 600 silently changes the demo's type scale.
 
 ## Leaving the old address up
 
