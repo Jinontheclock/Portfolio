@@ -114,9 +114,9 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "Everything you might want to know or change about that card lives at compasscard.ca: balance, reload, passes, autoload, card transfer, lost-card replacement. None of it happens where the card is: every change means a browser and a sign-in, and a reload made online or over the phone still takes up to two hours to reach the card. Replacing a Program pass card costs $25.",
-          ja: "そのカードについて知りたいこと、変えたいことは、すべてcompasscard.caにあります。残高、チャージ、定期券、オートチャージ、カードの移行、紛失カードの再発行。そのどれも、カードがある場所では起きません。何かを変えるたびにブラウザとサインインが必要で、オンラインや電話でのチャージがカードに届くまでには、いまも最大2時間かかります。Programの定期券カードを再発行すると25ドルかかります。",
-          ko: "그 카드에 대해 알고 싶거나 바꾸고 싶은 것은 전부 compasscard.ca에 있습니다. 잔액, 충전, 정기권, 자동 충전, 카드 이전, 분실 카드 재발급. 그중 어느 것도 카드가 있는 자리에서 일어나지 않습니다. 무언가를 바꾸려면 매번 브라우저와 로그인이 필요하고, 온라인이나 전화로 한 충전이 카드에 닿는 데는 여전히 최대 두 시간이 걸립니다. Program 정기권 카드를 재발급하면 25달러가 듭니다.",
+          en: "Everything you might want to know or change about that card lives at compasscard.ca, and none of it happens where the card is. Every change means a browser and a sign-in, and a reload made online or over the phone still takes up to two hours to reach the card. Replacing a Program pass card costs $25.",
+          ja: "そのカードについて知りたいこと、変えたいことは、すべてcompasscard.caにあります。そしてそのどれも、カードがある場所では起きません。何かを変えるたびにブラウザとサインインが必要で、オンラインや電話でのチャージがカードに届くまでには、いまも最大2時間かかります。Programの定期券カードを再発行すると25ドルかかります。",
+          ko: "그 카드에 대해 알고 싶거나 바꾸고 싶은 것은 전부 compasscard.ca에 있고, 그중 어느 것도 카드가 있는 자리에서 일어나지 않습니다. 무언가를 바꾸려면 매번 브라우저와 로그인이 필요하고, 온라인이나 전화로 한 충전이 카드에 닿는 데는 여전히 최대 두 시간이 걸립니다. Program 정기권 카드를 재발급하면 25달러가 듭니다.",
         },
       },
       {
@@ -136,9 +136,9 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "The machines in stations sell cards and take reloads instantly. But they cannot sell a concession card. The discounted card for seniors, youth and HandyCard holders is not available from a vending machine at all. The riders who most need the lower fare are the ones who cannot buy the card where everyone else buys it.",
-          ja: "駅にある機械はカードを売り、チャージを即座に反映します。ただし割引カードは売れません。高齢者、青少年、HandyCard所持者向けの割引カードは、券売機ではそもそも購入できません。低い運賃を最も必要としている利用者が、ほかの誰もが買う場所ではカードを買えない人たちなのです。",
-          ko: "역에 있는 기계는 카드를 팔고, 충전을 즉시 반영합니다. 다만 할인 카드는 팔지 못합니다. 어르신, 청소년, HandyCard 소지자를 위한 할인 카드는 무인 발매기에서 아예 살 수 없습니다. 낮은 요금이 가장 필요한 승객이, 다른 사람들이 다 사는 그 자리에서는 카드를 살 수 없는 사람들입니다.",
+          en: "The machines in stations sell cards and take reloads instantly, but only adult cards. The riders who most need the lower fare are the ones who cannot buy the card where everyone else buys it.",
+          ja: "駅にある機械はカードを売り、チャージを即座に反映します。ただし売れるのは大人用のカードだけです。低い運賃を最も必要としている利用者が、ほかの誰もが買う場所ではカードを買えない人たちなのです。",
+          ko: "역에 있는 기계는 카드를 팔고, 충전을 즉시 반영합니다. 다만 파는 것은 성인용 카드뿐입니다. 낮은 요금이 가장 필요한 승객이, 다른 사람들이 다 사는 그 자리에서는 카드를 살 수 없는 사람들입니다.",
         },
       },
       {
@@ -330,9 +330,9 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "TransLink first, because it sets its own fares and nothing has to be negotiated. BC Ferries second, a separate fare authority, but one that already shares retail touchpoints. BC Transit third, a separate system and a separate fare authority. The phases are not ordered by engineering difficulty. They are ordered by how much permission each one needs.",
-          ja: "TransLinkが最初です。自社の運賃を自社で決めており、交渉するものが何もないからです。BC Ferriesが二番目。別の運賃事業者ですが、すでに販売の接点を共有しています。BC Transitが三番目。別のシステムであり、別の運賃事業者です。フェーズの順番は、エンジニアリングの難易度で決まっていません。それぞれにどれだけの許可が要るかで決まっています。",
-          ko: "TransLink가 먼저입니다. 자기 요금을 자기가 정하고, 협상할 것이 없기 때문입니다. BC Ferries가 두 번째입니다. 별개의 요금 기관이지만 이미 판매 접점을 공유하고 있습니다. BC Transit이 세 번째입니다. 별개의 시스템이자 별개의 요금 기관입니다. 단계의 순서는 엔지니어링 난이도로 정해지지 않았습니다. 각 단계에 필요한 허락의 크기로 정해졌습니다.",
+          en: "The order follows how much permission each phase needs rather than how hard it is to build. TransLink sets its own fares, so nothing has to be negotiated. BC Ferries is a separate fare authority that already shares retail touchpoints. BC Transit is both a separate system and a separate fare authority.",
+          ja: "順番を決めているのは、それぞれのフェーズにどれだけの許可が要るかであって、作るのがどれだけ難しいかではありません。TransLinkは自社の運賃を自社で決めているので、交渉するものが何もありません。BC Ferriesは別の運賃事業者ですが、すでに販売の接点を共有しています。BC Transitは別のシステムであり、別の運賃事業者でもあります。",
+          ko: "순서를 정하는 것은 각 단계에 필요한 허락의 크기이지, 만들기가 얼마나 어려운지가 아닙니다. TransLink는 자기 요금을 자기가 정하므로 협상할 것이 없습니다. BC Ferries는 별개의 요금 기관이지만 이미 판매 접점을 공유하고 있습니다. BC Transit은 별개의 시스템이자 별개의 요금 기관입니다.",
         },
       },
       {
