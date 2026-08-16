@@ -1,25 +1,51 @@
-# CODING AGENTS: READ THIS FIRST
+# HAJIN — portfolio
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+The personal portfolio of Hajin Lee, a product designer in Vancouver, BC.
+Five case studies in English, 日本語 and 한국어, with three of the projects
+running as live demos inside the site.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+Live: <https://hajin-lee.com>
 
-## What you should do — IMPORTANT
+## Running it
 
-**Read the chat transcripts first.** There are 1 chat transcript(s) in `chats/`. The transcripts show the full back-and-forth between the user and the design assistant — they tell you **what the user actually wants** and **where they landed** after iterating. Don't skip them. The final HTML files are the output, but the chat is where the intent lives.
+```sh
+cd site
+npm install
+npm run dev       # http://localhost:5173
+npm run build     # writes site/dist
+npm run preview   # serves the built site
+```
 
-**Read `project/Landing Page.dc.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+Node 22.
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+## Layout
 
-## About the design files
+```
+site/            the site itself — React 18 + Vite 6
+  src/data/      case-study copy, one file per project, three languages each
+  src/pages/     Landing, Work, About, and the case-study template
+  public/        static files copied verbatim, including three demos:
+                   compass/    a prototype of the Compass Card app
+                   prolog/     an Expo web export of ProLog
+                   tinypaws/   an Astro build of the TinyPaws site
+  seo-routes.js  per-page title and description, read at build time
+  vite.config.js decides the host, rewrites the demos, prerenders the pages
+docs/            deploy runbook and asset notes
+project/         the original design-system spec and HTML prototype
+```
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+The two larger demos are finished builds from their own repositories
+(`Jinontheclock/ProLog`, `Jinontheclock/TinyPaws`) rather than sources, so
+the absolute asset URLs inside them are rewritten at build time to match
+whatever host the site is being deployed to.
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+## Building and deploying
 
-## Bundle contents
+Every route exists as a real HTML file: the build writes one page per route
+and language — twenty-four in all — each with its own title, description,
+canonical and hreflang set, because link unfurlers do not run JavaScript.
+The app takes over from there.
 
-- `README.md` — this file
-- `chats/` — conversation transcripts (read these!)
-- `project/` — the `Landing page responsive design` project files (HTML prototypes, assets, components)
+`site/vite.config.js` decides the host at build time and prints what it
+picked. See [docs/deploy-runbook.md](docs/deploy-runbook.md) for the rest,
+including how to move hosts and how to verify a move.

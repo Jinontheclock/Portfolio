@@ -2,13 +2,14 @@
 
 ## 촬영 조건 (MEASURED)
 
-- 소스: **CompassCard 레포 `claude/new-session-qx93vo` @ `ec3c8d0`** — 15개 수정이 전부 반영된 빌드
+- 소스: **CompassCard 레포 @ `ec3c8d0`** — 15개 수정이 전부 반영된 빌드
   (번들 `index-CXUAahoc.js` / `index-C1tplvSe.css`)
 - 디바이스: 402 × 874 논리 픽셀, `deviceScaleFactor: 3` → 출력 **1206 × 2622 px**
 - 상태바 시각: 전부 **9:41** 고정
 - 애니메이션/트랜지션 전부 정지 (`reducedMotion: "reduce"` + CSS kill)
-- 폰트: **Fira Sans 대체**. 이 샌드박스에서 `use.typekit.net` 이 차단되어 FF Meta 를 받을 수 없습니다.
-  하진님 로컬에서 `REAL_FONT=1 node capture.js` 로 돌리면 **동일 스크립트가 진짜 FF Meta 로** 재출력됩니다.
+- 폰트: **Fira Sans 대체**. 촬영 환경에서 `use.typekit.net` 이 차단되어 FF Meta 를 받을 수 없었습니다.
+  `use.typekit.net` 에 접근 가능한 환경에서 `REAL_FONT=1 node capture.js` 로 돌리면
+  **동일 스크립트가 진짜 FF Meta 로** 재출력됩니다.
   → **예외: `26-payment` 한 장만 진짜 FF Meta** 입니다 (아래 재촬영 항목 참조).
 - 스크립트: `capture.js` — **39 컷, 실패 0, 회귀 감지 0**
 - 촬영 중 자동 검사(`assertFixed`): `.tap-dismiss` UA 크롬 없음 / `.tap-mark--declined` 가 빨강(#c0362c) /

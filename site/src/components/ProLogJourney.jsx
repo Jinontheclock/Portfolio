@@ -6,8 +6,8 @@ import usePlayThroughOnce from "../hooks/usePlayThroughOnce.js";
 /* ProLog case-study hero: the logo, the journey animation, and the phone
    mockup side by side, sitting above the headline.
 
-   The animation is the exported video of the Claude Design scene
-   ("ProLog Journey Animation") — a 14s play-through that settles on its
+   The animation is an exported video ("ProLog Journey Animation") — a
+   14s play-through that settles on its
    final frame: the start node glows, the captions type on, the trail
    draws stage by stage, and the finish node ripples. The video's own
    background matches the page background (#FAFAFA), so it reads as
