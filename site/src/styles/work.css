@@ -201,8 +201,9 @@
   }
 }
 
-/* ── Mobile: image above text, both running the full width between the
-   page margins — a phone has no room to spend on an indent ── */
+/* ── Mobile: the card is a stack, title first and the picture directly
+   under it, everything running the full width between the page margins —
+   a phone has no room to spend on an indent ── */
 @media (max-width: 600px) {
   .wk-list {
     gap: 48px;
@@ -210,27 +211,57 @@
     padding: 64px 0 220px;
   }
   /* the stack leaves the grid — a flex column, like before it — and gives
-     the padding back to .ab-grid's phone margin */
+     the padding back to .ab-grid's phone margin.
+
+     No row-gap: the spacing is set line by line below instead, because the
+     picture has to close up against the title above it and the kind line
+     under it, and one gap for the whole column cannot leave two of its
+     lines out. */
   .wk-card {
     display: flex;
     flex-direction: column;
-    row-gap: 16px;
+    row-gap: 0;
     padding-left: 20px;
   }
+
+  /* The text column stops being a box and hands its four lines to the
+     card's own stack. That is what lets the picture sit between the title
+     and the line after it: the title has to stay inside .wk-text for the
+     wide layout, where the two are one grid cell beside the thumbnail, so
+     the order cannot come from the markup. Reordering here also keeps the
+     reading order intact — a screen reader still gets title, kind, summary,
+     roles, then the picture, which is the order the card was written in. */
+  .wk-text {
+    display: contents;
+  }
+  .wk-title {
+    order: 1;
+  }
   .wk-image {
-    order: -1;
+    order: 2;
     flex: none;
     width: 100%;
     /* back on its ratio alone — in the stack there is no row to fill */
     height: auto;
+    /* flush against the title and the kind line, which is the whole point
+       of the phone layout: more of the next card on screen */
+    margin: 0;
   }
-  .wk-text {
-    flex: none;
-    width: 100%;
+  .wk-kind {
+    order: 3;
   }
-  /* no measure cap on a phone — the viewport is the measure */
   .wk-desc {
+    order: 4;
+    /* no measure cap on a phone — the viewport is the measure */
     max-width: none;
+    margin-top: 16px;
+  }
+  .wk-specs {
+    order: 5;
+    /* overrides the wide layout's `auto`, which exists to drop this line
+       onto the thumbnail's bottom edge — in the stack there is no shared
+       height to push against */
+    margin-top: 16px;
   }
 }
 
