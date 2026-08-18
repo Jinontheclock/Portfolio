@@ -1,0 +1,13 @@
+{
+  "name": "HAJIN, Product Designer",
+  "short_name": "HAJIN",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#FAFAFA",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "384x384", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "1024x1024", "type": "image/png" }
+  ]
+}

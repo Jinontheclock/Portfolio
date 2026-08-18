@@ -50,13 +50,22 @@
     />
     <meta name="twitter:image" content="%SITE_URL%og-image-v3.png" />
 
-    <!-- Icons, cut from the uploaded mark. The base token below is filled in
-         with the deploy's base, so these hold whether the site is served from
-         a project path or a domain root. No SVG here on purpose: a browser
-         prefers an SVG icon over every other size given, so one left in
-         place would be the icon and these would never be reached. -->
+    <!-- Icons. The base token is filled in with the deploy's base, so these
+         hold whether the site is served from a project path or a domain root.
+
+         The SVG is listed first and, in any browser that reads it, it wins
+         outright: given an SVG icon a browser prefers it over every raster
+         size offered, so the .ico below is what the ones that cannot read
+         SVG fall back to. The two therefore have to stay the same artwork.
+
+         site.webmanifest is what hands the two larger icons to Android —
+         without it a home-screen install finds neither. Its own paths are
+         relative to itself, which is how it survives the same move between
+         a project path and a domain root that %BASE_URL% handles here. -->
+    <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="%BASE_URL%favicon.ico" sizes="48x48 32x32 16x16" />
     <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
+    <link rel="manifest" href="%BASE_URL%site.webmanifest" />
     <meta name="theme-color" content="#FAFAFA" />
   </head>
   <body>
