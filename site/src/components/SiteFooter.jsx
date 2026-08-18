@@ -1,8 +1,7 @@
 import Dropdown from "./Dropdown.jsx";
 import { LANG_LABELS } from "../i18n.js";
+import { LANGS } from "../lib/lang-routes.js";
 import useFitToWidth from "../hooks/useFitToWidth.js";
-
-const LANGS = ["en", "ja", "ko"];
 
 /** Inner-page footer: plain-text language trigger bottom-left, opening a
  *  glass menu upward (drop-up), plus the copyright line bottom-right. */
@@ -13,7 +12,11 @@ export default function SiteFooter({ lang, setLang }) {
 
   return (
     <footer className="site-footer">
+      {/* The wrapper stays even with nothing in it: the footer is a
+          space-between row, and an empty first item is what keeps the
+          copyright on the right where it has always been. */}
       <div className="site-footer-menus">
+        {LANGS.length > 1 && (
         <Dropdown
           direction="up"
           renderTrigger={(toggle, open) => (
@@ -41,6 +44,7 @@ export default function SiteFooter({ lang, setLang }) {
             onSelect: () => setLang(l),
           }))}
         />
+        )}
       </div>
       <span className="site-footer-copy" ref={copyRef}>
         © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee

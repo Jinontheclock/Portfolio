@@ -112,21 +112,25 @@ const injectSiteUrl = () => ({
   transformIndexHtml: (html) => html.split("%SITE_URL%").join(SITE_URL),
 });
 
-/* One static page per route AND language, plus a 404 that boots the app.
+/* One static page per route AND offered language, plus a 404 that boots
+   the app.
 
    The site is client-rendered, so a crawler that runs JavaScript would
    eventually see the right title — but the unfurlers behind LinkedIn, Slack
    and iMessage do not run any, and they read the first HTML they are given.
-   Writing dist/ko/work/prolog/index.html with ProLog's Korean description,
-   lang="ko" and its own canonical is what makes a Korean link preview and
-   index as Korean. The SPA takes over from there.
+   Writing dist/work/prolog/index.html with ProLog's own description, its
+   own <html lang> and its own canonical is what makes a shared link preview
+   as that project rather than as the site. The SPA takes over from there.
 
-   Each page also carries the full hreflang set, which is the only way to
-   tell a search engine that these are three translations of one page rather
-   than three competing documents. English is x-default and sits at the root.
+   Which languages get written comes from LANGS in src/lib/lang-routes.js,
+   which is currently English only — so this writes 8 pages, not the 24 it
+   writes with all three. Restore LANGS and the rest follows: each page
+   picks up the full hreflang set, which is the only way to tell a search
+   engine that they are translations of one page rather than competing
+   documents, and English stays x-default at the root.
 
-   404.html is the fallback both GitHub Pages and Cloudflare Pages serve for
-   an unmatched path, which is how a deep link survives a cold load. */
+   404.html is the fallback both GitHub Pages and Cloudflare serve for an
+   unmatched path, which is how a deep link survives a cold load. */
 const prerenderRoutes = () => ({
   name: "prerender-routes",
   apply: "build",
@@ -145,13 +149,19 @@ const prerenderRoutes = () => ({
       return SITE_URL + (rel ? `${rel}/` : "");
     };
 
+    /* hreflang exists to say "these URLs are translations of one another".
+       With a single language offered there is no other URL to name, and a
+       lone self-referential pair says nothing, so the block is left out
+       entirely. It returns the moment a second language does. */
     const hreflangFor = (routePath) =>
-      [
-        ...LANGS.map(
-          (l) => `    <link rel="alternate" hreflang="${HTML_LANG[l]}" href="${urlFor(l, routePath)}" />`,
-        ),
-        `    <link rel="alternate" hreflang="x-default" href="${urlFor(DEFAULT_LANG, routePath)}" />`,
-      ].join("\n");
+      LANGS.length < 2
+        ? ""
+        : [
+            ...LANGS.map(
+              (l) => `    <link rel="alternate" hreflang="${HTML_LANG[l]}" href="${urlFor(l, routePath)}" />`,
+            ),
+            `    <link rel="alternate" hreflang="x-default" href="${urlFor(DEFAULT_LANG, routePath)}" />`,
+          ].join("\n");
 
     const swap = (html, route, lang) => {
       const url = urlFor(lang, route.path);
@@ -184,9 +194,10 @@ const prerenderRoutes = () => ({
       const alternates = LANGS.filter((l) => l !== lang)
         .map((l) => `    <meta property="og:locale:alternate" content="${OG_LOCALE[l]}" />\n`)
         .join("");
+      const hreflang = hreflangFor(route.path);
       out = out.replace(
         /(<meta property="og:locale" content="[^"]*" \/>\n)/,
-        `$1${alternates}${hreflangFor(route.path)}\n`,
+        `$1${alternates}${hreflang ? `${hreflang}\n` : ""}`,
       );
 
       if (route.noindex) {
@@ -206,15 +217,29 @@ const prerenderRoutes = () => ({
       }
     }
 
-    /* the fallback keeps the site-wide head; it is not a real page */
-    fs.writeFileSync(path.join(dist, "404.html"), shell);
+    /* The fallback keeps the site-wide head; it is not a real page. Its
+       locale alternates are the one thing rewritten: index.html lists all
+       three languages, and this page should not name ones no route
+       serves. */
+    const shellAlternates = LANGS.filter((l) => l !== DEFAULT_LANG)
+      .map((l) => `    <meta property="og:locale:alternate" content="${OG_LOCALE[l]}" />\n`)
+      .join("");
+    fs.writeFileSync(
+      path.join(dist, "404.html"),
+      shell
+        .replace(/[ \t]*<meta property="og:locale:alternate"[^>]*>\n/g, "")
+        .replace(/(<meta property="og:locale" content="[^"]*" \/>\n)/, `$1${shellAlternates}`),
+    );
 
     const urls = LANGS.flatMap((lang) =>
       ROUTES.filter((r) => !r.noindex).map((r) => {
-        const alts = LANGS.map(
-          (l) => `    <xhtml:link rel="alternate" hreflang="${HTML_LANG[l]}" href="${urlFor(l, r.path)}"/>`,
-        ).join("\n");
-        return `  <url>\n    <loc>${urlFor(lang, r.path)}</loc>\n${alts}\n  </url>`;
+        const alts =
+          LANGS.length < 2
+            ? ""
+            : LANGS.map(
+                (l) => `    <xhtml:link rel="alternate" hreflang="${HTML_LANG[l]}" href="${urlFor(l, r.path)}"/>`,
+              ).join("\n");
+        return `  <url>\n    <loc>${urlFor(lang, r.path)}</loc>\n${alts ? `${alts}\n` : ""}  </url>`;
       }),
     ).join("\n");
     fs.writeFileSync(

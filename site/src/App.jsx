@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { BrowserRouter, Routes, Route, useLocation, useNavigate, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import useLang from "./hooks/useLang.js";
-import { LANGS, splitLang, swapLang, withLang } from "./lib/lang-routes.js";
+import { LANGS, RETIRED, splitLang, stripRetired, swapLang, withLang } from "./lib/lang-routes.js";
 import Preloader from "./components/Preloader.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
@@ -51,6 +51,17 @@ function CaseStudyLoader() {
 function CaseStudyRoute(props) {
   const { id } = useParams();
   return <CaseStudyPage key={id} {...props} />;
+}
+
+/* Japanese and Korean are held back for now (see lib/lang-routes.js), so
+   nothing generates a /ja or /ko route any more. Those URLs are still out
+   in the world — they were in the sitemap, and one may be bookmarked or
+   linked — so instead of resolving to nothing they hand the reader the
+   same page in English. When the two come back, RETIRED is empty and
+   these routes go with it. */
+function RetiredLangRedirect() {
+  const { pathname } = useLocation();
+  return <Navigate to={stripRetired(pathname)} replace />;
 }
 
 // the boot loader (0→100 count) covers the app's first load on ANY route so
@@ -190,6 +201,9 @@ function Site() {
             );
           }),
         )}
+        {RETIRED.map((l) => (
+          <Route key={"retired-" + l} path={`/${l}/*`} element={<RetiredLangRedirect />} />
+        ))}
       </Routes>
       {booting && <Preloader onDone={() => setBooting(false)} />}
     </>
