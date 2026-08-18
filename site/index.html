@@ -17,10 +17,12 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="HAJIN" />
     <meta property="og:title" content="HAJIN, Product Designer" />
-    <meta
-      property="og:description"
-      content="Product Designer in Vancouver, BC. Case studies in product design, design systems, and front-end development."
-    />
+    <!-- No og:description or twitter:description, deliberately. The card is
+         meant to be the image, the page's title and the domain, and nothing
+         else; a paragraph under a title that already says the same thing
+         only made it longer. The meta description below stays — that one is
+         the search result's snippet, and dropping it hands Google a
+         sentence of its own choosing from the page body. -->
     <meta property="og:url" content="%SITE_URL%" />
     <!-- The URL stays absolute: OG crawlers do not resolve relative paths, so
          a move to a custom domain has to bring these two with it.
@@ -44,10 +46,6 @@
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="HAJIN, Product Designer" />
-    <meta
-      name="twitter:description"
-      content="Product Designer in Vancouver, BC. Case studies in product design, design systems, and front-end development."
-    />
     <meta name="twitter:image" content="%SITE_URL%og-image-v3.png" />
 
     <!-- Icons. The base token is filled in with the deploy's base, so these
