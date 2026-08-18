@@ -250,18 +250,23 @@
   .wk-kind {
     order: 3;
   }
+  /* The three lines under the picture are one block of reading, so they sit
+     closer to each other than the 16px the wide layout separates them by —
+     at that distance on a phone they read as three unrelated notes. Half
+     of it is still more than the line spacing inside the summary itself,
+     which is what keeps them separate lines rather than one paragraph. */
   .wk-desc {
     order: 4;
     /* no measure cap on a phone — the viewport is the measure */
     max-width: none;
-    margin-top: 16px;
+    margin-top: 8px;
   }
   .wk-specs {
     order: 5;
-    /* overrides the wide layout's `auto`, which exists to drop this line
-       onto the thumbnail's bottom edge — in the stack there is no shared
-       height to push against */
-    margin-top: 16px;
+    /* the 8px also overrides the wide layout's `auto`, which exists to drop
+       this line onto the thumbnail's bottom edge — in the stack there is no
+       shared height to push against */
+    margin-top: 8px;
   }
 }
 
