@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import LangSwitcher from "../components/LangSwitcher.jsx";
-import useFitToWidth from "../hooks/useFitToWidth.js";
 import { LANDING } from "../i18n.js";
 /* The heading as drawn artwork rather than set type, exactly as exported.
    Inlined rather than linked so its paths can inherit the page's colour —
@@ -10,9 +9,6 @@ import { LANDING } from "../i18n.js";
 import heroMark from "../assets/site/hero-wordmark.svg?raw";
 
 export default function LandingPage({ lang, setLang }) {
-  // the copyright, one line, now sharing the header row (smaller cap on mobile)
-  const copyRef = useFitToWidth(12, { mobileMax: 9 });
-
   useEffect(() => {
     document.title = "HAJIN, Product Designer";
   }, []);
@@ -31,11 +27,12 @@ export default function LandingPage({ lang, setLang }) {
           same two words. Neither is marked current: on this page neither is
           where the reader is.
 
-          The copyright rides in the same row. The heading below now owns
-          the bottom of the screen, and the corner the copyright used to sit
-          in is inside it. */}
+          The copyright stands on end in the opposite corner, reading
+          downwards from a © on the labels' own line. The heading below now
+          owns the bottom of the screen, and the corner the copyright used
+          to sit in is inside it. */}
       <SiteHeader>
-        <span className="lp-copy" ref={copyRef}>
+        <span className="lp-copy">
           © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
         </span>
       </SiteHeader>
