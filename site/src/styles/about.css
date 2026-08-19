@@ -84,11 +84,9 @@
   transition: color var(--duration-fast) var(--easing);
 }
 
+/* the rule itself sweeps in from the left — see components.css */
 .ab-rail-link:hover {
   color: var(--text-primary);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
 }
 
 /* an entry whose destination doesn't exist yet: visible but inert */
@@ -146,9 +144,6 @@
 }
 .ab-paragraph a:hover {
   color: var(--text-primary);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
 }
 
 /* takes the rest of the line beside the name; the air below it now belongs

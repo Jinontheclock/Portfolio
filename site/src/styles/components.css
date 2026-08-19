@@ -166,13 +166,82 @@
      the reader is on stopped being marked at all. */
   color: var(--text-muted);
 }
-.site-header .pill-button:hover {
-  filter: none;
-  color: var(--text-primary);
-}
 .site-header .pill-button.is-active {
   background: none;
   color: var(--text-primary);
+}
+
+/* The ink arrives across the word rather than all at once: a two-stop
+   gradient twice the width of the label, parked with its dark half off to
+   the left and slid into place on hover. background-clip: text is what
+   makes the gradient the letters instead of a box behind them, so the
+   colour crosses each stroke as it passes.
+
+   Only where there is a pointer, and only on the label that is not the
+   page being read — that one is already at full strength, and a sweep
+   would be a change with nowhere to go. The @supports keeps the
+   transparent text from outliving the thing that fills it. */
+@media (hover: hover) {
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .site-header .pill-button:not(.is-active) {
+      background: linear-gradient(
+          to right,
+          var(--text-primary) 50%,
+          var(--text-muted) 50%
+        )
+        100% 0 / 200% 100% no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: background-position var(--duration-base) var(--easing);
+    }
+    .site-header .pill-button:not(.is-active):hover,
+    .site-header .pill-button:not(.is-active):focus-visible {
+      background-position: 0 0;
+    }
+  }
+  .site-header .pill-button:hover {
+    filter: none;
+  }
+}
+
+/* ── Hover underline, sweeping in from the left ──
+   For the links whose rule only appears on hover — the About rail, the
+   links inside About's paragraphs, and the case studies' meta values. The
+   ones that carry a permanent underline (.cs-inline-link, caption credits)
+   are left alone: there is nothing to sweep in when it is already there.
+
+   A background gradient rather than text-decoration, because only a
+   background can be grown from zero width. The 3px of padding is what
+   holds it off the baseline the way text-underline-offset used to, and the
+   matching negative margin gives that height back so no row moves. */
+@media (hover: hover) {
+  .ab-rail-link,
+  .ab-paragraph a,
+  .cs-meta-values a {
+    padding-bottom: 3px;
+    margin-bottom: -3px;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 0 1px;
+    transition:
+      color var(--duration-fast) var(--easing),
+      background-size var(--duration-base) var(--easing);
+  }
+  .ab-rail-link:hover,
+  .ab-rail-link:focus-visible,
+  .ab-paragraph a:hover,
+  .ab-paragraph a:focus-visible,
+  .cs-meta-values a:hover,
+  .cs-meta-values a:focus-visible {
+    background-position: bottom left;
+    background-size: 100% 1px;
+  }
+  /* an entry with nowhere to go draws no rule */
+  .ab-rail-link.is-pending {
+    background-image: none;
+  }
 }
 /* the wordmark shows only at the very top of the page on every screen —
    once scrolled it fades out so it doesn't ride over content in the

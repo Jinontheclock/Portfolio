@@ -168,11 +168,9 @@
   text-decoration: none;
   transition: color var(--duration-fast) var(--easing);
 }
+/* the rule itself sweeps in from the left — see components.css */
 .cs-meta-values a:hover {
   color: var(--text-primary);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
 }
 
 /* ── Logo suite (lockup + app icon side by side, heights matched) ── */

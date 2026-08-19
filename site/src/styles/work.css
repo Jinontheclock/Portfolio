@@ -51,23 +51,43 @@
   }
 }
 
-/* The thumbnails rest in grey and answer the pointer in their own colour.
+/* The thumbnails rest in grey and answer the pointer in their own colour,
+   and the colour arrives across the picture rather than all over it at
+   once — the same left-to-right move the header's two labels make.
+
+   The grey is a sheet laid over the picture rather than a filter on it:
+   backdrop-filter greys whatever is behind the sheet, so sliding the
+   sheet's own left edge to the right uncovers the colour underneath a
+   column at a time. Doing it as `filter` on the box instead would have
+   needed a second, coloured copy of every frame to wipe between, video
+   included.
+
    Slower than the title's dimming — a picture regaining its colour is a
    thing to watch, and at the title's speed it reads as a flash.
 
    Only where there is a pointer to hover with: on a touch screen the
    colour would never arrive, so those readers get it from the start. */
 @media (hover: hover) {
-  .wk-card-link .wk-image {
-    filter: grayscale(1);
+  .wk-card-link .wk-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* nothing to click, and nothing for a reader to land on */
+    pointer-events: none;
+    backdrop-filter: grayscale(1);
+    -webkit-backdrop-filter: grayscale(1);
+    /* covering the whole picture: grey */
+    clip-path: inset(0 0 0 0);
     /* a step past --duration-base, which is as slow as the token set
        goes; both speeds it offers are meant for changes small enough to
        happen at the edge of attention, and this one is looked at */
-    transition: filter 300ms var(--easing);
+    transition: clip-path 300ms var(--easing);
   }
-  .wk-card-link:hover .wk-image,
-  .wk-card-link:focus-visible .wk-image {
-    filter: grayscale(0);
+  /* the sheet's left edge crosses to the right and the picture is left in
+     colour behind it */
+  .wk-card-link:hover .wk-image::after,
+  .wk-card-link:focus-visible .wk-image::after {
+    clip-path: inset(0 0 0 100%);
   }
 }
 
@@ -197,6 +217,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .wk-frame {
+    transition: none;
+  }
+  /* the colour still arrives, it just stops travelling to get there */
+  .wk-card-link .wk-image::after {
     transition: none;
   }
 }

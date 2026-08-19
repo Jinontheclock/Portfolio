@@ -77,7 +77,6 @@ const LINKS = [
   // would hash-navigate the visitor back to the landing page
   { label: "Resume", href: null },
   { label: "GitHub", href: "https://github.com/Jinontheclock" },
-  { label: "Instagram", href: "https://www.instagram.com/hj.archiv/" },
   { label: "E-mail", href: MAILTO },
 ];
 
