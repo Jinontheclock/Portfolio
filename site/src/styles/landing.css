@@ -84,23 +84,33 @@ html.lp-locked body {
 
 .lp-heading {
   /* The heading is a drawing now: no font-size, no line-height, no
-     text-indent — the viewBox is cropped to the letters, so the box the
-     browser lays out IS the ink and nothing has to be compensated for.
-     The colour is still set here, because the paths inherit it as
-     currentColor. */
+     text-indent, none of the compensation set type needed. What is placed
+     is the svg's own box — its viewBox in full, including the space the
+     artwork holds inside it, which is part of the drawing and not
+     something to trim away. */
   margin: 0;
   width: 100%;
   color: var(--text-primary);
 }
 
-/* `display: block` is what puts the letters ON the bottom edge. An inline
-   svg sits on a text baseline and leaves a few pixels of descender space
-   under it, which would have read as a margin the page does not have. */
+/* The box runs the full width of the screen and its bottom edge is the
+   screen's.
+
+   `display: block` is what makes that last part true: an inline svg sits
+   on a text baseline and leaves a few pixels of descender space under it,
+   which would have read as a bottom margin the page does not have.
+
+   The fill is set here rather than in the file, so the drawing stays
+   exactly as it was exported. Its paths carry no fill of their own, so
+   they inherit this one — the site's ink, which the dark theme flips. */
 .lp-heading-mark,
 .lp-heading-mark svg {
   display: block;
   width: 100%;
   height: auto;
+}
+.lp-heading-mark svg {
+  fill: currentColor;
 }
 
 /* ─────────────────────────────────────────────────────────────────────
