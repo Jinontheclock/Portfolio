@@ -39,8 +39,8 @@
 @media (max-width: 1439px) {
   :root {
     --size-hero: 100px; /* pre-JS fallback only */
-    --size-header-nav: 20px;
-    --size-copy: 14px;
+    --size-header-nav: 18px;
+    --size-copy: 12px;
     --size-about-title: 44px;
     --size-section-label: 22px;
     --size-card-title: 26px;
@@ -51,7 +51,7 @@
 @media (max-width: 1024px) {
   :root {
     --size-hero: 64px; /* pre-JS fallback only */
-    --size-header-nav: 16px;
+    --size-header-nav: 17px;
     --size-copy: 10px;
     --size-about-title: 38px;
     --size-section-label: 20px;
@@ -63,7 +63,7 @@
 @media (max-width: 600px) {
   :root {
     --size-hero: 32px; /* pre-JS fallback only */
-    --size-header-nav: 14px;
+    --size-header-nav: 16px;
     --size-copy: 8px;
     --size-about-title: 32px;
     --size-section-label: 20px;

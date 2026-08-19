@@ -147,12 +147,11 @@
   gap: 20px;
   padding: 20px var(--page-margin) 0;
 }
-/* header nav reads as plain text: no pill background, the current page at
-   full strength and the other muted. Its size steps per breakpoint tier —
-   24 / 20 / 16 / 14 — rather than holding the 15px the pill component
-   carries for its own use elsewhere. The line-height is a ratio, not the
-   pill's fixed 20px, so the box keeps its proportion at every one of
-   them. */
+/* Header nav reads as plain text: no pill background. Its size steps per
+   breakpoint tier — 24 / 18 / 17 / 16 — rather than holding the 15px the
+   pill component carries for its own use elsewhere, and the line-height is
+   a ratio rather than the pill's fixed 20px so the box keeps its
+   proportion at every one of them. */
 .site-header .pill-button {
   height: auto;
   padding: 0;
@@ -161,11 +160,23 @@
   opacity: 1;
   font-size: var(--size-header-nav);
   line-height: 1.3333;
-  color: var(--text-muted);
-}
-.site-header .pill-button:hover {
-  filter: none;
+  /* Full strength is the resting state. On a touch screen there is no
+     pointer to bring the colour, and these two words are the whole
+     navigation — the same reasoning the Work cards and the landing's own
+     nav are written with. */
   color: var(--text-primary);
+}
+
+/* Where there IS a pointer, the pair rests muted and answers it: the page
+   being read stays at full strength and the other one waits. */
+@media (hover: hover) {
+  .site-header .pill-button {
+    color: var(--text-muted);
+  }
+  .site-header .pill-button:hover {
+    filter: none;
+    color: var(--text-primary);
+  }
 }
 .site-header .pill-button.is-active {
   background: none;
