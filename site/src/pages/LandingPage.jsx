@@ -1,19 +1,15 @@
 import { useEffect } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import LangSwitcher from "../components/LangSwitcher.jsx";
-import useFitText from "../hooks/useFitText.js";
 import useFitToWidth from "../hooks/useFitToWidth.js";
 import { LANDING } from "../i18n.js";
+/* The heading as drawn artwork rather than set type. Inlined rather than
+   linked so its paths inherit currentColor — the site's ink is #0F0F0F and
+   flips to #FAFAFA under the dark theme, and an <img> could follow
+   neither. */
+import heroMark from "../assets/site/hero-wordmark.svg?raw";
 
 export default function LandingPage({ lang, setLang }) {
-  // the hero heading is pinned to English in every language, so it fits
-  // once and never refits or fades on a language switch; on mobile it sits
-  // at 85% of the width instead of edge-to-edge
-  const heroRef = useFitText("en", {
-    mobileRatio: 0.85,
-    refText: LANDING.en.hero,
-    ratio: 1,
-  });
   // the copyright, one line, now sharing the header row (smaller cap on mobile)
   const copyRef = useFitToWidth(12, { mobileMax: 9 });
 
@@ -44,13 +40,22 @@ export default function LandingPage({ lang, setLang }) {
         </span>
       </SiteHeader>
 
+      {/* The heading is artwork now, and it runs the full width of the
+          screen — past the page margins on both sides and down onto the
+          bottom edge. Its viewBox is cropped to the letters themselves, so
+          "full width" means the ink touches the glass, not a transparent
+          border around it.
+
+          The h1 keeps the heading's meaning: the label is what a screen
+          reader and an outline tool read, and the drawing itself is marked
+          decorative so neither announces it twice. */}
       <div className="lp-hero">
-        <h1
-          className="lp-heading"
-          ref={heroRef}
-          style={{ textIndent: LANDING.en.heroIndent }}
-        >
-          {LANDING.en.hero}
+        <h1 className="lp-heading" aria-label={LANDING.en.hero}>
+          <span
+            className="lp-heading-mark"
+            aria-hidden="true"
+            dangerouslySetInnerHTML={{ __html: heroMark }}
+          />
         </h1>
       </div>
 

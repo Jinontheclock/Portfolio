@@ -75,37 +75,32 @@ html.lp-locked body {
 }
 
 /* The heading sits on the bottom of the screen: margin-top takes every
-   pixel of free height above it. */
+   pixel of free height above it. No padding — it is the one thing on this
+   page that ignores the page margin and runs edge to edge, so the drawing
+   closes on the glass on the left, the right and the bottom. */
 .lp-hero {
   margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0 var(--size-page-pad) var(--size-page-pad);
 }
 
 .lp-heading {
+  /* The heading is a drawing now: no font-size, no line-height, no
+     text-indent — the viewBox is cropped to the letters, so the box the
+     browser lays out IS the ink and nothing has to be compensated for.
+     The colour is still set here, because the paths inherit it as
+     currentColor. */
   margin: 0;
   width: 100%;
-  /* single line always — useFitText scales the font to fill the width;
-     var(--size-hero) is only the pre-JS fallback */
-  white-space: nowrap;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: var(--size-hero);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
   color: var(--text-primary);
-  /* text-indent (first glyph's left side bearing, per language) is set
-     inline in LandingPage.jsx so ink starts exactly at the margin.
+}
 
-     The bottom is the same idea turned ninety degrees. The line box is
-     taller than the ink: the lowest ink — the descender of the g — stops
-     0.0165em short of the box's bottom edge (measured 2.00px at the
-     desktop's 118px and 1.09px at the tablet's 67px). Pulling the box down
-     by that much lands the ink itself on the page margin, so the heading
-     closes on the bottom the way it opens on the left. */
-  margin: 0 0 -0.0165em;
+/* `display: block` is what puts the letters ON the bottom edge. An inline
+   svg sits on a text baseline and leaves a few pixels of descender space
+   under it, which would have read as a margin the page does not have. */
+.lp-heading-mark,
+.lp-heading-mark svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* ─────────────────────────────────────────────────────────────────────
