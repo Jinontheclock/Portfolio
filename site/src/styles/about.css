@@ -203,12 +203,18 @@
   flex: 1 1 380px;
   min-width: 0;
   /* The copy carries a newline after its opening clause, but that break is
-     only worth keeping when the rest still closes on one line: it needs
-     692px, and flowing freely the whole sentence needs only 474px for two.
-     So the break is off by default — which is also what a browser without
-     container queries gets, and it is the safe answer — and comes back
-     only where there is room. The row is 182px of name and gap wider than
-     the sentence, hence 880. */
+     only worth keeping when the rest still closes on one line. Measured at
+     the desktop's 16.5px: that clause runs 751px, the name beside it 154.5,
+     and the gap between them 28 — so the row has to be 933.5px before the
+     break earns its place. Under that the sentence flows instead and
+     settles on two balanced lines, which is also what a browser without
+     container queries gets, and is the safe answer.
+
+     935, not the 880 this held before. 880 was short by the width of about
+     eight words, so between roughly 1610 and 1945 of viewport the break
+     was honoured while the clause behind it still had to wrap — the
+     sentence came out in three lines with "that holds up." alone on the
+     last. Below the threshold the sentence never takes more than two. */
   white-space: normal;
   /* two lines of nearly equal length rather than a full one and a short
      one — the browser evens the ragged edge itself. It has no say once the
@@ -216,10 +222,18 @@
   text-wrap: balance;
 }
 
-@container lede (min-width: 880px) {
+@container lede (min-width: 935px) {
   .ab-hero {
     white-space: pre-line;
     text-wrap: wrap;
+    /* The measure cap comes off with the break. .ab-paragraph holds every
+       other paragraph to 73ch — 717.9px at this size — because they are
+       stacked blocks and a long measure is hard to read down. This one is
+       a single line beside the name, and the clause it has to close is
+       751px: kept at 73ch it could never fit however wide the page got,
+       which is what put "that holds up." on a line of its own no matter
+       the screen. */
+    max-width: none;
   }
 }
 
