@@ -37,16 +37,51 @@ html.lp-locked body {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: var(--size-page-pad);
+  /* No padding of its own. The header carries the page margin the inner
+     pages use and the heading carries the landing's own; a padding here
+     would be added to both and push Work and About off the line they hold
+     on every other page. */
   background: var(--bg);
   font-family: var(--font-sans);
 }
 
+/* ── The inner pages' header, on this page ──
+   Work and About are the same component in the same place at the same size
+   as on /work and /about, so crossing between them and here does not move
+   them. Two things change for this page. */
+
+/* The row aligns on its baseline rather than its top edge, so the 12px
+   copyright sits on the 15px labels' line instead of hanging above it. */
+.lp-root .site-header {
+  align-items: baseline;
+}
+
+/* The wordmark goes: on this page the heading at the bottom IS the
+   wordmark, and the header's copy links to the page the reader is already
+   on. */
+.lp-root .site-wordmark {
+  display: none;
+}
+
+/* The copyright moved out of the bottom-right corner, which the heading now
+   covers, and into the header row. It takes the width left over after the
+   two labels and closes on the right margin; min-width lets it narrow below
+   its own line so useFitToWidth can see the shortfall and scale it down. */
+.lp-root .lp-copy {
+  position: static;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: none;
+}
+
+/* The heading sits on the bottom of the screen: margin-top takes every
+   pixel of free height above it. */
 .lp-hero {
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--size-lp-block-gap);
+  padding: 0 var(--size-page-pad) var(--size-page-pad);
 }
 
 .lp-heading {
@@ -62,8 +97,26 @@ html.lp-locked body {
   letter-spacing: -0.01em;
   color: var(--text-primary);
   /* text-indent (first glyph's left side bearing, per language) is set
-     inline in LandingPage.jsx so ink starts exactly at the margin */
+     inline in LandingPage.jsx so ink starts exactly at the margin.
+
+     The bottom is the same idea turned ninety degrees. The line box is
+     taller than the ink: the lowest ink — the descender of the g — stops
+     0.0165em short of the box's bottom edge (measured 2.00px at the
+     desktop's 118px and 1.09px at the tablet's 67px). Pulling the box down
+     by that much lands the ink itself on the page margin, so the heading
+     closes on the bottom the way it opens on the left. */
+  margin: 0 0 -0.0165em;
 }
+
+/* ─────────────────────────────────────────────────────────────────────
+   Below, down to .lp-arrow's hover rule, styles the arrowed Work/About nav
+   the landing carried before the header took that job. Nothing renders it
+   now — LandingPage.jsx no longer builds a .lp-nav — and it is kept rather
+   than deleted because it is the whole of the previous arrangement, which
+   is a design the owner may want back. Delete it, and the four
+   --size-lp-arrow and --size-lp-nav tokens in breakpoints.css with it,
+   once that is settled.
+   ───────────────────────────────────────────────────────────────────── */
 
 /* Two-column grid: texts in col 1 (locked to the English labels' width),
    arrows in col 2 — so both arrows align at the same x in every language.
@@ -242,11 +295,6 @@ html.lp-locked body {
   }
 }
 
-/* Mobile (Landing Page_Mobile 402w): hero block drops to the lower third,
-   above the utilities, instead of pinning to the top. */
-@media (max-width: 600px) {
-  .lp-hero {
-    margin-top: auto;
-    margin-bottom: min(142px, 16dvh);
-  }
-}
+/* The heading is on the bottom at every width now, so the phone needs no
+   rule of its own: what used to lift it clear of the utilities in the
+   corner is gone with them. */
