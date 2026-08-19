@@ -168,9 +168,27 @@
   text-decoration: none;
   transition: color var(--duration-fast) var(--easing);
 }
-/* the rule itself sweeps in from the left — see components.css */
 .cs-meta-values a:hover {
   color: var(--text-primary);
+}
+
+/* the rule grows from the left — same construction, and same reason for
+   living beside its own transition, as About's link rail */
+@media (hover: hover) {
+  .cs-meta-values a {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: right var(--underline-y);
+    background-size: 0 1px;
+    transition:
+      color var(--duration-fast) var(--easing),
+      background-size var(--duration-base) var(--easing);
+  }
+  .cs-meta-values a:hover,
+  .cs-meta-values a:focus-visible {
+    background-position: left var(--underline-y);
+    background-size: 100% 1px;
+  }
 }
 
 /* ── Logo suite (lockup + app icon side by side, heights matched) ── */

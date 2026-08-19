@@ -205,44 +205,34 @@
   }
 }
 
-/* ── Hover underline, sweeping in from the left ──
-   For the links whose rule only appears on hover — the About rail, the
-   links inside About's paragraphs, and the case studies' meta values. The
-   ones that carry a permanent underline (.cs-inline-link, caption credits)
-   are left alone: there is nothing to sweep in when it is already there.
+/* ── Where a hover underline sits ──
+   The links whose rule only appears on hover draw it as a background line
+   rather than text-decoration, because only a background can be grown from
+   zero width. This is the y it has to be drawn at to land where
+   text-decoration put it.
 
-   A background gradient rather than text-decoration, because only a
-   background can be grown from zero width. The 3px of padding is what
-   holds it off the baseline the way text-underline-offset used to, and the
-   matching negative margin gives that height back so no row moves. */
-@media (hover: hover) {
-  .ab-rail-link,
-  .ab-paragraph a,
-  .cs-meta-values a {
-    padding-bottom: 3px;
-    margin-bottom: -3px;
-    background-image: linear-gradient(currentColor, currentColor);
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    background-size: 0 1px;
-    transition:
-      color var(--duration-fast) var(--easing),
-      background-size var(--duration-base) var(--easing);
-  }
-  .ab-rail-link:hover,
-  .ab-rail-link:focus-visible,
-  .ab-paragraph a:hover,
-  .ab-paragraph a:focus-visible,
-  .cs-meta-values a:hover,
-  .cs-meta-values a:focus-visible {
-    background-position: bottom left;
-    background-size: 100% 1px;
-  }
-  /* an entry with nowhere to go draws no rule */
-  .ab-rail-link.is-pending {
-    background-image: none;
-  }
+   The browser's own underline sits 3px under the alphabetic baseline
+   (text-underline-offset), and the baseline sits at the half-leading plus
+   the ascent: line-height 1.6 less the face's own 1.25 box, halved, is
+   0.175em of leading above a 0.97em ascent. Hence 1.145em, measured off
+   Spoqa Han Sans Neo, plus the 3px.
+
+   Taken DOWN to a whole pixel, with the unrounded value first for browsers
+   without round(). Two reasons for the rounding and for that direction. A
+   background line at a fractional offset is drawn across two rows at half
+   strength and reads softer than the crisp one text-decoration draws; and
+   measured against the real thing, flooring is what lands on it — 21px at
+   the desktop's 16.5px type, 21 at the laptop's 16.11, 20 at the tablet's
+   15.04, each exact. (Rounding to nearest sat a pixel low at 16.5.)
+
+   Only pointer sizes are checked because only they can reach this: the
+   sweep lives inside a hover query, so the phone rail — whose size JS sets
+   anyway — never draws it. */
+:root {
+  --underline-y: calc(1.145em + 3px);
+  --underline-y: round(down, calc(1.145em + 3px), 1px);
 }
+
 /* the wordmark shows only at the very top of the page on every screen —
    once scrolled it fades out so it doesn't ride over content in the
    sticky header */
