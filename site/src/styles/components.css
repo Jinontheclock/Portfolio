@@ -160,23 +160,15 @@
   opacity: 1;
   font-size: var(--size-header-nav);
   line-height: 1.3333;
-  /* Full strength is the resting state. On a touch screen there is no
-     pointer to bring the colour, and these two words are the whole
-     navigation — the same reasoning the Work cards and the landing's own
-     nav are written with. */
-  color: var(--text-primary);
+  /* Muted on every device, pointer or not. Letting a touch screen have
+     both labels at full strength was tried and reverted: is-active reads
+     as the darker of the two, so with nothing to be darker than, the page
+     the reader is on stopped being marked at all. */
+  color: var(--text-muted);
 }
-
-/* Where there IS a pointer, the pair rests muted and answers it: the page
-   being read stays at full strength and the other one waits. */
-@media (hover: hover) {
-  .site-header .pill-button {
-    color: var(--text-muted);
-  }
-  .site-header .pill-button:hover {
-    filter: none;
-    color: var(--text-primary);
-  }
+.site-header .pill-button:hover {
+  filter: none;
+  color: var(--text-primary);
 }
 .site-header .pill-button.is-active {
   background: none;
