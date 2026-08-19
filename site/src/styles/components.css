@@ -148,13 +148,19 @@
   padding: 20px var(--page-margin) 0;
 }
 /* header nav reads as plain text: no pill background, the current page at
-   full strength and the other muted */
+   full strength and the other muted. Its size steps per breakpoint tier —
+   24 / 20 / 16 / 14 — rather than holding the 15px the pill component
+   carries for its own use elsewhere. The line-height is a ratio, not the
+   pill's fixed 20px, so the box keeps its proportion at every one of
+   them. */
 .site-header .pill-button {
   height: auto;
   padding: 0;
   border-radius: 0;
   background: none;
   opacity: 1;
+  font-size: var(--size-header-nav);
+  line-height: 1.3333;
   color: var(--text-muted);
 }
 .site-header .pill-button:hover {

@@ -18,6 +18,13 @@
   --size-lp-block-gap: clamp(12px, 2.22vw, 32px); /* 12 → 32 */
   --size-lp-nav-gap: clamp(4px, 1.16vw - 0.65px, 16px); /* 4 → 16 */
 
+  /* chrome that every page carries: the header's two labels, and the
+     copyright line — on the landing page that one stands on end in the
+     opposite corner, so its size is capped by the screen's height there
+     (see .lp-root .lp-copy) */
+  --size-header-nav: 24px; /* Work / About */
+  --size-copy: 18px; /* © HAJIN LEE … */
+
   /* inner pages */
   --size-about-title: 48px; /* "Hajin Lee" */
   --size-section-label: 24px; /* Experiences / Education */
@@ -32,6 +39,8 @@
 @media (max-width: 1439px) {
   :root {
     --size-hero: 100px; /* pre-JS fallback only */
+    --size-header-nav: 20px;
+    --size-copy: 14px;
     --size-about-title: 44px;
     --size-section-label: 22px;
     --size-card-title: 26px;
@@ -42,6 +51,8 @@
 @media (max-width: 1024px) {
   :root {
     --size-hero: 64px; /* pre-JS fallback only */
+    --size-header-nav: 16px;
+    --size-copy: 10px;
     --size-about-title: 38px;
     --size-section-label: 20px;
     --size-card-title: 24px;
@@ -52,6 +63,8 @@
 @media (max-width: 600px) {
   :root {
     --size-hero: 32px; /* pre-JS fallback only */
+    --size-header-nav: 14px;
+    --size-copy: 8px;
     --size-about-title: 32px;
     --size-section-label: 20px;
     --size-card-title: 22px;
