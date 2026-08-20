@@ -29,8 +29,8 @@ export default {
   },
   description: {
     en: "An academic project that gave a rescue website a clear adoption pathway: co-designing the UX, building the brand identity, and hand-coding the responsive site with Astro.",
-    ja: "学術プロジェクトとして、保護団体のサイトに迷いのない譲渡までの道すじをつくりました。UXの共同設計、ブランドアイデンティティの構築、そしてAstroによるレスポンシブサイトの実装まで担当しました。",
-    ko: "학술 프로젝트로 구조 단체 웹사이트에 헤매지 않는 입양 경로를 만들었습니다. UX 공동 설계, 브랜드 아이덴티티 구축, 그리고 Astro로 반응형 사이트를 직접 코딩했습니다.",
+    ja: "保護団体のサイトに、迷いのない譲渡までの道すじを。UXの共同設計、ブランドアイデンティティの構築、そしてAstroによるレスポンシブサイトの実装まで担当しました。",
+    ko: "구조 단체 웹사이트에 헤매지 않는 입양 경로를 만들었습니다. UX 공동 설계, 브랜드 아이덴티티 구축, 그리고 Astro로 반응형 사이트를 직접 코딩했습니다.",
   },
   roles: {
     en: "UI/UX Design, Web Development",

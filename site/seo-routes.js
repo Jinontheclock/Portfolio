@@ -72,8 +72,8 @@ export const ROUTES = [
     title: "ProLog — HAJIN",
     description: {
       en: "A 0-to-1 mobile app that turns a fragmented 6,000-hour apprenticeship into one clear, accessible roadmap for neurodivergent apprentices.",
-      ja: "バラバラだった6,000時間の見習い課程を、一つの明快で見通しのきくロードマップに変える0→1のモバイルアプリ。ニューロダイバージェントな見習いのために設計しました。",
-      ko: "흩어져 있던 6,000시간의 견습 과정을 하나의 분명하고 접근하기 쉬운 로드맵으로 바꾸는 0→1 모바일 앱. 신경다양인 견습생을 위해 설계했습니다.",
+      ja: "バラバラだった6,000時間の見習い課程を、一つの明快で見通しのきくロードマップに変えるモバイルアプリ。ニューロダイバージェントな見習いのために設計しました。",
+      ko: "흩어져 있던 6,000시간의 견습 과정을 하나의 분명하고 접근하기 쉬운 로드맵으로 바꾸는 모바일 앱. 신경다양인 견습생을 위해 설계했습니다.",
     },
   },
   {
@@ -81,8 +81,8 @@ export const ROUTES = [
     title: "TinyPaws — HAJIN",
     description: {
       en: "An academic project that gave a rescue website a clear adoption pathway: co-designing the UX, building the brand identity, and hand-coding the responsive site with Astro.",
-      ja: "学術プロジェクトとして、保護団体のサイトに迷いのない譲渡までの道すじをつくりました。UXの共同設計、ブランドアイデンティティの構築、そしてAstroによるレスポンシブサイトの実装まで担当しました。",
-      ko: "학술 프로젝트로 구조 단체 웹사이트에 헤매지 않는 입양 경로를 만들었습니다. UX 공동 설계, 브랜드 아이덴티티 구축, 그리고 Astro로 반응형 사이트를 직접 코딩했습니다.",
+      ja: "保護団体のサイトに、迷いのない譲渡までの道すじを。UXの共同設計、ブランドアイデンティティの構築、そしてAstroによるレスポンシブサイトの実装まで担当しました。",
+      ko: "구조 단체 웹사이트에 헤매지 않는 입양 경로를 만들었습니다. UX 공동 설계, 브랜드 아이덴티티 구축, 그리고 Astro로 반응형 사이트를 직접 코딩했습니다.",
     },
   },
   {
