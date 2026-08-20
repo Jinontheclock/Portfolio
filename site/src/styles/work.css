@@ -145,11 +145,11 @@
 }
 
 .wk-specs {
-  /* pushed to the bottom of the cell, and the cell shares its height with
-     the thumbnail — so this line closes on the thumbnail's bottom edge,
-     and everything above it lives inside the thumbnail's height. The flex
-     gap is the floor when there is no slack to take. */
-  margin-top: auto;
+  /* directly under the summary, on the column's own 16px gap. It used to
+     be pushed to the bottom of the cell so it closed on the thumbnail's
+     bottom edge — but the cell is as tall as the picture beside it, and
+     three lines of text never are, so that left this one stranded ~100px
+     below the summary it belongs to. Reading beats the edge alignment. */
   font: 400 14px/1.5 var(--font-ui);
   color: var(--text);
 }
@@ -282,9 +282,7 @@
   .wk-specs {
     order: 4;
     font-size: 12px;
-    /* the 8px also overrides the wide layout's `auto`, which exists to drop
-       this line onto the thumbnail's bottom edge — in the stack there is no
-       shared height to push against */
+    /* half the wide layout's 16px, matching the summary above it */
     margin-top: 8px;
   }
 }
