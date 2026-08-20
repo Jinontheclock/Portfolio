@@ -3,7 +3,6 @@ import cardPoster from "../../assets/welab/welab-card-poster.webp";
 export default {
   id: "welab",
   title: "WeLAB Entertainment",
-  kind: "Client Project · Live Site",
   /* Work-card thumbnail: the case study's own hero clip, cropped to the
      card's proportions and without the wordmark the hero floats over it.
      The card rests on the poster and plays under the pointer.

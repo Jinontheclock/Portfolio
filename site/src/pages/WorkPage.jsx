@@ -20,7 +20,6 @@ const CARD_FIELDS = [
   "locked",
   "passwordHash",
   "title",
-  "kind",
   "description",
   "roles",
   "thumbs",
@@ -89,7 +88,6 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                     </svg>
                   )}
                 </span>
-                <span className="wk-kind">{p.kind}</span>
                 <span className="wk-desc">{p.description}</span>
                 <span className="wk-specs">{p.roles}</span>
               </div>

@@ -1,7 +1,7 @@
 /* Work page — placeholder cards on the same 12-col grid as About and the
    case studies (24px margins, 30px gutters). Card anatomy from
-   components/site/WorkCard.jsx: a text column (title 20px / kind /
-   summary / lowercase roles) beside a grey thumbnail. */
+   components/site/WorkCard.jsx: a text column (title 20px / summary /
+   lowercase roles) beside a grey thumbnail. */
 
 .wk-main {
   flex: 1;
@@ -41,8 +41,6 @@
   .wk-card-link:focus-visible .wk-title {
     color: var(--text-primary);
   }
-  .wk-card-link:hover .wk-kind,
-  .wk-card-link:focus-visible .wk-kind,
   .wk-card-link:hover .wk-desc,
   .wk-card-link:focus-visible .wk-desc,
   .wk-card-link:hover .wk-specs,
@@ -135,14 +133,6 @@
   font: 400 var(--size-card-title) / 1.25 var(--font-ui);
   letter-spacing: -0.01em;
   color: var(--text-primary);
-}
-
-/* What kind of project it was and what it ran on — the line that answers
-   both questions before the summary has to. Set like the summary rather
-   than like the small print underneath it, because it is read first. */
-.wk-kind {
-  font: 400 var(--size-body) / 1.6 var(--font-ui);
-  color: var(--text);
 }
 
 .wk-desc {
@@ -238,7 +228,7 @@
      the padding back to .ab-grid's phone margin.
 
      No row-gap: the spacing is set line by line below instead, because the
-     picture has to close up against the title above it and the kind line
+     picture has to close up against the title above it and the summary
      under it, and one gap for the whole column cannot leave two of its
      lines out. */
   .wk-card {
@@ -248,19 +238,19 @@
     padding-left: 20px;
   }
 
-  /* The text column stops being a box and hands its four lines to the
+  /* The text column stops being a box and hands its three lines to the
      card's own stack. That is what lets the picture sit between the title
      and the line after it: the title has to stay inside .wk-text for the
      wide layout, where the two are one grid cell beside the thumbnail, so
      the order cannot come from the markup. Reordering here also keeps the
-     reading order intact — a screen reader still gets title, kind, summary,
+     reading order intact — a screen reader still gets title, summary,
      roles, then the picture, which is the order the card was written in. */
   .wk-text {
     display: contents;
   }
   /* The card's own sizes on a phone, smaller than the tier tokens the wide
      layout takes: the title steps down from --size-card-title's 22px, and
-     the three lines under the picture share one size instead of the
+     the two lines under the picture share one size instead of the
      summary's 14 and the roles line's own 14. Line heights keep the
      proportions they hold elsewhere. */
   .wk-title {
@@ -273,28 +263,24 @@
     width: 100%;
     /* back on its ratio alone — in the stack there is no row to fill */
     height: auto;
-    /* flush against the title and the kind line, which is the whole point
+    /* flush against the title and the summary, which is the whole point
        of the phone layout: more of the next card on screen */
     margin: 0;
   }
-  .wk-kind {
-    order: 3;
-    font-size: 12px;
-  }
-  /* The three lines under the picture are one block of reading, so they sit
+  /* The two lines under the picture are one block of reading, so they sit
      closer to each other than the 16px the wide layout separates them by —
-     at that distance on a phone they read as three unrelated notes. Half
-     of it is still more than the line spacing inside the summary itself,
-     which is what keeps them separate lines rather than one paragraph. */
+     at that distance on a phone they read as unrelated notes. Half of it
+     is still more than the line spacing inside the summary itself, which
+     is what keeps them separate lines rather than one paragraph. */
   .wk-desc {
-    order: 4;
+    order: 3;
     /* no measure cap on a phone — the viewport is the measure */
     max-width: none;
     font-size: 12px;
     margin-top: 8px;
   }
   .wk-specs {
-    order: 5;
+    order: 4;
     font-size: 12px;
     /* the 8px also overrides the wide layout's `auto`, which exists to drop
        this line onto the thumbnail's bottom edge — in the stack there is no

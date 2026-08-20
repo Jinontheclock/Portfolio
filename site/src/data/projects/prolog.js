@@ -3,7 +3,6 @@ import cardPoster from "../../assets/prolog/prolog-card-poster.webp";
 export default {
   id: "prolog",
   title: "ProLog",
-  kind: "0-to-1 Product · Mobile App",
   /* Work-card thumbnail: the app itself running in the two phone mockups —
      the dashboard counting up on the iPhone, a skills quiz being worked
      through on the Galaxy. scripts/record-prolog-hero.mjs records the
@@ -27,9 +26,9 @@ export default {
     ko: "iPhone과 Galaxy에서 동작하는 ProLog 앱. 한쪽은 대시보드 진행률이 채워지고, 다른 쪽은 스킬 퀴즈를 푸는 화면",
   },
   description: {
-    en: "A mobile platform that turns a fragmented 6,000-hour apprenticeship into one clear, accessible roadmap, designed for neurodivergent apprentices.",
-    ja: "バラバラだった6,000時間の見習い課程を、一つの明快で見通しのきくロードマップに変えるモバイルアプリ。ニューロダイバージェントな見習いのために設計しました。",
-    ko: "흩어져 있던 6,000시간의 견습 과정을 하나의 분명하고 접근하기 쉬운 로드맵으로 바꾸는 모바일 앱. 신경다양인 견습생을 위해 설계했습니다.",
+    en: "A 0-to-1 mobile app that turns a fragmented 6,000-hour apprenticeship into one clear, accessible roadmap for neurodivergent apprentices.",
+    ja: "バラバラだった6,000時間の見習い課程を、一つの明快で見通しのきくロードマップに変える0→1のモバイルアプリ。ニューロダイバージェントな見習いのために設計しました。",
+    ko: "흩어져 있던 6,000시간의 견습 과정을 하나의 분명하고 접근하기 쉬운 로드맵으로 바꾸는 0→1 모바일 앱. 신경다양인 견습생을 위해 설계했습니다.",
   },
   roles: {
     en: "Lead Development, UX/UI Design",

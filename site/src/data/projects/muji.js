@@ -38,7 +38,6 @@ const PLACEHOLDER_SECTIONS = [
 export default {
   id: "muji",
   title: "MUJI",
-  kind: "Retail & Spatial UX",
   // company confidentiality: gate the case study behind a password
   locked: true,
   passwordHash:

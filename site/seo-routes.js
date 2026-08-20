@@ -53,7 +53,7 @@ export const ROUTES = [
     path: "work/compass-card",
     title: "Compass Card — HAJIN",
     description: {
-      en: "Redesigning Metro Vancouver's transit fare card system into an iOS and watchOS experience built on TransLink's upcoming account-based model.",
+      en: "A concept app for Metro Vancouver's transit fare card, built for iOS and watchOS on TransLink's upcoming account-based system.",
       ja: "TransLinkがすでに入札にかけたアカウントベースのシステムの上に設計した、メトロバンクーバーの交通運賃カードのiOS・watchOSコンセプトアプリです。",
       ko: "TransLink가 이미 입찰에 부친 계정 기반 시스템 위에 설계한, 메트로밴쿠버 교통 요금 카드의 iOS·watchOS 콘셉트 앱입니다.",
     },
@@ -71,18 +71,18 @@ export const ROUTES = [
     path: "work/prolog",
     title: "ProLog — HAJIN",
     description: {
-      en: "A mobile platform that turns a fragmented 6,000-hour apprenticeship into one clear, accessible roadmap, designed for neurodivergent apprentices.",
-      ja: "バラバラだった6,000時間の見習い課程を、一つの明快で見通しのきくロードマップに変えるモバイルアプリ。ニューロダイバージェントな見習いのために設計しました。",
-      ko: "흩어져 있던 6,000시간의 견습 과정을 하나의 분명하고 접근하기 쉬운 로드맵으로 바꾸는 모바일 앱. 신경다양인 견습생을 위해 설계했습니다.",
+      en: "A 0-to-1 mobile app that turns a fragmented 6,000-hour apprenticeship into one clear, accessible roadmap for neurodivergent apprentices.",
+      ja: "バラバラだった6,000時間の見習い課程を、一つの明快で見通しのきくロードマップに変える0→1のモバイルアプリ。ニューロダイバージェントな見習いのために設計しました。",
+      ko: "흩어져 있던 6,000시간의 견습 과정을 하나의 분명하고 접근하기 쉬운 로드맵으로 바꾸는 0→1 모바일 앱. 신경다양인 견습생을 위해 설계했습니다.",
     },
   },
   {
     path: "work/tinypaws",
     title: "TinyPaws — HAJIN",
     description: {
-      en: "A clear adoption pathway for a rescue website: co-designing the UX, building the brand identity, and hand-coding the responsive site with Astro.",
-      ja: "保護団体のサイトに、迷いのない譲渡までの道すじを。UXの共同設計、ブランドアイデンティティの構築、そしてAstroによるレスポンシブサイトの実装まで担当しました。",
-      ko: "구조 단체 웹사이트에 헤매지 않는 입양 경로를 만들었습니다. UX 공동 설계, 브랜드 아이덴티티 구축, 그리고 Astro로 반응형 사이트를 직접 코딩했습니다.",
+      en: "An academic project that gave a rescue website a clear adoption pathway: co-designing the UX, building the brand identity, and hand-coding the responsive site with Astro.",
+      ja: "学術プロジェクトとして、保護団体のサイトに迷いのない譲渡までの道すじをつくりました。UXの共同設計、ブランドアイデンティティの構築、そしてAstroによるレスポンシブサイトの実装まで担当しました。",
+      ko: "학술 프로젝트로 구조 단체 웹사이트에 헤매지 않는 입양 경로를 만들었습니다. UX 공동 설계, 브랜드 아이덴티티 구축, 그리고 Astro로 반응형 사이트를 직접 코딩했습니다.",
     },
   },
   {
