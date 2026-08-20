@@ -70,12 +70,15 @@ const ABOUT = {
 
 /* The rail. E-mail closes it because the copy above ends by asking for one;
    a mailto: opens the reader's own mail client, so it is the one entry that
-   must not carry target="_blank" — the tab it opened would be left blank. */
+   must not carry target="_blank" — the tab it opened would be left blank.
+
+   The resume is served from public/, so its URL carries whatever base this
+   build is using rather than a hardcoded one. */
+const RESUME = `${import.meta.env.BASE_URL}hajin-lee-resume.pdf`;
+
 const LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/hajin-lee-ca" },
-  // no href yet: renders inert until the PDF exists — a placeholder "#"
-  // would hash-navigate the visitor back to the landing page
-  { label: "Resume", href: null },
+  { label: "Resume", href: RESUME },
   { label: "GitHub", href: "https://github.com/Jinontheclock" },
   { label: "E-mail", href: MAILTO },
 ];
@@ -449,8 +452,12 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
                   key={l.label}
                   href={l.href}
                   className="ab-rail-link"
-                  target={l.href.startsWith("http") ? "_blank" : undefined}
-                  rel={l.href.startsWith("http") ? "noreferrer" : undefined}
+                  /* everything but the mailto opens in its own tab — the
+                     resume included, because a PDF that replaces the page
+                     leaves the reader in a viewer with the site gone and
+                     only the back button to find it again */
+                  target={l.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={l.href.startsWith("mailto:") ? undefined : "noreferrer"}
                 >
                   {l.label}
                 </a>
