@@ -258,8 +258,14 @@
   .wk-text {
     display: contents;
   }
+  /* The card's own sizes on a phone, smaller than the tier tokens the wide
+     layout takes: the title steps down from --size-card-title's 22px, and
+     the three lines under the picture share one size instead of the
+     summary's 14 and the roles line's own 14. Line heights keep the
+     proportions they hold elsewhere. */
   .wk-title {
     order: 1;
+    font-size: 20px;
   }
   .wk-image {
     order: 2;
@@ -273,6 +279,7 @@
   }
   .wk-kind {
     order: 3;
+    font-size: 12px;
   }
   /* The three lines under the picture are one block of reading, so they sit
      closer to each other than the 16px the wide layout separates them by —
@@ -283,10 +290,12 @@
     order: 4;
     /* no measure cap on a phone — the viewport is the measure */
     max-width: none;
+    font-size: 12px;
     margin-top: 8px;
   }
   .wk-specs {
     order: 5;
+    font-size: 12px;
     /* the 8px also overrides the wide layout's `auto`, which exists to drop
        this line onto the thumbnail's bottom edge — in the stack there is no
        shared height to push against */
