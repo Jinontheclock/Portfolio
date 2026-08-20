@@ -369,6 +369,16 @@
   .ab-main {
     padding: 64px 0 220px;
   }
+  /* The opening sentence fills the column like the paragraphs under it.
+     Balancing evens the lines by shortening all of them, which on a wide
+     row is what stops a lone word hanging off the end — but in a phone's
+     column it left the sentence using two thirds of the width it had while
+     the body copy beside it ran to the margin. Measured at 402px: 272 /
+     285 / 233 of a 362px column, against the body's 300 / 309 / 327 / 349.
+     There is no max-width in play; this was the whole of it. */
+  .ab-hero {
+    text-wrap: wrap;
+  }
   .ab-grid {
     padding: 0 20px;
     /* everything spans the full 12 columns on a phone, so the gaps are
