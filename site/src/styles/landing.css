@@ -283,7 +283,14 @@ html.lp-locked body {
   pointer-events: none;
 }
 .lp-loader-count {
-  font: 400 24px/1 var(--font-ui);
+  /* the same size as Work and About in the header, off the same token —
+     24 / 18 / 17 / 16 across the tiers — so the first thing the reader
+     sees is already set at the scale the header will hand over to.
+
+     Line-height stays at 1: the number is alone in a centred grid cell
+     with nothing to share a baseline with, and the tight box is what keeps
+     it optically centred rather than sitting low by the half-leading. */
+  font: 400 var(--size-header-nav) / 1 var(--font-ui);
   /* fixed-width digits so the number doesn't jitter while counting */
   font-variant-numeric: tabular-nums;
   /* The number darkens as it climbs: the muted grey at 0, the page's own
