@@ -39,13 +39,21 @@
    for less motion never gets here: the helper skips the API entirely and
    the page simply changes.
 
+   Twice the language swap's 350ms, and deliberately so rather than by
+   inheriting it. A language change rewrites the words with the layout
+   holding still, so a short fade reads as the page refreshing itself. A
+   crossing replaces everything on screen at once — a full-bleed heading
+   giving way to a list of cards — and a change that large needs the time
+   to read as one thing turning into another rather than as a cut. The
+   curve is still the site's.
+
    The rule has to be written on the pseudo-elements rather than on any
    element of the page: during the crossing neither page is what is on
    screen. Both are photographs, sitting in a tree of their own above the
    document. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 350ms;
+  animation-duration: 700ms;
   animation-timing-function: var(--easing);
 }
 
