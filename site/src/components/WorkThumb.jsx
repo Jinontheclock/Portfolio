@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { isCovered, onCover, onReveal } from "../lib/preloaderBus.js";
 
 /* The block at the right of a Work card, and — for a project that has
    supplied artwork — what fills it.
@@ -14,16 +15,37 @@ import { useEffect, useRef, useState } from "react";
    The card, not this box, is what the pointer is over — a card is one link
    — so the hover state is handed down rather than read here.
 
-   Nothing moves for a reader who has asked for less motion, or on a device
-   with no pointer to hover with: both rest on the first frame. */
+   A device with no pointer has no hover to start any of this with, so a
+   clip plays itself instead: it starts when the thumbnail is half on
+   screen, runs once, and stays on its last frame. That is the whole
+   difference — a phone gets one play-through of what a pointer would have
+   asked for, not a loop running in the corner of the page while the
+   reader is somewhere else.
+
+   Nothing moves for a reader who has asked for less motion. */
 
 const INTERVAL = 1100;
 /* how long the frames take to cross-fade back; the clip is rewound after
    it, once the resting frame has covered it — see work.css */
 const SETTLE = 300;
+/* how much of the thumbnail has to be on screen before a self-playing clip
+   starts: half of it, so it begins when the card is being looked at rather
+   than when its top edge first clips into the viewport */
+const IN_VIEW = 0.5;
+
+/* Read once per mount rather than watched: a device does not grow a
+   pointer mid-session, and the two paths below are different enough that
+   swapping between them mid-play would be worse than not swapping. */
+const hoverCapable = () => window.matchMedia?.("(hover: hover)").matches ?? true;
+const reducedMotion = () =>
+  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 
 export default function WorkThumb({ thumbs, video, alt, hovered }) {
   const [frame, setFrame] = useState(0);
+  /* a self-playing clip has started, so it is the picture now — this never
+     goes back to false, which is what leaves the last frame standing */
+  const [selfPlayed, setSelfPlayed] = useState(false);
+  const [canHover] = useState(hoverCapable);
   const timer = useRef(null);
   const videoRef = useRef(null);
   const rewind = useRef(null);
@@ -47,16 +69,15 @@ export default function WorkThumb({ thumbs, video, alt, hovered }) {
     return () => clearInterval(timer.current);
   }, [hovered, thumbs]);
 
-  /* the clip: plays under the pointer, stops where it is when the pointer
-     goes, and goes back to the top once the poster has faded over it */
+  /* the clip, where there is a pointer: plays under it, stops where it is
+     when the pointer goes, and goes back to the top once the poster has
+     faded over it */
   useEffect(() => {
     const el = videoRef.current;
-    if (!el) return undefined;
+    if (!el || !canHover) return undefined;
     clearTimeout(rewind.current);
 
-    const reduced = window.matchMedia?.(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const reduced = reducedMotion();
     if (hovered && !reduced) {
       /* React drops the muted attribute from the rendered DOM, and an
          unmuted play() is refused — so it is set here, on the element */
@@ -73,7 +94,60 @@ export default function WorkThumb({ thumbs, video, alt, hovered }) {
       }
     }, SETTLE);
     return () => clearTimeout(rewind.current);
-  }, [hovered]);
+  }, [hovered, canHover]);
+
+  /* the clip, where there is no pointer: one play-through, started by the
+     thumbnail coming into view.
+
+     The playhead only advances while the thumbnail is actually on screen,
+     so a reader who scrolls straight past does not burn the play unseen —
+     they get the rest of it when they come back. `ended` is what makes it
+     a play-through rather than a loop: once the clip finishes, nothing
+     starts it again and its last frame is what the card shows.
+
+     The count-up cover is checked too. On a cold load of Work the cards
+     are laid out behind it, so without this the clips would run to the
+     end under an opaque sheet and the reader would arrive at four cards
+     already over. */
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el || canHover || reducedMotion()) return undefined;
+
+    let onScreen = false;
+    let ended = false;
+    const play = () => {
+      if (ended || !onScreen || isCovered()) return;
+      /* React drops the muted attribute from the rendered DOM, and an
+         unmuted play() is refused — so it is set here, on the element */
+      el.muted = true;
+      el.play().catch(() => {});
+      setSelfPlayed(true);
+    };
+    const onEnded = () => {
+      ended = true;
+    };
+    el.addEventListener("ended", onEnded);
+    const io = new IntersectionObserver(
+      ([e]) => {
+        onScreen = e.isIntersecting;
+        if (onScreen) play();
+        else el.pause();
+      },
+      { threshold: IN_VIEW },
+    );
+    io.observe(el);
+    /* no rewind on cover, unlike the case-study heroes: this one is not
+       replayed, so winding it back would only lose whatever the reader had
+       already watched */
+    const offCover = onCover(() => el.pause());
+    const offReveal = onReveal(play);
+    return () => {
+      io.disconnect();
+      el.removeEventListener("ended", onEnded);
+      offCover();
+      offReveal();
+    };
+  }, [canHover]);
 
   if (video) {
     /* the poster underneath is the resting picture; the clip fades over it
@@ -85,12 +159,14 @@ export default function WorkThumb({ thumbs, video, alt, hovered }) {
           ref={videoRef}
           className="wk-frame"
           muted
-          loop
+          /* a pointer can hold the card as long as it likes, so that path
+             keeps looping; the self-playing one runs once by definition */
+          loop={canHover}
           playsInline
           preload="metadata"
           aria-hidden="true"
           tabIndex={-1}
-          style={{ opacity: hovered ? 1 : 0 }}
+          style={{ opacity: hovered || selfPlayed ? 1 : 0 }}
         >
           {video.sources.map((s) => (
             <source key={s.src} src={s.src} type={s.type} />
