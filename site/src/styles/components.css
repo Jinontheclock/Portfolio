@@ -26,6 +26,29 @@
   animation: lang-fadeIn 350ms var(--easing) both;
 }
 
+/* ── Page cross-fade ──
+   The pair of pictures document.startViewTransition takes of a crossing:
+   the page as it was, and the page as it is. The browser's own default is
+   a 250ms fade; these two lines only put it on the site's own clock, the
+   same 350ms and the same curve the language swap above runs at, so a
+   crossing and a language change read as one motion vocabulary rather
+   than two.
+
+   Which crossings start a transition at all is decided in SiteHeader.jsx
+   — right now only the landing page's Work button. A reader who has asked
+   for less motion never gets here: the helper skips the API entirely and
+   the page simply changes.
+
+   The rule has to be written on the pseudo-elements rather than on any
+   element of the page: during the crossing neither page is what is on
+   screen. Both are photographs, sitting in a tree of their own above the
+   document. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 350ms;
+  animation-timing-function: var(--easing);
+}
+
 /* ── PillButton ── */
 .pill-button {
   display: inline-flex;
