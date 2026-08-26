@@ -4,6 +4,7 @@ import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import TryAppModal from "../components/TryAppModal.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
+import ImageLightbox from "../components/ImageLightbox.jsx";
 import ProLogJourney from "../components/ProLogJourney.jsx";
 import TinyPawsMonitor from "../components/TinyPawsMonitor.jsx";
 import WeLabHero from "../components/WeLabHero.jsx";
@@ -366,6 +367,8 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      and the scroll spy below keys its effect on `project`. */
   const project = useMemo(() => (raw ? resolve(raw, lang) : null), [raw, lang]);
   const [demoOpen, setDemoOpen] = useState(false);
+  // the figure a reader has opened out of the page, or null
+  const [zoomed, setZoomed] = useState(null);
   // section currently in view (null = the intro block above the sections)
   const [activeId, setActiveId] = useState(null);
   // password gate: an unlock lasts for the browsing session
@@ -376,6 +379,24 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   useEffect(() => {
     if (project) document.title = `${project.title} — HAJIN`;
   }, [project]);
+
+  /* Every figure in the chapters opens, and there are some forty-five of
+     them spread over a dozen components — so the chapters listen once
+     instead of each image carrying its own handler, and a figure added
+     later opens without being wired up.
+
+     Two things below here are images that are not figures: the halves of a
+     comparison slider, which are dragged over each other rather than
+     looked at one at a time, and anything inside a link or a button, whose
+     own job the click belongs to. */
+  const openFigure = (e) => {
+    const img = e.target.closest?.("img");
+    if (!img) return;
+    if (img.closest("img-comparison-slider, a, button")) return;
+    const src = img.currentSrc || img.src;
+    if (!src) return;
+    setZoomed({ src, alt: img.alt });
+  };
 
   // scroll-spy: the TOC highlights the chapter the reader is inside —
   // the last section whose top has passed the reading line
@@ -550,7 +571,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
               />
             ) : null}
 
-            <div className="cs-sections">
+            <div className="cs-sections" onClick={openFigure}>
               {project.sections.map((s) => (
                 <section key={s.id} id={`cs-${s.id}`} className="cs-section">
                   <h2 className="cs-section-no">{s.label}</h2>
@@ -570,6 +591,10 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       </main>
 
       <SiteFooter lang={lang} setLang={setLang} />
+
+      {zoomed && (
+        <ImageLightbox src={zoomed.src} alt={zoomed.alt} onClose={() => setZoomed(null)} />
+      )}
 
       {project.demo && (
         <TryAppModal
