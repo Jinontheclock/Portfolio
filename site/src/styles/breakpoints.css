@@ -23,6 +23,21 @@
      opposite corner, so its size is capped by the screen's height there
      (see .lp-root .lp-copy) */
   --size-header-nav: 24px; /* Work / About */
+  /* The header's own two numbers, published rather than copied. Anything
+     that has to sit clear of the header needs to know where its bottom
+     edge is, and until now the two sticky rails carried a hand-written
+     40px that was never right: the header is padding-top plus its tallest
+     child, and every child in that row is one line of --size-header-nav
+     at --header-line, so it measures 52px at this tier and 42.67px at the
+     narrowest. The rails rode up by the difference on the first pixel of
+     scroll. */
+  --header-pad-top: 20px;
+  --header-line: 1.3333;
+  --header-h: calc(var(--header-pad-top) + var(--size-header-nav) * var(--header-line));
+  /* where a sticky rail rests: clear of the header, level with the first
+     line of the column beside it, which .ab-main and .cs-main both open
+     140px below the header */
+  --rail-top: calc(var(--header-h) + 140px);
   --size-copy: 18px; /* © HAJIN LEE … */
 
   /* inner pages */

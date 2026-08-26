@@ -32,10 +32,13 @@
   grid-column: 2 / 6;
   grid-row: 1 / 3;
   position: sticky;
-  /* pinned at its natural resting spot (header 40px + .cs-main's 140px top
-     padding) so it holds the exact same position whether scrolled or not —
-     no initial ride-up before it fixes */
-  top: 180px;
+  /* pinned at its own resting spot, so it holds the exact same position
+     whether scrolled or not — no ride-up on the first pixel of scroll.
+     That spot is the header's real height plus .cs-main's top padding,
+     which is what --rail-top computes; the 180px that used to be written
+     here assumed a 40px header and the rail moved 12px on a desktop and
+     2.66px on a tablet. */
+  top: var(--rail-top);
   align-self: start;
   /* a sticky item yields when its MARGIN box hits its grid area's bottom
      — which used to hand the rail a footer-height shove on viewports

@@ -340,7 +340,7 @@
   display: flex;
   align-items: flex-start;
   gap: 20px;
-  padding: 20px var(--page-margin) 0;
+  padding: var(--header-pad-top) var(--page-margin) 0;
 }
 /* Header nav reads as plain text: no pill background. Its size steps per
    breakpoint tier — 24 / 18 / 17 / 16 — rather than holding the 15px the
@@ -354,7 +354,7 @@
   background: none;
   opacity: 1;
   font-size: var(--size-header-nav);
-  line-height: 1.3333;
+  line-height: var(--header-line);
   /* Muted on every device, pointer or not. Letting a touch screen have
      both labels at full strength was tried and reverted: is-active reads
      as the darker of the two, so with nothing to be darker than, the page
@@ -444,7 +444,7 @@
   left: 50%;
   top: 20px;
   transform: translateX(-50%);
-  font: 400 var(--size-header-nav) / 1.3333 var(--font-ui);
+  font: 400 var(--size-header-nav) / var(--header-line) var(--font-ui);
   color: var(--text-primary);
   text-decoration: none;
   cursor: pointer;

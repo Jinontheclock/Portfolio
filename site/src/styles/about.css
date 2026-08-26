@@ -67,11 +67,14 @@
   align-items: flex-start;
   gap: 18px;
   position: sticky;
-  /* pinned at its natural resting spot (header 40px + .ab-main's 140px top
-     padding) so it holds the exact same position whether scrolled or not —
-     no initial ride-up before it fixes. Same value, same reason, as the
-     case studies' .cs-left */
-  top: 180px;
+  /* pinned at its own resting spot, so it holds the exact same position
+     whether scrolled or not — no ride-up on the first pixel of scroll.
+     That spot is the header's real height plus .ab-main's top padding,
+     which is what --rail-top computes; the 180px that used to be written
+     here assumed a 40px header and the rail moved 12px on a desktop and
+     2.66px on a tablet. Same value, same reason, as the case studies'
+     .cs-left */
+  top: var(--rail-top);
   align-self: start;
 }
 
