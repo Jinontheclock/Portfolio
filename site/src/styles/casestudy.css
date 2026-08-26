@@ -1692,79 +1692,45 @@
 /* ── A figure opened out of the page ──────────────────────────────────────
    The artwork is drawn at up to 4800px and read in a 718px column, so the
    backdrop's job is to give a figure the room the column never had. It
-   holds one image, centred, at the size the file was saved at or the
-   largest that fits, whichever is smaller. */
+   holds one image, centred, and clicking off it puts it back. Same dim and
+   same blur as the password gate, so the two modals on this page read as
+   one piece of furniture. */
 .cs-zoom {
   position: fixed;
   inset: 0;
   z-index: 1100;
-  /* margin:auto on the child rather than align-items — a centred flex item
-     that outgrows a scrolling container has its overflowing top and left
-     cut off with no way to scroll back to them, and at 1:1 this one
-     outgrows it on purpose */
   display: flex;
-  overflow: auto;
-  padding: 32px;
-  background: rgba(15, 15, 15, 0.94);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: rgba(15, 15, 15, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   animation: tryapp-fade 180ms ease-out;
   cursor: zoom-out;
 }
 
+/* One box for every figure, so a 4800px board and a 1206px capture come
+   out related to each other rather than each at whatever its file happens
+   to be. The box is square: these range from 5:1 diagrams to 0.46:1 phone
+   captures, and a square bounds both without favouring either — the wide
+   ones meet it on their width, the tall ones on their height. 1120px sits
+   well inside a laptop's 1280 and stops a 4K screen from serving a diagram
+   three metres wide. The viewport still wins where it is smaller. */
 .cs-zoom-img {
-  margin: auto;
+  --zoom-max: 1120px;
   display: block;
-  max-width: 100%;
-  max-height: 100%;
+  width: auto;
+  height: auto;
+  max-width: min(100%, var(--zoom-max));
+  max-height: min(100%, var(--zoom-max));
   /* the page behind is light and a good half of these figures are white
      artboards, so the edge has to be drawn or the image bleeds into the
      backdrop */
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
-}
-
-/* 1:1, where the file has more to show than the fit does */
-.cs-zoom.is-full .cs-zoom-img {
-  max-width: none;
-  max-height: none;
-}
-/* only a figure with something further to open says so */
-.cs-zoom-img.is-in {
-  cursor: zoom-in;
-}
-.cs-zoom-img.is-out {
-  cursor: zoom-out;
-}
-
-/* It carries its own disc because it does not always have the backdrop
-   under it: a phone screenshot is taller than it is wide, so it fills the
-   height and reaches the corner the button sits in, and half these files
-   are white at the top. Measured at 390 x 844: a 1206 x 2622 capture fits
-   to 358 x 778 and takes the button's right 34px. */
-.cs-zoom-close {
-  all: unset;
-  box-sizing: border-box;
-  position: fixed;
-  top: 16px;
-  right: 20px;
-  z-index: 1;
-  width: 40px;
-  height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: rgba(15, 15, 15, 0.55);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  color: #fafafa;
-  font-size: 26px;
-  line-height: 1;
-  cursor: pointer;
-  transition: background var(--duration-fast) var(--easing);
-}
-.cs-zoom-close:hover {
-  background: rgba(15, 15, 15, 0.85);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  /* the one place a click does nothing: looking at the figure should not
+     dismiss it */
+  cursor: default;
 }
 
 /* the figures say they open. The two halves of a comparison slider are
@@ -1777,13 +1743,6 @@
 }
 
 @media (max-width: 600px) {
-  .cs-zoom {
-    padding: 16px;
-  }
-  .cs-zoom-close {
-    top: 8px;
-    right: 10px;
-  }
   /* no figure opens at this width, so nothing here says one will */
   .cs-sections img {
     cursor: auto;
