@@ -67,83 +67,67 @@
 ::view-transition-old(root),
 ::view-transition-new(root) {
   mix-blend-mode: normal;
+  animation-duration: 700ms;
   animation-timing-function: var(--easing);
 }
-
-/* The crossing is 700ms, but the travel is only the first 560 of them.
-   The last 140 are the soft edge closing with the page already standing
-   still, and they are the reason each picture carries two animations
-   instead of one: the two halves need different clocks.
-
-   The edge has to be a fixed width of the SCREEN, which is what the
-   separate clock buys. Written as one animation from a 40% band to none,
-   the band is always 40% of the distance the page has left to travel — so
-   it narrows as the page arrives, is sharpest just as it reaches the left
-   of the screen, and the crossing ends on the hardest edge it ever had.
-   Holding the band and closing it afterwards keeps the same softness the
-   whole way across. */
 ::view-transition-old(root) {
-  animation-name: page-dim, page-cut;
-  animation-duration: 700ms, 560ms;
-  animation-fill-mode: both, both;
-  mask-image: linear-gradient(to right, #000 40%, transparent 40%);
+  animation-name: page-dim;
 }
 ::view-transition-new(root) {
   background: var(--bg);
-  mask-image: linear-gradient(to right, transparent 0%, #000 40%);
-  animation-name: page-enter, page-settle;
-  animation-duration: 560ms, 140ms;
-  animation-delay: 0ms, 560ms;
-  animation-fill-mode: both, both;
+  animation-name: page-enter;
 }
-
-/* the page being left holds its place and dims for the whole crossing */
-@keyframes page-dim {
-  to {
-    opacity: 0.3;
-  }
-}
-/* ...and is cut off dead at the line where the page arriving has gone
-   fully opaque, which is its edge plus the width of its band: 140% of the
-   screen down to 40%, tracking the travel and stopping when it does.
+/* The page being left dims where it still shows, and is cut off dead
+   where the page arriving has finished covering it.
 
    The cut is what keeps the soft edge on the right page. The arriving
    picture is transparent across its leading 40%, so whatever is behind it
-   shows through, and what is behind it is this one. Two gradient stops at
-   the same position is the cut; this page gets no gradient of its own, so
-   nothing about it dissolves — it simply stops being drawn where the
-   picture in front is solid. */
-@keyframes page-cut {
+   shows through, and what is behind it is this one — the band would
+   otherwise read as this page dissolving, which is the opposite of what
+   the band is for. So this page keeps its full strength right through the
+   band, gets no gradient of its own, and simply stops at the line where
+   the arriving page has gone fully opaque. Nothing shows a seam there:
+   past that line the picture in front is solid.
+
+   Two stops at the same position is the hard cut. They are in screen terms
+   because this page does not move: the line runs from 140% to 40%, which
+   is the arriving page's own edge plus the width of its band, tracked all
+   the way across. Change the band's width and both of these move with it,
+   or the cut lands inside the fade and shows as a step. */
+@keyframes page-dim {
   from {
+    opacity: 1;
     mask-image: linear-gradient(to right, #000 140%, transparent 140%);
   }
   to {
+    opacity: 0.3;
     mask-image: linear-gradient(to right, #000 40%, transparent 40%);
   }
 }
-
 /* The side it comes from: translateX(100%) is the right edge, -100% the
    left, and translateY the same for bottom and top. The picture is the
    size of the viewport however tall the page behind it is, so 100% is one
-   screen and not one document. */
+   screen and not one document.
+
+   The mask is the leading edge. Without it the arriving page ends at a
+   ruled line, and a straight edge crossing a page of type reads as a panel
+   being dragged over it. Its own contents fade up across the leading 40%
+   instead, over the page being left — which holds its strength under them
+   and is cut off only past the band, where this picture is solid anyway.
+
+   The band closes to nothing by the end, and that is the part that has to
+   be animated rather than set once: the mask travels with the picture, so
+   a fixed band would still be sitting over the left of the screen at the
+   moment the picture is standing still and about to be swapped for the
+   real page. Every stop is written in the same units at both ends so the
+   two gradients interpolate. */
 @keyframes page-enter {
   from {
     transform: translateX(100%);
-  }
-  to {
-    transform: none;
-  }
-}
-/* The band closes only once the page has stopped, and it has to close:
-   the mask travels with the picture, so a band left standing would still
-   be over the left of the screen at the moment the picture is handed back
-   to the real page, and the swap would show as a flash. Both ends are
-   written in the same units so the two gradients interpolate. */
-@keyframes page-settle {
-  from {
     mask-image: linear-gradient(to right, transparent 0%, #000 40%);
   }
   to {
+    transform: none;
     mask-image: linear-gradient(to right, transparent 0%, #000 0%);
   }
 }
