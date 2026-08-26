@@ -132,6 +132,42 @@
   }
 }
 
+/* ── Coming in from the left ──
+   The landing page is the one a reader comes back to, so it arrives from
+   the other side; Work and About are further in and keep the default.
+
+   Every stop is the same distance measured from the other edge, which is
+   all `to left` does — so these two are the rules above read backwards
+   rather than a second set of values to keep in step. The attribute is put
+   on the root element by lib/viewTransition.js for the length of the
+   crossing. */
+:root[data-page-from="left"]::view-transition-old(root) {
+  animation-name: page-dim-left;
+}
+:root[data-page-from="left"]::view-transition-new(root) {
+  animation-name: page-enter-left;
+}
+@keyframes page-dim-left {
+  from {
+    opacity: 1;
+    mask-image: linear-gradient(to left, #000 140%, transparent 140%);
+  }
+  to {
+    opacity: 0.3;
+    mask-image: linear-gradient(to left, #000 40%, transparent 40%);
+  }
+}
+@keyframes page-enter-left {
+  from {
+    transform: translateX(-100%);
+    mask-image: linear-gradient(to left, transparent 0%, #000 40%);
+  }
+  to {
+    transform: none;
+    mask-image: linear-gradient(to left, transparent 0%, #000 0%);
+  }
+}
+
 /* Work and About sit out the slide.
 
    Naming an element lifts it out of the root snapshot and gives it a pair

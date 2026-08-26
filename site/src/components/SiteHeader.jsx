@@ -10,17 +10,25 @@ const PAGES = [
   { key: "about", label: "About", path: "/about" },
 ];
 
-/* Which crossings are cross-faded, as pairs of "where the reader is" and
-   "where the button goes". Only the landing page's Work button so far:
-   that is the site's front door, and the two screens already share a
-   header — Work and About sit at the same place and size on both, so the
-   fade is the hero giving way to the cards while the labels hold still.
+/* The pages that cross with a page transition, and which side the one
+   arriving comes in from.
 
-   Kept as a list rather than a boolean because the rest of the crossings
-   are still to be decided, and adding one should be adding a line here
-   rather than unpicking a condition. */
-const CROSSFADE = [["/", "/work"]];
-const isCrossFade = (from, to) => CROSSFADE.some(([a, b]) => a === from && b === to);
+   A case study is deliberately not on this list yet, in either direction.
+   The two heavy ones already come in behind the count-up cover, and a
+   crossing plus a cover on the same move is a decision nobody has made.
+   Until then a case study opens and closes the way it always did.
+
+   The landing page is the one a reader comes back to, so it arrives from
+   the left; Work and About are further in and arrive from the right. */
+const CROSSING = ["/", "/work", "/about"];
+const crosses = (from, to) => CROSSING.includes(from) && CROSSING.includes(to);
+const arrivesFrom = (to) => (to === "/" ? "left" : "right");
+
+/* Where the reader is, as one of the paths above. A page reached by URL
+   keeps its trailing slash — the prerendered pages are served at /work/ —
+   while the same page reached in-app has none, so without this the two
+   are different places and half the crossings quietly do nothing. */
+const routeOf = (pathname) => splitLang(pathname).rest.replace(/\/+$/, "") || "/";
 
 /** Inner-page header: Work and About as two side-by-side pills (the current
  *  page reads active), and the HAJIN wordmark centered, linking home. On
@@ -31,7 +39,7 @@ export default function SiteHeader({ current, children }) {
   const { pathname } = useLocation();
   const langPath = useLangPath();
   // the pills compare where the reader is without the language prefix
-  const here = splitLang(pathname).rest;
+  const here = routeOf(pathname);
   const [atTop, setAtTop] = useState(true);
 
   useEffect(() => {
@@ -53,13 +61,24 @@ export default function SiteHeader({ current, children }) {
             // highlights Work but still needs the button to reach /work
             if (here === p.path) return;
             const go = () => navigate(langPath(p.path));
-            if (isCrossFade(here, p.path)) withViewTransition(go);
+            if (crosses(here, p.path)) withViewTransition(go, arrivesFrom(p.path));
             else go();
           }}
         />
       ))}
       {children}
-      <Link to={langPath("/")} className="site-wordmark">
+      <Link
+        to={langPath("/")}
+        className="site-wordmark"
+        onClick={(e) => {
+          /* a modified or middle click is "open this somewhere else", not
+             a crossing — the browser and the Link keep those */
+          if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+          if (!crosses(here, "/")) return;
+          e.preventDefault();
+          withViewTransition(() => navigate(langPath("/")), arrivesFrom("/"));
+        }}
+      >
         HAJIN
       </Link>
     </header>

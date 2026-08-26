@@ -34,7 +34,7 @@ const settle = () => {
   resolve();
 };
 
-export default function withViewTransition(update) {
+export default function withViewTransition(update, from = "right") {
   const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
   if (reduced || typeof document.startViewTransition !== "function") {
     update();
@@ -43,7 +43,13 @@ export default function withViewTransition(update) {
   /* a transition already waiting is one that never got its commit; let it
      go rather than stacking a second one behind it */
   settle();
-  document.startViewTransition(() => {
+  /* Which side the arriving page comes in from, read by the stylesheet off
+     the root element. It has to be set before the transition starts, since
+     that is when the pseudo-elements resolve their animations, and taken
+     off afterwards so it never describes a crossing that is over. */
+  const root = document.documentElement;
+  root.dataset.pageFrom = from;
+  const t = document.startViewTransition(() => {
     update();
     return new Promise((resolve) => {
       pending = resolve;
@@ -53,6 +59,10 @@ export default function withViewTransition(update) {
       capTimer = setTimeout(settle, 500);
     });
   });
+  const clear = () => {
+    if (root.dataset.pageFrom === from) delete root.dataset.pageFrom;
+  };
+  t.finished.then(clear, clear);
 }
 
 /** Mounted once inside the router: tells a waiting transition that the new
