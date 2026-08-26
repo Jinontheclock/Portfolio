@@ -81,7 +81,7 @@
    where the page arriving has finished covering it.
 
    The cut is what keeps the soft edge on the right page. The arriving
-   picture is transparent across its leading 25%, so whatever is behind it
+   picture is transparent across its leading 40%, so whatever is behind it
    shows through, and what is behind it is this one — the band would
    otherwise read as this page dissolving, which is the opposite of what
    the band is for. So this page keeps its full strength right through the
@@ -90,17 +90,18 @@
    past that line the picture in front is solid.
 
    Two stops at the same position is the hard cut. They are in screen terms
-   because this page does not move: the line runs from one screen-width
-   past the right edge to a quarter-screen in, which is the arriving page's
-   own edge plus the width of its band, all the way across. */
+   because this page does not move: the line runs from 140% to 40%, which
+   is the arriving page's own edge plus the width of its band, tracked all
+   the way across. Change the band's width and both of these move with it,
+   or the cut lands inside the fade and shows as a step. */
 @keyframes page-dim {
   from {
     opacity: 1;
-    mask-image: linear-gradient(to right, #000 125%, transparent 125%);
+    mask-image: linear-gradient(to right, #000 140%, transparent 140%);
   }
   to {
     opacity: 0.3;
-    mask-image: linear-gradient(to right, #000 25%, transparent 25%);
+    mask-image: linear-gradient(to right, #000 40%, transparent 40%);
   }
 }
 /* The side it comes from: translateX(100%) is the right edge, -100% the
@@ -110,7 +111,7 @@
 
    The mask is the leading edge. Without it the arriving page ends at a
    ruled line, and a straight edge crossing a page of type reads as a panel
-   being dragged over it. Its own contents fade up across the leading 25%
+   being dragged over it. Its own contents fade up across the leading 40%
    instead, over the page being left — which holds its strength under them
    and is cut off only past the band, where this picture is solid anyway.
 
@@ -123,7 +124,7 @@
 @keyframes page-enter {
   from {
     transform: translateX(100%);
-    mask-image: linear-gradient(to right, transparent 0%, #000 25%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 40%);
   }
   to {
     transform: none;
