@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
@@ -8,6 +8,7 @@ import { PROJECTS } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { PAGE_TITLE } from "../i18n.js";
 import useLangPath from "../hooks/useLangPath.js";
+import withViewTransition, { crossing } from "../lib/viewTransition.js";
 
 /* Everything a card renders, plus what the gate needs to challenge one.
    The case-study bodies behind these five projects come to a quarter of a
@@ -32,6 +33,7 @@ const PROJECT_CARDS = PROJECTS.map((p) =>
 
 export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const langPath = useLangPath();
   const projects = useMemo(() => resolve(PROJECT_CARDS, lang), [lang]);
   // a locked project asks for its password right here, before navigating
@@ -61,7 +63,15 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 if (p.locked && !isUnlocked(p.id)) {
                   e.preventDefault();
                   setGateProject(p);
+                  return;
                 }
+                /* a modified or middle click is "open this somewhere
+                   else", not a crossing — those stay the Link's */
+                if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+                const move = crossing(pathname, `/work/${p.id}`);
+                if (!move) return;
+                e.preventDefault();
+                withViewTransition(() => navigate(langPath(`/work/${p.id}`)), move);
               }}
               onMouseEnter={() => setHovered(p.id)}
               onMouseLeave={() => setHovered((id) => (id === p.id ? null : id))}
@@ -112,7 +122,12 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
           onUnlocked={() => {
             const id = gateProject.id;
             setGateProject(null);
-            navigate(langPath(`/work/${id}`));
+            /* the password opens the same door the card does, so it opens
+               it the same way */
+            const go = () => navigate(langPath(`/work/${id}`));
+            const move = crossing(pathname, `/work/${id}`);
+            if (move) withViewTransition(go, move);
+            else go();
           }}
         />
       )}

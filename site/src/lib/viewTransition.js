@@ -1,5 +1,6 @@
 import { useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { splitLang } from "./lang-routes.js";
 
 /** Run a route change as a page transition, where the browser will do it.
  *
@@ -79,4 +80,41 @@ export default function withViewTransition(update, { from = "right", hold } = {}
 export function useRouteCommitted() {
   const { pathname } = useLocation();
   useLayoutEffect(settle, [pathname]);
+}
+
+/* ── Which crossings transition, and how ──
+
+   Three depths: the landing page, the two pages off it, and a case study
+   inside Work. A page deeper than the one being left arrives from the
+   right and a shallower one from the left, so the direction is the move
+   itself rather than a list of pairs — the reader is always going further
+   in or coming back out, and the page says which. Work and About are the
+   same depth as each other; neither is "back" from the other, so those
+   two keep the forward direction.
+
+   The wordmark holds still wherever both pages have one, which is
+   everywhere except a crossing with the landing page: that one hides it,
+   and a name on one side only is not a thing that held still but a thing
+   that arrived. */
+const depthOf = (route) => {
+  if (route === "/") return 0;
+  return route.split("/").filter(Boolean).length;
+};
+
+/** A pathname as one of the site's routes: no language prefix, no
+ *  trailing slash. A page reached by URL keeps one — the prerendered pages
+ *  are served at /work/ — and the same page reached in-app has none. */
+export const routeOf = (pathname) =>
+  splitLang(pathname).rest.replace(/\/+$/, "") || "/";
+
+/** What this move should look like, or null if it is not a crossing.
+ *  Both arguments may be raw pathnames. */
+export function crossing(fromPath, toPath) {
+  const from = routeOf(fromPath);
+  const to = routeOf(toPath);
+  if (from === to) return null;
+  return {
+    from: depthOf(to) < depthOf(from) ? "left" : "right",
+    hold: from !== "/" && to !== "/" ? "wordmark" : undefined,
+  };
 }

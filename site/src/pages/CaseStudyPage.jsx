@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import TryAppModal from "../components/TryAppModal.jsx";
@@ -135,6 +135,7 @@ import { getProject } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { noOrphan, noOrphanSegments } from "../lib/no-orphan.js";
 import useLangPath from "../hooks/useLangPath.js";
+import withViewTransition, { crossing } from "../lib/viewTransition.js";
 
 // ProLog is exported to the Portfolio under /prolog/ (see site/public/prolog)
 const PROLOG_SRC = `${import.meta.env.BASE_URL}prolog/`;
@@ -367,6 +368,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   // password gate: an unlock lasts for the browsing session
   const [unlocked, setUnlocked] = useState(() => isUnlocked(id));
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (project) document.title = `${project.title} — HAJIN`;
@@ -428,7 +430,12 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
         <CaseGateModal
           project={project}
           lang={lang}
-          onDismiss={() => navigate(langPath("/work"))}
+          onDismiss={() => {
+            const go = () => navigate(langPath("/work"));
+            const move = crossing(pathname, "/work");
+            if (move) withViewTransition(go, move);
+            else go();
+          }}
           onUnlocked={() => setUnlocked(true)}
         />
       </div>
