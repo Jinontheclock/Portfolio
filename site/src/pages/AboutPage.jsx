@@ -111,26 +111,24 @@ const DESCRIPTIONS = {
 const EXPERIENCES = [
   {
     id: "welab",
-    title: "UI/UX Designer",
+    title: "UI/UX Designer Intern",
     org: "WeLAB Entertainment",
     period: {
       en: "Mar 2026 – May 2026",
       ko: "2026.03 – 2026.05",
       ja: "2026.03 – 2026.05",
     },
-    type: "Internship",
     location: "Vancouver, Canada",
   },
   {
     id: "muji",
-    title: "Visual Merchandiser",
+    title: "Visual Merchandiser Full-time",
     org: "MUJI Japan",
     period: {
       en: "Apr 2022 – Sep 2024",
       ko: "2022.04 – 2024.09",
       ja: "2022.04 – 2024.09",
     },
-    type: "Full-time",
     location: "Tokyo, Japan",
   },
 ];
@@ -138,18 +136,16 @@ const EXPERIENCES = [
 const EDUCATION = [
   {
     id: "bcit",
-    title: "Digital Design and Development",
+    title: "Digital Design and Development Diploma",
     org: "British Columbia Institute of Technology",
     period: { en: "Jun 2026", ko: "2026.06", ja: "2026.06" },
-    type: "Diploma",
     location: "Burnaby, Canada",
   },
   {
     id: "inha",
-    title: "Fashion Design and Textiles",
+    title: "Bachelor of Fashion Design and Textiles",
     org: "Inha University",
     period: { en: "Feb 2022", ko: "2022.02", ja: "2022.02" },
-    type: "Bachelor's Degree",
     location: "Incheon, Korea",
   },
 ];
@@ -368,14 +364,18 @@ const SKILLS = {
   ],
 };
 
-/** One post: the title with its period right-aligned, the organisation
- *  under it, then the engagement with its place and what the work was.
+/** One post, in two rows and a paragraph: what it was with when, then
+ *  who it was with and where, then what the work was.
+ *
+ *  The engagement is part of the title rather than a field of its own —
+ *  "UI/UX Designer Intern" is one thing a reader scans, not a job and a
+ *  contract type to put together — and the place belongs beside the
+ *  organisation for the same reason. That leaves the two right-hand
+ *  columns reading down as when and where.
  *
  *  All of it, always. This used to unfold on hover and pin open on a click,
  *  which put the part that says what was actually done behind a gesture —
- *  and behind one that a phone does not have, so a reader there had to
- *  discover that the rows were tappable. Six entries of three lines each is
- *  not a list that needs managing. */
+ *  and behind one that a phone does not have. */
 function Entry({ entry }) {
   return (
     <div className="xp-entry">
@@ -384,15 +384,12 @@ function Entry({ entry }) {
           <span>{entry.title}</span>
           <span className="xp-right">{entry.period}</span>
         </span>
-        <span>{entry.org}</span>
-      </div>
-      <div className="xp-detail">
-        <div className="xp-row xp-type-row">
-          <span>{entry.type}</span>
+        <span className="xp-row">
+          <span>{entry.org}</span>
           <span className="xp-right">{entry.location}</span>
-        </div>
-        <p className="xp-desc">{entry.description}</p>
+        </span>
       </div>
+      <p className="xp-desc">{entry.description}</p>
     </div>
   );
 }

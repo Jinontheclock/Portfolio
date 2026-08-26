@@ -286,18 +286,11 @@
   white-space: nowrap;
 }
 
-/* This was a 0fr → 1fr grid so it could animate its own height open and
-   shut. It is always open now, so it is a block, and the inner wrapper
-   that existed only to be clipped is gone with it. */
-.xp-detail {
-  font: 400 var(--size-body) / 1.6 var(--font-ui);
-  color: var(--text);
-}
-.xp-type-row {
-  margin-top: 20px;
-}
+/* what the work was, under the two rows that name the post */
 .xp-desc {
   margin: 20px 0 0;
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  color: var(--text);
   white-space: pre-line;
 }
 
