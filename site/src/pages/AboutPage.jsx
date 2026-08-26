@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
 import SiteFooter from "../components/SiteFooter.jsx";
 import useFitToWidth from "../hooks/useFitToWidth.js";
+import useScrollFade from "../lib/scroll-fade.js";
 import { PAGE_TITLE } from "../i18n.js";
 import portrait from "../assets/about-portrait.webp";
 
@@ -376,6 +377,20 @@ const SKILLS = {
  *  All of it, always. This used to unfold on hover and pin open on a click,
  *  which put the part that says what was actually done behind a gesture —
  *  and behind one that a phone does not have. */
+/* What fades, block by block, rather than the column in one piece: an
+   entry, a paragraph, a skill group each answer for themselves, so the
+   reading line moves through the page instead of the whole page moving at
+   once. Nothing here is taller than a screen, which is what the band
+   between START and END assumes. */
+const SCROLL_FADE = [
+  ".ab-portrait",
+  ".ab-lede",
+  ".ab-content > .ab-paragraph",
+  ".ab-section-label",
+  ".xp-entry",
+  ".ab-skill-group",
+].join(", ");
+
 function Entry({ entry }) {
   return (
     <div className="xp-entry">
@@ -419,6 +434,11 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
 
   // on mobile the rail is a single row above the name; shrink to fit one line
   const railRef = useFitToWidth(12);
+  /* Every block of the column fades in as the reader reaches it and out
+     again as it leaves. The rail is deliberately outside this: it is stuck
+     to the viewport, so it is never the thing being scrolled past. */
+  const contentRef = useRef(null);
+  useScrollFade(contentRef, SCROLL_FADE, [lang]);
   const about = ABOUT[lang] || ABOUT.en;
   const withDesc = (list) =>
     list.map((e) => ({
@@ -457,7 +477,7 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
             )}
           </nav>
 
-          <div className="ab-content">
+          <div className="ab-content" ref={contentRef}>
             {/* opens the column, and the first thing on the page worth
                 loading — no lazy attribute, or it arrives late */}
             <img
