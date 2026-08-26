@@ -67,7 +67,7 @@
 ::view-transition-old(root),
 ::view-transition-new(root) {
   mix-blend-mode: normal;
-  animation-duration: 700ms;
+  animation-duration: var(--duration-page);
   animation-timing-function: var(--easing);
 }
 ::view-transition-old(root) {
@@ -193,7 +193,7 @@
 ::view-transition-new(nav-work),
 ::view-transition-old(nav-about),
 ::view-transition-new(nav-about) {
-  animation-duration: 700ms;
+  animation-duration: var(--duration-page);
   animation-timing-function: var(--easing);
 }
 
@@ -217,7 +217,7 @@
 }
 ::view-transition-old(site-wordmark),
 ::view-transition-new(site-wordmark) {
-  animation-duration: 700ms;
+  animation-duration: var(--duration-page);
   animation-timing-function: var(--easing);
 }
 

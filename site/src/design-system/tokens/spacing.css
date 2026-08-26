@@ -23,4 +23,10 @@
   --easing: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
   --duration-fast: 150ms; /* @kind other */
   --duration-base: 250ms; /* @kind other */
+  /* One crossing between pages. Four pairs of view-transition
+     pseudo-elements run on it — the two page snapshots, the Work/About
+     labels and the wordmark — and they have to finish together or the
+     header settles before the page it belongs to arrives, so they read it
+     from here rather than each carrying its own number. */
+  --duration-page: 500ms; /* @kind other */
 }
