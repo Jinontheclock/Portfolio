@@ -89,7 +89,7 @@
 
    The mask is the leading edge. Without it the arriving page ends at a
    ruled line, and a straight edge crossing a page of type reads as a panel
-   being dragged over it. Fading the first 18% of the picture out lets the
+   being dragged over it. Fading the first 25% of the picture out lets the
    page it is covering show through the front of it instead, so the edge is
    where one page becomes the other rather than where one stops.
 
@@ -102,7 +102,7 @@
 @keyframes page-enter {
   from {
     transform: translateX(100%);
-    mask-image: linear-gradient(to right, transparent 0%, #000 18%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 25%);
   }
   to {
     transform: none;
