@@ -377,19 +377,18 @@ const SKILLS = {
  *  All of it, always. This used to unfold on hover and pin open on a click,
  *  which put the part that says what was actually done behind a gesture —
  *  and behind one that a phone does not have. */
-/* What fades, block by block, rather than the column in one piece: an
-   entry, a paragraph, a skill group each answer for themselves, so the
-   reading line moves through the page instead of the whole page moving at
-   once. Nothing here is taller than a screen, which is what the band
-   between START and END assumes. */
+/* What fades, and what it fades with. Five things, each one something a
+   reader arrives at whole: the photograph with the name and the line that
+   answers it, then the prose, then each section under its own heading.
+
+   Paragraph by paragraph was the first cut and it read as chatter — four
+   separate arrivals inside one continuous thought, and a heading that came
+   in on its own before the thing it was heading. */
 const SCROLL_FADE = [
-  ".ab-portrait",
-  ".ab-lede",
-  ".ab-content > .ab-paragraph",
-  ".ab-section-label",
-  ".xp-entry",
-  ".ab-skill-group",
-].join(", ");
+  [".ab-portrait", ".ab-lede"], // the photograph, the name, the opening line
+  [".ab-content > .ab-paragraph"], // the prose, in one piece
+  ".ab-section", // Experience, Education and Skills, each whole
+];
 
 function Entry({ entry }) {
   return (

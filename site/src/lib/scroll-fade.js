@@ -27,16 +27,32 @@ const DURATION = 0.45;
 const IN = { y: 0, opacity: 1, duration: DURATION, overwrite: "auto" };
 const out = (y) => ({ y, opacity: 0, duration: DURATION, overwrite: "auto" });
 
+/* A group is what fades as one thing.
+
+     "sel"              every element that matches is its own group
+     ["sel-a", "sel-b"] everything they match is one group, in document order
+
+   The second form is how a run of siblings is held together without a
+   wrapper element around them: the group's first member is what starts it
+   and its last member is what ends it, and one tween moves them all. Adding
+   a wrapper would have done the same job, but .ab-content is a flex column
+   with a gap, and a box put around two of its children changes the spacing
+   of everything in it. */
+const asGroups = (spec) =>
+  typeof spec === "string"
+    ? gsap.utils.toArray(spec).map((el) => [el])
+    : [gsap.utils.toArray(spec.join(", "))].filter((g) => g.length);
+
 /**
- * Fades the given blocks in and out as the reader passes them.
+ * Fades the given groups in and out as the reader passes them.
  *
- * @param root     ref to the element the blocks live in
- * @param selector what to fade, relative to that element
- * @param deps     re-measure when these change (a language switch reflows
- *                 every block on the page, so the triggers have to be rebuilt
- *                 against the new heights)
+ * @param root   ref to the element the groups live in
+ * @param specs  what to fade, relative to that element (see asGroups)
+ * @param deps   re-measure when these change (a language switch reflows
+ *               every block on the page, so the triggers have to be rebuilt
+ *               against the new heights)
  */
-export default function useScrollFade(root, selector, deps = []) {
+export default function useScrollFade(root, specs, deps = []) {
   useLayoutEffect(() => {
     const el = root.current;
     if (!el) return undefined;
@@ -57,21 +73,26 @@ export default function useScrollFade(root, selector, deps = []) {
        measurement is what makes the numbers describe the page. The state
        each block should be left in is restored by its own onRefresh below,
        which runs after. */
-    let blocks = [];
-    const flatten = () => gsap.set(blocks, { y: 0 });
+    let members = [];
+    const flatten = () => gsap.set(members, { y: 0 });
     ScrollTrigger.addEventListener("refreshInit", flatten);
 
     const ctx = gsap.context(() => {
-      blocks = gsap.utils.toArray(selector);
-      blocks.forEach((block) => {
+      const groups = specs.flatMap(asGroups);
+      members = groups.flat();
+      groups.forEach((group) => {
         ScrollTrigger.create({
-          trigger: block,
+          /* the group starts on its first member and ends on its last, so
+             the band is drawn around the whole run rather than around
+             whichever piece of it happened to be picked */
+          trigger: group[0],
+          endTrigger: group[group.length - 1],
           start: START,
           end: END,
-          onEnter: () => gsap.to(block, IN),
-          onEnterBack: () => gsap.to(block, IN),
-          onLeave: () => gsap.to(block, out(-SHIFT)),
-          onLeaveBack: () => gsap.to(block, out(SHIFT)),
+          onEnter: () => gsap.to(group, IN),
+          onEnterBack: () => gsap.to(group, IN),
+          onLeave: () => gsap.to(group, out(-SHIFT)),
+          onLeaveBack: () => gsap.to(group, out(SHIFT)),
           /* State, not animation. This runs on creation and on every
              re-measure, and it is what makes the page correct at the moment
              it is looked at rather than a beat later: whatever is in the
@@ -83,8 +104,8 @@ export default function useScrollFade(root, selector, deps = []) {
              empty. Snapping here, inside a layout effect, means the picture
              is taken of the finished page. */
           onRefresh: (self) => {
-            if (self.isActive) gsap.set(block, { y: 0, opacity: 1 });
-            else gsap.set(block, { y: self.progress >= 1 ? -SHIFT : SHIFT, opacity: 0 });
+            if (self.isActive) gsap.set(group, { y: 0, opacity: 1 });
+            else gsap.set(group, { y: self.progress >= 1 ? -SHIFT : SHIFT, opacity: 0 });
           },
         });
       });
@@ -117,5 +138,5 @@ export default function useScrollFade(root, selector, deps = []) {
       ctx.revert();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [root, selector, ...deps]);
+  }, [root, specs, ...deps]);
 }
