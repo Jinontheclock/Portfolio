@@ -2,11 +2,14 @@
    Sizes come from the per-breakpoint variables in breakpoints.css,
    which mirror the Figma responsive set (1440/1280/834/402). */
 
-html,
-body,
-#root {
-  height: 100%;
-}
+/* Nothing is sized off this any more: the landing page and the inner
+   pages each set their own `min-height: 100dvh`, and every one of them
+   lays out identically without it — measured at 1440 and at 390, on all
+   three. It is worth being gone rather than merely unused, because on iOS
+   Safari a percentage height resolves against the SMALL viewport, the one
+   with the toolbar showing, and the toolbar's coming and going is exactly
+   what makes a strip at the bottom of the screen behave differently from
+   the rest of it. */
 
 /* Kill the vertical overscroll (rubber-band) bounce on every page while
    keeping normal scrolling on About/Work. Y-axis only — a blanket `none`
