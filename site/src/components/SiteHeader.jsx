@@ -24,6 +24,13 @@ const CROSSING = ["/", "/work", "/about"];
 const crosses = (from, to) => CROSSING.includes(from) && CROSSING.includes(to);
 const arrivesFrom = (to) => (to === "/" ? "left" : "right");
 
+/* The wordmark holds still only where both pages have one. The landing
+   page hides it, so on a crossing with that page there is nothing to hold
+   it against: it belongs to whichever inner page has it and travels with
+   that page, arriving or leaving. Between Work and About it is the same
+   two syllables in the same place, and travelling would be a lie. */
+const holdWordmark = (from, to) => (from !== "/" && to !== "/" ? "wordmark" : undefined);
+
 /* Where the reader is, as one of the paths above. A page reached by URL
    keeps its trailing slash — the prerendered pages are served at /work/ —
    while the same page reached in-app has none, so without this the two
@@ -61,8 +68,12 @@ export default function SiteHeader({ current, children }) {
             // highlights Work but still needs the button to reach /work
             if (here === p.path) return;
             const go = () => navigate(langPath(p.path));
-            if (crosses(here, p.path)) withViewTransition(go, arrivesFrom(p.path));
-            else go();
+            if (crosses(here, p.path)) {
+              withViewTransition(go, {
+                from: arrivesFrom(p.path),
+                hold: holdWordmark(here, p.path),
+              });
+            } else go();
           }}
         />
       ))}
@@ -76,7 +87,10 @@ export default function SiteHeader({ current, children }) {
           if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
           if (!crosses(here, "/")) return;
           e.preventDefault();
-          withViewTransition(() => navigate(langPath("/")), arrivesFrom("/"));
+          withViewTransition(() => navigate(langPath("/")), {
+            from: arrivesFrom("/"),
+            hold: holdWordmark(here, "/"),
+          });
         }}
       >
         HAJIN

@@ -197,6 +197,30 @@
   animation-timing-function: var(--easing);
 }
 
+/* The wordmark sits out the slide too, but only on the crossings that
+   have one at both ends — Work to About and back.
+
+   It cannot simply be named the way the two labels are. The landing page
+   hides it, and an element named on one side of a crossing and missing on
+   the other is not something that held still: it is something that
+   arrived, and the browser animates it as one. On those crossings it
+   belongs to the inner page and should travel with it, which is what an
+   unnamed element in the moving picture already does. So the name is put
+   on for the length of a crossing that keeps it, by
+   lib/viewTransition.js, and is not there otherwise.
+
+   Between Work and About the two snapshots are the same five letters at
+   the same place and size, so there is nothing for the pair to do beyond
+   sit still — which is the point. */
+:root[data-page-hold="wordmark"] .site-wordmark {
+  view-transition-name: site-wordmark;
+}
+::view-transition-old(site-wordmark),
+::view-transition-new(site-wordmark) {
+  animation-duration: 700ms;
+  animation-timing-function: var(--easing);
+}
+
 /* ── PillButton ── */
 .pill-button {
   display: inline-flex;

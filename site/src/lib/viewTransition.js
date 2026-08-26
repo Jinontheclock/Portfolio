@@ -34,7 +34,7 @@ const settle = () => {
   resolve();
 };
 
-export default function withViewTransition(update, from = "right") {
+export default function withViewTransition(update, { from = "right", hold } = {}) {
   const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
   if (reduced || typeof document.startViewTransition !== "function") {
     update();
@@ -49,6 +49,12 @@ export default function withViewTransition(update, from = "right") {
      off afterwards so it never describes a crossing that is over. */
   const root = document.documentElement;
   root.dataset.pageFrom = from;
+  /* What holds still across this particular crossing, for the stylesheet
+     to name and lift out of the moving picture. It has to be on before the
+     transition starts so the FIRST photograph is taken with it, and stay on
+     through the second — an element named in only one of the two is not a
+     thing that held still, it is a thing that arrived. */
+  if (hold) root.dataset.pageHold = hold;
   const t = document.startViewTransition(() => {
     update();
     return new Promise((resolve) => {
@@ -61,6 +67,7 @@ export default function withViewTransition(update, from = "right") {
   });
   const clear = () => {
     if (root.dataset.pageFrom === from) delete root.dataset.pageFrom;
+    if (hold && root.dataset.pageHold === hold) delete root.dataset.pageHold;
   };
   t.finished.then(clear, clear);
 }
