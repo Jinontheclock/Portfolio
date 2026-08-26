@@ -82,13 +82,31 @@
     opacity: 0.3;
   }
 }
-/* the side it comes from: translateX(100%) is the right edge, -100% the
+/* The side it comes from: translateX(100%) is the right edge, -100% the
    left, and translateY the same for bottom and top. The picture is the
    size of the viewport however tall the page behind it is, so 100% is one
-   screen and not one document. */
+   screen and not one document.
+
+   The mask is the leading edge. Without it the arriving page ends at a
+   ruled line, and a straight edge crossing a page of type reads as a panel
+   being dragged over it. Fading the first 18% of the picture out lets the
+   page it is covering show through the front of it instead, so the edge is
+   where one page becomes the other rather than where one stops.
+
+   The band closes to nothing by the end, and that is the part that has to
+   be animated rather than set once: the mask travels with the picture, so
+   a fixed band would still be sitting over the left of the screen at the
+   moment the picture is standing still and about to be swapped for the
+   real page. Every stop is written in the same units at both ends so the
+   two gradients interpolate. */
 @keyframes page-enter {
   from {
     transform: translateX(100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 18%);
+  }
+  to {
+    transform: none;
+    mask-image: linear-gradient(to right, transparent 0%, #000 0%);
   }
 }
 
