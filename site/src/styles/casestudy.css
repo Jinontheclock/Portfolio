@@ -1781,6 +1781,10 @@
     top: 8px;
     right: 10px;
   }
+  /* no figure opens at this width, so nothing here says one will */
+  .cs-sections img {
+    cursor: auto;
+  }
 }
 
 /* a reader who has asked for less motion gets the backdrop without the

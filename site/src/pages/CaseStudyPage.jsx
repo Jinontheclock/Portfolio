@@ -5,6 +5,7 @@ import SiteFooter from "../components/SiteFooter.jsx";
 import TryAppModal from "../components/TryAppModal.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
 import ImageLightbox from "../components/ImageLightbox.jsx";
+import useIsPhone from "../hooks/useIsPhone.js";
 import ProLogJourney from "../components/ProLogJourney.jsx";
 import TinyPawsMonitor from "../components/TinyPawsMonitor.jsx";
 import WeLabHero from "../components/WeLabHero.jsx";
@@ -369,6 +370,12 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   const [demoOpen, setDemoOpen] = useState(false);
   // the figure a reader has opened out of the page, or null
   const [zoomed, setZoomed] = useState(null);
+  /* Figures do not open on a phone. There, the column is already the width
+     of the screen, so the fitted figure comes out the same size it went in
+     — 350px in the page against 358px on the backdrop, measured on the
+     widest board in the studies at 390. All the modal would add is a step
+     between the reader and the page. */
+  const isPhone = useIsPhone();
   // section currently in view (null = the intro block above the sections)
   const [activeId, setActiveId] = useState(null);
   // password gate: an unlock lasts for the browsing session
@@ -390,6 +397,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      looked at one at a time, and anything inside a link or a button, whose
      own job the click belongs to. */
   const openFigure = (e) => {
+    if (isPhone) return;
     const img = e.target.closest?.("img");
     if (!img) return;
     if (img.closest("img-comparison-slider, a, button")) return;
@@ -592,7 +600,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
 
       <SiteFooter lang={lang} setLang={setLang} />
 
-      {zoomed && (
+      {zoomed && !isPhone && (
         <ImageLightbox src={zoomed.src} alt={zoomed.alt} onClose={() => setZoomed(null)} />
       )}
 
