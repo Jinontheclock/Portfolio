@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
 import SiteFooter from "../components/SiteFooter.jsx";
 import useFitToWidth from "../hooks/useFitToWidth.js";
-import useCanHover from "../hooks/useCanHover.js";
 import { PAGE_TITLE } from "../i18n.js";
 import portrait from "../assets/about-portrait.webp";
 
@@ -369,41 +368,30 @@ const SKILLS = {
   ],
 };
 
-/** Head (title with the period right-aligned, then org) matches the Figma
- *  list format; hovering unfolds type + location and the description, and a
- *  click pins it open so it stays after the mouse leaves. */
+/** One post: the title with its period right-aligned, the organisation
+ *  under it, then the engagement with its place and what the work was.
+ *
+ *  All of it, always. This used to unfold on hover and pin open on a click,
+ *  which put the part that says what was actually done behind a gesture —
+ *  and behind one that a phone does not have, so a reader there had to
+ *  discover that the rows were tappable. Six entries of three lines each is
+ *  not a list that needs managing. */
 function Entry({ entry }) {
-  const canHover = useCanHover();
-  const [pinned, setPinned] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  // on touch, a tapped mouseenter sticks, so ignore hover and let taps toggle
-  const open = pinned || (canHover && hovered);
-
   return (
-    <div
-      className="xp-entry"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <button
-        type="button"
-        className="xp-head"
-        onClick={() => setPinned((p) => !p)}
-      >
+    <div className="xp-entry">
+      <div className="xp-head">
         <span className="xp-row">
           <span>{entry.title}</span>
           <span className="xp-right">{entry.period}</span>
         </span>
         <span>{entry.org}</span>
-      </button>
-      <div className={"xp-detail" + (open ? " is-open" : "")}>
-        <div className="xp-detail-inner">
-          <div className="xp-row xp-type-row">
-            <span>{entry.type}</span>
-            <span className="xp-right">{entry.location}</span>
-          </div>
-          <p className="xp-desc">{entry.description}</p>
+      </div>
+      <div className="xp-detail">
+        <div className="xp-row xp-type-row">
+          <span>{entry.type}</span>
+          <span className="xp-right">{entry.location}</span>
         </div>
+        <p className="xp-desc">{entry.description}</p>
       </div>
     </div>
   );

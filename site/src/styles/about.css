@@ -262,22 +262,15 @@
   gap: 40px;
 }
 
+/* the two lines that name the post — no longer a control, so nothing here
+   answers a pointer */
 .xp-head {
-  all: unset;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 4px;
   width: 100%;
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
-  text-align: left;
-  cursor: pointer;
-  transition: color var(--duration-fast) var(--easing);
-}
-
-.xp-head:hover {
-  color: var(--text-primary);
 }
 
 .xp-row {
@@ -293,18 +286,10 @@
   white-space: nowrap;
 }
 
-/* unfolds on the quiet curve; 0fr → 1fr animates the natural height */
+/* This was a 0fr → 1fr grid so it could animate its own height open and
+   shut. It is always open now, so it is a block, and the inner wrapper
+   that existed only to be clipped is gone with it. */
 .xp-detail {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows var(--duration-base) ease-out;
-}
-.xp-detail.is-open {
-  grid-template-rows: 1fr;
-}
-.xp-detail-inner {
-  overflow: hidden;
-  min-height: 0;
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
 }
