@@ -5,8 +5,12 @@ import { beginCover, endCover } from "../lib/preloaderBus.js";
  *  while it finishes assembling — webfonts, eager images, and the hero
  *  videos (ProLog journey, TinyPaws monitor). The number is a courtesy for
  *  slow loads only: if everything is ready inside a short grace window the
- *  cover simply lifts and no digits are ever shown. Covers the app's first
- *  load, and in-app entry into media-heavy case studies. */
+ *  cover simply lifts and no digits are ever shown.
+ *
+ *  The app's first load only, now: a page reached by URL, a reload, or a
+ *  pasted link. A page opened from inside the app is carried by the page
+ *  crossing instead (see lib/viewTransition.js), which lands the reader at
+ *  the top of the new page and lets the rest stream in below. */
 const GRACE_MS = 350; // ready within this → lift the cover, never show a number
 const MIN_SHOWN_MS = 500; // once the number appears, keep it up long enough to read
 const PACE_MS = 1400; // the 0→99 run, once the number is showing

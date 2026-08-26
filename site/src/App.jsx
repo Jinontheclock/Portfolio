@@ -26,28 +26,17 @@ function ScrollToTop() {
   return null;
 }
 
-// media-heavy case studies re-run the count-up cover on in-app entry, so
-// their hero video and figures never appear mid-load (first loads on any
-// route are already covered by the boot Preloader below)
-const COVERED_ROUTES = ["/work/tinypaws", "/work/welab"];
-function CaseStudyLoader() {
-  const { pathname } = useLocation();
-  const [covering, setCovering] = useState(false);
-  const prev = useRef(pathname);
-  // layout effect: the cover must be up BEFORE the new page's first paint,
-  // or the half-assembled hero flashes for a frame — the exact thing the
-  // cover exists to hide
-  useLayoutEffect(() => {
-    if (pathname !== prev.current) {
-      prev.current = pathname;
-      // compare without the language prefix: /ko/work/welab is the same
-      // heavy page as /work/welab and needs the same cover
-      if (COVERED_ROUTES.includes(splitLang(pathname).rest)) setCovering(true);
-    }
-  }, [pathname]);
-  if (!covering) return null;
-  return <Preloader onDone={() => setCovering(false)} />;
-}
+// TinyPaws and WeLAB used to raise the count-up cover again when they were
+// opened from inside the app, to hide their hero video assembling. The page
+// crossing does that job now: it carries the reader across on its own clock
+// and lands them at the top of the new page, and a second cover on top of
+// it only replaced the page with a blank field for the length of the move.
+// A case study opened from inside now behaves like the other three always
+// did — the top of it is what arrives, and the rest streams in below.
+//
+// The boot cover is untouched. A case study reached by URL, a reload, or a
+// pasted link still comes up behind it, because there is no crossing there
+// to carry the wait.
 
 // remount the case-study page whenever :id changes, so per-project state
 // (the password gate, the demo modal, the scroll spy) never carries over
@@ -191,7 +180,6 @@ function Site() {
   return (
     <>
       <ScrollToTop />
-      <CaseStudyLoader />
       <Routes>
         {LANGS.flatMap((l) =>
           PAGES.map((p) => {
