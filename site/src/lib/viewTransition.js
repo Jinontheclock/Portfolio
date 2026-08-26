@@ -79,7 +79,10 @@ export default function withViewTransition(update, { from = "right", hold } = {}
  *  flashing back before the transition starts. */
 export function useRouteCommitted() {
   const { pathname } = useLocation();
-  useLayoutEffect(settle, [pathname]);
+  useLayoutEffect(() => {
+    lastPath = pathname;
+    settle();
+  }, [pathname]);
 }
 
 /* ── Which crossings transition, and how ──
@@ -101,11 +104,24 @@ const depthOf = (route) => {
   return route.split("/").filter(Boolean).length;
 };
 
-/** A pathname as one of the site's routes: no language prefix, no
- *  trailing slash. A page reached by URL keeps one — the prerendered pages
- *  are served at /work/ — and the same page reached in-app has none. */
-export const routeOf = (pathname) =>
-  splitLang(pathname).rest.replace(/\/+$/, "") || "/";
+/* Where the site is mounted, without its trailing slash: "" on the domain
+   and "/Portfolio" on the project page. */
+const BASE = (import.meta.env.BASE_URL || "/").replace(/\/+$/, "");
+
+/** A pathname as one of the site's routes: no deploy base, no language
+ *  prefix, no trailing slash.
+ *
+ *  All three have to come off or two names for the same page compare as
+ *  different places. The base is the one that bites hardest, because the
+ *  two sources disagree: useLocation() has already taken it off, while
+ *  window.location.pathname — what a popstate has to work from — has not.
+ *  Left in, /Portfolio/work counts as two segments deep and every crossing
+ *  the back button made came out going forwards. */
+export const routeOf = (pathname) => {
+  let p = pathname || "/";
+  if (BASE && (p === BASE || p.startsWith(`${BASE}/`))) p = p.slice(BASE.length) || "/";
+  return splitLang(p).rest.replace(/\/+$/, "") || "/";
+};
 
 /** What this move should look like, or null if it is not a crossing.
  *  Both arguments may be raw pathnames. */
@@ -117,4 +133,48 @@ export function crossing(fromPath, toPath) {
     from: depthOf(to) < depthOf(from) ? "left" : "right",
     hold: from !== "/" && to !== "/" ? "wordmark" : undefined,
   };
+}
+
+/* ── The browser's own back and forward ──
+
+   A click is something this code can be handed; the back button is not. The
+   browser rewinds its own history and React Router simply re-renders, so
+   without this the site slides one way and snaps the other.
+
+   The listener is registered here, at module scope, which is the whole
+   reason it works: this file is imported before the Router is built, and
+   popstate listeners run in the order they were added. So this one goes
+   first, starts the crossing while the old page is still what is on
+   screen, and hands back a promise. React Router's listener runs next and
+   sets its state; useRouteCommitted settles the promise when the new page
+   lands. Nothing here causes the navigation — it only wraps the one the
+   browser is already doing.
+
+   Direction comes from the same depth rule a click uses, so going back out
+   of a case study arrives from the left exactly as pressing Work does, and
+   going forward into it again arrives from the right. lastPath is what
+   makes that possible: history says where the reader is going, not where
+   they were.
+
+   Pointer devices only. A phone's back is an edge swipe, and Safari draws
+   its own slide for it — ours would be a second one underneath.
+
+   The scroll position the browser restores is left alone. It arrives after
+   the crossing has photographed the old page, so the picture holds the
+   view the reader actually had, and the real page is put back at the
+   restored offset underneath. */
+let lastPath = typeof location !== "undefined" ? location.pathname : "/";
+
+if (typeof window !== "undefined") {
+  window.addEventListener("popstate", () => {
+    const from = lastPath;
+    const to = location.pathname;
+    lastPath = to;
+    if (!window.matchMedia?.("(hover: hover)").matches) return;
+    const move = crossing(from, to);
+    if (!move) return;
+    /* no update of its own: the browser has already changed the URL and the
+       Router is about to catch up */
+    withViewTransition(() => {}, move);
+  });
 }
