@@ -33,7 +33,7 @@ export default {
     ko: "VFX 스튜디오 사이트를 감사부터 리디자인, WordPress 구현까지 처음부터 끝까지 맡았습니다. 레이아웃과 인터랙션을 Bricks Builder와 직접 쓴 코드로 다시 만들었습니다.",
   },
   roles: {
-    en: "UI/UX Design, Web Development (Internship)",
+    en: "UI/UX Design, Web Development",
     ja: "UI/UXデザイン、ウェブ開発（インターンシップ）",
     ko: "UI/UX 디자인, 웹 개발(인턴십)",
   },
