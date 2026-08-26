@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import TryAppModal from "../components/TryAppModal.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
 import ImageLightbox from "../components/ImageLightbox.jsx";
+import useScrollFade from "../lib/scroll-fade.js";
 import useIsPhone from "../hooks/useIsPhone.js";
 import ProLogJourney from "../components/ProLogJourney.jsx";
 import TinyPawsMonitor from "../components/TinyPawsMonitor.jsx";
@@ -68,6 +69,22 @@ import {
 import CompassHero from "../components/CompassHero.jsx";
 import { COMPASS_ARTWORK } from "../components/CompassFigures.jsx";
 import { COMPASS_CAPTURES } from "../components/CompassCaptures.jsx";
+
+/* What fades as the reader passes it, and what it fades with.
+
+   The opening is one thing: the hero scene, the headline, the sentences
+   under it and the meta table are a single arrival, not four. Selecting
+   them by position rather than by name is what makes that true of every
+   project — each hero component brings its own root class (.cs-hero,
+   .cs-monitor, the Compass stage), and a project with no hero scene puts a
+   video there instead. Everything the column holds before the chapters
+   start is the opening, whatever it turns out to be.
+
+   Then a chapter at a time: 01, 02, 03, heading and all. */
+const SCROLL_FADE = [
+  [".cs-content > *:not(.cs-sections)"],
+  ".cs-section",
+];
 
 /* hero scenes: live in-page animations a project can use instead of a
    video or the placeholder (see each project's heroScene field) */
@@ -370,6 +387,10 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   const [demoOpen, setDemoOpen] = useState(false);
   // the figure a reader has opened out of the page, or null
   const [zoomed, setZoomed] = useState(null);
+  /* The chapter list beside this is deliberately outside it: the list is
+     stuck to the viewport, so it is never the thing being scrolled past. */
+  const contentRef = useRef(null);
+  useScrollFade(contentRef, SCROLL_FADE, [id, lang]);
   /* Figures do not open on a phone. There, the column is already the width
      of the screen, so the fitted figure comes out the same size it went in
      — 350px in the page against 358px on the backdrop, measured on the
@@ -525,7 +546,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
             </div>
           </div>
 
-          <div className="cs-content">
+          <div className="cs-content" ref={contentRef}>
             {/* a project's hero scene (logo + live animation + mockup) leads
                 the page, above the headline */}
             {HeroScene && <HeroScene />}

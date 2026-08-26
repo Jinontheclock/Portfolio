@@ -34,14 +34,14 @@ const out = (y) => ({ y, opacity: 0, duration: DURATION, overwrite: "auto" });
 
    The second form is how a run of siblings is held together without a
    wrapper element around them: the group's first member is what starts it
-   and its last member is what ends it, and one tween moves them all. Adding
-   a wrapper would have done the same job, but .ab-content is a flex column
-   with a gap, and a box put around two of its children changes the spacing
-   of everything in it. */
-const asGroups = (spec) =>
+   and its last member is what ends it, and one tween moves them all. A
+   wrapper would have done the same job, but these columns are flex with a
+   gap, and a box put around some of their children changes the spacing of
+   everything in them. */
+const asGroups = (root, spec) =>
   typeof spec === "string"
-    ? gsap.utils.toArray(spec).map((el) => [el])
-    : [gsap.utils.toArray(spec.join(", "))].filter((g) => g.length);
+    ? [...root.querySelectorAll(spec)].map((el) => [el])
+    : [[...root.querySelectorAll(spec.join(", "))]].filter((g) => g.length);
 
 /**
  * Fades the given groups in and out as the reader passes them.
@@ -78,7 +78,7 @@ export default function useScrollFade(root, specs, deps = []) {
     ScrollTrigger.addEventListener("refreshInit", flatten);
 
     const ctx = gsap.context(() => {
-      const groups = specs.flatMap(asGroups);
+      const groups = specs.flatMap((spec) => asGroups(el, spec));
       members = groups.flat();
       groups.forEach((group) => {
         ScrollTrigger.create({
@@ -115,12 +115,13 @@ export default function useScrollFade(root, specs, deps = []) {
        scroll number. Anything that moves the page afterwards leaves those
        numbers describing where things used to be.
 
-       This page does move afterwards. The link rail shrinks its own type to
-       fit one line, and on a phone the rail is a row above the column rather
-       than a column beside it, so that shrink drags everything below it up —
-       measured 2 to 21px out on a phone, 0 on a desktop, which is exactly
-       where the rail stops sharing the column. Webfonts landing do the same
-       thing on a slower connection.
+       These pages do move afterwards. On About the link rail shrinks its own
+       type to fit one line, and on a phone that rail is a row above the
+       column rather than a column beside it, so the shrink drags everything
+       below it up — measured 2 to 21px out on a phone against 0 on a
+       desktop, which is exactly where the rail stops sharing the column. A
+       case study has lazy figures settling into their boxes. Webfonts
+       landing do the same thing on a slower connection.
 
        Watching the column's own height catches all of it, and the frame's
        grace stops a burst of reflows from refreshing once each. */
