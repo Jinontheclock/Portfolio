@@ -238,11 +238,12 @@
 }
 
 /* A section break has to out-measure the rhythm inside the sections or it
-   stops reading as a break: entries sit 40px apart and skill groups 48px,
+   stops reading as a break: entries sit 64px apart and skill groups 48px,
    and the old 40px margin left only 60px between sections once the
-   column's own 20px gap was added. 92px puts a clear pause between them —
-   roughly twice the widest interval inside — without approaching the
-   160px the case studies keep between chapters, which are longer reads. */
+   column's own 20px gap was added. 92px still clears the widest of those,
+   and the label's weight does the rest, so the break holds without
+   approaching the 160px the case studies keep between chapters, which
+   are longer reads. */
 .ab-section {
   margin-top: 72px;
   display: flex;
@@ -256,10 +257,15 @@
   color: var(--text-primary);
 }
 
+/* An entry is two blocks with a 20px break of its own between the lines
+   that name the post and the paragraph under them, so the interval
+   between entries has to clear that by enough to keep the two halves
+   reading as one entry. At 40px it was only twice the inner break, and
+   the next post's title crowded the paragraph above it. */
 .xp-list {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 64px;
 }
 
 /* the two lines that name the post — no longer a control, so nothing here
