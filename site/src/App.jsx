@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate, usePa
 import useLang from "./hooks/useLang.js";
 import { LANGS, RETIRED, splitLang, stripRetired, swapLang, withLang } from "./lib/lang-routes.js";
 import Preloader from "./components/Preloader.jsx";
+import { useRouteCommitted } from "./lib/viewTransition.js";
 import LandingPage from "./pages/LandingPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import WorkPage from "./pages/WorkPage.jsx";
@@ -16,6 +17,9 @@ const FADE_MS = 350; // keep in sync with .lang-fade-* in components.css
 // page is long)
 function ScrollToTop() {
   const { pathname } = useLocation();
+  /* a page transition, if one is waiting, is released the moment the new
+     page is in the DOM — see lib/viewTransition.js */
+  useRouteCommitted();
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);

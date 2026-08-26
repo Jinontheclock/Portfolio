@@ -92,6 +92,35 @@
   }
 }
 
+/* Work and About sit out the slide.
+
+   Naming an element lifts it out of the root snapshot and gives it a pair
+   of its own, so the picture that slides in is the page WITHOUT these two
+   in it, and they are left to their own crossing. Theirs is a stay-put
+   one: the pair is at the same place and size on both pages, so the group
+   has nothing to travel, and what is left is the colour changing as Work
+   becomes the page being read. The wordmark beside them is deliberately
+   not named — it belongs to the page arriving, and arrives with it.
+
+   Taken off the two buttons by position rather than by a class of their
+   own: SiteHeader's buttons ARE Work and About, in that order, and the
+   names have to be unique per element for the browser to pair them up. */
+.site-header .pill-button:nth-of-type(1) {
+  view-transition-name: nav-work;
+}
+.site-header .pill-button:nth-of-type(2) {
+  view-transition-name: nav-about;
+}
+/* their colour crosses on the page's clock rather than the browser's
+   250ms, so the label settling and the page arriving finish together */
+::view-transition-old(nav-work),
+::view-transition-new(nav-work),
+::view-transition-old(nav-about),
+::view-transition-new(nav-about) {
+  animation-duration: 700ms;
+  animation-timing-function: var(--easing);
+}
+
 /* ── PillButton ── */
 .pill-button {
   display: inline-flex;
