@@ -133,7 +133,7 @@ const FIGURES = {
 const SHOTS = { ...PROLOG_SHOTS, ...TINYPAWS_SHOTS, ...COMPASS_SHOTS, ...COMPASS_CAPTURES };
 import { getProject } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
-import { noOrphan, noOrphanSegments } from "../lib/no-orphan.js";
+import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
 import useLangPath from "../hooks/useLangPath.js";
 import withViewTransition, { crossing } from "../lib/viewTransition.js";
 
@@ -355,6 +355,9 @@ function Block({ block, onDemo, demoHref }) {
  *  right, built from each section's block list. */
 export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   const { id } = useParams();
+  /* re-set the copy when the viewport crosses the phone breakpoint — the
+     orphan glue is off on a phone and on above it */
+  useOrphanControl();
   const langPath = useLangPath();
   const raw = getProject(id);
   /* One pass folds every { en, ja, ko } node in the project down to the

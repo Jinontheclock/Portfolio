@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
-import { noOrphan, noOrphanSegments } from "../lib/no-orphan.js";
+import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
 import SiteFooter from "../components/SiteFooter.jsx";
 import useFitToWidth from "../hooks/useFitToWidth.js";
 import useCanHover from "../hooks/useCanHover.js";
@@ -425,6 +425,9 @@ function SkillRow({ row }) {
 }
 
 export default function AboutPage({ lang, setLang, fadeClass = "" }) {
+  /* re-set the copy when the viewport crosses the phone breakpoint — the
+     orphan glue below is off on a phone and on above it */
+  useOrphanControl();
   useEffect(() => {
     document.title = PAGE_TITLE.about[lang] || PAGE_TITLE.about.en;
   }, [lang]);
