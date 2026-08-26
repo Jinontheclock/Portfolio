@@ -77,9 +77,30 @@
   background: var(--bg);
   animation-name: page-enter;
 }
+/* The page being left dims where it still shows, and is cut off dead
+   where the page arriving has finished covering it.
+
+   The cut is what keeps the soft edge on the right page. The arriving
+   picture is transparent across its leading 25%, so whatever is behind it
+   shows through, and what is behind it is this one — the band would
+   otherwise read as this page dissolving, which is the opposite of what
+   the band is for. So this page keeps its full strength right through the
+   band, gets no gradient of its own, and simply stops at the line where
+   the arriving page has gone fully opaque. Nothing shows a seam there:
+   past that line the picture in front is solid.
+
+   Two stops at the same position is the hard cut. They are in screen terms
+   because this page does not move: the line runs from one screen-width
+   past the right edge to a quarter-screen in, which is the arriving page's
+   own edge plus the width of its band, all the way across. */
 @keyframes page-dim {
+  from {
+    opacity: 1;
+    mask-image: linear-gradient(to right, #000 125%, transparent 125%);
+  }
   to {
     opacity: 0.3;
+    mask-image: linear-gradient(to right, #000 25%, transparent 25%);
   }
 }
 /* The side it comes from: translateX(100%) is the right edge, -100% the
@@ -89,9 +110,9 @@
 
    The mask is the leading edge. Without it the arriving page ends at a
    ruled line, and a straight edge crossing a page of type reads as a panel
-   being dragged over it. Fading the first 25% of the picture out lets the
-   page it is covering show through the front of it instead, so the edge is
-   where one page becomes the other rather than where one stops.
+   being dragged over it. Its own contents fade up across the leading 25%
+   instead, over the page being left — which holds its strength under them
+   and is cut off only past the band, where this picture is solid anyway.
 
    The band closes to nothing by the end, and that is the part that has to
    be animated rather than set once: the mask travels with the picture, so
