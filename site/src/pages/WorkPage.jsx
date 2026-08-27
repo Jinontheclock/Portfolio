@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
@@ -9,6 +9,7 @@ import { resolve } from "../data/projects/resolve.js";
 import { PAGE_TITLE } from "../i18n.js";
 import useLangPath from "../hooks/useLangPath.js";
 import withViewTransition, { crossing } from "../lib/viewTransition.js";
+import useScrollFade from "../lib/scroll-fade.js";
 
 /* Everything a card renders, plus what the gate needs to challenge one.
    The case-study bodies behind these five projects come to a quarter of a
@@ -31,6 +32,12 @@ const PROJECT_CARDS = PROJECTS.map((p) =>
   Object.fromEntries(CARD_FIELDS.filter((k) => k in p).map((k) => [k, p[k]])),
 );
 
+/* One card at a time. A card is already a single thing — a title, what it
+   was, and the thumbnail that answers them, all inside one link — so there
+   is nothing finer to break it into and nothing coarser worth grouping it
+   with. */
+const SCROLL_FADE = [".wk-card"];
+
 export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -44,6 +51,8 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   useEffect(() => {
     document.title = PAGE_TITLE.work[lang] || PAGE_TITLE.work.en;
   }, [lang]);
+  const listRef = useRef(null);
+  useScrollFade(listRef, SCROLL_FADE, [lang]);
 
   return (
     <div className="ab-root">
@@ -53,7 +62,7 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
           Landing and About — without this the switch reads as a dead delay
           followed by a text snap */}
       <main className={"wk-main " + fadeClass}>
-        <div className="wk-list">
+        <div className="wk-list" ref={listRef}>
           {projects.map((p) => (
             <Link
               key={p.id}
