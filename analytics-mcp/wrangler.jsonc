@@ -1,0 +1,27 @@
+{
+  // A separate Worker from the site itself (site/wrangler.jsonc, "hajin-lee").
+  // Nothing here touches that deploy: Workers Builds is pointed at one config
+  // file, and this is a different one.
+  "name": "hajin-lee-analytics-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-16",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // No durable_objects and no migrations, on purpose. Those belong to
+  // McpAgent, which is a stateful server backed by a Durable Object. This one
+  // remembers nothing between requests, so it is a stateless
+  // createMcpHandler and there is no class to bind or migrate.
+
+  // CF_ACCOUNT_ID is not secret — it identifies an account, it does not open
+  // one — so it can live here in the open. The other two are secrets and are
+  // set with `wrangler secret put`, never written to this file:
+  //   wrangler secret put CF_API_TOKEN
+  //   wrangler secret put MCP_SHARED_SECRET
+  "vars": {
+    "CF_ACCOUNT_ID": ""
+  },
+
+  "observability": {
+    "enabled": true
+  }
+}

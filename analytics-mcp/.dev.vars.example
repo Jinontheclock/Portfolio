@@ -1,0 +1,5 @@
+# Copy to .dev.vars for `wrangler dev`. .dev.vars is gitignored — the real
+# values never belong in the repository.
+CF_API_TOKEN=
+CF_ACCOUNT_ID=
+MCP_SHARED_SECRET=

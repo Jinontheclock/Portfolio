@@ -1,0 +1,21 @@
+{
+  "name": "hajin-lee-analytics-mcp",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "types": "wrangler types"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "agents": "^0.22.0",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260830.1",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.127.1"
+  }
+}
