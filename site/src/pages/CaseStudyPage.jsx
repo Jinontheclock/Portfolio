@@ -86,6 +86,28 @@ const SCROLL_FADE = [
   ".cs-section",
 ];
 
+/* The line a chapter is read at. The scroll spy calls a chapter current once
+   its heading has passed this, and the chapter list scrolls a chapter to
+   exactly here — one number, so the chapter you land on is the chapter that
+   lights up. */
+const READING_LINE = 140;
+/* A chapter scrolled to the reading line lands ON it, and a fraction of a
+   pixel either side of the comparison decides whether it counts as reached.
+   Landing at 140.3 and asking for "at or above 140" marks the chapter before
+   it instead — measured across three case studies, seven of Compass's eight
+   chapters highlighted one short. A pixel of slack is smaller than anything
+   a reader can see and settles it. */
+const READING_SLACK = 1;
+
+/* Where a section's heading sits in the document, with the scroll fade's own
+   offset taken back out. A faded section is parked 40px from where the layout
+   puts it, and a scroll aimed at the box you can see lands 40px wrong the
+   moment the fade settles it back. */
+const documentTopOf = (el) => {
+  const shift = new DOMMatrixReadOnly(getComputedStyle(el).transform).m42;
+  return el.getBoundingClientRect().top + window.scrollY - shift;
+};
+
 /* hero scenes: live in-page animations a project can use instead of a
    video or the placeholder (see each project's heroScene field) */
 const HERO_SCENES = {
@@ -390,6 +412,8 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   /* The chapter list beside this is deliberately outside it: the list is
      stuck to the viewport, so it is never the thing being scrolled past. */
   const contentRef = useRef(null);
+  // last scroll position seen while re-aiming a chapter jump (see scrollTo)
+  const lastY = useRef(-1);
   useScrollFade(contentRef, SCROLL_FADE, [id, lang]);
   /* Figures do not open on a phone. There, the column is already the width
      of the screen, so the fitted figure comes out the same size it went in
@@ -427,8 +451,10 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     setZoomed({ src, alt: img.alt });
   };
 
-  // scroll-spy: the TOC highlights the chapter the reader is inside —
-  // the last section whose top has passed the reading line
+  /* scroll-spy: the TOC highlights the chapter the reader is inside — the
+     last section whose heading has passed the reading line. Measured off the
+     layout rather than the painted box, so a chapter parked 40px away by the
+     scroll fade does not light up early or late. */
   useEffect(() => {
     if (!project) return;
     const ids = project.sections.map((s) => s.id);
@@ -436,7 +462,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       let current = null;
       for (const sid of ids) {
         const el = document.getElementById(`cs-${sid}`);
-        if (el && el.getBoundingClientRect().top <= 140) current = sid;
+        if (el && documentTopOf(el) - window.scrollY <= READING_LINE + READING_SLACK) current = sid;
         else break;
       }
       // fully scrolled: the last chapter is what's being read even if its
@@ -495,15 +521,40 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     );
   }
 
+  /* Jump to a chapter, and stay jumped.
+   *
+   * scrollIntoView aims at where the element is now and is then left behind
+   * by the page: the figures below the fold are lazy, and each one that
+   * arrives mid-flight grows the document and cancels the browser's smooth
+   * scroll where it stands. Measured on Compass, chapter 03: the scroll dies
+   * about a thousand pixels short, with the fade on and equally with it off.
+   *
+   * So the target is recomputed as the page settles and the scroll re-aimed
+   * until it holds still — and abandoned the moment the reader touches the
+   * wheel, because from then on the position is theirs, not ours. */
   const scrollTo = (sectionId) => {
-    if (!sectionId) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-    document.getElementById(`cs-${sectionId}`)?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    const el = sectionId ? document.getElementById(`cs-${sectionId}`) : null;
+    if (sectionId && !el) return;
+    const targetOf = () => (el ? Math.max(0, documentTopOf(el) - READING_LINE) : 0);
+
+    window.scrollTo({ top: targetOf(), behavior: "smooth" });
+    if (!el) return;
+
+    let frame = 0;
+    const until = performance.now() + 2500;
+    const stop = () => cancelAnimationFrame(frame);
+    const settle = () => {
+      const want = targetOf();
+      if (Math.abs(window.scrollY - want) < 2 || performance.now() > until) return stop();
+      /* only re-aim once the browser's own scroll has come to rest, or every
+         frame would restart it and nothing would ever move */
+      if (window.scrollY === lastY.current) window.scrollTo({ top: want, behavior: "smooth" });
+      lastY.current = window.scrollY;
+      frame = requestAnimationFrame(settle);
+    };
+    window.addEventListener("wheel", stop, { passive: true, once: true });
+    window.addEventListener("touchstart", stop, { passive: true, once: true });
+    frame = requestAnimationFrame(settle);
   };
 
   return (

@@ -1,6 +1,7 @@
 import { useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { splitLang } from "./lang-routes.js";
+import { captureScroll } from "./scroll-memory.js";
 
 /** Run a route change as a page transition, where the browser will do it.
  *
@@ -36,6 +37,10 @@ const settle = () => {
 };
 
 export default function withViewTransition(update, { from = "right", hold } = {}) {
+  /* Before anything else, and whether or not there is an animation to play:
+     this is the last instant at which the scroll position still belongs to
+     the page being left. See lib/scroll-memory.js. */
+  captureScroll();
   const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
   if (reduced || typeof document.startViewTransition !== "function") {
     update();
@@ -173,8 +178,10 @@ if (typeof window !== "undefined") {
     if (!window.matchMedia?.("(hover: hover)").matches) return;
     const move = crossing(from, to);
     if (!move) return;
-    /* no update of its own: the browser has already changed the URL and the
-       Router is about to catch up */
+    /* No update of its own: the browser has already changed the URL and the
+       Router is about to catch up. Nothing is written down for this crossing
+       either, and scroll-memory knows that without being told: it listens for
+       popstate itself, because half of these never get here. */
     withViewTransition(() => {}, move);
   });
 }

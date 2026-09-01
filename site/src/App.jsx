@@ -4,6 +4,7 @@ import useLang from "./hooks/useLang.js";
 import { LANGS, RETIRED, splitLang, stripRetired, swapLang, withLang } from "./lib/lang-routes.js";
 import Preloader from "./components/Preloader.jsx";
 import { useRouteCommitted } from "./lib/viewTransition.js";
+import useScrollMemory from "./lib/scroll-memory.js";
 import LandingPage from "./pages/LandingPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import WorkPage from "./pages/WorkPage.jsx";
@@ -11,18 +12,16 @@ import CaseStudyPage from "./pages/CaseStudyPage.jsx";
 
 const FADE_MS = 350; // keep in sync with .lang-fade-* in components.css
 
-// every route change starts at the top of the new page — without this the
-// browser keeps the old page's scroll offset, so opening a case study from
-// a scrolled Work page lands mid-chapter (worst on mobile, where the Work
-// page is long)
-function ScrollToTop() {
-  const { pathname } = useLocation();
+// A page the reader chose starts at the top; a page they came back to opens
+// where they left it. Without the first, the browser keeps the old page's
+// offset and a case study opened from a scrolled Work page lands mid-chapter.
+// Without the second, the back button costs them their place in the list —
+// worst on mobile, where the Work page is long. See lib/scroll-memory.js.
+function ScrollMemory() {
   /* a page transition, if one is waiting, is released the moment the new
      page is in the DOM — see lib/viewTransition.js */
   useRouteCommitted();
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+  useScrollMemory();
   return null;
 }
 
@@ -179,7 +178,7 @@ function Site() {
 
   return (
     <>
-      <ScrollToTop />
+      <ScrollMemory />
       <Routes>
         {LANGS.flatMap((l) =>
           PAGES.map((p) => {
