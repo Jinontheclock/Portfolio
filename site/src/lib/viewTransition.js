@@ -27,6 +27,18 @@ import { captureScroll } from "./scroll-memory.js";
  */
 let pending = null;
 let capTimer = 0;
+/* Which crossing owns the root element's attributes.
+ *
+ * Starting a transition while one is running skips the first, and the first
+ * one's finished promise settles at that moment — inside the second one. Its
+ * tidy-up would then take the second's attributes off mid-crossing, and an
+ * element named on the old side and not the new is not a thing that held
+ * still: it is a thing that left, which the browser animates as one.
+ * Measured on two clicks 120ms apart, data-page-hold came off partway
+ * through and the wordmark travelled with the page.
+ *
+ * So each crossing takes a number, and only the newest clears up. */
+let epoch = 0;
 
 const settle = () => {
   if (!pending) return;
@@ -61,6 +73,9 @@ export default function withViewTransition(update, { from = "right", hold } = {}
      through the second — an element named in only one of the two is not a
      thing that held still, it is a thing that arrived. */
   if (hold) root.dataset.pageHold = hold;
+  /* and taken off when this crossing does not keep it, so a hold left over
+     from a crossing still finishing does not describe this one */
+  else delete root.dataset.pageHold;
   const t = document.startViewTransition(() => {
     update();
     return new Promise((resolve) => {
@@ -71,9 +86,12 @@ export default function withViewTransition(update, { from = "right", hold } = {}
       capTimer = setTimeout(settle, 500);
     });
   });
+  const mine = ++epoch;
   const clear = () => {
-    if (root.dataset.pageFrom === from) delete root.dataset.pageFrom;
-    if (hold && root.dataset.pageHold === hold) delete root.dataset.pageHold;
+    /* a newer crossing has these now, and will take them off itself */
+    if (mine !== epoch) return;
+    delete root.dataset.pageFrom;
+    delete root.dataset.pageHold;
   };
   t.finished.then(clear, clear);
 }

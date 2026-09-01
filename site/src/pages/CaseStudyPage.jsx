@@ -421,6 +421,15 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      widest board in the studies at 390. All the modal would add is a step
      between the reader and the page. */
   const isPhone = useIsPhone();
+  /* A figure held open while the window narrows past the phone breakpoint
+     has nowhere to be: the modal is not rendered at that width. Left in
+     state it is not gone, only hidden, and widening the window again opens
+     a figure the reader never asked for — measured, a figure opened at 1440
+     came back on its own after a trip down to 500 and back. Closing it with
+     the modal is what "figures do not open on a phone" already meant. */
+  useEffect(() => {
+    if (isPhone) setZoomed(null);
+  }, [isPhone]);
   // section currently in view (null = the intro block above the sections)
   const [activeId, setActiveId] = useState(null);
   // password gate: an unlock lasts for the browsing session

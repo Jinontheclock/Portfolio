@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { freezePage } from "../lib/freeze-page.js";
 
 /* Password gate for confidential case studies (projects with `locked` +
@@ -60,18 +60,27 @@ export default function CaseGateModal({ project, lang, onUnlocked, onDismiss }) 
   const [shake, setShake] = useState(false);
   const copy = GATE_COPY[lang] || GATE_COPY.en;
 
+  /* onDismiss arrives as a fresh closure on every render of the page behind
+     this, and an effect keyed on it freezes and thaws again each time — on a
+     browser that draws a scrollbar, that is the page behind stepping
+     sideways and back. Freezing belongs to the modal being up, not to the
+     page under it re-rendering, so the callback goes in a ref and the effect
+     holds still. */
+  const dismissCb = useRef(onDismiss);
+  dismissCb.current = onDismiss;
+
   // freeze the page and listen for Escape while the gate is up
   useEffect(() => {
     const thaw = freezePage();
     const onKey = (e) => {
-      if (e.key === "Escape") onDismiss?.();
+      if (e.key === "Escape") dismissCb.current?.();
     };
     document.addEventListener("keydown", onKey);
     return () => {
       thaw();
       document.removeEventListener("keydown", onKey);
     };
-  }, [onDismiss]);
+  }, []);
 
   const tryUnlock = async (e) => {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import frameOrange from "../assets/iphone-17-pro-orange.webp";
 import frameBlue from "../assets/iphone-17-pro-blue.webp";
 import { freezePage } from "../lib/freeze-page.js";
@@ -70,31 +70,29 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
   const [scale, setScale] = useState(1);
   const [webLayout, setWebLayout] = useState(computeWebLayout);
 
+  /* onClose arrives as a fresh closure on every render of the page behind
+     this, and freezing and thawing are things to do once on the way in and
+     once on the way out — not every time the page re-renders under us. Each
+     needless cycle hands the scrollbar back and takes it away again, which
+     is the page behind stepping sideways and back. The ref lets the effect
+     hold still while the callback moves. */
+  const closeCb = useRef(onClose);
+  closeCb.current = onClose;
+
   useEffect(() => {
-    if (!open) return;
+    if (!open) return undefined;
     const onKey = (e) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") closeCb.current();
     };
     document.addEventListener("keydown", onKey);
-    // iOS Safari ignores overflow:hidden on html for touch scrolling, and a
-    // scrolling page drags fixed overlays out of place (bare bands above and
-    // below the backdrop) — pinning the body freezes the page for real
-    const scrollY = window.scrollY;
-    const thaw = freezePage();
-    const body = document.body.style;
-    const prevBody = { position: body.position, top: body.top, width: body.width };
-    body.position = "fixed";
-    body.top = `-${scrollY}px`;
-    body.width = "100%";
+    // pinned: this one has to hold on a phone, where a scrolling page would
+    // drag the backdrop out of place. See freezePage.
+    const thaw = freezePage({ pin: true });
     return () => {
       document.removeEventListener("keydown", onKey);
       thaw();
-      body.position = prevBody.position;
-      body.top = prevBody.top;
-      body.width = prevBody.width;
-      window.scrollTo(0, scrollY);
     };
-  }, [open, onClose]);
+  }, [open]);
 
   useLayoutEffect(() => {
     if (!open) return;
