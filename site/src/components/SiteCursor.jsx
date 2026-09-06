@@ -61,7 +61,15 @@ const REST = 17; // Motion: b
 const OVER = 31; // Motion: j
 const CARET_W = 4; // Motion: H
 const CARET_H = 20; // Motion: oe, the fallback when font-size is unreadable
-const PAD = 5; // Motion: magneticOptions.padding
+
+/* The air around a control's label inside the box. Motion pads a flat 5px
+   on every side; asked for more room, and room is a function of the type it
+   surrounds — the same 12px is generous around a 16px chapter label and
+   tight around the 24px header — so it is measured in the label's own em.
+   At the header's 24px that is 12 across and 7 down; at a chapter's 16px,
+   8 and 5. */
+const PAD_X_EM = 0.5;
+const PAD_Y_EM = 0.3;
 
 /* How much of the pointer's own movement survives while the cursor holds a
    control — mouse-follower states the pull from that end. Motion's default is
@@ -207,7 +215,8 @@ export default function SiteCursor() {
         /* the outline is painted differently from the circles — see cursor.css */
         el.classList.toggle("-morph", morph);
         if (morph) {
-          size(r.width + PAD * 2, r.height + PAD * 2);
+          const em = parseFloat(window.getComputedStyle(target).fontSize) || 16;
+          size(r.width + PAD_X_EM * em * 2, r.height + PAD_Y_EM * em * 2);
           /* the magnet has to hold the same box the outline was drawn to —
              for a stretched chapter button the element's centre is out in
              the air, half a rail away from its label */

@@ -339,7 +339,9 @@
   z-index: 10;
   display: flex;
   align-items: flex-start;
-  gap: 20px;
+  /* the air between Work and About. Work holds the page margin and does not
+     move; widening this moves About alone */
+  gap: 32px;
   padding: var(--header-pad-top) var(--page-margin) 0;
 }
 /* Header nav reads as plain text: no pill background. Its size steps per
