@@ -79,7 +79,8 @@
 }
 
 .ab-rail-link {
-  /* same voice as the body copy, underline on hover like every text link */
+  /* same voice as the body copy; the hover is the darker ink alone, no
+     rule under it */
   font: 400 var(--size-body) / 1.6 var(--font-ui);
   color: var(--text);
   text-decoration: none;
@@ -89,37 +90,6 @@
 
 .ab-rail-link:hover {
   color: var(--text-primary);
-}
-
-/* The rule grows from the left rather than appearing whole.
-
-   It has to be a background: text-decoration cannot be drawn at a fraction
-   of its width. --underline-y (components.css) is where text-decoration
-   would have put it, so the line keeps the 1px and the 3px of air it had.
-
-   These declarations sit here rather than beside the other links' in
-   components.css because the `transition` above is a shorthand: from a
-   file that loads later it resets the whole list, and background-size
-   silently stopped being animated at all. */
-@media (hover: hover) {
-  .ab-rail-link {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-repeat: no-repeat;
-    background-position: right var(--underline-y);
-    background-size: 0 1px;
-    transition:
-      color var(--duration-fast) var(--easing),
-      background-size var(--duration-base) var(--easing);
-  }
-  .ab-rail-link:hover,
-  .ab-rail-link:focus-visible {
-    background-position: left var(--underline-y);
-    background-size: 100% 1px;
-  }
-  /* an entry with nowhere to go draws no rule */
-  .ab-rail-link.is-pending {
-    background-image: none;
-  }
 }
 
 /* an entry whose destination doesn't exist yet: visible but inert */
@@ -168,8 +138,8 @@
 }
 
 /* a link inside the copy: sits in the sentence undisturbed and answers on
-   hover with the rule and the darker ink — the same pair the link rail
-   uses, so both links on the page behave alike */
+   hover with the darker ink alone — the same answer the link rail gives,
+   so both links on the page behave alike */
 .ab-paragraph a {
   color: inherit;
   text-decoration: none;
@@ -177,24 +147,6 @@
 }
 .ab-paragraph a:hover {
   color: var(--text-primary);
-}
-
-/* the same rule, growing the same way — see .ab-rail-link above */
-@media (hover: hover) {
-  .ab-paragraph a {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-repeat: no-repeat;
-    background-position: right var(--underline-y);
-    background-size: 0 1px;
-    transition:
-      color var(--duration-fast) var(--easing),
-      background-size var(--duration-base) var(--easing);
-  }
-  .ab-paragraph a:hover,
-  .ab-paragraph a:focus-visible {
-    background-position: left var(--underline-y);
-    background-size: 100% 1px;
-  }
 }
 
 /* takes the rest of the line beside the name; the air below it now belongs
