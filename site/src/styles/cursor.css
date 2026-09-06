@@ -139,18 +139,22 @@
 
    Over a control it has taken the shape of, the cursor stops being a dot
    drawn on top of the page and becomes the ground the label sits on: a
-   muted grey box with the label black on it. Inversion cannot do that — it
-   turns the letters white — so this state blends by darken instead, which
-   keeps whichever is darker at each point. Over the page that is the box's
-   own grey, exactly --bg-muted; over the letters it is the letters. The
-   circles keep their inversion, which is what keeps them visible over a
-   dark figure. */
+   grey box with the label black on it. Inversion cannot do that — it turns
+   the letters white — so this state blends by darken instead, which keeps
+   whichever is darker at each point. Over the page that is the box's own
+   grey, exactly the token; over the letters it is the letters. The circles
+   keep their inversion, which is what keeps them visible over a dark
+   figure.
+
+   The grey is one step down the site's ramp from --bg-muted, which was
+   tried first and read too faint against the page — eighteen levels
+   between #E8 and #FA is not much of a box. */
 @supports (mix-blend-mode: darken) {
   .hl-cursor.-morph {
     mix-blend-mode: darken;
   }
   .hl-cursor.-morph::before {
-    background: var(--bg-muted);
+    background: var(--grey-200);
   }
 }
 .hl-cursor.-morph::before {
