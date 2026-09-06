@@ -13,13 +13,8 @@ export default function LandingPage({ lang, setLang }) {
     document.title = "HAJIN, Product Designer";
   }, []);
 
-  // Lock scroll/overscroll while on the landing page so it can't rubber-band
-  useEffect(() => {
-    document.documentElement.classList.add("lp-locked");
-    return () => document.documentElement.classList.remove("lp-locked");
-  }, []);
-
   return (
+    <>
     <div className="lp-root">
       {/* Work and About come from the inner pages' own header rather than
           from a nav of this page's own, so crossing between here and there
@@ -62,5 +57,31 @@ export default function LandingPage({ lang, setLang }) {
         <LangSwitcher value={lang} onChange={setLang} />
       </div>
     </div>
+
+    {/* The footer, revealed.
+
+        It is not below the page so much as behind it: a black band pinned
+        to the bottom of the screen, which the hero covers until the reader
+        scrolls, and then uncovers by exactly its own height. That is the
+        whole of what this page scrolls — the hero is still one screen, and
+        the band is the one thing under it.
+
+        Three boxes make the trick, all in landing.css. The slot is the
+        band's place in the flow and clips everything to it; the track is a
+        screen taller than the slot and hoisted a screen up, so the sticky
+        band inside it can hold at the bottom of the viewport while the slot
+        scrolls up over it. No fixed positioning anywhere, so nothing here
+        has to be reconciled with iOS's toolbar or with the crossings, which
+        photograph fixed elements. */}
+    <div className="lp-footer-slot">
+      <div className="lp-footer-track">
+        <footer className="lp-footer">
+          <span className="lp-footer-copy">
+            © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
+          </span>
+        </footer>
+      </div>
+    </div>
+    </>
   );
 }

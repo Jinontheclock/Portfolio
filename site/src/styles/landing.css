@@ -27,13 +27,12 @@ body {
   overflow-anchor: none;
 }
 
-/* Landing fits one screen — fully lock scrolling and the overscroll
-   bounce so the hero and nav never move */
-html.lp-locked,
-html.lp-locked body {
-  overflow: hidden;
-  overscroll-behavior-y: none;
-}
+/* The landing used to be locked against scrolling altogether, one screen
+   that could not move. It scrolls now, by exactly the height of the footer
+   band beneath it and no further — see .lp-footer-slot at the foot of this
+   file. The hero is still that one screen; the band is the only thing under
+   it, and overscroll-behavior on html and body above still keeps the ends
+   from bouncing. */
 
 .lp-root {
   min-height: 100dvh;
@@ -324,3 +323,56 @@ html.lp-locked body {
 /* The heading is on the bottom at every width now, so the phone needs no
    rule of its own: what used to lift it clear of the utilities in the
    corner is gone with them. */
+
+/* ── The footer, revealed ──
+   A black band behind the page, uncovered as the hero scrolls up over it.
+   See the markup in LandingPage.jsx for the shape of the trick.
+
+   The slot is the band's place in the flow: as tall as the band, and
+   clipping everything inside to its own box, which is what stops the band
+   from ever showing above the hero. The track is a screen taller and hoisted
+   a screen up, so its box reaches from the top of the page to the foot of
+   the slot; the band is sticky inside it and holds at the bottom of the
+   viewport. At rest the slot is below the fold and the band is hidden behind
+   its clip. Scroll, and the slot rises into view over the band that is not
+   moving, which reads as the page lifting off it. */
+.lp-footer-slot {
+  --lp-footer-h: 72px;
+  position: relative;
+  height: var(--lp-footer-h);
+  clip-path: inset(0);
+}
+.lp-footer-track {
+  position: relative;
+  height: calc(100dvh + var(--lp-footer-h));
+  top: calc(-1 * 100dvh);
+}
+.lp-footer {
+  position: sticky;
+  top: calc(100dvh - var(--lp-footer-h));
+  box-sizing: border-box;
+  height: var(--lp-footer-h);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--page-margin);
+  background: var(--grey-950);
+  color: var(--grey-50);
+}
+/* the same line the inner pages' footer sets, at the same size; white on
+   the band rather than a step lighter than grey, since there is no grey
+   here to be a step lighter than */
+.lp-footer-copy {
+  font: 400 12px/16px var(--font-ui);
+}
+
+/* On a phone the header's two labels fade once the page is scrolled, so
+   that nothing rides over content the reader has moved on to. This page
+   scrolls only far enough to show the band, and nothing new arrives under
+   the header when it does — so Work and About stay, as they always have
+   on this page. */
+@media (max-width: 600px) {
+  .lp-root .site-header.is-scrolled .pill-button {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
