@@ -318,7 +318,16 @@ html.lp-snap {
   --lp-footer-h: 72px;
   position: relative;
   height: var(--lp-footer-h);
-  clip-path: inset(0);
+  /* Clipped on three sides and open below.
+     The document ends where the band ends, and measured it scrolls not a
+     pixel past — but a browser that rubber-bands at the edge of the page
+     (a trackpad on a Mac, a thumb on a phone, and Safari does it even
+     under overscroll-behavior when the root snaps) shows the canvas under
+     the band for a moment, and the canvas is the page's near-white. So the
+     band is allowed to paint below its own box, and does — see its
+     box-shadow — and what a bounce reveals is more band. Ink only: neither
+     the shadow nor the open clip adds a pixel of scroll. */
+  clip-path: inset(0 0 -100vh 0);
 }
 .lp-footer-track {
   position: relative;
@@ -332,15 +341,26 @@ html.lp-snap {
   height: var(--lp-footer-h);
   display: flex;
   align-items: center;
+  /* the line sits at the right edge, where the inner pages' footer keeps
+     the same words */
+  justify-content: flex-end;
   padding: 0 var(--page-margin);
   background: var(--grey-950);
   color: var(--grey-50);
+  /* the same black, spread a screen's height in every direction: the slot
+     clips it on the top and the sides, and lets it through below, where a
+     rubber-band would otherwise show the page's canvas */
+  box-shadow: 0 0 0 100vh var(--grey-950);
 }
 /* the same line the inner pages' footer sets, at the same size; white on
    the band rather than a step lighter than grey, since there is no grey
    here to be a step lighter than */
 .lp-footer-copy {
   font: 400 12px/16px var(--font-ui);
+  text-align: right;
+  /* on a phone the line breaks in two; balanced, it breaks at the bar
+     rather than leaving the surname on a line of its own */
+  text-wrap: balance;
 }
 
 /* On a phone the header's two labels fade once the page is scrolled, so
