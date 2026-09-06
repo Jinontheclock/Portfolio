@@ -59,38 +59,6 @@ body {
   display: none;
 }
 
-/* The copyright stands on end in the top-right corner, reading downwards.
-
-   vertical-rl turns the line ninety degrees: the glyphs rotate clockwise
-   and the line runs top to bottom, which is what puts the © at the top —
-   the first character of the line is now its highest point rather than its
-   leftmost.
-
-   Positioned rather than laid out in the header's row, for two reasons. A
-   flex child would have stretched the header box to the height of the
-   whole line, and the header is sticky and sits above everything. And the
-   offsets can then say exactly what is being aligned to: `top` matches the
-   header's own padding-top, which is where the two labels' boxes start, so
-   the © begins on their line; `right` is the page margin, measured from
-   the header's padding edge, which is the screen's edge. */
-.lp-root .lp-copy {
-  position: absolute;
-  top: 20px;
-  right: var(--page-margin);
-  writing-mode: vertical-rl;
-  max-width: none;
-  text-align: left;
-  /* Standing the line up means the screen's HEIGHT is what has to hold it,
-     and a phone on its side has only a few hundred px of that. Measured,
-     this line in this face runs 31.44 times its font-size long, so the
-     tier's size is capped by the height there is: the full size wherever
-     it fits, less where it does not, with the page margin left clear at
-     both ends.
-
-     The 31.44 is this string's. Re-measure it if the words change. */
-  font-size: min(var(--size-copy), calc((100dvh - 40px) / 31.44));
-}
-
 /* The heading sits on the bottom of the screen: margin-top takes every
    pixel of free height above it. No padding — it is the one thing on this
    page that ignores the page margin and runs edge to edge, so the drawing
@@ -247,15 +215,6 @@ body {
 }
 
 
-/* The line itself. Where it sits is set above, on .lp-root .lp-copy; this
-   is only how it is set — one line, never wrapped, in the lighter grey the
-   inner pages' footer uses for the same words. */
-.lp-copy {
-  font: 400 var(--size-copy) / 1.3333 var(--font-ui);
-  color: var(--grey-300);
-  white-space: nowrap;
-}
-
 .lang-switcher {
   display: flex;
   gap: 4px;
@@ -323,6 +282,25 @@ body {
 /* The heading is on the bottom at every width now, so the phone needs no
    rule of its own: what used to lift it clear of the utilities in the
    corner is gone with them. */
+
+/* ── Closed, or open: nothing in between ──
+   The page scrolls by the height of the band and no further, so it has
+   two places to be, and a scroll that stops halfway would leave the band
+   half-shown. Snapping makes the two places the only ones: the hero's top
+   edge and the band's bottom edge, whichever the scroll ends nearer to,
+   with the browser animating the rest of the way. One notch of a wheel is
+   past the midpoint, so one notch opens it and one closes it; a smaller
+   nudge is drawn back where it came from. The class is put on the root by
+   LandingPage for as long as the page is there, and no other page has it. */
+html.lp-snap {
+  scroll-snap-type: y mandatory;
+}
+.lp-root {
+  scroll-snap-align: start;
+}
+.lp-footer-slot {
+  scroll-snap-align: end;
+}
 
 /* ── The footer, revealed ──
    A black band behind the page, uncovered as the hero scrolls up over it.

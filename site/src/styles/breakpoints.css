@@ -19,9 +19,7 @@
   --size-lp-nav-gap: clamp(4px, 1.16vw - 0.65px, 16px); /* 4 → 16 */
 
   /* chrome that every page carries: the header's two labels, and the
-     copyright line — on the landing page that one stands on end in the
-     opposite corner, so its size is capped by the screen's height there
-     (see .lp-root .lp-copy) */
+     copyright line in the footer */
   --size-header-nav: 24px; /* Work / About */
   /* The header's own two numbers, published rather than copied. Anything
      that has to sit clear of the header needs to know where its bottom

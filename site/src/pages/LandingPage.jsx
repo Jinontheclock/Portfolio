@@ -13,6 +13,15 @@ export default function LandingPage({ lang, setLang }) {
     document.title = "HAJIN, Product Designer";
   }, []);
 
+  /* The page has two places to be, closed and open, and nothing in between
+     is a place: the scroll snaps to whichever is nearer, and the browser
+     draws the move. The rule lives on the root element, which no markup of
+     this page can reach, so it is put on for as long as the page is. */
+  useEffect(() => {
+    document.documentElement.classList.add("lp-snap");
+    return () => document.documentElement.classList.remove("lp-snap");
+  }, []);
+
   return (
     <>
     <div className="lp-root">
@@ -20,17 +29,9 @@ export default function LandingPage({ lang, setLang }) {
           from a nav of this page's own, so crossing between here and there
           leaves them exactly where they were — same position, same size,
           same two words. Neither is marked current: on this page neither is
-          where the reader is.
-
-          The copyright stands on end in the opposite corner, reading
-          downwards from a © on the labels' own line. The heading below now
-          owns the bottom of the screen, and the corner the copyright used
-          to sit in is inside it. */}
-      <SiteHeader>
-        <span className="lp-copy">
-          © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
-        </span>
-      </SiteHeader>
+          where the reader is. The copyright is on the footer band below,
+          not up here. */}
+      <SiteHeader />
 
       {/* The heading is artwork now, and its box runs the full width of the
           screen — past the page margins on both sides and down onto the
