@@ -63,10 +63,12 @@ const CARET_W = 4; // Motion: H
 const CARET_H = 20; // Motion: oe, the fallback when font-size is unreadable
 const PAD = 5; // Motion: magneticOptions.padding
 
-/* Motion snaps the cursor 80% of the way to the target's centre. mouse-follower
-   states the same pull from the other end — stickDelta is the fraction of the
-   pointer's own movement that survives — so 0.8 there is 0.2 here. */
-const SNAP_DELTA = 0.2;
+/* How much of the pointer's own movement survives while the cursor holds a
+   control — mouse-follower states the pull from that end. Motion's default is
+   a 0.8 snap, which is 0.2 here, and it was that at first: the box breathed
+   with the hand by a fifth of every move. Asked for instead: the box does not
+   move at all. Zero pins it to the control's centre. */
+const SNAP_DELTA = 0;
 
 /* How near to pinned the cursor rides. Motion's replacement cursor has no
    spring at all and sits exactly on the pointer; its follow mode is where the
@@ -78,23 +80,44 @@ const SNAP_DELTA = 0.2;
 const SPEED = 0.1;
 
 /* Motion morphs the cursor to any link or button it is over. Measured at
-   1440, this site's are:
+   1440, the boxes this site's controls are SEEN as — see visualBoxOf:
 
      header pills      59-69 x 32     the wordmark      69 x 32
      case-study title    193 x 34     the demo button  212 x 47
-     About links       42-69 x 21-32
-     chapter buttons     439 x 31     work cards      1425 x 246
-     figures         125-674 x -346
+     About links       42-69 x 21-32  chapter labels     ~84 x 21
+     work cards         1425 x 246    figures        125-674 x -346
 
    A cursor that becomes a 1425px slab is not a cursor any more, it is a
-   hover state, and the cards already have one. The chapter buttons are the
-   less obvious case: they are only 31px tall but stretch the whole rail, so
-   most of that 439px is the whitespace after a short label and taking their
-   outline would draw a bar across nothing.
-   So the morph is kept for controls the size of a control. Everything above
-   the line gets the plain 31px circle and no magnetic pull. */
+   hover state, and the cards already have one. So the morph is kept for
+   controls the size of a control; the two kinds above the line get the plain
+   31px circle and no magnetic pull. */
 const MORPH_MAX_W = 340;
 const MORPH_MAX_H = 130;
+
+/** The box a control is seen as, which is not always the box it has.
+ *
+ *  A chapter button in the case-study rail is 444px wide: the column
+ *  stretches it, and after its eleven-character label the rest is air. Its
+ *  element box would have the cursor take the outline of the air. A control
+ *  is seen as the thing it draws — so one that draws its own edges, a border
+ *  or a fill, is its element box, and one that draws nothing but its label
+ *  is the label's box. A control with no words at all, a linked figure, is
+ *  its element box by default. */
+function visualBoxOf(el) {
+  const cs = window.getComputedStyle(el);
+  const drawsItself =
+    parseFloat(cs.borderTopWidth) > 0 ||
+    (cs.backgroundColor !== "rgba(0, 0, 0, 0)" && cs.backgroundColor !== "transparent") ||
+    /* a gradient clipped to the letters is ink, not a box */
+    (cs.backgroundImage !== "none" && cs.backgroundClip !== "text");
+  if (!drawsItself) {
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const r = range.getBoundingClientRect();
+    if (r.width > 0 && r.height > 0) return r;
+  }
+  return el.getBoundingClientRect();
+}
 
 /** The nearest element with words of its own, or null.
  *
@@ -179,13 +202,16 @@ export default function SiteCursor() {
       el.classList.toggle("-over", type === "pointer");
       el.classList.toggle("-caret", type === "text");
       if (type === "pointer") {
-        const r = target.getBoundingClientRect();
+        const r = visualBoxOf(target);
         const morph = r.width <= MORPH_MAX_W && r.height <= MORPH_MAX_H;
         /* the outline is painted differently from the circles — see cursor.css */
         el.classList.toggle("-morph", morph);
         if (morph) {
           size(r.width + PAD * 2, r.height + PAD * 2);
-          cursor.setStick(target);
+          /* the magnet has to hold the same box the outline was drawn to —
+             for a stretched chapter button the element's centre is out in
+             the air, half a rail away from its label */
+          cursor.setStick({ getBoundingClientRect: () => r });
         } else {
           size(OVER, OVER);
           cursor.removeStick();
@@ -286,7 +312,10 @@ export default function SiteCursor() {
        where that control used to be. Re-reading it costs one rect per scroll
        event, and only while something is actually held. */
     const onScroll = () => {
-      if (held.stuck && held.el) cursor.setStick(held.el);
+      if (held.stuck && held.el) {
+        const r = visualBoxOf(held.el);
+        cursor.setStick({ getBoundingClientRect: () => r });
+      }
     };
 
     /* Sit the page crossings out.
