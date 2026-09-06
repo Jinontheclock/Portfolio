@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate, usePa
 import useLang from "./hooks/useLang.js";
 import { LANGS, RETIRED, splitLang, stripRetired, swapLang, withLang } from "./lib/lang-routes.js";
 import Preloader from "./components/Preloader.jsx";
+import SiteCursor from "./components/SiteCursor.jsx";
 import { useRouteCommitted } from "./lib/viewTransition.js";
 import useScrollMemory from "./lib/scroll-memory.js";
 import LandingPage from "./pages/LandingPage.jsx";
@@ -179,6 +180,7 @@ function Site() {
   return (
     <>
       <ScrollMemory />
+      <SiteCursor />
       <Routes>
         {LANGS.flatMap((l) =>
           PAGES.map((p) => {

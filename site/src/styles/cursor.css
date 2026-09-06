@@ -1,0 +1,105 @@
+/* ── The replaced pointer ──
+   Shape and timing follow Motion's Cursor component; the machinery is
+   Cuberto's mouse-follower. See components/SiteCursor.jsx for the numbers
+   and where they come from.
+
+   Nothing here applies until SiteCursor puts .has-cursor on the root, which
+   it does only on a device that can hover and for a reader who has not asked
+   for less motion. A stylesheet that hid the native cursor on its own would
+   hide it on a phone too, where nothing replaces it. */
+
+:root {
+  /* Motion paints its cursor #333 and leaves it there in both themes. This
+     site is greyscale and already names its darkest ink, which is the same
+     colour in spirit and the right one in the dark theme, where #333 would
+     all but disappear against #0F0F0F. */
+  --cursor-fill: var(--text-primary);
+  /* the same ink, inverted out of whatever is underneath — see the blend
+     rule at the foot of this file */
+  --cursor-fill-blend: #fff;
+  /* Motion: { duration: .15, ease: [.38, .12, .29, 1] } — one transition for
+     every change of shape, so growing over a button, becoming a caret and
+     taking a button's outline all settle together. */
+  --cursor-duration: 150ms;
+  --cursor-ease: cubic-bezier(0.38, 0.12, 0.29, 1);
+}
+
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+.hl-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* over everything: the modals sit at 1000 and 1100, the boot loader at
+     2000, and a cursor that goes behind any of them is a cursor that
+     disappears */
+  z-index: 9999;
+  pointer-events: none;
+  /* the element is painted every frame and lays out nothing; containment
+     keeps that work off the rest of the page */
+  contain: layout style size;
+}
+
+.hl-cursor::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--cursor-w, 17px);
+  height: var(--cursor-h, 17px);
+  /* Motion's literal border-radius: 20px. CSS clamps it to half the shorter
+     side, so 17 and 31 are circles and the 4px caret is a capsule — and once
+     the cursor takes a button's outline and is larger than 40px both ways,
+     the 20 finally reads as itself: a rounded rectangle. One number, three
+     shapes. */
+  border-radius: 20px;
+  background: var(--cursor-fill);
+  transform: translate(-50%, -50%);
+  transition:
+    width var(--cursor-duration) var(--cursor-ease),
+    height var(--cursor-duration) var(--cursor-ease),
+    opacity var(--cursor-duration) var(--cursor-ease),
+    transform var(--cursor-duration) var(--cursor-ease);
+}
+
+/* mousedown, Motion's pressed variant */
+.hl-cursor.-pressed::before {
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+/* off the window, over an iframe, or sitting a page crossing out — Motion's
+   exit variant, which is the same disappearance in all three cases */
+.hl-cursor.-hidden::before,
+.hl-cursor.-crossing::before {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+/* ── Why the cursor is painted by inversion ──
+
+   Motion fills its cursor with a flat #333 and lets it cover what it is
+   over. That works on its own demo, where the buttons are filled shapes and
+   a dark rounded rect reading over them looks like a highlight. Here the
+   buttons ARE their labels: Work and About are plain text with no fill, so
+   the cursor taking a button's outline covered the word whole and the reader
+   could no longer see what they were about to click.
+
+   White, differenced against the page, comes out at 255 minus whatever is
+   behind it. On this site's background that is #050505 against the light
+   theme and #F0F0F0 against the dark one — within a few values of
+   --text-primary either way, so the cursor looks the same as it would
+   painted flat, and the label underneath inverts instead of disappearing.
+   The dark theme stops needing a rule of its own at the same time.
+
+   The flat fill is kept for anything that cannot blend. */
+@supports (mix-blend-mode: difference) {
+  .hl-cursor {
+    mix-blend-mode: difference;
+  }
+  .hl-cursor::before {
+    background: var(--cursor-fill-blend);
+  }
+}

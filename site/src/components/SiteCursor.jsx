@@ -1,0 +1,240 @@
+import { useEffect } from "react";
+import gsap from "gsap";
+import MouseFollower from "mouse-follower";
+import useCanHover from "../hooks/useCanHover.js";
+
+/* The pointer, replaced.
+ *
+ * Cuberto's mouse-follower does the transport: it puts one fixed element on
+ * the page, drives it from a gsap.ticker with quickSetter (no per-frame tween
+ * bookkeeping), and hides it when the pointer leaves the window or crosses
+ * into an iframe. What it does not do is decide what the cursor should BE at
+ * any moment, and that is the part being matched here.
+ *
+ * The shape being matched is Motion's Cursor component, read out of the
+ * bundle its own examples ship (examples.motion.dev). Its numbers, verbatim:
+ *
+ *     const b = 17, j = 31, H = 4, oe = 20
+ *     magneticOptions = { morph: true, padding: 5, snap: 0.8 }
+ *     transition      = { duration: .15, ease: [.38, .12, .29, 1] }
+ *     pressed         = { scale: .9 }
+ *     exit            = { opacity: 0, scale: 0 }
+ *
+ * 17px at rest, 31px over a link or a button, a 4px bar as tall as the type
+ * it is sitting on, and over a small control it takes the control's own
+ * shape. Those are the four things the docs page demonstrates, and they are
+ * what the four constants and the resolver below reproduce.
+ *
+ * Two of them mouse-follower cannot do by itself, because both need to
+ * measure the element under the pointer: a caret the height of the type, and
+ * a shape the size of the button. So the library is left to carry the cursor
+ * around and this file decides its size, which is one delegated listener and
+ * two custom properties.
+ */
+
+MouseFollower.registerGSAP(gsap);
+
+/* Motion's own selectors, unchanged, so the same elements answer to the
+   cursor here as there. The one addition is the password field: the site has
+   one, and Motion's list stops at input[type=text], which would leave a
+   password box with no caret and no native cursor either. */
+const POINTER_SEL = 'a, button, input[type="button"]:not(:disabled)';
+const TEXT_SEL =
+  "p, textarea:not(:disabled), input[type='text']:not(:disabled), " +
+  "input[type='password']:not(:disabled), h1, h2, h3, h4, h5, h6";
+
+/* What this site makes clickable without making it a link or a button, which
+   Motion's two selectors therefore walk straight past. Both say so in CSS
+   already — cursor:pointer on the title, cursor:zoom-in on the figures — and
+   that is exactly the signal the replaced cursor has taken away, so it has to
+   carry the same meaning some other way.
+   The comparison sliders are excluded for the same reason the figure handler
+   excludes them: their halves are dragged over each other, not opened. */
+const SITE_POINTER_SEL = ".cs-title, .cs-sections img";
+const NOT_A_FIGURE = "img-comparison-slider";
+
+const REST = 17; // Motion: b
+const OVER = 31; // Motion: j
+const CARET_W = 4; // Motion: H
+const CARET_H = 20; // Motion: oe, the fallback when font-size is unreadable
+const PAD = 5; // Motion: magneticOptions.padding
+
+/* Motion snaps the cursor 80% of the way to the target's centre. mouse-follower
+   states the same pull from the other end — stickDelta is the fraction of the
+   pointer's own movement that survives — so 0.8 there is 0.2 here. */
+const SNAP_DELTA = 0.2;
+
+/* How near to pinned the cursor rides. Motion's replacement cursor has no
+   spring at all and sits exactly on the pointer; its follow mode is where the
+   lag lives. mouse-follower cannot do exactly zero — its render loop skips
+   frames where the cursor has caught up completely, so a zero-length tween
+   would leave it parked at the origin — and a tenth of a second under
+   expo.out is within a frame or two of pinned. Raise this to about 0.5 for
+   the trailing, follow-mode feel instead. */
+const SPEED = 0.1;
+
+/* Motion morphs the cursor to any link or button it is over. Measured at
+   1440, this site's are:
+
+     header pills      59-69 x 32     the wordmark      69 x 32
+     case-study title    193 x 34     the demo button  212 x 47
+     About links       42-69 x 21-32
+     chapter buttons     439 x 31     work cards      1425 x 246
+     figures         125-674 x -346
+
+   A cursor that becomes a 1425px slab is not a cursor any more, it is a
+   hover state, and the cards already have one. The chapter buttons are the
+   less obvious case: they are only 31px tall but stretch the whole rail, so
+   most of that 439px is the whitespace after a short label and taking their
+   outline would draw a bar across nothing.
+   So the morph is kept for controls the size of a control. Everything above
+   the line gets the plain 31px circle and no magnetic pull. */
+const MORPH_MAX_W = 340;
+const MORPH_MAX_H = 130;
+
+/** What the cursor should be over this element, by Motion's rules: an
+ *  explicit data-cursor wins, then links and buttons, then type. */
+function resolve(node) {
+  if (!node || node.nodeType !== 1) return { type: "default", el: null };
+  const pointer = node.closest(POINTER_SEL);
+  if (pointer) return { type: "pointer", el: pointer };
+  const site = node.closest(SITE_POINTER_SEL);
+  if (site && !site.closest(NOT_A_FIGURE)) return { type: "pointer", el: site };
+  /* text that cannot be selected is not text to put a caret on — the same
+     check Motion makes, and what keeps the caret off headings that act as
+     buttons and off the case-study chapter numbers */
+  if (window.getComputedStyle(node).userSelect === "none") return { type: "default", el: null };
+  const text = node.closest(TEXT_SEL);
+  if (text) return { type: "text", el: text };
+  return { type: "default", el: null };
+}
+
+export default function SiteCursor() {
+  const canHover = useCanHover();
+
+  useEffect(() => {
+    /* A cursor is a thing for pointers. There is nothing to replace on a
+       touch screen, and a reader who asked for less motion asked for the
+       pointer they already have. Both are also the conditions under which
+       Motion itself declines to hide the native cursor. */
+    if (!canHover) return undefined;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return undefined;
+
+    const cursor = new MouseFollower({
+      className: "hl-cursor",
+      speed: SPEED,
+      skewing: 0,
+      activeState: "-pressed",
+      hiddenState: "-hidden",
+      hideTimeout: 150,
+      stickDelta: SNAP_DELTA,
+      /* mouse-follower adds this rule itself, but only for a caller that
+         passes no stateDetection of its own — and this one has to, because
+         the pointer cannot be followed into an iframe: mousemove does not
+         cross the boundary, so the cursor would stop dead over the embedded
+         demo. Hiding it there gives the iframe's own cursor back. */
+      stateDetection: { "-hidden": "iframe" },
+      /* the library's data-attribute scanning is a second pass over every
+         element the pointer touches, and everything it would read is decided
+         below instead */
+      dataAttr: null,
+    });
+
+    const el = cursor.el;
+    const root = document.documentElement;
+    root.classList.add("has-cursor");
+
+    const size = (w, h) => {
+      el.style.setProperty("--cursor-w", `${w}px`);
+      el.style.setProperty("--cursor-h", `${h}px`);
+    };
+    size(REST, REST);
+
+    let held = { type: "default", el: null, stuck: false };
+
+    const dress = ({ type, el: target }) => {
+      el.classList.toggle("-over", type === "pointer");
+      el.classList.toggle("-caret", type === "text");
+      if (type === "pointer") {
+        const r = target.getBoundingClientRect();
+        const morph = r.width <= MORPH_MAX_W && r.height <= MORPH_MAX_H;
+        if (morph) {
+          size(r.width + PAD * 2, r.height + PAD * 2);
+          cursor.setStick(target);
+        } else {
+          size(OVER, OVER);
+          cursor.removeStick();
+        }
+        held = { type, el: target, stuck: morph };
+        return;
+      }
+      cursor.removeStick();
+      if (type === "text") {
+        const fs = parseInt(window.getComputedStyle(target).fontSize, 10);
+        size(CARET_W, fs || CARET_H);
+      } else {
+        size(REST, REST);
+      }
+      held = { type, el: target, stuck: false };
+    };
+
+    /* One delegated listener, on the same element mouse-follower uses. Every
+       move between elements raises a mouseover somewhere, including the move
+       back out onto the page, so leaving is the default branch rather than a
+       second listener. */
+    const onOver = (e) => {
+      const hit = resolve(e.target);
+      if (hit.type === held.type && hit.el === held.el) return;
+      dress(hit);
+    };
+
+    /* setStick reads the target's box once, at the moment of hover, so a page
+       that scrolls while a control is held leaves the cursor magnetised to
+       where that control used to be. Re-reading it costs one rect per scroll
+       event, and only while something is actually held. */
+    const onScroll = () => {
+      if (held.stuck && held.el) cursor.setStick(held.el);
+    };
+
+    /* Sit the page crossings out.
+     *
+     * A crossing photographs the whole viewport, this cursor included, and
+     * then slides the picture. Left alone the cursor appears twice for half a
+     * second: dimmed in the outgoing photograph, where it stands still, and
+     * travelling across the screen with the incoming one.
+     *
+     * Naming the element so the browser lifts it out of the page's snapshot
+     * is the documented answer and it was tried first — measured against the
+     * pixels, its own snapshot never paints, with the group's animation left
+     * alone or turned off, and with the blend and the containment removed.
+     * So the cursor is gone for the crossing whichever way, and the choice is
+     * only between gone and gone twice.
+     *
+     * It leaves the way it leaves the window, which is a thing it already
+     * knows how to do, and comes back when the page has landed. data-page-from
+     * is on the root element for exactly the length of the crossing — see
+     * lib/viewTransition.js — so there is nothing to wire up between them. */
+    const crossing = new MutationObserver(() => {
+      /* A class of this file's own rather than the library's hidden state.
+         Measured: hiding it through the library lasted 240ms and then came
+         undone on its own — swapping the page fires the pointer-entered event
+         the library listens to for un-hiding, so the cursor let itself back
+         in halfway through the crossing. Nothing else writes this one. */
+      el.classList.toggle("-crossing", !!root.dataset.pageFrom);
+    });
+    crossing.observe(root, { attributes: true, attributeFilter: ["data-page-from"] });
+
+    root.addEventListener("mouseover", onOver, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      crossing.disconnect();
+      root.removeEventListener("mouseover", onOver);
+      window.removeEventListener("scroll", onScroll);
+      root.classList.remove("has-cursor");
+      cursor.destroy();
+    };
+  }, [canHover]);
+
+  return null;
+}
