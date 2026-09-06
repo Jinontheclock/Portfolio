@@ -53,6 +53,16 @@
   /* the element is painted every frame and lays out nothing; containment
      keeps that work off the rest of the page */
   contain: layout style size;
+  /* One layer, kept.
+     mouse-follower sets will-change itself, inline, every frame: transform
+     while the cursor is moving and auto the moment it has caught up. Each
+     flip builds or tears down the element's compositor layer, and a browser
+     re-evaluates which cursor to show whenever the layer tree under the
+     pointer changes — so between the two it flashed the native arrow, most
+     often on a slow move, when the tween keeps catching up between events.
+     Important beats the inline toggling; the layer is permanent and the
+     pointer has nothing to re-evaluate. */
+  will-change: transform !important;
 }
 
 .hl-cursor::before {
