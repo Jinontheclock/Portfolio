@@ -21,7 +21,7 @@
      look at and still the wrong number. */
   --cursor-fill-blend: #EBEBEB;
   /* Motion: { duration: .15, ease: [.38, .12, .29, 1] } — one transition for
-     every change of shape, so growing over a button, becoming a caret and
+     every change of shape, so growing over a button and
      taking a button's outline all settle together. */
   --cursor-duration: 150ms;
   --cursor-ease: cubic-bezier(0.38, 0.12, 0.29, 1);
@@ -63,10 +63,9 @@
   width: var(--cursor-w, 17px);
   height: var(--cursor-h, 17px);
   /* Motion's literal border-radius: 20px. CSS clamps it to half the shorter
-     side, so 17 and 31 are circles and the 4px caret is a capsule — and once
-     the cursor takes a button's outline and is larger than 40px both ways,
-     the 20 finally reads as itself: a rounded rectangle. One number, three
-     shapes. */
+     side, so 17 and 31 are circles — and once the cursor takes a button's
+     outline and is larger than 40px both ways, the 20 finally reads as
+     itself: a rounded rectangle. One number, two shapes. */
   border-radius: 20px;
   background: var(--cursor-fill);
   transform: translate(-50%, -50%);

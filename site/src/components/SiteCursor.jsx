@@ -20,28 +20,24 @@ import useCanHover from "../hooks/useCanHover.js";
  *     pressed         = { scale: .9 }
  *     exit            = { opacity: 0, scale: 0 }
  *
- * 17px at rest, 31px over a link or a button, a 4px bar as tall as the type
- * it is sitting on, and over a small control it takes the control's own
- * shape. Those are the four things the docs page demonstrates, and they are
- * what the four constants and the resolver below reproduce.
+ * 17px at rest, 31px over a link or a button, and over a small control it
+ * takes the control's own shape. Motion has a fourth state — over type, a 4px
+ * bar as tall as the line — and it is deliberately not here: a thin dark bar
+ * standing on a line of text is, to anyone looking at it, the browser's own
+ * I-beam, and the one thing this cursor is for is that the browser's own
+ * pointer is never what the reader sees. So over text it stays a circle.
  *
- * Two of them mouse-follower cannot do by itself, because both need to
- * measure the element under the pointer: a caret the height of the type, and
- * a shape the size of the button. So the library is left to carry the cursor
- * around and this file decides its size, which is one delegated listener and
- * two custom properties.
+ * The morph is the part mouse-follower cannot do by itself, because it needs
+ * to measure the element under the pointer. So the library is left to carry
+ * the cursor around and this file decides its size, which is one delegated
+ * listener and two custom properties.
  */
 
 MouseFollower.registerGSAP(gsap);
 
-/* Motion's own selectors, unchanged, so the same elements answer to the
-   cursor here as there. The one addition is the password field: the site has
-   one, and Motion's list stops at input[type=text], which would leave a
-   password box with no caret and no native cursor either. */
+/* Motion's own selector, unchanged, so the same elements answer to the
+   cursor here as there. */
 const POINTER_SEL = 'a, button, input[type="button"]:not(:disabled)';
-const TEXT_SEL =
-  "p, textarea:not(:disabled), input[type='text']:not(:disabled), " +
-  "input[type='password']:not(:disabled), h1, h2, h3, h4, h5, h6";
 
 /* What this site makes clickable without making it a link or a button, which
    Motion's two selectors therefore walk straight past. Both say so in CSS
@@ -55,8 +51,6 @@ const NOT_A_FIGURE = "img-comparison-slider";
 
 const REST = 17; // Motion: b
 const OVER = 31; // Motion: j
-const CARET_W = 4; // Motion: H
-const CARET_H = 20; // Motion: oe, the fallback when font-size is unreadable
 const PAD = 5; // Motion: magneticOptions.padding
 
 /* Motion snaps the cursor 80% of the way to the target's centre. mouse-follower
@@ -92,20 +86,14 @@ const SPEED = 0.1;
 const MORPH_MAX_W = 340;
 const MORPH_MAX_H = 130;
 
-/** What the cursor should be over this element, by Motion's rules: an
- *  explicit data-cursor wins, then links and buttons, then type. */
+/** What the cursor should be over this element: a link or a button, or one
+ *  of the site's own clickable things, or nothing in particular. */
 function resolve(node) {
   if (!node || node.nodeType !== 1) return { type: "default", el: null };
   const pointer = node.closest(POINTER_SEL);
   if (pointer) return { type: "pointer", el: pointer };
   const site = node.closest(SITE_POINTER_SEL);
   if (site && !site.closest(NOT_A_FIGURE)) return { type: "pointer", el: site };
-  /* text that cannot be selected is not text to put a caret on — the same
-     check Motion makes, and what keeps the caret off headings that act as
-     buttons and off the case-study chapter numbers */
-  if (window.getComputedStyle(node).userSelect === "none") return { type: "default", el: null };
-  const text = node.closest(TEXT_SEL);
-  if (text) return { type: "text", el: text };
   return { type: "default", el: null };
 }
 
@@ -153,7 +141,6 @@ export default function SiteCursor() {
 
     const dress = ({ type, el: target }) => {
       el.classList.toggle("-over", type === "pointer");
-      el.classList.toggle("-caret", type === "text");
       if (type === "pointer") {
         const r = target.getBoundingClientRect();
         const morph = r.width <= MORPH_MAX_W && r.height <= MORPH_MAX_H;
@@ -168,12 +155,7 @@ export default function SiteCursor() {
         return;
       }
       cursor.removeStick();
-      if (type === "text") {
-        const fs = parseInt(window.getComputedStyle(target).fontSize, 10);
-        size(CARET_W, fs || CARET_H);
-      } else {
-        size(REST, REST);
-      }
+      size(REST, REST);
       held = { type, el: target, stuck: false };
     };
 
