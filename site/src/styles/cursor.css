@@ -25,6 +25,12 @@
      taking a button's outline all settle together. */
   --cursor-duration: 150ms;
   --cursor-ease: cubic-bezier(0.38, 0.12, 0.29, 1);
+  /* The corner of the box over a control. Motion's 20px makes a capsule of
+     anything under 40px tall, which is every label on this site; asked for
+     less, and 8 is the radius the site's own bordered button already wears,
+     so the two read as one family. The circles are not affected — theirs
+     comes from the 20 below, which CSS clamps to a full round. */
+  --cursor-box-radius: 8px;
 }
 
 /* The native pointer goes, on exactly the devices and for exactly the readers
@@ -83,6 +89,7 @@
   transition:
     width var(--cursor-duration) var(--cursor-ease),
     height var(--cursor-duration) var(--cursor-ease),
+    border-radius var(--cursor-duration) var(--cursor-ease),
     opacity var(--cursor-duration) var(--cursor-ease),
     transform var(--cursor-duration) var(--cursor-ease);
 }
@@ -145,4 +152,7 @@
   .hl-cursor.-morph::before {
     background: var(--bg-muted);
   }
+}
+.hl-cursor.-morph::before {
+  border-radius: var(--cursor-box-radius);
 }
