@@ -117,3 +117,22 @@
     background: var(--cursor-fill-blend);
   }
 }
+
+/* ── The outline is a surface, not ink ──
+
+   Over a control it has taken the shape of, the cursor stops being a dot
+   drawn on top of the page and becomes the ground the label sits on: a
+   muted grey box with the label black on it. Inversion cannot do that — it
+   turns the letters white — so this state blends by darken instead, which
+   keeps whichever is darker at each point. Over the page that is the box's
+   own grey, exactly --bg-muted; over the letters it is the letters. The
+   circles keep their inversion, which is what keeps them visible over a
+   dark figure. */
+@supports (mix-blend-mode: darken) {
+  .hl-cursor.-morph {
+    mix-blend-mode: darken;
+  }
+  .hl-cursor.-morph::before {
+    background: var(--bg-muted);
+  }
+}

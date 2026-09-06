@@ -400,6 +400,21 @@
   }
 }
 
+/* On the landing page neither label is the page being read, so neither is
+   greyed to mark the other, and there is nothing for a hover to bring the
+   ink across to: both stand in black and stay there. The hover has its own
+   answer on this page — the cursor takes the label's outline. */
+.lp-root .site-header .pill-button {
+  color: var(--text-primary);
+}
+@media (hover: hover) {
+  .lp-root .site-header .pill-button:not(.is-active) {
+    background: none;
+    color: var(--text-primary);
+    transition: none;
+  }
+}
+
 /* ── Where a hover underline sits ──
    The links whose rule only appears on hover draw it as a background line
    rather than text-decoration, because only a background can be grown from

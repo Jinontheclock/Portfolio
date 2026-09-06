@@ -181,6 +181,8 @@ export default function SiteCursor() {
       if (type === "pointer") {
         const r = target.getBoundingClientRect();
         const morph = r.width <= MORPH_MAX_W && r.height <= MORPH_MAX_H;
+        /* the outline is painted differently from the circles — see cursor.css */
+        el.classList.toggle("-morph", morph);
         if (morph) {
           size(r.width + PAD * 2, r.height + PAD * 2);
           cursor.setStick(target);
@@ -191,6 +193,7 @@ export default function SiteCursor() {
         held = { type, el: target, stuck: morph };
         return;
       }
+      el.classList.remove("-morph");
       cursor.removeStick();
       if (type === "text") {
         const fs = parseInt(window.getComputedStyle(target).fontSize, 10);
