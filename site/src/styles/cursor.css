@@ -3,10 +3,10 @@
    Cuberto's mouse-follower. See components/SiteCursor.jsx for the numbers
    and where they come from.
 
-   Nothing here applies until SiteCursor puts .has-cursor on the root, which
-   it does only on a device that can hover and for a reader who has not asked
-   for less motion. A stylesheet that hid the native cursor on its own would
-   hide it on a phone too, where nothing replaces it. */
+   Everything here is gated on a pointer that can hover and a reader who has
+   not asked for less motion — the same pair SiteCursor checks. On a phone,
+   or under reduce, nothing below applies and the native pointer is left
+   exactly as it was. */
 
 :root {
   /* Motion paints its cursor #333 and leaves it there in both themes. This
@@ -14,9 +14,12 @@
      colour in spirit and the right one in the dark theme, where #333 would
      all but disappear against #0F0F0F. */
   --cursor-fill: var(--text-primary);
-  /* the same ink, inverted out of whatever is underneath — see the blend
-     rule at the foot of this file */
-  --cursor-fill-blend: #fff;
+  /* What gets differenced against the page so the result IS that ink.
+     Difference gives |backdrop - source|, and the page is #FAFAFA, so a
+     source of #EBEBEB lands on exactly 250-235 = 15 = #0F0F0F. Plain white
+     was tried first and came out at #050505 — ten levels off, invisible to
+     look at and still the wrong number. */
+  --cursor-fill-blend: #EBEBEB;
   /* Motion: { duration: .15, ease: [.38, .12, .29, 1] } — one transition for
      every change of shape, so growing over a button, becoming a caret and
      taking a button's outline all settle together. */
@@ -24,9 +27,18 @@
   --cursor-ease: cubic-bezier(0.38, 0.12, 0.29, 1);
 }
 
-html.has-cursor,
-html.has-cursor * {
-  cursor: none !important;
+/* The native pointer goes, on exactly the devices and for exactly the readers
+   that get a replacement — the same two conditions SiteCursor checks before
+   it builds anything, so the two can never disagree.
+
+   In CSS rather than behind a class the component adds, because a class is
+   added after React has mounted and the arrow is visible until then: over the
+   boot loader, on every cold load. This applies from the first frame. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  html,
+  html * {
+    cursor: none !important;
+  }
 }
 
 .hl-cursor {
@@ -70,10 +82,12 @@ html.has-cursor * {
   transform: translate(-50%, -50%) scale(0.9);
 }
 
-/* off the window, over an iframe, or sitting a page crossing out — Motion's
-   exit variant, which is the same disappearance in all three cases */
+/* off the window, sitting a page crossing out, or over a frame this page is
+   not allowed to look into — Motion's exit variant, which is the same
+   disappearance in every case */
 .hl-cursor.-hidden::before,
-.hl-cursor.-crossing::before {
+.hl-cursor.-crossing::before,
+.hl-cursor.-blind::before {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0);
 }

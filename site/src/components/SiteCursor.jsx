@@ -128,12 +128,12 @@ export default function SiteCursor() {
       hiddenState: "-hidden",
       hideTimeout: 150,
       stickDelta: SNAP_DELTA,
-      /* mouse-follower adds this rule itself, but only for a caller that
-         passes no stateDetection of its own — and this one has to, because
-         the pointer cannot be followed into an iframe: mousemove does not
-         cross the boundary, so the cursor would stop dead over the embedded
-         demo. Hiding it there gives the iframe's own cursor back. */
-      stateDetection: { "-hidden": "iframe" },
+      /* Left empty on purpose. The library adds a rule of its own here for
+         callers that pass nothing — it hides the cursor over any iframe,
+         which was the right answer before this file learned to reach into
+         one. Frames are handled below instead, and a rule that hid the
+         cursor over every frame would undo it. */
+      stateDetection: {},
       /* the library's data-attribute scanning is a second pass over every
          element the pointer touches, and everything it would read is decided
          below instead */
@@ -142,7 +142,6 @@ export default function SiteCursor() {
 
     const el = cursor.el;
     const root = document.documentElement;
-    root.classList.add("has-cursor");
 
     const size = (w, h) => {
       el.style.setProperty("--cursor-w", `${w}px`);
@@ -178,11 +177,78 @@ export default function SiteCursor() {
       held = { type, el: target, stuck: false };
     };
 
+    /* Frames.
+     *
+     * A frame is a document of its own: the stylesheet that takes the native
+     * pointer away never reached it, and mousemove does not cross the
+     * boundary, so over the embedded demo the replacement stopped dead at the
+     * edge and the arrow came back inside it. Both halves are fixable from
+     * out here for a frame this page is allowed to open — it gets the same
+     * rule, and its moves are handed back out with the frame's offset and
+     * scale applied, so one cursor keeps crossing the seam.
+     *
+     * The demo navigates inside itself, and every navigation is a new
+     * document with none of this in it, hence the load listener.
+     *
+     * A frame from another origin cannot be touched at all. There the cursor
+     * stands aside and the frame's own pointer does the work, which is the
+     * only honest answer available. */
+    const seen = new WeakSet();
+
+    const reach = (frame) => {
+      let doc = null;
+      try {
+        doc = frame.contentDocument;
+      } catch {
+        return false; // another origin
+      }
+      if (!doc?.documentElement) return false;
+      if (doc.getElementById("hl-cursor-rule")) return true;
+
+      const rule = doc.createElement("style");
+      rule.id = "hl-cursor-rule";
+      rule.textContent = "html, html * { cursor: none !important; }";
+      (doc.head || doc.documentElement).appendChild(rule);
+
+      doc.addEventListener(
+        "mousemove",
+        (e) => {
+          /* the frame is drawn scaled to fit its phone mockup, so a point
+             inside it is that many times further along outside */
+          const r = frame.getBoundingClientRect();
+          const k = frame.clientWidth ? r.width / frame.clientWidth : 1;
+          root.dispatchEvent(
+            new MouseEvent("mousemove", {
+              clientX: r.left + e.clientX * k,
+              clientY: r.top + e.clientY * k,
+              bubbles: true,
+            }),
+          );
+        },
+        { passive: true },
+      );
+      return true;
+    };
+
     /* One delegated listener, on the same element mouse-follower uses. Every
        move between elements raises a mouseover somewhere, including the move
        back out onto the page, so leaving is the default branch rather than a
        second listener. */
     const onOver = (e) => {
+      if (e.target instanceof HTMLIFrameElement) {
+        const frame = e.target;
+        if (!seen.has(frame)) {
+          seen.add(frame);
+          frame.addEventListener("load", () => reach(frame));
+        }
+        const reached = reach(frame);
+        el.classList.toggle("-blind", !reached);
+        /* inside the frame there is nothing out here to measure, so the
+           cursor goes back to being a cursor */
+        if (reached) dress({ type: "default", el: null });
+        return;
+      }
+      el.classList.remove("-blind");
       const hit = resolve(e.target);
       if (hit.type === held.type && hit.el === held.el) return;
       dress(hit);
@@ -231,7 +297,6 @@ export default function SiteCursor() {
       crossing.disconnect();
       root.removeEventListener("mouseover", onOver);
       window.removeEventListener("scroll", onScroll);
-      root.classList.remove("has-cursor");
       cursor.destroy();
     };
   }, [canHover]);
