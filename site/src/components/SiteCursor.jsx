@@ -20,17 +20,17 @@ import useCanHover from "../hooks/useCanHover.js";
  *     pressed         = { scale: .9 }
  *     exit            = { opacity: 0, scale: 0 }
  *
- * 17px at rest, 31px over a link or a button, and over a small control it
- * takes the control's own shape. Motion has a fourth state — over type, a 4px
- * bar as tall as the line — and it is deliberately not here: a thin dark bar
- * standing on a line of text is, to anyone looking at it, the browser's own
- * I-beam, and the one thing this cursor is for is that the browser's own
- * pointer is never what the reader sees. So over text it stays a circle.
+ * 17px at rest, 31px over a link or a button, a 4px bar as tall as the type
+ * it is sitting on, and over a small control it takes the control's own
+ * shape. Those are the four things the docs page demonstrates, and they are
+ * what the four constants and the resolver below reproduce. The one rule
+ * that is not Motion's is what counts as type — see textBlockOf.
  *
- * The morph is the part mouse-follower cannot do by itself, because it needs
- * to measure the element under the pointer. So the library is left to carry
- * the cursor around and this file decides its size, which is one delegated
- * listener and two custom properties.
+ * Two of them mouse-follower cannot do by itself, because both need to
+ * measure the element under the pointer: a caret the height of the type, and
+ * a shape the size of the button. So the library is left to carry the cursor
+ * around and this file decides its size, which is one delegated listener and
+ * two custom properties.
  */
 
 MouseFollower.registerGSAP(gsap);
@@ -38,6 +38,14 @@ MouseFollower.registerGSAP(gsap);
 /* Motion's own selector, unchanged, so the same elements answer to the
    cursor here as there. */
 const POINTER_SEL = 'a, button, input[type="button"]:not(:disabled)';
+
+/* Fields take a caret too. They are the one kind of text the rule below
+   cannot see, because what is typed into them is not a text node. The
+   password field is this site's addition: Motion's list stops at text, which
+   would leave the one field the site has with no caret and, the native
+   pointer being gone, nothing at all. */
+const FIELD_SEL =
+  "textarea:not(:disabled), input[type='text']:not(:disabled), input[type='password']:not(:disabled)";
 
 /* What this site makes clickable without making it a link or a button, which
    Motion's two selectors therefore walk straight past. Both say so in CSS
@@ -51,6 +59,8 @@ const NOT_A_FIGURE = "img-comparison-slider";
 
 const REST = 17; // Motion: b
 const OVER = 31; // Motion: j
+const CARET_W = 4; // Motion: H
+const CARET_H = 20; // Motion: oe, the fallback when font-size is unreadable
 const PAD = 5; // Motion: magneticOptions.padding
 
 /* Motion snaps the cursor 80% of the way to the target's centre. mouse-follower
@@ -86,14 +96,40 @@ const SPEED = 0.1;
 const MORPH_MAX_W = 340;
 const MORPH_MAX_H = 130;
 
-/** What the cursor should be over this element: a link or a button, or one
- *  of the site's own clickable things, or nothing in particular. */
+/** The nearest element with words of its own, or null.
+ *
+ *  Motion decides "text" by tag: p and the six headings. On this site that
+ *  misses most of the words — captions, list items, the meta labels and
+ *  their values, a quote's cite, the before/after labels, the footer line,
+ *  a bold word inside a caption. Measured: eleven kinds on one case study.
+ *  Text is not a list of tags, it is an element with a text node of its
+ *  own, so that is the test — and it has to be the element's OWN text, not
+ *  its children's, or every wrapper up to the body would count and the
+ *  caret would be sized to the wrapper's type instead of the word's. */
+function textBlockOf(node) {
+  for (let el = node; el && el !== document.body; el = el.parentElement) {
+    for (const n of el.childNodes) {
+      if (n.nodeType === 3 && n.textContent.trim()) return el;
+    }
+  }
+  return null;
+}
+
+/** What the cursor should be over this element: a link or a button, one of
+ *  the site's own clickable things, a field, text, or nothing in particular. */
 function resolve(node) {
   if (!node || node.nodeType !== 1) return { type: "default", el: null };
   const pointer = node.closest(POINTER_SEL);
   if (pointer) return { type: "pointer", el: pointer };
   const site = node.closest(SITE_POINTER_SEL);
   if (site && !site.closest(NOT_A_FIGURE)) return { type: "pointer", el: site };
+  const field = node.closest(FIELD_SEL);
+  if (field) return { type: "text", el: field };
+  /* text that cannot be selected is not text to put a caret on — the same
+     check Motion makes */
+  if (window.getComputedStyle(node).userSelect === "none") return { type: "default", el: null };
+  const text = textBlockOf(node);
+  if (text) return { type: "text", el: text };
   return { type: "default", el: null };
 }
 
@@ -141,6 +177,7 @@ export default function SiteCursor() {
 
     const dress = ({ type, el: target }) => {
       el.classList.toggle("-over", type === "pointer");
+      el.classList.toggle("-caret", type === "text");
       if (type === "pointer") {
         const r = target.getBoundingClientRect();
         const morph = r.width <= MORPH_MAX_W && r.height <= MORPH_MAX_H;
@@ -155,7 +192,12 @@ export default function SiteCursor() {
         return;
       }
       cursor.removeStick();
-      size(REST, REST);
+      if (type === "text") {
+        const fs = parseInt(window.getComputedStyle(target).fontSize, 10);
+        size(CARET_W, fs || CARET_H);
+      } else {
+        size(REST, REST);
+      }
       held = { type, el: target, stuck: false };
     };
 
