@@ -72,8 +72,7 @@ export default function LandingPage({ lang, setLang }) {
         screen taller than the slot and hoisted a screen up, so the sticky
         band inside it can hold at the bottom of the viewport while the slot
         scrolls up over it. No fixed positioning anywhere, so nothing here
-        has to be reconciled with iOS's toolbar or with the crossings, which
-        photograph fixed elements. */}
+        has to be reconciled with iOS's toolbar. */}
     <div className="lp-footer-slot">
       <div className="lp-footer-track">
         <footer className="lp-footer">

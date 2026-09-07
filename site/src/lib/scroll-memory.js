@@ -1,5 +1,5 @@
-import { useLayoutEffect, useRef } from "react";
-import { useLocation, useNavigationType } from "react-router-dom";
+import { useLayoutEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 /* Where each history entry was left, so the back button returns a reader to
    the card they were reading rather than to the top of the list.
@@ -13,7 +13,15 @@ import { useLocation, useNavigationType } from "react-router-dom";
  * The store is keyed by history entry, not by path. Two visits to /work are
  * two entries and two positions, and going back through both returns to each
  * of them in turn. sessionStorage rather than a module variable, so the
- * positions survive a reload and die with the tab. */
+ * positions survive a reload and die with the tab.
+ *
+ * Two halves. Writing down where the reader is happens here, in the hook at
+ * the foot of the file. Putting a page where it belongs when it arrives is
+ * components/PageStage.jsx's and the crossing's, because between them they
+ * are what knows when a page has the document: straight away on a plain
+ * swap, and at the first frame of a crossing, when the page being left is
+ * lifted out of the flow (see lib/page-transition.js). What they need from
+ * here is recall, holdScroll and landed. */
 const KEY = "scroll:";
 
 const remember = (key, y) => {
@@ -25,7 +33,7 @@ const remember = (key, y) => {
   }
 };
 
-const recall = (key) => {
+export const recall = (key) => {
   try {
     const v = sessionStorage.getItem(KEY + key);
     return v === null ? null : Number(v);
@@ -56,6 +64,9 @@ const currentKey = () => {
    written down. */
 let leaving = null;
 
+/* the last position that was the reader's own doing */
+let seen = 0;
+
 /* Back and forward have to raise the flag here rather than in the transition,
    because half of them never reach one: a phone plays no crossing of its own
    (the browser draws its own), and a move between two pages at the same depth
@@ -69,6 +80,15 @@ if (typeof window !== "undefined") {
   window.addEventListener("popstate", () => {
     leaving = "back";
   });
+  /* The browser's own restoration is switched off: this file is the one
+     doing it. Left on, the browser puts the scroll where the arriving entry
+     wants it the moment the back button is pressed, while the page being
+     left is still on screen and about to rise out of the crossing, which it
+     then does from the wrong place. Measured: a case study read three
+     thousand pixels down jumped to the list's one thousand before it moved.
+     A reload is the one thing the browser did for free, and PageStage does
+     it now from the same store, which outlives a reload. */
+  history.scrollRestoration = "manual";
 }
 
 /**
@@ -93,58 +113,96 @@ export function captureScroll() {
   leaving = "away";
 }
 
+/** The arriving page is on screen at `y`, and the scroll is the reader's
+ *  again. */
+export function landed(y) {
+  leaving = null;
+  seen = y;
+}
+
 /* how long the scroll has to hold still before it counts as a position */
 const SETTLE_MS = 200;
 
+/* how long a position is re-applied to a page still growing under it */
+const HOLD_MS = 2000;
+
 /**
- * Mounted once inside the router. Pins a new page to the top, and returns a
- * revisited one to where it was left.
+ * Keep the page at `target` while it settles. Returns the stop.
+ *
+ * A long page is not its full height yet when it arrives: the figures below
+ * the fold are lazy, and the page grows as they come in. A position deep in
+ * a case study is unreachable until it does, and a scroll set now clamps
+ * silently to whatever the height is at the moment. So the position is put
+ * back while the page settles, and the attempt stops as soon as it sticks
+ * or the reader takes over.
+ */
+export function holdScroll(target) {
+  if (!target) return () => {};
+  let frame = 0;
+  const until = performance.now() + HOLD_MS;
+  const stop = () => cancelAnimationFrame(frame);
+  const reapply = () => {
+    if (Math.abs(window.scrollY - target) < 2 || performance.now() > until) return;
+    window.scrollTo(0, target);
+    seen = target;
+    frame = requestAnimationFrame(reapply);
+  };
+  /* wheel and touch, not scroll: scrollTo above fires scroll itself, and
+     listening for that would cancel the repair on its own first move */
+  window.addEventListener("wheel", stop, { passive: true, once: true });
+  window.addEventListener("touchstart", stop, { passive: true, once: true });
+  frame = requestAnimationFrame(reapply);
+  return () => {
+    stop();
+    window.removeEventListener("wheel", stop);
+    window.removeEventListener("touchstart", stop);
+  };
+}
+
+/**
+ * Mounted once inside the router. Watches the reader, and writes down only
+ * what the reader did.
+ *
+ * Two things move the scroll that are not the reader. Both are the page
+ * coming apart on the way out: ScrollTrigger sends the scroll to zero as its
+ * context is reverted, and the document then shrinks from a case study's
+ * fourteen thousand pixels to About's three and a half, which the browser
+ * answers by pulling the scroll back to somewhere that still exists. Either
+ * one arrives here as an ordinary scroll event, and either one, written
+ * down, is the reader's place replaced by zero.
+ *
+ * Both happen after the crossing has been asked for, which is what the
+ * leaving flag is: raised at the click or the back button, lowered when the
+ * next page lands. Nothing in between is recorded.
+ *
+ * The settle is the second half. A burst of scrolls on the way out is
+ * cancelled by the cleanup below before the last of them can be written, so
+ * what stands is the last thing the reader actually did. A reader who
+ * scrolls and leaves inside that fifth of a second loses it, which is a
+ * fifth of a second of reading against the whole position.
+ *
+ * Nothing here looks at the document height. An earlier version threw away
+ * any scroll that came with one, on the grounds that a page changing size is
+ * a page settling — and on a case study, where the figures are lazy and the
+ * height moves the whole way down, that threw away the reader as well.
+ * Measured: a phone scrolled four thousand pixels into a case study recorded
+ * nothing at all, so the forward button opened it at the top.
  */
 export default function useScrollMemory() {
-  const { key, pathname } = useLocation();
-  const navigationType = useNavigationType();
-  // the last position that was the reader's own doing
-  const seen = useRef(0);
+  const { key } = useLocation();
 
-  /* Watch the reader, and write only what the reader did.
-   *
-   * Two things move the scroll that are not the reader. Both are the page
-   * coming apart on the way out: ScrollTrigger sends the scroll to zero as
-   * its context is reverted, and the document then shrinks from a case
-   * study's fourteen thousand pixels to About's three and a half, which the
-   * browser answers by pulling the scroll back to somewhere that still
-   * exists. Either one arrives here as an ordinary scroll event, and either
-   * one, written down, is the reader's place replaced by zero.
-   *
-   * Both happen after the crossing has been asked for, which is what the
-   * leaving flag is: raised at the click or the back button, lowered when the
-   * next page arrives. Nothing in between is recorded.
-   *
-   * The settle is the second half. A burst of scrolls on the way out is
-   * cancelled by the cleanup below before the last of them can be written, so
-   * what stands is the last thing the reader actually did. A reader who
-   * scrolls and leaves inside that fifth of a second loses it, which is a
-   * fifth of a second of reading against the whole position.
-   *
-   * Nothing here looks at the document height. An earlier version threw away
-   * any scroll that came with one, on the grounds that a page changing size
-   * is a page settling — and on a case study, where the figures are lazy and
-   * the height moves the whole way down, that threw away the reader as well.
-   * Measured: a phone scrolled four thousand pixels into a case study
-   * recorded nothing at all, so the forward button opened it at the top. */
   useLayoutEffect(() => {
-    seen.current = Math.round(window.scrollY);
     let timer = 0;
     const onScroll = () => {
       if (leaving) return;
-      seen.current = Math.round(window.scrollY);
+      seen = Math.round(window.scrollY);
       clearTimeout(timer);
-      timer = setTimeout(() => remember(key, seen.current), SETTLE_MS);
+      timer = setTimeout(() => remember(key, seen), SETTLE_MS);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     /* a reload or a closed tab never runs the cleanup below, and there is no
        teardown scroll to guard against either */
-    const flush = () => remember(key, seen.current);
+    const flush = () => remember(key, seen);
     window.addEventListener("pagehide", flush);
     return () => {
       clearTimeout(timer);
@@ -152,50 +210,4 @@ export default function useScrollMemory() {
       window.removeEventListener("pagehide", flush);
     };
   }, [key]);
-
-  useLayoutEffect(() => {
-    /* POP is the back and forward buttons, and a gesture that means them.
-       PUSH and REPLACE are the reader choosing something new, which starts
-       at the top. */
-    const saved = navigationType === "POP" ? recall(key) : null;
-    const target = saved ?? 0;
-
-    /* In a layout effect, so it lands before the browser paints and before a
-       page crossing photographs the arriving page — the transition would
-       otherwise carry a picture of the page at the top and drop the reader
-       somewhere else once it finished. */
-    leaving = null;
-    window.scrollTo(0, target);
-    seen.current = target;
-
-    if (!target) return undefined;
-
-    /* A long page is not its full height yet at this instant: the figures
-       below the fold are lazy, and the page grows as they arrive. A position
-       deep in a case study is unreachable until it does, and scrollTo clamps
-       silently to whatever the height is now.
-       So the position is re-applied while the page settles, and the attempt
-       stops as soon as it sticks or the reader takes over. */
-    let frame = 0;
-    const until = performance.now() + 2000;
-    const stop = () => cancelAnimationFrame(frame);
-    const reapply = () => {
-      if (Math.abs(window.scrollY - target) < 2 || performance.now() > until) return;
-      window.scrollTo(0, target);
-      seen.current = target;
-      frame = requestAnimationFrame(reapply);
-    };
-    /* wheel and touch, not scroll: scrollTo above fires scroll itself, and
-       listening for that would cancel the repair on its own first move */
-    window.addEventListener("wheel", stop, { passive: true, once: true });
-    window.addEventListener("touchstart", stop, { passive: true, once: true });
-    frame = requestAnimationFrame(reapply);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("wheel", stop);
-      window.removeEventListener("touchstart", stop);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key, pathname]);
 }

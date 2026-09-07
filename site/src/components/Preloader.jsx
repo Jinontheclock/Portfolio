@@ -9,7 +9,7 @@ import { beginCover, endCover } from "../lib/preloaderBus.js";
  *
  *  The app's first load only, now: a page reached by URL, a reload, or a
  *  pasted link. A page opened from inside the app is carried by the page
- *  crossing instead (see lib/viewTransition.js), which lands the reader at
+ *  crossing instead (see lib/page-transition.js), which lands the reader at
  *  the top of the new page and lets the rest stream in below. */
 const GRACE_MS = 350; // ready within this → lift the cover, never show a number
 const MIN_SHOWN_MS = 500; // once the number appears, keep it up long enough to read

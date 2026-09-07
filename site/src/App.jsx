@@ -1,10 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import { BrowserRouter, Route, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import useLang from "./hooks/useLang.js";
 import { LANGS, RETIRED, splitLang, stripRetired, swapLang, withLang } from "./lib/lang-routes.js";
 import Preloader from "./components/Preloader.jsx";
 import SiteCursor from "./components/SiteCursor.jsx";
-import { useRouteCommitted } from "./lib/viewTransition.js";
+import PageStage from "./components/PageStage.jsx";
 import useScrollMemory from "./lib/scroll-memory.js";
 import LandingPage from "./pages/LandingPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
@@ -17,11 +17,10 @@ const FADE_MS = 350; // keep in sync with .lang-fade-* in components.css
 // where they left it. Without the first, the browser keeps the old page's
 // offset and a case study opened from a scrolled Work page lands mid-chapter.
 // Without the second, the back button costs them their place in the list —
-// worst on mobile, where the Work page is long. See lib/scroll-memory.js.
+// worst on mobile, where the Work page is long. Writing the positions down
+// is lib/scroll-memory.js; putting a page where it belongs when it arrives
+// is PageStage's, which is the one thing that knows when that is.
 function ScrollMemory() {
-  /* a page transition, if one is waiting, is released the moment the new
-     page is in the DOM — see lib/viewTransition.js */
-  useRouteCommitted();
   useScrollMemory();
   return null;
 }
@@ -181,7 +180,9 @@ function Site() {
     <>
       <ScrollMemory />
       <SiteCursor />
-      <Routes>
+      {/* the pages, one container in the flow and a second over it while a
+          page is arriving — see components/PageStage.jsx */}
+      <PageStage booting={booting}>
         {LANGS.flatMap((l) =>
           PAGES.map((p) => {
             const Page = p.element;
@@ -197,7 +198,7 @@ function Site() {
         {RETIRED.map((l) => (
           <Route key={"retired-" + l} path={`/${l}/*`} element={<RetiredLangRedirect />} />
         ))}
-      </Routes>
+      </PageStage>
       {booting && <Preloader onDone={() => setBooting(false)} />}
     </>
   );

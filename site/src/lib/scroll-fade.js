@@ -98,11 +98,11 @@ export default function useScrollFade(root, specs, deps = []) {
              it is looked at rather than a beat later: whatever is in the
              band is simply already there.
 
-             It matters most on arrival. A crossing from Work photographs
-             this page the instant React commits it, and a page that spends
-             even one frame at opacity 0 is photographed blank and slides in
-             empty. Snapping here, inside a layout effect, means the picture
-             is taken of the finished page. */
+             It matters most on arrival. A crossing from Work uncovers this
+             page live, from the frame React commits it, and a page that
+             spends even one frame at opacity 0 is uncovered blank. Snapping
+             here, inside a layout effect, means what is uncovered is the
+             finished page. */
           onRefresh: (self) => {
             if (self.isActive) gsap.set(group, { y: 0, opacity: 1 });
             else gsap.set(group, { y: self.progress >= 1 ? -SHIFT : SHIFT, opacity: 0 });

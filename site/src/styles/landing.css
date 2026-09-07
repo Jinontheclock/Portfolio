@@ -65,6 +65,11 @@ body {
    closes on the glass on the left, the right and the bottom. */
 .lp-hero {
   margin-top: auto;
+  /* On arrival the heading rises from under this box (see .title-box in
+     components.css), and while it is down there it must not count as page
+     below the fold, or the two places this page snaps between gain a
+     third. Nothing of the drawing is outside the box to lose. */
+  overflow: clip;
 }
 
 .lp-heading {
@@ -291,8 +296,14 @@ body {
    with the browser animating the rest of the way. One notch of a wheel is
    past the midpoint, so one notch opens it and one closes it; a smaller
    nudge is drawn back where it came from. The class is put on the root by
-   LandingPage for as long as the page is there, and no other page has it. */
-html.lp-snap {
+   LandingPage for as long as the page is there, and no other page has it.
+
+   Not while a crossing is running. For that second the landing is either
+   arriving, and the window is being put where it belongs, or leaving, in
+   a box lifted out of the flow that is on its way up the screen: a snap
+   area moving on its own would have the window chasing it. The attribute
+   is on the root for exactly that second (see lib/page-transition.js). */
+html.lp-snap:not([data-crossing]) {
   scroll-snap-type: y mandatory;
 }
 .lp-root {

@@ -176,7 +176,7 @@ import { getProject } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
 import useLangPath from "../hooks/useLangPath.js";
-import withViewTransition, { crossing } from "../lib/viewTransition.js";
+import withPageTransition, { crossing, leaving } from "../lib/page-transition.js";
 
 // ProLog is exported to the Portfolio under /prolog/ (see site/public/prolog)
 const PROLOG_SRC = `${import.meta.env.BASE_URL}prolog/`;
@@ -468,6 +468,9 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     if (!project) return;
     const ids = project.sections.map((s) => s.id);
     const onScroll = () => {
+      /* the window's scroll is the next page's from the moment this page
+         starts to leave, and the list holds whatever it showed */
+      if (leaving(document.getElementById(`cs-${ids[0]}`))) return;
       let current = null;
       for (const sid of ids) {
         const el = document.getElementById(`cs-${sid}`);
@@ -510,7 +513,9 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
         <main className="cs-main">
           <div className="ab-grid cs-grid">
             <div className="cs-left">
-              <h1 className="cs-title">{project.title}</h1>
+              <div className="title-box">
+                <h1 className="cs-title">{project.title}</h1>
+              </div>
             </div>
           </div>
         </main>
@@ -520,8 +525,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
           lang={lang}
           onDismiss={() => {
             const go = () => navigate(langPath("/work"));
-            const move = crossing(pathname, "/work");
-            if (move) withViewTransition(go, move);
+            if (crossing(pathname, "/work")) withPageTransition(go);
             else go();
           }}
           onUnlocked={() => setUnlocked(true)}
@@ -576,9 +580,12 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
           {/* title + chapters stick together; the title doubles as the
               "back to intro" control */}
           <div className="cs-left">
-            <h1 className="cs-title" onClick={() => scrollTo(null)}>
-              {project.title}
-            </h1>
+            {/* the box the title rises into on arrival — see .title-box */}
+            <div className="title-box">
+              <h1 className="cs-title" onClick={() => scrollTo(null)}>
+                {project.title}
+              </h1>
+            </div>
             {/* on mobile the phone mockup rides beside the chapter list
                 instead of inside the hero (hidden on desktop via CSS) */}
             <div className="cs-toc-row">

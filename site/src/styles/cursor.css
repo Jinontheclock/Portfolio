@@ -99,11 +99,9 @@
   transform: translate(-50%, -50%) scale(0.9);
 }
 
-/* off the window, sitting a page crossing out, or over a frame this page is
-   not allowed to look into — Motion's exit variant, which is the same
-   disappearance in every case */
+/* off the window, or over a frame this page is not allowed to look into:
+   Motion's exit variant, which is the same disappearance in both cases */
 .hl-cursor.-hidden::before,
-.hl-cursor.-crossing::before,
 .hl-cursor.-blind::before {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0);

@@ -8,7 +8,7 @@ import { PROJECTS } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { PAGE_TITLE } from "../i18n.js";
 import useLangPath from "../hooks/useLangPath.js";
-import withViewTransition, { crossing } from "../lib/viewTransition.js";
+import withPageTransition, { crossing } from "../lib/page-transition.js";
 import useScrollFade from "../lib/scroll-fade.js";
 
 /* Everything a card renders, plus what the gate needs to challenge one.
@@ -77,10 +77,9 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 /* a modified or middle click is "open this somewhere
                    else", not a crossing — those stay the Link's */
                 if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-                const move = crossing(pathname, `/work/${p.id}`);
-                if (!move) return;
+                if (!crossing(pathname, `/work/${p.id}`)) return;
                 e.preventDefault();
-                withViewTransition(() => navigate(langPath(`/work/${p.id}`)), move);
+                withPageTransition(() => navigate(langPath(`/work/${p.id}`)));
               }}
               onMouseEnter={() => setHovered(p.id)}
               onMouseLeave={() => setHovered((id) => (id === p.id ? null : id))}
@@ -134,8 +133,7 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
             /* the password opens the same door the card does, so it opens
                it the same way */
             const go = () => navigate(langPath(`/work/${id}`));
-            const move = crossing(pathname, `/work/${id}`);
-            if (move) withViewTransition(go, move);
+            if (crossing(pathname, `/work/${id}`)) withPageTransition(go);
             else go();
           }}
         />

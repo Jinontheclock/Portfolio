@@ -327,39 +327,38 @@ export default function SiteCursor() {
       }
     };
 
-    /* Sit the page crossings out.
+    /* The page crossings.
      *
-     * A crossing photographs the whole viewport, this cursor included, and
-     * then slides the picture. Left alone the cursor appears twice for half a
-     * second: dimmed in the outgoing photograph, where it stands still, and
-     * travelling across the screen with the incoming one.
-     *
-     * Naming the element so the browser lifts it out of the page's snapshot
-     * is the documented answer and it was tried first — measured against the
-     * pixels, its own snapshot never paints, with the group's animation left
-     * alone or turned off, and with the blend and the containment removed.
-     * So the cursor is gone for the crossing whichever way, and the choice is
-     * only between gone and gone twice.
-     *
-     * It leaves the way it leaves the window, which is a thing it already
-     * knows how to do, and comes back when the page has landed. data-page-from
-     * is on the root element for exactly the length of the crossing — see
-     * lib/viewTransition.js — so there is nothing to wire up between them. */
+     * For the length of one, neither page takes the pointer (see
+     * lib/page-transition.js): nothing under the cursor can be hovered, and
+     * the control it was pinned to is about to rise off the screen, so it
+     * lets go and is a cursor again. When the crossing is over the page under
+     * the pointer is a different page, and no mouse event says so until the
+     * pointer moves, so it looks for itself. data-crossing is on the root
+     * element for exactly the length of the crossing, so there is nothing
+     * else to wire up between the two. */
+    const pointer = { x: -1, y: -1 };
+    const onMove = (e) => {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+    };
     const crossing = new MutationObserver(() => {
-      /* A class of this file's own rather than the library's hidden state.
-         Measured: hiding it through the library lasted 240ms and then came
-         undone on its own — swapping the page fires the pointer-entered event
-         the library listens to for un-hiding, so the cursor let itself back
-         in halfway through the crossing. Nothing else writes this one. */
-      el.classList.toggle("-crossing", !!root.dataset.pageFrom);
+      if ("crossing" in root.dataset) {
+        dress({ type: "default", el: null });
+        return;
+      }
+      const under = document.elementFromPoint(pointer.x, pointer.y);
+      if (under) onOver({ target: under });
     });
-    crossing.observe(root, { attributes: true, attributeFilter: ["data-page-from"] });
+    crossing.observe(root, { attributes: true, attributeFilter: ["data-crossing"] });
 
+    root.addEventListener("mousemove", onMove, { passive: true });
     root.addEventListener("mouseover", onOver, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
       crossing.disconnect();
+      root.removeEventListener("mousemove", onMove);
       root.removeEventListener("mouseover", onOver);
       window.removeEventListener("scroll", onScroll);
       cursor.destroy();

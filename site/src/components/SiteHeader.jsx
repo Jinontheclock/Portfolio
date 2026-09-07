@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import PillButton from "./PillButton.jsx";
 import useLangPath from "../hooks/useLangPath.js";
-import withViewTransition, { crossing, routeOf } from "../lib/viewTransition.js";
+import withPageTransition, { crossing, leaving, routeOf } from "../lib/page-transition.js";
 
 const PAGES = [
   { key: "work", label: "Work", path: "/work" },
@@ -20,16 +20,22 @@ export default function SiteHeader({ current, children }) {
   // the pills compare where the reader is without the language prefix
   const here = routeOf(pathname);
   const [atTop, setAtTop] = useState(true);
+  const el = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => setAtTop(window.scrollY < 8);
+    /* the window's scroll is the next page's from the moment this page
+       starts to leave, and this header holds whatever it showed */
+    const onScroll = () => {
+      if (leaving(el.current)) return;
+      setAtTop(window.scrollY < 8);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header className={"site-header" + (atTop ? "" : " is-scrolled")}>
+    <header ref={el} className={"site-header" + (atTop ? "" : " is-scrolled")}>
       {PAGES.map((p) => (
         <PillButton
           key={p.key}
@@ -40,8 +46,7 @@ export default function SiteHeader({ current, children }) {
             // highlights Work but still needs the button to reach /work
             if (here === p.path) return;
             const go = () => navigate(langPath(p.path));
-            const move = crossing(here, p.path);
-            if (move) withViewTransition(go, move);
+            if (crossing(here, p.path)) withPageTransition(go);
             else go();
           }}
         />
@@ -54,10 +59,9 @@ export default function SiteHeader({ current, children }) {
           /* a modified or middle click is "open this somewhere else", not
              a crossing — the browser and the Link keep those */
           if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-          const move = crossing(here, "/");
-          if (!move) return;
+          if (!crossing(here, "/")) return;
           e.preventDefault();
-          withViewTransition(() => navigate(langPath("/")), move);
+          withPageTransition(() => navigate(langPath("/")));
         }}
       >
         HAJIN
