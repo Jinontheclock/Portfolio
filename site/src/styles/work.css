@@ -1,34 +1,56 @@
-/* Work page — an index and a stage, on the same 12-col grid as About and
-   the case studies (24px margins, 30px gutters). The five titles stand in
-   a column on the left; beside them one project at a time: summary,
-   lowercase roles, and the thumbnail. Neither moves with the page. The
-   scroll turns the stage; see pages/WorkPage.jsx for how. */
+/* Work page — one screen, on the same 12-col grid as About and the case
+   studies (24px margins, 30px gutters): the header at the top, the
+   copyright at the foot, and between them an index and a stage. The five
+   titles stand in a column on the left; beside them one project at a
+   time: summary, lowercase roles, and the thumbnail. Nothing moves with
+   the page, because the page does not move; the wheel turns the stage.
+   See pages/WorkPage.jsx for how. */
+
+/* ── The screen ──
+   Exactly one screen tall, and clipped at that, so the window never has a
+   scrollbar to show. Three rows: the header, the room the stage stands in,
+   the footer. The stage line is where the stage's foot rests: two thirds
+   of the way down the screen, the top third and a bit left to the header
+   and air. One number, for the day it moves. */
+.wk-screen {
+  --wk-stage-line: 66.667dvh;
+  position: relative;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+}
 
 .wk-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  min-height: 0;
 }
 
-/* ── The track ──
-   The page's scroll length, with nothing of its own to show: a screen for
-   the stage, plus one step for every project after the first. The step
-   is half a screen — the same number WorkPage.jsx turns the stage by, so
-   the two have to move together. The grid inside it sticks under the
-   header for the whole of the track, and scrolls off with the footer only
-   once the last project has had its turn. */
-.wk-track {
-  --wk-step: 50dvh;
-  min-height: calc(100dvh + var(--wk-steps, 4) * var(--wk-step));
-}
-
+/* the index and the stage together, standing on the stage line: the box
+   is placed by its foot, so it stays there whatever the copy's height */
 .wk-grid {
-  position: sticky;
-  top: var(--header-h);
-  /* the 140px of air below the header is shared with About and the
-     case-study pages */
-  padding-top: 140px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100dvh - var(--wk-stage-line));
   align-items: start;
+}
+
+/* ── The scroll, out of sight ──
+   The box Lenis scrolls: the size of the screen, holding a track one step
+   taller per project after the first. It is never painted and takes no
+   pointer; the wheel reaches it through Lenis, from anywhere on the page.
+   The step is half a screen — the same number WorkPage.jsx turns the
+   stage by, so the two have to move together. */
+.wk-scroll {
+  --wk-step: 50dvh;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+.wk-track {
+  height: calc(100% + var(--wk-steps, 4) * var(--wk-step));
 }
 
 /* ── The index ──
@@ -262,13 +284,21 @@
 }
 
 /* ── Mobile: no index and no stage — a phone has no column to spare, and
-   no wheel to turn a stage with. Every block is in the flow, each headed
-   by its title, then the picture directly under it, everything running
-   the full width between the page margins. WorkPage.jsx leaves the blocks
-   alone on this breakpoint. ── */
+   no wheel to turn a stage with. The page is a page again: it scrolls,
+   and every block is in the flow, each headed by its title, then the
+   picture directly under it, everything running the full width between
+   the page margins. WorkPage.jsx leaves the blocks alone on this
+   breakpoint, and builds no scroll box. ── */
 @media (max-width: 600px) {
-  .wk-track {
-    min-height: auto;
+  .wk-screen {
+    height: auto;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+  .wk-main {
+    flex: 1;
   }
   .wk-grid {
     position: static;

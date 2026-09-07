@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import SiteHeader from "../components/SiteHeader.jsx";
@@ -13,8 +12,6 @@ import { resolve } from "../data/projects/resolve.js";
 import { PAGE_TITLE } from "../i18n.js";
 import useLangPath from "../hooks/useLangPath.js";
 import withPageTransition, { crossing } from "../lib/page-transition.js";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* Everything a card renders, plus what the gate needs to challenge one.
    The case-study bodies behind these five projects come to a quarter of a
@@ -39,48 +36,77 @@ const PROJECT_CARDS = PROJECTS.map((p) =>
 
 /* ── The page ──
  *
- * An index and a stage. The five titles stand in a column on the left,
- * and beside them one project at a time: its summary, its roles line and
- * its thumbnail. Neither moves with the page. What the scroll does is
- * turn the pages of the stage: every half a screen of scroll is the next
- * project, and the one on the stage is the one whose title is set large
- * and in ink. The stage is a grid with every block in the same cell, so
- * the blocks lie on top of one another and the current one is the one
- * shown; the page's height is a track behind them, as long as the steps
- * between the projects.
+ * One screen, and nothing on it moves with the page: the header at the
+ * top, the copyright at the foot, and between them an index and a stage.
+ * The five titles stand in a column on the left; beside them one project
+ * at a time, its summary, its roles line and its thumbnail. The page has
+ * no scroll of its own and shows no scrollbar. What the wheel turns is
+ * the stage: every half a screen of wheel is the next project, and the
+ * one on the stage is the one whose title is set large and in ink.
  *
- * The block on the stage is treated as if the pointer were on it: its
- * copy in ink, its picture in colour, its clip playing or its stills
- * walking. Nothing is asked of the reader but the scroll.
+ * The wheel is read through a scroll box that is never seen — a box the
+ * size of the screen with a track inside it as long as the steps between
+ * the projects, which Lenis scrolls from the wheel, a touch, or a key
+ * anywhere on the page, with its inertia. The stage follows the box's
+ * offset. Which project is on the stage is written down per history
+ * entry, so the back button returns to the project that was left, the
+ * way the other pages return to their scroll.
+ *
+ * The stage is a grid with every block in the same cell, so the blocks
+ * lie on top of one another and the current one is the one shown. The
+ * block on the stage is treated as if the pointer were on it: its copy in
+ * ink, its picture in colour, its clip playing or its stills walking.
  *
  * A phone keeps the plain stack — every block in the flow, each headed by
- * its title — since it has no column for an index and no wheel to turn
- * the stage with; see work.css.
+ * its title, the page scrolling as pages do — since it has no column for
+ * an index and no wheel to turn the stage with; see work.css.
  */
 
-/* how far the page scrolls from one project to the next: half a screen,
+/* how far the track scrolls from one project to the next: half a screen,
    the same number the stylesheet gives the track (--wk-step) */
 const STEP = 0.5;
 
-const hoverCapable = () => window.matchMedia?.("(hover: hover)").matches ?? true;
+/* how far the stage is turned by a key */
+const KEYS = { ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1, Home: -Infinity, End: Infinity };
+
 const reducedMotion = () =>
   window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 /* the phone layout's breakpoint, the same one work.css uses */
 const stacked = () => window.matchMedia?.("(max-width: 600px)").matches ?? false;
 
-/* How a block takes the stage. The copy comes up 40px through a fade, the
-   way the scroll fade brings a block in on the other pages, and the
-   picture is uncovered from its bottom edge on the page crossing's own
-   clock and curve (see lib/page-transition.js), so a page arriving and a
-   project arriving are one move. Going back up the list, both come from
+/* How a block takes the stage. The copy comes up 40px through a fade, and
+   the picture is uncovered from its bottom edge on the page crossing's
+   curve (see lib/page-transition.js), so a page arriving and a project
+   arriving are one move — at half the crossing's length, since a project
+   is a smaller thing than a page. Going back up the list, both come from
    the other side. */
-const SWAP = { shift: 40, duration: 0.45 };
-const UNCOVER = { duration: 0.7 };
+const SWAP = { shift: 40, duration: 0.3 };
+const UNCOVER = { duration: 0.35 };
 const uncoverFrom = (dir) => (dir < 0 ? "inset(0% 0% 100% 0%)" : "inset(100% 0% 0% 0%)");
+
+/* Which project each history entry was left on. The same store, the same
+   key and the same reasons as lib/scroll-memory.js, for a page whose
+   position is a project rather than a scroll. */
+const STAGE_KEY = "stage:";
+const rememberStage = (key, i) => {
+  try {
+    sessionStorage.setItem(STAGE_KEY + key, String(i));
+  } catch {
+    /* private mode, or a full quota: the page opens on the first project */
+  }
+};
+const recallStage = (key) => {
+  try {
+    const v = sessionStorage.getItem(STAGE_KEY + key);
+    return v === null ? null : Number(v);
+  } catch {
+    return null;
+  }
+};
 
 export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { pathname, key } = useLocation();
   const langPath = useLangPath();
   const projects = useMemo(() => resolve(PROJECT_CARDS, lang), [lang]);
   // a locked project asks for its password right here, before navigating
@@ -88,49 +114,133 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   /* which block the pointer is over — the thumbnails cycle off this, and a
      block is one link, so the block is where the hover has to be read */
   const [hovered, setHovered] = useState(null);
-  /* which project is on the stage, as an index into the list; null on a
-     phone, where there is no stage and every block is in the flow */
-  const [current, setCurrent] = useState(() => (stacked() ? null : 0));
+  /* the history entry this page was opened as. Read once: while this page
+     is leaving in a crossing the router already names the next entry, and
+     nothing here should be filed under it. */
+  const entry = useRef(key);
+  /* which project is on the stage, as an index into the list: the one the
+     entry was left on, or the first. Null on a phone, where there is no
+     stage and every block is in the flow. */
+  const [current, setCurrent] = useState(() => {
+    if (stacked()) return null;
+    const i = recallStage(entry.current) ?? 0;
+    return Math.max(0, Math.min(PROJECT_CARDS.length - 1, i));
+  });
   useEffect(() => {
     document.title = PAGE_TITLE.work[lang] || PAGE_TITLE.work.en;
   }, [lang]);
   const stageRef = useRef(null);
+  const scrollRef = useRef(null);
+  const trackRef = useRef(null);
   const lenis = useRef(null);
   /* what the stage showed last, and whether it has shown anything yet */
   const shown = useRef(null);
+  const gateOpen = useRef(false);
+  gateOpen.current = !!gateProject;
 
   const blocks = () => [...(stageRef.current?.querySelectorAll(".wk-section") ?? [])];
   const step = () => window.innerHeight * STEP;
   const indexAt = (y) =>
     Math.max(0, Math.min(projects.length - 1, Math.round(y / step())));
 
-  /* ── The scroll turns the stage ──
-     Half a screen per project, the nearest one winning, so a reader who
-     stops between two sees the closer of the two. Whether there is a
-     stage at all is decided on the phone breakpoint, and re-decided when
-     the window crosses it. */
+  /* ── The wheel turns the stage ──
+     Lenis scrolls the unseen box from input anywhere on the page: the
+     wheel, a touch drag on a tablet, and its inertia is the stage's — the
+     box follows the input a tenth of the way each frame, so a flick
+     coasts and settles, and the nearest step is the project shown. A
+     reader who asked for less motion gets the box following the input
+     exactly. Keys turn it a step at a time. Torn down the moment a
+     crossing starts, so a flick still settling cannot turn a stage that
+     is on its way out. */
   useEffect(() => {
-    const onScroll = () => setCurrent(stacked() ? null : indexAt(window.scrollY));
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+    if (current === null) return undefined;
+    const box = scrollRef.current;
+    const track = trackRef.current;
+    if (!box || !track) return undefined;
+    /* the box opens on the project the entry was left on, before Lenis
+       reads where it is */
+    box.scrollTop = current * step();
+    const smooth = new Lenis({
+      wrapper: box,
+      content: track,
+      eventsTarget: window,
+      lerp: reducedMotion() ? 1 : 0.1,
+      smoothWheel: true,
+      syncTouch: true,
+      autoRaf: false,
+    });
+    lenis.current = smooth;
+    const tick = (time) => smooth.raf(time * 1000);
+    gsap.ticker.add(tick);
+    const unhook = smooth.on("scroll", (l) => setCurrent(indexAt(l.scroll)));
+
+    const onKey = (e) => {
+      if (gateOpen.current || e.metaKey || e.ctrlKey || e.altKey) return;
+      const tag = e.target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || e.target?.isContentEditable) return;
+      let by = KEYS[e.key];
+      if (e.key === " ") by = e.shiftKey ? -1 : 1;
+      if (by === undefined) return;
+      e.preventDefault();
+      const at = indexAt(smooth.scroll);
+      const to = Math.max(0, Math.min(projects.length - 1, at + by));
+      smooth.scrollTo(to * step(), { duration: 1 });
     };
+    window.addEventListener("keydown", onKey);
+
+    const root = document.documentElement;
+    const crossing = new MutationObserver(() => {
+      if ("crossing" in root.dataset) teardown();
+    });
+    crossing.observe(root, { attributes: true, attributeFilter: ["data-crossing"] });
+    let down = false;
+    const teardown = () => {
+      if (down) return;
+      down = true;
+      crossing.disconnect();
+      window.removeEventListener("keydown", onKey);
+      unhook();
+      gsap.ticker.remove(tick);
+      smooth.destroy();
+      lenis.current = null;
+    };
+    return teardown;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projects]);
+  }, [current === null, projects]);
+
+  /* whether there is a stage at all is decided on the phone breakpoint,
+     and re-decided when the window crosses it */
+  useEffect(() => {
+    const onResize = () => {
+      if (stacked()) setCurrent(null);
+      else setCurrent((c) => (c === null ? 0 : c));
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  /* the project on the stage is where this entry will be returned to */
+  useEffect(() => {
+    if (current !== null) rememberStage(entry.current, current);
+  }, [current]);
+
+  /* the gate holds the stage still, the wheel included */
+  useEffect(() => {
+    const smooth = lenis.current;
+    if (!smooth) return;
+    if (gateProject) smooth.stop();
+    else smooth.start();
+  }, [gateProject]);
 
   /* ── The blocks take the stage ──
      Only the current block is on it; the rest are hidden, and not merely
      transparent, so nothing hidden can be clicked or tabbed to. The first
-     time this runs the scroll has already been placed (a page arriving in
-     a crossing, or by the back button, is landed before its effects run),
-     so what it shows is the block for where the reader is, with no swap.
-     After that a change of block is a swap: the one leaving fades and
-     moves off the way the scroll is going, the one arriving comes up from
-     the other side and has its picture uncovered. A reader who asked for
-     less motion gets the cut. */
+     time this runs there is nothing to swap from, so the block for the
+     project the page opened on is simply shown. After that a change of
+     block is a swap: the one leaving fades and moves off the way the
+     wheel is going, the one arriving comes up from the other side and has
+     its picture uncovered. A reader who asked for less motion gets the
+     cut. */
   useEffect(() => {
     const all = blocks();
     if (!all.length) return;
@@ -143,29 +253,26 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
     const next = all[current];
     const prev = shown.current === null ? null : all[shown.current];
     const dir = shown.current === null ? 1 : Math.sign(current - shown.current) || 1;
-    const first = shown.current === null;
     shown.current = current;
     if (prev === next) return;
     gsap.killTweensOf(all);
     gsap.killTweensOf(all.map((b) => b.querySelector(".wk-image")));
     const others = all.filter((b) => b !== next && b !== prev);
     gsap.set(others, { autoAlpha: 0, y: 0 });
-    if (reducedMotion()) {
+    if (reducedMotion() || !prev) {
       if (prev) gsap.set(prev, { autoAlpha: 0 });
       gsap.set(next, { autoAlpha: 1, y: 0, clearProps: "clipPath" });
       return;
     }
-    if (prev) {
-      gsap.to(prev, {
-        autoAlpha: 0,
-        y: -SWAP.shift * dir,
-        duration: SWAP.duration,
-        ease: "power2.out",
-      });
-    }
+    gsap.to(prev, {
+      autoAlpha: 0,
+      y: -SWAP.shift * dir,
+      duration: SWAP.duration,
+      ease: "power2.out",
+    });
     gsap.fromTo(
       next,
-      { autoAlpha: 0, y: first ? 0 : SWAP.shift * dir },
+      { autoAlpha: 0, y: SWAP.shift * dir },
       { autoAlpha: 1, y: 0, duration: SWAP.duration, ease: "power2.out" },
     );
     gsap.fromTo(
@@ -181,71 +288,20 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, projects]);
 
-  /* ── The scroll itself ──
-     Inertia on the wheel: the page follows the input a tenth of the way
-     each frame, so a flick coasts and settles instead of stopping dead.
-     Lenis moves the real scroll position, which is what keeps the sticky
-     index, the scrollbar and window.scrollY honest; a transform-based
-     smoother would have unstuck the index. This page only, for now.
-
-     Not on a touch screen, where the platform's own inertia is the one the
-     reader knows, and not for a reader who asked for less motion. Torn
-     down the moment a crossing starts: a wheel flick still settling would
-     otherwise keep steering the window after it has been handed to the
-     page arriving. */
-  useEffect(() => {
-    if (!hoverCapable() || reducedMotion()) return undefined;
-    const smooth = new Lenis({ lerp: 0.1, smoothWheel: true, syncTouch: false, autoRaf: false });
-    lenis.current = smooth;
-    const tick = (time) => smooth.raf(time * 1000);
-    gsap.ticker.add(tick);
-    const unhook = smooth.on("scroll", ScrollTrigger.update);
-    const root = document.documentElement;
-    const crossing = new MutationObserver(() => {
-      if ("crossing" in root.dataset) teardown();
-    });
-    crossing.observe(root, { attributes: true, attributeFilter: ["data-crossing"] });
-    let down = false;
-    const teardown = () => {
-      if (down) return;
-      down = true;
-      crossing.disconnect();
-      unhook();
-      gsap.ticker.remove(tick);
-      smooth.destroy();
-      lenis.current = null;
-    };
-    return teardown;
-  }, []);
-
-  /* the gate holds the page still, the wheel included */
-  useEffect(() => {
-    const smooth = lenis.current;
-    if (!smooth) return;
-    if (gateProject) smooth.stop();
-    else smooth.start();
-  }, [gateProject]);
-
-  /* Turn the stage to a project: the scroll goes to that project's step.
-     Through the smoother when there is one, so the move has the same
-     inertia as the wheel. */
+  /* Turn the stage to a project: the box goes to that project's step,
+     with the same inertia as the wheel. */
   const jumpTo = (i) => {
-    const top = i * step();
-    if (lenis.current) lenis.current.scrollTo(top, { duration: 1.2 });
-    else window.scrollTo({ top, behavior: reducedMotion() ? "auto" : "smooth" });
+    lenis.current?.scrollTo(i * step(), { duration: 1.2 });
   };
 
   return (
-    <div className="ab-root">
+    <div className="ab-root wk-screen">
       <SiteHeader current="work" />
 
       {/* the localized content cross-fades on language switches, matching
           Landing and About — without this the switch reads as a dead delay
           followed by a text snap */}
       <main className={"wk-main " + fadeClass}>
-        {/* the track is the scroll: as many steps as there are projects
-            after the first, on top of a screen for the stage itself */}
-        <div className="wk-track" style={{ "--wk-steps": projects.length - 1 }}>
         <div className="ab-grid wk-grid">
           <nav className="wk-index" aria-label="Projects">
             {projects.map((p, i) => (
@@ -311,10 +367,22 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
             ))}
           </div>
         </div>
-        </div>
       </main>
 
       <SiteFooter lang={lang} setLang={setLang} />
+
+      {/* the scroll, never seen: the box Lenis scrolls, and the track in it
+          that gives the wheel its length — one step per project after the
+          first. Not on a phone, where the page itself scrolls. */}
+      {current !== null && (
+        <div className="wk-scroll" ref={scrollRef} aria-hidden="true">
+          <div
+            className="wk-track"
+            ref={trackRef}
+            style={{ "--wk-steps": projects.length - 1 }}
+          />
+        </div>
+      )}
 
       {gateProject && (
         <CaseGateModal
