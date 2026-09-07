@@ -368,9 +368,12 @@ const SKILLS = {
   ],
 };
 
-/* The three parts of the page the list beside the column names, by the
-   headings the column carries — English in every language. */
+/* The four parts of the page the list beside the column names — English
+   in every language. About is the photograph, the name and the prose,
+   which the page opens on; the other three carry their name as a heading
+   on a phone, where there is no list. */
 const SECTIONS = [
+  { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
   { id: "skills", label: "Skills" },
@@ -386,8 +389,8 @@ const SECTIONS = [
    in on its own before the thing it was heading. */
 const SCROLL_FADE = [
   [".ab-portrait", ".ab-lede"], // the photograph, the name, the opening line
-  [".ab-content > .ab-paragraph"], // the prose, in one piece
-  ".ab-section", // Experience, Education and Skills, each whole
+  [".ab-about > .ab-paragraph"], // the prose, in one piece
+  ".ab-section:not(.ab-about)", // Experience, Education and Skills, each whole
 ];
 /* off the phone the column is a stage (see below), and the fade has no say */
 const NO_FADE = [];
@@ -498,7 +501,8 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
      or the moment the reader takes the wheel, so a jump from Experience to
      Skills does not light Education in passing. */
   const travel = useRef(null);
-  // the section being read (null = the opening above the sections)
+  // the section being read; About from the first pixel, its top being the
+  // column's own
   const [activeId, setActiveId] = useState(null);
   useScrollFade(contentRef, screen ? NO_FADE : SCROLL_FADE, [lang, screen], screen ? regionRef : null);
   const { scrollY, scrollMax, goTo } = useScreenScroll(screen, regionRef, gridRef, {
@@ -545,9 +549,8 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [screen, lang]);
 
-  /* the column is a stage: only the section being read is on it, and the
-     opening — the photograph, the name and the prose — until Experience is
-     reached */
+  /* the column is a stage: only the section being read is on it, About —
+     the photograph, the name and the prose — until Experience is reached */
   useColumnStage(
     screen,
     contentRef,
@@ -621,57 +624,62 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
           </div>
 
           <div className="ab-content" ref={contentRef}>
-            {/* opens the column, and the first thing on the page worth
-                loading — no lazy attribute, or it arrives late */}
-            <img
-              className="ab-portrait"
-              src={portrait}
-              alt={PORTRAIT_ALT[lang] || PORTRAIT_ALT.en}
-              width="2000"
-              height="1083"
-              decoding="async"
-            />
-            {/* the name and the sentence that answers it share a line, sitting
-                on the same bottom edge — one opening statement rather than
-                two stacked ones */}
-            <div className="ab-lede">
-              <h1
-                className="ab-title"
-                style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
-              >
-                {NAME[lang] || NAME.en}
-              </h1>
-              <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
-            </div>
-            {about.body.map((para, i) => (
-              <p key={i} className="ab-paragraph">
-                {typeof para === "string"
-                  ? noOrphan(para)
-                  : noOrphanSegments(para).map((seg, j) =>
-                      typeof seg === "string" ? (
-                        seg
-                      ) : (
-                        /* mailto: hands off to the reader's own mail client,
-                           so it must stay in place — a new tab would be left
-                           blank behind the compose window */
-                        <a
-                          key={j}
-                          href={seg.href}
-                          target={
-                            seg.href.startsWith("http") ? "_blank" : undefined
-                          }
-                          rel={
-                            seg.href.startsWith("http")
-                              ? "noreferrer"
-                              : undefined
-                          }
-                        >
-                          {seg.text}
-                        </a>
-                      ),
-                    )}
-              </p>
-            ))}
+            {/* About: the photograph, the name and the prose, one section
+                like the three under it, so the list can name it and the
+                stage can hold it */}
+            <section id="ab-about" className="ab-section ab-about">
+              {/* opens the column, and the first thing on the page worth
+                  loading — no lazy attribute, or it arrives late */}
+              <img
+                className="ab-portrait"
+                src={portrait}
+                alt={PORTRAIT_ALT[lang] || PORTRAIT_ALT.en}
+                width="2000"
+                height="1083"
+                decoding="async"
+              />
+              {/* the name and the sentence that answers it share a line, sitting
+                  on the same bottom edge — one opening statement rather than
+                  two stacked ones */}
+              <div className="ab-lede">
+                <h1
+                  className="ab-title"
+                  style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
+                >
+                  {NAME[lang] || NAME.en}
+                </h1>
+                <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
+              </div>
+              {about.body.map((para, i) => (
+                <p key={i} className="ab-paragraph">
+                  {typeof para === "string"
+                    ? noOrphan(para)
+                    : noOrphanSegments(para).map((seg, j) =>
+                        typeof seg === "string" ? (
+                          seg
+                        ) : (
+                          /* mailto: hands off to the reader's own mail client,
+                             so it must stay in place — a new tab would be left
+                             blank behind the compose window */
+                          <a
+                            key={j}
+                            href={seg.href}
+                            target={
+                              seg.href.startsWith("http") ? "_blank" : undefined
+                            }
+                            rel={
+                              seg.href.startsWith("http")
+                                ? "noreferrer"
+                                : undefined
+                            }
+                          >
+                            {seg.text}
+                          </a>
+                        ),
+                      )}
+                </p>
+              ))}
+            </section>
 
             <section id="ab-experience" className="ab-section">
               <h2 className="ab-section-label">Experience</h2>
