@@ -1,11 +1,29 @@
-/* Four breakpoint tiers matching the Figma responsive set:
-     Desktop ≥1440 · Laptop 1025–1439 · Tablet 601–1024 · Mobile ≤600
-   (frames: Landing-Page_Desktop 1440 / _Laptop 1280 / _Tablet 834 / _Mobile 402)
+/* Five breakpoint tiers, cut by the screens people actually hold, at
+   their default scale (CSS pixels):
+
+     Desktop and up   ≥ 1800      a 1920 monitor, an iMac at 2240, 27" at 2560
+     Laptop 16"–15"   1600–1799   MacBook Pro 16" 1728, Air 15" 1710
+     Laptop 14"–11"   1081–1599   MacBook Pro 14" 1512, Air 13" 1470, the
+                                  older 13" at 1440, Windows 13"–14" at 1280
+                                  and 1366, an iPad landscape at 1180
+     Tablet           601–1080    an iPad upright, 744 to the 13" Pro's 1032
+     Mobile           ≤ 600       phones, 320 to 430
+
+   The cuts sit where no screen does: nothing lives between the 14" at
+   1512 and the 16" at 1728, or between the 16" and a 1920 monitor, so a
+   window a little short of full does not fall through to the next tier.
+   The tablet's top edge is 1080 rather than the 1024 it was, to keep the
+   13" iPad Pro upright (1032) a tablet; there is no laptop in between.
+   (Figma frames: 1920 / 1728 / 1512 / 834 / 402.)
+
    Each tier sets the size variables below; the cascade of max-width
-   queries means desktop values are the defaults. */
+   queries means the desktop's values are the defaults. Where the page
+   itself changes shape — the case-study and About columns, the header's
+   links — the stylesheets cut at the tablet's 1080 and the phone's 600,
+   and the two JS hooks that ask "is this a phone" at 600. */
 
 :root {
-  /* ── Desktop (Figma 1440 frame) ── */
+  /* ── Desktop and up (Figma 1920 frame) ── */
   --size-page-pad: clamp(16px, 14.45px + 0.39vw, 20px); /* 16 → 20, fluid */
 
   /* landing — fluid between the 402px and 1440px anchors so nothing
@@ -20,10 +38,10 @@
 
   /* chrome that every page carries: the header's two labels, and the
      copyright line in the footer */
-  /* Work / About, the wordmark, and About's links: 22 / 18 / 18 / 16
+  /* Work / About, the wordmark, and About's links: 22 / 20 / 18 / 18 / 16
      across the tiers. The desktop used to stand at 24, and with the
-     links in the row it read as the largest type on the page; the
-     laptop stood at 20 for a while and was too big at 1280. */
+     links in the row it read as the largest type on the page; 20 was
+     tried at 1280 and was too big there, so from the 14" down it is 18. */
   --size-header-nav: 22px;
   /* The header's own two numbers, published rather than copied. Anything
      that has to sit clear of the header needs to know where its bottom
@@ -53,17 +71,30 @@
   --size-copy: 18px; /* © HAJIN LEE … */
 
   /* inner pages */
-  --size-about-title: 48px; /* "Hajin Lee" */
-  --size-section-label: 24px; /* Experiences / Education */
-  --size-card-title: 28px; /* Work cards */
-  /* body/detail text on Work + About: fluid between the 402 and 1440
-     anchors so it steps subtly across mobile/tablet/laptop/desktop
-     (≈14 → 15 → 16.1 → 16.5) instead of holding one size everywhere */
-  --size-body: clamp(14px, 13.03px + 0.241vw, 16.5px);
+  --size-about-title: 52px; /* "Hajin L." */
+  --size-section-label: 24px; /* Experience / Education */
+  --size-card-title: 30px; /* Work titles, chapter lists, About's list */
+  /* body/detail text on Work + About: fluid between the 402 and 1920
+     anchors so it steps subtly across the tiers (≈14 → 15 → 16.2 →
+     16.6 → 17 at 402 / 834 / 1512 / 1728 / 1920) instead of holding one
+     size everywhere */
+  --size-body: clamp(14px, 13.21px + 0.1976vw, 17px);
 }
 
-/* ── Laptop (Figma 1280 frame) ── */
-@media (max-width: 1439px) {
+/* ── Laptop 16"–15" (Figma 1728 frame) ── */
+@media (max-width: 1799px) {
+  :root {
+    --size-hero: 110px; /* pre-JS fallback only */
+    --size-header-nav: 20px;
+    --size-copy: 16px;
+    --size-about-title: 48px;
+    --size-section-label: 24px;
+    --size-card-title: 28px;
+  }
+}
+
+/* ── Laptop 14"–11" (Figma 1512 frame) ── */
+@media (max-width: 1599px) {
   :root {
     --size-hero: 100px; /* pre-JS fallback only */
     --size-header-nav: 18px;
@@ -75,7 +106,7 @@
 }
 
 /* ── Tablet (Figma 834 frame) ── */
-@media (max-width: 1024px) {
+@media (max-width: 1080px) {
   :root {
     --size-hero: 64px; /* pre-JS fallback only */
     --size-header-nav: 18px;

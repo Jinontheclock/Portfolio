@@ -955,13 +955,13 @@
   font: 400 11px / 1.35 var(--font-ui);
   color: var(--text-muted);
 }
-/* The wrap fires above the case study's own 1024 breakpoint, not at it.
+/* The wrap fires above the case study's own tablet breakpoint, not at it.
    Five across puts the cell at 174.6px at 1920 and 133.8px at 1512, where
    the second line of each screen — "$12.15 Remaining", "Balance $32.15" —
    still reads. At 1281 it is 110.7px and those lines are at the edge of
-   legible while the notes start wrapping to two ragged lines; by 1024 the
-   cell would be 101.8px, past it. So the row has to break before 1024
-   rather than on it. */
+   legible while the notes start wrapping to two ragged lines; by 1080 the
+   cell would be 107px, past it. So the row has to break before the
+   tablet rather than on it. */
 @media (max-width: 1280px) {
   .cmp-watch-row {
     --cmp-ww: calc((100% - 24px) / 3);
@@ -1238,7 +1238,7 @@
 }
 
 /* ── Tablet: pull both columns toward the edges ── */
-@media (max-width: 1024px) {
+@media (max-width: 1080px) {
   .cs-left {
     grid-column: 1 / 5;
   }
@@ -1605,7 +1605,7 @@
 }
 .wl-slider-label--left { left: 24px; }
 .wl-slider-label--right { right: 24px; }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1080px) {
   .wl-slider-label {
     top: 16px;
     padding: 4px 8px;

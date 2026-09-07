@@ -188,7 +188,7 @@
   }
 }
 /* Header nav reads as plain text: no pill background. Its size steps per
-   breakpoint tier — 22 / 18 / 18 / 16 — rather than holding the 15px the
+   breakpoint tier — 22 / 20 / 18 / 18 / 16 — rather than holding the 15px the
    pill component carries for its own use elsewhere, and the line-height is
    a ratio rather than the pill's fixed 20px so the box keeps its
    proportion at every one of them. */
@@ -229,7 +229,7 @@
   align-items: flex-start;
   gap: 32px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1080px) {
   .site-header-links {
     display: none;
   }
