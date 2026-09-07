@@ -102,26 +102,29 @@
   /* The header and the copyright lie on the column with no ground of
      their own, so a line of text used to pass under HAJIN at full
      strength and end at the screen's edge. Instead the column thins out
-     as it nears either edge: a mask that is solid twice the header's
-     height down, and twice the footer's height up, and clear at the edge
-     itself, so a line is half there where the header ends and gone where
-     the screen does. The mask is on the box, not the column, so it keeps
-     to the screen while the column moves through it. */
-  --cs-edge-top: calc(var(--header-h) * 2);
-  --cs-edge-bottom: calc(var(--footer-h) * 2);
+     before it reaches either: a mask that is clear across the header's
+     own height and the footer's, so the wordmark and the copyright stand
+     on nothing, and rises to solid over twice each one's height below
+     and above them, so a line is gone by the time it reaches HAJIN
+     rather than half there under it. The mask is on the box, not the
+     column, so it keeps to the screen while the column moves through it. */
+  --cs-clear-top: var(--header-h);
+  --cs-fade-top: calc(var(--header-h) * 2);
+  --cs-clear-bottom: var(--footer-h);
+  --cs-fade-bottom: calc(var(--footer-h) * 2);
   -webkit-mask-image: linear-gradient(
     to bottom,
-    transparent 0,
-    #000 var(--cs-edge-top),
-    #000 calc(100% - var(--cs-edge-bottom)),
-    transparent 100%
+    transparent var(--cs-clear-top),
+    #000 calc(var(--cs-clear-top) + var(--cs-fade-top)),
+    #000 calc(100% - var(--cs-clear-bottom) - var(--cs-fade-bottom)),
+    transparent calc(100% - var(--cs-clear-bottom))
   );
   mask-image: linear-gradient(
     to bottom,
-    transparent 0,
-    #000 var(--cs-edge-top),
-    #000 calc(100% - var(--cs-edge-bottom)),
-    transparent 100%
+    transparent var(--cs-clear-top),
+    #000 calc(var(--cs-clear-top) + var(--cs-fade-top)),
+    #000 calc(100% - var(--cs-clear-bottom) - var(--cs-fade-bottom)),
+    transparent calc(100% - var(--cs-clear-bottom))
   );
 }
 .cs-screen .cs-left {
