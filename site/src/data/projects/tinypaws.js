@@ -3,11 +3,7 @@ import cardPoster from "../../assets/tinypaws/tinypaws-card-poster.webp";
 export default {
   id: "tinypaws",
   title: "TinyPaws",
-  /* the page is one screen: header and copyright held, the column
-     scrolling between them on the wheel's inertia, the chapter list with
-     its subheadings opened under the chapter being read — see
-     CaseStudyPage.jsx */
-  screen: true,
+  screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
   /* Work-card thumbnail: the case study's own hero clip, cropped to the
      card's proportions and without the logo the hero floats over it. The
      card rests on the poster and plays under the pointer.

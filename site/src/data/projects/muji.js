@@ -37,6 +37,7 @@ const PLACEHOLDER_SECTIONS = [
 
 export default {
   id: "muji",
+  screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
   title: "MUJI",
   // company confidentiality: gate the case study behind a password
   locked: true,

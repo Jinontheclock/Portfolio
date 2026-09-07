@@ -61,26 +61,44 @@
 /* ── One screen ──
    A project flagged `screen` (see CaseStudyPage.jsx) is set the way the
    Work page is: exactly one screen tall and clipped at that, so the window
-   never has a scrollbar to show. Three rows: the header, the box the
-   column scrolls in, the footer. The box is the scroll container, and a
-   sticky seat inside it is measured from the box's content edge, which
-   its own 140px of top padding has already pushed down: so the rail's
-   seat is zero, and it holds the exact spot it stands in before any
-   scroll, as --rail-top does for the window. */
+   never has a scrollbar to show. The box the column scrolls in is the
+   whole screen, and the header and the footer lie over it with nothing
+   behind them, so the column passes under the wordmark and the copyright
+   the way a page passes under a fixed header, rather than being cut off
+   at their edges — which is what a box that began under the header did:
+   a line of the chapter being read, sliced through the middle.
+
+   The box is the scroll container, and a sticky seat inside it is
+   measured from the box's content edge, which its top padding has already
+   pushed down to --index-line: so the rail's seat is zero, and it holds
+   the exact spot it stands in before any scroll, as --rail-top does for
+   the window. */
 .cs-screen {
+  position: relative;
+  display: block;
   height: 100dvh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
   overflow: hidden;
 }
+.cs-screen .site-header,
+.cs-screen .site-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+.cs-screen .site-header {
+  top: 0;
+}
+.cs-screen .site-footer {
+  bottom: 0;
+}
 .cs-screen .cs-main {
-  min-height: 0;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   /* the column opens on --index-line, where the Work page stands its
-     titles, so the chapter list here and the titles there hold one
-     place; the box starts under the header, so the header's height comes
-     off the line */
-  padding-top: calc(var(--index-line) - var(--header-h));
+     titles, so the chapter list here and the titles there hold one place */
+  padding-top: var(--index-line);
 }
 .cs-screen .cs-left {
   top: 0;

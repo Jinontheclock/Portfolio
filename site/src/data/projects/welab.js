@@ -2,6 +2,7 @@ import cardPoster from "../../assets/welab/welab-card-poster.webp";
 
 export default {
   id: "welab",
+  screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
   title: "WeLAB Entertainment",
   /* Work-card thumbnail: the case study's own hero clip, cropped to the
      card's proportions and without the wordmark the hero floats over it.

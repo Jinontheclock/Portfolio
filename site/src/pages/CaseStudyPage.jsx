@@ -587,8 +587,10 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       }
       setActiveSub(sub);
     };
-    onScroll();
     const box = screen ? regionRef.current : window;
+    /* a locked project's gate has no column, and nothing to watch */
+    if (!box) return undefined;
+    onScroll();
     box.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {

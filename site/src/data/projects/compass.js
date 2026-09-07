@@ -920,6 +920,7 @@ const COMPASS_SECTIONS = [
 
 export default {
   id: "compass-card",
+  screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
   title: "Compass Card",
   /* Work-card thumbnail: the concept running in both its devices — the
      Apple Wallet link-up on the iPhone, a reload and a reader tap on the

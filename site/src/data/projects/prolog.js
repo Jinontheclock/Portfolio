@@ -2,6 +2,7 @@ import cardPoster from "../../assets/prolog/prolog-card-poster.webp";
 
 export default {
   id: "prolog",
+  screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
   title: "ProLog",
   /* Work-card thumbnail: the app itself running in the two phone mockups —
      the dashboard counting up on the iPhone, a skills quiz being worked
