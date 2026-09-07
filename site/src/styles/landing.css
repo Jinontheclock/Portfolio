@@ -307,6 +307,20 @@ body {
 html.lp-snap:not([data-crossing]) {
   scroll-snap-type: y mandatory;
 }
+/* And no scrollbar. The page scrolls by the height of the band and no
+   further, and a scrollbar drawn for those 72px made it read as a document
+   with a little more below, when what it is is a band unfolding from the
+   bottom edge and folding back. The inner pages are each one screen and
+   show none either, so this is the last one on the site. The scroll
+   itself is untouched: the wheel, a touch and the keys still open and
+   close the band, and the snap still finishes the move. Both spellings,
+   for the engines that know only one. */
+html.lp-snap {
+  scrollbar-width: none;
+}
+html.lp-snap::-webkit-scrollbar {
+  display: none;
+}
 .lp-root {
   scroll-snap-align: start;
 }
