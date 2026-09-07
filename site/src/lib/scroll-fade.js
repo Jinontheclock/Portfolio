@@ -51,11 +51,16 @@ const asGroups = (root, spec) =>
  * @param deps   re-measure when these change (a language switch reflows
  *               every block on the page, so the triggers have to be rebuilt
  *               against the new heights)
+ * @param scroller  ref to the box the page scrolls in, when it is not the
+ *               window: a case study set as one screen scrolls its own
+ *               column (see CaseStudyPage.jsx). Its identity belongs in
+ *               deps as well, so a page that changes scroller rebuilds.
  */
-export default function useScrollFade(root, specs, deps = []) {
+export default function useScrollFade(root, specs, deps = [], scroller = null) {
   useLayoutEffect(() => {
     const el = root.current;
     if (!el) return undefined;
+    const box = scroller?.current ?? undefined;
     /* Someone who has asked for less motion gets the page as written: no
        hiding, no tweening, nothing to wait for. Same bargain the page
        transitions and the modals keep. */
@@ -82,6 +87,10 @@ export default function useScrollFade(root, specs, deps = []) {
       members = groups.flat();
       groups.forEach((group) => {
         ScrollTrigger.create({
+          /* named only when there is one: a scroller of undefined is not
+             the same as no scroller to ScrollTrigger, and left every
+             block on About at opacity 0 until the first scroll */
+          ...(box ? { scroller: box } : {}),
           /* the group starts on its first member and ends on its last, so
              the band is drawn around the whole run rather than around
              whichever piece of it happened to be picked */

@@ -58,11 +58,90 @@
   width: fit-content;
 }
 
+/* ── One screen ──
+   A project flagged `screen` (see CaseStudyPage.jsx) is set the way the
+   Work page is: exactly one screen tall and clipped at that, so the window
+   never has a scrollbar to show. Three rows: the header, the box the
+   column scrolls in, the footer. The box is the scroll container, and a
+   sticky seat inside it is measured from the box's content edge, which
+   its own 140px of top padding has already pushed down: so the rail's
+   seat is zero, and it holds the exact spot it stands in before any
+   scroll, as --rail-top does for the window. */
+.cs-screen {
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+}
+.cs-screen .cs-main {
+  min-height: 0;
+  overflow: hidden;
+}
+.cs-screen .cs-left {
+  top: 0;
+}
+
 /* ── Table of contents — tracks the chapter in view ── */
 .cs-toc {
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+/* ── The nested list ──
+   Chapters, and under the chapter being read its subheadings, the way a
+   document's contents open: the row they sit in grows from nothing to
+   its own height and back, so the list breathes rather than jumps. The
+   chapter being read is set at the card-title size in ink, as the Work
+   page sets its current title, and crosses to it on the same clock. */
+.cs-toc--nested {
+  gap: 6px;
+}
+.cs-toc-chapter {
+  display: flex;
+  flex-direction: column;
+}
+.cs-toc--nested .cs-toc-item {
+  line-height: 1.5;
+  transition:
+    font-size 300ms var(--easing),
+    color 300ms var(--easing);
+}
+.cs-toc-chapter.is-current > .cs-toc-item {
+  font-size: var(--size-card-title);
+}
+.cs-toc-sub {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms var(--easing);
+}
+.cs-toc-chapter.is-current > .cs-toc-sub {
+  grid-template-rows: 1fr;
+}
+.cs-toc-sub-inner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* the subheadings step in from the chapter's edge */
+  padding-left: 16px;
+}
+.cs-toc-subitem {
+  all: unset;
+  cursor: pointer;
+  font: 400 14px / 1.7 var(--font-ui);
+  color: var(--text-muted);
+  transition: color var(--duration-fast) var(--easing);
+}
+.cs-toc-subitem:hover,
+.cs-toc-subitem.is-current {
+  color: var(--text-primary);
+}
+/* the open list's first line sits a little off the chapter, the last a
+   little off the next chapter */
+.cs-toc-chapter.is-current > .cs-toc-sub > .cs-toc-sub-inner {
+  padding-top: 4px;
+  padding-bottom: 8px;
 }
 
 .cs-toc-item {
@@ -1199,9 +1278,16 @@
     margin-bottom: 24px;
   }
   /* without the sticky tracking, the muted/current split means nothing —
-     read the whole list at full strength */
+     read the whole list at full strength, all at one size, chapters only:
+     a list read once at the top has no chapter to open under */
   .cs-toc-item {
     color: var(--text-primary);
+  }
+  .cs-toc-chapter.is-current > .cs-toc-item {
+    font-size: var(--size-body);
+  }
+  .cs-toc-sub {
+    display: none;
   }
   .cs-content {
     grid-column: 1 / 13;
