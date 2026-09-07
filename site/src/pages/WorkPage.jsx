@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,7 +13,6 @@ import { resolve } from "../data/projects/resolve.js";
 import { PAGE_TITLE } from "../i18n.js";
 import useLangPath from "../hooks/useLangPath.js";
 import withPageTransition, { crossing } from "../lib/page-transition.js";
-import useScrollFade from "../lib/scroll-fade.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,43 +39,44 @@ const PROJECT_CARDS = PROJECTS.map((p) =>
 
 /* ── The page ──
  *
- * An index and the things it indexes. The five titles stand in a column
- * on the left and stay put while the page scrolls; the projects go by on
- * the right, one block each, and whichever block has reached the top of
- * the index is the one whose title is set large and black. The case-study
- * pages' chapter list works the same way, and this is built from the same
- * parts: a sticky column, a reading line, and a scroll spy.
+ * An index and a stage. The five titles stand in a column on the left,
+ * and beside them one project at a time: its summary, its roles line and
+ * its thumbnail. Neither moves with the page. What the scroll does is
+ * turn the pages of the stage: every half a screen of scroll is the next
+ * project, and the one on the stage is the one whose title is set large
+ * and in ink. The stage is a grid with every block in the same cell, so
+ * the blocks lie on top of one another and the current one is the one
+ * shown; the page's height is a track behind them, as long as the steps
+ * between the projects.
  *
- * The reading line is the index's own top edge, read off its sticky
- * offset rather than written down twice, so a block that has scrolled up
- * to sit level with the index is by definition the current one — its
- * description opens on the line its title stands on.
+ * The block on the stage is treated as if the pointer were on it: its
+ * copy in ink, its picture in colour, its clip playing or its stills
+ * walking. Nothing is asked of the reader but the scroll.
+ *
+ * A phone keeps the plain stack — every block in the flow, each headed by
+ * its title — since it has no column for an index and no wheel to turn
+ * the stage with; see work.css.
  */
 
-/* a block is one thing: the summary, the roles line and the picture
-   arrive together */
-const SCROLL_FADE = [".wk-section"];
-
-/* a fraction of a pixel either side of the comparison decides whether a
-   block counts as reached; see the case-study page for the measurement */
-const READING_SLACK = 1;
-
-/* Where a block sits in the document, with the scroll fade's own offset
-   taken back out: a faded block is parked 40px from where the layout puts
-   it. */
-const documentTopOf = (el) => {
-  const shift = new DOMMatrixReadOnly(getComputedStyle(el).transform).m42;
-  return el.getBoundingClientRect().top + window.scrollY - shift;
-};
+/* how far the page scrolls from one project to the next: half a screen,
+   the same number the stylesheet gives the track (--wk-step) */
+const STEP = 0.5;
 
 const hoverCapable = () => window.matchMedia?.("(hover: hover)").matches ?? true;
 const reducedMotion = () =>
   window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+/* the phone layout's breakpoint, the same one work.css uses */
+const stacked = () => window.matchMedia?.("(max-width: 600px)").matches ?? false;
 
-/* How the picture arrives: uncovered from its bottom edge, on the page
-   crossing's own clock and curve (see lib/page-transition.js), so a block
-   coming into view and a page coming into view are one move. */
-const UNCOVER = { from: "inset(100% 0% 0% 0%)", to: "inset(0% 0% 0% 0%)", duration: 0.7 };
+/* How a block takes the stage. The copy comes up 40px through a fade, the
+   way the scroll fade brings a block in on the other pages, and the
+   picture is uncovered from its bottom edge on the page crossing's own
+   clock and curve (see lib/page-transition.js), so a page arriving and a
+   project arriving are one move. Going back up the list, both come from
+   the other side. */
+const SWAP = { shift: 40, duration: 0.45 };
+const UNCOVER = { duration: 0.7 };
+const uncoverFrom = (dir) => (dir < 0 ? "inset(0% 0% 100% 0%)" : "inset(100% 0% 0% 0%)");
 
 export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const navigate = useNavigate();
@@ -88,44 +88,29 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   /* which block the pointer is over — the thumbnails cycle off this, and a
      block is one link, so the block is where the hover has to be read */
   const [hovered, setHovered] = useState(null);
-  /* the block that has reached the index */
-  const [current, setCurrent] = useState(projects[0]?.id ?? null);
+  /* which project is on the stage, as an index into the list; null on a
+     phone, where there is no stage and every block is in the flow */
+  const [current, setCurrent] = useState(() => (stacked() ? null : 0));
   useEffect(() => {
     document.title = PAGE_TITLE.work[lang] || PAGE_TITLE.work.en;
   }, [lang]);
-  const gridRef = useRef(null);
-  const indexRef = useRef(null);
+  const stageRef = useRef(null);
   const lenis = useRef(null);
-  useScrollFade(gridRef, SCROLL_FADE, [lang]);
+  /* what the stage showed last, and whether it has shown anything yet */
+  const shown = useRef(null);
 
-  /* the index's top edge, in viewport pixels: the sticky offset the
-     stylesheet gives it, which is also where it stands before any scroll */
-  const readingLine = () => {
-    const el = indexRef.current;
-    return el ? parseFloat(getComputedStyle(el).top) || 0 : 0;
-  };
+  const blocks = () => [...(stageRef.current?.querySelectorAll(".wk-section") ?? [])];
+  const step = () => window.innerHeight * STEP;
+  const indexAt = (y) =>
+    Math.max(0, Math.min(projects.length - 1, Math.round(y / step())));
 
-  /* ── Scroll spy ──
-     The current block is the last one whose top has passed the reading
-     line. Fully scrolled, it is the last block whether or not its top ever
-     gets there — only once actually scrolled, so a short window does not
-     open on the last project. */
+  /* ── The scroll turns the stage ──
+     Half a screen per project, the nearest one winning, so a reader who
+     stops between two sees the closer of the two. Whether there is a
+     stage at all is decided on the phone breakpoint, and re-decided when
+     the window crosses it. */
   useEffect(() => {
-    const ids = projects.map((p) => p.id);
-    const onScroll = () => {
-      const line = readingLine() + READING_SLACK;
-      let next = ids[0];
-      for (const id of ids) {
-        const el = document.getElementById(`wk-${id}`);
-        if (el && documentTopOf(el) - window.scrollY <= line) next = id;
-        else break;
-      }
-      const doc = document.documentElement;
-      if (window.scrollY > 0 && window.innerHeight + window.scrollY >= doc.scrollHeight - 2) {
-        next = ids[ids.length - 1];
-      }
-      setCurrent(next);
-    };
+    const onScroll = () => setCurrent(stacked() ? null : indexAt(window.scrollY));
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
@@ -133,43 +118,68 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projects]);
 
-  /* ── The pictures arrive ──
-     Each thumbnail is uncovered once, the first time its block comes into
-     the band the scroll fade uses, and stays. Set before the first paint,
-     or a picture already on screen when the page lands shows whole for a
-     frame and then hides to be uncovered. */
-  useLayoutEffect(() => {
-    const root = gridRef.current;
-    if (!root || reducedMotion()) return undefined;
-    const ctx = gsap.context(() => {
-      root.querySelectorAll(".wk-image").forEach((img) => {
-        gsap.set(img, { clipPath: UNCOVER.from });
-        let shown = false;
-        const show = () => {
-          if (shown) return;
-          shown = true;
-          gsap.to(img, {
-            clipPath: UNCOVER.to,
-            duration: UNCOVER.duration,
-            ease: "pageTransition",
-            onComplete: () => gsap.set(img, { clearProps: "clipPath" }),
-          });
-        };
-        ScrollTrigger.create({
-          trigger: img,
-          start: "top 88%",
-          once: true,
-          onEnter: show,
-          /* already in the band when measured: on arrival, and on a
-             back-button return to the middle of the list */
-          onRefresh: (self) => self.isActive && show(),
-        });
+  /* ── The blocks take the stage ──
+     Only the current block is on it; the rest are hidden, and not merely
+     transparent, so nothing hidden can be clicked or tabbed to. The first
+     time this runs the scroll has already been placed (a page arriving in
+     a crossing, or by the back button, is landed before its effects run),
+     so what it shows is the block for where the reader is, with no swap.
+     After that a change of block is a swap: the one leaving fades and
+     moves off the way the scroll is going, the one arriving comes up from
+     the other side and has its picture uncovered. A reader who asked for
+     less motion gets the cut. */
+  useEffect(() => {
+    const all = blocks();
+    if (!all.length) return;
+    if (current === null) {
+      /* the phone's stack: every block in the flow, none of this applies */
+      gsap.set(all, { clearProps: "all" });
+      shown.current = null;
+      return;
+    }
+    const next = all[current];
+    const prev = shown.current === null ? null : all[shown.current];
+    const dir = shown.current === null ? 1 : Math.sign(current - shown.current) || 1;
+    const first = shown.current === null;
+    shown.current = current;
+    if (prev === next) return;
+    gsap.killTweensOf(all);
+    gsap.killTweensOf(all.map((b) => b.querySelector(".wk-image")));
+    const others = all.filter((b) => b !== next && b !== prev);
+    gsap.set(others, { autoAlpha: 0, y: 0 });
+    if (reducedMotion()) {
+      if (prev) gsap.set(prev, { autoAlpha: 0 });
+      gsap.set(next, { autoAlpha: 1, y: 0, clearProps: "clipPath" });
+      return;
+    }
+    if (prev) {
+      gsap.to(prev, {
+        autoAlpha: 0,
+        y: -SWAP.shift * dir,
+        duration: SWAP.duration,
+        ease: "power2.out",
       });
-    }, root);
-    return () => ctx.revert();
-  }, [projects]);
+    }
+    gsap.fromTo(
+      next,
+      { autoAlpha: 0, y: first ? 0 : SWAP.shift * dir },
+      { autoAlpha: 1, y: 0, duration: SWAP.duration, ease: "power2.out" },
+    );
+    gsap.fromTo(
+      next.querySelector(".wk-image"),
+      { clipPath: uncoverFrom(dir) },
+      {
+        clipPath: "inset(0% 0% 0% 0%)",
+        duration: UNCOVER.duration,
+        ease: "pageTransition",
+        clearProps: "clipPath",
+      },
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current, projects]);
 
   /* ── The scroll itself ──
      Inertia on the wheel: the page follows the input a tenth of the way
@@ -216,12 +226,11 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
     else smooth.start();
   }, [gateProject]);
 
-  /* Go to a block: its top on the reading line. Through the smoother when
-     there is one, so the move has the same inertia as the wheel. */
-  const jumpTo = (id) => {
-    const el = document.getElementById(`wk-${id}`);
-    if (!el) return;
-    const top = Math.max(0, documentTopOf(el) - readingLine());
+  /* Turn the stage to a project: the scroll goes to that project's step.
+     Through the smoother when there is one, so the move has the same
+     inertia as the wheel. */
+  const jumpTo = (i) => {
+    const top = i * step();
     if (lenis.current) lenis.current.scrollTo(top, { duration: 1.2 });
     else window.scrollTo({ top, behavior: reducedMotion() ? "auto" : "smooth" });
   };
@@ -234,15 +243,18 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
           Landing and About — without this the switch reads as a dead delay
           followed by a text snap */}
       <main className={"wk-main " + fadeClass}>
-        <div className="ab-grid wk-grid" ref={gridRef}>
-          <nav className="wk-index" ref={indexRef} aria-label="Projects">
-            {projects.map((p) => (
+        {/* the track is the scroll: as many steps as there are projects
+            after the first, on top of a screen for the stage itself */}
+        <div className="wk-track" style={{ "--wk-steps": projects.length - 1 }}>
+        <div className="ab-grid wk-grid">
+          <nav className="wk-index" aria-label="Projects">
+            {projects.map((p, i) => (
               <button
                 key={p.id}
                 type="button"
-                className={"wk-index-item" + (current === p.id ? " is-current" : "")}
-                aria-current={current === p.id ? "true" : undefined}
-                onClick={() => jumpTo(p.id)}
+                className={"wk-index-item" + (current === i ? " is-current" : "")}
+                aria-current={current === i ? "true" : undefined}
+                onClick={() => jumpTo(i)}
               >
                 {p.title}
                 {p.locked && <LockMark />}
@@ -250,13 +262,13 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
             ))}
           </nav>
 
-          <div className="wk-sections">
-            {projects.map((p) => (
+          <div className="wk-stage" ref={stageRef}>
+            {projects.map((p, i) => (
               <Link
                 key={p.id}
                 id={`wk-${p.id}`}
                 to={langPath(`/work/${p.id}`)}
-                className="wk-section"
+                className={"wk-section" + (current === i ? " is-current" : "")}
                 onClick={(e) => {
                   if (p.locked && !isUnlocked(p.id)) {
                     e.preventDefault();
@@ -291,11 +303,14 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                   thumbs={p.thumbs}
                   video={p.video}
                   alt={p.thumbAlt}
-                  hovered={hovered === p.id}
+                  /* the block on the stage is held the way a pointer would
+                     hold it: its clip plays, its stills walk */
+                  hovered={hovered === p.id || current === i}
                 />
               </Link>
             ))}
           </div>
+        </div>
         </div>
       </main>
 

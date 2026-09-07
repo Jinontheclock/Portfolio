@@ -1,8 +1,8 @@
-/* Work page — an index and the blocks it indexes, on the same 12-col grid
-   as About and the case studies (24px margins, 30px gutters). The five
-   titles stand in a sticky column on the left; the projects go by on the
-   right, one block each: summary, lowercase roles, and the thumbnail. See
-   pages/WorkPage.jsx for how the two keep step. */
+/* Work page — an index and a stage, on the same 12-col grid as About and
+   the case studies (24px margins, 30px gutters). The five titles stand in
+   a column on the left; beside them one project at a time: summary,
+   lowercase roles, and the thumbnail. Neither moves with the page. The
+   scroll turns the stage; see pages/WorkPage.jsx for how. */
 
 .wk-main {
   flex: 1;
@@ -10,38 +10,43 @@
   flex-direction: column;
 }
 
+/* ── The track ──
+   The page's scroll length, with nothing of its own to show: a screen for
+   the stage, plus one step for every project after the first. The step
+   is half a screen — the same number WorkPage.jsx turns the stage by, so
+   the two have to move together. The grid inside it sticks under the
+   header for the whole of the track, and scrolls off with the footer only
+   once the last project has had its turn. */
+.wk-track {
+  --wk-step: 50dvh;
+  min-height: calc(100dvh + var(--wk-steps, 4) * var(--wk-step));
+}
+
 .wk-grid {
+  position: sticky;
+  top: var(--header-h);
   /* the 140px of air below the header is shared with About and the
-     case-study pages; the 400 below gives the last block room to reach
-     the index before the page runs out */
+     case-study pages */
   padding-top: 140px;
-  padding-bottom: 400px;
   align-items: start;
 }
 
 /* ── The index ──
-   Three columns from the left margin, pinned at its own resting spot so it
-   holds the exact same position whether scrolled or not: --rail-top is
-   the header's real height plus the 140px above, which is where the
-   column stands before any scroll. The same seat the case-study chapter
-   list takes. */
+   Three columns from the left margin. */
 .wk-index {
   grid-column: 1 / 4;
-  position: sticky;
-  top: var(--rail-top);
-  align-self: start;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
 }
 
-/* A title is a button that scrolls its block up to the index. The current
+/* A title is a button that turns the stage to its project. The current
    one is set at the card-title size in the page's ink; the rest wait at
-   body size in grey, and a title crosses between the two as its block
-   arrives — size and colour on the same clock, so the column reads as one
-   title growing rather than two swapping. A pointer over a waiting title
-   lends it the ink, the way the chapter list does. */
+   body size in grey, and a title crosses between the two as its project
+   takes the stage — size and colour on the same clock, so the column
+   reads as one title growing rather than two swapping. A pointer over a
+   waiting title lends it the ink, the way the chapter list does. */
 .wk-index-item {
   all: unset;
   cursor: pointer;
@@ -62,15 +67,17 @@
   }
 }
 
-/* ── The blocks ──
-   The nine columns to the right of the index. Blocks are far enough apart
-   that the one at the index is the one being read, and the next is on its
-   way rather than already there. */
-.wk-sections {
+/* ── The stage ──
+   The nine columns to the right of the index, and every block in the same
+   cell of it, so they lie on top of one another and the stage is as tall
+   as the tallest. Which one shows is WorkPage.jsx's: it is the current
+   block, and the rest are hidden outright rather than made transparent,
+   so nothing hidden can be clicked or tabbed to. The stylesheet only sets
+   the starting state, the first block showing, for the frame before the
+   page has read where the scroll is. */
+.wk-stage {
   grid-column: 4 / 13;
-  display: flex;
-  flex-direction: column;
-  gap: 160px;
+  display: grid;
 }
 
 /* A block is one link to its case study: the copy in five columns, the
@@ -80,12 +87,17 @@
    picture can grow past its ratio when the copy runs taller — see
    .wk-image. */
 .wk-section {
+  grid-area: 1 / 1;
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   column-gap: 30px;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+}
+.wk-section:not(:first-child) {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .wk-text {
@@ -122,7 +134,8 @@
 /* The copy rests in grey and answers the pointer, the way the thumbnail
    beside it does — one block lighting as one thing. Each line comes back
    to its own colour rather than to a shared black, so the summary still
-   outranks the roles line once the block is lit.
+   outranks the roles line once the block is lit. The block on the stage
+   is lit without being asked: it is the one being read.
 
    Guarded like the thumbnail: without a pointer there is no hover to
    arrive, and unlike a picture this is the reading matter, so a touch
@@ -133,13 +146,16 @@
     transition: color var(--duration-fast) var(--easing);
   }
   .wk-section:hover .wk-title,
-  .wk-section:focus-visible .wk-title {
+  .wk-section:focus-visible .wk-title,
+  .wk-section.is-current .wk-title {
     color: var(--text-primary);
   }
   .wk-section:hover .wk-desc,
   .wk-section:focus-visible .wk-desc,
+  .wk-section.is-current .wk-desc,
   .wk-section:hover .wk-specs,
-  .wk-section:focus-visible .wk-specs {
+  .wk-section:focus-visible .wk-specs,
+  .wk-section.is-current .wk-specs {
     color: var(--text);
   }
 }
@@ -197,9 +213,10 @@
     transition: clip-path 300ms var(--easing);
   }
   /* the sheet's left edge crosses to the right and the picture is left in
-     colour behind it */
+     colour behind it; on the stage, the picture is in colour to begin with */
   .wk-section:hover .wk-image::after,
-  .wk-section:focus-visible .wk-image::after {
+  .wk-section:focus-visible .wk-image::after,
+  .wk-section.is-current .wk-image::after {
     clip-path: inset(0 0 0 100%);
   }
 }
@@ -244,19 +261,17 @@
   }
 }
 
-/* ── Tablet: the index keeps three columns, the blocks take the rest ── */
-@media (max-width: 1024px) {
-  .wk-sections {
-    gap: 120px;
-  }
-}
-
-/* ── Mobile: no index — a phone has no column to spare and no sticky seat
-   to keep one in. Each block heads itself with its title, then the picture
-   directly under it, everything running the full width between the page
-   margins ── */
+/* ── Mobile: no index and no stage — a phone has no column to spare, and
+   no wheel to turn a stage with. Every block is in the flow, each headed
+   by its title, then the picture directly under it, everything running
+   the full width between the page margins. WorkPage.jsx leaves the blocks
+   alone on this breakpoint. ── */
 @media (max-width: 600px) {
+  .wk-track {
+    min-height: auto;
+  }
   .wk-grid {
+    position: static;
     /* same header air as the About page's phone value */
     padding-top: 64px;
     padding-bottom: 220px;
@@ -264,20 +279,25 @@
   .wk-index {
     display: none;
   }
-  .wk-sections {
+  .wk-stage {
     grid-column: 1 / 13;
+    display: flex;
+    flex-direction: column;
     gap: 48px;
   }
-  /* the block leaves the grid for a stack.
+  /* the block leaves the stage for the stack, and every one of them shows.
 
      No row-gap: the spacing is set line by line below instead, because the
      picture has to close up against the title above it and the summary
      under it, and one gap for the whole column cannot leave two of its
      lines out. */
-  .wk-section {
+  .wk-section,
+  .wk-section:not(:first-child) {
     display: flex;
     flex-direction: column;
     row-gap: 0;
+    visibility: visible;
+    opacity: 1;
   }
   /* The copy column stops being a box and hands its three lines to the
      block's own stack. That is what lets the picture sit between the title
