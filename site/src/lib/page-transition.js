@@ -271,6 +271,8 @@ export function beginCrossing(current, next, { scroll, onDone }) {
      page. Below the boot cover at 2000 and the cursor at 9999. */
   const y = window.scrollY;
   const width = current.offsetWidth;
+  /* the page is the container's one child: every page renders one root
+     element, the landing wrapping its hero and its band to keep to that */
   const page = current.firstElementChild;
   gsap.set(current, {
     position: "fixed",
@@ -332,6 +334,11 @@ export function beginCrossing(current, next, { scroll, onDone }) {
   const title = raiseTitle(next);
 
   return {
+    /* the arriving page's entrance, which outlives the crossing: 2.4s of
+       title against 0.7s of page. PageStage keeps it, so that a page left
+       again before its title has finished rising leaves with the title in
+       place rather than halfway up inside its clip. */
+    title,
     /* end it now, as if the second had passed: the back button pressed
        mid-crossing, or another page arriving. onComplete fires from
        progress(1) synchronously. */

@@ -44,6 +44,8 @@ export default function PageStage({ booting, children }) {
      page put straight in the flow is to open at */
   const run = useRef(null);
   const hold = useRef(null);
+  /* the shown page's title entrance, while it is still rising */
+  const title = useRef(null);
   const landing = useRef(navigationType === "POP" ? (recall(location.key) ?? 0) : 0);
   /* whether the crossing is being ended from inside a React effect, where
      flushSync is not allowed and not needed: React flushes an update made
@@ -80,6 +82,10 @@ export default function PageStage({ booting, children }) {
       run.current.finish();
       inEffect.current = false;
     }
+    /* a title still rising is put where it was going before the page it
+       is on is lifted out, or the page leaves with no title on it */
+    title.current?.finish();
+    title.current = null;
     const animate =
       crossing(latest.pathname, location.pathname) &&
       !reduced() &&
@@ -116,6 +122,7 @@ export default function PageStage({ booting, children }) {
         settle();
       },
     });
+    title.current = run.current.title;
     hold.current?.();
     hold.current = holdScroll(staged.target);
     return () => {
@@ -130,16 +137,17 @@ export default function PageStage({ booting, children }) {
      cover lifts. */
   useLayoutEffect(() => {
     if (reduced()) return undefined;
-    const title = raiseTitle(shownEl.current, { paused: true });
-    if (!title) return undefined;
+    const first = raiseTitle(shownEl.current, { paused: true });
+    if (!first) return undefined;
+    title.current = first;
     if (!booting) {
-      title.play();
-      return () => title.kill();
+      first.play();
+      return () => first.kill();
     }
-    const off = onReveal(() => title.play());
+    const off = onReveal(() => first.play());
     return () => {
       off();
-      title.kill();
+      first.kill();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -23,7 +23,13 @@ export default function LandingPage({ lang, setLang }) {
   }, []);
 
   return (
-    <>
+    /* One element for the whole page, the hero screen and the band under
+       it. A crossing lifts the page being left out of the flow as one
+       thing (see lib/page-transition.js), and it takes the page to be its
+       container's only child; with the two boxes side by side in the
+       container, it lifted the hero and left the band behind, which then
+       sat at the top of the box and painted its black over everything. */
+    <div className="lp-page">
     <div className="lp-root">
       {/* Work and About come from the inner pages' own header rather than
           from a nav of this page's own, so crossing between here and there
@@ -82,6 +88,6 @@ export default function LandingPage({ lang, setLang }) {
         </footer>
       </div>
     </div>
-    </>
+    </div>
   );
 }
