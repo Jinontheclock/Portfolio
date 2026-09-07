@@ -251,7 +251,7 @@ body {
 }
 .lp-loader-count {
   /* the same size as Work and About in the header, off the same token —
-     24 / 18 / 17 / 16 across the tiers — so the first thing the reader
+     22 / 20 / 18 / 16 across the tiers — so the first thing the reader
      sees is already set at the scale the header will hand over to.
 
      Line-height stays at 1: the number is alone in a centred grid cell

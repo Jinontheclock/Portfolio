@@ -118,8 +118,8 @@
 /* ── The links, where the header has no room for them ──
    From the laptop up they are in the header (see .site-header-links in
    components.css) and this is empty. On a tablet the header's own row is
-   too short for four more words beside the wordmark — at 17px they run
-   335px, and at 700 wide that is 33px into HAJIN — so they stand under
+   too short for four more words beside the wordmark — at 18px they run
+   some 355px, and at 700 wide that is 55px into HAJIN — so they stand under
    the list instead, at body size like the rail they used to be. On a
    phone they are a row above the name. */
 .ab-rail {
@@ -264,6 +264,22 @@
   margin: 0;
   font: 700 var(--size-section-label) / 1.3 var(--font-ui);
   color: var(--text-primary);
+}
+/* On a screen the list beside the column already names the section on
+   the stage, so the heading over it said the same thing twice: it is
+   kept for whoever reads the page by its outline, and taken out of the
+   paint and the flow — out of the flow, so the column's gap does not
+   hold a slot for it. The 8px the skills kept under it goes with it. */
+.page-screen .ab-section-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.page-screen .ab-skills {
+  margin-top: 0;
 }
 
 /* An entry is two blocks with a 20px break of its own between the lines

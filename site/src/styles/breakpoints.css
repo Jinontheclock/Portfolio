@@ -20,15 +20,20 @@
 
   /* chrome that every page carries: the header's two labels, and the
      copyright line in the footer */
-  --size-header-nav: 24px; /* Work / About */
+  /* Work / About, the wordmark, and About's links: 22 / 20 / 18 / 16
+     across the tiers, two points a step like the card titles. The
+     desktop used to stand at 24 and drop to 18 at the laptop, a six
+     point step where every other size steps by two, and with the links
+     in the row it read as the largest type on the page. */
+  --size-header-nav: 22px;
   /* The header's own two numbers, published rather than copied. Anything
      that has to sit clear of the header needs to know where its bottom
      edge is, and until now the two sticky rails carried a hand-written
      40px that was never right: the header is padding-top plus its tallest
      child, and every child in that row is one line of --size-header-nav
-     at --header-line, so it measures 52px at this tier and 42.67px at the
-     narrowest. The rails rode up by the difference on the first pixel of
-     scroll. */
+     at --header-line, so it measures 49.33px at this tier and 41.33px at
+     the narrowest. The rails rode up by the difference on the first pixel
+     of scroll. */
   --header-pad-top: 20px;
   --header-line: 1.3333;
   --header-h: calc(var(--header-pad-top) + var(--size-header-nav) * var(--header-line));
@@ -62,7 +67,7 @@
 @media (max-width: 1439px) {
   :root {
     --size-hero: 100px; /* pre-JS fallback only */
-    --size-header-nav: 18px;
+    --size-header-nav: 20px;
     --size-copy: 12px;
     --size-about-title: 44px;
     --size-section-label: 22px;
@@ -74,7 +79,7 @@
 @media (max-width: 1024px) {
   :root {
     --size-hero: 64px; /* pre-JS fallback only */
-    --size-header-nav: 17px;
+    --size-header-nav: 18px;
     --size-copy: 10px;
     --size-about-title: 38px;
     --size-section-label: 20px;
