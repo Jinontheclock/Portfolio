@@ -149,6 +149,44 @@
   gap: 32px;
   padding: var(--header-pad-top) var(--page-margin) 0;
 }
+
+/* ── The header holds still across a crossing ──
+   In the demo the crossing follows, the header sits outside the container
+   being moved and stays put. Here every page carries its own, a crossing
+   moves the page being left whole, header included, and the page arriving
+   is uncovered from the bottom edge, so its header would be the last thing
+   to show. So for exactly the length of a crossing (the attribute is on
+   the root for that long, see lib/page-transition.js) the leaving page's
+   header is hidden and the arriving page's is lifted above the box the
+   leaving page is held in. The two are the same component at the same
+   place and size on every page, so what is seen is one header holding
+   still while the page changes under it.
+
+   What does change at the first frame is which label is current, and
+   whether the wordmark is there: the landing has none. Coming from the
+   landing it fades in over the crossing; going to the landing it leaves
+   with the page. Not when the arriving header is already scrolled out of
+   sight, where the wordmark is at 0 and stays there.
+
+   1600 is above the box at 1500, and so, for those 0.7s, above a modal the
+   arriving page raises at 1000. */
+:root[data-crossing] #root > .page:first-child .site-header {
+  visibility: hidden;
+}
+:root[data-crossing] #root > .page + .page .site-header {
+  z-index: 1600;
+}
+:root[data-crossing] #root > .page:has(.lp-page) + .page .site-header:not(.is-scrolled) .site-wordmark {
+  animation: wordmark-arrive 0.7s var(--easing) both;
+}
+@keyframes wordmark-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 /* Header nav reads as plain text: no pill background. Its size steps per
    breakpoint tier — 24 / 18 / 17 / 16 — rather than holding the 15px the
    pill component carries for its own use elsewhere, and the line-height is
