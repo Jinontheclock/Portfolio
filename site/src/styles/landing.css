@@ -359,6 +359,8 @@ html.lp-snap:not([data-crossing]) {
   padding: 0 var(--page-margin);
   background: var(--grey-950);
   color: var(--grey-50);
+  /* the line below sizes itself to the room inside these margins */
+  container-type: inline-size;
   /* the same black, spread a screen's height in every direction: the slot
      clips it on the top and the sides, and lets it through below, where a
      rubber-band would otherwise show the page's canvas */
@@ -370,9 +372,14 @@ html.lp-snap:not([data-crossing]) {
 .lp-footer-copy {
   font: 400 12px/16px var(--font-ui);
   text-align: right;
-  /* on a phone the line breaks in two; balanced, it breaks at the bar
-     rather than leaving the surname on a line of its own */
-  text-wrap: balance;
+  /* One line on every screen. At 12px the line runs 372px, which is more
+     than a phone has between the margins (350 on a 390 screen, 280 on a
+     320), so under that width the type scales with the room instead of
+     breaking: 3.2% of the band's inner width is 12px at 375 of room and
+     puts the line a few pixels inside the margins at every width below.
+     Nothing above 12px, ever. */
+  white-space: nowrap;
+  font-size: min(12px, 3.2cqi);
 }
 
 /* On a phone the header's two labels fade once the page is scrolled, so
