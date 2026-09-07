@@ -5,8 +5,8 @@ import useLangPath from "../hooks/useLangPath.js";
 import withPageTransition, { crossing, leaving, routeOf } from "../lib/page-transition.js";
 
 const PAGES = [
-  { key: "work", label: "Work", path: "/work" },
-  { key: "about", label: "About", path: "/about" },
+  { key: "work", label: "work", path: "/work" },
+  { key: "about", label: "about", path: "/about" },
 ];
 
 /** Inner-page header: Work and About as two side-by-side pills (the current
