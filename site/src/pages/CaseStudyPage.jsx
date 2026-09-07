@@ -89,6 +89,8 @@ const SCROLL_FADE = [
   [".cs-content > *:not(.cs-sections)"],
   ".cs-section",
 ];
+/* on a screen the column is a stage (see below), and the fade has no say */
+const NO_FADE = [];
 
 /* The line a chapter is read at. The scroll spy calls a chapter current once
    its heading has passed this, and the chapter list scrolls a chapter to
@@ -488,7 +490,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      it a jump of three chapters lit each one in passing, opening and
      closing its subheadings on the way. */
   const travel = useRef(null);
-  useScrollFade(contentRef, SCROLL_FADE, [id, lang, screen], screen ? regionRef : null);
+  useScrollFade(contentRef, screen ? NO_FADE : SCROLL_FADE, [id, lang, screen], screen ? regionRef : null);
   const scrollY = () => (screen ? (regionRef.current?.scrollTop ?? 0) : window.scrollY);
   const scrollMax = () => {
     if (screen) {
@@ -702,6 +704,51 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     if (zoomed || demoOpen) smooth.stop();
     else smooth.start();
   }, [zoomed, demoOpen]);
+
+  /* ── The column is a stage ──
+     On a screen, only the chapter being read is on it, the way only one
+     project is on the Work page's stage: the chapters before and after
+     are hidden outright, and the opening (hero, lead, intro, meta) is
+     what shows until the first chapter is reached. A chapter takes the
+     stage the moment its heading reaches the reading line, coming up
+     through a fade the way the scroll fade brings a block in, and the
+     one leaving fades off the way the scroll is going. Nothing loses its
+     place in the column, so the scroll is the scroll it was; only what is
+     painted changes. A reader who asked for less motion gets the cut. */
+  const staged = useRef(undefined);
+  useEffect(() => {
+    const content = contentRef.current;
+    if (!content) return;
+    const sections = [...content.querySelectorAll(".cs-section")];
+    const opening = [...content.children].filter((el) => !el.classList.contains("cs-sections"));
+    if (!screen) {
+      /* a page again: everything in the flow, the scroll fade's to run */
+      if (staged.current !== undefined) gsap.set([...sections, ...opening], { clearProps: "all" });
+      staged.current = undefined;
+      return;
+    }
+    const at = activeId ? sections.findIndex((s) => s.id === `cs-${activeId}`) : -1;
+    const was = staged.current;
+    const first = was === undefined;
+    staged.current = at;
+    if (!first && was === at) return;
+    const show = at < 0 ? opening : [sections[at]];
+    const hide = [...sections.filter((s, i) => i !== at), ...(at < 0 ? [] : opening)];
+    gsap.killTweensOf([...sections, ...opening]);
+    if (first || reducedMotion()) {
+      gsap.set(hide, { autoAlpha: 0 });
+      gsap.set(show, { autoAlpha: 1, y: 0 });
+      return;
+    }
+    const dir = Math.sign(at - was) || 1;
+    gsap.to(hide, { autoAlpha: 0, y: -40 * dir, duration: 0.3, ease: "power2.out" });
+    gsap.fromTo(
+      show,
+      { autoAlpha: 0, y: 40 * dir },
+      { autoAlpha: 1, y: 0, duration: 0.3, ease: "power2.out" },
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeId, screen, project]);
 
   if (!project) return <Navigate to={langPath("/work")} replace />;
 

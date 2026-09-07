@@ -84,6 +84,10 @@
 }
 .cs-screen .cs-left {
   top: 0;
+  /* from the page margin, where the Work page stands its titles, so the
+     chapter list here is in the same place on the screen as they are;
+     the same four columns wide, one column further left */
+  grid-column: 1 / 5;
 }
 
 /* ── Table of contents — tracks the chapter in view ── */
