@@ -211,6 +211,43 @@
   color: var(--text-primary);
 }
 
+/* ── Links in the header ──
+   About's links — LinkedIn, the resume, GitHub, e-mail — stand in a row at
+   the header's right edge, in the header's own type and at the strength
+   of the label that is not the page being read, and answer a pointer the
+   way that label does. The wordmark is set absolute at the centre, so the
+   row is what the flex has left to push to the edge. From the laptop
+   up only: a tablet's header is too short for four more words beside
+   the wordmark, and a phone's has the wordmark at the right edge, so on
+   both the links stand in the page instead (see .ab-rail in about.css). */
+.site-header-links {
+  margin-left: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+@media (max-width: 1024px) {
+  .site-header-links {
+    display: none;
+  }
+}
+.site-header-link {
+  font: 400 var(--size-header-nav) / var(--header-line) var(--font-ui);
+  color: var(--text-muted);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--easing);
+}
+.site-header-link:hover {
+  color: var(--text-primary);
+}
+/* an entry whose destination doesn't exist yet: visible but inert */
+.site-header-link.is-pending {
+  color: var(--text-faint);
+  cursor: default;
+  pointer-events: none;
+}
+
 /* The ink arrives across the word rather than all at once: a two-stop
    gradient twice the width of the label, parked with its dark half off to
    the left and slid into place on hover. background-clip: text is what
@@ -223,7 +260,8 @@
    transparent text from outliving the thing that fills it. */
 @media (hover: hover) {
   @supports (background-clip: text) or (-webkit-background-clip: text) {
-    .site-header .pill-button:not(.is-active) {
+    .site-header .pill-button:not(.is-active),
+    .site-header-link:not(.is-pending) {
       background: linear-gradient(
           to right,
           var(--text-primary) 50%,
@@ -236,7 +274,9 @@
       transition: background-position var(--duration-base) var(--easing);
     }
     .site-header .pill-button:not(.is-active):hover,
-    .site-header .pill-button:not(.is-active):focus-visible {
+    .site-header .pill-button:not(.is-active):focus-visible,
+    .site-header-link:not(.is-pending):hover,
+    .site-header-link:not(.is-pending):focus-visible {
       background-position: 0 0;
     }
   }
@@ -338,6 +378,74 @@
   .site-footer {
     gap: 16px;
   }
+}
+
+/* ── One screen ──
+   A page set as one screen — About, and a case study flagged `screen`
+   (see lib/screen-column.js) — is set the way the Work page is: exactly
+   one screen tall and clipped at that, so the window never has a
+   scrollbar to show. The box the column scrolls in is the whole screen,
+   and the header and the footer lie over it with nothing behind them, so
+   the column passes under the wordmark and the copyright the way a page
+   passes under a fixed header, rather than being cut off at their edges —
+   which is what a box that began under the header did: a line of the
+   chapter being read, sliced through the middle.
+
+   The column opens on --index-line, where the Work page stands its
+   titles, so the list beside it and the titles there hold one place.
+
+   And it thins out as it nears either edge, rather than passing under
+   HAJIN at full strength: a mask that is clear across the header's own
+   height and the footer's, so the wordmark and the copyright stand on
+   nothing, and rises to solid over twice each one's height below and
+   above them, so a line is gone by the time it reaches HAJIN rather than
+   half there under it. The mask is on the box, not the column, so it
+   keeps to the screen while the column moves through it.
+
+   .ab-root is every inner page's root; the pair is what outweighs the
+   pages' own rules for the same properties. */
+.ab-root.page-screen {
+  position: relative;
+  display: block;
+  height: 100dvh;
+  overflow: hidden;
+}
+.ab-root.page-screen > .site-header,
+.ab-root.page-screen > .site-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+.ab-root.page-screen > .site-header {
+  top: 0;
+}
+.ab-root.page-screen > .site-footer {
+  bottom: 0;
+}
+.ab-root.page-screen > main {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  padding: var(--index-line) 0 0;
+  --edge-clear-top: var(--header-h);
+  --edge-fade-top: calc(var(--header-h) * 2);
+  --edge-clear-bottom: var(--footer-h);
+  --edge-fade-bottom: calc(var(--footer-h) * 2);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent var(--edge-clear-top),
+    #000 calc(var(--edge-clear-top) + var(--edge-fade-top)),
+    #000 calc(100% - var(--edge-clear-bottom) - var(--edge-fade-bottom)),
+    transparent calc(100% - var(--edge-clear-bottom))
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent var(--edge-clear-top),
+    #000 calc(var(--edge-clear-top) + var(--edge-fade-top)),
+    #000 calc(100% - var(--edge-clear-bottom) - var(--edge-fade-bottom)),
+    transparent calc(100% - var(--edge-clear-bottom))
+  );
 }
 
 /* ── SiteFooter: plain-text theme + language, bottom-left ── */

@@ -1,8 +1,11 @@
 /* About page — matches the Figma About frame.
-   12-col grid (24px margins, 30px gutters): link rail on col 2, all
-   content in a narrow right-hand column on cols 9–12, opening with the
-   photograph and the name. Both live in row 1, so the rail top-aligns with
-   the photograph. */
+   12-col grid (24px margins, 30px gutters): the list of sections on cols
+   1–3, all content in a right-hand column on cols 7–12, opening with the
+   photograph and the name. Both live in row 1, so the list top-aligns
+   with the photograph. Off the phone the page is one screen, the column
+   scrolling in a box of its own (see .page-screen in components.css) and
+   the links in the header; on a phone it is a page, with the links in a
+   row above the name. */
 
 .ab-root {
   display: flex;
@@ -57,25 +60,70 @@
   /* text-indent (per-language H/이/イ LSB compensation) is set inline in JSX */
 }
 
-/* ── Left link rail ──
-   Sticks while the content scrolls (like the case-study TOC). */
-.ab-rail {
-  grid-column: 2 / 4;
+/* ── The left column ──
+   Stuck to the screen, where the Work page stands its titles and a screen
+   case study its chapters — on --index-line, from the page margin, three
+   columns wide. The seat is zero because the box's own top padding is
+   what puts the column on the line (see .page-screen in components.css).
+   It holds the list, and on the tiers whose header has no room for the
+   links, those too. */
+.ab-left {
+  grid-column: 1 / 4;
   grid-row: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 18px;
   position: sticky;
-  /* pinned at its own resting spot, so it holds the exact same position
-     whether scrolled or not — no ride-up on the first pixel of scroll.
-     That spot is the header's real height plus .ab-main's top padding,
-     which is what --rail-top computes; the 180px that used to be written
-     here assumed a 40px header and the rail moved 12px on a desktop and
-     2.66px on a tablet. Same value, same reason, as the case studies'
-     .cs-left */
-  top: var(--rail-top);
+  top: 0;
   align-self: start;
+}
+
+/* ── The list ──
+   Experience, Education and Skills, set the way the Work page sets its
+   titles: the section being read at the card-title size in ink, the rest
+   at body size in grey, and an entry crossing between the two as its
+   section takes the stage, size and colour on the same clock. A phone has
+   no column to spare for it, and no stage. */
+.ab-index {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+.ab-index-item {
+  all: unset;
+  cursor: pointer;
+  font: 400 var(--size-body) / 1.3 var(--font-ui);
+  letter-spacing: -0.01em;
+  color: var(--text-muted);
+  transition:
+    font-size 300ms var(--easing),
+    color 300ms var(--easing);
+}
+.ab-index-item.is-current {
+  font-size: var(--size-card-title);
+  color: var(--text-primary);
+}
+@media (hover: hover) {
+  .ab-index-item:hover {
+    color: var(--text-primary);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ab-index-item {
+    transition: none;
+  }
+}
+
+/* ── The links, where the header has no room for them ──
+   From the laptop up they are in the header (see .site-header-links in
+   components.css) and this is empty. On a tablet the header's own row is
+   too short for four more words beside the wordmark — at 17px they run
+   335px, and at 700 wide that is 33px into HAJIN — so they stand under
+   the list instead, at body size like the rail they used to be. On a
+   phone they are a row above the name. */
+.ab-rail {
+  display: none;
 }
 
 .ab-rail-link {
@@ -109,6 +157,12 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+/* the page's bottom air, carried here when the page is one screen: the
+   box's own padding is its top, and the column has to run on past the
+   last section far enough for Skills to be brought up to the line */
+.page-screen .ab-content {
+  padding-bottom: 400px;
 }
 
 /* The photograph opens the column, at the column's own width — it belongs
@@ -295,11 +349,16 @@
 
 /* ── Tablet: reclaim some of the empty middle ── */
 @media (max-width: 1024px) {
-  .ab-rail {
-    grid-column: 1 / 4;
-  }
   .ab-content {
     grid-column: 6 / 13;
+  }
+  .ab-rail {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    /* clear of the list at its tallest, with one entry set large */
+    margin-top: 48px;
   }
 }
 
@@ -329,9 +388,15 @@
   .ab-paragraph {
     max-width: none;
   }
-  .ab-rail,
+  .ab-left,
   .ab-content {
     grid-column: 1 / 13;
+  }
+  /* the column is a page's again: nothing sticks, and it spans the row
+     for the link row to fill */
+  .ab-left {
+    position: static;
+    display: block;
   }
   /* the phone reads one thing at a time: the name, then the sentence.
      The basis has to go with the direction — down a column it would be
@@ -346,9 +411,13 @@
   /* link rail sits above the column as a single right-aligned row (no
      sticky on mobile); the em gap scales with the font so useFitToWidth can
      shrink the line to fit */
+  .ab-index {
+    display: none;
+  }
   .ab-rail {
-    position: static;
-    grid-row: 1;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 0;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-end;

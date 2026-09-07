@@ -1,15 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
-import "lenis/dist/lenis.css";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import TryAppModal from "../components/TryAppModal.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
 import ImageLightbox from "../components/ImageLightbox.jsx";
 import useScrollFade from "../lib/scroll-fade.js";
+import { settleAt, useColumnStage, useScreenScroll, viewTopOf } from "../lib/screen-column.js";
 import useIsPhone from "../hooks/useIsPhone.js";
 import ProLogJourney from "../components/ProLogJourney.jsx";
 import TinyPawsMonitor from "../components/TinyPawsMonitor.jsx";
@@ -105,54 +102,13 @@ const READING_LINE = 140;
    a reader can see and settles it. */
 const READING_SLACK = 1;
 
-/* Where a section's heading sits, as a distance from the top of the window,
-   with the scroll fade's own offset taken back out. A faded section is
-   parked 40px from where the layout puts it, and a scroll aimed at the box
-   you can see lands 40px wrong the moment the fade settles it back. From
-   the window's top rather than the document's, so it reads the same
-   whichever box the page is scrolling in. */
-const viewTopOf = (el) => {
-  const shift = new DOMMatrixReadOnly(getComputedStyle(el).transform).m42;
-  return el.getBoundingClientRect().top - shift;
-};
-
-/* ── One screen ──
- *
- * A project flagged `screen` is set the way the Work page is: the header
- * at the top, the copyright at the foot, and the page's column scrolling
- * between them in a box of its own, so the window never scrolls and shows
- * no scrollbar. Lenis scrolls the box from the wheel, a touch or a key
- * anywhere on the page, with its inertia. The chapter list stands still
- * beside the column and opens the subheadings of the chapter being read
- * under its label, the way a document's contents do.
- *
- * Everything that reads or moves the scroll goes through one pair of
- * hands (scrollY, scrollMax, goTo below) that know which box it is. Where
- * the box's own offset is, per history entry, is written down the way
- * lib/scroll-memory.js writes the window's, so the back button returns to
- * the place that was left. A phone keeps the page a page.
- */
-const OFFSET_KEY = "cs-offset:";
-const rememberOffset = (key, y) => {
-  try {
-    sessionStorage.setItem(OFFSET_KEY + key, String(Math.round(y)));
-  } catch {
-    /* private mode, or a full quota: the page opens at the top */
-  }
-};
-const recallOffset = (key) => {
-  try {
-    const v = sessionStorage.getItem(OFFSET_KEY + key);
-    return v === null ? null : Number(v);
-  } catch {
-    return null;
-  }
-};
-/* what a key moves the box by: a line, a screen, or to an end */
-const LINE = 120;
-const SCREEN_KEYS = { ArrowDown: LINE, ArrowUp: -LINE, Home: -Infinity, End: Infinity };
-const reducedMotion = () =>
-  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+/* A project flagged `screen` is set as one screen — the header at the top,
+   the copyright at the foot, and the column scrolling between them in a
+   box of its own, with the chapter list standing still beside it and
+   opening the subheadings of the chapter being read. The scroll, the
+   column as a stage and a jump that stays jumped are lib/screen-column.js,
+   shared with About; the list and its spy are this page's own. A phone
+   keeps the page a page. */
 
 /* hero scenes: live in-page animations a project can use instead of a
    video or the placeholder (see each project's heroScene field) */
@@ -458,25 +414,19 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   /* The chapter list beside this is deliberately outside it: the list is
      stuck to the viewport, so it is never the thing being scrolled past. */
   const contentRef = useRef(null);
-  // last scroll position seen while re-aiming a chapter jump (see scrollTo)
-  const lastY = useRef(-1);
   /* Figures do not open on a phone. There, the column is already the width
      of the screen, so the fitted figure comes out the same size it went in
      — 350px in the page against 358px on the backdrop, measured on the
      widest board in the studies at 390. All the modal would add is a step
      between the reader and the page. */
   const isPhone = useIsPhone();
-  /* one screen, or a page: see the note above OFFSET_KEY. A phone is a
-     page whatever the project says. */
+  /* one screen, or a page: see lib/screen-column.js. A phone is a page
+     whatever the project says. */
   const screen = !!project?.screen && !isPhone;
   /* the box the column scrolls in when the page is one screen, and what
      Lenis scrolls inside it */
   const regionRef = useRef(null);
   const gridRef = useRef(null);
-  const lenis = useRef(null);
-  /* the history entry this page was opened as, read once: while this page
-     is leaving in a crossing the router already names the next entry */
-  const entry = useRef(useLocation().key);
   const leftRef = useRef(null);
   /* Where a chapter is read at. On a page, READING_LINE from the top of
      the window; on a screen, the chapter list's own top edge, so a chapter
@@ -491,23 +441,20 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      closing its subheadings on the way. */
   const travel = useRef(null);
   useScrollFade(contentRef, screen ? NO_FADE : SCROLL_FADE, [id, lang, screen], screen ? regionRef : null);
-  const scrollY = () => (screen ? (regionRef.current?.scrollTop ?? 0) : window.scrollY);
-  const scrollMax = () => {
-    if (screen) {
-      const r = regionRef.current;
-      return r ? r.scrollHeight - r.clientHeight : 0;
-    }
-    return document.documentElement.scrollHeight - window.innerHeight;
-  };
-  const goTo = (top, smooth = true) => {
-    if (screen) {
-      const s = lenis.current;
-      if (s) s.scrollTo(top, smooth ? { duration: 1 } : { immediate: true });
-      else if (regionRef.current) regionRef.current.scrollTop = top;
-      return;
-    }
-    window.scrollTo({ top, behavior: smooth && !reducedMotion() ? "smooth" : "auto" });
-  };
+  /* the scroll, through whichever box has it, and the keys — unless a
+     modal is up, whose own keys they are */
+  const { lenis, scrollY, scrollMax, goTo } = useScreenScroll(
+    screen,
+    regionRef,
+    gridRef,
+    {
+      blocked: () => !!document.querySelector(".cs-zoom, .tryapp-backdrop, .cs-gate-overlay"),
+      onTake: () => {
+        travel.current = null;
+      },
+    },
+    [project],
+  );
   /* A figure held open while the window narrows past the phone breakpoint
      has nowhere to be: the modal is not rendered at that width. Left in
      state it is not gone, only hidden, and widening the window again opens
@@ -600,105 +547,6 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project, screen]);
 
-  /* ── The screen's scroll ──
-     Lenis scrolls the box from input anywhere on the page, with the same
-     inertia the Work page has, and the box opens where this entry was
-     left. A long page is not its full height when it arrives, so the
-     offset is put back while the page grows, and let go the moment the
-     reader touches the wheel. Keys move the box a line or a screen. Torn
-     down the moment a crossing starts. The comparison sliders are dragged
-     rather than scrolled, so a touch on one is left to it. */
-  useEffect(() => {
-    if (!screen || !project) return undefined;
-    const box = regionRef.current;
-    const content = gridRef.current;
-    if (!box || !content) return undefined;
-    const target = recallOffset(entry.current) ?? 0;
-    box.scrollTop = target;
-    const smooth = new Lenis({
-      wrapper: box,
-      content,
-      eventsTarget: window,
-      lerp: reducedMotion() ? 1 : 0.1,
-      smoothWheel: true,
-      syncTouch: true,
-      autoRaf: false,
-      prevent: (node) => !!node.closest?.("img-comparison-slider"),
-    });
-    lenis.current = smooth;
-    const tick = (time) => smooth.raf(time * 1000);
-    gsap.ticker.add(tick);
-    const unhook = smooth.on("scroll", ScrollTrigger.update);
-
-    /* the hold: see holdScroll in lib/scroll-memory.js */
-    let frame = 0;
-    const until = performance.now() + 2000;
-    const stopHold = () => cancelAnimationFrame(frame);
-    const reapply = () => {
-      if (Math.abs(box.scrollTop - target) < 2 || performance.now() > until) return;
-      smooth.scrollTo(target, { immediate: true });
-      frame = requestAnimationFrame(reapply);
-    };
-    if (target) frame = requestAnimationFrame(reapply);
-    window.addEventListener("wheel", stopHold, { passive: true, once: true });
-    window.addEventListener("touchstart", stopHold, { passive: true, once: true });
-
-    /* where the reader is, written down once it has held still */
-    let timer = 0;
-    const onScroll = () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => rememberOffset(entry.current, box.scrollTop), 200);
-    };
-    box.addEventListener("scroll", onScroll, { passive: true });
-    const flush = () => rememberOffset(entry.current, box.scrollTop);
-    window.addEventListener("pagehide", flush);
-
-    const onKey = (e) => {
-      if (e.metaKey || e.ctrlKey || e.altKey) return;
-      const tag = e.target?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || e.target?.isContentEditable) return;
-      /* a modal is up: its own keys, not the page's */
-      if (document.querySelector(".cs-zoom, .tryapp-backdrop, .cs-gate-overlay")) return;
-      /* the reader has the wheel now */
-      travel.current = null;
-      let by = SCREEN_KEYS[e.key];
-      if (e.key === "PageDown" || (e.key === " " && !e.shiftKey)) by = box.clientHeight * 0.85;
-      if (e.key === "PageUp" || (e.key === " " && e.shiftKey)) by = -box.clientHeight * 0.85;
-      if (by === undefined) return;
-      e.preventDefault();
-      const max = box.scrollHeight - box.clientHeight;
-      const to = Math.max(0, Math.min(max, smooth.scroll + by));
-      smooth.scrollTo(to, { duration: 0.8 });
-    };
-    window.addEventListener("keydown", onKey);
-
-    const root = document.documentElement;
-    const crossing = new MutationObserver(() => {
-      if ("crossing" in root.dataset) teardown();
-    });
-    crossing.observe(root, { attributes: true, attributeFilter: ["data-crossing"] });
-    let down = false;
-    const teardown = () => {
-      if (down) return;
-      down = true;
-      crossing.disconnect();
-      stopHold();
-      clearTimeout(timer);
-      flush();
-      window.removeEventListener("wheel", stopHold);
-      window.removeEventListener("touchstart", stopHold);
-      window.removeEventListener("pagehide", flush);
-      window.removeEventListener("keydown", onKey);
-      box.removeEventListener("scroll", onScroll);
-      unhook();
-      gsap.ticker.remove(tick);
-      smooth.destroy();
-      lenis.current = null;
-    };
-    return teardown;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [screen, project]);
-
   /* a figure held open, or the demo: the box holds still under it */
   useEffect(() => {
     const smooth = lenis.current;
@@ -707,50 +555,15 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     else smooth.start();
   }, [zoomed, demoOpen]);
 
-  /* ── The column is a stage ──
-     On a screen, only the chapter being read is on it, the way only one
-     project is on the Work page's stage: the chapters before and after
-     are hidden outright, and the opening (hero, lead, intro, meta) is
-     what shows until the first chapter is reached. A chapter takes the
-     stage the moment its heading reaches the reading line, coming up
-     through a fade the way the scroll fade brings a block in, and the
-     one leaving fades off the way the scroll is going. Nothing loses its
-     place in the column, so the scroll is the scroll it was; only what is
-     painted changes. A reader who asked for less motion gets the cut. */
-  const staged = useRef(undefined);
-  useEffect(() => {
-    const content = contentRef.current;
-    if (!content) return;
-    const sections = [...content.querySelectorAll(".cs-section")];
-    const opening = [...content.children].filter((el) => !el.classList.contains("cs-sections"));
-    if (!screen) {
-      /* a page again: everything in the flow, the scroll fade's to run */
-      if (staged.current !== undefined) gsap.set([...sections, ...opening], { clearProps: "all" });
-      staged.current = undefined;
-      return;
-    }
-    const at = activeId ? sections.findIndex((s) => s.id === `cs-${activeId}`) : -1;
-    const was = staged.current;
-    const first = was === undefined;
-    staged.current = at;
-    if (!first && was === at) return;
-    const show = at < 0 ? opening : [sections[at]];
-    const hide = [...sections.filter((s, i) => i !== at), ...(at < 0 ? [] : opening)];
-    gsap.killTweensOf([...sections, ...opening]);
-    if (first || reducedMotion()) {
-      gsap.set(hide, { autoAlpha: 0 });
-      gsap.set(show, { autoAlpha: 1, y: 0 });
-      return;
-    }
-    const dir = Math.sign(at - was) || 1;
-    gsap.to(hide, { autoAlpha: 0, y: -40 * dir, duration: 0.3, ease: "power2.out" });
-    gsap.fromTo(
-      show,
-      { autoAlpha: 0, y: 40 * dir },
-      { autoAlpha: 1, y: 0, duration: 0.3, ease: "power2.out" },
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeId, screen, project]);
+  /* the column is a stage: only the chapter being read is on it, and the
+     opening until the first chapter is reached — see lib/screen-column.js */
+  useColumnStage(
+    screen,
+    contentRef,
+    ".cs-section",
+    project && activeId ? project.sections.findIndex((s) => s.id === activeId) : -1,
+    [project],
+  );
 
   if (!project) return <Navigate to={langPath("/work")} replace />;
 
@@ -820,44 +633,19 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     setActiveId(travel.current.chapter);
     setActiveSub(travel.current.sub);
 
-    goTo(targetOf());
-
-    /* Landed is not the same as arrived. The scroll reaches the target and
-       a figure above it finishes loading a beat later, and the target has
-       moved on by the figure's height; measured on TinyPaws, a subheading
-       aimed at the list's top edge was standing 388px below it a second
-       after the scroll had come to rest there. So the target is watched
-       until it has held still for a third of a second, and re-aimed each
-       time it moves, for up to four seconds. The list holds the target lit
-       for the whole of that, whatever passes under the reading line. */
-    let frame = 0;
-    let calm = 0;
-    const until = performance.now() + 4000;
-    const stop = () => {
-      cancelAnimationFrame(frame);
-      travel.current = null;
-    };
-    const settle = () => {
-      const want = targetOf();
-      if (performance.now() > until) return stop();
-      if (Math.abs(scrollY() - want) < 2) {
-        if (++calm >= 20) return stop();
-      } else {
-        calm = 0;
-        /* only re-aim once the scroll has come to rest, or every frame
-           would restart it and nothing would ever move */
-        if (scrollY() === lastY.current) goTo(want);
-      }
-      lastY.current = scrollY();
-      frame = requestAnimationFrame(settle);
-    };
-    window.addEventListener("wheel", stop, { passive: true, once: true });
-    window.addEventListener("touchstart", stop, { passive: true, once: true });
-    frame = requestAnimationFrame(settle);
+    /* and stays lit until the jump is over: see settleAt */
+    settleAt({
+      targetOf,
+      scrollY,
+      goTo,
+      onStop: () => {
+        travel.current = null;
+      },
+    });
   };
 
   return (
-    <div className={"ab-root" + (screen ? " cs-screen" : "")}>
+    <div className={"ab-root" + (screen ? " page-screen" : "")}>
       <SiteHeader current="work" />
 
       {/* cross-fades on language switches, matching the other pages. When

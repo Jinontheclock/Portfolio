@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
 import SiteFooter from "../components/SiteFooter.jsx";
 import useFitToWidth from "../hooks/useFitToWidth.js";
+import useIsPhone from "../hooks/useIsPhone.js";
 import useScrollFade from "../lib/scroll-fade.js";
+import { settleAt, useColumnStage, useScreenScroll, viewTopOf } from "../lib/screen-column.js";
 import { PAGE_TITLE } from "../i18n.js";
 import portrait from "../assets/about-portrait.webp";
 
@@ -68,9 +70,10 @@ const ABOUT = {
   },
 };
 
-/* The rail. E-mail closes it because the copy above ends by asking for one;
-   a mailto: opens the reader's own mail client, so it is the one entry that
-   must not carry target="_blank" — the tab it opened would be left blank.
+/* The links. E-mail closes them because the copy above ends by asking for
+   one; a mailto: opens the reader's own mail client, so it is the one entry
+   that must not carry target="_blank" — the tab it opened would be left
+   blank.
 
    The resume is served from public/, so its URL carries whatever base this
    build is using rather than a hardcoded one. */
@@ -365,6 +368,35 @@ const SKILLS = {
   ],
 };
 
+/* The three parts of the page the list beside the column names, by the
+   headings the column carries — English in every language. */
+const SECTIONS = [
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
+  { id: "skills", label: "Skills" },
+];
+
+/* What fades, and what it fades with, on a phone, where the page is a
+   page. Five things, each one something a reader arrives at whole: the
+   photograph with the name and the line that answers it, then the prose,
+   then each section under its own heading.
+
+   Paragraph by paragraph was the first cut and it read as chatter — four
+   separate arrivals inside one continuous thought, and a heading that came
+   in on its own before the thing it was heading. */
+const SCROLL_FADE = [
+  [".ab-portrait", ".ab-lede"], // the photograph, the name, the opening line
+  [".ab-content > .ab-paragraph"], // the prose, in one piece
+  ".ab-section", // Experience, Education and Skills, each whole
+];
+/* off the phone the column is a stage (see below), and the fade has no say */
+const NO_FADE = [];
+/* A section brought up to the line lands ON it, and a fraction of a pixel
+   either side of the comparison decides whether it counts as reached. A
+   pixel of slack is smaller than anything a reader can see and settles it
+   (measured on the case studies, which read their chapters the same way). */
+const READING_SLACK = 1;
+
 /** One post, in two rows and a paragraph: what it was with when, then
  *  who it was with and where, then what the work was.
  *
@@ -377,19 +409,6 @@ const SKILLS = {
  *  All of it, always. This used to unfold on hover and pin open on a click,
  *  which put the part that says what was actually done behind a gesture —
  *  and behind one that a phone does not have. */
-/* What fades, and what it fades with. Five things, each one something a
-   reader arrives at whole: the photograph with the name and the line that
-   answers it, then the prose, then each section under its own heading.
-
-   Paragraph by paragraph was the first cut and it read as chatter — four
-   separate arrivals inside one continuous thought, and a heading that came
-   in on its own before the thing it was heading. */
-const SCROLL_FADE = [
-  [".ab-portrait", ".ab-lede"], // the photograph, the name, the opening line
-  [".ab-content > .ab-paragraph"], // the prose, in one piece
-  ".ab-section", // Experience, Education and Skills, each whole
-];
-
 function Entry({ entry }) {
   return (
     <div className="xp-entry">
@@ -423,6 +442,31 @@ function SkillRow({ row }) {
   );
 }
 
+/** The links, wherever they stand: in the header off the phone, and in
+ *  the row above the name on one. Everything but the mailto opens in its
+ *  own tab — the resume included, because a PDF that replaces the page
+ *  leaves the reader in a viewer with the site gone and only the back
+ *  button to find it again. */
+function Links({ className }) {
+  return LINKS.map((l) =>
+    l.href ? (
+      <a
+        key={l.label}
+        href={l.href}
+        className={className}
+        target={l.href.startsWith("mailto:") ? undefined : "_blank"}
+        rel={l.href.startsWith("mailto:") ? undefined : "noreferrer"}
+      >
+        {l.label}
+      </a>
+    ) : (
+      <span key={l.label} className={className + " is-pending"} aria-disabled="true">
+        {l.label}
+      </span>
+    ),
+  );
+}
+
 export default function AboutPage({ lang, setLang, fadeClass = "" }) {
   /* re-set the copy when the viewport crosses the phone breakpoint — the
      orphan glue below is off on a phone and on above it */
@@ -431,13 +475,103 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
     document.title = PAGE_TITLE.about[lang] || PAGE_TITLE.about.en;
   }, [lang]);
 
-  // on mobile the rail is a single row above the name; shrink to fit one line
+  // on a phone the links are a single row above the name; shrink to fit one line
   const railRef = useFitToWidth(12);
-  /* Every block of the column fades in as the reader reaches it and out
-     again as it leaves. The rail is deliberately outside this: it is stuck
-     to the viewport, so it is never the thing being scrolled past. */
+  /* The column. The list beside it is deliberately outside this: it is
+     stuck to the screen, so it is never the thing being scrolled past. */
   const contentRef = useRef(null);
-  useScrollFade(contentRef, SCROLL_FADE, [lang]);
+  /* One screen off the phone, set the way the Work page and the case
+     studies are — see lib/screen-column.js: the column scrolls in a box of
+     its own between the header and the copyright, only the section being
+     read is on it, and the list stands still beside it, where the Work
+     page stands its titles. A phone keeps the page a page. */
+  const isPhone = useIsPhone();
+  const screen = !isPhone;
+  const regionRef = useRef(null);
+  const gridRef = useRef(null);
+  const indexRef = useRef(null);
+  /* Where a section is read at: the list's own top edge, so a section
+     brought up stands level with the entry that named it */
+  const readingLine = () => indexRef.current?.getBoundingClientRect().top ?? 0;
+  /* Where the list is taking the reader, while it is: the section it will
+     light once the scroll arrives. Set at the click and cleared on arrival,
+     or the moment the reader takes the wheel, so a jump from Experience to
+     Skills does not light Education in passing. */
+  const travel = useRef(null);
+  // the section being read (null = the opening above the sections)
+  const [activeId, setActiveId] = useState(null);
+  useScrollFade(contentRef, screen ? NO_FADE : SCROLL_FADE, [lang, screen], screen ? regionRef : null);
+  const { scrollY, scrollMax, goTo } = useScreenScroll(screen, regionRef, gridRef, {
+    onTake: () => {
+      travel.current = null;
+    },
+  });
+
+  /* scroll-spy: the list lights the section the reader is inside — the
+     last one whose heading has passed the reading line. Measured off the
+     layout rather than the painted box, so a section parked 40px away by
+     the stage's fade does not light up early or late. */
+  useEffect(() => {
+    if (!screen) {
+      setActiveId(null);
+      return undefined;
+    }
+    const box = regionRef.current;
+    if (!box) return undefined;
+    const onScroll = () => {
+      if (travel.current) {
+        setActiveId(travel.current);
+        return;
+      }
+      const line = readingLine() + READING_SLACK;
+      let current = null;
+      for (const s of SECTIONS) {
+        const el = document.getElementById(`ab-${s.id}`);
+        if (el && viewTopOf(el) <= line) current = s.id;
+        else break;
+      }
+      /* fully scrolled: the last section is what's being read even if its
+         heading never crosses the line */
+      if (scrollY() > 0 && scrollY() >= scrollMax() - 2) current = SECTIONS[SECTIONS.length - 1].id;
+      setActiveId(current);
+    };
+    onScroll();
+    box.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      box.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screen, lang]);
+
+  /* the column is a stage: only the section being read is on it, and the
+     opening — the photograph, the name and the prose — until Experience is
+     reached */
+  useColumnStage(
+    screen,
+    contentRef,
+    ".ab-section",
+    activeId ? SECTIONS.findIndex((s) => s.id === activeId) : -1,
+  );
+
+  /* jump to a section, and stay jumped: the list holds the target lit
+     for the whole of the way there, whatever passes under the line */
+  const scrollTo = (id) => {
+    const el = document.getElementById(`ab-${id}`);
+    if (!el) return;
+    travel.current = id;
+    setActiveId(id);
+    settleAt({
+      targetOf: () => Math.max(0, scrollY() + viewTopOf(el) - readingLine()),
+      scrollY,
+      goTo,
+      onStop: () => {
+        travel.current = null;
+      },
+    });
+  };
+
   const about = ABOUT[lang] || ABOUT.en;
   const withDesc = (list) =>
     list.map((e) => ({
@@ -447,34 +581,44 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
     }));
 
   return (
-    <div className="ab-root">
-      <SiteHeader current="about" />
+    <div className={"ab-root" + (screen ? " page-screen" : "")}>
+      <SiteHeader current="about">
+        {/* the links, in a row at the header's right edge, where the
+            header has the room for them (see components.css) */}
+        <nav className="site-header-links" aria-label="Links">
+          <Links className="site-header-link" />
+        </nav>
+      </SiteHeader>
 
-      <main className={"ab-main " + fadeClass}>
-        <div className="ab-grid ab-layout">
-          <nav className="ab-rail" ref={railRef}>
-            {LINKS.map((l) =>
-              l.href ? (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  className="ab-rail-link"
-                  /* everything but the mailto opens in its own tab — the
-                     resume included, because a PDF that replaces the page
-                     leaves the reader in a viewer with the site gone and
-                     only the back button to find it again */
-                  target={l.href.startsWith("mailto:") ? undefined : "_blank"}
-                  rel={l.href.startsWith("mailto:") ? undefined : "noreferrer"}
+      {/* cross-fades on language switches, matching the other pages. Off
+          the phone this is the box the column scrolls in. */}
+      <main className={"ab-main " + fadeClass} ref={regionRef}>
+        <div className="ab-grid ab-layout" ref={gridRef}>
+          {/* the left column, stuck to the screen: the list, and under it
+              the links where the header has no room for them */}
+          <div className="ab-left">
+            {/* the list: Experience, Education and Skills, the one being
+                read set large and in ink, each a button that brings its
+                section up to the line */}
+            <nav className="ab-index" ref={indexRef} aria-label="Sections">
+              {SECTIONS.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  className={"ab-index-item" + (activeId === s.id ? " is-current" : "")}
+                  onClick={() => scrollTo(s.id)}
                 >
-                  {l.label}
-                </a>
-              ) : (
-                <span key={l.label} className="ab-rail-link is-pending" aria-disabled="true">
-                  {l.label}
-                </span>
-              )
-            )}
-          </nav>
+                  {s.label}
+                </button>
+              ))}
+            </nav>
+            {/* the links again, for the tiers whose header cannot carry
+                them: under the list on a tablet, a row above the name on a
+                phone (see about.css) */}
+            <nav className="ab-rail" ref={railRef}>
+              <Links className="ab-rail-link" />
+            </nav>
+          </div>
 
           <div className="ab-content" ref={contentRef}>
             {/* opens the column, and the first thing on the page worth
@@ -529,7 +673,7 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
               </p>
             ))}
 
-            <section className="ab-section">
+            <section id="ab-experience" className="ab-section">
               <h2 className="ab-section-label">Experience</h2>
               <div className="xp-list">
                 {withDesc(EXPERIENCES).map((e) => (
@@ -538,7 +682,7 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
               </div>
             </section>
 
-            <section className="ab-section">
+            <section id="ab-education" className="ab-section">
               <h2 className="ab-section-label">Education</h2>
               <div className="xp-list">
                 {withDesc(EDUCATION).map((e) => (
@@ -547,7 +691,7 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
               </div>
             </section>
 
-            <section className="ab-section">
+            <section id="ab-skills" className="ab-section">
               <h2 className="ab-section-label">Skills</h2>
               <div className="ab-skills">
                 {(SKILLS[lang] || SKILLS.en).map((group) => (

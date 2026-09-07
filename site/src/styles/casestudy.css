@@ -59,75 +59,14 @@
 }
 
 /* ── One screen ──
-   A project flagged `screen` (see CaseStudyPage.jsx) is set the way the
-   Work page is: exactly one screen tall and clipped at that, so the window
-   never has a scrollbar to show. The box the column scrolls in is the
-   whole screen, and the header and the footer lie over it with nothing
-   behind them, so the column passes under the wordmark and the copyright
-   the way a page passes under a fixed header, rather than being cut off
-   at their edges — which is what a box that began under the header did:
-   a line of the chapter being read, sliced through the middle.
-
-   The box is the scroll container, and a sticky seat inside it is
-   measured from the box's content edge, which its top padding has already
-   pushed down to --index-line: so the rail's seat is zero, and it holds
-   the exact spot it stands in before any scroll, as --rail-top does for
-   the window. */
-.cs-screen {
-  position: relative;
-  display: block;
-  height: 100dvh;
-  overflow: hidden;
-}
-.cs-screen .site-header,
-.cs-screen .site-footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 10;
-}
-.cs-screen .site-header {
-  top: 0;
-}
-.cs-screen .site-footer {
-  bottom: 0;
-}
-.cs-screen .cs-main {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  /* the column opens on --index-line, where the Work page stands its
-     titles, so the chapter list here and the titles there hold one place */
-  padding-top: var(--index-line);
-  /* The header and the copyright lie on the column with no ground of
-     their own, so a line of text used to pass under HAJIN at full
-     strength and end at the screen's edge. Instead the column thins out
-     before it reaches either: a mask that is clear across the header's
-     own height and the footer's, so the wordmark and the copyright stand
-     on nothing, and rises to solid over twice each one's height below
-     and above them, so a line is gone by the time it reaches HAJIN
-     rather than half there under it. The mask is on the box, not the
-     column, so it keeps to the screen while the column moves through it. */
-  --cs-clear-top: var(--header-h);
-  --cs-fade-top: calc(var(--header-h) * 2);
-  --cs-clear-bottom: var(--footer-h);
-  --cs-fade-bottom: calc(var(--footer-h) * 2);
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent var(--cs-clear-top),
-    #000 calc(var(--cs-clear-top) + var(--cs-fade-top)),
-    #000 calc(100% - var(--cs-clear-bottom) - var(--cs-fade-bottom)),
-    transparent calc(100% - var(--cs-clear-bottom))
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent var(--cs-clear-top),
-    #000 calc(var(--cs-clear-top) + var(--cs-fade-top)),
-    #000 calc(100% - var(--cs-clear-bottom) - var(--cs-fade-bottom)),
-    transparent calc(100% - var(--cs-clear-bottom))
-  );
-}
-.cs-screen .cs-left {
+   A project flagged `screen` (see CaseStudyPage.jsx) is set as one screen
+   the way About is: the rules are .page-screen in components.css. What is
+   this page's own is where the rail sits. The box is the scroll container,
+   and a sticky seat inside it is measured from the box's content edge,
+   which its top padding has already pushed down to --index-line: so the
+   rail's seat is zero, and it holds the exact spot it stands in before any
+   scroll, as --rail-top does for the window. */
+.page-screen .cs-left {
   top: 0;
   /* from the page margin, where the Work page stands its titles, so the
      chapter list here is in the same place on the screen as they are;
