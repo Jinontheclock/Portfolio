@@ -20,11 +20,10 @@
 
   /* chrome that every page carries: the header's two labels, and the
      copyright line in the footer */
-  /* Work / About, the wordmark, and About's links: 22 / 20 / 18 / 16
-     across the tiers, two points a step like the card titles. The
-     desktop used to stand at 24 and drop to 18 at the laptop, a six
-     point step where every other size steps by two, and with the links
-     in the row it read as the largest type on the page. */
+  /* Work / About, the wordmark, and About's links: 22 / 18 / 18 / 16
+     across the tiers. The desktop used to stand at 24, and with the
+     links in the row it read as the largest type on the page; the
+     laptop stood at 20 for a while and was too big at 1280. */
   --size-header-nav: 22px;
   /* The header's own two numbers, published rather than copied. Anything
      that has to sit clear of the header needs to know where its bottom
@@ -67,7 +66,7 @@
 @media (max-width: 1439px) {
   :root {
     --size-hero: 100px; /* pre-JS fallback only */
-    --size-header-nav: 20px;
+    --size-header-nav: 18px;
     --size-copy: 12px;
     --size-about-title: 44px;
     --size-section-label: 22px;
