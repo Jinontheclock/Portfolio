@@ -1,7 +1,8 @@
-/* Work page — placeholder cards on the same 12-col grid as About and the
-   case studies (24px margins, 30px gutters). Card anatomy from
-   components/site/WorkCard.jsx: a text column (title 20px / summary /
-   lowercase roles) beside a grey thumbnail. */
+/* Work page — an index and the blocks it indexes, on the same 12-col grid
+   as About and the case studies (24px margins, 30px gutters). The five
+   titles stand in a sticky column on the left; the projects go by on the
+   right, one block each: summary, lowercase roles, and the thumbnail. See
+   pages/WorkPage.jsx for how the two keep step. */
 
 .wk-main {
   flex: 1;
@@ -9,44 +10,158 @@
   flex-direction: column;
 }
 
-.wk-list {
-  display: flex;
-  flex-direction: column;
-  gap: 63px;
+.wk-grid {
   /* the 140px of air below the header is shared with About and the
-     case-study pages */
-  padding: 140px 0 400px;
+     case-study pages; the 400 below gives the last block room to reach
+     the index before the page runs out */
+  padding-top: 140px;
+  padding-bottom: 400px;
+  align-items: start;
 }
 
-/* cards are links to the case-study detail page */
-.wk-card-link {
+/* ── The index ──
+   Three columns from the left margin, pinned at its own resting spot so it
+   holds the exact same position whether scrolled or not: --rail-top is
+   the header's real height plus the 140px above, which is where the
+   column stands before any scroll. The same seat the case-study chapter
+   list takes. */
+.wk-index {
+  grid-column: 1 / 4;
+  position: sticky;
+  top: var(--rail-top);
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+/* A title is a button that scrolls its block up to the index. The current
+   one is set at the card-title size in the page's ink; the rest wait at
+   body size in grey, and a title crosses between the two as its block
+   arrives — size and colour on the same clock, so the column reads as one
+   title growing rather than two swapping. A pointer over a waiting title
+   lends it the ink, the way the chapter list does. */
+.wk-index-item {
+  all: unset;
+  cursor: pointer;
+  font: 400 var(--size-body) / 1.3 var(--font-ui);
+  letter-spacing: -0.01em;
+  color: var(--text-muted);
+  transition:
+    font-size 300ms var(--easing),
+    color 300ms var(--easing);
+}
+.wk-index-item.is-current {
+  font-size: var(--size-card-title);
+  color: var(--text-primary);
+}
+@media (hover: hover) {
+  .wk-index-item:hover {
+    color: var(--text-primary);
+  }
+}
+
+/* ── The blocks ──
+   The nine columns to the right of the index. Blocks are far enough apart
+   that the one at the index is the one being read, and the next is on its
+   way rather than already there. */
+.wk-sections {
+  grid-column: 4 / 13;
+  display: flex;
+  flex-direction: column;
+  gap: 160px;
+}
+
+/* A block is one link to its case study: the copy in five columns, the
+   picture in the four that close on the right margin. Nine tracks on the
+   grid's own gutter, which is exactly columns 4–12 of the page. No
+   `align-items`: the two cells stretch to one shared height, so the
+   picture can grow past its ratio when the copy runs taller — see
+   .wk-image. */
+.wk-section {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  column-gap: 30px;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
 }
+
+.wk-text {
+  grid-column: 1 / 6;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* the title lives in the index on a wide screen */
+.wk-title {
+  display: none;
+  font: 400 var(--size-card-title) / 1.25 var(--font-ui);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.wk-desc {
+  /* the measure About's paragraphs settle at once the column stops being
+     the limit — the same ceiling, so the summary reads at the same line
+     length the body copy does on a wide screen */
+  max-width: 73ch;
+  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  color: var(--text);
+}
+
+.wk-specs {
+  /* directly under the summary, on the column's own 16px gap */
+  font: 400 14px/1.5 var(--font-ui);
+  color: var(--text);
+}
+
 /* The copy rests in grey and answers the pointer, the way the thumbnail
-   beside it does — one card lighting as one thing. Each line comes back
-   to its own colour rather than to a shared black, so the title still
-   outranks the summary once the card is lit.
+   beside it does — one block lighting as one thing. Each line comes back
+   to its own colour rather than to a shared black, so the summary still
+   outranks the roles line once the block is lit.
 
    Guarded like the thumbnail: without a pointer there is no hover to
    arrive, and unlike a picture this is the reading matter, so a touch
    screen gets it at full strength from the start. */
 @media (hover: hover) {
-  .wk-card-link .wk-text > * {
+  .wk-section .wk-text > * {
     color: var(--text-muted);
     transition: color var(--duration-fast) var(--easing);
   }
-  .wk-card-link:hover .wk-title,
-  .wk-card-link:focus-visible .wk-title {
+  .wk-section:hover .wk-title,
+  .wk-section:focus-visible .wk-title {
     color: var(--text-primary);
   }
-  .wk-card-link:hover .wk-desc,
-  .wk-card-link:focus-visible .wk-desc,
-  .wk-card-link:hover .wk-specs,
-  .wk-card-link:focus-visible .wk-specs {
+  .wk-section:hover .wk-desc,
+  .wk-section:focus-visible .wk-desc,
+  .wk-section:hover .wk-specs,
+  .wk-section:focus-visible .wk-specs {
     color: var(--text);
   }
+}
+
+.wk-image {
+  /* thumbnail, ~7:5 like the Figma Work_Desktop frame; the four columns
+     that close on the margin line the other pages close on. The ratio is
+     a floor, not a fix: the box grows past 7:5 whenever the copy runs
+     taller, so no copy ever hangs below it. The percentage is what does
+     that — indefinite while the row is being sized, so the ratio sets the
+     row's minimum; definite afterwards, so the box takes the whole row
+     even when the copy set it. */
+  grid-column: 6 / 10;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 7 / 5;
+  background: var(--surface-placeholder);
+  /* the frames stack inside it, and the grey shows through until one
+     loads — a project with no artwork yet is just the grey */
+  position: relative;
+  overflow: hidden;
 }
 
 /* The thumbnails rest in grey and answer the pointer in their own colour,
@@ -60,13 +175,13 @@
    needed a second, coloured copy of every frame to wipe between, video
    included.
 
-   Slower than the title's dimming — a picture regaining its colour is a
-   thing to watch, and at the title's speed it reads as a flash.
+   Slower than the copy's dimming — a picture regaining its colour is a
+   thing to watch, and at the copy's speed it reads as a flash.
 
    Only where there is a pointer to hover with: on a touch screen the
    colour would never arrive, so those readers get it from the start. */
 @media (hover: hover) {
-  .wk-card-link .wk-image::after {
+  .wk-section .wk-image::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -83,102 +198,13 @@
   }
   /* the sheet's left edge crosses to the right and the picture is left in
      colour behind it */
-  .wk-card-link:hover .wk-image::after,
-  .wk-card-link:focus-visible .wk-image::after {
+  .wk-section:hover .wk-image::after,
+  .wk-section:focus-visible .wk-image::after {
     clip-path: inset(0 0 0 100%);
   }
 }
 
-/* Copy beside the thumbnail, the pair always closing on the right margin.
-   Two tracks in a 1.4958 : 1 ratio with a 40px gap between them — the
-   718/480 proportion the card was drawn at, which is why the twelve
-   columns are not used here: that ratio is not a whole number of them.
-   The left edge is set by the padding instead, and the padding is where
-   the whole responsive behaviour lives.
-
-   Wide, the pair is the content column of the other two pages exactly —
-   cols 7–12, the span the case studies' `.cs-content` and About's
-   `.ab-content` take. Six columns and their five gutters come to
-   50% − 15px of the grid's content box, which off the padding's own basis
-   (the full window, since .wk-list has no margins of its own) is
-   50% − 39px. So the card opens on the line their body copy opens on and
-   closes on the line it closes on.
-
-   Narrow, it stops shrinking at 900px: below that the summaries start
-   taking a fourth line. Instead of narrowing further the pair keeps the
-   size it has and spends the empty left half, sliding toward the margin
-   as the window closes — that is the inner `max()`. The two expressions
-   meet at 1878, so the handover is a width the card already had and
-   nothing jumps; the padding reaches the page margin on its own near 950,
-   which is why there is no breakpoint anywhere in here.
-
-   No `align-items`: the two cells stretch to one shared height, which is
-   what lets the roles line sit on the thumbnail's bottom edge — see
-   .wk-specs and .wk-image. */
-.wk-card {
-  grid-template-columns: minmax(0, 1.4958fr) minmax(0, 1fr);
-  column-gap: 40px;
-  padding-left: max(24px, 100% - 24px - max(50% - 39px, 900px));
-}
-
-.wk-text {
-  grid-column: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.wk-title {
-  font: 400 var(--size-card-title) / 1.25 var(--font-ui);
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-}
-
-.wk-desc {
-  /* the measure About's paragraphs settle at once the column stops being
-     the limit — the same ceiling, so the summary reads at the same line
-     length the body copy does on a wide screen */
-  max-width: 73ch;
-  font: 400 var(--size-body) / 1.6 var(--font-ui);
-  color: var(--text);
-}
-
-.wk-specs {
-  /* directly under the summary, on the column's own 16px gap. It used to
-     be pushed to the bottom of the cell so it closed on the thumbnail's
-     bottom edge — but the cell is as tall as the picture beside it, and
-     three lines of text never are, so that left this one stranded ~100px
-     below the summary it belongs to. Reading beats the edge alignment. */
-  font: 400 14px/1.5 var(--font-ui);
-  color: var(--text);
-}
-
-.wk-image {
-  /* thumbnail, ~7:5 like the Figma Work_Desktop frame; the right-hand
-     track, so its outer edge is the margin line the other pages close on.
-     The ratio is a floor, not a fix: the box grows past 7:5 whenever the
-     text runs taller, so no text ever hangs below it. The percentage is
-     what does that — indefinite while the row is being sized, so the
-     ratio sets the row's minimum; definite afterwards, so the box takes
-     the whole row even when the text set it. (Stretch alignment alone
-     will not grow an aspect-ratio box in Chromium.) */
-  grid-column: 2;
-  min-width: 0;
-  /* both axes pinned to the grid area: with only the height set, a taller
-     row hands the ratio the height and gets a transferred width back —
-     the box walks off its track */
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 7 / 5;
-  background: var(--surface-placeholder);
-  /* the frames stack inside it, and the grey shows through until one
-     loads — a project with no artwork yet is just the grey */
-  position: relative;
-  overflow: hidden;
-}
-
-/* One layer of a card's thumbnail — a still, or the clip that plays over
+/* One layer of a block's thumbnail — a still, or the clip that plays over
    its poster. All of a project's layers sit on top of one another and only
    the current one is opaque, so a change is a cross-fade in place rather
    than a swap; it is also what lets the clip be stopped and rewound behind
@@ -210,50 +236,65 @@
     transition: none;
   }
   /* the colour still arrives, it just stops travelling to get there */
-  .wk-card-link .wk-image::after {
+  .wk-section .wk-image::after {
+    transition: none;
+  }
+  .wk-index-item {
     transition: none;
   }
 }
 
-/* ── Mobile: the card is a stack, title first and the picture directly
-   under it, everything running the full width between the page margins —
-   a phone has no room to spend on an indent ── */
-@media (max-width: 600px) {
-  .wk-list {
-    gap: 48px;
-    /* same header air as the About page's phone value */
-    padding: 64px 0 220px;
+/* ── Tablet: the index keeps three columns, the blocks take the rest ── */
+@media (max-width: 1024px) {
+  .wk-sections {
+    gap: 120px;
   }
-  /* the stack leaves the grid — a flex column, like before it — and gives
-     the padding back to .ab-grid's phone margin.
+}
+
+/* ── Mobile: no index — a phone has no column to spare and no sticky seat
+   to keep one in. Each block heads itself with its title, then the picture
+   directly under it, everything running the full width between the page
+   margins ── */
+@media (max-width: 600px) {
+  .wk-grid {
+    /* same header air as the About page's phone value */
+    padding-top: 64px;
+    padding-bottom: 220px;
+  }
+  .wk-index {
+    display: none;
+  }
+  .wk-sections {
+    grid-column: 1 / 13;
+    gap: 48px;
+  }
+  /* the block leaves the grid for a stack.
 
      No row-gap: the spacing is set line by line below instead, because the
      picture has to close up against the title above it and the summary
      under it, and one gap for the whole column cannot leave two of its
      lines out. */
-  .wk-card {
+  .wk-section {
     display: flex;
     flex-direction: column;
     row-gap: 0;
-    padding-left: 20px;
   }
-
-  /* The text column stops being a box and hands its three lines to the
-     card's own stack. That is what lets the picture sit between the title
+  /* The copy column stops being a box and hands its three lines to the
+     block's own stack. That is what lets the picture sit between the title
      and the line after it: the title has to stay inside .wk-text for the
-     wide layout, where the two are one grid cell beside the thumbnail, so
-     the order cannot come from the markup. Reordering here also keeps the
-     reading order intact — a screen reader still gets title, summary,
-     roles, then the picture, which is the order the card was written in. */
+     wide layout, so the order cannot come from the markup. Reordering here
+     also keeps the reading order intact — a screen reader still gets title,
+     summary, roles, then the picture, which is the order the block was
+     written in. */
   .wk-text {
     display: contents;
   }
-  /* The card's own sizes on a phone, smaller than the tier tokens the wide
-     layout takes: the title steps down from --size-card-title's 22px, and
-     the two lines under the picture share one size instead of the
-     summary's 14 and the roles line's own 14. Line heights keep the
-     proportions they hold elsewhere. */
+  /* The block's own sizes on a phone, smaller than the tier tokens the
+     wide layout takes: the title steps down from --size-card-title's 22px,
+     and the two lines under the picture share one size instead of the
+     summary's 14 and the roles line's own 14. */
   .wk-title {
+    display: block;
     order: 1;
     font-size: 20px;
   }
@@ -263,8 +304,6 @@
     width: 100%;
     /* back on its ratio alone — in the stack there is no row to fill */
     height: auto;
-    /* flush against the title and the summary, which is the whole point
-       of the phone layout: more of the next card on screen */
     margin: 0;
   }
   /* The two lines under the picture are one block of reading, so they sit
@@ -287,7 +326,7 @@
   }
 }
 
-/* ── Protected-project lock mark in the list ── */
+/* ── Protected-project lock mark, in the index and in a phone's title ── */
 .wk-lock {
   width: 15px;
   height: 15px;
