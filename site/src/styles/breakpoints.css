@@ -32,6 +32,10 @@
   --header-pad-top: 20px;
   --header-line: 1.3333;
   --header-h: calc(var(--header-pad-top) + var(--size-header-nav) * var(--header-line));
+  /* and the footer's: its one line of copyright, 12px on a 16px line, over
+     the 24px it keeps from the bottom edge. Constant across the tiers a
+     screen page is set on (phones shrink the line, but read the page) */
+  --footer-h: 40px;
   /* where a sticky rail rests: clear of the header, level with the first
      line of the column beside it, which .ab-main and .cs-main both open
      140px below the header */
