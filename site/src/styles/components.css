@@ -26,20 +26,6 @@
   animation: lang-fadeIn 350ms var(--easing) both;
 }
 
-/* ── The box a title rises into ──
-   The crossing's last move brings the page's title up from under its own
-   baseline, and the article's title has a screen-tall hero with its
-   overflow hidden to rise inside. Here the titles sit at the top of their
-   pages, over the chapter list and beside the opening sentence, and a title
-   sliding over those for a beat reads as a fault. So each is wrapped in a
-   box exactly its own size that clips, and rises into view from its own
-   bottom edge. clip rather than hidden: the box is not a scroll container,
-   and the title's margins still collapse through it, so the layout is the
-   one it had. */
-.title-box {
-  overflow: clip;
-}
-
 /* ── PillButton ── */
 .pill-button {
   display: inline-flex;

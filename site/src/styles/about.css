@@ -56,11 +56,6 @@
   color: var(--text-primary);
   /* text-indent (per-language H/이/イ LSB compensation) is set inline in JSX */
 }
-/* the box the name rises into on arrival (see .title-box) is the flex item
-   now, and takes the name's refusal to shrink */
-.ab-lede > .title-box {
-  flex: none;
-}
 
 /* ── Left link rail ──
    Sticks while the content scrolls (like the case-study TOC). */

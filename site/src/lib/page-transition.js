@@ -1,11 +1,10 @@
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
 import { splitLang } from "./lang-routes.js";
 import { captureScroll, landed } from "./scroll-memory.js";
 
-gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
+gsap.registerPlugin(CustomEase, ScrollTrigger);
 
 /* ── The crossing between pages ──
  *
@@ -14,19 +13,22 @@ gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
  * left and the page arriving are both in the DOM at once, one container
  * each, and a single GSAP timeline moves the two together: the page being
  * left shrinks toward its centre, rises a third of a screen and dims to
- * almost nothing against black, the page arriving is uncovered from the
- * bottom edge up, and once it is there its title comes up letter by
- * letter, each one tipped back and righting itself as it rises.
+ * almost nothing against black, and the page arriving is uncovered from
+ * the bottom edge up. The landing's hero, the one drawing on the site,
+ * comes up from under the bottom edge once the page is there; every other
+ * page's title stays exactly where it is. The demo brings its title up
+ * letter by letter, and that was tried on the About and case-study titles
+ * and taken off again: a name in the middle of righting itself, cut at
+ * the box it rises into, read as broken type, not as an entrance.
  *
  * The numbers are the demo's, not the article's. The article prints a
  * plainer version of its own demo: a page that rises and dims to 60% over
- * a second on power2.inOut, and a title that comes up in one piece. The
- * demo the article links to (github.com/blenkcode/codrops-demo) is what
- * the reader actually sees, and it scales the page to 0.8, takes it to
- * 40%, runs 0.7s on a curve of its own, and splits the title. What is
- * wanted is what the demo shows, so every number below is the demo's,
- * verbatim, from src/transitions/animations/default.js, src/lib/index.js,
- * src/animations/Enter.js, src/helpers/wrap.js and src/pages/home/home.js.
+ * a second on power2.inOut. The demo the article links to
+ * (github.com/blenkcode/codrops-demo) is what the reader actually sees,
+ * and it scales the page to 0.8, takes it to 40%, and runs 0.7s on a curve
+ * of its own. What is wanted is what the demo shows, so every number below
+ * is the demo's, verbatim, from src/transitions/animations/default.js,
+ * src/lib/index.js, src/animations/Enter.js and src/pages/home/home.js.
  *
  * What the demo has that this file does not need: a router of its own, a
  * page loader, pages that are strings of HTML, and a wait for every image
@@ -79,18 +81,9 @@ const UNCOVER = {
   duration: 0.7,
   ease: EASE,
 };
-/* ENTER and wrap_chars: each letter starts a line below itself, tipped
-   back 60°, and rises upright, one after another. The delay is what
-   home.js passes. */
-const TITLE = {
-  y: "100%",
-  rotateX: 60,
-  duration: 2.1,
-  stagger: 0.035,
-  ease: "expo.out",
-  delay: 0.32,
-  perspective: 1000,
-};
+/* ENTER's run, on the hero in one piece: it starts its own height below
+   itself and rises. The delay is what home.js passes. */
+const TITLE = { y: "100%", duration: 2.1, ease: "expo.out", delay: 0.32 };
 
 /* Where the site is mounted, without its trailing slash: "" on the domain
    and "/Portfolio" on the project page. */
@@ -139,72 +132,37 @@ let left = null;
 
 export const leaving = (el) => !!left && left.contains(el);
 
-/** The demo's ENTER: the page's title split into letters, each put a line
- *  under itself and tipped back, and brought up in a run. The first page of
- *  a visit gets it too, once the boot cover has lifted, which is what
- *  `paused` is for.
+/** The demo's ENTER, for the landing's hero alone: the drawing is put
+ *  under the bottom edge of the screen and brought up, on the demo's
+ *  clock. The first visit gets it too, once the boot cover has lifted,
+ *  which is what `paused` is for. Any other page has nothing to raise.
  *
- *  Three things the demo does not have to think about. Its titles are one
- *  word, so it splits to characters alone; a title of several words split
- *  that way can break between any two letters while it is inline-block
- *  pieces, so the words are kept whole and the letters split inside them.
- *  Its perspective is on the h1 in its stylesheet, which reaches children
- *  only, and the letters are grandchildren once the words are kept; so
- *  each letter carries its own. And its split is left in the DOM for good.
- *  Here it is put back the moment the run is over, so the title is text
- *  again for everything that reads it: the cursor deciding it is text, the
- *  orphan control, a reader selecting it. The landing's title is a drawing
- *  with no letters to split, and rises in one piece on the same clock. */
+ *  The one thing the demo does not do is the last line: its tween leaves
+ *  a 3D transform on the title for good, which keeps it on a compositor
+ *  layer of its own. Taken off once it has landed. */
 export function raiseTitle(container, { delay = TITLE.delay, paused = false } = {}) {
-  const t = container?.querySelector("h1");
+  const t = container?.querySelector(".lp-heading");
   if (!t) return null;
-  const split = new SplitText(t, { type: "words,chars", aria: false });
-  const letters = split.chars.length ? split.chars : null;
-  const tl = gsap.timeline({ delay, paused });
-  if (letters) {
-    gsap.set(letters, {
-      y: TITLE.y,
-      rotateX: TITLE.rotateX,
-      transformPerspective: TITLE.perspective,
+  gsap.set(t, { y: TITLE.y });
+  const tl = gsap.timeline({ delay, paused }).to(
+    t,
+    {
+      y: 0,
       force3D: true,
-    });
-    tl.to(
-      letters,
-      {
-        rotateX: 0,
-        y: 0,
-        force3D: true,
-        duration: TITLE.duration,
-        stagger: TITLE.stagger,
-        ease: TITLE.ease,
-        onComplete: () => split.revert(),
-      },
-      0,
-    );
-  } else {
-    split.revert();
-    gsap.set(t, { y: TITLE.y });
-    tl.to(
-      t,
-      {
-        y: 0,
-        force3D: true,
-        duration: TITLE.duration,
-        ease: TITLE.ease,
-        onComplete: () => gsap.set(t, { clearProps: "transform" }),
-      },
-      0,
-    );
-  }
+      duration: TITLE.duration,
+      ease: TITLE.ease,
+      onComplete: () => gsap.set(t, { clearProps: "transform" }),
+    },
+    0,
+  );
   return {
     play: () => tl.play(),
-    /* to the end now, letters back into words */
+    /* to the end now */
     finish: () => tl.progress(1),
-    /* dropped, and the title made text again where it stands */
+    /* dropped, and the drawing left where it stands */
     kill: () => {
       tl.kill();
-      if (letters) split.revert();
-      else gsap.set(t, { clearProps: "transform" });
+      gsap.set(t, { clearProps: "transform" });
     },
   };
 }
@@ -334,10 +292,10 @@ export function beginCrossing(current, next, { scroll, onDone }) {
   const title = raiseTitle(next);
 
   return {
-    /* the arriving page's entrance, which outlives the crossing: 2.4s of
-       title against 0.7s of page. PageStage keeps it, so that a page left
-       again before its title has finished rising leaves with the title in
-       place rather than halfway up inside its clip. */
+    /* the arriving page's entrance, if it has one, which outlives the
+       crossing: 2.4s of hero against 0.7s of page. PageStage keeps it, so
+       that a page left again before its hero has finished rising leaves
+       with the hero in place rather than halfway up inside its clip. */
     title,
     /* end it now, as if the second had passed: the back button pressed
        mid-crossing, or another page arriving. onComplete fires from

@@ -44,7 +44,7 @@ export default function PageStage({ booting, children }) {
      page put straight in the flow is to open at */
   const run = useRef(null);
   const hold = useRef(null);
-  /* the shown page's title entrance, while it is still rising */
+  /* the shown page's entrance, while its hero is still rising */
   const title = useRef(null);
   const landing = useRef(navigationType === "POP" ? (recall(location.key) ?? 0) : 0);
   /* whether the crossing is being ended from inside a React effect, where
@@ -82,8 +82,8 @@ export default function PageStage({ booting, children }) {
       run.current.finish();
       inEffect.current = false;
     }
-    /* a title still rising is put where it was going before the page it
-       is on is lifted out, or the page leaves with no title on it */
+    /* a hero still rising is put where it was going before the page it
+       is on is lifted out, or the page leaves with no hero on it */
     title.current?.finish();
     title.current = null;
     const animate =
@@ -132,9 +132,9 @@ export default function PageStage({ booting, children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [staged?.id]);
 
-  /* The first page of a visit gets the article's entrance too. Its title
-     waits under its baseline while the boot cover is up, and rises as the
-     cover lifts. */
+  /* The first page of a visit gets the entrance too, if it is the landing:
+     the hero waits under the bottom edge while the boot cover is up, and
+     rises as the cover lifts. */
   useLayoutEffect(() => {
     if (reduced()) return undefined;
     const first = raiseTitle(shownEl.current, { paused: true });

@@ -65,10 +65,11 @@ body {
    closes on the glass on the left, the right and the bottom. */
 .lp-hero {
   margin-top: auto;
-  /* On arrival the heading rises from under this box (see .title-box in
-     components.css), and while it is down there it must not count as page
-     below the fold, or the two places this page snaps between gain a
-     third. Nothing of the drawing is outside the box to lose. */
+  /* On arrival the heading rises from under this box (see raiseTitle in
+     lib/page-transition.js), and while it is down there it must not count
+     as page below the fold, or the two places this page snaps between
+     gain a third. clip rather than hidden: not a scroll container, and
+     nothing of the drawing is outside the box to lose. */
   overflow: clip;
 }
 

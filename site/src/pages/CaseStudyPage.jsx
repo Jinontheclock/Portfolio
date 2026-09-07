@@ -513,9 +513,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
         <main className="cs-main">
           <div className="ab-grid cs-grid">
             <div className="cs-left">
-              <div className="title-box">
-                <h1 className="cs-title">{project.title}</h1>
-              </div>
+              <h1 className="cs-title">{project.title}</h1>
             </div>
           </div>
         </main>
@@ -580,12 +578,9 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
           {/* title + chapters stick together; the title doubles as the
               "back to intro" control */}
           <div className="cs-left">
-            {/* the box the title rises into on arrival — see .title-box */}
-            <div className="title-box">
-              <h1 className="cs-title" onClick={() => scrollTo(null)}>
-                {project.title}
-              </h1>
-            </div>
+            <h1 className="cs-title" onClick={() => scrollTo(null)}>
+              {project.title}
+            </h1>
             {/* on mobile the phone mockup rides beside the chapter list
                 instead of inside the hero (hidden on desktop via CSS) */}
             <div className="cs-toc-row">

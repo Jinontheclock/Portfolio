@@ -491,15 +491,12 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
                 on the same bottom edge — one opening statement rather than
                 two stacked ones */}
             <div className="ab-lede">
-              {/* the box the name rises into on arrival — see .title-box */}
-              <div className="title-box">
-                <h1
-                  className="ab-title"
-                  style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
-                >
-                  {NAME[lang] || NAME.en}
-                </h1>
-              </div>
+              <h1
+                className="ab-title"
+                style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
+              >
+                {NAME[lang] || NAME.en}
+              </h1>
               <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
             </div>
             {about.body.map((para, i) => (
