@@ -1,9 +1,11 @@
 import gsap from "gsap";
+import { CustomEase } from "gsap/CustomEase";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import { splitLang } from "./lang-routes.js";
 import { captureScroll, landed } from "./scroll-memory.js";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
 /* ── The crossing between pages ──
  *
@@ -11,20 +13,33 @@ gsap.registerPlugin(ScrollTrigger);
  * Vanilla JavaScript" (tympanus.net/codrops, February 2026). The page being
  * left and the page arriving are both in the DOM at once, one container
  * each, and a single GSAP timeline moves the two together: the page being
- * left rises a third of a screen and dims, the page arriving is uncovered
- * from the bottom edge up, and once it is there its title comes up from
- * under its own baseline. Every number below is the article's, verbatim.
+ * left shrinks toward its centre, rises a third of a screen and dims to
+ * almost nothing against black, the page arriving is uncovered from the
+ * bottom edge up, and once it is there its title comes up letter by
+ * letter, each one tipped back and righting itself as it rises.
  *
- * What the article has that this file does not need: a router of its own,
- * a page loader, and pages that are strings of HTML. React Router does the
- * routing and React renders the pages; components/PageStage.jsx keeps the
- * two containers and hands them here.
+ * The numbers are the demo's, not the article's. The article prints a
+ * plainer version of its own demo: a page that rises and dims to 60% over
+ * a second on power2.inOut, and a title that comes up in one piece. The
+ * demo the article links to (github.com/blenkcode/codrops-demo) is what
+ * the reader actually sees, and it scales the page to 0.8, takes it to
+ * 40%, runs 0.7s on a curve of its own, and splits the title. What is
+ * wanted is what the demo shows, so every number below is the demo's,
+ * verbatim, from src/transitions/animations/default.js, src/lib/index.js,
+ * src/animations/Enter.js, src/helpers/wrap.js and src/pages/home/home.js.
  *
- * Where this file departs from the article, and why. The article's pages
- * are a screen tall and never scroll, so it can fix the ARRIVING page over
- * the document and uncover it with a clip. These pages scroll, and two
- * things break when the arriving one is the fixed one. Its scroll has to
- * be carried on the fixed box and moved to the window at the end, with
+ * What the demo has that this file does not need: a router of its own, a
+ * page loader, pages that are strings of HTML, and a wait for every image
+ * on the next page before anything moves (its pages hold a few small
+ * ones; a case study here holds forty-five, most of them lazy). React
+ * Router does the routing and React renders the pages;
+ * components/PageStage.jsx keeps the two containers and hands them here.
+ *
+ * Where this file departs from the demo, and why. The demo's pages are a
+ * screen tall and never scroll, so it can fix the ARRIVING page over the
+ * document and uncover it with a clip. These pages scroll, and two things
+ * break when the arriving one is the fixed one. Its scroll has to be
+ * carried on the fixed box and moved to the window at the end, with
  * everything that reads the scroll on arrival taught to look in two
  * places. And ScrollTrigger, which fades the blocks on every inner page,
  * measures a page by scrolling the window to zero and back: a fixed page
@@ -33,32 +48,49 @@ gsap.registerPlugin(ScrollTrigger);
  * what was measured.
  *
  * So the roles are swapped. The page being LEFT is the one lifted out of
- * the flow: fixed, the size of the screen, scrolled inside its own box to
- * exactly where the reader had it, so the picture does not change. The
+ * the flow, into a black box the size of the screen, positioned inside it
+ * to exactly where the reader had it, so the picture does not change. The
  * page arriving takes the document, the window is put where it belongs at
- * once, and it is measured as any page is. The picture is the article's:
- * the one is translated up by 30vh, the other shows from the bottom edge
- * up. The article does the second by uncovering the arriving page; here
- * the leaving one is cut away from its bottom edge instead, on the same
- * clock and the same curve, so the edge is the same line at every instant
- * (see UNCOVER). The 60% is a page over black in both: the article keeps
- * its body black under white pages, and the leaving box here is painted
- * black under the page it holds.
+ * once, and it is measured as any page is. The picture is the demo's: the
+ * one shrinks, rises and fades against black, the other shows from the
+ * bottom edge up. The demo does the second by uncovering the arriving
+ * page; here the black box is cut away from its bottom edge instead, on
+ * the same clock and the same curve, so the edge is the same line at every
+ * instant (see UNCOVER). The black is the demo's body, which it keeps
+ * black under white pages; here it is the box, under the page it holds.
  */
 
-/* defaultTransition and ENTER, as printed. */
-const LEAVE = { y: "-30vh", opacity: 0.6, duration: 1, ease: "power2.inOut" };
-/* The article uncovers the arriving page from inset(100% 0 0 0) to inset(0).
-   The leaving page is cut from below by the same amount less the 30vh it
-   has risen, so its bottom edge and the article's reveal line coincide:
-   (100vh - 30vh·p) - 70vh·p = 100vh·(1 - p). */
+/* The demo's own curve, customEases.pageTransition in its lib/index.js. */
+const EASE = CustomEase.create(
+  "pageTransition",
+  "M0,0 C0.38,0.05 0.48,0.58 0.65,0.82 0.82,1 1,1 1,1",
+);
+/* defaultTransition's tween on the current container. */
+const LEAVE = { y: "-30vh", opacity: 0.4, scale: 0.8, duration: 0.7, ease: EASE };
+/* The demo uncovers the arriving page from inset(100% 0 0 0) to inset(0),
+   which is a line rising from the bottom of the screen at 100vh·p. The box
+   the leaving page is held in is cut from below by exactly that, so its
+   bottom edge is the demo's reveal line at every instant. The box does not
+   move: the page inside it does, so the cut and the motion stay separate
+   and the line stays straight. */
 const UNCOVER = {
   from: "inset(0% 0% 0% 0%)",
-  to: "inset(0% 0% 70% 0%)",
-  duration: 1,
-  ease: "power2.inOut",
+  to: "inset(0% 0% 100% 0%)",
+  duration: 0.7,
+  ease: EASE,
 };
-const TITLE = { from: "100%", duration: 1.2, ease: "expo.out", delay: 0.45 };
+/* ENTER and wrap_chars: each letter starts a line below itself, tipped
+   back 60°, and rises upright, one after another. The delay is what
+   home.js passes. */
+const TITLE = {
+  y: "100%",
+  rotateX: 60,
+  duration: 2.1,
+  stagger: 0.035,
+  ease: "expo.out",
+  delay: 0.32,
+  perspective: 1000,
+};
 
 /* Where the site is mounted, without its trailing slash: "" on the domain
    and "/Portfolio" on the project page. */
@@ -107,29 +139,74 @@ let left = null;
 
 export const leaving = (el) => !!left && left.contains(el);
 
-/** The article's ENTER: the page's title, put under its own baseline and
- *  brought up. The first page of a visit gets it too, once the boot cover
- *  has lifted, which is what `paused` is for.
+/** The demo's ENTER: the page's title split into letters, each put a line
+ *  under itself and tipped back, and brought up in a run. The first page of
+ *  a visit gets it too, once the boot cover has lifted, which is what
+ *  `paused` is for.
  *
- *  The one line the article does not have is the last: the tween leaves a
- *  3D transform on the title for good, which keeps it on a compositor layer
- *  of its own and, on a Windows browser, off the subpixel text rendering
- *  the rest of the page gets. Taken off once it has landed. */
+ *  Three things the demo does not have to think about. Its titles are one
+ *  word, so it splits to characters alone; a title of several words split
+ *  that way can break between any two letters while it is inline-block
+ *  pieces, so the words are kept whole and the letters split inside them.
+ *  Its perspective is on the h1 in its stylesheet, which reaches children
+ *  only, and the letters are grandchildren once the words are kept; so
+ *  each letter carries its own. And its split is left in the DOM for good.
+ *  Here it is put back the moment the run is over, so the title is text
+ *  again for everything that reads it: the cursor deciding it is text, the
+ *  orphan control, a reader selecting it. The landing's title is a drawing
+ *  with no letters to split, and rises in one piece on the same clock. */
 export function raiseTitle(container, { delay = TITLE.delay, paused = false } = {}) {
   const t = container?.querySelector("h1");
   if (!t) return null;
-  gsap.set(t, { y: TITLE.from });
-  return gsap.timeline({ delay, paused }).to(
-    t,
-    {
-      y: 0,
-      duration: TITLE.duration,
+  const split = new SplitText(t, { type: "words,chars", aria: false });
+  const letters = split.chars.length ? split.chars : null;
+  const tl = gsap.timeline({ delay, paused });
+  if (letters) {
+    gsap.set(letters, {
+      y: TITLE.y,
+      rotateX: TITLE.rotateX,
+      transformPerspective: TITLE.perspective,
       force3D: true,
-      ease: TITLE.ease,
-      onComplete: () => gsap.set(t, { clearProps: "transform" }),
+    });
+    tl.to(
+      letters,
+      {
+        rotateX: 0,
+        y: 0,
+        force3D: true,
+        duration: TITLE.duration,
+        stagger: TITLE.stagger,
+        ease: TITLE.ease,
+        onComplete: () => split.revert(),
+      },
+      0,
+    );
+  } else {
+    split.revert();
+    gsap.set(t, { y: TITLE.y });
+    tl.to(
+      t,
+      {
+        y: 0,
+        force3D: true,
+        duration: TITLE.duration,
+        ease: TITLE.ease,
+        onComplete: () => gsap.set(t, { clearProps: "transform" }),
+      },
+      0,
+    );
+  }
+  return {
+    play: () => tl.play(),
+    /* to the end now, letters back into words */
+    finish: () => tl.progress(1),
+    /* dropped, and the title made text again where it stands */
+    kill: () => {
+      tl.kill();
+      if (letters) split.revert();
+      else gsap.set(t, { clearProps: "transform" });
     },
-    0,
-  );
+  };
 }
 
 /** A page is in the flow and on screen: put the window where the page
@@ -172,21 +249,26 @@ export function beginCrossing(current, next, { scroll, onDone }) {
     if (current.contains(t.trigger)) t.kill(false);
   });
 
-  /* The leaving page, lifted out of the flow and held still: a box the
-     size of the screen, scrolled inside to where the reader had it. The
-     width is what the box had in the flow, or a fixed box would shrink to
-     fit. The transform makes it the containing block for anything fixed
-     inside, a modal say, which the article has in its stylesheet on every
-     container and this site cannot keep after a crossing: fixed inside a
-     transformed page, a modal scrolls away with the page. The box goes with
-     the page, so nothing needs clearing. The black is what the page dims
-     against. Neither page takes the pointer while they are moving.
+  /* The leaving page, lifted out of the flow and held still: a black box
+     the size of the screen, with the page positioned inside it so that
+     what shows is exactly what the reader had on screen. Positioned, not
+     scrolled: the page is about to shrink, and a scroll box whose content
+     shrinks under it clamps its offset and jumps. The width is what the box
+     had in the flow, or a fixed box would shrink to fit. The box goes with
+     the page, so nothing needs clearing. Neither page takes the pointer
+     while they are moving.
+
+     The page shrinks toward the middle of what was on screen, which is
+     the demo's centre: its container is one screen tall, this page is not.
+     The transform makes the page the containing block for anything fixed
+     inside it, a modal say, so that moves with the page, as it does in the
+     demo.
 
      The box sits above everything the arriving page can raise on its own:
      its header at 10, and a modal it opens on arrival at 1000 or 1100,
      which is part of the page's picture and is uncovered with it. The
-     article's 10 was measured with the arriving header drawn over the
-     leaving page. Below the boot cover at 2000 and the cursor at 9999. */
+     demo's 10 was measured with the arriving header drawn over the leaving
+     page. Below the boot cover at 2000 and the cursor at 9999. */
   const y = window.scrollY;
   const width = current.offsetWidth;
   const page = current.firstElementChild;
@@ -199,13 +281,20 @@ export function beginCrossing(current, next, { scroll, onDone }) {
     zIndex: 1500,
     overflow: "hidden",
     clipPath: UNCOVER.from,
-    willChange: "transform, clip-path",
+    willChange: "clip-path",
     pointerEvents: "none",
+  });
+  current.style.backgroundColor = "var(--grey-950)";
+  gsap.set(page, {
+    position: "absolute",
+    top: -y,
+    left: 0,
+    width: "100%",
+    transformOrigin: `50% ${y + window.innerHeight / 2}px`,
+    willChange: "transform, opacity",
     force3D: true,
     z: 0.01,
   });
-  current.style.backgroundColor = "var(--grey-950)";
-  current.scrollTop = y;
   gsap.set(next, { pointerEvents: "none" });
 
   /* the arriving page has the document now, and opens where it belongs */
@@ -224,17 +313,22 @@ export function beginCrossing(current, next, { scroll, onDone }) {
 
   const tl = gsap.timeline({ onComplete: finish });
   tl.to(
-    current,
-    { y: LEAVE.y, force3D: true, duration: LEAVE.duration, ease: LEAVE.ease },
+    page,
+    {
+      y: LEAVE.y,
+      opacity: LEAVE.opacity,
+      scale: LEAVE.scale,
+      force3D: true,
+      duration: LEAVE.duration,
+      ease: LEAVE.ease,
+    },
     0,
-  )
-    .to(page, { opacity: LEAVE.opacity, duration: LEAVE.duration, ease: LEAVE.ease }, 0)
-    .fromTo(
-      current,
-      { clipPath: UNCOVER.from },
-      { clipPath: UNCOVER.to, duration: UNCOVER.duration, ease: UNCOVER.ease },
-      0,
-    );
+  ).fromTo(
+    current,
+    { clipPath: UNCOVER.from },
+    { clipPath: UNCOVER.to, force3D: true, duration: UNCOVER.duration, ease: UNCOVER.ease },
+    0,
+  );
   const title = raiseTitle(next);
 
   return {
@@ -242,7 +336,7 @@ export function beginCrossing(current, next, { scroll, onDone }) {
        mid-crossing, or another page arriving. onComplete fires from
        progress(1) synchronously. */
     finish: () => {
-      title?.progress(1);
+      title?.finish();
       tl.progress(1);
     },
     /* drop it without finishing: React tearing the containers down */
