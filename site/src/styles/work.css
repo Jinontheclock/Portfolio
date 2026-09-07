@@ -9,11 +9,12 @@
 /* ── The screen ──
    Exactly one screen tall, and clipped at that, so the window never has a
    scrollbar to show. Three rows: the header, the room the stage stands in,
-   the footer. The stage line is where the stage's foot rests: two thirds
-   of the way down the screen, the top third and a bit left to the header
-   and air. One number, for the day it moves. */
+   the footer. The index and the stage stand on --index-line, the same
+   line a screen case study stands its chapter list on, so the column of
+   titles here and the chapter list there hold one place across a
+   crossing; at a 900px window the stage's foot lands on the two-thirds
+   line. */
 .wk-screen {
-  --wk-stage-line: 66.667dvh;
   position: relative;
   height: 100dvh;
   display: grid;
@@ -25,13 +26,12 @@
   min-height: 0;
 }
 
-/* the index and the stage together, standing on the stage line: the box
-   is placed by its foot, so it stays there whatever the copy's height */
+/* the index and the stage together, their tops on the index line */
 .wk-grid {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(100dvh - var(--wk-stage-line));
+  top: var(--index-line);
   align-items: start;
 }
 

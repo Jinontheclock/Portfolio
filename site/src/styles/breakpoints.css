@@ -36,6 +36,12 @@
      line of the column beside it, which .ab-main and .cs-main both open
      140px below the header */
   --rail-top: calc(var(--header-h) + 140px);
+  /* where a page set as one screen stands its index: the Work page's
+     column of titles, and a screen case study's chapter list, so the two
+     take up one another's line across a crossing. A little under a third
+     of the way down, which at a 900px window puts the Work stage's foot on
+     the two-thirds line */
+  --index-line: 31.5dvh;
   --size-copy: 18px; /* © HAJIN LEE … */
 
   /* inner pages */

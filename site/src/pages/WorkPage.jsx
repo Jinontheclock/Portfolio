@@ -135,6 +135,12 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const lenis = useRef(null);
   /* what the stage showed last, and whether it has shown anything yet */
   const shown = useRef(null);
+  /* the project a clicked title is taking the stage to, while the box is
+     still on its way there: the stage shows it at once and holds it, so a
+     jump of two titles does not put the one between on the stage in
+     passing. Cleared on arrival, or the moment the reader takes the
+     wheel. */
+  const travel = useRef(null);
   const gateOpen = useRef(false);
   gateOpen.current = !!gateProject;
 
@@ -172,7 +178,20 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
     lenis.current = smooth;
     const tick = (time) => smooth.raf(time * 1000);
     gsap.ticker.add(tick);
-    const unhook = smooth.on("scroll", (l) => setCurrent(indexAt(l.scroll)));
+    const unhook = smooth.on("scroll", (l) => {
+      const at = indexAt(l.scroll);
+      if (travel.current !== null) {
+        if (at !== travel.current) return;
+        travel.current = null;
+      }
+      setCurrent(at);
+    });
+    /* the reader has the wheel: the stage follows the box again */
+    const free = () => {
+      travel.current = null;
+    };
+    window.addEventListener("wheel", free, { passive: true });
+    window.addEventListener("touchstart", free, { passive: true });
 
     const onKey = (e) => {
       if (gateOpen.current || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -182,6 +201,7 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
       if (e.key === " ") by = e.shiftKey ? -1 : 1;
       if (by === undefined) return;
       e.preventDefault();
+      travel.current = null;
       const at = indexAt(smooth.scroll);
       const to = Math.max(0, Math.min(projects.length - 1, at + by));
       smooth.scrollTo(to * step(), { duration: 1 });
@@ -199,6 +219,8 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
       down = true;
       crossing.disconnect();
       window.removeEventListener("keydown", onKey);
+      window.removeEventListener("wheel", free);
+      window.removeEventListener("touchstart", free);
       unhook();
       gsap.ticker.remove(tick);
       smooth.destroy();
@@ -288,10 +310,17 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, projects]);
 
-  /* Turn the stage to a project: the box goes to that project's step,
-     with the same inertia as the wheel. */
+  /* Turn the stage to a project: it takes the stage at once, and the box
+     goes to its step behind it with the same inertia as the wheel. */
   const jumpTo = (i) => {
-    lenis.current?.scrollTo(i * step(), { duration: 1.2 });
+    travel.current = i;
+    setCurrent(i);
+    lenis.current?.scrollTo(i * step(), {
+      duration: 1.2,
+      onComplete: () => {
+        travel.current = null;
+      },
+    });
   };
 
   return (

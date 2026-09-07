@@ -475,6 +475,19 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   /* the history entry this page was opened as, read once: while this page
      is leaving in a crossing the router already names the next entry */
   const entry = useRef(useLocation().key);
+  const leftRef = useRef(null);
+  /* Where a chapter is read at. On a page, READING_LINE from the top of
+     the window; on a screen, the chapter list's own top edge, so a chapter
+     brought up stands level with the list that named it, the way a
+     project on the Work stage stands level with its title. */
+  const readingLine = () =>
+    screen ? (leftRef.current?.getBoundingClientRect().top ?? READING_LINE) : READING_LINE;
+  /* Where the list is taking the reader, while it is: the chapter and
+     subheading it will light once the scroll arrives. Set at the click and
+     cleared on arrival, or the moment the reader takes the wheel. Without
+     it a jump of three chapters lit each one in passing, opening and
+     closing its subheadings on the way. */
+  const travel = useRef(null);
   useScrollFade(contentRef, SCROLL_FADE, [id, lang, screen], screen ? regionRef : null);
   const scrollY = () => (screen ? (regionRef.current?.scrollTop ?? 0) : window.scrollY);
   const scrollMax = () => {
@@ -541,8 +554,13 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      not light up early or late. Listens to whichever box is scrolling. */
   useEffect(() => {
     if (!project) return undefined;
-    const line = READING_LINE + READING_SLACK;
     const onScroll = () => {
+      if (travel.current) {
+        setActiveId(travel.current.chapter);
+        setActiveSub(travel.current.sub);
+        return;
+      }
+      const line = readingLine() + READING_SLACK;
       let current = null;
       for (const s of project.sections) {
         const el = document.getElementById(`cs-${s.id}`);
@@ -637,6 +655,8 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       if (tag === "INPUT" || tag === "TEXTAREA" || e.target?.isContentEditable) return;
       /* a modal is up: its own keys, not the page's */
       if (document.querySelector(".cs-zoom, .tryapp-backdrop, .cs-gate-overlay")) return;
+      /* the reader has the wheel now */
+      travel.current = null;
       let by = SCREEN_KEYS[e.key];
       if (e.key === "PageDown" || (e.key === " " && !e.shiftKey)) by = box.clientHeight * 0.85;
       if (e.key === "PageUp" || (e.key === " " && e.shiftKey)) by = -box.clientHeight * 0.85;
@@ -739,20 +759,46 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   const scrollTo = (targetId) => {
     const el = targetId ? document.getElementById(targetId) : null;
     if (targetId && !el) return;
-    const targetOf = () => (el ? Math.max(0, scrollY() + viewTopOf(el) - READING_LINE) : 0);
+    const targetOf = () => (el ? Math.max(0, scrollY() + viewTopOf(el) - readingLine()) : 0);
+
+    /* what the list will show from here to arrival: the target's chapter
+       and, if the target is a subheading, that */
+    const chapter = targetId ? project.sections.find((s) => targetId.startsWith(`cs-${s.id}`)) : null;
+    travel.current = {
+      chapter: chapter?.id ?? null,
+      sub: targetId && targetId !== `cs-${chapter?.id}` ? targetId : null,
+    };
+    setActiveId(travel.current.chapter);
+    setActiveSub(travel.current.sub);
 
     goTo(targetOf());
-    if (!el) return;
 
+    /* Landed is not the same as arrived. The scroll reaches the target and
+       a figure above it finishes loading a beat later, and the target has
+       moved on by the figure's height; measured on TinyPaws, a subheading
+       aimed at the list's top edge was standing 388px below it a second
+       after the scroll had come to rest there. So the target is watched
+       until it has held still for a third of a second, and re-aimed each
+       time it moves, for up to four seconds. The list holds the target lit
+       for the whole of that, whatever passes under the reading line. */
     let frame = 0;
-    const until = performance.now() + 2500;
-    const stop = () => cancelAnimationFrame(frame);
+    let calm = 0;
+    const until = performance.now() + 4000;
+    const stop = () => {
+      cancelAnimationFrame(frame);
+      travel.current = null;
+    };
     const settle = () => {
       const want = targetOf();
-      if (Math.abs(scrollY() - want) < 2 || performance.now() > until) return stop();
-      /* only re-aim once the scroll has come to rest, or every frame would
-         restart it and nothing would ever move */
-      if (scrollY() === lastY.current) goTo(want);
+      if (performance.now() > until) return stop();
+      if (Math.abs(scrollY() - want) < 2) {
+        if (++calm >= 20) return stop();
+      } else {
+        calm = 0;
+        /* only re-aim once the scroll has come to rest, or every frame
+           would restart it and nothing would ever move */
+        if (scrollY() === lastY.current) goTo(want);
+      }
       lastY.current = scrollY();
       frame = requestAnimationFrame(settle);
     };
@@ -771,7 +817,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
         <div className="ab-grid cs-grid" ref={gridRef}>
           {/* title + chapters stick together; the title doubles as the
               "back to intro" control */}
-          <div className="cs-left">
+          <div className="cs-left" ref={leftRef}>
             <h1 className="cs-title" onClick={() => scrollTo(null)}>
               {project.title}
             </h1>

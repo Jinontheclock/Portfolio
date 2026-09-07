@@ -76,6 +76,11 @@
 .cs-screen .cs-main {
   min-height: 0;
   overflow: hidden;
+  /* the column opens on --index-line, where the Work page stands its
+     titles, so the chapter list here and the titles there hold one
+     place; the box starts under the header, so the header's height comes
+     off the line */
+  padding-top: calc(var(--index-line) - var(--header-h));
 }
 .cs-screen .cs-left {
   top: 0;
