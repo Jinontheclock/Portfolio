@@ -12,6 +12,7 @@ import portrait from "../assets/about-portrait.webp";
 import iconLinkedIn from "../assets/site/icon-linkedin.svg?raw";
 import iconResume from "../assets/site/icon-resume.svg?raw";
 import iconGitHub from "../assets/site/icon-github.svg?raw";
+import iconInstagram from "../assets/site/icon-instagram.svg?raw";
 import iconMail from "../assets/site/icon-mail.svg?raw";
 
 /* Name and its H/이/イ left-side-bearing compensation, per language */
@@ -88,6 +89,7 @@ const LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/hajin-lee-ca", icon: iconLinkedIn },
   { label: "Resume", href: RESUME, icon: iconResume },
   { label: "GitHub", href: "https://github.com/Jinontheclock", icon: iconGitHub },
+  { label: "Instagram", href: "https://www.instagram.com/hj.archiv/", icon: iconInstagram },
   { label: "E-mail", href: MAILTO, icon: iconMail },
 ];
 
