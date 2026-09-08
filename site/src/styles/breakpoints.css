@@ -16,11 +16,17 @@
    13" iPad Pro upright (1032) a tablet; there is no laptop in between.
    (Figma frames: 1920 / 1728 / 1512 / 834 / 402.)
 
-   Each tier sets the size variables below; the cascade of max-width
-   queries means the desktop's values are the defaults. Where the page
-   itself changes shape — the case-study and About columns, the header's
-   links — the stylesheets cut at the tablet's 1080 and the phone's 600,
-   and the two JS hooks that ask "is this a phone" at 600. */
+   The sizes do not step at the tiers' edges. Each is a line drawn through
+   the five screens the tiers are named for — a phone at 402, a tablet at
+   834, the 14" at 1512, the 16" at 1728 and a monitor at 1920 — and a
+   tier carries the pieces of that line that fall inside it, so a window
+   dragged across the range sees the type grow and shrink with it rather
+   than jump. The pieces meet at the edges; below 402 and above 1920 the
+   line is held. The cascade of max-width queries means the monitor's
+   values are the defaults. Where the page itself changes shape — the
+   case-study and About columns, the header's links — the stylesheets cut
+   at the tablet's 1080 and the phone's 600, and the two JS hooks that
+   ask "is this a phone" at 600. */
 
 :root {
   /* ── Desktop and up (Figma 1920 frame) ── */
@@ -38,11 +44,12 @@
 
   /* chrome that every page carries: the header's two labels, and the
      copyright line in the footer */
-  /* Work / About, the wordmark, and About's links: 22 / 20 / 18 / 18 / 16
-     across the tiers. The desktop used to stand at 24, and with the
-     links in the row it read as the largest type on the page; 20 was
-     tried at 1280 and was too big there, so from the 14" down it is 18. */
-  --size-header-nav: 22px;
+  /* Work / About, the wordmark, and About's links: 16 on a phone, 18 on
+     a tablet and still 18 on the 14", 20 on the 16", 22 on a monitor, and
+     a straight line between each pair. The desktop used to stand at 24,
+     and with the links in the row it read as the largest type on the
+     page; 20 was tried at 1280 and was too big there. */
+  --size-header-nav: clamp(20px, 2px + 1.042vw, 22px);
   /* The header's own two numbers, published rather than copied. Anything
      that has to sit clear of the header needs to know where its bottom
      edge is, and until now the two sticky rails carried a hand-written
@@ -70,10 +77,19 @@
   --index-line: 31.5dvh;
   --size-copy: 18px; /* © HAJIN LEE … */
 
-  /* inner pages */
-  --size-about-title: 52px; /* "Hajin L." */
-  --size-section-label: 24px; /* Experience / Education */
-  --size-card-title: 30px; /* Work titles, chapter lists, About's list */
+  /* inner pages — the anchors, at 402 · 834 · 1512 · 1728 · 1920:
+
+       card and list titles   22 · 24 · 26 · 28 · 30
+       section label          20 · 20 · 22 · 24 · 24
+       About's name           32 · 38 · 44 · 48 · 52
+       body                   14 → 17, one line the whole way
+
+     Each tier's expression below is the line through its own anchors,
+     written out as px + vw; where two pieces of the line meet inside a
+     tier, min() or max() draws the corner, whichever way it bends. */
+  --size-about-title: clamp(48px, 12px + 2.083vw, 52px);
+  --size-section-label: 24px;
+  --size-card-title: clamp(28px, 10px + 1.042vw, 30px);
   /* body/detail text on Work + About: fluid between the 402 and 1920
      anchors so it steps subtly across the tiers (≈14 → 15 → 16.2 →
      16.6 → 17 at 402 / 834 / 1512 / 1728 / 1920) instead of holding one
@@ -81,51 +97,54 @@
   --size-body: clamp(14px, 13.21px + 0.1976vw, 17px);
 }
 
-/* ── Laptop 16"–15" (Figma 1728 frame) ── */
+/* ── Laptop 16"–15" (Figma 1728 frame) — from the 14" to the 16", then on
+   toward the monitor ── */
 @media (max-width: 1799px) {
   :root {
     --size-hero: 110px; /* pre-JS fallback only */
-    --size-header-nav: 20px;
+    --size-header-nav: clamp(18px, max(4px + 0.926vw, 2px + 1.042vw), 22px);
     --size-copy: 16px;
-    --size-about-title: 48px;
-    --size-section-label: 24px;
-    --size-card-title: 28px;
+    --size-about-title: clamp(44px, max(16px + 1.852vw, 12px + 2.083vw), 52px);
+    --size-section-label: clamp(22px, 8px + 0.926vw, 24px);
+    --size-card-title: clamp(26px, max(12px + 0.926vw, 10px + 1.042vw), 30px);
   }
 }
 
-/* ── Laptop 14"–11" (Figma 1512 frame) ── */
+/* ── Laptop 14"–11" (Figma 1512 frame) — from the tablet to the 14", then
+   on toward the 16" ── */
 @media (max-width: 1599px) {
   :root {
     --size-hero: 100px; /* pre-JS fallback only */
-    --size-header-nav: 18px;
+    --size-header-nav: clamp(18px, 4px + 0.926vw, 20px);
     --size-copy: 12px;
-    --size-about-title: 44px;
-    --size-section-label: 22px;
-    --size-card-title: 26px;
+    --size-about-title: clamp(38px, max(30.62px + 0.885vw, 16px + 1.852vw), 48px);
+    --size-section-label: clamp(20px, max(17.54px + 0.295vw, 8px + 0.926vw), 24px);
+    --size-card-title: clamp(24px, max(21.54px + 0.295vw, 12px + 0.926vw), 28px);
   }
 }
 
-/* ── Tablet (Figma 834 frame) ── */
+/* ── Tablet (Figma 834 frame) — from the phone to the tablet, then on
+   toward the 14" ── */
 @media (max-width: 1080px) {
   :root {
     --size-hero: 64px; /* pre-JS fallback only */
-    --size-header-nav: 18px;
+    --size-header-nav: clamp(16px, 14.14px + 0.463vw, 18px);
     --size-copy: 10px;
-    --size-about-title: 38px;
-    --size-section-label: 20px;
-    --size-card-title: 24px;
+    --size-about-title: clamp(32px, min(26.42px + 1.389vw, 30.62px + 0.885vw), 44px);
+    --size-section-label: clamp(20px, 17.54px + 0.295vw, 22px);
+    --size-card-title: clamp(22px, min(20.14px + 0.463vw, 21.54px + 0.295vw), 26px);
   }
 }
 
-/* ── Mobile (Figma 402 frame) ── */
+/* ── Mobile (Figma 402 frame) — from the phone toward the tablet, held at
+   the phone's size under 402 ── */
 @media (max-width: 600px) {
   :root {
     --size-hero: 32px; /* pre-JS fallback only */
-    --size-header-nav: 16px;
+    --size-header-nav: clamp(16px, 14.14px + 0.463vw, 18px);
     --size-copy: 8px;
-    --size-about-title: 32px;
+    --size-about-title: clamp(32px, 26.42px + 1.389vw, 38px);
     --size-section-label: 20px;
-    --size-card-title: 22px;
-    /* --size-body stays fluid (clamps to 14px here) */
+    --size-card-title: clamp(22px, 20.14px + 0.463vw, 24px);
   }
 }
