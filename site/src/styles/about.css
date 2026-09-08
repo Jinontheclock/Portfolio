@@ -126,17 +126,21 @@
   display: none;
 }
 
+/* each link is its icon (see .link-icon in components.css), 22px square
+   on both tiers that show the rail, in the body's grey and the ink on
+   hover */
 .ab-rail-link {
-  /* same voice as the body copy; the hover is the darker ink alone, no
-     rule under it */
-  font: 400 var(--size-body) / 1.6 var(--font-ui);
+  display: inline-flex;
+  font-size: 22px;
+  line-height: 1;
   color: var(--text);
   text-decoration: none;
   cursor: pointer;
   transition: color var(--duration-fast) var(--easing);
 }
 
-.ab-rail-link:hover {
+.ab-rail-link:hover,
+.ab-rail-link:focus-visible {
   color: var(--text-primary);
 }
 
@@ -378,9 +382,9 @@
   }
   .ab-rail {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
     /* clear of the list at its tallest, with one entry set large */
     margin-top: 48px;
   }
@@ -432,29 +436,19 @@
   .ab-hero {
     flex: none;
   }
-  /* link rail sits above the column as a single right-aligned row (no
-     sticky on mobile); the em gap scales with the font so useFitToWidth can
-     shrink the line to fit */
   .ab-index {
     display: none;
   }
+  /* the four icons in a row above the column, at the right edge, where
+     the words used to be */
   .ab-rail {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     margin-top: 0;
     flex-direction: row;
-    flex-wrap: nowrap;
     justify-content: flex-end;
-    gap: 0.9em;
+    gap: 16px;
     margin-bottom: 24px;
-  }
-  .ab-rail-link {
-    white-space: nowrap;
-    letter-spacing: 0.04em;
-    /* on the desktop rail the links keep body size, but in this one-line
-       row they must follow the size useFitToWidth sets on the nav — an
-       absolute size here would leave only the gaps able to shrink */
-    font-size: 1em;
   }
   .ab-content {
     grid-row: 2;

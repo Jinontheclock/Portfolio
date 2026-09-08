@@ -216,18 +216,22 @@
 
 /* ── Links in the header ──
    About's links — LinkedIn, the resume, GitHub, e-mail — stand in a row at
-   the header's right edge, in the header's own type and at the strength
-   of the label that is not the page being read, and answer a pointer the
-   way that label does. The wordmark is set absolute at the centre, so the
-   row is what the flex has left to push to the edge. From the laptop
-   up only: a tablet's header is too short for four more words beside
-   the wordmark, and a phone's has the wordmark at the right edge, so on
-   both the links stand in the page instead (see .ab-rail in about.css). */
+   the header's right edge, each as its icon: a box the height of the
+   header's type, so the row is exactly as tall as the labels beside it
+   and the header keeps the height --header-h says it has. At the
+   strength of the label that is not the page being read, and answering a
+   pointer the way that label does — the whole glyph to the ink, since
+   there is no word for the ink to sweep across. The wordmark is set
+   absolute at the centre, so the row is what the flex has left to push
+   to the edge. From the laptop up only: a tablet's header is too short
+   for four more things beside the wordmark, and a phone's has the
+   wordmark at the right edge, so on both the links stand in the page
+   instead (see .ab-rail in about.css). */
 .site-header-links {
   margin-left: auto;
   display: flex;
   align-items: flex-start;
-  gap: 32px;
+  gap: 24px;
 }
 @media (max-width: 1080px) {
   .site-header-links {
@@ -235,13 +239,17 @@
   }
 }
 .site-header-link {
-  font: 500 var(--size-header-nav) / var(--header-line) var(--font-ui);
+  display: inline-flex;
+  align-items: center;
+  height: calc(var(--size-header-nav) * var(--header-line));
+  font-size: var(--size-header-nav);
   color: var(--text-muted);
   text-decoration: none;
   cursor: pointer;
   transition: color var(--duration-fast) var(--easing);
 }
-.site-header-link:hover {
+.site-header-link:hover,
+.site-header-link:focus-visible {
   color: var(--text-primary);
 }
 /* an entry whose destination doesn't exist yet: visible but inert */
@@ -249,6 +257,21 @@
   color: var(--text-faint);
   cursor: default;
   pointer-events: none;
+}
+
+/* ── A link's icon ──
+   An inline drawing the size of the type it stands in — one em square —
+   with no fill of its own: the svg is written to take currentColor, so
+   the icon is whatever colour its link is, at rest and on hover. */
+.link-icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+}
+.link-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* The ink arrives across the word rather than all at once: a two-stop
@@ -263,8 +286,7 @@
    transparent text from outliving the thing that fills it. */
 @media (hover: hover) {
   @supports (background-clip: text) or (-webkit-background-clip: text) {
-    .site-header .pill-button:not(.is-active),
-    .site-header-link:not(.is-pending) {
+    .site-header .pill-button:not(.is-active) {
       background: linear-gradient(
           to right,
           var(--text-primary) 50%,
@@ -277,9 +299,7 @@
       transition: background-position var(--duration-base) var(--easing);
     }
     .site-header .pill-button:not(.is-active):hover,
-    .site-header .pill-button:not(.is-active):focus-visible,
-    .site-header-link:not(.is-pending):hover,
-    .site-header-link:not(.is-pending):focus-visible {
+    .site-header .pill-button:not(.is-active):focus-visible {
       background-position: 0 0;
     }
   }

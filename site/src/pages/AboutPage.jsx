@@ -2,12 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
 import SiteFooter from "../components/SiteFooter.jsx";
-import useFitToWidth from "../hooks/useFitToWidth.js";
 import useIsPhone from "../hooks/useIsPhone.js";
 import useScrollFade from "../lib/scroll-fade.js";
 import { settleAt, useColumnStage, useScreenScroll, viewTopOf } from "../lib/screen-column.js";
 import { PAGE_TITLE } from "../i18n.js";
 import portrait from "../assets/about-portrait.webp";
+/* The link icons, inlined the way the hero's drawing is, so their paths
+   take the colour of the text around them and change with it. */
+import iconLinkedIn from "../assets/site/icon-linkedin.svg?raw";
+import iconResume from "../assets/site/icon-resume.svg?raw";
+import iconGitHub from "../assets/site/icon-github.svg?raw";
+import iconMail from "../assets/site/icon-mail.svg?raw";
 
 /* Name and its H/이/イ left-side-bearing compensation, per language */
 const NAME = { en: "Hajin L.", ko: "이 하진", ja: "イ　ハジン" };
@@ -80,10 +85,10 @@ const ABOUT = {
 const RESUME = `${import.meta.env.BASE_URL}hajin-lee-resume.pdf`;
 
 const LINKS = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/hajin-lee-ca" },
-  { label: "Resume", href: RESUME },
-  { label: "GitHub", href: "https://github.com/Jinontheclock" },
-  { label: "E-mail", href: MAILTO },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/hajin-lee-ca", icon: iconLinkedIn },
+  { label: "Resume", href: RESUME, icon: iconResume },
+  { label: "GitHub", href: "https://github.com/Jinontheclock", icon: iconGitHub },
+  { label: "E-mail", href: MAILTO, icon: iconMail },
 ];
 
 /* "What I did" descriptions per entry, per language. Each sentence opens a
@@ -445,29 +450,46 @@ function SkillRow({ row }) {
   );
 }
 
-/** The links, wherever they stand: in the header off the phone, and in
- *  the row above the name on one. Everything but the mailto opens in its
- *  own tab — the resume included, because a PDF that replaces the page
- *  leaves the reader in a viewer with the site gone and only the back
- *  button to find it again. */
+/** The links, wherever they stand: in the header from the laptop up,
+ *  under the list on a tablet, in the row above the name on a phone.
+ *  Each is its icon and nothing else on the page; the name is on the
+ *  link for whoever reads it aloud or hovers long enough for a tooltip.
+ *  Everything but the mailto opens in its own tab — the resume included,
+ *  because a PDF that replaces the page leaves the reader in a viewer
+ *  with the site gone and only the back button to find it again. */
 function Links({ className }) {
-  return LINKS.map((l) =>
-    l.href ? (
+  return LINKS.map((l) => {
+    const icon = (
+      <span
+        className="link-icon"
+        aria-hidden="true"
+        dangerouslySetInnerHTML={{ __html: l.icon }}
+      />
+    );
+    return l.href ? (
       <a
         key={l.label}
         href={l.href}
         className={className}
+        aria-label={l.label}
+        title={l.label}
         target={l.href.startsWith("mailto:") ? undefined : "_blank"}
         rel={l.href.startsWith("mailto:") ? undefined : "noreferrer"}
       >
-        {l.label}
+        {icon}
       </a>
     ) : (
-      <span key={l.label} className={className + " is-pending"} aria-disabled="true">
-        {l.label}
+      <span
+        key={l.label}
+        className={className + " is-pending"}
+        aria-label={l.label}
+        title={l.label}
+        aria-disabled="true"
+      >
+        {icon}
       </span>
-    ),
-  );
+    );
+  });
 }
 
 export default function AboutPage({ lang, setLang, fadeClass = "" }) {
@@ -478,8 +500,6 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
     document.title = PAGE_TITLE.about[lang] || PAGE_TITLE.about.en;
   }, [lang]);
 
-  // on a phone the links are a single row above the name; shrink to fit one line
-  const railRef = useFitToWidth(12);
   /* The column. The list beside it is deliberately outside this: it is
      stuck to the screen, so it is never the thing being scrolled past. */
   const contentRef = useRef(null);
@@ -618,7 +638,7 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
             {/* the links again, for the tiers whose header cannot carry
                 them: under the list on a tablet, a row above the name on a
                 phone (see about.css) */}
-            <nav className="ab-rail" ref={railRef}>
+            <nav className="ab-rail" aria-label="Links">
               <Links className="ab-rail-link" />
             </nav>
           </div>
