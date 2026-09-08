@@ -7,13 +7,7 @@ import useScrollFade from "../lib/scroll-fade.js";
 import { settleAt, useColumnStage, useScreenScroll, viewTopOf } from "../lib/screen-column.js";
 import { PAGE_TITLE } from "../i18n.js";
 import portrait from "../assets/about-portrait.webp";
-/* The link icons, inlined the way the hero's drawing is, so their paths
-   take the colour of the text around them and change with it. */
-import iconLinkedIn from "../assets/site/icon-linkedin.svg?raw";
-import iconResume from "../assets/site/icon-resume.svg?raw";
-import iconGitHub from "../assets/site/icon-github.svg?raw";
-import iconInstagram from "../assets/site/icon-instagram.svg?raw";
-import iconMail from "../assets/site/icon-mail.svg?raw";
+import Links, { MAILTO } from "../components/SiteLinks.jsx";
 
 /* Name and its H/이/イ left-side-bearing compensation, per language */
 const NAME = { en: "Hajin L.", ko: "이 하진", ja: "イ　ハジン" };
@@ -26,10 +20,6 @@ const PORTRAIT_ALT = {
   ko: "갤러리 벽의 난간에 기대선 하진. 뒤로는 흑백 건축 사진 세 점이 걸려 있다. 파사드에 이름이 세로로 적힌 데사우 바우하우스, 폭포 위로 캔틸레버가 뻗은 프랭크 로이드 라이트의 낙수장, 콘크리트가 층층이 쌓인 모셰 사프디의 해비타트 67.",
   ja: "ギャラリーの壁の手すりに寄りかかるハジン。背後には白黒の建築写真が三点。ファサードに名前が縦に入ったデッサウのバウハウス、滝の上に張り出したフランク・ロイド・ライトの落水荘、コンクリートが積み上がったモシェ・サフディのハビタット67。",
 };
-
-/* The one address on the page. The closing paragraph and the rail both link
-   to it, so it is written once. */
-const MAILTO = "mailto:hajinlee.ca@gmail.com";
 
 /* Hero sentence + body paragraphs per language. A paragraph is a string, or
    an array of segments when it carries an inline link — the word that opens
@@ -75,23 +65,6 @@ const ABOUT = {
     ],
   },
 };
-
-/* The links. E-mail closes them because the copy above ends by asking for
-   one; a mailto: opens the reader's own mail client, so it is the one entry
-   that must not carry target="_blank" — the tab it opened would be left
-   blank.
-
-   The resume is served from public/, so its URL carries whatever base this
-   build is using rather than a hardcoded one. */
-const RESUME = `${import.meta.env.BASE_URL}hajin-lee-resume.pdf`;
-
-const LINKS = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/hajin-lee-ca", icon: iconLinkedIn },
-  { label: "Resume", href: RESUME, icon: iconResume },
-  { label: "GitHub", href: "https://github.com/Jinontheclock", icon: iconGitHub },
-  { label: "Instagram", href: "https://www.instagram.com/hj.archiv/", icon: iconInstagram },
-  { label: "E-mail", href: MAILTO, icon: iconMail },
-];
 
 /* "What I did" descriptions per entry, per language. Each sentence opens a
    line of its own — .xp-desc is `white-space: pre-line`, so the newlines
@@ -450,48 +423,6 @@ function SkillRow({ row }) {
       {row.sub && <span className="ab-skill-note">{`: ${row.sub}`}</span>}
     </div>
   );
-}
-
-/** The links, wherever they stand: in the header from the laptop up,
- *  under the list on a tablet, in the row above the name on a phone.
- *  Each is its icon and nothing else on the page; the name is on the
- *  link for whoever reads it aloud or hovers long enough for a tooltip.
- *  Everything but the mailto opens in its own tab — the resume included,
- *  because a PDF that replaces the page leaves the reader in a viewer
- *  with the site gone and only the back button to find it again. */
-function Links({ className }) {
-  return LINKS.map((l) => {
-    const icon = (
-      <span
-        className="link-icon"
-        aria-hidden="true"
-        dangerouslySetInnerHTML={{ __html: l.icon }}
-      />
-    );
-    return l.href ? (
-      <a
-        key={l.label}
-        href={l.href}
-        className={className}
-        aria-label={l.label}
-        title={l.label}
-        target={l.href.startsWith("mailto:") ? undefined : "_blank"}
-        rel={l.href.startsWith("mailto:") ? undefined : "noreferrer"}
-      >
-        {icon}
-      </a>
-    ) : (
-      <span
-        key={l.label}
-        className={className + " is-pending"}
-        aria-label={l.label}
-        title={l.label}
-        aria-disabled="true"
-      >
-        {icon}
-      </span>
-    );
-  });
 }
 
 export default function AboutPage({ lang, setLang, fadeClass = "" }) {

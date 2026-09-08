@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import LangSwitcher from "../components/LangSwitcher.jsx";
+import Links from "../components/SiteLinks.jsx";
 import { LANDING } from "../i18n.js";
 /* The heading as drawn artwork rather than set type, exactly as exported.
    Inlined rather than linked so its paths can inherit the page's colour —
@@ -82,6 +83,11 @@ export default function LandingPage({ lang, setLang }) {
     <div className="lp-footer-slot">
       <div className="lp-footer-track">
         <footer className="lp-footer">
+          {/* the same five links About carries, at the band's left edge,
+              across from the copyright */}
+          <nav className="lp-footer-links" aria-label="Links">
+            <Links className="lp-footer-link" />
+          </nav>
           <span className="lp-footer-copy">
             © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
           </span>
