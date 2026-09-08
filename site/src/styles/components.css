@@ -242,7 +242,11 @@
   display: inline-flex;
   align-items: center;
   height: calc(var(--size-header-nav) * var(--header-line));
-  font-size: var(--size-header-nav);
+  /* the icon is a fifth larger than the type beside it — a drawing at
+     the type's own size read small next to a word's ascenders and
+     descenders — and still inside the line box, so the header's height
+     is the labels' */
+  font-size: calc(var(--size-header-nav) * 1.2);
   color: var(--text-muted);
   text-decoration: none;
   cursor: pointer;
