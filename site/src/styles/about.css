@@ -169,17 +169,16 @@
   padding-bottom: 400px;
 }
 
-/* The photograph opens the column, at the column's own width — it belongs
-   to the column rather than interrupting it, so it carries no frame, no
-   radius and no caption. The intrinsic size is on the element so the column
-   does not reflow when the file lands. The extra few pixels under it set
-   the name a little further from the photograph than from the sentence it
-   introduces, which keeps the name reading with the copy. */
+/* The photograph stands under the list, the width of the left column —
+   beside the column of text rather than at the head of it, so the name
+   opens the column and the photograph is there whatever section is on the
+   stage. No frame, no radius and no caption. The intrinsic size is on the
+   element so nothing reflows when the file lands. */
 .ab-portrait {
   display: block;
   width: 100%;
   height: auto;
-  margin: 0 0 4px;
+  margin: 40px 0 0;
 }
 
 .ab-paragraph {
@@ -265,8 +264,8 @@
 }
 
 /* About is the column's opening, and keeps the column's own rhythm: no
-   break above it, and the 20px between the photograph, the name and the
-   paragraphs that the column itself used to set */
+   break above it, and the 20px between the name and the paragraphs that
+   the column itself used to set */
 .ab-about {
   margin-top: 0;
   gap: 20px;
@@ -439,7 +438,12 @@
   .ab-index {
     display: none;
   }
-  /* the four icons in a row above the column, at the right edge, where
+  /* the photograph is the band between the links and the name: full
+     width, and the air under it is what the name used to keep from it */
+  .ab-portrait {
+    margin: 0 0 24px;
+  }
+  /* the five icons in a row above the column, at the right edge, where
      the words used to be */
   .ab-rail {
     display: flex;
