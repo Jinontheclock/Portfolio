@@ -153,41 +153,43 @@
 }
 
 /* ── The column ──
-   Everything to the right of the list: nine of the twelve columns, of
-   which the text takes the last five — two fifths of the screen, near
-   enough, against the half it had — and About's photograph the four
-   before them. Each section is a grid of those nine columns, on the same
-   lines as the page's own (equal columns, the same 30px between them, so
-   the nested lines fall on the outer ones), and puts its text in the last
-   five. */
+   Everything to the right of the list, from the page's third column to
+   its last. Each section is a grid of two tracks: the text on the right,
+   45% of the screen wide and closing on the page margin, and whatever is
+   left on the left, which is About's photograph — 505px on the 14",
+   661 on a 1920 monitor. Starting at the third column rather than the
+   fourth is what gives the photograph that room: the list beside it is
+   never wider than its longest entry, "Experience" set large, and that
+   ends well short of the third column on every tier the list shows on. */
 .ab-content {
-  grid-column: 4 / 13;
+  grid-column: 3 / 13;
   grid-row: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 .ab-section {
+  --ab-text: 45vw;
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: minmax(0, 1fr) var(--ab-text);
   column-gap: 30px;
   /* the air between a section's heading and its list on a phone, where
      the heading shows; on a screen the heading is out of the flow */
   row-gap: 16px;
 }
 .ab-section > * {
-  grid-column: 5 / 10;
+  grid-column: 2;
 }
-/* About: the photograph in the four columns to the left of the text,
-   the two starting on the same line, and the text keeping the column's
-   own rhythm — the 20px between the name and the paragraphs */
+/* About: the photograph in the track to the left of the text, the two
+   starting on the same line, and the text keeping the column's own
+   rhythm — the 20px between the name and the paragraphs */
 .ab-about > .ab-portrait {
-  grid-column: 1 / 5;
+  grid-column: 1;
   grid-row: 1;
   align-self: start;
 }
 .ab-about > .ab-about-text {
-  grid-column: 5 / 10;
+  grid-column: 2;
   grid-row: 1;
   display: flex;
   flex-direction: column;
@@ -376,12 +378,12 @@
     grid-column: 6 / 13;
   }
   .ab-section {
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: minmax(0, 1fr);
   }
   .ab-section > *,
   .ab-about > .ab-portrait,
   .ab-about > .ab-about-text {
-    grid-column: 1 / -1;
+    grid-column: 1;
   }
   .ab-about > .ab-portrait {
     grid-row: 1;
