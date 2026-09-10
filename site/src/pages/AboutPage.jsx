@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
 import SiteFooter from "../components/SiteFooter.jsx";
 import useIsPhone from "../hooks/useIsPhone.js";
 import useScrollFade from "../lib/scroll-fade.js";
-import { settleAt, useColumnStage, useScreenScroll, viewTopOf } from "../lib/screen-column.js";
+import useStage from "../lib/stage.js";
 import { PAGE_TITLE } from "../i18n.js";
 import portrait from "../assets/about-portrait.webp";
 import Links, { MAILTO } from "../components/SiteLinks.jsx";
@@ -374,11 +374,6 @@ const SCROLL_FADE = [
 ];
 /* off the phone the column is a stage (see below), and the fade has no say */
 const NO_FADE = [];
-/* A section brought up to the line lands ON it, and a fraction of a pixel
-   either side of the comparison decides whether it counts as reached. A
-   pixel of slack is smaller than anything a reader can see and settles it
-   (measured on the case studies, which read their chapters the same way). */
-const READING_SLACK = 1;
 
 /** One post, in two rows and a paragraph: what it was with when, then
  *  who it was with and where, then what the work was.
@@ -433,100 +428,37 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
     document.title = PAGE_TITLE.about[lang] || PAGE_TITLE.about.en;
   }, [lang]);
 
-  /* The column. The list beside it is deliberately outside this: it is
-     stuck to the screen, so it is never the thing being scrolled past. */
+  /* The column: a stage off the phone, set the way the Work page is —
+     see lib/stage.js. One section is on it at a time, where the list
+     beside it stands, and the wheel turns the stage from one to the next
+     rather than scrolling the text under the header; a section taller
+     than the stage is pushed up through its extra steps so its foot can
+     be read. The list is outside the column, and stands still. A phone
+     keeps the page a page. */
   const contentRef = useRef(null);
-  /* One screen off the phone, set the way the Work page and the case
-     studies are — see lib/screen-column.js: the column scrolls in a box of
-     its own between the header and the copyright, only the section being
-     read is on it, and the list stands still beside it, where the Work
-     page stands its titles. A phone keeps the page a page. */
+  const scrollRef = useRef(null);
+  const trackRef = useRef(null);
   const isPhone = useIsPhone();
   const screen = !isPhone;
-  const regionRef = useRef(null);
-  const gridRef = useRef(null);
-  const indexRef = useRef(null);
-  /* Where a section is read at: the list's own top edge, so a section
-     brought up stands level with the entry that named it */
-  const readingLine = () => indexRef.current?.getBoundingClientRect().top ?? 0;
-  /* Where the list is taking the reader, while it is: the section it will
-     light once the scroll arrives. Set at the click and cleared on arrival,
-     or the moment the reader takes the wheel, so a jump from Experience to
-     Skills does not light Education in passing. */
-  const travel = useRef(null);
-  // the section being read; About from the first pixel, its top being the
-  // column's own
-  const [activeId, setActiveId] = useState(null);
-  useScrollFade(contentRef, screen ? NO_FADE : SCROLL_FADE, [lang, screen], screen ? regionRef : null);
-  const { scrollY, scrollMax, goTo } = useScreenScroll(screen, regionRef, gridRef, {
-    onTake: () => {
-      travel.current = null;
+  useScrollFade(contentRef, screen ? NO_FADE : SCROLL_FADE, [lang, screen]);
+  const { current, jumpTo, steps } = useStage({
+    count: SECTIONS.length,
+    boxRef: scrollRef,
+    trackRef,
+    blocks: () => [...(contentRef.current?.querySelectorAll(".ab-section") ?? [])],
+    /* how far a section stands past the stage's foot — the foot being
+       the copyright and the fade above it, three times the footer's
+       height (see the mask in components.css). Read off the footer's
+       token rather than a calc() of it: a custom property that is a
+       calc() comes back from getComputedStyle as the calc, unresolved. */
+    overflowOf: (section) => {
+      const stage = contentRef.current;
+      if (!stage) return 0;
+      const footer = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--footer-h")) || 0;
+      return section.offsetHeight - (stage.clientHeight - footer * 3);
     },
+    deps: [lang],
   });
-
-  /* scroll-spy: the list lights the section the reader is inside — the
-     last one whose heading has passed the reading line. Measured off the
-     layout rather than the painted box, so a section parked 40px away by
-     the stage's fade does not light up early or late. */
-  useEffect(() => {
-    if (!screen) {
-      setActiveId(null);
-      return undefined;
-    }
-    const box = regionRef.current;
-    if (!box) return undefined;
-    const onScroll = () => {
-      if (travel.current) {
-        setActiveId(travel.current);
-        return;
-      }
-      const line = readingLine() + READING_SLACK;
-      let current = null;
-      for (const s of SECTIONS) {
-        const el = document.getElementById(`ab-${s.id}`);
-        if (el && viewTopOf(el) <= line) current = s.id;
-        else break;
-      }
-      /* fully scrolled: the last section is what's being read even if its
-         heading never crosses the line */
-      if (scrollY() > 0 && scrollY() >= scrollMax() - 2) current = SECTIONS[SECTIONS.length - 1].id;
-      setActiveId(current);
-    };
-    onScroll();
-    box.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      box.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [screen, lang]);
-
-  /* the column is a stage: only the section being read is on it, About —
-     the photograph, the name and the prose — until Experience is reached */
-  useColumnStage(
-    screen,
-    contentRef,
-    ".ab-section",
-    activeId ? SECTIONS.findIndex((s) => s.id === activeId) : -1,
-  );
-
-  /* jump to a section, and stay jumped: the list holds the target lit
-     for the whole of the way there, whatever passes under the line */
-  const scrollTo = (id) => {
-    const el = document.getElementById(`ab-${id}`);
-    if (!el) return;
-    travel.current = id;
-    setActiveId(id);
-    settleAt({
-      targetOf: () => Math.max(0, scrollY() + viewTopOf(el) - readingLine()),
-      scrollY,
-      goTo,
-      onStop: () => {
-        travel.current = null;
-      },
-    });
-  };
 
   const about = ABOUT[lang] || ABOUT.en;
   const withDesc = (list) =>
@@ -548,21 +480,22 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
 
       {/* cross-fades on language switches, matching the other pages. Off
           the phone this is the box the column scrolls in. */}
-      <main className={"ab-main " + fadeClass} ref={regionRef}>
-        <div className="ab-grid ab-layout" ref={gridRef}>
+      <main className={"ab-main " + fadeClass}>
+        <div className="ab-grid ab-layout">
           {/* the left column, stuck to the screen: the list, and under it
               the links where the header has no room for them */}
           <div className="ab-left">
             {/* the list: Experience, Education and Skills, the one being
                 read set large and in ink, each a button that brings its
                 section up to the line */}
-            <nav className="ab-index" ref={indexRef} aria-label="Sections">
-              {SECTIONS.map((s) => (
+            <nav className="ab-index" aria-label="Sections">
+              {SECTIONS.map((s, i) => (
                 <button
                   key={s.id}
                   type="button"
-                  className={"ab-index-item" + (activeId === s.id ? " is-current" : "")}
-                  onClick={() => scrollTo(s.id)}
+                  className={"ab-index-item" + (current === i ? " is-current" : "")}
+                  aria-current={current === i ? "true" : undefined}
+                  onClick={() => jumpTo(i)}
                 >
                   {s.label}
                 </button>
@@ -675,6 +608,16 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
       </main>
 
       <SiteFooter lang={lang} setLang={setLang} />
+
+      {/* the scroll, never seen: the box Lenis scrolls, and the track in it
+          that gives the wheel its length — a step per section, and more for
+          one taller than the stage. Not on a phone, where the page itself
+          scrolls. */}
+      {current !== null && (
+        <div className="stage-scroll" ref={scrollRef} aria-hidden="true">
+          <div className="stage-track" ref={trackRef} style={{ "--stage-steps": steps }} />
+        </div>
+      )}
     </div>
   );
 }

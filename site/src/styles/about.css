@@ -195,11 +195,37 @@
   flex-direction: column;
   gap: 20px;
 }
-/* the page's bottom air, carried here when the page is one screen: the
-   box's own padding is its top, and the column has to run on past the
-   last section far enough for Skills to be brought up to the line */
+/* ── The stage ──
+   Off the phone the column is a stage (see lib/stage.js): every section
+   in the same cell, so they lie on top of one another and the current
+   one is the one shown, the rest hidden outright rather than made
+   transparent, so nothing hidden can be clicked or tabbed to. The
+   stylesheet only sets the starting state, the first section showing,
+   for the frame before the page has read where the stage is. The cell
+   runs from the index line to the screen's foot and clips there; a
+   section taller than that is pushed up inside it by the wheel, and the
+   foot it has to clear is the copyright and the fade above it. */
 .page-screen .ab-content {
-  padding-bottom: 400px;
+  height: calc(100dvh - var(--index-line));
+  overflow: hidden;
+  display: grid;
+  gap: 0;
+  /* room under the tallest section for it to be pushed up by: as much as
+     the foot it has to clear, so its last line can stand above the fade */
+  padding-bottom: calc(var(--footer-h) * 3);
+  box-sizing: border-box;
+}
+.page-screen .ab-section {
+  grid-area: 1 / 1;
+  margin-top: 0;
+  /* its own height, not the cell's: the cell is as tall as the tallest
+     section, and a section stretched to that would measure as overflowing
+     the stage when it does not, and be pushed up for nothing */
+  align-self: start;
+}
+.page-screen .ab-section:not(:first-child) {
+  visibility: hidden;
+  opacity: 0;
 }
 
 /* The photograph, beside the text it introduces (above it where the

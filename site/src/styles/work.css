@@ -35,24 +35,6 @@
   align-items: start;
 }
 
-/* ── The scroll, out of sight ──
-   The box Lenis scrolls: the size of the screen, holding a track one step
-   taller per project after the first. It is never painted and takes no
-   pointer; the wheel reaches it through Lenis, from anywhere on the page.
-   The step is half a screen — the same number WorkPage.jsx turns the
-   stage by, so the two have to move together. */
-.wk-scroll {
-  --wk-step: 50dvh;
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  visibility: hidden;
-  pointer-events: none;
-}
-.wk-track {
-  height: calc(100% + var(--wk-steps, 4) * var(--wk-step));
-}
-
 /* ── The index ──
    Three columns from the left margin. */
 .wk-index {

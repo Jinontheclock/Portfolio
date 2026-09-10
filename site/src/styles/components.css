@@ -475,6 +475,25 @@
   );
 }
 
+/* ── The scroll, out of sight ──
+   The box Lenis scrolls on a page set as a stage (Work, About — see
+   lib/stage.js): the size of the screen, holding a track one step taller
+   per step after the first. It is never painted and takes no pointer;
+   the wheel reaches it through Lenis, from anywhere on the page. The step
+   is half a screen — the same number lib/stage.js turns the stage by, so
+   the two have to move together. */
+.stage-scroll {
+  --stage-step: 50dvh;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+.stage-track {
+  height: calc(100% + var(--stage-steps, 4) * var(--stage-step));
+}
+
 /* ── SiteFooter: plain-text theme + language, bottom-left ── */
 .site-footer {
   display: flex;
