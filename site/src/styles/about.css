@@ -201,19 +201,25 @@
    one is the one shown, the rest hidden outright rather than made
    transparent, so nothing hidden can be clicked or tabbed to. The
    stylesheet only sets the starting state, the first section showing,
-   for the frame before the page has read where the stage is. The cell
-   runs from the index line to the screen's foot and clips there; a
-   section taller than that is pushed up inside it by the wheel, and the
-   foot it has to clear is the copyright and the fade above it. */
+   for the frame before the page has read where the stage is.
+
+   The cell is the whole screen tall, pulled up to the screen's top edge
+   and padded back down to the index line, so a section pushed up by the
+   wheel — Skills is taller than the stage on most screens — passes under
+   the header and thins out in the mask the way the column did, rather
+   than being cut off at the index line. The foot it has to clear is the
+   copyright and the fade above it, and the same room is kept under the
+   tallest section for it to be pushed up by, so its last line can stand
+   above the fade. */
 .page-screen .ab-content {
-  height: calc(100dvh - var(--index-line));
+  height: 100dvh;
+  margin-top: calc(-1 * var(--index-line));
+  padding-top: var(--index-line);
+  padding-bottom: calc(var(--footer-h) * 3);
+  box-sizing: border-box;
   overflow: hidden;
   display: grid;
   gap: 0;
-  /* room under the tallest section for it to be pushed up by: as much as
-     the foot it has to clear, so its last line can stand above the fade */
-  padding-bottom: calc(var(--footer-h) * 3);
-  box-sizing: border-box;
 }
 .page-screen .ab-section {
   grid-area: 1 / 1;

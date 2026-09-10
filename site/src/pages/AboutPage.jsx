@@ -446,16 +446,18 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
     boxRef: scrollRef,
     trackRef,
     blocks: () => [...(contentRef.current?.querySelectorAll(".ab-section") ?? [])],
-    /* how far a section stands past the stage's foot — the foot being
+    /* how far a section stands past the stage's foot. The stage is the
+       screen tall, padded down to the index line at the top; the foot is
        the copyright and the fade above it, three times the footer's
-       height (see the mask in components.css). Read off the footer's
-       token rather than a calc() of it: a custom property that is a
+       height (see the mask in components.css), read off the footer's
+       token rather than a calc() of it — a custom property that is a
        calc() comes back from getComputedStyle as the calc, unresolved. */
     overflowOf: (section) => {
       const stage = contentRef.current;
       if (!stage) return 0;
+      const top = parseFloat(getComputedStyle(stage).paddingTop) || 0;
       const footer = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--footer-h")) || 0;
-      return section.offsetHeight - (stage.clientHeight - footer * 3);
+      return section.offsetHeight - (stage.clientHeight - top - footer * 3);
     },
     deps: [lang],
   });
