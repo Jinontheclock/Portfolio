@@ -35,22 +35,23 @@
    the name's only line against the sentence's closing one — which is what
    reads as level; box-bottom alignment would leave the two sitting on
    different amounts of descender space. */
+/* The name, and under it the sentence that answers it. The two used to
+   share a line in a column half the screen wide; in the two-fifths the
+   text has now the sentence would stand three or four lines tall beside
+   the name, so they are stacked, on every tier, as the phone always had
+   them. */
 .ab-lede {
   display: flex;
-  flex-wrap: wrap;
-  align-items: last baseline;
-  /* the row gap only comes into play once the sentence drops below the
-     name; stacked the two read as one unit, so they sit closer than they
-     stand apart side by side */
-  gap: 8px 28px;
+  flex-direction: column;
+  align-items: stretch;
+  /* stacked the two read as one unit, so they sit closer than they
+     stand apart */
+  gap: 8px;
   /* the air the hero sentence used to carry below itself */
   margin-bottom: 20px;
-  /* the hero sentence asks how much room it was given — see .ab-hero */
-  container: lede / inline-size;
 }
 
-/* Sits inside the content column, under the photograph — the grid places
-   the column, not the name. */
+/* Opens the text column — the grid places the column, not the name. */
 .ab-title {
   flex: none;
   margin: 0;
@@ -151,12 +152,42 @@
   pointer-events: none;
 }
 
-/* ── Right content column ──
-   Same span as the case studies' `.cs-content`, on the same 12 columns —
-   both pages put `ab-grid` on the wrapper, so matching the span is enough
-   to put the two measures at the same width and the same left edge. */
+/* ── The column ──
+   Everything to the right of the list: nine of the twelve columns, of
+   which the text takes the last five — two fifths of the screen, near
+   enough, against the half it had — and About's photograph the four
+   before them. Each section is a grid of those nine columns, on the same
+   lines as the page's own (equal columns, the same 30px between them, so
+   the nested lines fall on the outer ones), and puts its text in the last
+   five. */
 .ab-content {
-  grid-column: 7 / 13;
+  grid-column: 4 / 13;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ab-section {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  column-gap: 30px;
+  /* the air between a section's heading and its list on a phone, where
+     the heading shows; on a screen the heading is out of the flow */
+  row-gap: 16px;
+}
+.ab-section > * {
+  grid-column: 5 / 10;
+}
+/* About: the photograph in the four columns to the left of the text,
+   the two starting on the same line, and the text keeping the column's
+   own rhythm — the 20px between the name and the paragraphs */
+.ab-about > .ab-portrait {
+  grid-column: 1 / 5;
+  grid-row: 1;
+  align-self: start;
+}
+.ab-about > .ab-about-text {
+  grid-column: 5 / 10;
   grid-row: 1;
   display: flex;
   flex-direction: column;
@@ -169,16 +200,15 @@
   padding-bottom: 400px;
 }
 
-/* The photograph stands under the list, the width of the left column —
-   beside the column of text rather than at the head of it, so the name
-   opens the column and the photograph is there whatever section is on the
-   stage. No frame, no radius and no caption. The intrinsic size is on the
-   element so nothing reflows when the file lands. */
+/* The photograph, beside the text it introduces (above it where the
+   column is too narrow for both). No frame, no radius and no caption.
+   The intrinsic size is on the element so nothing reflows when the file
+   lands. */
 .ab-portrait {
   display: block;
   width: 100%;
   height: auto;
-  margin: 40px 0 0;
+  margin: 0;
 }
 
 .ab-paragraph {
@@ -206,47 +236,14 @@
   color: var(--text-primary);
 }
 
-/* takes the rest of the line beside the name; the air below it now belongs
-   to the row the two share. The 380px basis is the point below which the
-   sentence would be reading in a slot too narrow for it — at that width it
-   wraps under the name instead of squeezing, which needs no breakpoint of
-   its own because it follows whatever the column can spare. */
+/* The sentence under the name. The copy carries a newline after its
+   opening clause from the days it stood on one line beside the name; in
+   the column it has now it flows instead, and settles on lines of nearly
+   equal length rather than a full one and a short one — the browser
+   evens the ragged edge itself. */
 .ab-hero {
-  flex: 1 1 380px;
-  min-width: 0;
-  /* The copy carries a newline after its opening clause, but that break is
-     only worth keeping when the rest still closes on one line. Measured at
-     the desktop's 16.5px: that clause runs 751px, the name beside it 154.5,
-     and the gap between them 28 — so the row has to be 933.5px before the
-     break earns its place. Under that the sentence flows instead and
-     settles on two balanced lines, which is also what a browser without
-     container queries gets, and is the safe answer.
-
-     935, not the 880 this held before. 880 was short by the width of about
-     eight words, so between roughly 1610 and 1945 of viewport the break
-     was honoured while the clause behind it still had to wrap — the
-     sentence came out in three lines with "that holds up." alone on the
-     last. Below the threshold the sentence never takes more than two. */
   white-space: normal;
-  /* two lines of nearly equal length rather than a full one and a short
-     one — the browser evens the ragged edge itself. It has no say once the
-     break below is honoured, and that break is deliberately lopsided. */
   text-wrap: balance;
-}
-
-@container lede (min-width: 935px) {
-  .ab-hero {
-    white-space: pre-line;
-    text-wrap: wrap;
-    /* The measure cap comes off with the break. .ab-paragraph holds every
-       other paragraph to 73ch — 717.9px at this size — because they are
-       stacked blocks and a long measure is hard to read down. This one is
-       a single line beside the name, and the clause it has to close is
-       751px: kept at 73ch it could never fit however wide the page got,
-       which is what put "that holds up." on a line of its own no matter
-       the screen. */
-    max-width: none;
-  }
 }
 
 /* A section break has to out-measure the rhythm inside the sections or it
@@ -258,9 +255,6 @@
    are longer reads. */
 .ab-section {
   margin-top: 72px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
 }
 
 /* About is the column's opening, and keeps the column's own rhythm: no
@@ -268,7 +262,6 @@
    the column itself used to set */
 .ab-about {
   margin-top: 0;
-  gap: 20px;
 }
 
 .ab-section-label {
@@ -374,10 +367,30 @@
   min-width: 0;
 }
 
-/* ── Tablet: reclaim some of the empty middle ── */
+/* ── Tablet: reclaim some of the empty middle ──
+   Seven columns to the right of the list, all of them the text's; the
+   photograph goes above About's text, the column being too narrow to
+   hold the two side by side */
 @media (max-width: 1080px) {
   .ab-content {
     grid-column: 6 / 13;
+  }
+  .ab-section {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .ab-section > *,
+  .ab-about > .ab-portrait,
+  .ab-about > .ab-about-text {
+    grid-column: 1 / -1;
+  }
+  .ab-about > .ab-portrait {
+    grid-row: 1;
+  }
+  .ab-about > .ab-about-text {
+    grid-row: 2;
+  }
+  .ab-about {
+    row-gap: 24px;
   }
   .ab-rail {
     display: flex;
@@ -425,23 +438,18 @@
     position: static;
     display: block;
   }
-  /* the phone reads one thing at a time: the name, then the sentence.
-     The basis has to go with the direction — down a column it would be
-     read as a height, and the sentence would sit in a 380px-tall box */
-  .ab-lede {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .ab-hero {
-    flex: none;
-  }
   .ab-index {
     display: none;
   }
-  /* the photograph is the band between the links and the name: full
-     width, and the air under it is what the name used to keep from it */
-  .ab-portrait {
-    margin: 0 0 24px;
+  /* a section is a stack again: the photograph, then the name, then the
+     rest, each the width of the screen */
+  .ab-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .ab-about {
+    gap: 24px;
   }
   /* the five icons in a row above the column, at the right edge, where
      the words used to be */

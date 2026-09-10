@@ -361,17 +361,15 @@ const SECTIONS = [
 
 /* What fades, and what it fades with, on a phone, where the page is a
    page. Five things, each one something a reader arrives at whole: the
-   name and the line that answers it, then the prose, then each section
-   under its own heading. The photograph is above the column now, in the
-   band between the links and the name, and does not fade: it is in view
-   before the page is scrolled at all.
+   photograph with the name and the line that answers it, then the prose,
+   then each section under its own heading.
 
    Paragraph by paragraph was the first cut and it read as chatter — four
    separate arrivals inside one continuous thought, and a heading that came
    in on its own before the thing it was heading. */
 const SCROLL_FADE = [
-  [".ab-lede"], // the name, the opening line
-  [".ab-about > .ab-paragraph"], // the prose, in one piece
+  [".ab-portrait", ".ab-lede"], // the photograph, the name, the opening line
+  [".ab-about-text > .ab-paragraph"], // the prose, in one piece
   ".ab-section:not(.ab-about)", // Experience, Education and Skills, each whole
 ];
 /* off the phone the column is a stage (see below), and the fade has no say */
@@ -576,36 +574,36 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
             <nav className="ab-rail" aria-label="Links">
               <Links className="ab-rail-link" />
             </nav>
-            {/* the photograph, under the list: it stands beside the column
-                whatever section is on the stage, the width of the list's
-                columns, and is the first thing on the page worth loading —
-                no lazy attribute, or it arrives late. On a phone it is the
-                band between the links and the name it used to open. */}
-            <img
-              className="ab-portrait"
-              src={portrait}
-              alt={PORTRAIT_ALT[lang] || PORTRAIT_ALT.en}
-              width="2000"
-              height="1083"
-              decoding="async"
-            />
           </div>
 
           <div className="ab-content" ref={contentRef}>
-            {/* About: the name and the prose, one section like the three
-                under it, so the list can name it and the stage can hold it */}
+            {/* About: the photograph beside the name and the prose, one
+                section like the three under it, so the list can name it
+                and the stage can hold it — and take it off with the rest
+                of About when the next section comes up */}
             <section id="ab-about" className="ab-section ab-about">
-              {/* the name and the sentence that answers it share a line, sitting
-                  on the same bottom edge — one opening statement rather than
-                  two stacked ones */}
-              <div className="ab-lede">
-                <h1
-                  className="ab-title"
-                  style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
-                >
-                  {NAME[lang] || NAME.en}
-                </h1>
-                <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
+              {/* the photograph, to the left of the text: the first thing on
+                  the page worth loading — no lazy attribute, or it arrives
+                  late. Above the text where the column is too narrow to
+                  hold both (see about.css). */}
+              <img
+                className="ab-portrait"
+                src={portrait}
+                alt={PORTRAIT_ALT[lang] || PORTRAIT_ALT.en}
+                width="2000"
+                height="1083"
+                decoding="async"
+              />
+              <div className="ab-about-text">
+                {/* the name, and under it the sentence that answers it */}
+                <div className="ab-lede">
+                  <h1
+                    className="ab-title"
+                    style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
+                  >
+                    {NAME[lang] || NAME.en}
+                  </h1>
+                  <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
               </div>
               {about.body.map((para, i) => (
                 <p key={i} className="ab-paragraph">
@@ -636,6 +634,7 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
                       )}
                 </p>
               ))}
+              </div>
             </section>
 
             <section id="ab-experience" className="ab-section">
