@@ -496,6 +496,9 @@ button.lp-footer-lang:focus-visible,
   }
   .lp-footer {
     padding: 16px var(--page-margin);
+    /* a size down from the header's on a phone, the copyright apart,
+       which keeps its own fit below */
+    font-size: 14px;
   }
   .lp-footer-top {
     width: 100%;

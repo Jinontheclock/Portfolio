@@ -452,7 +452,7 @@
     text-wrap: wrap;
   }
   .ab-grid {
-    padding: 0 20px;
+    padding: 0 var(--page-margin);
     /* everything spans the full 12 columns on a phone, so the gaps are
        pure width: at 30px the 11 of them alone total 330px and push the
        grid past a 320px screen */

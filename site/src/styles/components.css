@@ -384,9 +384,9 @@
 
 /* Mobile */
 @media (max-width: 600px) {
-  /* header/footer gutters match the content grid (20px) on mobile */
+  /* header/footer gutters match the content grid (16px) on mobile */
   :root {
-    --page-margin: 20px;
+    --page-margin: 16px;
   }
   /* the wordmark sits at the right edge (centered it would collide with
      the two pills); the nav buttons also fade out on scroll on mobile */
