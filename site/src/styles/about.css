@@ -346,21 +346,29 @@
      photograph, the gutter and the prose, and no wider. The prose's
      track is the text's share of the screen, or the paragraphs' measure
      where that is narrower — on a wide screen — so that the track ends
-     where the lines do, and the photograph, worked out from the height
-     the stage leaves it, is against them. The measure is in the
-     paragraphs' own letters, so the block is set in their face and
-     size for the ch to count in. */
+     where the lines do, and the photograph is against them. The measure
+     is in the paragraphs' own letters, so the block is set in their
+     face and size for the ch to count in.
+
+     The photograph is a fifth taller than the stage's room from the
+     line to its foot, and starts on the line, so its last fifth runs
+     past the foot into the footer's fade and out under the copyright.
+     The block itself is the room's height, whatever the photograph's,
+     so the stage does not count the photograph's overrun as overflow
+     and give the block a step for it. */
   .page-screen .ab-about-more {
-    --ab-mobile-h: calc(100dvh - var(--index-line) - var(--footer-h) * 3);
+    --ab-room: calc(100dvh - var(--index-line) - var(--footer-h) * 3);
     font-family: var(--font-ui);
     font-size: var(--size-body);
     grid-template-columns: max-content min(var(--ab-text), 73ch);
     width: fit-content;
+    height: var(--ab-room);
     justify-self: end;
   }
   .page-screen .ab-about-more > .ab-mobile {
-    width: calc(var(--ab-mobile-h) * 900 / 1834);
+    width: calc(var(--ab-room) * 1.2 * 900 / 1834);
     max-width: none;
+    max-height: none;
   }
   /* The sentence closes on the photograph's right edge. Its box is what
      is left of the row past the name and the gutter — a container the
