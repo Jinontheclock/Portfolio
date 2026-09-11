@@ -441,23 +441,24 @@ html.lp-snap::-webkit-scrollbar {
   justify-content: space-between;
   white-space: nowrap;
 }
-/* one language each, the one being read in bold. A language held back
-   is a label with no pointer of its own */
+/* one language each, all at the same weight: the one being read in the
+   page's ink, the rest in the header's muted grey, and a pointer takes
+   one of those to the ink the way it takes a header label. A language
+   held back is a label with no pointer of its own */
 .lp-footer-lang {
   all: unset;
   font: inherit;
   letter-spacing: inherit;
-  color: inherit;
+  color: var(--text-muted);
+  transition: color var(--duration-fast) var(--easing);
 }
 button.lp-footer-lang {
   cursor: pointer;
 }
-button.lp-footer-lang:not(.is-current):hover,
-button.lp-footer-lang:not(.is-current):focus-visible {
-  font-weight: 500;
-}
+button.lp-footer-lang:hover,
+button.lp-footer-lang:focus-visible,
 .lp-footer-lang.is-current {
-  font-weight: 700;
+  color: var(--text-primary);
 }
 /* the same words the inner pages' footer sets, at this band's size */
 .lp-footer-copy {
