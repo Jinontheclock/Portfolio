@@ -219,11 +219,11 @@
   white-space: pre;
 }
 /* The second: the other photograph against the prose, at the right
-   edge of the track to its left, standing from the top of the stage to
-   its foot and no wider than that makes it — its own proportions, never
-   cropped — with the prose beside it on the line, keeping the column's
-   own rhythm, 20px from paragraph to paragraph. In black and white,
-   like the first: the file is in colour. */
+   edge of the track to its left, on the line with the prose and
+   standing from there to the stage's foot, no wider than that makes it
+   — its own proportions, never cropped — with the prose beside it
+   keeping the column's own rhythm, 20px from paragraph to paragraph.
+   In black and white, like the first: the file is in colour. */
 .ab-about-more > .ab-mobile {
   grid-column: 1;
   grid-row: 1;
@@ -232,9 +232,7 @@
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: calc(
-    100dvh - var(--index-line) + var(--ab-lift) - var(--footer-h) * 3
-  );
+  max-height: calc(100dvh - var(--index-line) - var(--footer-h) * 3);
   filter: grayscale(1);
 }
 .ab-about-more > .ab-about-text {
@@ -243,8 +241,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  /* back down to the line, when the block is lifted above it */
-  margin-top: var(--ab-lift);
 }
 /* ── The stage ──
    Off the phone the column is a stage (see lib/stage.js): every section
@@ -284,24 +280,20 @@
   visibility: hidden;
   opacity: 0;
 }
-/* The two About blocks stand higher than the line the others stand on:
-   the photographs are the tallest things on the page, and from the line
-   the first would have to be cut to a strip to fit above the foot, and
-   the second would stand no taller than the prose. Lifted to where the
-   header's fade ends — three times the header's height, see the mask in
-   components.css — each has the whole of the clear stage, and closes on
-   the foot: the first with the row under its photograph, the second
-   with the photograph itself, the prose beside it put back down on the
-   line. The page reads the margin back off a block when it measures how
-   far it overflows. Only where the column is wide enough for the
-   photographs to need the room: on a tablet they stand on the line with
-   the rest. */
+/* The opening block may stand higher than the line the others stand
+   on: its photograph is the tallest thing on the page, and from the
+   line it would have to be cut to a strip to fit above the foot. It may
+   rise to where the header's fade ends — three times the header's
+   height, see the mask in components.css — which gives it the whole of
+   the clear stage; how far it does rise is set below, by its size. The
+   page reads the margin back off a block when it measures how far it
+   overflows. Only where the column is wide enough for the photograph
+   to need the room: on a tablet it stands on the line with the rest. */
 @media (min-width: 1081px) {
   .page-screen .ab-content {
     --ab-lift: max(0px, var(--index-line) - var(--header-h) * 3);
   }
-  .page-screen .ab-about,
-  .page-screen .ab-about-more {
+  .page-screen .ab-about {
     margin-top: calc(-1 * var(--ab-lift));
   }
   /* The opening block is as wide as its photograph and no wider, and
@@ -348,6 +340,26 @@
   }
   .page-screen .ab-about > .ab-portrait {
     width: var(--ab-portrait-w);
+    max-width: none;
+  }
+  /* The second block stands on the margin too: as wide as the
+     photograph, the gutter and the prose, and no wider. The prose's
+     track is the text's share of the screen, or the paragraphs' measure
+     where that is narrower — on a wide screen — so that the track ends
+     where the lines do, and the photograph, worked out from the height
+     the stage leaves it, is against them. The measure is in the
+     paragraphs' own letters, so the block is set in their face and
+     size for the ch to count in. */
+  .page-screen .ab-about-more {
+    --ab-mobile-h: calc(100dvh - var(--index-line) - var(--footer-h) * 3);
+    font-family: var(--font-ui);
+    font-size: var(--size-body);
+    grid-template-columns: max-content min(var(--ab-text), 73ch);
+    width: fit-content;
+    justify-self: end;
+  }
+  .page-screen .ab-about-more > .ab-mobile {
+    width: calc(var(--ab-mobile-h) * 900 / 1834);
     max-width: none;
   }
   /* The sentence closes on the photograph's right edge. Its box is what
