@@ -305,16 +305,28 @@
     margin-top: calc(-1 * var(--ab-lift));
   }
   /* The opening block is as wide as its photograph and no wider, and
-     stands against the column's right edge — the page margin — so that
-     the photograph's edge, and the sentence closing on it, are on the
-     margin whatever the photograph's width, and the room a shorter
-     screen leaves is to its left, beside the list. The photograph's
-     width is worked out here from its height — what the stage leaves
-     it, times its own proportions — and never past the column, ten of
-     the page's twelve columns with the nine gutters between them.
-     Written out in the viewport's terms rather than as a percentage,
-     because a block that fits its content cannot size that content by a
-     percentage of itself. */
+     stands in the column's bottom right corner — its right edge on the
+     page margin, so that the photograph's edge, and the sentence
+     closing on it, are on the margin whatever the photograph's width,
+     and its foot on the stage's, so that the row under the photograph
+     keeps its place whatever the photograph's height; the room a
+     shorter screen or a smaller photograph leaves is above and to the
+     left, beside the list. The foot is set by the top margin — the
+     stage's height past the block's, which is the photograph's from its
+     width and the row's — since the cell the blocks share is as tall
+     as the tallest of them, not as the stage, and has no foot to align
+     to.
+
+     The photograph is four fifths of what would fit: what would fit is
+     worked out from its height — what the stage leaves it, times its
+     own proportions — and never past the column, ten of the page's
+     twelve columns with the nine gutters between them; and four fifths
+     of that is the size, unless the row under it — the name at a third
+     over three times its size, the gutter, the sentence at the body's
+     size — is wider, in which case the photograph is the row's width,
+     up to the whole of what would fit. Written out in the viewport's
+     terms rather than as a percentage, because a block that fits its
+     content cannot size that content by a percentage of itself. */
   .page-screen .ab-about {
     justify-self: end;
     --ab-col: calc((100vw - 2 * var(--page-margin) - 11 * 30px) / 12);
@@ -323,10 +335,19 @@
       100dvh - var(--index-line) + var(--ab-lift) - var(--footer-h) * 3 -
         var(--ab-lede-room)
     );
+    --ab-fit: min(var(--ab-column), var(--ab-portrait-h) * 2000 / 1083);
+    --ab-row: calc(
+      var(--size-about-title) * 3.3 + 30px + var(--size-body) * 46.5
+    );
+    --ab-portrait-w: clamp(var(--ab-fit) * 0.8, var(--ab-row), var(--ab-fit));
     width: fit-content;
+    margin-top: calc(
+      100dvh - var(--index-line) - var(--footer-h) * 3 - var(--ab-lede-room) -
+        var(--ab-portrait-w) * 1083 / 2000
+    );
   }
   .page-screen .ab-about > .ab-portrait {
-    width: min(var(--ab-column), var(--ab-portrait-h) * 2000 / 1083);
+    width: var(--ab-portrait-w);
     max-width: none;
   }
   /* The sentence closes on the photograph's right edge. Its box is what
