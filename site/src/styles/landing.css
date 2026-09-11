@@ -342,7 +342,9 @@ html.lp-snap::-webkit-scrollbar {
    its clip. Scroll, and the slot rises into view over the band that is not
    moving, which reads as the page lifting off it. */
 .lp-footer-slot {
-  --lp-footer-h: 72px;
+  /* the band's height, from the Figma frame "Landing page_footer opened":
+     what the page scrolls by to open it */
+  --lp-footer-h: 287px;
   position: relative;
   height: var(--lp-footer-h);
   /* Clipped on three sides and open below. The clip on the top and the
@@ -364,59 +366,91 @@ html.lp-snap::-webkit-scrollbar {
   top: calc(100dvh - var(--lp-footer-h));
   box-sizing: border-box;
   height: var(--lp-footer-h);
+  /* As the Figma frame "Landing page_footer opened" sets it. Two rows
+     at the band's top and foot: where the author is and the ways to
+     reach them, then the languages and the copyright. All of it in the
+     header's type — 18 on a 24px line at the frame's 1512, and stepping
+     with the header on the other tiers — in the page's ink. */
   display: flex;
-  align-items: center;
-  /* the links at the left edge, the line at the right, where the inner
-     pages' footer keeps the same words */
+  flex-direction: column;
   justify-content: space-between;
-  gap: 24px;
-  padding: 0 var(--page-margin);
-  /* the page's own ground, not a black band: the footer is the same
-     footer the inner pages carry, arriving from under the hero */
+  padding: 16px 32px;
   background: var(--bg);
-  color: var(--grey-300);
-  /* the line below sizes itself to the room inside these margins */
+  font: 400 var(--size-header-nav) / var(--header-line) var(--font-ui);
+  letter-spacing: 0.21px;
+  color: var(--text-primary);
+  /* the copyright sizes itself to the room inside these margins on a
+     phone — see the rule below */
   container-type: inline-size;
 }
-/* About's links, as their icons (see components/SiteLinks.jsx and
-   .link-icon in components.css): a row at the band's left edge, at the
-   strength of the header's icons, and the ink on hover as they are */
+/* the block at the top left: the place and the time on one line, and
+   under them the address and the two links, one to a line */
+.lp-footer-top {
+  width: 441px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.lp-footer-where {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  white-space: nowrap;
+}
+.lp-footer-time {
+  font-variant-numeric: tabular-nums;
+}
 .lp-footer-links {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
 }
+/* set as the page's ink, like the words around them; a pointer takes
+   them a step lighter, since there is no darker ink to take them to */
 .lp-footer-link {
-  display: inline-flex;
-  font-size: 22px;
-  line-height: 1;
-  color: var(--text-muted);
+  color: inherit;
   text-decoration: none;
   cursor: pointer;
   transition: color var(--duration-fast) var(--easing);
 }
 .lp-footer-link:hover,
 .lp-footer-link:focus-visible {
-  color: var(--text-primary);
+  color: var(--text-muted);
 }
-
-/* the same line the inner pages' footer sets, at the same size and in
-   the same grey */
-.lp-footer-copy {
-  /* narrows below its content so the line can be sized to what is left
-     beside the icons — see the phone rule below */
-  min-width: 0;
-  font: 400 12px/16px var(--font-ui);
-  text-align: right;
-  /* One line on every screen. At 12px the line runs 372px, which is more
-     than a phone has between the margins (350 on a 390 screen, 280 on a
-     320), so under that width the type scales with the room instead of
-     breaking: 3.2% of the band's inner width is 12px at 375 of room and
-     puts the line a few pixels inside the margins at every width below.
-     Nothing above 12px, ever. */
+/* the foot: the languages at the left edge, the copyright at the right */
+.lp-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.lp-footer-langs {
+  width: 240px;
+  display: flex;
+  justify-content: space-between;
   white-space: nowrap;
-  font-size: min(12px, 3.2cqi);
+}
+/* one language each, the one being read in bold. A language held back
+   is a label with no pointer of its own */
+.lp-footer-lang {
+  all: unset;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+button.lp-footer-lang {
+  cursor: pointer;
+}
+.lp-footer-lang.is-current {
+  font-weight: 700;
+}
+/* the same words the inner pages' footer sets, at this band's size */
+.lp-footer-copy {
+  min-width: 0;
+  text-align: right;
+  white-space: nowrap;
 }
 
 /* On a phone the header's two labels fade once the page is scrolled, so
@@ -429,24 +463,32 @@ html.lp-snap::-webkit-scrollbar {
     opacity: 1;
     pointer-events: auto;
   }
-  /* The band is two rows on a phone: the icons, then the copyright, each
-     at its own edge. Side by side the two do not fit — the five icons are
-     174px and the line at its smallest legible size about 350 — and
-     letting the line shrink to what is left beside the icons put it under
-     6px. The band grows to hold both: 20 above and below, the two rows and
-     12 between, and the page scrolls by exactly that much more. */
+  /* The band on a phone: the same two blocks, the foot stacked — the
+     languages, then the copyright at the right edge — and the whole a
+     little shorter, on the phone's smaller type. The copyright line at
+     that type is wider than the screen, so under this width it scales
+     with the room instead of breaking: 3.2% of the band's inner width is
+     11.2px at 350 of room. */
   .lp-footer-slot {
-    --lp-footer-h: 96px;
+    --lp-footer-h: 264px;
   }
   .lp-footer {
+    padding: 16px var(--page-margin);
+  }
+  .lp-footer-top {
+    width: 100%;
+    gap: 24px;
+  }
+  .lp-footer-bottom {
     flex-direction: column;
     align-items: stretch;
-    justify-content: center;
     gap: 12px;
-    padding-top: 20px;
-    padding-bottom: 20px;
   }
   .lp-footer-copy {
     align-self: flex-end;
+    font-size: min(var(--size-header-nav), 3.1cqi);
+    /* the band's 0.21px tracking is fourteen pixels over sixty-seven
+       characters, which is the difference between fitting and not */
+    letter-spacing: 0;
   }
 }

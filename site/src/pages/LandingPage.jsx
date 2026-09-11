@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import LangSwitcher from "../components/LangSwitcher.jsx";
-import Links from "../components/SiteLinks.jsx";
+import { LINKS, MAILTO } from "../components/SiteLinks.jsx";
+import LocalTime from "../components/LocalTime.jsx";
+import { LANG_LABELS } from "../i18n.js";
+import { ALL_LANGS, LANGS } from "../lib/lang-routes.js";
 import { LANDING } from "../i18n.js";
 /* The heading as drawn artwork rather than set type, exactly as exported.
    Inlined rather than linked so its paths can inherit the page's colour —
@@ -68,8 +71,8 @@ export default function LandingPage({ lang, setLang }) {
 
     {/* The footer, revealed.
 
-        It is not below the page so much as behind it: a black band pinned
-        to the bottom of the screen, which the hero covers until the reader
+        It is not below the page so much as behind it: a band pinned to
+        the bottom of the screen, which the hero covers until the reader
         scrolls, and then uncovers by exactly its own height. That is the
         whole of what this page scrolls — the hero is still one screen, and
         the band is the one thing under it.
@@ -83,14 +86,63 @@ export default function LandingPage({ lang, setLang }) {
     <div className="lp-footer-slot">
       <div className="lp-footer-track">
         <footer className="lp-footer">
-          {/* the same five links About carries, at the band's left edge,
-              across from the copyright */}
-          <nav className="lp-footer-links" aria-label="Links">
-            <Links className="lp-footer-link" />
-          </nav>
-          <span className="lp-footer-copy">
-            © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
-          </span>
+          {/* The band as the Figma frame "Landing page_footer opened" sets
+              it: where the author is and the time there, then the ways to
+              reach them, and along the foot the languages and the
+              copyright. */}
+          <div className="lp-footer-top">
+            <div className="lp-footer-where">
+              <span>Based in Vancouver, BC, Canada</span>
+              <LocalTime />
+            </div>
+            <nav className="lp-footer-links" aria-label="Contact">
+              {/* the address in full, and two of About's links by name —
+                  the same addresses, from the same list */}
+              <a className="lp-footer-link" href={MAILTO}>
+                hajinlee.ca@gmail.com
+              </a>
+              {LINKS.filter((l) => l.label === "LinkedIn" || l.label === "Resume").map((l) => (
+                <a
+                  key={l.label}
+                  className="lp-footer-link"
+                  href={l.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {l.label.toLowerCase()}
+                </a>
+              ))}
+            </nav>
+          </div>
+          <div className="lp-footer-bottom">
+            {/* the three languages the site has copy for, the one being
+                read in bold. Only the ones offered are buttons: Japanese
+                and Korean are held back for now (see lib/lang-routes.js),
+                so they stand as labels until they are opened again. */}
+            <div className="lp-footer-langs">
+              {ALL_LANGS.map((code) =>
+                LANGS.includes(code) ? (
+                  <button
+                    key={code}
+                    type="button"
+                    lang={code}
+                    className={"lp-footer-lang" + (lang === code ? " is-current" : "")}
+                    aria-pressed={lang === code}
+                    onClick={() => setLang?.(code)}
+                  >
+                    {LANG_LABELS[code]}
+                  </button>
+                ) : (
+                  <span key={code} lang={code} className="lp-footer-lang" aria-disabled="true">
+                    {LANG_LABELS[code]}
+                  </span>
+                ),
+              )}
+            </div>
+            <span className="lp-footer-copy">
+              © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
+            </span>
+          </div>
         </footer>
       </div>
     </div>
