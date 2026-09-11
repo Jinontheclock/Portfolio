@@ -412,9 +412,13 @@ html.lp-snap::-webkit-scrollbar {
   gap: 8px;
 }
 /* set as the page's ink, like the words around them, and kept in it
-   under a pointer: what answers the hover is the weight, a step up to
-   medium, since there is no darker ink to take the word to and a
-   lighter one read as the word fading out under the cursor's box */
+   under a pointer: what answers the hover is the weight, since there is
+   no darker ink to take the word to and a lighter one read as the word
+   fading out under the cursor's box. Not the Medium face, though — its
+   letters are wider, and the word grew two pixels and re-spaced itself
+   under the pointer, which read as a twitch. A hairline stroke over the
+   Regular puts the same weight on without moving a glyph, so the word
+   holds still the way the header's labels do. */
 .lp-footer-link {
   color: inherit;
   text-decoration: none;
@@ -423,7 +427,7 @@ html.lp-snap::-webkit-scrollbar {
 .lp-footer-link:hover,
 .lp-footer-link:focus-visible {
   color: var(--text-primary);
-  font-weight: 500;
+  -webkit-text-stroke: 0.35px currentColor;
 }
 /* the foot: the languages at the left edge, the copyright at the right */
 .lp-footer-bottom {
