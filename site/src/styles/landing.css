@@ -482,7 +482,7 @@ button.lp-footer-lang:focus-visible,
      band's own size rather than shrunk to fit one. The band is taller by
      that line. */
   .lp-footer-slot {
-    --lp-footer-h: 288px;
+    --lp-footer-h: 268px;
   }
   /* On a phone the drawing's H would sit 9px from the edge, too close to
      hang the footer's column off; so the drawing moves instead, right by
@@ -503,8 +503,11 @@ button.lp-footer-lang:focus-visible,
   }
   /* the foot stacks, everything at the left edge: the three languages
      in a row with a word's space between them rather than spread over
-     the desktop's 240px, and the copyright under them, on two lines at
-     the band's own size */
+     the desktop's 240px, and the copyright under them on one line, its
+     type scaled to the room: 3.1% of the band's inner width is 10.85px
+     at 350 of room, and the band's tracking comes off it — fourteen
+     pixels over sixty-seven characters, the difference between fitting
+     and not */
   .lp-footer-bottom {
     flex-direction: column;
     align-items: flex-start;
@@ -518,6 +521,8 @@ button.lp-footer-lang:focus-visible,
   .lp-footer-copy {
     align-self: flex-start;
     text-align: left;
-    white-space: normal;
+    white-space: nowrap;
+    font-size: min(var(--size-header-nav), 3.1cqi);
+    letter-spacing: 0;
   }
 }
