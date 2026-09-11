@@ -75,6 +75,15 @@
      of the way down, which at a 900px window puts the Work stage's foot on
      the two-thirds line */
   --index-line: 31.5dvh;
+  /* Where the landing's drawing puts its H. The drawing is set edge to
+     edge and its H begins 31.73 units into a 1400-unit box, so the ink's
+     left edge is that fraction of the screen's width wherever the screen
+     is — 34.3px at 1512. The header's labels stand on it on every page,
+     so that they hold still across a crossing and line up with the H on
+     the landing, and so does the landing's footer. A phone moves the
+     drawing onto the page margin instead (see landing.css), and this is
+     the page margin there. */
+  --ink-left: calc(100vw * 31.73 / 1400);
   --size-copy: 18px; /* © HAJIN LEE … */
 
   /* inner pages — the anchors, at 402 · 834 · 1512 · 1728 · 1920:
@@ -140,6 +149,7 @@
    the phone's size under 402 ── */
 @media (max-width: 600px) {
   :root {
+    --ink-left: var(--page-margin);
     --size-hero: 32px; /* pre-JS fallback only */
     --size-header-nav: clamp(16px, 14.14px + 0.463vw, 18px);
     --size-copy: 8px;

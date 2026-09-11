@@ -144,10 +144,13 @@
   z-index: 10;
   display: flex;
   align-items: flex-start;
-  /* the air between Work and About. Work holds the page margin and does not
+  /* the air between Work and About. Work holds the line and does not
      move; widening this moves About alone */
   gap: 32px;
-  padding: var(--header-pad-top) var(--page-margin) 0;
+  /* the labels stand where the landing's drawing puts its H — the same
+     line on every page, so a crossing leaves them where they were (see
+     --ink-left in breakpoints.css); About's icons close on its mirror */
+  padding: var(--header-pad-top) var(--ink-left) 0;
 }
 
 /* ── The header holds still across a crossing ──

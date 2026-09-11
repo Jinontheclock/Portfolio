@@ -374,14 +374,11 @@ html.lp-snap::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* The texts start exactly under the H of the heading above them. The
-     heading is a drawing set edge to edge, and its H begins 31.73 units
-     into a 1400-unit box, so the ink's left edge is that fraction of the
-     screen's width wherever the screen is — 34.3px at the frame's 1512,
-     where Figma has it at 34.3. The same on the right, so the copyright
-     keeps the mirror of that margin. */
-  --lp-ink-left: calc(100vw * 31.73 / 1400);
-  padding: 16px var(--lp-ink-left);
+  /* The texts start exactly under the H of the heading above them, on
+     the line the header's labels stand on (--ink-left, breakpoints.css)
+     — 34.3px at the frame's 1512, where Figma has it at 34.3. The same
+     on the right, so the copyright keeps the mirror of that margin. */
+  padding: 16px var(--ink-left);
   background: var(--bg);
   font: 400 var(--size-header-nav) / var(--header-line) var(--font-ui);
   letter-spacing: 0.21px;
