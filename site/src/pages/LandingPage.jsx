@@ -1,10 +1,16 @@
 import { useEffect } from "react";
+import gsap from "gsap";
+import Lenis from "lenis";
+import Snap from "lenis/snap";
+import "lenis/dist/lenis.css";
 import SiteHeader from "../components/SiteHeader.jsx";
 import LangSwitcher from "../components/LangSwitcher.jsx";
 import { LINKS, MAILTO } from "../components/SiteLinks.jsx";
 import LocalTime from "../components/LocalTime.jsx";
 import { LANG_LABELS } from "../i18n.js";
 import { ALL_LANGS, LANGS } from "../lib/lang-routes.js";
+import useIsPhone from "../hooks/useIsPhone.js";
+import { reducedMotion } from "../lib/stage.js";
 import { LANDING } from "../i18n.js";
 /* The heading as drawn artwork rather than set type, exactly as exported.
    Inlined rather than linked so its paths can inherit the page's colour —
@@ -18,13 +24,53 @@ export default function LandingPage({ lang, setLang }) {
   }, []);
 
   /* The page has two places to be, closed and open, and nothing in between
-     is a place: the scroll snaps to whichever is nearer, and the browser
-     draws the move. The rule lives on the root element, which no markup of
-     this page can reach, so it is put on for as long as the page is. */
+     is a place. Off the phone the move between them is Lenis's: the wheel
+     scrolls the window with the same inertia the stages have, so a flick
+     coasts, and when it comes to rest the band is drawn the rest of the
+     way to whichever place is nearer, over a second, on Lenis's own curve
+     — the band unfolding from the bottom edge, or folding back, rather
+     than the browser's cut to it. Torn down the moment a crossing starts,
+     so a flick still settling cannot move a page that is on its way out.
+     A phone, and a reader who asked for less motion, keep the browser's
+     own snap (the rule is on the root element, which no markup of this
+     page can reach, so it is put on for as long as the page is); every
+     tier hides the scrollbar the same way. */
+  const isPhone = useIsPhone();
   useEffect(() => {
-    document.documentElement.classList.add("lp-snap");
-    return () => document.documentElement.classList.remove("lp-snap");
-  }, []);
+    const root = document.documentElement;
+    root.classList.add("lp-landing");
+    if (isPhone || reducedMotion()) {
+      root.classList.add("lp-snap");
+      return () => root.classList.remove("lp-landing", "lp-snap");
+    }
+    const smooth = new Lenis({
+      lerp: 0.1,
+      smoothWheel: true,
+      syncTouch: false,
+      autoRaf: false,
+    });
+    const tick = (time) => smooth.raf(time * 1000);
+    gsap.ticker.add(tick);
+    const snap = new Snap(smooth, { type: "mandatory", duration: 1, debounce: 120 });
+    snap.add(0);
+    const slot = document.querySelector(".lp-footer-slot");
+    if (slot) snap.addElement(slot, { align: "end" });
+    const crossing = new MutationObserver(() => {
+      if ("crossing" in root.dataset) teardown();
+    });
+    crossing.observe(root, { attributes: true, attributeFilter: ["data-crossing"] });
+    let down = false;
+    const teardown = () => {
+      if (down) return;
+      down = true;
+      crossing.disconnect();
+      snap.destroy();
+      gsap.ticker.remove(tick);
+      smooth.destroy();
+      root.classList.remove("lp-landing");
+    };
+    return teardown;
+  }, [isPhone]);
 
   return (
     /* One element for the whole page, the hero screen and the band under

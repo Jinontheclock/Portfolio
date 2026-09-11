@@ -297,7 +297,10 @@ body {
    with the browser animating the rest of the way. One notch of a wheel is
    past the midpoint, so one notch opens it and one closes it; a smaller
    nudge is drawn back where it came from. The class is put on the root by
-   LandingPage for as long as the page is there, and no other page has it.
+   LandingPage for as long as the page is there — on a phone, and for a
+   reader who asked for less motion; off the phone Lenis scrolls the
+   window and draws the move itself (see LandingPage.jsx) — and no other
+   page has it.
 
    Not while a crossing is running. For that second the landing is either
    arriving, and the window is being put where it belongs, or leaving, in
@@ -315,10 +318,10 @@ html.lp-snap:not([data-crossing]) {
    itself is untouched: the wheel, a touch and the keys still open and
    close the band, and the snap still finishes the move. Both spellings,
    for the engines that know only one. */
-html.lp-snap {
+html.lp-landing {
   scrollbar-width: none;
 }
-html.lp-snap::-webkit-scrollbar {
+html.lp-landing::-webkit-scrollbar {
   display: none;
 }
 .lp-root {
