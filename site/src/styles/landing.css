@@ -491,13 +491,23 @@ button.lp-footer-lang:focus-visible,
     width: 100%;
     gap: 24px;
   }
+  /* the foot stacks, everything at the left edge: the three languages
+     in a row with a word's space between them rather than spread over
+     the desktop's 240px, and the copyright under them, on two lines at
+     the band's own size */
   .lp-footer-bottom {
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 12px;
   }
+  .lp-footer-langs {
+    width: auto;
+    justify-content: flex-start;
+    gap: 20px;
+  }
   .lp-footer-copy {
-    align-self: flex-end;
+    align-self: flex-start;
+    text-align: left;
     white-space: normal;
   }
 }
