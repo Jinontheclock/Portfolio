@@ -484,6 +484,16 @@ button.lp-footer-lang:focus-visible,
   .lp-footer-slot {
     --lp-footer-h: 288px;
   }
+  /* On a phone the drawing's H would sit 9px from the edge, too close to
+     hang the footer's column off; so the drawing moves instead, right by
+     the difference, and its H stands on the page margin with the header
+     and the footer. Its far end has room — the ink ends 127 units short
+     of the box's 1400, so at 390 wide it still closes 24px inside the
+     screen — and what the shift pushes past the edge is the box's empty
+     right, which the hero clips. */
+  .lp-heading-mark {
+    margin-left: calc(var(--page-margin) - 100vw * 31.73 / 1400);
+  }
   .lp-footer {
     padding: 16px var(--page-margin);
   }
