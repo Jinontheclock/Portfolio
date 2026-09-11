@@ -31,28 +31,8 @@
   padding: 0 var(--page-margin);
 }
 
-/* Name on the left, the sentence it introduces on its right, the two
-   sharing a bottom edge. `last baseline` aligns the last line of each —
-   the name's only line against the sentence's closing one — which is what
-   reads as level; box-bottom alignment would leave the two sitting on
-   different amounts of descender space. */
-/* The name, and under it the sentence that answers it. The two used to
-   share a line in a column half the screen wide; in the two-fifths the
-   text has now the sentence would stand three or four lines tall beside
-   the name, so they are stacked, on every tier, as the phone always had
-   them. */
-.ab-lede {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  /* stacked the two read as one unit, so they sit closer than they
-     stand apart */
-  gap: 8px;
-  /* the air the hero sentence used to carry below itself */
-  margin-bottom: 20px;
-}
-
-/* Opens the text column — the grid places the column, not the name. */
+/* The name, under the photograph at the left, with the sentence that
+   answers it beside it at the right (see .ab-about below). */
 .ab-title {
   flex: none;
   margin: 0;
@@ -181,15 +161,58 @@
 .ab-section > * {
   grid-column: 2;
 }
-/* About: the photograph in the track to the left of the text, the two
-   starting on the same line, and the text keeping the column's own
-   rhythm — the 20px between the name and the paragraphs */
+/* ── About, in two blocks ──
+   The first is the photograph across both tracks, and under it a row of
+   two: the name in the track to the left, the sentence that answers it
+   in the text's track, the two starting on the same line. The row is
+   what the photograph has to leave room for on the stage — three lines
+   of body copy, which is what the sentence runs to in the text's track
+   on most screens, and the 24px above them — so the photograph's height
+   is capped at what is left of the stage after the row (see the stage
+   below for where the block stands), and cropped to the cap through its
+   middle when it would stand taller; on the 14" that keeps some 95% of
+   it. Where the column is narrower than the photograph is tall, the cap
+   never bites and the whole of it shows. */
+.ab-about {
+  --ab-lede-room: calc(24px + var(--size-body) * 1.6 * 3);
+  row-gap: 24px;
+}
+.ab-about > * {
+  align-self: start;
+}
 .ab-about > .ab-portrait {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  max-height: calc(
+    100dvh - var(--header-h) * 3 - var(--footer-h) * 3 - var(--ab-lede-room)
+  );
+  object-fit: cover;
+  object-position: center;
+}
+.ab-about > .ab-title {
+  grid-column: 1;
+  grid-row: 2;
+}
+.ab-about > .ab-hero {
+  grid-column: 2;
+  grid-row: 2;
+}
+/* The second: the other photograph in the track to the left of the
+   prose, standing as tall as the stage has room for and no wider than
+   that makes it — its own proportions, never cropped — and the prose
+   beside it keeping the column's own rhythm, 20px from paragraph to
+   paragraph. */
+.ab-about-more > .ab-mobile {
   grid-column: 1;
   grid-row: 1;
   align-self: start;
+  justify-self: start;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - var(--index-line) - var(--footer-h) * 3);
 }
-.ab-about > .ab-about-text {
+.ab-about-more > .ab-about-text {
   grid-column: 2;
   grid-row: 1;
   display: flex;
@@ -234,12 +257,26 @@
   visibility: hidden;
   opacity: 0;
 }
+/* The opening block stands higher than the line the others stand on:
+   the photograph is the tallest thing on the page, and from the line it
+   would have to be cut to a strip to fit above the foot. Lifted to
+   where the header's fade ends — three times the header's height, see
+   the mask in components.css — it has the whole of the clear stage, and
+   the row under it closes on the foot. The page reads the margin back
+   off the block when it measures how far each block overflows. Only
+   where the column is wide enough for the photograph to need the room:
+   on a tablet it is a quarter of the screen tall and stands on the
+   line with the rest. */
+@media (min-width: 1081px) {
+  .page-screen .ab-about {
+    margin-top: calc(-1 * max(0px, var(--index-line) - var(--header-h) * 3));
+  }
+}
 
-/* The photograph, beside the text it introduces (above it where the
-   column is too narrow for both). No frame, no radius and no caption.
-   The intrinsic size is on the element so nothing reflows when the file
-   lands. */
-.ab-portrait {
+/* The photographs. No frame, no radius and no caption. The intrinsic
+   size is on the element so nothing reflows when the file lands. */
+.ab-portrait,
+.ab-mobile {
   display: block;
   width: 100%;
   height: auto;
@@ -271,16 +308,6 @@
   color: var(--text-primary);
 }
 
-/* The sentence under the name. The copy carries a newline after its
-   opening clause from the days it stood on one line beside the name; in
-   the column it has now it flows instead, and settles on lines of nearly
-   equal length rather than a full one and a short one — the browser
-   evens the ragged edge itself. */
-.ab-hero {
-  white-space: normal;
-  text-wrap: balance;
-}
-
 /* A section break has to out-measure the rhythm inside the sections or it
    stops reading as a break: entries sit 64px apart and skill groups 48px,
    and the old 40px margin left only 60px between sections once the
@@ -297,6 +324,11 @@
    the column itself used to set */
 .ab-about {
   margin-top: 0;
+}
+/* the second About block is a turn of the page rather than a new
+   chapter: closer to the first than the sections are to each other */
+.ab-about-more {
+  margin-top: 48px;
 }
 
 .ab-section-label {
@@ -404,8 +436,9 @@
 
 /* ── Tablet: reclaim some of the empty middle ──
    Seven columns to the right of the list, all of them the text's; the
-   photograph goes above About's text, the column being too narrow to
-   hold the two side by side */
+   two About blocks stack, the column being too narrow to hold a
+   photograph beside text: the photograph, the name, the sentence; the
+   other photograph, the prose */
 @media (max-width: 1080px) {
   .ab-content {
     grid-column: 6 / 13;
@@ -414,18 +447,31 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .ab-section > *,
-  .ab-about > .ab-portrait,
-  .ab-about > .ab-about-text {
+  .ab-about > .ab-hero,
+  .ab-about-more > .ab-about-text {
     grid-column: 1;
   }
-  .ab-about > .ab-portrait {
-    grid-row: 1;
+  .ab-about > .ab-hero {
+    grid-row: 3;
   }
-  .ab-about > .ab-about-text {
+  .ab-about-more > .ab-about-text {
     grid-row: 2;
   }
+  /* stacked, the name and the sentence read as one unit and sit 8px
+     apart; the photograph stands its 24px above them */
   .ab-about {
+    row-gap: 8px;
+  }
+  .ab-about > .ab-title {
+    margin-top: 16px;
+  }
+  .ab-about-more {
     row-gap: 24px;
+  }
+  /* the tall photograph at a little over half the screen, so the prose
+     under it is not a screen away */
+  .ab-about-more > .ab-mobile {
+    max-height: 55dvh;
   }
   .ab-rail {
     display: flex;
@@ -441,16 +487,6 @@
 @media (max-width: 600px) {
   .ab-main {
     padding: 64px 0 220px;
-  }
-  /* The opening sentence fills the column like the paragraphs under it.
-     Balancing evens the lines by shortening all of them, which on a wide
-     row is what stops a lone word hanging off the end — but in a phone's
-     column it left the sentence using two thirds of the width it had while
-     the body copy beside it ran to the margin. Measured at 402px: 272 /
-     285 / 233 of a 362px column, against the body's 300 / 309 / 327 / 349.
-     There is no max-width in play; this was the whole of it. */
-  .ab-hero {
-    text-wrap: wrap;
   }
   .ab-grid {
     padding: 0 var(--page-margin);
@@ -477,13 +513,17 @@
     display: none;
   }
   /* a section is a stack again: the photograph, then the name, then the
-     rest, each the width of the screen */
+     rest, each the width of the screen — the name and the sentence 8px
+     apart under the photograph's 24 (the name's margin, set above) */
   .ab-section {
     display: flex;
     flex-direction: column;
     gap: 16px;
   }
   .ab-about {
+    gap: 8px;
+  }
+  .ab-about-more {
     gap: 24px;
   }
   /* the five icons in a row above the column, at the right edge, where

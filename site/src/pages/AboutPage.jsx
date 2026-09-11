@@ -7,6 +7,7 @@ import useScrollFade from "../lib/scroll-fade.js";
 import useStage from "../lib/stage.js";
 import { PAGE_TITLE } from "../i18n.js";
 import portrait from "../assets/about-portrait.webp";
+import mobile from "../assets/about-mobile.webp";
 import Links, { MAILTO } from "../components/SiteLinks.jsx";
 
 /* Name and its H/이/イ left-side-bearing compensation, per language */
@@ -19,6 +20,12 @@ const PORTRAIT_ALT = {
   en: "Hajin leaning against the rail of a gallery wall, in front of three black-and-white architectural prints: the Bauhaus building at Dessau with its name running down the facade, Frank Lloyd Wright's Fallingwater cantilevered over its waterfall, and Moshe Safdie's Habitat 67 stacked in concrete.",
   ko: "갤러리 벽의 난간에 기대선 하진. 뒤로는 흑백 건축 사진 세 점이 걸려 있다. 파사드에 이름이 세로로 적힌 데사우 바우하우스, 폭포 위로 캔틸레버가 뻗은 프랭크 로이드 라이트의 낙수장, 콘크리트가 층층이 쌓인 모셰 사프디의 해비타트 67.",
   ja: "ギャラリーの壁の手すりに寄りかかるハジン。背後には白黒の建築写真が三点。ファサードに名前が縦に入ったデッサウのバウハウス、滝の上に張り出したフランク・ロイド・ライトの落水荘、コンクリートが積み上がったモシェ・サフディのハビタット67。",
+};
+
+/* The second photograph, beside the prose. Hajin is the small figure in
+   it; the mobile is the point. */
+const MOBILE_ALT = {
+  en: "Hajin standing small at the foot of a tall gallery wall under a hanging mobile: black metal leaves and petals strung down a single wire from the ceiling, and across the floor in front, a dark sculpture ridged like a ploughed field.",
 };
 
 /* Hero sentence + body paragraphs per language. A paragraph is a string, or
@@ -348,29 +355,41 @@ const SKILLS = {
   ],
 };
 
-/* The four parts of the page the list beside the column names — English
-   in every language. About is the photograph, the name and the prose,
-   which the page opens on; the other three carry their name as a heading
-   on a phone, where there is no list. */
-const SECTIONS = [
+/* The blocks the stage shows one at a time, and the entry in the list
+   each one stands under — English in every language. About is two
+   blocks under one entry: the photograph with the name and the line that
+   answers it, then the second photograph beside the prose; the wheel
+   turns from the one to the other, and the entry stays lit through both.
+   The other three are a block each, and carry their name as a heading on
+   a phone, where there is no list. */
+const BLOCKS = [
+  { id: "about", entry: "about" },
+  { id: "about-more", entry: "about" },
+  { id: "experience", entry: "experience" },
+  { id: "education", entry: "education" },
+  { id: "skills", entry: "skills" },
+];
+const ENTRIES = [
   { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
   { id: "skills", label: "Skills" },
 ];
+/* the block an entry brings up: the first of its own */
+const firstBlockOf = (entry) => BLOCKS.findIndex((b) => b.entry === entry);
 
 /* What fades, and what it fades with, on a phone, where the page is a
    page. Five things, each one something a reader arrives at whole: the
-   photograph with the name and the line that answers it, then the prose,
-   then each section under its own heading.
+   photograph with the name and the line that answers it, then the second
+   photograph with the prose, then each section under its own heading.
 
    Paragraph by paragraph was the first cut and it read as chatter — four
    separate arrivals inside one continuous thought, and a heading that came
    in on its own before the thing it was heading. */
 const SCROLL_FADE = [
-  [".ab-portrait", ".ab-lede"], // the photograph, the name, the opening line
-  [".ab-about-text > .ab-paragraph"], // the prose, in one piece
-  ".ab-section:not(.ab-about)", // Experience, Education and Skills, each whole
+  [".ab-about > *"], // the photograph, the name, the opening line
+  [".ab-about-more > *"], // the second photograph and the prose, in one piece
+  ".ab-section:not(.ab-about):not(.ab-about-more)", // Experience, Education and Skills, each whole
 ];
 /* off the phone the column is a stage (see below), and the fade has no say */
 const NO_FADE = [];
@@ -442,7 +461,7 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
   const screen = !isPhone;
   useScrollFade(contentRef, screen ? NO_FADE : SCROLL_FADE, [lang, screen]);
   const { current, jumpTo, steps } = useStage({
-    count: SECTIONS.length,
+    count: BLOCKS.length,
     boxRef: scrollRef,
     trackRef,
     blocks: () => [...(contentRef.current?.querySelectorAll(".ab-section") ?? [])],
@@ -451,18 +470,22 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
        the copyright and the fade above it, three times the footer's
        height (see the mask in components.css), read off the footer's
        token rather than a calc() of it — a custom property that is a
-       calc() comes back from getComputedStyle as the calc, unresolved. */
+       calc() comes back from getComputedStyle as the calc, unresolved.
+       A section lifted above the line by a margin of its own — the
+       opening one, see about.css — has that much more room. */
     overflowOf: (section) => {
       const stage = contentRef.current;
       if (!stage) return 0;
       const top = parseFloat(getComputedStyle(stage).paddingTop) || 0;
+      const lift = -(parseFloat(getComputedStyle(section).marginTop) || 0);
       const footer = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--footer-h")) || 0;
-      return section.offsetHeight - (stage.clientHeight - top - footer * 3);
+      return section.offsetHeight - (stage.clientHeight - top + lift - footer * 3);
     },
     deps: [lang],
   });
 
   const about = ABOUT[lang] || ABOUT.en;
+  const onStage = current === null ? null : BLOCKS[current].entry;
   const withDesc = (list) =>
     list.map((e) => ({
       ...e,
@@ -487,17 +510,17 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
           {/* the left column, stuck to the screen: the list, and under it
               the links where the header has no room for them */}
           <div className="ab-left">
-            {/* the list: Experience, Education and Skills, the one being
-                read set large and in ink, each a button that brings its
-                section up to the line */}
+            {/* the list: About, Experience, Education and Skills, the one
+                being read set large and in ink, each a button that brings
+                its first block up to the line */}
             <nav className="ab-index" aria-label="Sections">
-              {SECTIONS.map((s, i) => (
+              {ENTRIES.map((s) => (
                 <button
                   key={s.id}
                   type="button"
-                  className={"ab-index-item" + (current === i ? " is-current" : "")}
-                  aria-current={current === i ? "true" : undefined}
-                  onClick={() => jumpTo(i)}
+                  className={"ab-index-item" + (onStage === s.id ? " is-current" : "")}
+                  aria-current={onStage === s.id ? "true" : undefined}
+                  onClick={() => jumpTo(firstBlockOf(s.id))}
                 >
                   {s.label}
                 </button>
@@ -512,15 +535,16 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
           </div>
 
           <div className="ab-content" ref={contentRef}>
-            {/* About: the photograph beside the name and the prose, one
-                section like the three under it, so the list can name it
-                and the stage can hold it — and take it off with the rest
-                of About when the next section comes up */}
+            {/* About, in two blocks the stage shows one after the other,
+                both under the one entry in the list. First the photograph
+                across the whole column, and under it the name at the left
+                and the sentence that answers it at the right; then the
+                second photograph, in the track to the left of the prose.
+                Sections like the three under them, so the stage can hold
+                each and take it off when the next comes up. */}
             <section id="ab-about" className="ab-section ab-about">
-              {/* the photograph, to the left of the text: the first thing on
-                  the page worth loading — no lazy attribute, or it arrives
-                  late. Above the text where the column is too narrow to
-                  hold both (see about.css). */}
+              {/* the photograph: the first thing on the page worth loading
+                  — no lazy attribute, or it arrives late */}
               <img
                 className="ab-portrait"
                 src={portrait}
@@ -529,46 +553,60 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
                 height="1083"
                 decoding="async"
               />
+              {/* the name, and beside it the sentence that answers it */}
+              <h1
+                className="ab-title"
+                style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
+              >
+                {NAME[lang] || NAME.en}
+              </h1>
+              <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
+            </section>
+
+            <section id="ab-about-more" className="ab-section ab-about-more">
+              {/* the second photograph, standing tall at the left of the
+                  prose (above it where the column is too narrow for both,
+                  see about.css). It is on the second block, so it can wait
+                  for the first to paint. */}
+              <img
+                className="ab-mobile"
+                src={mobile}
+                alt={MOBILE_ALT[lang] || MOBILE_ALT.en}
+                width="900"
+                height="1834"
+                loading="lazy"
+                decoding="async"
+              />
               <div className="ab-about-text">
-                {/* the name, and under it the sentence that answers it */}
-                <div className="ab-lede">
-                  <h1
-                    className="ab-title"
-                    style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
-                  >
-                    {NAME[lang] || NAME.en}
-                  </h1>
-                  <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
-              </div>
-              {about.body.map((para, i) => (
-                <p key={i} className="ab-paragraph">
-                  {typeof para === "string"
-                    ? noOrphan(para)
-                    : noOrphanSegments(para).map((seg, j) =>
-                        typeof seg === "string" ? (
-                          seg
-                        ) : (
-                          /* mailto: hands off to the reader's own mail client,
-                             so it must stay in place — a new tab would be left
-                             blank behind the compose window */
-                          <a
-                            key={j}
-                            href={seg.href}
-                            target={
-                              seg.href.startsWith("http") ? "_blank" : undefined
-                            }
-                            rel={
-                              seg.href.startsWith("http")
-                                ? "noreferrer"
-                                : undefined
-                            }
-                          >
-                            {seg.text}
-                          </a>
-                        ),
-                      )}
-                </p>
-              ))}
+                {about.body.map((para, i) => (
+                  <p key={i} className="ab-paragraph">
+                    {typeof para === "string"
+                      ? noOrphan(para)
+                      : noOrphanSegments(para).map((seg, j) =>
+                          typeof seg === "string" ? (
+                            seg
+                          ) : (
+                            /* mailto: hands off to the reader's own mail client,
+                               so it must stay in place — a new tab would be left
+                               blank behind the compose window */
+                            <a
+                              key={j}
+                              href={seg.href}
+                              target={
+                                seg.href.startsWith("http") ? "_blank" : undefined
+                              }
+                              rel={
+                                seg.href.startsWith("http")
+                                  ? "noreferrer"
+                                  : undefined
+                              }
+                            >
+                              {seg.text}
+                            </a>
+                          ),
+                        )}
+                  </p>
+                ))}
               </div>
             </section>
 

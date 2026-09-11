@@ -164,7 +164,10 @@ export default function useStage({
       const overflows = [];
       let at = 0;
       all.forEach((b) => {
-        const over = Math.max(0, hooks.current.overflowOf(b));
+        /* to the pixel: a block whose foot lands a third of a pixel past
+           the stage's — a box sized by a calc() against one sized by
+           another — fits, and gets no step for it */
+        const over = Math.max(0, Math.round(hooks.current.overflowOf(b)));
         starts.push(at);
         overflows.push(over);
         at += 1 + Math.ceil(over / step());
