@@ -100,25 +100,31 @@ body {
   width: 100%;
   height: auto;
 }
-/* The drawing's foot thins out as the band unfolds under it. --lp-lift is
-   how far the band is open, 0 to 1, written by LandingPage.jsx as the
-   page scrolls; at 0 the mask is solid to the last pixel and the drawing
-   is whole, and at 1 its lower two fifths run from solid to nothing, so
-   the letters dissolve toward the footer's texts rather than standing on
-   a hard edge above them. On the box, not the letters, so the gradient
-   is one line across the whole word. */
-.lp-heading-mark {
+/* ── The fade under the heading ──
+   As the band unfolds, its texts come up through a gradient that hangs
+   from the foot of the heading's g — the lowest ink in the drawing, 6.07
+   units above its box's 1400-unit foot — in the page's colour fading to
+   nothing, so they surface under the heading rather than appear from
+   behind a hard edge. --lp-lift is how far the band is open, 0 to 1,
+   written on the page by LandingPage.jsx as it scrolls, and the gradient
+   is 120px tall at the start of the move and shortens to nothing by the
+   end of it, so the texts stand clear once the band is open. The heading
+   itself is left whole. Above the band (which is set later and sticky),
+   below the header. */
+.lp-root {
+  position: relative;
   --lp-lift: 0;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 calc(100% - var(--lp-lift) * 40%),
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    #000 calc(100% - var(--lp-lift) * 40%),
-    transparent 100%
-  );
+}
+.lp-root::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% - 100vw * 6.07 / 1400);
+  height: calc(120px * (1 - var(--lp-lift)));
+  background: linear-gradient(to bottom, var(--bg), transparent);
+  pointer-events: none;
+  z-index: 1;
 }
 .lp-heading-mark svg {
   fill: currentColor;
