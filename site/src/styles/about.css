@@ -148,6 +148,9 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  /* how far the two About blocks stand above the line on the stage —
+     none, until the stage says otherwise (see below) */
+  --ab-lift: 0px;
 }
 .ab-section {
   --ab-text: 45vw;
@@ -162,19 +165,25 @@
   grid-column: 2;
 }
 /* ── About, in two blocks ──
-   The first is the photograph across both tracks, and under it a row of
-   two: the name in the track to the left, the sentence that answers it
-   in the text's track, the two starting on the same line. The row is
-   what the photograph has to leave room for on the stage — three lines
-   of body copy, which is what the sentence runs to in the text's track
-   on most screens, and the 24px above them — so the photograph's height
-   is capped at what is left of the stage after the row (see the stage
-   below for where the block stands), and cropped to the cap through its
-   middle when it would stand taller; on the 14" that keeps some 95% of
-   it. Where the column is narrower than the photograph is tall, the cap
-   never bites and the whole of it shows. */
+   The first is the photograph across the column, and under it a row of
+   two: the name at the left, as wide as it is, and the sentence that
+   answers it closing on the right edge, the two starting on the same
+   line. The sentence is two lines, always, off the phone: its own
+   break after the opening clause, and none other — it is set not to
+   wrap, and sized down a touch on the widths where its long line
+   would not otherwise fit beside the name (see the tiers below). The
+   row is what the photograph has to leave room for on the stage — the
+   taller of the name and the two lines, and the 24px above them — so
+   the photograph's height is capped at what is left of the stage after
+   the row (see the stage below for where the block stands), and cropped
+   to the cap through its middle when it would stand taller; on the 14"
+   that keeps some 95% of it. Where the column is narrower than the
+   photograph is tall, the cap never bites and the whole of it shows. */
 .ab-about {
-  --ab-lede-room: calc(24px + var(--size-body) * 1.6 * 3);
+  --ab-lede-room: calc(
+    24px + max(var(--size-about-title) * 1.2, var(--size-body) * 1.6 * 2)
+  );
+  grid-template-columns: max-content minmax(0, 1fr);
   row-gap: 24px;
 }
 .ab-about > * {
@@ -184,7 +193,8 @@
   grid-column: 1 / -1;
   grid-row: 1;
   max-height: calc(
-    100dvh - var(--header-h) * 3 - var(--footer-h) * 3 - var(--ab-lede-room)
+    100dvh - var(--index-line) + var(--ab-lift) - var(--footer-h) * 3 -
+      var(--ab-lede-room)
   );
   object-fit: cover;
   object-position: center;
@@ -196,21 +206,28 @@
 .ab-about > .ab-hero {
   grid-column: 2;
   grid-row: 2;
+  justify-self: end;
+  max-width: none;
+  white-space: pre;
 }
-/* The second: the other photograph in the track to the left of the
-   prose, standing as tall as the stage has room for and no wider than
-   that makes it — its own proportions, never cropped — and the prose
-   beside it keeping the column's own rhythm, 20px from paragraph to
-   paragraph. */
+/* The second: the other photograph against the prose, at the right
+   edge of the track to its left, standing from the top of the stage to
+   its foot and no wider than that makes it — its own proportions, never
+   cropped — with the prose beside it on the line, keeping the column's
+   own rhythm, 20px from paragraph to paragraph. In black and white,
+   like the first: the file is in colour. */
 .ab-about-more > .ab-mobile {
   grid-column: 1;
   grid-row: 1;
   align-self: start;
-  justify-self: start;
+  justify-self: end;
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: calc(100dvh - var(--index-line) - var(--footer-h) * 3);
+  max-height: calc(
+    100dvh - var(--index-line) + var(--ab-lift) - var(--footer-h) * 3
+  );
+  filter: grayscale(1);
 }
 .ab-about-more > .ab-about-text {
   grid-column: 2;
@@ -218,6 +235,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  /* back down to the line, when the block is lifted above it */
+  margin-top: var(--ab-lift);
 }
 /* ── The stage ──
    Off the phone the column is a stage (see lib/stage.js): every section
@@ -257,19 +276,25 @@
   visibility: hidden;
   opacity: 0;
 }
-/* The opening block stands higher than the line the others stand on:
-   the photograph is the tallest thing on the page, and from the line it
-   would have to be cut to a strip to fit above the foot. Lifted to
-   where the header's fade ends — three times the header's height, see
-   the mask in components.css — it has the whole of the clear stage, and
-   the row under it closes on the foot. The page reads the margin back
-   off the block when it measures how far each block overflows. Only
-   where the column is wide enough for the photograph to need the room:
-   on a tablet it is a quarter of the screen tall and stands on the
-   line with the rest. */
+/* The two About blocks stand higher than the line the others stand on:
+   the photographs are the tallest things on the page, and from the line
+   the first would have to be cut to a strip to fit above the foot, and
+   the second would stand no taller than the prose. Lifted to where the
+   header's fade ends — three times the header's height, see the mask in
+   components.css — each has the whole of the clear stage, and closes on
+   the foot: the first with the row under its photograph, the second
+   with the photograph itself, the prose beside it put back down on the
+   line. The page reads the margin back off a block when it measures how
+   far it overflows. Only where the column is wide enough for the
+   photographs to need the room: on a tablet they stand on the line with
+   the rest. */
 @media (min-width: 1081px) {
-  .page-screen .ab-about {
-    margin-top: calc(-1 * max(0px, var(--index-line) - var(--header-h) * 3));
+  .page-screen .ab-content {
+    --ab-lift: max(0px, var(--index-line) - var(--header-h) * 3);
+  }
+  .page-screen .ab-about,
+  .page-screen .ab-about-more {
+    margin-top: calc(-1 * var(--ab-lift));
   }
 }
 
@@ -451,15 +476,26 @@
   .ab-about-more > .ab-about-text {
     grid-column: 1;
   }
+  /* The sentence's long line is some 700px at the body's size, and the
+     column here is 450 on an iPad, so its two lines are the screen's
+     and up: on a tablet it keeps its own break and wraps the rest in
+     the column, the way it does on a phone. It cannot break out of the
+     column — the stage clips at the column's edges, see above. */
   .ab-about > .ab-hero {
     grid-row: 3;
+    justify-self: start;
+    white-space: pre-line;
   }
   .ab-about-more > .ab-about-text {
     grid-row: 2;
   }
+  .ab-about-more > .ab-mobile {
+    justify-self: start;
+  }
   /* stacked, the name and the sentence read as one unit and sit 8px
      apart; the photograph stands its 24px above them */
   .ab-about {
+    grid-template-columns: minmax(0, 1fr);
     row-gap: 8px;
   }
   .ab-about > .ab-title {
