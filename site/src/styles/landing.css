@@ -407,17 +407,19 @@ html.lp-snap::-webkit-scrollbar {
   align-items: flex-start;
   gap: 8px;
 }
-/* set as the page's ink, like the words around them; a pointer takes
-   them a step lighter, since there is no darker ink to take them to */
+/* set as the page's ink, like the words around them, and kept in it
+   under a pointer: what answers the hover is the weight, a step up to
+   medium, since there is no darker ink to take the word to and a
+   lighter one read as the word fading out under the cursor's box */
 .lp-footer-link {
   color: inherit;
   text-decoration: none;
   cursor: pointer;
-  transition: color var(--duration-fast) var(--easing);
 }
 .lp-footer-link:hover,
 .lp-footer-link:focus-visible {
-  color: var(--text-muted);
+  color: var(--text-primary);
+  font-weight: 500;
 }
 /* the foot: the languages at the left edge, the copyright at the right */
 .lp-footer-bottom {
@@ -443,6 +445,10 @@ html.lp-snap::-webkit-scrollbar {
 button.lp-footer-lang {
   cursor: pointer;
 }
+button.lp-footer-lang:not(.is-current):hover,
+button.lp-footer-lang:not(.is-current):focus-visible {
+  font-weight: 500;
+}
 .lp-footer-lang.is-current {
   font-weight: 700;
 }
@@ -464,13 +470,11 @@ button.lp-footer-lang {
     pointer-events: auto;
   }
   /* The band on a phone: the same two blocks, the foot stacked — the
-     languages, then the copyright at the right edge — and the whole a
-     little shorter, on the phone's smaller type. The copyright line at
-     that type is wider than the screen, so under this width it scales
-     with the room instead of breaking: 3.2% of the band's inner width is
-     11.2px at 350 of room. */
+     languages, then the copyright at the right edge, on two lines at the
+     band's own size rather than shrunk to fit one. The band is taller by
+     that line. */
   .lp-footer-slot {
-    --lp-footer-h: 264px;
+    --lp-footer-h: 288px;
   }
   .lp-footer {
     padding: 16px var(--page-margin);
@@ -486,9 +490,6 @@ button.lp-footer-lang {
   }
   .lp-footer-copy {
     align-self: flex-end;
-    font-size: min(var(--size-header-nav), 3.1cqi);
-    /* the band's 0.21px tracking is fourteen pixels over sixty-seven
-       characters, which is the difference between fitting and not */
-    letter-spacing: 0;
+    white-space: normal;
   }
 }
