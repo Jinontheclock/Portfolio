@@ -204,11 +204,18 @@
   grid-column: 1;
   grid-row: 2;
 }
-.ab-about > .ab-hero {
+.ab-about > .ab-lede {
   grid-column: 2;
   grid-row: 2;
-  justify-self: end;
+  min-width: 0;
+}
+/* as wide as its lines, and against the right edge of its box. Named
+   with the block, to outrank the paragraph rule below, which would
+   otherwise wrap it and cap its measure. */
+.ab-about .ab-hero {
+  width: max-content;
   max-width: none;
+  margin-left: auto;
   white-space: pre;
 }
 /* The second: the other photograph against the prose, at the right
@@ -317,6 +324,22 @@
   .page-screen .ab-about > .ab-portrait {
     width: min(var(--ab-column), var(--ab-portrait-h) * 2000 / 1083);
     max-width: none;
+  }
+  /* The sentence closes on the photograph's right edge. Its box is what
+     is left of the row past the name and the gutter — a container the
+     sentence is sized by rather than one it sizes, or the block would
+     have to be as wide as the name and the sentence together, past the
+     photograph — and the sentence is set at the body's size where that
+     fits the box, and smaller where the photograph has come in narrower
+     than that, down to 12px, past which it runs out of the photograph's
+     edge rather than out of reading size. Its long line is 45.5 times
+     its size wide; the 46.5 keeps it a little inside the box, and the
+     margin puts it on the edge. */
+  .page-screen .ab-about > .ab-lede {
+    container-type: inline-size;
+  }
+  .page-screen .ab-about .ab-hero {
+    font-size: clamp(12px, 100cqi / 46.5, var(--size-body));
   }
 }
 
@@ -494,7 +517,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .ab-section > *,
-  .ab-about > .ab-hero,
+  .ab-about > .ab-lede,
   .ab-about-more > .ab-about-text {
     grid-column: 1;
   }
@@ -503,9 +526,12 @@
      and up: on a tablet it keeps its own break and wraps the rest in
      the column, the way it does on a phone. It cannot break out of the
      column — the stage clips at the column's edges, see above. */
-  .ab-about > .ab-hero {
+  .ab-about > .ab-lede {
     grid-row: 3;
-    justify-self: start;
+  }
+  .ab-about .ab-hero {
+    width: auto;
+    margin-left: 0;
     white-space: pre-line;
   }
   .ab-about-more > .ab-about-text {

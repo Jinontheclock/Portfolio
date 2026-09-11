@@ -553,14 +553,18 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
                 height="1083"
                 decoding="async"
               />
-              {/* the name, and beside it the sentence that answers it */}
+              {/* the name, and beside it the sentence that answers it, in a
+                  box of its own: the box is what sizes the sentence to the
+                  photograph's edge (see about.css) */}
               <h1
                 className="ab-title"
                 style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
               >
                 {NAME[lang] || NAME.en}
               </h1>
-              <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
+              <div className="ab-lede">
+                <p className="ab-paragraph ab-hero">{noOrphan(about.hero)}</p>
+              </div>
             </section>
 
             <section id="ab-about-more" className="ab-section ab-about-more">
