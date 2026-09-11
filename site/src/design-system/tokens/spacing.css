@@ -11,7 +11,11 @@
   --space-8: 96px;
 
   /* Layout */
-  --page-margin: 24px;        /* lo-fi desktop gutter (landing hero uses 20px) */
+  /* the page margin is the line the landing's H stands on — see --ink-left
+     in styles/breakpoints.css: a fraction of the screen's width, 34.3px at
+     1512 — so the header, every column and the footers share one line
+     with the drawing. A phone sets its own 16px in styles/components.css. */
+  --page-margin: var(--ink-left);
   --page-margin-tight: 20px;
 
   /* Radii — everything is square except pills */

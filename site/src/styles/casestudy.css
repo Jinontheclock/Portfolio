@@ -812,10 +812,8 @@
   /* The strip begins where every other block on the page begins — the left
      edge of this column — and only the far end leaves it, running off the
      right of the screen so what is out of sight is reached by scrolling
-     rather than hidden. The bleed is the page's own side margin negated;
-     no `vw` is involved, so the scrollbar cannot tip the page into
-     scrolling sideways. */
-  --page-margin: 24px;
+     rather than hidden. The bleed is the page's own side margin negated,
+     the same token the page sets, on every tier. */
   margin-right: calc(-1 * var(--page-margin));
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -832,7 +830,7 @@
   width: max-content;
   /* flush with the column on the near side; the page's own margin on the
      far one, so the last frame has somewhere to rest */
-  padding: 0 24px 0 0;
+  padding: 0 var(--page-margin) 0 0;
 }
 /* The width is stated twice on purpose. `flex-basis` is what lays the frame
    out, and `width` is what the track's `max-content` is allowed to read:
@@ -867,15 +865,6 @@
 /* the frames without one keep their tops level with those that have it */
 .cmp-lofi-cell:not(:has(.cmp-lofi-group)) {
   padding-top: 23px;
-}
-/* the page's margin narrows on phones, and the bleed with it */
-@media (max-width: 600px) {
-  .cmp-lofi-rail {
-    --page-margin: 16px;
-  }
-  .cmp-lofi-track {
-    padding-right: 20px;
-  }
 }
 .cmp-lofi-shot {
   display: flex;
