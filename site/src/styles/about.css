@@ -170,15 +170,15 @@
    answers it closing on the right edge, the two starting on the same
    line. The sentence is two lines, always, off the phone: its own
    break after the opening clause, and none other — it is set not to
-   wrap, and sized down a touch on the widths where its long line
-   would not otherwise fit beside the name (see the tiers below). The
-   row is what the photograph has to leave room for on the stage — the
-   taller of the name and the two lines, and the 24px above them — so
-   the photograph's height is capped at what is left of the stage after
-   the row (see the stage below for where the block stands), and cropped
-   to the cap through its middle when it would stand taller; on the 14"
-   that keeps some 95% of it. Where the column is narrower than the
-   photograph is tall, the cap never bites and the whole of it shows. */
+   wrap. The row is what the photograph has to leave room for on the
+   stage — the taller of the name and the two lines, and the 24px above
+   them — so the photograph's height is capped at what is left of the
+   stage after the row (see the stage below for where the block stands),
+   and it shrinks to the cap whole, never cropped: on a laptop with the
+   browser's own bar taking the top of the screen it stands narrower
+   than the column, from the column's left edge, and the block draws in
+   to its width so the row under it keeps to it (see the tiers below).
+   On the 14" full-screen it is the column wide. */
 .ab-about {
   --ab-lede-room: calc(
     24px + max(var(--size-about-title) * 1.2, var(--size-body) * 1.6 * 2)
@@ -192,12 +192,13 @@
 .ab-about > .ab-portrait {
   grid-column: 1 / -1;
   grid-row: 1;
+  width: auto;
+  max-width: 100%;
+  height: auto;
   max-height: calc(
     100dvh - var(--index-line) + var(--ab-lift) - var(--footer-h) * 3 -
       var(--ab-lede-room)
   );
-  object-fit: cover;
-  object-position: center;
 }
 .ab-about > .ab-title {
   grid-column: 1;
@@ -295,6 +296,27 @@
   .page-screen .ab-about,
   .page-screen .ab-about-more {
     margin-top: calc(-1 * var(--ab-lift));
+  }
+  /* The opening block is as wide as its photograph, or as its row
+     under it if that is wider, and no wider: the photograph's width is
+     worked out here from its height — what the stage leaves it, times
+     its own proportions — and never past the column, ten of the page's
+     twelve columns with the nine gutters between them. Written out in
+     the viewport's terms rather than as a percentage, because a block
+     that fits its content cannot size that content by a percentage of
+     itself. */
+  .page-screen .ab-about {
+    --ab-col: calc((100vw - 2 * var(--page-margin) - 11 * 30px) / 12);
+    --ab-column: calc(10 * var(--ab-col) + 9 * 30px);
+    --ab-portrait-h: calc(
+      100dvh - var(--index-line) + var(--ab-lift) - var(--footer-h) * 3 -
+        var(--ab-lede-room)
+    );
+    width: fit-content;
+  }
+  .page-screen .ab-about > .ab-portrait {
+    width: min(var(--ab-column), var(--ab-portrait-h) * 2000 / 1083);
+    max-width: none;
   }
 }
 
