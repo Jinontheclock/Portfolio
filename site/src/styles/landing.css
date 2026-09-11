@@ -100,6 +100,26 @@ body {
   width: 100%;
   height: auto;
 }
+/* The drawing's foot thins out as the band unfolds under it. --lp-lift is
+   how far the band is open, 0 to 1, written by LandingPage.jsx as the
+   page scrolls; at 0 the mask is solid to the last pixel and the drawing
+   is whole, and at 1 its lower two fifths run from solid to nothing, so
+   the letters dissolve toward the footer's texts rather than standing on
+   a hard edge above them. On the box, not the letters, so the gradient
+   is one line across the whole word. */
+.lp-heading-mark {
+  --lp-lift: 0;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 calc(100% - var(--lp-lift) * 40%),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 calc(100% - var(--lp-lift) * 40%),
+    transparent 100%
+  );
+}
 .lp-heading-mark svg {
   fill: currentColor;
 }

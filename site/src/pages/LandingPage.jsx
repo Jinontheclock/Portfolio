@@ -35,6 +35,29 @@ export default function LandingPage({ lang, setLang }) {
      own snap (the rule is on the root element, which no markup of this
      page can reach, so it is put on for as long as the page is); every
      tier hides the scrollbar the same way. */
+  /* How far the band is open, 0 to 1, written on the heading as it
+     scrolls: the heading's foot thins out by that much (see .lp-heading-
+     mark in landing.css), so the drawing dissolves toward the band as
+     the band unfolds under it, and is whole again when it folds. Read off
+     the window's own scroll, which is the scroll on every tier — Lenis
+     scrolls the window too. */
+  useEffect(() => {
+    const mark = document.querySelector(".lp-heading-mark");
+    const slot = document.querySelector(".lp-footer-slot");
+    if (!mark || !slot) return undefined;
+    const lift = () => {
+      const open = Math.max(0, Math.min(1, window.scrollY / (slot.offsetHeight || 1)));
+      mark.style.setProperty("--lp-lift", open.toFixed(4));
+    };
+    lift();
+    window.addEventListener("scroll", lift, { passive: true });
+    window.addEventListener("resize", lift);
+    return () => {
+      window.removeEventListener("scroll", lift);
+      window.removeEventListener("resize", lift);
+    };
+  }, []);
+
   const isPhone = useIsPhone();
   useEffect(() => {
     const root = document.documentElement;
