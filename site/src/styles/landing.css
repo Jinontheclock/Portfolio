@@ -329,8 +329,9 @@ html.lp-snap::-webkit-scrollbar {
 }
 
 /* ── The footer, revealed ──
-   A black band behind the page, uncovered as the hero scrolls up over it.
-   See the markup in LandingPage.jsx for the shape of the trick.
+   A band behind the page, in the page's own colour, uncovered as the hero
+   scrolls up over it. See the markup in LandingPage.jsx for the shape of
+   the trick.
 
    The slot is the band's place in the flow: as tall as the band, and
    clipping everything inside to its own box, which is what stops the band
@@ -344,15 +345,13 @@ html.lp-snap::-webkit-scrollbar {
   --lp-footer-h: 72px;
   position: relative;
   height: var(--lp-footer-h);
-  /* Clipped on three sides and open below.
-     The document ends where the band ends, and measured it scrolls not a
-     pixel past — but a browser that rubber-bands at the edge of the page
-     (a trackpad on a Mac, a thumb on a phone, and Safari does it even
-     under overscroll-behavior when the root snaps) shows the canvas under
-     the band for a moment, and the canvas is the page's near-white. So the
-     band is allowed to paint below its own box, and does — see its
-     box-shadow — and what a bounce reveals is more band. Ink only: neither
-     the shadow nor the open clip adds a pixel of scroll. */
+  /* Clipped on three sides and open below. The clip on the top and the
+     sides is what keeps the sticky band from showing above the hero; the
+     open foot dates from when the band was black and painted a shadow of
+     itself below the page for a rubber-band to reveal. The band is the
+     page's colour now, and so is the canvas a bounce shows, so nothing
+     needs painting there — the open foot is kept because it costs nothing
+     and closing it would clip a bounce to a hard edge. */
   clip-path: inset(0 0 -100vh 0);
 }
 .lp-footer-track {
@@ -372,19 +371,16 @@ html.lp-snap::-webkit-scrollbar {
   justify-content: space-between;
   gap: 24px;
   padding: 0 var(--page-margin);
-  background: var(--grey-950);
-  color: var(--grey-50);
+  /* the page's own ground, not a black band: the footer is the same
+     footer the inner pages carry, arriving from under the hero */
+  background: var(--bg);
+  color: var(--grey-300);
   /* the line below sizes itself to the room inside these margins */
   container-type: inline-size;
-  /* the same black, spread a screen's height in every direction: the slot
-     clips it on the top and the sides, and lets it through below, where a
-     rubber-band would otherwise show the page's canvas */
-  box-shadow: 0 0 0 100vh var(--grey-950);
 }
 /* About's links, as their icons (see components/SiteLinks.jsx and
-   .link-icon in components.css): a row at the band's left edge, a step
-   down from the copyright's white at rest and up to it on hover, the way
-   the header's icons sit a step down from the ink and rise to it */
+   .link-icon in components.css): a row at the band's left edge, at the
+   strength of the header's icons, and the ink on hover as they are */
 .lp-footer-links {
   display: flex;
   align-items: center;
@@ -395,19 +391,18 @@ html.lp-snap::-webkit-scrollbar {
   display: inline-flex;
   font-size: 22px;
   line-height: 1;
-  color: var(--grey-300);
+  color: var(--text-muted);
   text-decoration: none;
   cursor: pointer;
   transition: color var(--duration-fast) var(--easing);
 }
 .lp-footer-link:hover,
 .lp-footer-link:focus-visible {
-  color: var(--grey-50);
+  color: var(--text-primary);
 }
 
-/* the same line the inner pages' footer sets, at the same size; white on
-   the band rather than a step lighter than grey, since there is no grey
-   here to be a step lighter than */
+/* the same line the inner pages' footer sets, at the same size and in
+   the same grey */
 .lp-footer-copy {
   /* narrows below its content so the line can be sized to what is left
      beside the icons — see the phone rule below */
