@@ -9,13 +9,15 @@ import useIsPhone from "../hooks/useIsPhone.js";
  *
  * A page set as a stage — Work, and About — shows one block at a time
  * where the index beside it stands, and nothing on it moves with the
- * page: the wheel turns the stage. What the wheel turns is a scroll box
- * that is never seen, the size of the screen with a track inside it as
- * long as the steps between the blocks, which Lenis scrolls from the
- * wheel, a touch or a key anywhere on the page, with its inertia. The
- * block on the stage is the one whose step the box is nearest, and it
- * takes the stage through a swap: the one leaving fades and moves off the
- * way the wheel is going, the one arriving comes up from the other side.
+ * page: the wheel turns the stage, a step at a time. What the wheel
+ * turns is a scroll box that is never seen, the size of the screen with
+ * a track inside it as long as the steps between the blocks. One gesture
+ * — a swipe on a trackpad with the coast that follows it, a spin of a
+ * wheel, a swipe of a finger, a key — moves the box one step, which
+ * Lenis eases it through. The block on the stage is the one whose step
+ * the box is nearest, and it takes the stage through a swap: the one
+ * leaving fades and moves off the way the wheel is going, the one
+ * arriving comes up from the other side.
  *
  * A block taller than the stage — About's skills, on a short window —
  * gets more than one step: the box's way through its extra steps pushes
@@ -35,6 +37,17 @@ const STEP = 0.5;
 
 /* how far the stage is turned by a key */
 const KEYS = { ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1, Home: -Infinity, End: Infinity };
+
+/* how long the box takes from one step to the next, in seconds — Lenis's
+   own ease-out, so most of the way is covered early and the swap comes
+   soon after the gesture */
+const TURN = 1;
+
+/* what a gesture is (see the wheel, below): how many px of wheel before
+   it counts, the longest gap between two wheel events that are still
+   the one gesture, how many falling deltas make a coast that a new push
+   can be told from, and how far a finger goes before a touch is a swipe */
+const GESTURE = { threshold: 20, gap: 200, falling: 3, swipe: 30 };
 
 export const reducedMotion = () =>
   window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
@@ -116,6 +129,8 @@ export default function useStage({
      passing. Cleared on arrival, or the moment the reader takes the
      wheel. */
   const travel = useRef(null);
+  /* the step the box is on, or on its way to */
+  const head = useRef(null);
   /* the blocks' steps: where each one's first step starts, in steps, how
      far each overflows the stage, and how many steps the track is long */
   const layout = useRef({ starts: [], overflows: [], total: 0 });
@@ -193,15 +208,20 @@ export default function useStage({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current === null, ...deps]);
 
-  /* ── The wheel turns the stage ──
-     Lenis scrolls the unseen box from input anywhere on the page: the
-     wheel, a touch drag on a tablet, and its inertia is the stage's — the
-     box follows the input a tenth of the way each frame, so a flick
-     coasts and settles, and the nearest step is the block shown. A reader
-     who asked for less motion gets the box following the input exactly.
-     Keys turn it a step at a time. Torn down the moment a crossing
-     starts, so a flick still settling cannot turn a stage that is on its
-     way out. */
+  /* ── The wheel turns the stage, a step at a time ──
+     One gesture, one step. A gesture is a run of wheel events with no
+     gap of more than GESTURE.gap between them: a swipe on a trackpad and
+     the momentum it coasts on afterwards are one run, and so is a wheel
+     spun through several notches. The stage turns once, the moment the
+     run has gone GESTURE.threshold px, and not again until the run ends
+     — which is what keeps a long swipe from turning it twice. A second
+     swipe while the first is still coasting is told by its deltas:
+     momentum only ever falls off, so a delta that doubles after a few
+     falling ones is a new push, and gets its step. A touch is a step
+     per swipe, the same way. Lenis is kept for the way it moves the box
+     from step to step, and hears none of the input itself. Keys turn
+     it a step at a time too. Torn down the moment a crossing starts, so
+     a step still under way cannot turn a stage that is on its way out. */
   useEffect(() => {
     if (current === null) return undefined;
     const box = boxRef.current;
@@ -209,14 +229,13 @@ export default function useStage({
     if (!box || !track) return undefined;
     /* the box opens on the block the entry was left on, before Lenis
        reads where it is */
-    box.scrollTop = (layout.current.starts[current] ?? current) * step();
+    const opening = layout.current.starts[current] ?? current;
+    box.scrollTop = opening * step();
     const smooth = new Lenis({
       wrapper: box,
       content: track,
-      eventsTarget: window,
-      lerp: reducedMotion() ? 1 : 0.1,
-      smoothWheel: true,
-      syncTouch: true,
+      /* the input is read here, below; Lenis only moves the box */
+      virtualScroll: () => false,
       autoRaf: false,
     });
     lenis.current = smooth;
@@ -231,12 +250,66 @@ export default function useStage({
       setCurrent(at);
       settleOffset(l.scroll, at);
     });
-    /* the reader has the wheel: the stage follows the box again */
-    const free = () => {
+
+    /* the step the box is on, or on its way to: a gesture that lands
+       while the box is still moving counts from where it is going */
+    head.current = opening;
+    const turn = (by) => {
       travel.current = null;
+      const k = head.current ?? Math.round(smooth.scroll / step());
+      const to = clamp(k + by, 0, layout.current.total);
+      head.current = to;
+      smooth.scrollTo(to * step(), { duration: TURN });
     };
-    window.addEventListener("wheel", free, { passive: true });
-    window.addEventListener("touchstart", free, { passive: true });
+
+    const run = { acc: 0, stepped: false, last: 0, falling: 0, timer: 0 };
+    const endRun = () => {
+      run.acc = 0;
+      run.stepped = false;
+      run.last = 0;
+      run.falling = 0;
+    };
+    const onWheel = (e) => {
+      if (e.ctrlKey || e.deltaY === 0) return;
+      e.preventDefault();
+      if (hooks.current.blocked()) return;
+      const dy =
+        e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * window.innerHeight : e.deltaY;
+      const mag = Math.abs(dy);
+      clearTimeout(run.timer);
+      run.timer = setTimeout(endRun, GESTURE.gap);
+      if (mag < run.last) run.falling += 1;
+      else if (
+        run.stepped &&
+        run.falling >= GESTURE.falling &&
+        mag >= GESTURE.threshold &&
+        mag > run.last * 2
+      )
+        endRun();
+      else if (mag > run.last) run.falling = 0;
+      run.last = mag;
+      if (run.stepped) return;
+      run.acc += dy;
+      if (Math.abs(run.acc) < GESTURE.threshold) return;
+      run.stepped = true;
+      turn(Math.sign(run.acc));
+    };
+    window.addEventListener("wheel", onWheel, { passive: false });
+
+    const touch = { y: null, stepped: false };
+    const onTouchStart = (e) => {
+      touch.y = e.touches[0]?.clientY ?? null;
+      touch.stepped = false;
+    };
+    const onTouchMove = (e) => {
+      if (touch.y === null || touch.stepped || hooks.current.blocked()) return;
+      const dy = touch.y - (e.touches[0]?.clientY ?? touch.y);
+      if (Math.abs(dy) < GESTURE.swipe) return;
+      touch.stepped = true;
+      turn(Math.sign(dy));
+    };
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
 
     const onKey = (e) => {
       if (hooks.current.blocked() || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -246,10 +319,7 @@ export default function useStage({
       if (e.key === " ") by = e.shiftKey ? -1 : 1;
       if (by === undefined) return;
       e.preventDefault();
-      travel.current = null;
-      const k = Math.round(smooth.scroll / step());
-      const to = clamp(k + by, 0, layout.current.total);
-      smooth.scrollTo(to * step(), { duration: 1 });
+      turn(by);
     };
     window.addEventListener("keydown", onKey);
 
@@ -263,9 +333,11 @@ export default function useStage({
       if (down) return;
       down = true;
       crossing.disconnect();
+      clearTimeout(run.timer);
       window.removeEventListener("keydown", onKey);
-      window.removeEventListener("wheel", free);
-      window.removeEventListener("touchstart", free);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
       unhook();
       gsap.ticker.remove(tick);
       smooth.destroy();
@@ -331,7 +403,8 @@ export default function useStage({
   const jumpTo = (i) => {
     travel.current = i;
     setCurrent(i);
-    lenis.current?.scrollTo((layout.current.starts[i] ?? i) * step(), {
+    head.current = layout.current.starts[i] ?? i;
+    lenis.current?.scrollTo(head.current * step(), {
       duration: 1.2,
       onComplete: () => {
         travel.current = null;
