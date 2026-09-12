@@ -381,8 +381,10 @@ export default function useStage({
     const all = hooks.current.blocks();
     if (!all.length) return;
     if (current === null) {
-      /* the phone's stack: every block in the flow, none of this applies */
-      gsap.set(all, { clearProps: "all" });
+      /* the phone's stack: every block in the flow, none of this applies.
+         Only what the stage wrote is cleared — a block's own inline
+         style (the Work card's colour) is React's, not the stage's */
+      gsap.set(all, { clearProps: "opacity,visibility,transform" });
       shown.current = null;
       return;
     }

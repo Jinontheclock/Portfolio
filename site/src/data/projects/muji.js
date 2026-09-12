@@ -39,6 +39,9 @@ export default {
   id: "muji",
   screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
   title: "MUJI",
+  /* the Work card's ground: the project's own colour, the copy in the
+     page's white on it (see .wk-section in work.css) */
+  card: "#822433",
   // company confidentiality: gate the case study behind a password
   locked: true,
   passwordHash:

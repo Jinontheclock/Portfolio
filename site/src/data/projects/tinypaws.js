@@ -3,6 +3,9 @@ import cardPoster from "../../assets/tinypaws/tinypaws-card-poster.webp";
 export default {
   id: "tinypaws",
   title: "TinyPaws",
+  /* the Work card's ground: the project's own colour, the copy in the
+     page's white on it (see .wk-section in work.css) */
+  card: "#FFAA54",
   screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
   /* Work-card thumbnail: the case study's own hero clip, cropped to the
      card's proportions and without the logo the hero floats over it. The

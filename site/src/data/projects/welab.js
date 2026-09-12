@@ -4,6 +4,9 @@ export default {
   id: "welab",
   screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
   title: "WeLAB Entertainment",
+  /* the Work card's ground: the project's own colour, the copy in the
+     page's white on it (see .wk-section in work.css) */
+  card: "#9470FF",
   /* Work-card thumbnail: the case study's own hero clip, cropped to the
      card's proportions and without the wordmark the hero floats over it.
      The card rests on the poster and plays under the pointer.

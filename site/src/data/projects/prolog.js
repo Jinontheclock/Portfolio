@@ -4,6 +4,9 @@ export default {
   id: "prolog",
   screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
   title: "ProLog",
+  /* the Work card's ground: the project's own colour, the copy in the
+     page's white on it (see .wk-section in work.css) */
+  card: "#E58555",
   /* Work-card thumbnail: the app itself running in the two phone mockups —
      the dashboard counting up on the iPhone, a skills quiz being worked
      through on the Galaxy. scripts/record-prolog-hero.mjs records the

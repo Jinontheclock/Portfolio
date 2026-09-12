@@ -1,10 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import gsap from "gsap";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
-import WorkThumb from "../components/WorkThumb.jsx";
 import { PROJECTS } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { PAGE_TITLE } from "../i18n.js";
@@ -13,6 +11,8 @@ import withPageTransition, { crossing } from "../lib/page-transition.js";
 import useStage from "../lib/stage.js";
 
 /* Everything a card renders, plus what the gate needs to challenge one.
+   The thumbnail's fields stay on the list for the day it comes back
+   (WorkThumb.jsx is kept for it); the card is the colour and the copy.
    The case-study bodies behind these five projects come to a quarter of a
    megabyte of section blocks, and resolve() rebuilds every node it walks —
    so handing it whole projects meant reconstructing all of that, on every
@@ -25,6 +25,7 @@ const CARD_FIELDS = [
   "title",
   "description",
   "roles",
+  "card",
   "thumbs",
   "thumbAlt",
   "video",
@@ -38,7 +39,8 @@ const PROJECT_CARDS = PROJECTS.map((p) =>
  * One screen, and nothing on it moves with the page: the header at the
  * top, the copyright at the foot, and between them an index and a stage.
  * The five titles stand in a column on the left; beside them one project
- * at a time, its summary, its roles line and its thumbnail. The page has
+ * at a time, a card in the project's own colour with its title, its
+ * summary and its roles line in the corner. The page has
  * no scroll of its own and shows no scrollbar. What the wheel turns is
  * the stage: every half a screen of wheel is the next project, and the
  * one on the stage is the one whose title is set large and in ink.
@@ -52,9 +54,7 @@ const PROJECT_CARDS = PROJECTS.map((p) =>
  * way the other pages return to their scroll.
  *
  * The stage is a grid with every block in the same cell, so the blocks
- * lie on top of one another and the current one is the one shown. The
- * block on the stage is treated as if the pointer were on it: its copy in
- * ink, its picture in colour, its clip playing or its stills walking.
+ * lie on top of one another and the current one is the one shown.
  *
  * A phone keeps the plain stack — every block in the flow, each headed by
  * its title, the page scrolling as pages do — since it has no column for
@@ -62,14 +62,7 @@ const PROJECT_CARDS = PROJECTS.map((p) =>
  */
 
 /* How a block takes the stage — the turning of it, the swap, the steps
-   and the memory are lib/stage.js, shared with About. What is this
-   page's own is the picture: it is uncovered from its bottom edge on the
-   page crossing's curve (see lib/page-transition.js), so a page arriving
-   and a project arriving are one move — at half the crossing's length,
-   since a project is a smaller thing than a page. Going back up the
-   list it comes from the other side. */
-const UNCOVER = { duration: 0.35 };
-const uncoverFrom = (dir) => (dir < 0 ? "inset(0% 0% 100% 0%)" : "inset(100% 0% 0% 0%)");
+   and the memory — is lib/stage.js, shared with About. */
 
 export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const navigate = useNavigate();
@@ -78,9 +71,6 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const projects = useMemo(() => resolve(PROJECT_CARDS, lang), [lang]);
   // a locked project asks for its password right here, before navigating
   const [gateProject, setGateProject] = useState(null);
-  /* which block the pointer is over — the thumbnails cycle off this, and a
-     block is one link, so the block is where the hover has to be read */
-  const [hovered, setHovered] = useState(null);
   useEffect(() => {
     document.title = PAGE_TITLE.work[lang] || PAGE_TITLE.work.en;
   }, [lang]);
@@ -100,28 +90,6 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
     blocks: () => [...(stageRef.current?.querySelectorAll(".wk-section") ?? [])],
     /* the gate holds the keys */
     blocked: () => gateOpen.current,
-    /* and the picture is uncovered as the block comes up — or simply
-       shown, on a cut */
-    onSwap: (next, dir, cut) => {
-      const images = [...(stageRef.current?.querySelectorAll(".wk-image") ?? [])];
-      gsap.killTweensOf(images);
-      const image = next.querySelector(".wk-image");
-      if (!image) return;
-      if (cut) {
-        gsap.set(image, { clearProps: "clipPath" });
-        return;
-      }
-      gsap.fromTo(
-        image,
-        { clipPath: uncoverFrom(dir) },
-        {
-          clipPath: "inset(0% 0% 0% 0%)",
-          duration: UNCOVER.duration,
-          ease: "pageTransition",
-          clearProps: "clipPath",
-        },
-      );
-    },
     deps: [projects],
   });
 
@@ -165,6 +133,7 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 id={`wk-${p.id}`}
                 to={langPath(`/work/${p.id}`)}
                 className={"wk-section" + (current === i ? " is-current" : "")}
+                style={{ "--wk-card": p.card }}
                 onClick={(e) => {
                   if (p.locked && !isUnlocked(p.id)) {
                     e.preventDefault();
@@ -178,16 +147,10 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                   e.preventDefault();
                   withPageTransition(() => navigate(langPath(`/work/${p.id}`)));
                 }}
-                onMouseEnter={() => setHovered(p.id)}
-                onMouseLeave={() => setHovered((id) => (id === p.id ? null : id))}
-                /* a block reached by keyboard behaves like one under the
-                   pointer — same colour, same walk through the frames */
-                onFocus={() => setHovered(p.id)}
-                onBlur={() => setHovered((id) => (id === p.id ? null : id))}
               >
+                {/* the copy, in the card's corner: the title, the summary
+                    under it, and the roles line a breath below */}
                 <div className="wk-text">
-                  {/* the title belongs to the index on a wide screen; on a
-                      phone there is no index, and it heads the block */}
                   <span className="wk-title">
                     {p.title}
                     {p.locked && <LockMark />}
@@ -195,14 +158,6 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                   <span className="wk-desc">{p.description}</span>
                   <span className="wk-specs">{p.roles}</span>
                 </div>
-                <WorkThumb
-                  thumbs={p.thumbs}
-                  video={p.video}
-                  alt={p.thumbAlt}
-                  /* the block on the stage is held the way a pointer would
-                     hold it: its clip plays, its stills walk */
-                  hovered={hovered === p.id || current === i}
-                />
               </Link>
             ))}
           </div>
