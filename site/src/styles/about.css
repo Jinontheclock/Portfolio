@@ -418,9 +418,13 @@
      a screen too narrow for the block even at that, the block is as
      wide as it needs at 12px instead, still on the margin, and its
      labels start left of the text's line. Two columns, each as wide as
-     the widest thing in it, pushed to the two edges: the labels' from
-     the line, the rows' against the margin, and every group's rows
-     hanging from the one left edge. */
+     the widest thing in it: the labels' from the line, the rows' after
+     it by what the track has left over — which puts the longest row on
+     the margin where the type has been set to fit — up to 64px, past
+     which the rows stay by the labels and the margin goes unmet. The
+     groups stand further apart on a wider screen, by half the same
+     leftover, from 24px to 56. Every group's rows hang from the one
+     left edge. */
   .page-screen .ab-skills-section {
     align-self: center;
     margin-top: calc(var(--footer-h) * 3 - var(--index-line) + 80px);
@@ -433,10 +437,10 @@
     grid-column: 1;
     display: grid;
     grid-template-columns: max-content max-content;
-    justify-content: space-between;
+    justify-content: start;
     align-items: start;
-    column-gap: 24px;
-    row-gap: 24px;
+    column-gap: clamp(24px, 100cqi - 45.4em, 64px);
+    row-gap: clamp(24px, (100cqi - 45.4em) / 2, 56px);
     font-size: clamp(12px, (100cqi - 24px) / 46, var(--size-body));
   }
   /* the groups are dissolved into the one grid, a label and its rows
