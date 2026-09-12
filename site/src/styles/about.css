@@ -691,6 +691,34 @@
     max-width: none;
     max-height: none;
   }
+  /* Skills, on the middle of the screen under the header: centred in
+     the room the blocks share, and moved by half of what the room's
+     top is further from the header's foot than the room's foot is from
+     the screen's, which is what the margin is; the page reads the
+     margin back as room above the line. The rows and the groups closer
+     together, as on a wide screen, so that it fits, and the labels on
+     one line in a column of their own width. A window too short for it
+     even so has it pushed up through the stage, so its foot can be
+     read. */
+  .page-screen .ab-skills-section {
+    align-self: center;
+    margin-top: calc(var(--header-h) - var(--index-line) + var(--footer-h) * 3);
+  }
+  .page-screen .ab-skills-section > .ab-skills {
+    gap: 24px;
+  }
+  .page-screen .ab-skills-section .ab-skill-group {
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 40px;
+  }
+  .page-screen .ab-skills-section .ab-skill-label {
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .page-screen .ab-skills-section .ab-skill-rows {
+    gap: 6px;
+    line-height: 1.4;
+  }
   /* stacked, the name and the sentence read as one unit and sit 8px
      apart; the photograph stands its 24px above them */
   .ab-about {
