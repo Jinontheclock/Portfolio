@@ -712,6 +712,12 @@
   .ab-about > .ab-portrait {
     max-height: none;
   }
+  /* the sentence is a paragraph on a phone: its own break after the
+     opening clause is let go, and it fills the column and wraps where
+     the column does */
+  .ab-about .ab-hero {
+    white-space: normal;
+  }
   .ab-left,
   .ab-content {
     grid-column: 1 / 13;
