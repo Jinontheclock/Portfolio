@@ -657,8 +657,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .ab-section > *,
-  .ab-about > .ab-lede,
-  .ab-about-more > .ab-about-text {
+  .ab-about > .ab-lede {
     grid-column: 1;
   }
   /* The sentence's long line is some 700px at the body's size, and the
@@ -674,11 +673,23 @@
     margin-left: 0;
     white-space: pre-line;
   }
-  .ab-about-more > .ab-about-text {
-    grid-row: 2;
+  /* The second block keeps the wide layout, the photograph at the left
+     of the prose, now that the column is the page: the photograph as
+     tall as the stage has room for, or two fifths of the column wide
+     on a narrow tablet, whichever is the narrower, against the prose,
+     which has the rest. */
+  .ab-about-more {
+    --ab-room: calc(100dvh - var(--index-line) - var(--footer-h) * 3);
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 30px;
   }
   .ab-about-more > .ab-mobile {
-    justify-self: start;
+    width: min(
+      var(--ab-room) * 900 / 1834,
+      (100vw - 2 * var(--page-margin)) * 0.4
+    );
+    max-width: none;
+    max-height: none;
   }
   /* stacked, the name and the sentence read as one unit and sit 8px
      apart; the photograph stands its 24px above them */
@@ -688,17 +699,6 @@
   }
   .ab-about > .ab-title {
     margin-top: 16px;
-  }
-  .ab-about-more {
-    row-gap: 24px;
-  }
-  /* the tall photograph at a little over half the screen, so the prose
-     under it is not a screen away. The small viewport's height, not the
-     dynamic one: on a phone the dynamic height changes as the browser's
-     bars fold away on a scroll, and a photograph sized by it changed
-     size as the page moved. */
-  .ab-about-more > .ab-mobile {
-    max-height: 55svh;
   }
 }
 
@@ -756,8 +756,18 @@
   .ab-about {
     gap: 8px;
   }
+  /* the two stack again, the tall photograph at a little over half the
+     screen, so the prose under it is not a screen away. The small
+     viewport's height, not the dynamic one: the dynamic height changes
+     as the browser's bars fold away on a scroll, and a photograph sized
+     by it changed size as the page moved. */
   .ab-about-more {
     gap: 24px;
+  }
+  .ab-about-more > .ab-mobile {
+    width: auto;
+    max-width: 100%;
+    max-height: 55svh;
   }
   /* the five icons in a row above the column, at the right edge, where
      the words used to be */
