@@ -704,12 +704,17 @@
     align-self: center;
     margin-top: calc(var(--header-h) - var(--index-line) + var(--footer-h) * 3);
   }
+  /* one grid for all the groups, so every group's rows hang from the
+     one left edge past the widest label (see the wide screen's rules) */
   .page-screen .ab-skills-section > .ab-skills {
-    gap: 24px;
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    align-items: start;
+    column-gap: 40px;
+    row-gap: 24px;
   }
   .page-screen .ab-skills-section .ab-skill-group {
-    grid-template-columns: max-content minmax(0, 1fr);
-    column-gap: 40px;
+    display: contents;
   }
   .page-screen .ab-skills-section .ab-skill-label {
     line-height: 1.4;
