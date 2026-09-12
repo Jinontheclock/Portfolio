@@ -266,6 +266,10 @@
   box-sizing: border-box;
   overflow: hidden;
   display: grid;
+  /* the one row the blocks share is the room, from the line to the
+     foot — not the tallest block, which is what an auto row would be —
+     so a block can be set against the room's edges or its middle */
+  grid-template-rows: 100%;
   gap: 0;
 }
 .page-screen .ab-section {
@@ -396,14 +400,24 @@
   /* Skills stands still: one step, not pushed up through the stage row
      by row, so it is set to fit the stage — every row on one line, the
      rows and the groups closer together than the column's own rhythm
-     — and lifted, like the opening block, to where the header's fade
-     ends, for the room. It is as wide as its longest row, from the
-     label column to the row's end, and stands on the margin, so the
-     longest row closes on the margin and the rest hang from the same
-     left edge with it. A window too short for it even so has it pushed
-     up through the stage as before, so its foot can be read. */
+     — and set on the middle of the screen: centred in the room, and
+     moved up by half of what the room's top is further from the
+     screen's than its foot is, which is what the margin is. The page
+     reads the margin back as room above the line. A window too short
+     for it even so has it pushed up through the stage as before, so
+     its foot can be read.
+
+     Its rows start on the line the text of Experience and Education
+     starts on — the text's track, closing on the margin — and the
+     labels stand further to the left of them than the column's own
+     gutter, a column of their own. The rows' track is the text's, or
+     the longest row where that is wider, and the block stands on the
+     margin, so on a screen too narrow for the longest row to start on
+     the text's line the rows start further left, and never run past
+     the margin. */
   .page-screen .ab-skills-section {
-    margin-top: calc(-1 * var(--ab-lift));
+    align-self: center;
+    margin-top: calc(var(--footer-h) * 3 - var(--index-line));
     width: fit-content;
     justify-self: end;
     grid-template-columns: max-content;
@@ -413,7 +427,8 @@
     gap: 24px;
   }
   .page-screen .ab-skills-section .ab-skill-group {
-    grid-template-columns: 110px max-content;
+    grid-template-columns: 110px minmax(var(--ab-text), max-content);
+    column-gap: 70px;
   }
   .page-screen .ab-skills-section .ab-skill-label {
     line-height: 1.4;
