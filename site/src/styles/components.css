@@ -425,12 +425,18 @@
    titles, so the list beside it and the titles there hold one place.
 
    And it thins out as it nears either edge, rather than passing under
-   HAJIN at full strength: a mask that is clear across the header's own
-   height and the footer's, so the wordmark and the copyright stand on
-   nothing, and rises to solid over twice each one's height below and
-   above them, so a line is gone by the time it reaches HAJIN rather than
-   half there under it. The mask is on the box, not the column, so it
-   keeps to the screen while the column moves through it.
+   HAJIN at full strength: a veil of the page's own colour laid over the
+   box, solid across the header's own height and the footer's, so the
+   wordmark and the copyright stand on nothing, and thinning to nothing
+   over twice each one's height below and above them, so a line is gone
+   by the time it reaches HAJIN rather than half there under it. The
+   veil is over the box, not the column, so it keeps to the screen while
+   the column moves through it. It is a veil rather than a mask on the
+   box so that a thing in the column can be held above it and shown
+   whole — About's second photograph, which runs into the footer's fade
+   by design (see about.css); a mask has no exceptions. Under the
+   header and the footer, which stand at 10; over everything in the box
+   but what is raised past 5.
 
    .ab-root is every inner page's root; the pair is what outweighs the
    pages' own rules for the same properties. */
@@ -462,19 +468,19 @@
   --edge-fade-top: calc(var(--header-h) * 2);
   --edge-clear-bottom: var(--footer-h);
   --edge-fade-bottom: calc(var(--footer-h) * 2);
-  -webkit-mask-image: linear-gradient(
+}
+.ab-root.page-screen > main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(
     to bottom,
-    transparent var(--edge-clear-top),
-    #000 calc(var(--edge-clear-top) + var(--edge-fade-top)),
-    #000 calc(100% - var(--edge-clear-bottom) - var(--edge-fade-bottom)),
-    transparent calc(100% - var(--edge-clear-bottom))
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent var(--edge-clear-top),
-    #000 calc(var(--edge-clear-top) + var(--edge-fade-top)),
-    #000 calc(100% - var(--edge-clear-bottom) - var(--edge-fade-bottom)),
-    transparent calc(100% - var(--edge-clear-bottom))
+    var(--bg) var(--edge-clear-top),
+    transparent calc(var(--edge-clear-top) + var(--edge-fade-top)),
+    transparent calc(100% - var(--edge-clear-bottom) - var(--edge-fade-bottom)),
+    var(--bg) calc(100% - var(--edge-clear-bottom))
   );
 }
 

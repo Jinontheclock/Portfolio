@@ -352,11 +352,18 @@
 
      The photograph is 8% taller than the stage's room from the line to
      its foot, and starts on the line, so its last 8% runs past the
-     foot into the footer's fade. The block itself is the room's height,
+     foot into the footer's fade — whole, the block being held above the
+     fade's veil. The block itself is the room's height,
      whatever the photograph's, so the stage does not count the
      photograph's overrun as overflow and give the block a step for
      it. */
   .page-screen .ab-about-more {
+    /* above the veil that thins the column out at the foot (see
+       .page-screen in components.css): the photograph runs into the
+       footer's fade by design, and is shown whole there rather than
+       thinned. Nothing else in the block reaches the fade. */
+    position: relative;
+    z-index: 6;
     --ab-room: calc(100dvh - var(--index-line) - var(--footer-h) * 3);
     font-family: var(--font-ui);
     font-size: var(--size-body);
