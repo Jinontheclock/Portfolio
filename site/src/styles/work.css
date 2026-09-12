@@ -265,6 +265,36 @@
   }
 }
 
+/* ── Tablet: the index a row under the header, the stage the page ──
+   A tablet has no columns to spare for the index beside the stage, so
+   the index is a row across the page under the header, every title at
+   body size, the current one in ink and the rest in grey, and the stage
+   has the whole width between the margins — its nine tracks stretched,
+   the copy and the picture in the same proportion as on a wide screen.
+   The row is placed from the grid, which stands on the index line, back
+   up to under the header. ── */
+@media (max-width: 1080px) {
+  .wk-index {
+    position: absolute;
+    /* the grid's whole width: an absolutely placed grid item is placed
+       against its own grid area, and its area is the three columns */
+    grid-column: 1 / -1;
+    top: calc(var(--header-h) + 24px - var(--index-line));
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 28px;
+  }
+  .wk-index-item.is-current {
+    font-size: var(--size-body);
+  }
+  .wk-stage {
+    grid-column: 1 / 13;
+  }
+}
+
 /* ── Mobile: no index and no stage — a phone has no column to spare, and
    no wheel to turn a stage with. The page is a page again: it scrolls,
    and every block is in the flow, each headed by its title, then the

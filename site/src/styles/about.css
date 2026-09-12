@@ -622,14 +622,36 @@
   min-width: 0;
 }
 
-/* ── Tablet: reclaim some of the empty middle ──
-   Seven columns to the right of the list, all of them the text's; the
-   two About blocks stack, the column being too narrow to hold a
+/* ── Tablet: the list a row under the header, the column the page ──
+   A tablet has no columns to spare for the list beside the column, so
+   the list is a row across the page under the header, every entry at
+   body size, the current one in ink and the rest in grey, and the
+   column has the whole width between the margins. The row is held
+   above the veil that thins the column out under the header (see
+   .page-screen in components.css), which it would otherwise stand in.
+   The two About blocks stack, the column being too narrow to hold a
    photograph beside text: the photograph, the name, the sentence; the
    other photograph, the prose */
 @media (max-width: 1080px) {
+  .ab-left {
+    position: absolute;
+    top: calc(var(--header-h) + 24px);
+    left: var(--page-margin);
+    right: var(--page-margin);
+    display: block;
+    z-index: 6;
+  }
+  .ab-index {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 28px;
+  }
+  .ab-index-item.is-current {
+    font-size: var(--size-body);
+  }
   .ab-content {
-    grid-column: 6 / 13;
+    grid-column: 1 / 13;
   }
   .ab-section {
     grid-template-columns: minmax(0, 1fr);
@@ -716,6 +738,9 @@
   .ab-left {
     position: static;
     display: block;
+    top: auto;
+    left: auto;
+    right: auto;
   }
   .ab-index {
     display: none;
