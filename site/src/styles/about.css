@@ -393,6 +393,36 @@
   .page-screen .ab-about .ab-hero {
     font-size: clamp(12px, 100cqi / 46.5, var(--size-body));
   }
+  /* Skills stands still: one step, not pushed up through the stage row
+     by row, so it is set to fit the stage — every row on one line, the
+     rows and the groups closer together than the column's own rhythm
+     — and lifted, like the opening block, to where the header's fade
+     ends, for the room. It is as wide as its longest row, from the
+     label column to the row's end, and stands on the margin, so the
+     longest row closes on the margin and the rest hang from the same
+     left edge with it. A window too short for it even so has it pushed
+     up through the stage as before, so its foot can be read. */
+  .page-screen .ab-skills-section {
+    margin-top: calc(-1 * var(--ab-lift));
+    width: fit-content;
+    justify-self: end;
+    grid-template-columns: max-content;
+  }
+  .page-screen .ab-skills-section > .ab-skills {
+    grid-column: 1;
+    gap: 24px;
+  }
+  .page-screen .ab-skills-section .ab-skill-group {
+    grid-template-columns: 110px max-content;
+  }
+  .page-screen .ab-skills-section .ab-skill-label {
+    line-height: 1.4;
+  }
+  .page-screen .ab-skills-section .ab-skill-rows {
+    gap: 6px;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
 }
 
 /* The photographs. No frame, no radius and no caption. The intrinsic

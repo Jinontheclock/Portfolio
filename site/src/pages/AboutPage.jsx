@@ -632,7 +632,7 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
               </div>
             </section>
 
-            <section id="ab-skills" className="ab-section">
+            <section id="ab-skills" className="ab-section ab-skills-section">
               <h2 className="ab-section-label">Skills</h2>
               <div className="ab-skills">
                 {(SKILLS[lang] || SKILLS.en).map((group) => (
