@@ -167,7 +167,7 @@
 /* ── About, in two blocks ──
    The first is the photograph across the column, and under it a row of
    two: the name at the left, as wide as it is, and the sentence that
-   answers it closing on the right edge, the two starting on the same
+   answers it a gutter to its right, the two starting on the same
    line. The sentence is two lines, always, off the phone: its own
    break after the opening clause, and none other — it is set not to
    wrap. The row is what the photograph has to leave room for on the
@@ -209,13 +209,13 @@
   grid-row: 2;
   min-width: 0;
 }
-/* as wide as its lines, and against the right edge of its box. Named
-   with the block, to outrank the paragraph rule below, which would
-   otherwise wrap it and cap its measure. */
+/* as wide as its lines, beside the name — a gutter from it, at the
+   left of its box. Named with the block, to outrank the paragraph rule
+   below, which would otherwise wrap it and cap its measure. */
 .ab-about .ab-hero {
   width: max-content;
   max-width: none;
-  margin-left: auto;
+  margin-left: 0;
   white-space: pre;
 }
 /* The second: the other photograph against the prose, at the right
@@ -381,16 +381,16 @@
     max-width: none;
     max-height: none;
   }
-  /* The sentence closes on the photograph's right edge. Its box is what
-     is left of the row past the name and the gutter — a container the
-     sentence is sized by rather than one it sizes, or the block would
-     have to be as wide as the name and the sentence together, past the
-     photograph — and the sentence is set at the body's size where that
-     fits the box, and smaller where the photograph has come in narrower
-     than that, down to 12px, past which it runs out of the photograph's
-     edge rather than out of reading size. Its long line is 45.5 times
-     its size wide; the 46.5 keeps it a little inside the box, and the
-     margin puts it on the edge. */
+  /* The sentence keeps inside the photograph's right edge. Its box is
+     what is left of the row past the name and the gutter — a container
+     the sentence is sized by rather than one it sizes, or the block
+     would have to be as wide as the name and the sentence together,
+     past the photograph — and the sentence is set at the body's size
+     where that fits the box, and smaller where the photograph has come
+     in narrower than that, down to 12px, past which it runs out of the
+     photograph's edge rather than out of reading size. Its long line is
+     45.5 times its size wide; the 46.5 keeps it a little inside the
+     box. */
   .page-screen .ab-about > .ab-lede {
     container-type: inline-size;
   }
