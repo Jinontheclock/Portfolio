@@ -420,7 +420,7 @@
      labels start left of the text's line. Two columns, each as wide as
      the widest thing in it: the labels' from the line, the rows' after
      it by what the track has left over — which puts the longest row on
-     the margin where the type has been set to fit — up to 64px, past
+     the margin where the type has been set to fit — up to 80px, past
      which the rows stay by the labels and the margin goes unmet. The
      groups stand further apart on a wider screen, by half the same
      leftover, from 24px to 56. Every group's rows hang from the one
@@ -439,7 +439,7 @@
     grid-template-columns: max-content max-content;
     justify-content: start;
     align-items: start;
-    column-gap: clamp(24px, 100cqi - 45.4em, 64px);
+    column-gap: clamp(24px, 100cqi - 45.4em, 80px);
     row-gap: clamp(24px, (100cqi - 45.4em) / 2, 56px);
     font-size: clamp(12px, (100cqi - 24px) / 46, var(--size-body));
   }
@@ -674,9 +674,12 @@
     row-gap: 24px;
   }
   /* the tall photograph at a little over half the screen, so the prose
-     under it is not a screen away */
+     under it is not a screen away. The small viewport's height, not the
+     dynamic one: on a phone the dynamic height changes as the browser's
+     bars fold away on a scroll, and a photograph sized by it changed
+     size as the page moved. */
   .ab-about-more > .ab-mobile {
-    max-height: 55dvh;
+    max-height: 55svh;
   }
   .ab-rail {
     display: flex;
@@ -703,6 +706,11 @@
   /* no measure cap on a phone — the viewport is the measure */
   .ab-paragraph {
     max-width: none;
+  }
+  /* the photograph is the column's width, and nothing of the viewport's
+     height has a say in it, for the same reason as the other one */
+  .ab-about > .ab-portrait {
+    max-height: none;
   }
   .ab-left,
   .ab-content {
