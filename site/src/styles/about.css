@@ -350,12 +350,12 @@
      is in the paragraphs' own letters, so the block is set in their
      face and size for the ch to count in.
 
-     The photograph is a fifth taller than the stage's room from the
-     line to its foot, and starts on the line, so its last fifth runs
-     past the foot into the footer's fade and out under the copyright.
-     The block itself is the room's height, whatever the photograph's,
-     so the stage does not count the photograph's overrun as overflow
-     and give the block a step for it. */
+     The photograph is 8% taller than the stage's room from the line to
+     its foot, and starts on the line, so its last 8% runs past the
+     foot into the footer's fade. The block itself is the room's height,
+     whatever the photograph's, so the stage does not count the
+     photograph's overrun as overflow and give the block a step for
+     it. */
   .page-screen .ab-about-more {
     --ab-room: calc(100dvh - var(--index-line) - var(--footer-h) * 3);
     font-family: var(--font-ui);
@@ -366,7 +366,7 @@
     justify-self: end;
   }
   .page-screen .ab-about-more > .ab-mobile {
-    width: calc(var(--ab-room) * 1.2 * 900 / 1834);
+    width: calc(var(--ab-room) * 1.08 * 900 / 1834);
     max-width: none;
     max-height: none;
   }
