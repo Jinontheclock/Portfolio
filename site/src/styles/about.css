@@ -400,40 +400,60 @@
   /* Skills stands still: one step, not pushed up through the stage row
      by row, so it is set to fit the stage — every row on one line, the
      rows and the groups closer together than the column's own rhythm
-     — and set on the middle of the screen: centred in the room, and
-     moved up by half of what the room's top is further from the
-     screen's than its foot is, which is what the margin is. The page
-     reads the margin back as room above the line. A window too short
-     for it even so has it pushed up through the stage as before, so
-     its foot can be read.
+     — and set a little under the middle of the screen: centred in the
+     room, and moved up by half of what the room's top is further from
+     the screen's than its foot is, less 40px, which is what the margin
+     is. The page reads the margin back as room above the line. A
+     window too short for it even so has it pushed up through the stage
+     as before, so its foot can be read.
 
-     Its rows start on the line the text of Experience and Education
-     starts on — the text's track, closing on the margin — and the
-     labels stand further to the left of them than the column's own
-     gutter, a column of their own. The rows' track is the text's, or
-     the longest row where that is wider, and the block stands on the
-     margin, so on a screen too narrow for the longest row to start on
-     the text's line the rows start further left, and never run past
-     the margin. */
+     It is the text's track, closing on the margin, so its labels start
+     on the line the text of Experience and Education starts on, each
+     on one line, and its rows close on the margin, the longest of them
+     on it and the rest hanging from the same left edge. The labels and
+     the longest row together are some 45.4 times the size of the type
+     wide; where the track is narrower than that at the body's size —
+     a laptop — the block's type is set smaller to fit, from the track's
+     width, the 46 leaving it a little inside, and never under 12px: on
+     a screen too narrow for the block even at that, the block is as
+     wide as it needs at 12px instead, still on the margin, and its
+     labels start left of the text's line. Two columns, each as wide as
+     the widest thing in it, pushed to the two edges: the labels' from
+     the line, the rows' against the margin, and every group's rows
+     hanging from the one left edge. */
   .page-screen .ab-skills-section {
     align-self: center;
-    margin-top: calc(var(--footer-h) * 3 - var(--index-line));
-    width: fit-content;
+    margin-top: calc(var(--footer-h) * 3 - var(--index-line) + 80px);
+    width: max(var(--ab-text), 12px * 46 + 24px);
     justify-self: end;
-    grid-template-columns: max-content;
+    grid-template-columns: minmax(0, 1fr);
+    container-type: inline-size;
   }
   .page-screen .ab-skills-section > .ab-skills {
     grid-column: 1;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: space-between;
+    align-items: start;
+    column-gap: 24px;
+    row-gap: 24px;
+    font-size: clamp(12px, (100cqi - 24px) / 46, var(--size-body));
   }
+  /* the groups are dissolved into the one grid, a label and its rows
+     each a cell of it, so every group shares the two columns — a
+     subgrid would do the same, but Chrome lets the space between the
+     two columns leak into a subgrid's tracks */
   .page-screen .ab-skills-section .ab-skill-group {
-    grid-template-columns: 110px minmax(var(--ab-text), max-content);
-    column-gap: 70px;
+    display: contents;
   }
   .page-screen .ab-skills-section .ab-skill-label {
+    font-size: inherit;
     line-height: 1.4;
+    white-space: nowrap;
   }
   .page-screen .ab-skills-section .ab-skill-rows {
+    justify-self: start;
+    font-size: inherit;
     gap: 6px;
     line-height: 1.4;
     white-space: nowrap;
