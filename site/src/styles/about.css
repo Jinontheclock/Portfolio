@@ -98,19 +98,16 @@
 }
 
 /* ── The links, where the header has no room for them ──
-   From the laptop up they are in the header (see .site-header-links in
-   components.css) and this is empty. On a tablet the header's own row is
-   too short for four more words beside the wordmark — at 18px they run
-   some 355px, and at 700 wide that is 55px into HAJIN — so they stand under
-   the list instead, at body size like the rail they used to be. On a
-   phone they are a row above the name. */
+   From the tablet up they are in the header (see .site-header-links in
+   components.css) and this is empty: five icons run some 200px, and a
+   tablet's header has that beside the wordmark, which four words did
+   not. A phone's has not, so there they are a row above the name. */
 .ab-rail {
   display: none;
 }
 
-/* each link is its icon (see .link-icon in components.css), 22px square
-   on both tiers that show the rail, in the body's grey and the ink on
-   hover */
+/* each link is its icon (see .link-icon in components.css), 22px
+   square, in the body's grey and the ink on hover */
 .ab-rail-link {
   display: inline-flex;
   font-size: 22px;
@@ -680,14 +677,6 @@
      size as the page moved. */
   .ab-about-more > .ab-mobile {
     max-height: 55svh;
-  }
-  .ab-rail {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
-    /* clear of the list at its tallest, with one entry set large */
-    margin-top: 48px;
   }
 }
 

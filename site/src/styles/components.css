@@ -236,7 +236,10 @@
   align-items: flex-start;
   gap: 24px;
 }
-@media (max-width: 1080px) {
+/* a phone's header has no room for them beside the wordmark — five
+   icons run some 170px — so there they are a row above the name instead
+   (see .ab-rail in about.css); a tablet's has */
+@media (max-width: 600px) {
   .site-header-links {
     display: none;
   }
