@@ -43,11 +43,15 @@ const KEYS = { ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1, Home: -Infini
    soon after the gesture */
 const TURN = 1;
 
-/* what a gesture is (see the wheel, below): how many px of wheel before
-   it counts, the longest gap between two wheel events that are still
-   the one gesture, how many falling deltas make a coast that a new push
-   can be told from, and how far a finger goes before a touch is a swipe */
-const GESTURE = { threshold: 20, gap: 200, falling: 3, swipe: 30 };
+/* What a gesture is (see the wheel, below): how many px of wheel before
+   it counts; the longest gap between two wheel events that are still
+   the one gesture; what a coast is — this many deltas in a row none
+   larger than the one before, the run down to this fraction of its
+   peak; what a push out of a coast is — a delta this many times the one
+   before, and at least this many px, which is also the least a delta
+   the other way has to be to count as a turn; and how far a finger goes
+   before a touch is a swipe. */
+const GESTURE = { threshold: 12, gap: 200, coast: 4, down: 0.7, push: 1.5, floor: 4, swipe: 30 };
 
 export const reducedMotion = () =>
   window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
@@ -262,12 +266,14 @@ export default function useStage({
       smooth.scrollTo(to * step(), { duration: TURN });
     };
 
-    const run = { acc: 0, stepped: false, last: 0, falling: 0, timer: 0 };
+    /* A run: the wheel since the last gap. `acc` is how far it has gone
+       before its step, `dir` which way it stepped, `last` and `peak`
+       its latest and largest delta, `falling` how many deltas in a row
+       have not grown, and `coasting` whether it has been told to be
+       momentum — the finger off the pad, the deltas falling away. */
+    const run = { acc: 0, stepped: false, dir: 0, last: 0, peak: 0, falling: 0, coasting: false, timer: 0 };
     const endRun = () => {
-      run.acc = 0;
-      run.stepped = false;
-      run.last = 0;
-      run.falling = 0;
+      Object.assign(run, { acc: 0, stepped: false, dir: 0, last: 0, peak: 0, falling: 0, coasting: false });
     };
     const onWheel = (e) => {
       if (e.ctrlKey || e.deltaY === 0) return;
@@ -278,21 +284,31 @@ export default function useStage({
       const mag = Math.abs(dy);
       clearTimeout(run.timer);
       run.timer = setTimeout(endRun, GESTURE.gap);
-      if (mag < run.last) run.falling += 1;
-      else if (
-        run.stepped &&
-        run.falling >= GESTURE.falling &&
-        mag >= GESTURE.threshold &&
-        mag > run.last * 2
-      )
+      if (run.stepped) {
+        /* The run has had its step; the rest of it is its coast, unless
+           this is a new push. Momentum only ever falls off, and never
+           turns round: a delta the other way is a new push, and so is
+           one that climbs out of a coast. A coast is the run well down
+           from its peak and not growing for a few deltas in a row — not
+           a finger merely holding its speed, which is what the peak
+           rules out. A twitch of a pixel or two is neither. */
+        run.falling = mag <= run.last ? run.falling + 1 : 0;
+        if (run.falling >= GESTURE.coast && mag <= run.peak * GESTURE.down) run.coasting = true;
+        const turned = Math.sign(dy) !== run.dir && mag >= GESTURE.floor;
+        const pushed = run.coasting && mag >= GESTURE.floor && mag > run.last * GESTURE.push;
+        if (!turned && !pushed) {
+          run.last = mag;
+          return;
+        }
         endRun();
-      else if (mag > run.last) run.falling = 0;
+      }
       run.last = mag;
-      if (run.stepped) return;
+      run.peak = Math.max(run.peak, mag);
       run.acc += dy;
       if (Math.abs(run.acc) < GESTURE.threshold) return;
       run.stepped = true;
-      turn(Math.sign(run.acc));
+      run.dir = Math.sign(run.acc);
+      turn(run.dir);
     };
     window.addEventListener("wheel", onWheel, { passive: false });
 
