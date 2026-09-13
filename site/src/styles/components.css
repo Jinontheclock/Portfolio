@@ -511,6 +511,19 @@
   height: calc(100% + var(--stage-steps, 4) * var(--stage-step));
 }
 
+/* Lenis marks a wrapper it has been told to stop with `lenis-stopped`, and
+   its own stylesheet sets that to overflow: clip — which un-scrolls the
+   box: a clipped box holds no offset, so the stage snapped back to its
+   first block the moment a gate went up over it, and a screen's column
+   would go back to its top behind a zoom. The boxes here are stopped only
+   while a modal is up, and take no input of their own (lib/stage.js and
+   lib/screen-column.js read the wheel themselves), so hidden is all the
+   stillness they need. Written to outweigh Lenis's own rule. */
+div.stage-scroll.lenis.lenis-stopped,
+.ab-root.page-screen > main.lenis-stopped {
+  overflow: hidden;
+}
+
 /* ── SiteFooter: plain-text theme + language, bottom-left ── */
 .site-footer {
   display: flex;
