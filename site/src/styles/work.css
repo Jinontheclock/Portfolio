@@ -259,6 +259,12 @@
    copy cannot lie beside or under a picture. So the devices take the
    first row, above the copy, as large as it lets them. ── */
 @media (max-width: 1080px) {
+  /* The card runs down to a breath above the footer rather than stopping
+     at the frame's 600/982: a tablet stands upright, and its devices lie
+     above the copy here, so the height is what the pictures get. */
+  .wk-screen {
+    --wk-card-h: calc(100dvh - var(--index-line) - var(--footer-h) - 24px);
+  }
   /* one column: the index is out of the flow, so nothing is left to set
      the first one's width, and its gap would only push the card over */
   .wk-grid {
