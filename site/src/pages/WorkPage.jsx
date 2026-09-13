@@ -26,6 +26,7 @@ const CARD_FIELDS = [
   "description",
   "roles",
   "card",
+  "logo",
   "mockups",
   "thumbAlt",
 ];
@@ -117,13 +118,20 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 key={p.id}
                 type="button"
                 className={"wk-index-item" + (current === i ? " is-current" : "")}
-                /* for the width it reserves against the day it is current —
-                   see .wk-index-item::after in work.css */
-                data-title={p.title}
+                /* the wordmark's proportions, for its box and for the width
+                   the button reserves against the day it is current — see
+                   .wk-index-item in work.css */
+                style={{ "--wk-logo-ratio": p.logo.ratio[0] / p.logo.ratio[1] }}
+                aria-label={p.title}
                 aria-current={current === i ? "true" : undefined}
                 onClick={() => jumpTo(i)}
               >
-                {p.title}
+                {/* the wordmark twice, grey under colour, so the change of
+                    colour is a cross-fade in place */}
+                <span className="wk-logo">
+                  <img src={p.logo.gray} alt="" />
+                  <img className="is-color" src={p.logo.color} alt="" />
+                </span>
                 {p.locked && <LockMark />}
               </button>
             ))}

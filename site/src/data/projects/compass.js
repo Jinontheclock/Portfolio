@@ -1,4 +1,6 @@
 import cardThumb from "../../assets/compass/compass-card-thumb.webp";
+import logoColor from "../../assets/compass/compass-logo-color.webp";
+import logoGray from "../../assets/compass/compass-logo-gray.webp";
 
 /* Compass Card — 8 chapters, 90 blocks. Structure and copy are final;
    every figure and solution screen is a labelled placeholder until the
@@ -925,6 +927,10 @@ export default {
   /* the Work card's ground: the project's own colour, the copy in the
      page's white on it (see .wk-section in work.css) */
   card: "#68B8E7",
+  /* the Work index's entry: the wordmark, in colour when the project is
+     on the stage and in grey when it waits; `ratio` is the wordmark's. Cut
+     from originals/public/media/Compass_color.png and _gray.png. */
+  logo: { color: logoColor, gray: logoGray, ratio: [1183, 240] },
   /* Work-card thumbnail: the concept running in both its devices — the
      Apple Wallet link-up on the iPhone, a reload and a reader tap on the
      watch. scripts/record-compass-hero.mjs records the screens (the watch

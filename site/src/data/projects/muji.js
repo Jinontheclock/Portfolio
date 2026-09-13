@@ -1,6 +1,8 @@
 import thumb1 from "../../assets/muji/muji-thumb-1.webp";
 import thumb2 from "../../assets/muji/muji-thumb-2.webp";
 import thumb3 from "../../assets/muji/muji-thumb-3.webp";
+import logoColor from "../../assets/muji/muji-logo-color.webp";
+import logoGray from "../../assets/muji/muji-logo-gray.webp";
 
 const PLACEHOLDER_SECTIONS = [
   {
@@ -42,6 +44,10 @@ export default {
   /* the Work card's ground: the project's own colour, the copy in the
      page's white on it (see .wk-section in work.css) */
   card: "#822433",
+  /* the Work index's entry: the wordmark, in colour when the project is
+     on the stage and in grey when it waits; `ratio` is the wordmark's. Cut
+     from originals/public/media/muji_color.png and _gray.png. */
+  logo: { color: logoColor, gray: logoGray, ratio: [370, 240] },
   // company confidentiality: gate the case study behind a password
   locked: true,
   passwordHash:

@@ -52,52 +52,64 @@
 }
 
 /* ── The index ──
-   From the left margin, one line per title. */
+   From the left margin, one wordmark per project. */
 .wk-index {
   grid-column: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
+  /* the wordmark's two heights, on the body and card-title sizes the
+     titles used to take — but a wordmark's height is its whole mark, cap
+     to baseline and often a second line, where a title's size is its em,
+     so each is set well over its token: about 28 and 52 on the 14" */
+  --wk-logo-rest: calc(var(--size-body) * 1.75);
+  --wk-logo-cur: calc(var(--size-card-title) * 2);
 }
 
-/* A title is a button that turns the stage to its project. The current
-   one is set at the card-title size in the page's ink; the rest wait at
-   body size in grey, and a title crosses between the two as its project
-   takes the stage — size and colour on the same clock, so the column
-   reads as one title growing rather than two swapping. A pointer over a
-   waiting title lends it the ink, the way the chapter list does. */
+/* An entry is a button that turns the stage to its project: the
+   project's wordmark, in colour and at the larger height when the
+   project is on the stage, in grey and at the smaller one while it
+   waits, and crossing between the two as its project takes the stage —
+   size and colour on the same clock, so the column reads as one mark
+   growing rather than two swapping. A pointer over a waiting mark lends
+   it its colour. The button is as wide as its mark will be when current,
+   so the column is set by the widest mark at its widest and holds still
+   while the marks change size. */
 .wk-index-item {
   all: unset;
   cursor: pointer;
-  font: 400 var(--size-body) / 1.3 var(--font-ui);
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  color: var(--text-muted);
-  transition:
-    font-size 300ms var(--easing),
-    color 300ms var(--easing);
+  display: flex;
+  align-items: center;
+  min-width: calc(var(--wk-logo-cur) * var(--wk-logo-ratio, 3));
 }
-/* The width a title will need when it is the current one, reserved now:
-   a copy of itself (WorkPage.jsx writes it on the button) at the current
-   size, hidden, and no taller than nothing. The column is set by the
-   widest title at its widest and holds still while the titles change
-   size, rather than following whichever is large at the moment. */
-.wk-index-item::after {
-  content: attr(data-title);
+.wk-logo {
+  position: relative;
   display: block;
-  height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  font-size: var(--size-card-title);
+  height: var(--wk-logo-rest);
+  aspect-ratio: var(--wk-logo-ratio, 3);
+  transition: height 300ms var(--easing);
 }
-.wk-index-item.is-current {
-  font-size: var(--size-card-title);
-  color: var(--text-primary);
+.wk-logo > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.wk-logo > .is-color {
+  opacity: 0;
+  transition: opacity 300ms var(--easing);
+}
+.wk-index-item.is-current .wk-logo {
+  height: var(--wk-logo-cur);
+}
+.wk-index-item.is-current .wk-logo > .is-color {
+  opacity: 1;
 }
 @media (hover: hover) {
-  .wk-index-item:hover {
-    color: var(--text-primary);
+  .wk-index-item:hover .wk-logo > .is-color {
+    opacity: 1;
   }
 }
 
@@ -225,16 +237,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wk-index-item {
+  .wk-logo,
+  .wk-logo > img {
     transition: none;
   }
 }
 
 /* ── Tablet: the index a row under the header, the card the page ──
    A tablet has no columns to spare for the index beside the card, so
-   the index is a row across the page under the header, every title at
-   body size, the current one in ink and the rest in grey, and the card
-   has the whole width between the margins. The row is placed from the
+   the index is a row across the page under the header, every wordmark at
+   the waiting height, the current one in colour and the rest in grey, and
+   the card has the whole width between the margins. The row is placed from the
    grid, which stands on the index line, back up to under the header.
 
    Inside the card, one column: the summary wraps to the width here rather
@@ -262,12 +275,12 @@
     align-items: baseline;
     gap: 8px 28px;
   }
-  .wk-index-item.is-current {
-    font-size: var(--size-body);
+  /* nothing to reserve: the marks keep one size in the row */
+  .wk-index-item {
+    min-width: 0;
   }
-  /* nothing to reserve: the titles keep one size in the row */
-  .wk-index-item::after {
-    display: none;
+  .wk-index-item.is-current .wk-logo {
+    height: var(--wk-logo-rest);
   }
   .wk-stage {
     grid-column: 1;
