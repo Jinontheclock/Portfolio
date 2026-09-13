@@ -10,9 +10,12 @@ export default {
      page's white on it (see .wk-section in work.css) */
   card: "#9470FF",
   /* the Work index's entry: the wordmark, in colour when the project is
-     on the stage and in grey when it waits; `ratio` is the wordmark's. Cut
+     on the stage and in grey when it waits; `ratio` is the wordmark's, and
+     `scale` its share of the index's common height — the marks differ in
+     shape, a wide one-liner reading larger than a compact two-liner at
+     one height, so each is scaled to balance with the others. Cut
      from originals/public/media/welab_color.png and _gray.png. */
-  logo: { color: logoColor, gray: logoGray, ratio: [579, 240] },
+  logo: { color: logoColor, gray: logoGray, ratio: [579, 240], scale: 1.05 },
   /* The Work card's devices: the render of the studio's site on a MacBook
      and on an iPhone, the screens in it already; `ratio` is the picture's.
      Cut from originals/public/Untitled-2.png to 1000 tall. */

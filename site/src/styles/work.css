@@ -58,11 +58,14 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
-  /* the wordmark's two heights, on the body and card-title sizes the
+  gap: 22px;
+  /* the wordmarks' two heights, on the body and card-title sizes the
      titles used to take — but a wordmark's height is its whole mark, cap
      to baseline and often a second line, where a title's size is its em,
-     so each is set well over its token: about 28 and 52 on the 14" */
+     so each is set well over its token: about 28 and 52 on the 14". Each
+     mark takes its own share of these (--wk-logo-scale, from its data),
+     since at one height a wide one-liner reads far larger than a compact
+     two-liner. */
   --wk-logo-rest: calc(var(--size-body) * 1.75);
   --wk-logo-cur: calc(var(--size-card-title) * 2);
 }
@@ -81,12 +84,12 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  min-width: calc(var(--wk-logo-cur) * var(--wk-logo-ratio, 3));
+  min-width: calc(var(--wk-logo-cur) * var(--wk-logo-scale, 1) * var(--wk-logo-ratio, 3));
 }
 .wk-logo {
   position: relative;
   display: block;
-  height: var(--wk-logo-rest);
+  height: calc(var(--wk-logo-rest) * var(--wk-logo-scale, 1));
   aspect-ratio: var(--wk-logo-ratio, 3);
   transition: height 300ms var(--easing);
 }
@@ -102,7 +105,7 @@
   transition: opacity 300ms var(--easing);
 }
 .wk-index-item.is-current .wk-logo {
-  height: var(--wk-logo-cur);
+  height: calc(var(--wk-logo-cur) * var(--wk-logo-scale, 1));
 }
 .wk-index-item.is-current .wk-logo > .is-color {
   opacity: 1;
@@ -280,7 +283,7 @@
     min-width: 0;
   }
   .wk-index-item.is-current .wk-logo {
-    height: var(--wk-logo-rest);
+    height: calc(var(--wk-logo-rest) * var(--wk-logo-scale, 1));
   }
   .wk-stage {
     grid-column: 1;

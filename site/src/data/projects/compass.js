@@ -928,9 +928,12 @@ export default {
      page's white on it (see .wk-section in work.css) */
   card: "#68B8E7",
   /* the Work index's entry: the wordmark, in colour when the project is
-     on the stage and in grey when it waits; `ratio` is the wordmark's. Cut
+     on the stage and in grey when it waits; `ratio` is the wordmark's, and
+     `scale` its share of the index's common height — the marks differ in
+     shape, a wide one-liner reading larger than a compact two-liner at
+     one height, so each is scaled to balance with the others. Cut
      from originals/public/media/Compass_color.png and _gray.png. */
-  logo: { color: logoColor, gray: logoGray, ratio: [1183, 240] },
+  logo: { color: logoColor, gray: logoGray, ratio: [1183, 240], scale: 0.8 },
   /* Work-card thumbnail: the concept running in both its devices — the
      Apple Wallet link-up on the iPhone, a reload and a reader tap on the
      watch. scripts/record-compass-hero.mjs records the screens (the watch

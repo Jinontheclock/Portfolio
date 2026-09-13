@@ -45,9 +45,12 @@ export default {
      page's white on it (see .wk-section in work.css) */
   card: "#822433",
   /* the Work index's entry: the wordmark, in colour when the project is
-     on the stage and in grey when it waits; `ratio` is the wordmark's. Cut
+     on the stage and in grey when it waits; `ratio` is the wordmark's, and
+     `scale` its share of the index's common height — the marks differ in
+     shape, a wide one-liner reading larger than a compact two-liner at
+     one height, so each is scaled to balance with the others. Cut
      from originals/public/media/muji_color.png and _gray.png. */
-  logo: { color: logoColor, gray: logoGray, ratio: [370, 240] },
+  logo: { color: logoColor, gray: logoGray, ratio: [370, 240], scale: 1.3 },
   // company confidentiality: gate the case study behind a password
   locked: true,
   passwordHash:

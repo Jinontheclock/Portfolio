@@ -118,10 +118,13 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 key={p.id}
                 type="button"
                 className={"wk-index-item" + (current === i ? " is-current" : "")}
-                /* the wordmark's proportions, for its box and for the width
-                   the button reserves against the day it is current — see
-                   .wk-index-item in work.css */
-                style={{ "--wk-logo-ratio": p.logo.ratio[0] / p.logo.ratio[1] }}
+                /* the wordmark's proportions and its share of the common
+                   height, for its box and for the width the button reserves
+                   against the day it is current — see .wk-index-item */
+                style={{
+                  "--wk-logo-ratio": p.logo.ratio[0] / p.logo.ratio[1],
+                  "--wk-logo-scale": p.logo.scale ?? 1,
+                }}
                 aria-label={p.title}
                 aria-current={current === i ? "true" : undefined}
                 onClick={() => jumpTo(i)}

@@ -10,9 +10,12 @@ export default {
      page's white on it (see .wk-section in work.css) */
   card: "#E58555",
   /* the Work index's entry: the wordmark, in colour when the project is
-     on the stage and in grey when it waits; `ratio` is the wordmark's. Cut
+     on the stage and in grey when it waits; `ratio` is the wordmark's, and
+     `scale` its share of the index's common height — the marks differ in
+     shape, a wide one-liner reading larger than a compact two-liner at
+     one height, so each is scaled to balance with the others. Cut
      from originals/public/media/prolog_color.png and _gray.png. */
-  logo: { color: logoColor, gray: logoGray, ratio: [797, 240] },
+  logo: { color: logoColor, gray: logoGray, ratio: [797, 240], scale: 1.0 },
   /* The Work card's devices: the render of the two iPhones, the
      dashboard's journey on one and the paystub records on the other, the
      screens in it already; `ratio` is the picture's. Cut from
