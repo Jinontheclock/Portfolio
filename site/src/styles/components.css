@@ -433,13 +433,16 @@
    wordmark and the copyright stand on nothing, and thinning to nothing
    over twice each one's height below and above them, so a line is gone
    by the time it reaches HAJIN rather than half there under it. The
-   veil is over the box, not the column, so it keeps to the screen while
-   the column moves through it. It is a veil rather than a mask on the
-   box so that a thing in the column can be held above it and shown
-   whole — About's second photograph, which runs into the footer's fade
-   by design (see about.css); a mask has no exceptions. Under the
-   header and the footer, which stand at 10; over everything in the box
-   but what is raised past 5.
+   veil is laid on the root, not on the box: a box that scrolls carries
+   anything placed inside it along with the content, pseudo-elements
+   included, and a veil on the box rode up the screen with the column and
+   left its bands across the middle of it. On the root it keeps to the
+   screen while the column moves through it. It is a veil rather than a
+   mask on the box so that a thing in the column can be held above it
+   and shown whole — About's second photograph, which runs into the
+   footer's fade by design (see about.css); a mask has no exceptions.
+   Under the header and the footer, which stand at 10; over everything
+   in the box but what is raised past 5.
 
    .ab-root is every inner page's root; the pair is what outweighs the
    pages' own rules for the same properties. */
@@ -467,12 +470,14 @@
   inset: 0;
   overflow: hidden;
   padding: var(--index-line) 0 0;
+}
+.ab-root.page-screen {
   --edge-clear-top: var(--header-h);
   --edge-fade-top: calc(var(--header-h) * 2);
   --edge-clear-bottom: var(--footer-h);
   --edge-fade-bottom: calc(var(--footer-h) * 2);
 }
-.ab-root.page-screen > main::after {
+.ab-root.page-screen::after {
   content: "";
   position: absolute;
   inset: 0;
