@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { isCovered, onCover, onReveal } from "../lib/preloaderBus.js";
 
-/* The devices on a Work card: each one its frame — the mockup as an image
+/* The devices on a Work card. Each one is either a picture with the
+   screens already in it (`image`), or its frame — the mockup as an image
    with the screen open — over a clip of the screen itself, cropped to the
    hole. The frame's own alpha is what lets the phone stand on the card's
    colour; the clip stays plain opaque video, which every browser plays,
@@ -136,6 +137,17 @@ export default function WorkMockups({ mockups, alt, hovered }) {
        over, and the frames and clips inside carry no text of their own */
     <div className="wk-mockups" ref={rootRef} role="img" aria-label={alt}>
       {mockups.map((m) => {
+        if (m.image) {
+          return (
+            <div
+              key={m.image}
+              className="wk-mockup"
+              style={{ aspectRatio: `${m.ratio[0]} / ${m.ratio[1]}` }}
+            >
+              <img className="wk-mockup-frame" src={m.image} alt="" loading="lazy" />
+            </div>
+          );
+        }
         const [x, y, w, h] = m.screen;
         return (
           <div

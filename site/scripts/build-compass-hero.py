@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Composites the two recorded Compass screens into their device mockups
-and cuts the Work-card video — the Compass sibling of build-prolog-hero.py.
+"""Composites the two recorded Compass screens into their device mockups —
+the Compass sibling of build-prolog-hero.py. (The Work card no longer cuts
+its picture from this: it shows a still render, src/assets/compass/
+compass-card-phones.webp, see data/projects/compass.js.)
 
     python3 scripts/build-compass-hero.py           (needs ffmpeg, pillow, numpy)
 
@@ -13,8 +15,6 @@ Inputs
 
 Outputs
     public/media/compass-card/compass-hero-devices.mp4        (master 3500x1928)
-    public/media/compass-card/compass-card.mp4 / .webm        (1120x800 card cut)
-    src/assets/compass/compass-card-poster.webp
     public/media/compass-card/raw/hero-layout-preview.png
 
 The iPhone frame has a transparent screen hole, so its video slides
@@ -62,8 +62,6 @@ WATCH = {
     "screen": (331, 537, 886, 1296),
 }
 
-CARD_CROP = "2699:1928:400:0"
-CARD_SCALE = "1120:800"
 
 
 def run(cmd):
@@ -148,18 +146,4 @@ run(["ffmpeg", "-v", "error", "-y",
      "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p",
      "-crf", "18", "-preset", "slow", "-movflags", "+faststart", master])
 
-# ── card cut: same encode spec as scripts/build-card-videos.py ──
-vf = f"crop={CARD_CROP},scale={CARD_SCALE}:flags=lanczos"
-card_mp4 = OUT / "compass-card.mp4"
-card_webm = OUT / "compass-card.webm"
-poster = ROOT / "src" / "assets" / "compass" / "compass-card-poster.webp"
-run(["ffmpeg", "-v", "error", "-y", "-i", master, "-vf", vf, "-an",
-     "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p",
-     "-crf", "26", "-preset", "slow", "-movflags", "+faststart", card_mp4])
-run(["ffmpeg", "-v", "error", "-y", "-i", master, "-vf", vf, "-an",
-     "-c:v", "libvpx-vp9", "-crf", "34", "-b:v", "0", card_webm])
-run(["ffmpeg", "-v", "error", "-y", "-i", master, "-vf", vf,
-     "-frames:v", "1", "-quality", "88", poster])
-
-for p in (master, card_mp4, card_webm, poster):
-    print(f"{p.name} {p.stat().st_size / 1e6:.2f}MB")
+print(f"{master.name} {master.stat().st_size / 1e6:.2f}MB")
