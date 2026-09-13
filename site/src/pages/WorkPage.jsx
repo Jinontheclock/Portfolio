@@ -120,6 +120,9 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 key={p.id}
                 type="button"
                 className={"wk-index-item" + (current === i ? " is-current" : "")}
+                /* for the width it reserves against the day it is current —
+                   see .wk-index-item::after in work.css */
+                data-title={p.title}
                 aria-current={current === i ? "true" : undefined}
                 onClick={() => jumpTo(i)}
               >
