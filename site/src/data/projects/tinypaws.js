@@ -7,11 +7,14 @@ export default {
      page's white on it (see .wk-section in work.css) */
   card: "#FFAA54",
   screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
-  /* The Work card's device: the render of the rescue's site on an iMac, its landing page, the screen in it
-     already; `ratio` is the picture's. Wide, so it lies above the copy
-     rather than beside it (see .mock-above in work.css). Cut from
-     originals/public/media/tinypaws_thumnail.png to 1000 tall. */
-  mockups: [{ image: cardThumb, ratio: [1250, 1000] }],
+  /* The Work card's device: the render of the rescue's site on an iMac,
+     with its keyboard and mouse, the screen in it already; `ratio` is the
+     picture's. Wide, so it lies above the copy rather than beside it (see
+     .mock-above in work.css). Cut from originals/public/media/
+     tinypawsthum.jpg to 1000 tall — a JPEG on white, so the ground was
+     keyed out: the white connected to the border, and the shadow's grey
+     turned into transparency at its own strength. */
+  mockups: [{ image: cardThumb, ratio: [1180, 1000] }],
   mockupPlace: "above",
   thumbAlt: {
     en: "The TinyPaws site on an iMac: the kitten rescue's landing page",

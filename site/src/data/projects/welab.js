@@ -7,14 +7,14 @@ export default {
   /* the Work card's ground: the project's own colour, the copy in the
      page's white on it (see .wk-section in work.css) */
   card: "#9470FF",
-  /* The Work card's device: the render of the studio's site on a MacBook, its hero, the screen in it
-     already; `ratio` is the picture's. Wide, so it lies above the copy
-     rather than beside it (see .mock-above in work.css). Cut from
-     originals/public/media/welab_thunnail.png to 900 tall. */
-  mockups: [{ image: cardThumb, ratio: [1764, 900] }],
+  /* The Work card's devices: the render of the studio's site on a MacBook
+     and on an iPhone, the screens in it already; `ratio` is the picture's.
+     Wide, so it lies above the copy rather than beside it (see .mock-above
+     in work.css). Cut from originals/public/Untitled-2.png to 1000 tall. */
+  mockups: [{ image: cardThumb, ratio: [1247, 1000] }],
   mockupPlace: "above",
   thumbAlt: {
-    en: "The WeLAB Entertainment site on a MacBook: the studio's hero, We love a battle",
+    en: "The WeLAB Entertainment site on a MacBook and an iPhone: the studio's hero on the laptop, a project page on the phone",
     ja: "デスクトップモニターに映る、作り直したWeLABのサイトのホーム",
     ko: "데스크톱 모니터에 띄운, 다시 만든 WeLAB 사이트의 홈",
   },
