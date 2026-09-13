@@ -124,12 +124,11 @@
    columns, the first as wide as the copy's longest line — the summary's
    lines are set by hand on a wide screen, see .wk-desc — and two rows,
    the second as tall as the copy. The copy stands in the lower-left cell.
-   A project's devices take what is left: the second column, standing on
-   the copy's bottom line, or — where the picture is wide, a laptop or a
-   monitor, and a column beside the copy would leave it a sliver — the
-   first row, above the copy (.mock-above). Either way the cell is a size
-   container, and the row of pictures in it is sized from the cell: see
-   .wk-mockup-row. */
+   A project's devices take the whole of the padded area — every cell —
+   as tall as the padding lets them and against the right edge, and the
+   copy lies over them where they meet; the renders keep their air on
+   that side. The cell is a size container, and the row of pictures in it
+   is sized from the cell: see .wk-mockup-row. */
 .wk-section {
   grid-area: 1 / 1;
   position: relative;
@@ -190,23 +189,19 @@
 }
 
 /* ── The devices ──
-   The cell is a size container, stretched to its grid area, and the row
-   of pictures inside is sized from it: as tall as the cell, unless that
-   would make the row wider than the cell — the copy's fixed lines can
-   leave the column narrow on a smaller laptop — and then the cell's width
-   sets it, through the pictures' ratios summed (WorkPage.jsx writes the
-   sum, and the number of gaps, on the card). The row keeps to the cell's
-   lower right, so beside the copy it stands on the copy's bottom line and
-   above the copy it sits against the card's right edge. */
+   The cell is the whole padded area, and a size container, and the row
+   of pictures inside is sized from it: as tall as the cell — top padding
+   to bottom padding — unless that would make the row wider than the
+   cell, and then the cell's width sets it, through the pictures' ratios
+   summed (WorkPage.jsx writes the sum, and the number of gaps, on the
+   card). The row keeps to the cell's lower right: on the copy's bottom
+   line, against the card's right edge. */
 .wk-mockups {
-  grid-area: 1 / 2 / 3 / 3;
+  grid-area: 1 / 1 / 3 / 3;
   container-type: size;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-}
-.wk-section.mock-above .wk-mockups {
-  grid-area: 1 / 1 / 2 / 3;
 }
 .wk-mockup-row {
   height: min(
@@ -244,8 +239,9 @@
 
    Inside the card, one column: the summary wraps to the width here rather
    than turning where its newline is, so a column as wide as its longest
-   line would be the whole paragraph. The devices take the first row,
-   above the copy, whatever their shape. ── */
+   line would be the whole paragraph — and, being the whole width, the
+   copy cannot lie beside or under a picture. So the devices take the
+   first row, above the copy, as large as it lets them. ── */
 @media (max-width: 1080px) {
   /* one column: the index is out of the flow, so nothing is left to set
      the first one's width, and its gap would only push the card over */
@@ -282,8 +278,7 @@
   .wk-desc {
     white-space: normal;
   }
-  .wk-mockups,
-  .wk-section.mock-above .wk-mockups {
+  .wk-mockups {
     grid-area: 1 / 1;
   }
 }

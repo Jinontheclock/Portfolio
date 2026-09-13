@@ -9,11 +9,8 @@ export default {
   screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
   /* The Work card's device: the render of the rescue's site on an iMac,
      with its keyboard and mouse, the screen in it already; `ratio` is the
-     picture's. Wide, so it lies above the copy rather than beside it (see
-     .mock-above in work.css). Cut from originals/tinypawsthum.png to 1000
-     tall. */
+     picture's. Cut from originals/tinypawsthum.png to 1000 tall. */
   mockups: [{ image: cardThumb, ratio: [1177, 1000] }],
-  mockupPlace: "above",
   thumbAlt: {
     en: "The TinyPaws site on an iMac: the kitten rescue's landing page",
     ja: "デスクトップモニターに映るTinyPawsのサイト。ホームが開いている",

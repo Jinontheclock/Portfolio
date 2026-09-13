@@ -27,7 +27,6 @@ const CARD_FIELDS = [
   "roles",
   "card",
   "mockups",
-  "mockupPlace",
   "thumbAlt",
 ];
 const PROJECT_CARDS = PROJECTS.map((p) =>
@@ -136,12 +135,7 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 key={p.id}
                 id={`wk-${p.id}`}
                 to={langPath(`/work/${p.id}`)}
-                className={
-                  "wk-section" +
-                  (current === i ? " is-current" : "") +
-                  /* a wide picture lies above the copy — see work.css */
-                  (p.mockupPlace === "above" ? " mock-above" : "")
-                }
+                className={"wk-section" + (current === i ? " is-current" : "")}
                 style={{ "--wk-card": p.card, ...mockupVars(p.mockups) }}
                 onClick={(e) => {
                   if (p.locked && !isUnlocked(p.id)) {
