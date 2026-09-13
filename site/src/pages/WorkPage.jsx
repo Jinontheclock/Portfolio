@@ -27,6 +27,7 @@ const CARD_FIELDS = [
   "roles",
   "card",
   "mockups",
+  "mockupPlace",
   "thumbAlt",
 ];
 const PROJECT_CARDS = PROJECTS.map((p) =>
@@ -71,9 +72,6 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const projects = useMemo(() => resolve(PROJECT_CARDS, lang), [lang]);
   // a locked project asks for its password right here, before navigating
   const [gateProject, setGateProject] = useState(null);
-  /* which card the pointer is over, by id — the card is one link, and its
-     clips play under the pointer; see WorkMockups.jsx */
-  const [hovered, setHovered] = useState(null);
   useEffect(() => {
     document.title = PAGE_TITLE.work[lang] || PAGE_TITLE.work.en;
   }, [lang]);
@@ -141,13 +139,10 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 className={
                   "wk-section" +
                   (current === i ? " is-current" : "") +
-                  (p.mockups ? " has-mockups" : "")
+                  /* a wide picture lies above the copy — see work.css */
+                  (p.mockupPlace === "above" ? " mock-above" : "")
                 }
                 style={{ "--wk-card": p.card, ...mockupVars(p.mockups) }}
-                onMouseEnter={() => setHovered(p.id)}
-                onMouseLeave={() => setHovered((id) => (id === p.id ? null : id))}
-                onFocus={() => setHovered(p.id)}
-                onBlur={() => setHovered((id) => (id === p.id ? null : id))}
                 onClick={(e) => {
                   if (p.locked && !isUnlocked(p.id)) {
                     e.preventDefault();
@@ -172,15 +167,7 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                   <span className="wk-desc">{p.description}</span>
                   <span className="wk-specs">{p.roles}</span>
                 </div>
-                {p.mockups && (
-                  <WorkMockups
-                    mockups={p.mockups}
-                    alt={p.thumbAlt}
-                    /* the card on the stage plays without being asked: it
-                       is the one being read */
-                    hovered={hovered === p.id || current === i}
-                  />
-                )}
+                {p.mockups && <WorkMockups mockups={p.mockups} alt={p.thumbAlt} />}
               </Link>
             ))}
           </div>

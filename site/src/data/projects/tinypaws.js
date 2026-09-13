@@ -1,4 +1,4 @@
-import cardPoster from "../../assets/tinypaws/tinypaws-card-poster.webp";
+import cardThumb from "../../assets/tinypaws/tinypaws-card-thumb.webp";
 
 export default {
   id: "tinypaws",
@@ -7,27 +7,14 @@ export default {
      page's white on it (see .wk-section in work.css) */
   card: "#FFAA54",
   screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
-  /* Work-card thumbnail: the case study's own hero clip, cropped to the
-     card's proportions and without the logo the hero floats over it. The
-     card rests on the poster and plays under the pointer.
-     scripts/build-card-videos.py makes all three files. */
-  video: {
-    /* VP9 first so a Chromium without the proprietary codecs still plays
-       it; H.264 is what everything else takes */
-    sources: [
-      {
-        src: `${import.meta.env.BASE_URL}media/tinypaws/tinypaws-card.webm`,
-        type: "video/webm",
-      },
-      {
-        src: `${import.meta.env.BASE_URL}media/tinypaws/tinypaws-card.mp4`,
-        type: "video/mp4",
-      },
-    ],
-    poster: cardPoster,
-  },
+  /* The Work card's device: the render of the rescue's site on an iMac, its landing page, the screen in it
+     already; `ratio` is the picture's. Wide, so it lies above the copy
+     rather than beside it (see .mock-above in work.css). Cut from
+     originals/public/media/tinypaws_thumnail.png to 1000 tall. */
+  mockups: [{ image: cardThumb, ratio: [1250, 1000] }],
+  mockupPlace: "above",
   thumbAlt: {
-    en: "The TinyPaws site on a desktop monitor, open at the home page",
+    en: "The TinyPaws site on an iMac: the kitten rescue's landing page",
     ja: "デスクトップモニターに映るTinyPawsのサイト。ホームが開いている",
     ko: "데스크톱 모니터에 띄운 TinyPaws 사이트. 홈 화면이 열려 있다",
   },

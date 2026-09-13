@@ -1,4 +1,4 @@
-import cardPhones from "../../assets/compass/compass-card-phones.webp";
+import cardThumb from "../../assets/compass/compass-card-thumb.webp";
 
 /* Compass Card — 8 chapters, 90 blocks. Structure and copy are final;
    every figure and solution screen is a labelled placeholder until the
@@ -930,13 +930,13 @@ export default {
      watch. scripts/record-compass-hero.mjs records the screens (the watch
      side drives the playable demo at public/compass/watch/), and
      scripts/build-compass-hero.py composites and cuts the card. */
-  /* The Work card's devices: one picture of the two iPhones, the landing
-     screen on the near one and an active monthly pass on the far one,
-     with the screens in it already; `ratio` is the picture's. Cut from
-     the render in originals/public/media/compass-card/ to 1200 tall. */
-  mockups: [{ image: cardPhones, ratio: [887, 1200] }],
+  /* The Work card's devices: the render of the iPhone and the Apple
+     Watch, the landing screen on the phone and the card in the watch's
+     wallet, the screens in it already; `ratio` is the picture's. Cut from
+     originals/public/media/compasscard_thumnail.png to 1200 tall. */
+  mockups: [{ image: cardThumb, ratio: [1287, 1200] }],
   thumbAlt: {
-    en: "The Compass app on two iPhones: the landing screen on one, the Passes screen with an active monthly pass on the other",
+    en: "The Compass app on an iPhone and an Apple Watch: the landing screen on the phone, the card in the watch's wallet",
     ja: "iPhoneとApple Watchで見せるCompassのコンセプト。片方はApple Walletにパスが加わるところ、もう片方はチャージとリーダーへのタッチ",
     ko: "iPhone과 Apple Watch로 보여주는 Compass 콘셉트. 한쪽은 Apple Wallet에 패스가 들어가는 장면, 다른 쪽은 충전과 리더기 태그",
   },

@@ -14,8 +14,9 @@ Outputs
     public/media/prolog/prolog-hero-phones.mp4             (master 3500x1928)
     public/media/prolog/raw/hero-layout-preview.png        (static sanity check)
 
-The Work card's mockups are lifted back out of the master by
-build-prolog-card.py; the frames and their placement are prolog_frames.py.
+The frames and their placement are prolog_frames.py. (The Work card no
+longer cuts its picture from this: it shows a still render, see
+data/projects/prolog.js.)
 
 Playwright records at CSS resolution regardless of deviceScaleFactor, so the
 app sits in the top-left of each capture; APP_RECT crops it out. The iPhone

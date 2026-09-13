@@ -120,14 +120,16 @@
    ground the project's own colour (--wk-card, set inline from the
    project's data), the copy in the page's white on it.
 
-   Inside, two columns on the card's own padding (40, and 48 at the right),
-   both standing on the bottom: the copy in the lower-left corner, and the
-   project's devices, where it has them, at the lower right. The copy's
-   column is as wide as its longest line — the summary's lines are set by
-   hand on a wide screen, see .wk-desc — and the devices get the rest,
-   which is what sizes them: see .wk-mockup-row. The card is a size
-   container for that; the container units below resolve against its
-   content box, the inside of the padding. */
+   Inside, a grid on the card's own padding (40, and 48 at the right): two
+   columns, the first as wide as the copy's longest line — the summary's
+   lines are set by hand on a wide screen, see .wk-desc — and two rows,
+   the second as tall as the copy. The copy stands in the lower-left cell.
+   A project's devices take what is left: the second column, standing on
+   the copy's bottom line, or — where the picture is wide, a laptop or a
+   monitor, and a column beside the copy would leave it a sliver — the
+   first row, above the copy (.mock-above). Either way the cell is a size
+   container, and the row of pictures in it is sized from the cell: see
+   .wk-mockup-row. */
 .wk-section {
   grid-area: 1 / 1;
   position: relative;
@@ -136,10 +138,8 @@
   padding: 40px 48px 40px 40px;
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
-  column-gap: 24px;
-  align-content: end;
-  align-items: end;
-  container-type: size;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 24px;
   --wk-mock-gap: 24px;
   border-radius: 8px;
   background: var(--wk-card, var(--surface-placeholder));
@@ -154,7 +154,7 @@
 }
 
 .wk-text {
-  grid-column: 1;
+  grid-area: 2 / 1;
   min-width: 0;
   z-index: 1;
   display: flex;
@@ -190,26 +190,23 @@
 }
 
 /* ── The devices ──
-   A project that has them stands its mockups at the lower right of the
-   card, the pair 24 apart on the copy's own bottom line. Each is its
-   frame — an image with the screen open — over the screen's clip, which
-   WorkMockups.jsx places in the hole by fractions of the frame, or one
-   picture with the screens already in it.
-
-   The cell is the card's second column, stretched to it, and is an
-   inline-size container so that the row inside can be sized from the
-   column's width: the row is as tall as the card's inner height (the
-   frame's 520 in 600), unless that would make it wider than the column —
-   which the copy's fixed lines can leave narrow on a smaller laptop — and
-   then the column's width sets it, through the frames' ratios summed
-   (WorkPage.jsx writes the sum, and the number of gaps, on the card). So
-   the devices give way to the copy by exactly as much as its lines need,
-   and never stand under it. */
+   The cell is a size container, stretched to its grid area, and the row
+   of pictures inside is sized from it: as tall as the cell, unless that
+   would make the row wider than the cell — the copy's fixed lines can
+   leave the column narrow on a smaller laptop — and then the cell's width
+   sets it, through the pictures' ratios summed (WorkPage.jsx writes the
+   sum, and the number of gaps, on the card). The row keeps to the cell's
+   lower right, so beside the copy it stands on the copy's bottom line and
+   above the copy it sits against the card's right edge. */
 .wk-mockups {
-  grid-column: 2;
-  container-type: inline-size;
+  grid-area: 1 / 2 / 3 / 3;
+  container-type: size;
   display: flex;
   justify-content: flex-end;
+  align-items: flex-end;
+}
+.wk-section.mock-above .wk-mockups {
+  grid-area: 1 / 1 / 2 / 3;
 }
 .wk-mockup-row {
   height: min(
@@ -220,51 +217,19 @@
   gap: var(--wk-mock-gap);
 }
 
-/* a device: its frame fills the box, and the box takes the frame's
-   proportions (set inline from the data) so the clip's fractions hold */
+/* a picture: its box takes the picture's proportions (set inline from
+   the data) and the row's height, and the picture fills it */
 .wk-mockup {
-  position: relative;
   flex: none;
   height: 100%;
 }
-.wk-mockup-frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+.wk-mockup > img {
   display: block;
-}
-
-/* the screen: the poster at rest, the clip fading over it at the speed
-   the copy's colour once arrived at. The box is cut to the screen's own
-   shape by the mask WorkMockups.jsx sets on it (the hole traced from the
-   frame, grown a little so the clip runs under the frame's rim) — the box
-   is a rectangle, the screen's corners are not, and a rounded body would
-   leave the rectangle's corners standing out past it. */
-.wk-mockup-screen {
-  position: absolute;
-  overflow: hidden;
-  mask-size: 100% 100%;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-}
-.wk-mockup-screen > img,
-.wk-mockup-screen > video {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-.wk-mockup-screen > video {
-  transition: opacity 300ms var(--easing);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wk-mockup-screen > video {
-    transition: none;
-  }
   .wk-index-item {
     transition: none;
   }
@@ -275,7 +240,12 @@
    the index is a row across the page under the header, every title at
    body size, the current one in ink and the rest in grey, and the card
    has the whole width between the margins. The row is placed from the
-   grid, which stands on the index line, back up to under the header. ── */
+   grid, which stands on the index line, back up to under the header.
+
+   Inside the card, one column: the summary wraps to the width here rather
+   than turning where its newline is, so a column as wide as its longest
+   line would be the whole paragraph. The devices take the first row,
+   above the copy, whatever their shape. ── */
 @media (max-width: 1080px) {
   /* one column: the index is out of the flow, so nothing is left to set
      the first one's width, and its gap would only push the card over */
@@ -306,56 +276,15 @@
   .wk-stage {
     grid-column: 1;
   }
-
-  /* The card's interior: the copy and the devices each placed on their
-     own rather than on the grid, because the summary wraps to the width
-     here rather than turning where its newline is, and a column as wide
-     as its longest line would be the whole paragraph. The devices keep
-     the lower right, and the copy is kept clear of them: its right edge
-     stops a breath short of the row. That needs the row's width in the
-     stylesheet, so the row's height is set here from the card — its
-     inner height, unless that would put the row across more than half of
-     its inner width, and then the width sets it — and the width is the
-     height times the frames' ratios. Declared on the copy and the cell
-     both, because container units resolve against an ancestor, never the
-     container itself. */
   .wk-section {
-    display: block;
-    padding: 0;
-  }
-  .wk-text {
-    position: absolute;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
+    grid-template-columns: minmax(0, 1fr);
   }
   .wk-desc {
     white-space: normal;
   }
-  .wk-section.has-mockups > .wk-text,
-  .wk-mockups {
-    --wk-mock-h: min(
-      100cqh - 80px,
-      ((100cqw - 80px) * 0.5 - var(--wk-mock-gap) * var(--wk-mock-gaps, 0)) /
-        var(--wk-mock-ratio, 1)
-    );
-    --wk-mock-w: calc(
-      var(--wk-mock-h) * var(--wk-mock-ratio, 1) + var(--wk-mock-gap) * var(--wk-mock-gaps, 0)
-    );
-  }
-  .wk-section.has-mockups > .wk-text {
-    right: calc(48px + var(--wk-mock-w) + 24px);
-  }
-  .wk-mockups {
-    position: absolute;
-    right: 48px;
-    bottom: 40px;
-    height: var(--wk-mock-h);
-    container-type: normal;
-    display: block;
-  }
-  .wk-mockup-row {
-    height: 100%;
+  .wk-mockups,
+  .wk-section.mock-above .wk-mockups {
+    grid-area: 1 / 1;
   }
 }
 
@@ -364,8 +293,8 @@
    and every card is in the flow, one under another at the full width
    between the page margins, each 37:50 (the Figma phone frame's 370×500),
    the copy in its corner 20 in and the devices, where there are any,
-   above it. WorkPage.jsx leaves the blocks alone on this breakpoint, and
-   builds no scroll box. ── */
+   centred above it. WorkPage.jsx leaves the blocks alone on this
+   breakpoint, and builds no scroll box. ── */
 @media (max-width: 600px) {
   .wk-screen {
     height: auto;
@@ -393,38 +322,18 @@
     gap: 24px;
   }
   /* the card leaves the stage for the stack, on its ratio rather than
-     the screen's height, and every one of them shows */
+     the screen's height, and every one of them shows; the padding is the
+     phone frame's, the devices 16 from the top and the copy 20 in */
   .wk-section,
   .wk-section:not(:first-child) {
     height: auto;
     aspect-ratio: 37 / 50;
+    padding: 16px 20px 20px;
+    gap: 16px;
     visibility: visible;
     opacity: 1;
   }
-  .wk-text,
-  .wk-section.has-mockups > .wk-text {
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-  }
-  /* the devices stand at the top of the card, centred, and the copy has
-     the whole width under them: the row is as tall as the card's width
-     lets it be, or as tall as leaves the copy its 170px, whichever is
-     less (the frame's 350 in 500) */
-  .wk-section.has-mockups > .wk-text,
   .wk-mockups {
-    --wk-mock-h: min(
-      100cqh - 170px,
-      (100cqw - 40px - var(--wk-mock-gap) * var(--wk-mock-gaps, 0)) / var(--wk-mock-ratio, 1)
-    );
-  }
-  .wk-mockups {
-    top: 16px;
-    right: 0;
-    bottom: auto;
-    left: 0;
-  }
-  .wk-mockup-row {
     justify-content: center;
   }
   /* the phone frame's sizes: the title at 24, the two lines under it at

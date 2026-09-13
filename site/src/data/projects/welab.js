@@ -1,4 +1,4 @@
-import cardPoster from "../../assets/welab/welab-card-poster.webp";
+import cardThumb from "../../assets/welab/welab-card-thumb.webp";
 
 export default {
   id: "welab",
@@ -7,27 +7,14 @@ export default {
   /* the Work card's ground: the project's own colour, the copy in the
      page's white on it (see .wk-section in work.css) */
   card: "#9470FF",
-  /* Work-card thumbnail: the case study's own hero clip, cropped to the
-     card's proportions and without the wordmark the hero floats over it.
-     The card rests on the poster and plays under the pointer.
-     scripts/build-card-videos.py makes all three files. */
-  video: {
-    /* VP9 first so a Chromium without the proprietary codecs still plays
-       it; H.264 is what everything else takes */
-    sources: [
-      {
-        src: `${import.meta.env.BASE_URL}media/welab/welab-card.webm`,
-        type: "video/webm",
-      },
-      {
-        src: `${import.meta.env.BASE_URL}media/welab/welab-card.mp4`,
-        type: "video/mp4",
-      },
-    ],
-    poster: cardPoster,
-  },
+  /* The Work card's device: the render of the studio's site on a MacBook, its hero, the screen in it
+     already; `ratio` is the picture's. Wide, so it lies above the copy
+     rather than beside it (see .mock-above in work.css). Cut from
+     originals/public/media/welab_thunnail.png to 900 tall. */
+  mockups: [{ image: cardThumb, ratio: [1764, 900] }],
+  mockupPlace: "above",
   thumbAlt: {
-    en: "The rebuilt WeLAB site on a desktop monitor, open at the home page",
+    en: "The WeLAB Entertainment site on a MacBook: the studio's hero, We love a battle",
     ja: "デスクトップモニターに映る、作り直したWeLABのサイトのホーム",
     ko: "데스크톱 모니터에 띄운, 다시 만든 WeLAB 사이트의 홈",
   },

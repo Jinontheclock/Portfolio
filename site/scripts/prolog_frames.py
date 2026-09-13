@@ -1,9 +1,8 @@
 """The two ProLog phone frames: where their screens are, and where the
 frames stand on the hero master.
 
-Shared by build-prolog-hero.py, which lays the recorded screens into the
-frames, and build-prolog-card.py, which lifts them back out for the Work
-card. Both frames are RGBA PNGs from the mockup set. The iPhone's screen is
+Used by build-prolog-hero.py, which lays the recorded screens into the
+frames. Both frames are RGBA PNGs from the mockup set. The iPhone's screen is
 a transparent hole; the Galaxy's is painted a uniform near-black, so its
 screen is found by colour and given a soft mask lifted from that fill.
 Either way the screen is traced as a region rather than boxed, because its
