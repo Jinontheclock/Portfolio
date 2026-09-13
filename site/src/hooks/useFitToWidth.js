@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef } from "react";
+import { PHONE_MAX } from "../lib/media.js";
 
 /** Scales a single nowrap line's font down so it fits its container width,
  *  never larger than maxPx (or mobileMax on ≤600px screens when given).
@@ -14,7 +15,7 @@ export default function useFitToWidth(maxPx, { mobileMax = null } = {}) {
     if (!el || !maxPx) return;
 
     const fit = () => {
-      const mobile = window.innerWidth <= 600;
+      const mobile = window.innerWidth <= PHONE_MAX;
       const cap = mobile && mobileMax != null ? mobileMax : maxPx;
       el.style.fontSize = cap + "px";
       const avail = el.clientWidth;

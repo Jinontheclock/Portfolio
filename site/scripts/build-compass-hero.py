@@ -10,8 +10,8 @@ Inputs
     public/media/compass-card/raw/compass-screen-wallet.mp4   (iPhone screen, 402x874)
     public/media/compass-card/raw/compass-screen-watch.mp4    (watch screen, 444x648)
     public/media/compass-card/raw/trims.json
-    public/media/compass-card/frames/iphone-17-pro-blue.png
-    public/media/compass-card/frames/apple-watch.png
+    originals/public/media/compass-card/frames/iphone-17-pro-blue.png
+    originals/public/media/compass-card/frames/apple-watch.png
 
 Outputs
     public/media/compass-card/compass-hero-devices.mp4        (master 3500x1928)
@@ -34,7 +34,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "public" / "media" / "compass-card" / "raw"
-FRAMES = ROOT / "public" / "media" / "compass-card" / "frames"
+FRAMES = ROOT / "originals" / "public" / "media" / "compass-card" / "frames"
 OUT = ROOT / "public" / "media" / "compass-card"
 
 CANVAS = (3500, 1928)

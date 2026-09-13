@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { PHONE_QUERY as PHONE } from "../lib/media.js";
 
 /** True at the width the site lays itself out as one column — the same
- *  600px the stylesheets break at, so "a phone" means the same thing in
- *  the markup as it does in the CSS. Live, so a rotation is not a stale
- *  answer. */
-const PHONE = "(max-width: 600px)";
+ *  600px the stylesheets break at (lib/media.js holds it, so "a phone"
+ *  means the same thing in the markup as it does in the CSS). Live, so a
+ *  rotation is not a stale answer. */
 
 export default function useIsPhone() {
   const [isPhone, setIsPhone] = useState(() =>

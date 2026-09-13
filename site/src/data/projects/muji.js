@@ -1,6 +1,3 @@
-import thumb1 from "../../assets/muji/muji-thumb-1.webp";
-import thumb2 from "../../assets/muji/muji-thumb-2.webp";
-import thumb3 from "../../assets/muji/muji-thumb-3.webp";
 import logoColor from "../../assets/muji/muji-logo-color.webp";
 import logoGray from "../../assets/muji/muji-logo-gray.webp";
 
@@ -57,7 +54,6 @@ export default {
     "9caa7c2feef38ddfb33aebdc7988e72d88f5b4c5caa43e67a8fd880fbaf56421",
   /* Work-card thumbnail. The first is what the card rests on; hovering
      walks the rest in order and returns to the first on the way out. */
-  thumbs: [thumb1, thumb2, thumb3],
   thumbAlt: {
     en: "MUJI storefront, floor plan and shop-floor illustrations",
     ja: "無印良品の店頭、売場の平面図、売場のイラスト",

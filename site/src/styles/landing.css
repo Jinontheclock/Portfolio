@@ -490,11 +490,23 @@ button.lp-footer-lang:focus-visible,
 .lp-footer-lang.is-current {
   color: var(--text-primary);
 }
-/* the same words the inner pages' footer sets, at this band's size */
+/* the same words the inner pages' footer sets, at this band's size.
+
+   It is set on one line, and the languages beside it hold their 240px
+   whatever the window is — so between the phone's stack and about 900px
+   the line ran out of room and pushed the page sideways: 10px of
+   horizontal scroll on an iPad upright, 145px at 601. The size is capped
+   at what the room left over actually fits, the way the phone's rule caps
+   it: the band's inner width less the languages' 238 and the gap, over
+   the line's measured width per pixel of type (31.9, taken at three
+   widths, with a little held back). At 900 the cap works out at 18.5
+   against the band's own 18, so from there up min() leaves the line
+   exactly as it was. */
 .lp-footer-copy {
   min-width: 0;
   text-align: right;
   white-space: nowrap;
+  font-size: min(var(--size-header-nav), (100cqw - 262px) / 32.2);
 }
 
 /* On a phone the header's two labels fade once the page is scrolled, so
@@ -533,6 +545,14 @@ button.lp-footer-lang:focus-visible,
   .lp-footer-top {
     width: 100%;
     gap: 24px;
+  }
+  /* The place and the time are a row with the two pushed apart, and at
+     the narrow end of the phone tier — 320, the width breakpoints.css
+     names as the floor — they do not both fit, and the time hung 27px
+     off the right edge. Wrapping is a no-op at every width where they
+     do fit; the time simply drops under the place where they do not. */
+  .lp-footer-where {
+    flex-wrap: wrap;
   }
   /* the foot stacks, everything at the left edge: the three languages
      in a row with a word's space between them rather than spread over

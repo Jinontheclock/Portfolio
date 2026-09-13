@@ -1,4 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { reducedMotion } from "./media.js";
+
+/* re-exported: the landing reads it from here, where it used to live */
+export { reducedMotion };
 import { useLocation } from "react-router-dom";
 import gsap from "gsap";
 import Lenis from "lenis";
@@ -53,8 +57,6 @@ const TURN = 1;
    before a touch is a swipe. */
 const GESTURE = { threshold: 12, gap: 200, coast: 4, down: 0.7, push: 1.5, floor: 4, swipe: 30 };
 
-export const reducedMotion = () =>
-  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 
 /* How a block takes the stage: up 40px through a fade, at half the
    length of a page crossing, since a block is a smaller thing than a
@@ -278,8 +280,11 @@ export default function useStage({
     };
     const onWheel = (e) => {
       if (e.ctrlKey || e.deltaY === 0) return;
-      e.preventDefault();
+      /* blocked first: a modal over the page has the wheel, and taking
+         the default away from it would leave anything scrollable inside
+         it unable to move */
       if (hooks.current.blocked()) return;
+      e.preventDefault();
       const dy =
         e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * window.innerHeight : e.deltaY;
       const mag = Math.abs(dy);

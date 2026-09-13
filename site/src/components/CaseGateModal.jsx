@@ -6,6 +6,11 @@ import { freezePage } from "../lib/freeze-page.js";
    client-side against a SHA-256 digest — a courtesy gate in the
    working-portfolio sense, not server security — and an unlock lasts for
    the browsing session. */
+/** The word for a protected project, for anything that has to name one
+ *  outside this modal — the Work index's entry for a locked project,
+ *  whose own label is what a reader hears instead of its contents. */
+export const lockedLabel = (lang) => (GATE_COPY[lang] || GATE_COPY.en).title;
+
 const GATE_COPY = {
   en: {
     title: "Protected project",

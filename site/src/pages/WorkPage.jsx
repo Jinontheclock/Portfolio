@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
-import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
+import CaseGateModal, { isUnlocked, lockedLabel } from "../components/CaseGateModal.jsx";
 import WorkMockups from "../components/WorkMockups.jsx";
 import { PROJECTS } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
@@ -125,7 +125,10 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                   "--wk-logo-ratio": p.logo.ratio[0] / p.logo.ratio[1],
                   "--wk-logo-scale": p.logo.scale ?? 1,
                 }}
-                aria-label={p.title}
+                /* the mark is a picture, so the name is the button's; a
+                    locked project says so here, since the lock beside it
+                    is inside a labelled button and never announced */
+                aria-label={p.locked ? `${p.title} — ${lockedLabel(lang)}` : p.title}
                 aria-current={current === i ? "true" : undefined}
                 onClick={() => jumpTo(i)}
               >
@@ -167,7 +170,7 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 <div className="wk-text">
                   <span className="wk-title">
                     {p.title}
-                    {p.locked && <LockMark />}
+                    {p.locked && <LockMark label={lockedLabel(lang)} />}
                   </span>
                   <span className="wk-desc">{p.description}</span>
                   <span className="wk-specs">{p.roles}</span>
@@ -223,7 +226,11 @@ function mockupVars(mockups) {
   };
 }
 
-function LockMark() {
+/* The mark a protected project carries. In the index its button is
+   already named "MUJI — Protected project", so there the mark is
+   decoration; in the card's title there is no such label and the mark is
+   what says the project is locked, so it is given the word itself. */
+function LockMark({ label }) {
   return (
     <svg
       className="wk-lock"
@@ -231,8 +238,7 @@ function LockMark() {
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
-      aria-label="Password protected"
-      role="img"
+      {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": "true" })}
     >
       <rect x="5" y="11" width="14" height="9" rx="2" />
       <path d="M8 11V7a4 4 0 0 1 8 0v4" />

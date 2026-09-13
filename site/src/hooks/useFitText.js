@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef } from "react";
+import { PHONE_MAX } from "../lib/media.js";
 
 /** Sizes the element's font so its single line fills the element's width —
  *  as large as possible without wrapping. The element must be single-line
@@ -43,7 +44,7 @@ export default function useFitText(dep, { mobileRatio = 1, refText = null, ratio
       if (!textWidth || !available) return;
       // on mobile the line can sit a bit smaller than full width; baseRatio
       // lets dense scripts (e.g. Korean) sit slightly smaller everywhere
-      const ratio = (window.innerWidth <= 600 ? mobileRatio : 1) * baseRatio;
+      const ratio = (window.innerWidth <= PHONE_MAX ? mobileRatio : 1) * baseRatio;
       // 0.995 leaves a hair of slack so rounding never causes a wrap
       const scale = (available / textWidth) * 0.995 * ratio;
       el.style.fontSize = PROBE * scale + "px";
@@ -53,7 +54,7 @@ export default function useFitText(dep, { mobileRatio = 1, refText = null, ratio
         if (refWidth) {
           // the reference height ignores baseRatio so the locked line box —
           // and everything below it — is identical in every language
-          const refRatio = window.innerWidth <= 600 ? mobileRatio : 1;
+          const refRatio = window.innerWidth <= PHONE_MAX ? mobileRatio : 1;
           const refSize = PROBE * (available / refWidth) * 0.995 * refRatio;
           // same line box in every language = the reference text's height
           el.style.lineHeight = refSize * 1.2 + "px";

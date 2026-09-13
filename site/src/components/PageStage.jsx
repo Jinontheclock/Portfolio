@@ -4,6 +4,7 @@ import { Routes, useLocation, useNavigationType } from "react-router-dom";
 import { beginCrossing, crossing, landPage, raiseTitle, reduced } from "../lib/page-transition.js";
 import { holdScroll, recall } from "../lib/scroll-memory.js";
 import { onReveal } from "../lib/preloaderBus.js";
+import { hoverCapable } from "../lib/media.js";
 
 /* The two containers a crossing needs, and the one it has the rest of the
  * time.
@@ -24,8 +25,6 @@ import { onReveal } from "../lib/preloaderBus.js";
  * ours would be a second one underneath. A reader who asked for less motion
  * gets the page simply changing, the bargain every animation here keeps.
  */
-const hover = () => !!window.matchMedia?.("(hover: hover)").matches;
-
 let ids = 0;
 
 export default function PageStage({ booting, children }) {
@@ -89,7 +88,7 @@ export default function PageStage({ booting, children }) {
     const animate =
       crossing(latest.pathname, location.pathname) &&
       !reduced() &&
-      !(navigationType === "POP" && !hover());
+      !(navigationType === "POP" && !hoverCapable());
     if (animate) {
       setStaged({ id: ++ids, location, target });
     } else {

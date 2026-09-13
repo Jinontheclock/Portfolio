@@ -7,8 +7,8 @@ Inputs
     public/media/prolog/raw/prolog-screen-dashboard.webm   (iPhone screen)
     public/media/prolog/raw/prolog-screen-quiz.webm        (Galaxy screen)
     public/media/prolog/raw/trims.json                     (per-clip lead cut)
-    public/media/prolog/frames/iphone-17-pro-orange.png
-    public/media/prolog/frames/galaxy-s25-navy.png
+    originals/public/media/prolog/frames/iphone-17-pro-orange.png
+    originals/public/media/prolog/frames/galaxy-s25-navy.png
 
 Outputs
     public/media/prolog/prolog-hero-phones.mp4             (master 3500x1928)

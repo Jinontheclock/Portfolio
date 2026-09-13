@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { reducedMotion } from "./media.js";
 import "lenis/dist/lenis.css";
 
 /* ── One screen ──
@@ -32,8 +33,6 @@ export const viewTopOf = (el) => {
   return el.getBoundingClientRect().top - shift;
 };
 
-export const reducedMotion = () =>
-  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 
 /* Where the box's own offset is, per history entry, written down the way
    lib/scroll-memory.js writes the window's, so the back button returns to

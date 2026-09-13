@@ -15,7 +15,7 @@ import numpy as np
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
-FRAMES = ROOT / "public" / "media" / "prolog" / "frames"
+FRAMES = ROOT / "originals" / "public" / "media" / "prolog" / "frames"
 IPHONE_FRAME = FRAMES / "iphone-17-pro-orange.png"
 GALAXY_FRAME = FRAMES / "galaxy-s25-navy.png"
 

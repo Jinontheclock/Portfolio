@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Web copies of the MUJI card thumbnails.
 
-Takes the three uploads in public/media/muji/ and writes the WebPs the
+Takes the three uploads in originals/public/media/muji/ and writes the WebPs the
 Work card imports. 1400px wide covers the widest the thumbnail ever gets
 (about 750 on a 4K window) at 2× device pixels, and the sources are flat
 line art, so a high quality setting still lands under 200KB.
@@ -14,7 +14,7 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "public" / "media" / "muji"
+SRC = ROOT / "originals" / "public" / "media" / "muji"
 OUT = ROOT / "src" / "assets" / "muji"
 WIDTH = 1400
 QUALITY = 86

@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import { reducedMotion } from "./media.js";
 import { CustomEase } from "gsap/CustomEase";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { splitLang } from "./lang-routes.js";
@@ -106,8 +107,9 @@ export const routeOf = (pathname) => {
  *  switch lands on the same page and is not one. Both may be raw. */
 export const crossing = (fromPath, toPath) => routeOf(fromPath) !== routeOf(toPath);
 
-export const reduced = () =>
-  !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+/* the same question lib/media.js answers, under the name this file's
+   callers already use */
+export const reduced = reducedMotion;
 
 /* The article's isTransitioning: a click while a crossing is running does
    nothing at all. The browser's own back button cannot be refused the same
