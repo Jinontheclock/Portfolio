@@ -120,6 +120,7 @@
   left: 40px;
   right: 40px;
   bottom: 40px;
+  z-index: 1;
   display: flex;
   flex-direction: column;
 }
@@ -147,86 +148,93 @@
   color: var(--bg);
 }
 
-/* ── The thumbnail, dormant ──
-   The card carries no picture for now: WorkPage.jsx no longer renders
-   WorkThumb, but the component is kept, and so are its rules, for the
-   day the mockups come back inside the card. The box is a stack of
-   frames — a still, or the clip that plays over its poster — behind a
-   grey sheet that slides off on hover. Where the box goes in the card is
-   the day's own question; nothing below places it. */
-.wk-image {
-  min-width: 0;
+/* ── The devices ──
+   A project that has them stands its mockups on the right of the card,
+   the pair as tall as the card's inner height (the frame's 520 in 600),
+   48 from the right edge, 24 apart, on the copy's own bottom line. Each
+   is its frame — an image with the screen open — over the screen's clip,
+   which WorkMockups.jsx places in the hole by fractions of the frame.
+
+   The copy is kept clear of them: its right edge stops a breath short of
+   the row, so the summary wraps rather than running under a phone. That
+   needs the row's width in the stylesheet, and the width is the height
+   times the frames' ratios (WorkPage.jsx writes the sum, and the number
+   of gaps, on the card), which is why the card is a size container: the
+   height is the card's inner height unless that would put the row across
+   more than half of the card's inner width, on a narrow one, and then the
+   width sets it. Declared on the copy and the row both, because container
+   units resolve against an ancestor, never the container itself. */
+.wk-section {
+  container-type: size;
+}
+.wk-section.has-mockups > .wk-text,
+.wk-mockups {
+  --wk-mock-gap: 24px;
+  --wk-mock-h: min(
+    100cqh - 80px,
+    ((100cqw - 80px) * 0.5 - var(--wk-mock-gap) * var(--wk-mock-gaps, 0)) /
+      var(--wk-mock-ratio, 1)
+  );
+  --wk-mock-w: calc(
+    var(--wk-mock-h) * var(--wk-mock-ratio, 1) + var(--wk-mock-gap) * var(--wk-mock-gaps, 0)
+  );
+}
+.wk-section.has-mockups > .wk-text {
+  right: calc(48px + var(--wk-mock-w) + 24px);
+}
+
+.wk-mockups {
+  position: absolute;
+  right: 48px;
+  bottom: 40px;
+  height: var(--wk-mock-h);
+  display: flex;
+  gap: var(--wk-mock-gap);
+}
+
+/* a device: its frame fills the box, and the box takes the frame's
+   proportions (set inline from the data) so the clip's fractions hold */
+.wk-mockup {
+  position: relative;
+  flex: none;
+  height: 100%;
+}
+.wk-mockup-frame {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  aspect-ratio: 7 / 5;
-  background: var(--surface-placeholder);
-  /* the frames stack inside it, and the grey shows through until one
-     loads — a project with no artwork yet is just the grey */
-  position: relative;
+  display: block;
+}
+
+/* the screen: the poster at rest, the clip fading over it at the speed
+   the copy's colour once arrived at. The box is cut to the screen's own
+   shape by the mask WorkMockups.jsx sets on it (the hole traced from the
+   frame, grown a little so the clip runs under the frame's rim) — the box
+   is a rectangle, the screen's corners are not, and a rounded body would
+   leave the rectangle's corners standing out past it. */
+.wk-mockup-screen {
+  position: absolute;
   overflow: hidden;
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
 }
-
-/* The thumbnails rest in grey and answer the pointer in their own colour,
-   and the colour arrives across the picture rather than all over it at
-   once — the same left-to-right move the header's two labels make.
-
-   The grey is a sheet laid over the picture rather than a filter on it:
-   backdrop-filter greys whatever is behind the sheet, so sliding the
-   sheet's own left edge to the right uncovers the colour underneath a
-   column at a time. Doing it as `filter` on the box instead would have
-   needed a second, coloured copy of every frame to wipe between, video
-   included.
-
-   Only where there is a pointer to hover with: on a touch screen the
-   colour would never arrive, so those readers get it from the start. */
-@media (hover: hover) {
-  .wk-section .wk-image::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    /* nothing to click, and nothing for a reader to land on */
-    pointer-events: none;
-    backdrop-filter: grayscale(1);
-    -webkit-backdrop-filter: grayscale(1);
-    /* covering the whole picture: grey */
-    clip-path: inset(0 0 0 0);
-    transition: clip-path 300ms var(--easing);
-  }
-  /* the sheet's left edge crosses to the right and the picture is left in
-     colour behind it; on the stage, the picture is in colour to begin with */
-  .wk-section:hover .wk-image::after,
-  .wk-section:focus-visible .wk-image::after,
-  .wk-section.is-current .wk-image::after {
-    clip-path: inset(0 0 0 100%);
-  }
-}
-
-/* One layer of a block's thumbnail — a still, or the clip that plays over
-   its poster. All of a project's layers sit on top of one another and only
-   the current one is opaque, so a change is a cross-fade in place rather
-   than a swap; it is also what lets the clip be stopped and rewound behind
-   a poster that is already covering it. Stepping through the walk is
-   quick — the beat is 1.1s and a slow dissolve would leave no still to
-   read; coming to rest takes the colour's own 300ms instead. */
-.wk-frame {
+.wk-mockup-screen > img,
+.wk-mockup-screen > video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.wk-mockup-screen > video {
   transition: opacity 300ms var(--easing);
 }
 
-.wk-image.is-walking .wk-frame {
-  transition-duration: var(--duration-base);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .wk-frame {
-    transition: none;
-  }
-  /* the colour still arrives, it just stops travelling to get there */
-  .wk-section .wk-image::after {
+  .wk-mockup-screen > video {
     transition: none;
   }
   .wk-index-item {
@@ -266,8 +274,9 @@
    no wheel to turn a stage with. The page is a page again: it scrolls,
    and every card is in the flow, one under another at the full width
    between the page margins, each 37:50 (the Figma phone frame's 370×500),
-   the copy in its corner 20 in. WorkPage.jsx leaves the blocks alone on
-   this breakpoint, and builds no scroll box. ── */
+   the copy in its corner 20 in and the devices, where there are any,
+   above it. WorkPage.jsx leaves the blocks alone on this breakpoint, and
+   builds no scroll box. ── */
 @media (max-width: 600px) {
   .wk-screen {
     height: auto;
@@ -303,10 +312,29 @@
     visibility: visible;
     opacity: 1;
   }
-  .wk-text {
+  .wk-text,
+  .wk-section.has-mockups > .wk-text {
     left: 20px;
     right: 20px;
     bottom: 20px;
+  }
+  /* the devices stand at the top of the card, centred, and the copy has
+     the whole width under them: the row is as tall as the card's width
+     lets it be, or as tall as leaves the copy its 170px, whichever is
+     less (the frame's 350 in 500) */
+  .wk-section.has-mockups > .wk-text,
+  .wk-mockups {
+    --wk-mock-h: min(
+      100cqh - 170px,
+      (100cqw - 40px - var(--wk-mock-gap) * var(--wk-mock-gaps, 0)) / var(--wk-mock-ratio, 1)
+    );
+  }
+  .wk-mockups {
+    top: 16px;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    justify-content: center;
   }
   /* the phone frame's sizes: the title at 24, the two lines under it at
      12, the roles line 16 below the summary */

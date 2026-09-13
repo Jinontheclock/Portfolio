@@ -8,3 +8,4 @@ _*.mjs
 # icon renders as a missing-glyph box on the deployed site).
 !public/prolog/assets/node_modules/
 !public/prolog/assets/node_modules/**
+__pycache__/

@@ -1,4 +1,9 @@
-import cardPoster from "../../assets/prolog/prolog-card-poster.webp";
+import iphoneFrame from "../../assets/prolog/prolog-frame-iphone.webp";
+import galaxyFrame from "../../assets/prolog/prolog-frame-galaxy.webp";
+import dashboardPoster from "../../assets/prolog/prolog-screen-dashboard-poster.webp";
+import quizPoster from "../../assets/prolog/prolog-screen-quiz-poster.webp";
+import iphoneMask from "../../assets/prolog/prolog-mask-iphone.webp";
+import galaxyMask from "../../assets/prolog/prolog-mask-galaxy.webp";
 
 export default {
   id: "prolog",
@@ -7,23 +12,50 @@ export default {
   /* the Work card's ground: the project's own colour, the copy in the
      page's white on it (see .wk-section in work.css) */
   card: "#E58555",
-  /* Work-card thumbnail: the app itself running in the two phone mockups —
+  /* The Work card's devices: the app itself running in the two phones —
      the dashboard counting up on the iPhone, a skills quiz being worked
-     through on the Galaxy. scripts/record-prolog-hero.mjs records the
-     screens, scripts/build-prolog-hero.py composites and cuts the card. */
-  video: {
-    sources: [
-      {
-        src: `${import.meta.env.BASE_URL}media/prolog/prolog-card.webm`,
-        type: "video/webm",
-      },
-      {
-        src: `${import.meta.env.BASE_URL}media/prolog/prolog-card.mp4`,
-        type: "video/mp4",
-      },
-    ],
-    poster: cardPoster,
-  },
+     through on the Galaxy. Each is its frame, with the screen open, over
+     the screen's own clip; `screen` is where the hole sits in the frame,
+     as fractions of its size, `mask` the hole's shape, cut over the clip,
+     and `ratio` the frame's proportions. scripts/record-prolog-hero.mjs
+     records the screens, build-prolog-hero.py lays them into the frames,
+     and build-prolog-card.py cuts these out of that (and prints `screen`). */
+  mockups: [
+    {
+      frame: iphoneFrame,
+      ratio: [587, 1200],
+      screen: [0.0535, 0.025, 0.893, 0.9499],
+      mask: iphoneMask,
+      poster: dashboardPoster,
+      sources: [
+        {
+          src: `${import.meta.env.BASE_URL}media/prolog/prolog-screen-dashboard.webm`,
+          type: "video/webm",
+        },
+        {
+          src: `${import.meta.env.BASE_URL}media/prolog/prolog-screen-dashboard.mp4`,
+          type: "video/mp4",
+        },
+      ],
+    },
+    {
+      frame: galaxyFrame,
+      ratio: [583, 1200],
+      screen: [0.0156, 0.0076, 0.9588, 0.9849],
+      mask: galaxyMask,
+      poster: quizPoster,
+      sources: [
+        {
+          src: `${import.meta.env.BASE_URL}media/prolog/prolog-screen-quiz.webm`,
+          type: "video/webm",
+        },
+        {
+          src: `${import.meta.env.BASE_URL}media/prolog/prolog-screen-quiz.mp4`,
+          type: "video/mp4",
+        },
+      ],
+    },
+  ],
   thumbAlt: {
     en: "The ProLog app on an iPhone and a Galaxy: the dashboard filling in on one, a skills quiz being solved on the other",
     ja: "iPhoneとGalaxyで動くProLogのアプリ。片方はダッシュボードの進捗が埋まっていき、もう片方はスキルのクイズを解いている",

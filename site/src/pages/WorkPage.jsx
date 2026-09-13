@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
+import WorkMockups from "../components/WorkMockups.jsx";
 import { PROJECTS } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { PAGE_TITLE } from "../i18n.js";
@@ -10,9 +11,8 @@ import useLangPath from "../hooks/useLangPath.js";
 import withPageTransition, { crossing } from "../lib/page-transition.js";
 import useStage from "../lib/stage.js";
 
-/* Everything a card renders, plus what the gate needs to challenge one.
-   The thumbnail's fields stay on the list for the day it comes back
-   (WorkThumb.jsx is kept for it); the card is the colour and the copy.
+/* Everything a card renders — the colour, the copy, and the mockups
+   where a project has them — plus what the gate needs to challenge one.
    The case-study bodies behind these five projects come to a quarter of a
    megabyte of section blocks, and resolve() rebuilds every node it walks —
    so handing it whole projects meant reconstructing all of that, on every
@@ -26,9 +26,8 @@ const CARD_FIELDS = [
   "description",
   "roles",
   "card",
-  "thumbs",
+  "mockups",
   "thumbAlt",
-  "video",
 ];
 const PROJECT_CARDS = PROJECTS.map((p) =>
   Object.fromEntries(CARD_FIELDS.filter((k) => k in p).map((k) => [k, p[k]])),
@@ -40,7 +39,8 @@ const PROJECT_CARDS = PROJECTS.map((p) =>
  * top, the copyright at the foot, and between them an index and a stage.
  * The five titles stand in a column on the left; beside them one project
  * at a time, a card in the project's own colour with its title, its
- * summary and its roles line in the corner. The page has
+ * summary and its roles line in the corner, and its devices standing on
+ * the right where it has them. The page has
  * no scroll of its own and shows no scrollbar. What the wheel turns is
  * the stage: every half a screen of wheel is the next project, and the
  * one on the stage is the one whose title is set large and in ink.
@@ -71,6 +71,9 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
   const projects = useMemo(() => resolve(PROJECT_CARDS, lang), [lang]);
   // a locked project asks for its password right here, before navigating
   const [gateProject, setGateProject] = useState(null);
+  /* which card the pointer is over, by id — the card is one link, and its
+     clips play under the pointer; see WorkMockups.jsx */
+  const [hovered, setHovered] = useState(null);
   useEffect(() => {
     document.title = PAGE_TITLE.work[lang] || PAGE_TITLE.work.en;
   }, [lang]);
@@ -132,8 +135,16 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 key={p.id}
                 id={`wk-${p.id}`}
                 to={langPath(`/work/${p.id}`)}
-                className={"wk-section" + (current === i ? " is-current" : "")}
-                style={{ "--wk-card": p.card }}
+                className={
+                  "wk-section" +
+                  (current === i ? " is-current" : "") +
+                  (p.mockups ? " has-mockups" : "")
+                }
+                style={{ "--wk-card": p.card, ...mockupVars(p.mockups) }}
+                onMouseEnter={() => setHovered(p.id)}
+                onMouseLeave={() => setHovered((id) => (id === p.id ? null : id))}
+                onFocus={() => setHovered(p.id)}
+                onBlur={() => setHovered((id) => (id === p.id ? null : id))}
                 onClick={(e) => {
                   if (p.locked && !isUnlocked(p.id)) {
                     e.preventDefault();
@@ -158,6 +169,15 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                   <span className="wk-desc">{p.description}</span>
                   <span className="wk-specs">{p.roles}</span>
                 </div>
+                {p.mockups && (
+                  <WorkMockups
+                    mockups={p.mockups}
+                    alt={p.thumbAlt}
+                    /* the card on the stage plays without being asked: it
+                       is the one being read */
+                    hovered={hovered === p.id || current === i}
+                  />
+                )}
               </Link>
             ))}
           </div>
@@ -193,6 +213,19 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
       )}
     </div>
   );
+}
+
+/* What the stylesheet needs to size a card's copy around its devices: how
+   wide the row of them is per unit of height (the frames' ratios summed)
+   and how many gaps it has — work.css turns those into the row's width. */
+function mockupVars(mockups) {
+  if (!mockups) return {};
+  return {
+    "--wk-mock-ratio": mockups
+      .reduce((sum, m) => sum + m.ratio[0] / m.ratio[1], 0)
+      .toFixed(4),
+    "--wk-mock-gaps": mockups.length - 1,
+  };
 }
 
 function LockMark() {
