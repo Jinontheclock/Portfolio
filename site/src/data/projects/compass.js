@@ -940,8 +940,9 @@ export default {
     ja: "iPhoneとApple Watchで見せるCompassのコンセプト。片方はApple Walletにパスが加わるところ、もう片方はチャージとリーダーへのタッチ",
     ko: "iPhone과 Apple Watch로 보여주는 Compass 콘셉트. 한쪽은 Apple Wallet에 패스가 들어가는 장면, 다른 쪽은 충전과 리더기 태그",
   },
+  /* the \\n is where the line turns on a laptop or wider — see .wk-desc in work.css */
   description: {
-    en: "A concept app for Metro Vancouver's transit fare card, built for iOS and watchOS on TransLink's upcoming account-based system.",
+    en: "A concept app for Metro Vancouver's transit fare card,\nbuilt for iOS and watchOS on TransLink's upcoming account-based system.",
     ja: "TransLinkがすでに入札にかけたアカウントベースのシステムの上に設計した、メトロバンクーバーの交通運賃カードのiOS・watchOSコンセプトアプリです。",
     ko: "TransLink가 이미 입찰에 부친 계정 기반 시스템 위에 설계한, 메트로밴쿠버 교통 요금 카드의 iOS·watchOS 콘셉트 앱입니다.",
   },

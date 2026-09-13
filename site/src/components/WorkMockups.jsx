@@ -136,6 +136,9 @@ export default function WorkMockups({ mockups, alt, hovered }) {
     /* one picture for a reader: the devices are the same subject twice
        over, and the frames and clips inside carry no text of their own */
     <div className="wk-mockups" ref={rootRef} role="img" aria-label={alt}>
+      {/* the row is its own box inside the cell so that it can be sized
+          from the cell's width — see .wk-mockup-row in work.css */}
+      <div className="wk-mockup-row">
       {mockups.map((m) => {
         if (m.image) {
           return (
@@ -189,6 +192,7 @@ export default function WorkMockups({ mockups, alt, hovered }) {
           </div>
         );
       })}
+      </div>
     </div>
   );
 }

@@ -31,8 +31,9 @@ export default {
     ja: "デスクトップモニターに映る、作り直したWeLABのサイトのホーム",
     ko: "데스크톱 모니터에 띄운, 다시 만든 WeLAB 사이트의 홈",
   },
+  /* the \\n is where the line turns on a laptop or wider — see .wk-desc in work.css */
   description: {
-    en: "An end-to-end website audit, redesign, and WordPress development for a VFX studio: rebuilding layouts and interactions with Bricks Builder and custom code.",
+    en: "An end-to-end website audit, redesign, and WordPress development for a VFX studio:\nrebuilding layouts and interactions with Bricks Builder and custom code.",
     ja: "VFXスタジオのサイトを、監査からリデザイン、WordPressでの実装まで一貫して担当。レイアウトとインタラクションをBricks Builderと自前のコードで作り直しました。",
     ko: "VFX 스튜디오 사이트를 감사부터 리디자인, WordPress 구현까지 처음부터 끝까지 맡았습니다. 레이아웃과 인터랙션을 Bricks Builder와 직접 쓴 코드로 다시 만들었습니다.",
   },

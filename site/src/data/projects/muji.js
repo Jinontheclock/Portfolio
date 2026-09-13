@@ -54,8 +54,9 @@ export default {
     ja: "無印良品の店頭、売場の平面図、売場のイラスト",
     ko: "무인양품 매장 외관, 매장 평면도, 매장 일러스트",
   },
+  /* the \\n is where the line turns on a laptop or wider — see .wk-desc in work.css */
   description:
-    "Driving in-store visual communication strategies and spatial layout optimization to enhance customer journeys and duty-free shopping experiences for international travelers.",
+    "Driving in-store visual communication strategies and spatial layout optimization to\nenhance journeys and duty-free shopping experiences for travelers.",
   roles: "Visual Merchandising, Spatial UX, Brand Strategy",
   intro: [
     "MUJI — placeholder introduction. A couple of sentences describing what the project is, who it serves, and the context it was built in.",
