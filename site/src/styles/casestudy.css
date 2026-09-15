@@ -1829,8 +1829,9 @@
    A project flagged `layout: "split"` (Compass; see CaseStudyPage.jsx) is
    set, as one screen, with its chapters across the top rather than down
    the side, and its column as two. The bar stands just under the header:
-   the wordmark, then the chapters by number, the one being read opened out
-   to its name with its subheadings hanging beneath. The column is the
+   the wordmark, then the chapters by number, all at one size — the one
+   being read in ink and opened out to its name, with its subheadings
+   hanging beneath; the one under the pointer opens too. The column is the
    twelve-column grid dealt seven and five — what is looked at on the left
    (a figure, a row of screens, the demo), what is read on the right — and
    a picture holds its seat on the reading line while the words beside it
@@ -1839,9 +1840,10 @@
 .ab-root.page-screen.cs-split {
   /* where the bar stands */
   --cs-bar-top: calc(var(--header-h) + 28px);
-  /* the bar's line, at the open chapter's size, and the wordmark's height */
-  --cs-bar-line: calc(var(--size-card-title) * 1.2);
-  --cs-logo-h: var(--cs-bar-line);
+  /* the bar's line is the wordmark's height, the tallest thing in it; the
+     chapters are one line of body text centred on it */
+  --cs-logo-h: calc(var(--size-card-title) * 1.2);
+  --cs-bar-line: var(--cs-logo-h);
   /* a subheading's line, and the room kept under the bar for as many as
      the longest chapter has (--cs-bar-subs is set on the root by the
      page), so the reading line holds still as chapters open and close */
@@ -1890,17 +1892,22 @@
   height: var(--cs-logo-h);
   width: auto;
 }
+/* the chapters take the bar's full height, so a chapter's foot is the
+   bar's foot and its subheadings hang from there */
 .cs-split-chapters {
   list-style: none;
   margin: 0;
   padding: 0;
   min-width: 0;
+  align-self: stretch;
   display: flex;
-  align-items: baseline;
+  align-items: stretch;
   gap: 22px;
 }
 .cs-split-chapter {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 .cs-split-item {
   all: unset;
@@ -1910,26 +1917,23 @@
   font: 400 var(--size-body) / 1.5 var(--font-ui);
   color: var(--text-muted);
   white-space: nowrap;
-  transition:
-    font-size 300ms var(--easing),
-    color 300ms var(--easing);
+  transition: color 300ms var(--easing);
 }
 .cs-split-item:hover,
 .cs-split-chapter.is-current > .cs-split-item {
   color: var(--text-primary);
 }
-.cs-split-chapter.is-current > .cs-split-item {
-  font-size: var(--size-card-title);
-  line-height: 1.2;
-}
 /* the name opens out of the number: a grid column that grows from
-   nothing, the nested list's row turned on its side */
+   nothing, the nested list's row turned on its side. Open for the chapter
+   being read, and for the one under the pointer while it is */
 .cs-split-name {
   display: grid;
   grid-template-columns: 0fr;
   transition: grid-template-columns 300ms var(--easing);
 }
-.cs-split-chapter.is-current > .cs-split-item > .cs-split-name {
+.cs-split-chapter.is-current > .cs-split-item > .cs-split-name,
+.cs-split-item:hover > .cs-split-name,
+.cs-split-item:focus-visible > .cs-split-name {
   grid-template-columns: 1fr;
 }
 .cs-split-name > span {
@@ -2076,11 +2080,10 @@
 }
 
 /* ── the split column on a tablet ──
-   The bar has no room for the open chapter to grow: it keeps the list's
-   size, and the row stays one line. The cells keep their seven and five. */
+   A smaller wordmark and a tighter row, so the bar stays one line. The
+   cells keep their seven and five. */
 @media (max-width: 1080px) {
   .ab-root.page-screen.cs-split {
-    --cs-bar-line: calc(var(--size-body) * 1.5);
     --cs-logo-h: calc(var(--size-body) * 1.8);
   }
   .cs-split-bar {
@@ -2088,10 +2091,6 @@
   }
   .cs-split-chapters {
     gap: 14px;
-  }
-  .cs-split-chapter.is-current > .cs-split-item {
-    font-size: var(--size-body);
-    line-height: 1.5;
   }
   .cs-split-row {
     column-gap: 20px;
