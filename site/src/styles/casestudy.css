@@ -1830,12 +1830,13 @@
    set, as one screen, with its chapters across the top rather than down
    the side, and its column as two. The bar stands just under the header:
    the wordmark, then the chapters by number, all at one size — the one
-   being read in ink and opened out to its name, with its subheadings
-   hanging beneath; the one under the pointer opens too. The column is the
-   twelve-column grid dealt seven and five — what is looked at on the left
-   (a figure, a row of screens, the demo), what is read on the right — and
-   a picture holds its seat on the reading line while the words beside it
-   scroll past. A phone keeps the stacked page: the class is never set
+   being read in ink and opened out to its name, with the subheading being
+   read hanging beneath; the one under the pointer opens too. The column
+   is the twelve-column grid dealt seven and five — what is looked at on
+   the left (a figure, a row of screens, the demo), what is read on the
+   right — and it is a stage (lib/stage.js): one row on it at a time, the
+   wheel turning it a row at a time, a row taller than the stage scrolled
+   through first. A phone keeps the stacked page: the class is never set
    there. */
 .ab-root.page-screen.cs-split {
   /* where the bar stands */
@@ -1844,23 +1845,24 @@
      chapters are one line of body text centred on it */
   --cs-logo-h: calc(var(--size-card-title) * 1.2);
   --cs-bar-line: var(--cs-logo-h);
-  /* a subheading's line, and the room kept under the bar for as many as
-     the longest chapter has (--cs-bar-subs is set on the root by the
-     page), so the reading line holds still as chapters open and close */
+  /* a subheading's line, and the room kept under the bar for the one
+     being read (--cs-bar-subs is set on the root by the page: one line
+     if any chapter has a subheading), so the stage holds still as they
+     come and go */
   --cs-sub-line: calc(14px * 1.7);
   --cs-subs-bottom: calc(
     var(--cs-bar-top) + var(--cs-bar-line) + 6px + var(--cs-bar-subs, 0) * var(--cs-sub-line)
   );
-  /* the reading line: the air under the subheadings, then the column */
-  --cs-body-top: calc(var(--cs-subs-bottom) + 48px);
-  /* the veil is solid down to the subheadings' foot and fades over the
-     air: a chapter standing on the line is whole, what has gone up past
-     it is gone, and nothing shows through the list */
+  /* the air under the subheading, before the stage's line */
+  --cs-stage-air: 48px;
+  /* the veil is solid down to the subheading's foot and fades over the
+     air: a row standing on the line is whole, and a tall row's words
+     scrolling up past it fade out under the list rather than being cut */
   --edge-clear-top: var(--cs-subs-bottom);
-  --edge-fade-top: 48px;
+  --edge-fade-top: var(--cs-stage-air);
 }
 .ab-root.page-screen.cs-split > main {
-  padding-top: var(--cs-body-top);
+  padding-top: var(--cs-subs-bottom);
 }
 
 /* the bar: outside the box, over the veil, with the header and footer */
@@ -1942,41 +1944,58 @@
   white-space: nowrap;
   padding-left: 0.4em;
 }
-/* the subheadings hang under the chapter being read, in the room the
-   column leaves them, and come and go with it */
+/* the subheading being read hangs under its chapter, in the room the
+   stage leaves it; the next one takes its place through a fade */
 .cs-split-subs {
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-6px);
-  transition:
-    opacity 300ms var(--easing),
-    transform 300ms var(--easing),
-    visibility 0s 300ms;
 }
-.cs-split-chapter.is-current > .cs-split-subs {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
-  transition-delay: 0s;
+.cs-split-sub {
+  display: block;
+  font: 400 14px / 1.7 var(--font-ui);
+  color: var(--text-primary);
+  animation: cs-split-sub-in 300ms var(--easing) both;
+}
+@keyframes cs-split-sub-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-split-sub {
+    animation: none;
+  }
 }
 
-/* the column: the opening's row, then the chapters' */
-.cs-split-body {
-  display: flex;
-  flex-direction: column;
-  /* the bottom air: the footer's fade, no more. The stacked column's
-     400px was for a last chapter too short to reach the line; here the
-     spy calls the last chapter read once the box is scrolled out, and
-     more air only pushed the last row's picture up off its seat at the
-     end of the scroll */
-  padding: 0 var(--page-margin) calc(var(--footer-h) * 3);
+/* the stage: from the subheading's foot to the footer, the rows all in
+   one cell and only the one being read shown (lib/stage.js hides the
+   rest). The air above the line is the stage's own top padding, so a
+   tall row scrolled through by the stage's extra steps passes up through
+   the veil's fade on its way out rather than being cut on the line. */
+.cs-split-stage {
+  position: relative;
+  box-sizing: border-box;
+  height: calc(100dvh - var(--cs-subs-bottom) - var(--footer-h));
+  /* the foot's padding is the footer's fade: it is what lets a tall row
+     be scrolled up until its last line stands clear of the fade */
+  padding: var(--cs-stage-air) var(--page-margin) calc(var(--footer-h) * 2);
+  overflow: hidden;
+  display: grid;
+  align-items: start;
+}
+.cs-split-stage > .cs-split-row {
+  grid-area: 1 / 1;
+  /* its own height, not the cell's: the cell is as tall as the tallest
+     row, and a row stretched to that would measure as overflowing the
+     stage when it does not (see overflowOf in CaseStudyPage.jsx) */
+  align-self: start;
 }
 .cs-split-row {
   display: grid;
@@ -1986,9 +2005,9 @@
 }
 .cs-split-media {
   grid-column: 1 / 8;
-  /* holds its seat on the reading line while the words beside it scroll:
-     a sticky seat inside the box is measured from its content edge, which
-     is the line (see .page-screen .cs-left) */
+  /* holds its seat on the line while a tall row's words are scrolled
+     past it: a sticky seat inside the stage is measured from its content
+     edge, which is the line (see .page-screen .cs-left) */
   position: sticky;
   top: 0;
   min-width: 0;
@@ -2003,12 +2022,9 @@
   flex-direction: column;
   gap: 12px;
 }
-/* a chapter's rows stand a clear pause apart. Its label is the bar's to
-   show, and stays in the tree for the outline only */
-.cs-split-section {
-  gap: 80px;
-}
-.cs-split-section > .cs-section-no {
+/* a chapter's label is the bar's to show, and stays in the tree for the
+   outline only */
+.cs-split-stage .cs-section-no {
   position: absolute;
   width: 1px;
   height: 1px;

@@ -8,6 +8,7 @@ import ImageLightbox from "../components/ImageLightbox.jsx";
 import useScrollFade from "../lib/scroll-fade.js";
 import { settleAt, useColumnStage, useScreenScroll, viewTopOf } from "../lib/screen-column.js";
 import useIsPhone from "../hooks/useIsPhone.js";
+import useStage from "../lib/stage.js";
 import ProLogJourney from "../components/ProLogJourney.jsx";
 import TinyPawsMonitor from "../components/TinyPawsMonitor.jsx";
 import WeLabHero from "../components/WeLabHero.jsx";
@@ -400,30 +401,68 @@ function Block({ block, onDemo, demoHref, id }) {
 }
 
 /* ── The split column ──
-   A chapter's blocks dealt into rows of two cells. Every figure, solution,
-   before/after pair and the demo anchors a row and takes its left cell;
-   the words from the previous anchor up to it — its lead-in — take the
-   right, and the anchor's own words (a solution's title and paragraphs,
-   a pair's explanation) follow them there. Words after a chapter's last
-   anchor stay with it; a chapter with no anchor at all is one row of
-   words. Each item keeps its index in the chapter, which is what the
+   A chapter's blocks dealt into rows of two cells, a row being what one
+   screen shows. First by subheading: an h opens a group, and the blocks
+   before the first form one of their own. Then, inside a group, by
+   picture: every figure, solution, before/after pair and the demo anchors
+   a row and takes its left cell; the words from the previous anchor up to
+   it — its lead-in — take the right, and the anchor's own words (a
+   solution's title and paragraphs, a pair's explanation) follow them
+   there. Words after a group's last anchor stay with it. A subheading
+   with no picture is a row of words alone; the chapter's opening words,
+   if they have no picture of their own, wait for the first row that has
+   one. Each item keeps its index in the chapter, which is what the
    subheadings' ids are built from. */
 const ANCHORS = new Set(["figure", "solution", "ba", "demo"]);
 function splitRows(blocks) {
+  const groups = [];
+  blocks.forEach((block, index) => {
+    if (block.type === "h" || !groups.length) groups.push([]);
+    groups[groups.length - 1].push({ block, index });
+  });
   const rows = [];
   let lead = [];
-  blocks.forEach((block, index) => {
-    const item = { block, index };
-    if (ANCHORS.has(block.type)) {
-      rows.push({ media: item, text: [...lead, item] });
-      lead = [];
-    } else lead.push(item);
+  groups.forEach((group, g) => {
+    let pending = lead;
+    lead = [];
+    let anchored = false;
+    group.forEach((item) => {
+      if (ANCHORS.has(item.block.type)) {
+        rows.push({ media: item, text: [...pending, item] });
+        pending = [];
+        anchored = true;
+      } else pending.push(item);
+    });
+    if (!pending.length) return;
+    if (anchored) rows[rows.length - 1].text.push(...pending);
+    else if (g === 0) lead = pending;
+    else rows.push({ media: null, text: pending });
   });
   if (lead.length) {
     if (rows.length) rows[rows.length - 1].text.push(...lead);
     else rows.push({ media: null, text: lead });
   }
   return rows;
+}
+
+/* The stage's steps: the opening, then every chapter's rows, each knowing
+   its chapter and the subheading it is read under — the last one in the
+   chapter at or before it — and whether it opens the chapter. */
+function splitSteps(project) {
+  const steps = [{ section: null, sub: null, row: null, first: false }];
+  project.sections.forEach((section) => {
+    const heads = section.blocks
+      .map((b, i) =>
+        b.type === "h" ? { id: `cs-${section.id}-h${i}`, text: b.text, index: i } : null,
+      )
+      .filter(Boolean);
+    splitRows(section.blocks).forEach((row, r) => {
+      const last = Math.max(row.media?.index ?? -1, ...row.text.map((t) => t.index));
+      const sub = heads.filter((h) => h.index <= last).pop() ?? null;
+      steps.push({ section, sub, row, first: r === 0 });
+    });
+  });
+  return steps;
 }
 
 /* an item's words, for the right cell */
@@ -528,8 +567,9 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   const screen = !!project?.screen && !isPhone;
   /* a project flagged `layout: "split"` is set with its chapters across
      the top and the column as two — what is looked at on the left, what
-     is read on the right. Only as one screen: a phone keeps the stacked
-     page whatever the project says. */
+     is read on the right — and the column is a stage rather than a
+     scroll (see useStage below). Only as one screen: a phone keeps the
+     stacked page whatever the project says. */
   const split = project?.layout === "split" && screen;
   /* the box the column scrolls in when the page is one screen, and what
      Lenis scrolls inside it */
@@ -540,18 +580,8 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      the window; on a screen, the chapter list's own top edge, so a chapter
      brought up stands level with the list that named it, the way a
      project on the Work stage stands level with its title. */
-  const readingLine = () => {
-    if (!screen) return READING_LINE;
-    if (split) {
-      /* the column begins where the box's top padding ends, and that is
-         the line — the bar's reserved room is in the padding */
-      const box = regionRef.current;
-      return box
-        ? box.getBoundingClientRect().top + parseFloat(getComputedStyle(box).paddingTop)
-        : READING_LINE;
-    }
-    return leftRef.current?.getBoundingClientRect().top ?? READING_LINE;
-  };
+  const readingLine = () =>
+    screen ? (leftRef.current?.getBoundingClientRect().top ?? READING_LINE) : READING_LINE;
   /* Where the list is taking the reader, while it is: the chapter and
      subheading it will light once the scroll arrives. Set at the click and
      cleared on arrival, or the moment the reader takes the wheel. Without
@@ -567,7 +597,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   /* the scroll, through whichever box has it, and the keys — unless a
      modal is up, whose own keys they are */
   const { lenis, scrollY, scrollMax, goTo } = useScreenScroll(
-    screen,
+    screen && !split,
     regionRef,
     gridRef,
     {
@@ -613,7 +643,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     if (isPhone) return;
     const img = e.target.closest?.("img");
     if (!img) return;
-    if (img.closest("img-comparison-slider, a, button")) return;
+    if (img.closest("img-comparison-slider, a, button, .cs-split-opening")) return;
     const src = img.currentSrc || img.src;
     if (!src) return;
     setZoomed({ src, alt: img.alt });
@@ -625,7 +655,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      the painted box, so a chapter parked 40px away by the scroll fade does
      not light up early or late. Listens to whichever box is scrolling. */
   useEffect(() => {
-    if (!project) return undefined;
+    if (!project || split) return undefined;
     const onScroll = () => {
       if (travel.current) {
         setActiveId(travel.current.chapter);
@@ -672,7 +702,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
 
   /* a figure held open, or the demo: the box holds still under it */
   useEffect(() => {
-    const smooth = lenis.current;
+    const smooth = split ? stage.lenis.current : lenis.current;
     if (!smooth) return;
     if (zoomed || demoOpen) smooth.stop();
     else smooth.start();
@@ -681,26 +711,68 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   /* the column is a stage: only the chapter being read is on it, and the
      opening until the first chapter is reached — see lib/screen-column.js */
   useColumnStage(
-    screen,
+    screen && !split,
     contentRef,
     ".cs-section",
     project && activeId ? project.sections.findIndex((s) => s.id === activeId) : -1,
     [project],
   );
 
+  /* ── The split column is a stage ──
+     The Work page's (lib/stage.js): every row in one cell, only the one
+     being read shown, the wheel turning the stage a row at a time, and a
+     row taller than the stage scrolled through by its extra steps before
+     the next takes it. The steps are the opening and every chapter's rows
+     (splitSteps); the bar reads its chapter and subheading off the step
+     on the stage. On the stacked column there are no rows, and none of
+     this runs. */
+  const steps = useMemo(() => (split ? splitSteps(project) : []), [project, split]);
+  const stageRef = useRef(null);
+  const scrollRef = useRef(null);
+  const trackRef = useRef(null);
+  const stage = useStage({
+    count: Math.max(1, steps.length),
+    boxRef: scrollRef,
+    trackRef,
+    blocks: () => [...(stageRef.current?.querySelectorAll(".cs-split-row") ?? [])],
+    /* how far a row stands past what can be read: the stage's foot less
+       the footer's fade, which the last line has to clear — with a few
+       pixels' grace, so a row whose foot only just dips into the fade
+       does not get a step that moves it by that much and no more */
+    overflowOf: (row) => {
+      const box = stageRef.current;
+      if (!box) return 0;
+      const top = parseFloat(getComputedStyle(box).paddingTop) || 0;
+      const footer =
+        parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--footer-h")) || 0;
+      const over = row.offsetHeight - (box.clientHeight - top - footer * 2);
+      return over <= 20 ? 0 : over;
+    },
+    blocked: () => !!document.querySelector(".cs-zoom, .tryapp-backdrop"),
+    deps: [project],
+  });
+  /* the step on the stage, and the chapter and subheading it is read under */
+  const onStage = split ? steps[Math.min(stage.current ?? 0, steps.length - 1)] : null;
+  const barChapter = split ? (onStage?.section?.id ?? null) : activeId;
+  const barSub = split ? onStage?.sub : null;
+  const firstStepOf = (sectionId) =>
+    Math.max(
+      0,
+      steps.findIndex((st) => st.section?.id === sectionId),
+    );
+
   if (!project) return <Navigate to={langPath("/work")} replace />;
 
   const HeroScene = project.heroScene ? HERO_SCENES[project.heroScene] : null;
 
-  /* the split bar keeps room under itself for as many subheadings as the
-     longest chapter has, so the reading line holds still as chapters
-     open and close beneath it (see --cs-bar-subs in casestudy.css) */
-  const barSubs = split
-    ? Math.max(0, ...project.sections.map((s) => s.blocks.filter((b) => b.type === "h").length))
-    : 0;
-  /* in the split column one box is the scroll's content and the stage */
-  const bodyRef = (el) => {
-    gridRef.current = el;
+  /* the split bar keeps one line's room under itself for the subheading
+     being read, if any chapter has one, so the stage holds still as they
+     come and go (see --cs-bar-subs in casestudy.css) */
+  const barSubs =
+    split && project.sections.some((s) => s.blocks.some((b) => b.type === "h")) ? 1 : 0;
+  /* the split column's stage is also the column the fade would read */
+  const stageBodyRef = (el) => {
+    stageRef.current = el;
     contentRef.current = el;
   };
 
@@ -826,12 +898,12 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       <SiteHeader current="work" />
 
       {/* the split bar: the wordmark, then the chapters by number, the one
-          being read opened to its name with its subheadings under it.
-          Outside the box, over the veil, the way the header is. */}
+          being read opened to its name with the subheading being read
+          under it. Outside the box, over the veil, the way the header is. */}
       {split && (
         <nav className="cs-split-bar" aria-label="Chapters">
           <h1 className="cs-split-brand">
-            <button type="button" onClick={() => scrollTo(null)}>
+            <button type="button" onClick={() => stage.jumpTo(0)}>
               <img src={project.logo.color} alt={project.title} />
             </button>
           </h1>
@@ -839,10 +911,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
             {project.sections.map((s) => {
               /* "02 Three Products, No Phone": the number, and the name */
               const [no, ...name] = s.label.split(" ");
-              const subs = s.blocks
-                .map((b, i) => (b.type === "h" ? { id: `cs-${s.id}-h${i}`, text: b.text } : null))
-                .filter(Boolean);
-              const current = activeId === s.id;
+              const current = barChapter === s.id;
               return (
                 <li key={s.id} className={"cs-split-chapter" + (current ? " is-current" : "")}>
                   <button
@@ -850,25 +919,20 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
                     className="cs-split-item"
                     aria-label={s.label}
                     aria-current={current ? "true" : undefined}
-                    onClick={() => scrollTo(`cs-${s.id}`)}
+                    onClick={() => stage.jumpTo(firstStepOf(s.id))}
                   >
                     <span className="cs-split-no">{no}</span>
                     <span className="cs-split-name">
                       <span>{name.join(" ")}</span>
                     </span>
                   </button>
-                  {subs.length > 0 && (
+                  {/* the subheading being read, under its chapter; keyed so
+                      the next one arrives through its own fade */}
+                  {current && barSub && (
                     <div className="cs-split-subs">
-                      {subs.map((h) => (
-                        <button
-                          key={h.id}
-                          type="button"
-                          className={"cs-toc-subitem" + (activeSub === h.id ? " is-current" : "")}
-                          onClick={() => scrollTo(h.id)}
-                        >
-                          {h.text}
-                        </button>
-                      ))}
+                      <span key={barSub.id} className="cs-split-sub">
+                        {barSub.text}
+                      </span>
                     </div>
                   )}
                 </li>
@@ -882,47 +946,46 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
           the page is one screen this is the box the column scrolls in. */}
       <main className={"cs-main " + fadeClass} ref={regionRef}>
         {split ? (
-          /* the split column: the opening as one row — the hero scene on
-             the left, the words on the right — then each chapter's rows */
-          <div className="cs-split-body" ref={bodyRef}>
-            <div className="cs-split-row cs-split-opening">
-              <div className="cs-split-media">{HeroScene && <HeroScene />}</div>
-              <div className="cs-split-text">{opening}</div>
-            </div>
-
-            <div className="cs-sections" onClick={openFigure}>
-              {project.sections.map((s) => (
-                <section key={s.id} id={`cs-${s.id}`} className="cs-section cs-split-section">
-                  {/* the bar's to show; kept for the outline */}
-                  <h2 className="cs-section-no">{s.label}</h2>
-                  {splitRows(s.blocks).map((row, r) => (
-                    <div key={r} className="cs-split-row">
-                      <div className="cs-split-media">
-                        {row.media && (
-                          <SplitMedia
-                            item={row.media}
-                            project={project}
-                            onDemo={() => setDemoOpen(true)}
-                            demoHref={demoHref}
-                          />
-                        )}
-                      </div>
-                      <div className="cs-split-text">
-                        {row.text.map((item) => (
-                          <SplitText
-                            key={item.index}
-                            item={item}
-                            sectionId={s.id}
-                            onDemo={() => setDemoOpen(true)}
-                            demoHref={demoHref}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </section>
-              ))}
-            </div>
+          /* the stage: the opening as one row — the hero scene on the
+             left, the words on the right — then each chapter's rows, all
+             in one cell, the one on the stage shown (see useStage) */
+          <div className="cs-split-stage" ref={stageBodyRef} onClick={openFigure}>
+            {steps.map((st, i) => (
+              <div key={i} className={"cs-split-row" + (st.row ? "" : " cs-split-opening")}>
+                <div className="cs-split-media">
+                  {st.row
+                    ? st.row.media && (
+                        <SplitMedia
+                          item={st.row.media}
+                          project={project}
+                          onDemo={() => setDemoOpen(true)}
+                          demoHref={demoHref}
+                        />
+                      )
+                    : HeroScene && <HeroScene />}
+                </div>
+                <div className="cs-split-text">
+                  {st.row ? (
+                    <>
+                      {/* the chapter's label is the bar's to show; the
+                          outline keeps it, at the chapter's first row */}
+                      {st.first && <h2 className="cs-section-no">{st.section.label}</h2>}
+                      {st.row.text.map((item) => (
+                        <SplitText
+                          key={item.index}
+                          item={item}
+                          sectionId={st.section.id}
+                          onDemo={() => setDemoOpen(true)}
+                          demoHref={demoHref}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    opening
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           <div className="ab-grid cs-grid" ref={gridRef}>
@@ -1043,6 +1106,13 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       </main>
 
       <SiteFooter lang={lang} setLang={setLang} />
+
+      {/* the scroll box the wheel turns, never seen: see .stage-scroll */}
+      {split && (
+        <div className="stage-scroll" ref={scrollRef} aria-hidden="true">
+          <div className="stage-track" ref={trackRef} style={{ "--stage-steps": stage.steps }} />
+        </div>
+      )}
 
       {zoomed && !isPhone && (
         <ImageLightbox src={zoomed.src} alt={zoomed.alt} onClose={() => setZoomed(null)} />
