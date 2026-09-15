@@ -94,7 +94,14 @@ function AuditRows({ rows }) {
   return (
     <div className="wl-audit">
       {rows.map((row, i) => (
-        <div key={i} className="wl-audit-row">
+        /* --sum and --n let a cell in the split column take its share of
+           the row by shape, or of a height cap, whichever is the smaller
+           (see .cs-split .wl-audit-cell in casestudy.css) */
+        <div
+          key={i}
+          className="wl-audit-row"
+          style={{ "--sum": row.reduce((t, c) => t + c.ar, 0), "--n": row.length }}
+        >
           {row.map((cell, j) => {
             const paired = cell.ba && row[j + 1]?.ba === cell.ba;
             return (

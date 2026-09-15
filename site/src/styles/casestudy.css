@@ -2211,29 +2211,38 @@
   object-position: left top;
 }
 .cs-split-media > .cs-figure > div:not(.cs-figure-row) > img:only-child,
-.cs-split .cs-ba-cell img,
-.cs-split .wl-audit-cell img {
+.cs-split .cs-ba-cell img {
   width: auto;
   max-width: 100%;
 }
 /* WeLAB's audit captures were budgeted against one height shared by
    every row of the stacked column, which left a two-up small in a cell
-   this wide. In a cell a row shares its width out by the captures' shapes
-   instead — the phone layout's recipe (see .cs-ba-set-media .wl-audit-cell)
-   — so a row fills the cell, and the caps on height below hold the
-   pictures where the room is the shorter side. */
-.cs-split .wl-audit-cell {
-  flex-grow: calc(var(--ar, 1) * 10);
-  flex-shrink: 1;
-  flex-basis: 0;
-  width: auto !important;
-  min-width: 0;
+   this wide. In a cell a row's captures stand at one height: the height
+   at which the row fills the cell, or the room's cap on a picture,
+   whichever is the smaller — so a row of two fills the cell edge to
+   edge, and a row the room cuts shorter packs to the left at its 20px
+   gap rather than spreading its captures across the cell. Each cell's
+   width is that height by its capture's shape (--ar, --sum and --n are
+   the row's, set in WeLabFigures.jsx). */
+.cs-split .wl-audit-row {
+  --wl-cap: calc(var(--cs-stage-room) - 100px);
 }
 /* an audit board of several rows: each row's captures take a third of
-   the room less the rows' gaps and the figure's caption (a board of one
-   row keeps the cap every picture has) */
-.cs-split .wl-audit:has(.wl-audit-row + .wl-audit-row) img {
-  max-height: calc((var(--cs-stage-room) - 150px) / 3);
+   the room less the rows' gaps and the figure's caption */
+.cs-split .wl-audit:has(.wl-audit-row + .wl-audit-row) .wl-audit-row {
+  --wl-cap: calc((var(--cs-stage-room) - 150px) / 3);
+}
+.cs-split .wl-audit-cell {
+  flex: 0 1 auto;
+  width: min(
+    calc((100% - (var(--n, 1) - 1) * 20px) / var(--sum, 1) * var(--ar, 1)),
+    calc(var(--wl-cap) * var(--ar, 1))
+  ) !important;
+  min-width: 0;
+}
+.cs-split .wl-audit-cell img {
+  width: 100%;
+  max-height: none;
 }
 /* a solution's screens: at a third of the cell each — the border inside
    that third, so three stand in one line — and no taller than the room */
