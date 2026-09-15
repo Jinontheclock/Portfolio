@@ -789,11 +789,20 @@
   font: 700 var(--size-body) / 1.4 var(--font-ui);
   color: var(--text-primary);
 }
+/* one line, whatever the board's width: the sentence is 49.7 of its ems
+   wide, so under 51 ems of board the size gives way rather than the line */
 .cmp-lofi-sub {
   margin: 4px 0 0;
-  max-width: 67ch;
-  font: 400 12px / 1.5 var(--font-ui);
+  font: 400 min(12px, 100cqi / 51) / 1.5 var(--font-ui);
+  white-space: nowrap;
   color: var(--text-muted);
+}
+/* a phone's board is 31 ems: there the sentence wraps at its size */
+@media (max-width: 600px) {
+  .cmp-lofi-sub {
+    font-size: 12px;
+    white-space: normal;
+  }
 }
 /* .cs-paragraph carries the body style; this only sets the board's rhythm */
 .cmp-lofi-layer {
