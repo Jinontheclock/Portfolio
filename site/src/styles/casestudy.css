@@ -2076,22 +2076,21 @@
 }
 /* ── a title and a picture alone ──
    A row with no words to read beside its picture — a subheading and a
-   figure, nothing else — sets the picture across the whole row, into the
-   cell the words would have had, with the title over it on the right, the
-   two sharing an edge; the picture stands as tall as the room allows less
-   the title and its caption, so the row never overflows, and where the
-   room cuts it narrower than the row it keeps to that edge too. */
+   figure, nothing else — sets the picture wider than the seven columns a
+   picture beside words gets, ten of the twelve, into the cell the words
+   would have had, with the title over it on the left, the two sharing an
+   edge; the picture stands as tall as the room allows less the title and
+   its caption, so the row never overflows. */
 .cs-split-row--titled > .cs-split-text {
-  grid-column: 1 / 13;
+  grid-column: 1 / 11;
   grid-row: 1;
-  text-align: right;
 }
 .cs-split-row--titled > .cs-split-text > .cs-block-h {
   max-width: none;
   margin: 0;
 }
 .cs-split-row--titled > .cs-split-media {
-  grid-column: 1 / 13;
+  grid-column: 1 / 11;
   grid-row: 2;
   position: static;
   margin-top: 16px;
@@ -2100,11 +2099,6 @@
   width: auto;
   max-width: 100%;
   max-height: calc(var(--cs-stage-room) - 80px);
-  margin-left: auto;
-}
-.cs-split-row--titled .cs-figure-title,
-.cs-split-row--titled .cs-figure-caption {
-  text-align: right;
 }
 
 /* a chapter's label is the bar's to show, and stays in the tree for the
