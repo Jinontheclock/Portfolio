@@ -1824,3 +1824,276 @@
     animation: none;
   }
 }
+
+/* ── The split column ────────────────────────────────────────────────────
+   A project flagged `layout: "split"` (Compass; see CaseStudyPage.jsx) is
+   set, as one screen, with its chapters across the top rather than down
+   the side, and its column as two. The bar stands just under the header:
+   the wordmark, then the chapters by number, the one being read opened out
+   to its name with its subheadings hanging beneath. The column is the
+   twelve-column grid dealt seven and five — what is looked at on the left
+   (a figure, a row of screens, the demo), what is read on the right — and
+   a picture holds its seat on the reading line while the words beside it
+   scroll past. A phone keeps the stacked page: the class is never set
+   there. */
+.ab-root.page-screen.cs-split {
+  /* where the bar stands */
+  --cs-bar-top: calc(var(--header-h) + 28px);
+  /* the bar's line, at the open chapter's size, and the wordmark's height */
+  --cs-bar-line: calc(var(--size-card-title) * 1.2);
+  --cs-logo-h: var(--cs-bar-line);
+  /* a subheading's line, and the room kept under the bar for as many as
+     the longest chapter has (--cs-bar-subs is set on the root by the
+     page), so the reading line holds still as chapters open and close */
+  --cs-sub-line: calc(14px * 1.7);
+  --cs-subs-bottom: calc(
+    var(--cs-bar-top) + var(--cs-bar-line) + 6px + var(--cs-bar-subs, 0) * var(--cs-sub-line)
+  );
+  /* the reading line: the air under the subheadings, then the column */
+  --cs-body-top: calc(var(--cs-subs-bottom) + 48px);
+  /* the veil is solid down to the subheadings' foot and fades over the
+     air: a chapter standing on the line is whole, what has gone up past
+     it is gone, and nothing shows through the list */
+  --edge-clear-top: var(--cs-subs-bottom);
+  --edge-fade-top: 48px;
+}
+.ab-root.page-screen.cs-split > main {
+  padding-top: var(--cs-body-top);
+}
+
+/* the bar: outside the box, over the veil, with the header and footer */
+.cs-split-bar {
+  position: absolute;
+  top: var(--cs-bar-top);
+  left: var(--page-margin);
+  right: var(--page-margin);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+/* the wordmark stands in for the title, and takes the reader back to the
+   opening as the title does */
+.cs-split-brand {
+  flex: none;
+  margin: 0;
+  font-size: 0;
+  line-height: 0;
+}
+.cs-split-brand > button {
+  all: unset;
+  display: block;
+  cursor: pointer;
+}
+.cs-split-brand img {
+  display: block;
+  height: var(--cs-logo-h);
+  width: auto;
+}
+.cs-split-chapters {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 22px;
+}
+.cs-split-chapter {
+  position: relative;
+}
+.cs-split-item {
+  all: unset;
+  display: flex;
+  align-items: baseline;
+  cursor: pointer;
+  font: 400 var(--size-body) / 1.5 var(--font-ui);
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition:
+    font-size 300ms var(--easing),
+    color 300ms var(--easing);
+}
+.cs-split-item:hover,
+.cs-split-chapter.is-current > .cs-split-item {
+  color: var(--text-primary);
+}
+.cs-split-chapter.is-current > .cs-split-item {
+  font-size: var(--size-card-title);
+  line-height: 1.2;
+}
+/* the name opens out of the number: a grid column that grows from
+   nothing, the nested list's row turned on its side */
+.cs-split-name {
+  display: grid;
+  grid-template-columns: 0fr;
+  transition: grid-template-columns 300ms var(--easing);
+}
+.cs-split-chapter.is-current > .cs-split-item > .cs-split-name {
+  grid-template-columns: 1fr;
+}
+.cs-split-name > span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-left: 0.4em;
+}
+/* the subheadings hang under the chapter being read, in the room the
+   column leaves them, and come and go with it */
+.cs-split-subs {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity 300ms var(--easing),
+    transform 300ms var(--easing),
+    visibility 0s 300ms;
+}
+.cs-split-chapter.is-current > .cs-split-subs {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+
+/* the column: the opening's row, then the chapters' */
+.cs-split-body {
+  display: flex;
+  flex-direction: column;
+  /* the bottom air: the footer's fade, no more. The stacked column's
+     400px was for a last chapter too short to reach the line; here the
+     spy calls the last chapter read once the box is scrolled out, and
+     more air only pushed the last row's picture up off its seat at the
+     end of the scroll */
+  padding: 0 var(--page-margin) calc(var(--footer-h) * 3);
+}
+.cs-split-row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 30px;
+  align-items: start;
+}
+.cs-split-media {
+  grid-column: 1 / 8;
+  /* holds its seat on the reading line while the words beside it scroll:
+     a sticky seat inside the box is measured from its content edge, which
+     is the line (see .page-screen .cs-left) */
+  position: sticky;
+  top: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.cs-split-text {
+  grid-column: 8 / 13;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* a chapter's rows stand a clear pause apart. Its label is the bar's to
+   show, and stays in the tree for the outline only */
+.cs-split-section {
+  gap: 80px;
+}
+.cs-split-section > .cs-section-no {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+/* the cells set their own rhythm: a figure's margins are the stacked
+   column's, and a heading that opens its cell sits flush */
+.cs-split-media > .cs-figure,
+.cs-split-media > .cs-solution-media,
+.cs-split-media > .cs-ba-set-media {
+  margin: 0;
+}
+.cs-split-text > .cs-block-h:first-child {
+  margin-top: 0;
+}
+/* the two meta groups stack: side by side needs more than five columns */
+.cs-split .cs-meta {
+  flex-direction: column;
+  gap: 20px;
+}
+/* a solution's screens: at a third of the cell each, the size a phone
+   screen reads at, in one row with no carousel */
+.cs-split .cs-split-media .cs-shots:not(.cs-shots--wide) {
+  flex-wrap: wrap;
+  overflow: visible;
+  margin-right: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+.cs-split .cs-shots:not(.cs-shots--wide) img {
+  width: calc((100% - 24px) / 3);
+}
+/* the lo-fi rail stays inside its cell rather than running to the
+   window's edge, which is the words' side now */
+.cs-split .cmp-lofi-rail {
+  margin-right: 0;
+}
+.cs-split .cmp-lofi-track {
+  padding-right: 0;
+}
+/* the tap clip in its cell: the phone's own width, on the cell's left */
+.cs-split .cs-ba-set-media .cs-compass-motion {
+  max-width: 350px;
+  margin-inline: 0;
+}
+/* the demo: the Work card's render of the app, and the button under it */
+.cs-split-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.cs-split-demo-shot {
+  all: unset;
+  display: block;
+  cursor: pointer;
+  width: min(100%, 560px);
+}
+.cs-split-demo-shot > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.cs-split-demo > .cs-tryapp {
+  margin: 0;
+}
+
+/* ── the split column on a tablet ──
+   The bar has no room for the open chapter to grow: it keeps the list's
+   size, and the row stays one line. The cells keep their seven and five. */
+@media (max-width: 1080px) {
+  .ab-root.page-screen.cs-split {
+    --cs-bar-line: calc(var(--size-body) * 1.5);
+    --cs-logo-h: calc(var(--size-body) * 1.8);
+  }
+  .cs-split-bar {
+    gap: 24px;
+  }
+  .cs-split-chapters {
+    gap: 14px;
+  }
+  .cs-split-chapter.is-current > .cs-split-item {
+    font-size: var(--size-body);
+    line-height: 1.5;
+  }
+  .cs-split-row {
+    column-gap: 20px;
+  }
+}

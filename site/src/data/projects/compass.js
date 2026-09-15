@@ -923,6 +923,10 @@ const COMPASS_SECTIONS = [
 export default {
   id: "compass-card",
   screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
+  /* the chapters across the top and the column as two, the pictures on
+     the left and the words on the right: see splitRows in
+     CaseStudyPage.jsx and .cs-split in casestudy.css */
+  layout: "split",
   title: "Compass Card",
   /* the Work card's ground: the project's own colour, the copy in the
      page's white on it (see .wk-section in work.css) */

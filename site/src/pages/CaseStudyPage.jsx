@@ -63,10 +63,7 @@ import {
   WLOldLandingFigure,
   WLOldStudiosFigure,
 } from "../components/WeLabFigures.jsx";
-import {
-  COMPASS_FIGURES,
-  COMPASS_SHOTS,
-} from "../components/CompassPlaceholders.jsx";
+import { COMPASS_FIGURES, COMPASS_SHOTS } from "../components/CompassPlaceholders.jsx";
 import CompassHero from "../components/CompassHero.jsx";
 import { COMPASS_ARTWORK } from "../components/CompassFigures.jsx";
 import { COMPASS_CAPTURES } from "../components/CompassCaptures.jsx";
@@ -82,10 +79,7 @@ import { COMPASS_CAPTURES } from "../components/CompassCaptures.jsx";
    start is the opening, whatever it turns out to be.
 
    Then a chapter at a time: 01, 02, 03, heading and all. */
-const SCROLL_FADE = [
-  [".cs-content > *:not(.cs-sections)"],
-  ".cs-section",
-];
+const SCROLL_FADE = [[".cs-content > *:not(.cs-sections)"], ".cs-section"];
 /* on a screen the column is a stage (see below), and the fade has no say */
 const NO_FADE = [];
 
@@ -216,6 +210,50 @@ function MetaGroup({ rows }) {
   );
 }
 
+/* a solution's heading with its problem tag, and its screens: the two
+   halves of the row, so the split column can seat them apart */
+function SolutionTitle({ block }) {
+  return (
+    <h3 className="cs-block-h">
+      {block.title}
+      {block.tag && <span className="cs-block-tag">{block.tag}</span>}
+    </h3>
+  );
+}
+function SolutionMedia({ block }) {
+  return (
+    <figure className="cs-solution-media">
+      {/* wide: landscape desktop screenshots stack vertically instead
+          of sharing one row like the portrait phone shots */}
+      <div className={"cs-shots" + (block.wide ? " cs-shots--wide" : "")}>
+        {/* an unregistered key renders nothing rather than throwing
+            mid-render and blanking the whole page (same defence as
+            the figure branch of Block) */}
+        {block.media
+          .filter((m) => SHOTS[m])
+          .map((m) => (
+            <img key={m} src={SHOTS[m].src} alt={SHOTS[m].alt} loading="lazy" />
+          ))}
+      </div>
+      {block.caption && <figcaption className="cs-figure-caption">{block.caption}</figcaption>}
+    </figure>
+  );
+}
+/* a before/after pair's figure, with its title and caption */
+function BAMedia({ block }) {
+  const Figure = FIGURES[block.graphic];
+  if (!Figure) return null;
+  return (
+    <figure className="cs-ba-set-media">
+      {block.title && <span className="cs-figure-title">{noOrphan(block.title)}</span>}
+      <Figure />
+      {block.caption && (
+        <figcaption className="cs-figure-caption">{noOrphan(block.caption)}</figcaption>
+      )}
+    </figure>
+  );
+}
+
 function Block({ block, onDemo, demoHref, id }) {
   switch (block.type) {
     case "h":
@@ -297,10 +335,7 @@ function Block({ block, onDemo, demoHref, id }) {
          left and the app screens on the right */
       return (
         <div className="cs-solution">
-          <h3 className="cs-block-h">
-            {block.title}
-            {block.tag && <span className="cs-block-tag">{block.tag}</span>}
-          </h3>
+          <SolutionTitle block={block} />
           <div className="cs-solution-row">
             <div className="cs-solution-text">
               {block.paras.map((t, i) => (
@@ -309,23 +344,7 @@ function Block({ block, onDemo, demoHref, id }) {
                 </p>
               ))}
             </div>
-            <figure className="cs-solution-media">
-              {/* wide: landscape desktop screenshots stack vertically instead
-                  of sharing one row like the portrait phone shots */}
-              <div className={"cs-shots" + (block.wide ? " cs-shots--wide" : "")}>
-                {/* an unregistered key renders nothing rather than throwing
-                    mid-render and blanking the whole page (same defence as
-                    the figure branch below) */}
-                {block.media
-                  .filter((m) => SHOTS[m])
-                  .map((m) => (
-                    <img key={m} src={SHOTS[m].src} alt={SHOTS[m].alt} loading="lazy" />
-                  ))}
-              </div>
-              {block.caption && (
-                <figcaption className="cs-figure-caption">{block.caption}</figcaption>
-              )}
-            </figure>
+            <SolutionMedia block={block} />
           </div>
         </div>
       );
@@ -333,24 +352,13 @@ function Block({ block, onDemo, demoHref, id }) {
       /* a side-by-side row: body copy on the left, a figure on the right —
          the solution rows' shape. Born for the usability-fix pairs, and
          the same seat serves any figure whose story reads beside it */
-      const Figure = FIGURES[block.graphic];
-      if (!Figure) return null;
+      if (!FIGURES[block.graphic]) return null;
       return (
         <div className="cs-ba-set">
           <div className="cs-ba-set-text">
             <p className="cs-paragraph">{noOrphan(block.text)}</p>
           </div>
-          <figure className="cs-ba-set-media">
-            {block.title && (
-              <span className="cs-figure-title">{noOrphan(block.title)}</span>
-            )}
-            <Figure />
-            {block.caption && (
-              <figcaption className="cs-figure-caption">
-                {noOrphan(block.caption)}
-              </figcaption>
-            )}
-          </figure>
+          <BAMedia block={block} />
         </div>
       );
     }
@@ -362,9 +370,7 @@ function Block({ block, onDemo, demoHref, id }) {
         <figure className="cs-figure">
           {/* what a figure IS goes above it, in the before/after labels'
               voice; the caption below keeps only what it shows */}
-          {block.title && (
-            <span className="cs-figure-title">{noOrphan(block.title)}</span>
-          )}
+          {block.title && <span className="cs-figure-title">{noOrphan(block.title)}</span>}
           <div className={Figures.length > 1 ? "cs-figure-row" : undefined}>
             {Figures.map((Figure, i) => (
               <Figure key={i} />
@@ -393,9 +399,106 @@ function Block({ block, onDemo, demoHref, id }) {
   }
 }
 
+/* ── The split column ──
+   A chapter's blocks dealt into rows of two cells. Every figure, solution,
+   before/after pair and the demo anchors a row and takes its left cell;
+   the words from the previous anchor up to it — its lead-in — take the
+   right, and the anchor's own words (a solution's title and paragraphs,
+   a pair's explanation) follow them there. Words after a chapter's last
+   anchor stay with it; a chapter with no anchor at all is one row of
+   words. Each item keeps its index in the chapter, which is what the
+   subheadings' ids are built from. */
+const ANCHORS = new Set(["figure", "solution", "ba", "demo"]);
+function splitRows(blocks) {
+  const rows = [];
+  let lead = [];
+  blocks.forEach((block, index) => {
+    const item = { block, index };
+    if (ANCHORS.has(block.type)) {
+      rows.push({ media: item, text: [...lead, item] });
+      lead = [];
+    } else lead.push(item);
+  });
+  if (lead.length) {
+    if (rows.length) rows[rows.length - 1].text.push(...lead);
+    else rows.push({ media: null, text: lead });
+  }
+  return rows;
+}
+
+/* an item's words, for the right cell */
+function SplitText({ item, sectionId, onDemo, demoHref }) {
+  const { block, index } = item;
+  switch (block.type) {
+    case "solution":
+      return (
+        <>
+          <SolutionTitle block={block} />
+          {block.paras.map((t, i) => (
+            <p key={i} className="cs-paragraph">
+              {noOrphan(t)}
+            </p>
+          ))}
+        </>
+      );
+    case "ba":
+      return <p className="cs-paragraph">{noOrphan(block.text)}</p>;
+    case "figure":
+    case "demo":
+      return null;
+    default:
+      return (
+        <Block
+          block={block}
+          id={block.type === "h" ? `cs-${sectionId}-h${index}` : undefined}
+          onDemo={onDemo}
+          demoHref={demoHref}
+        />
+      );
+  }
+}
+
+/* an anchor's picture, for the left cell. The demo is seated as the
+   Work card's render of the app with the button under it, and the render
+   opens the demo as the button does — so the chapters' figure listener
+   leaves it be (it skips anything inside a button) */
+function SplitMedia({ item, project, onDemo, demoHref }) {
+  const { block } = item;
+  switch (block.type) {
+    case "figure":
+      return <Block block={block} />;
+    case "solution":
+      return <SolutionMedia block={block} />;
+    case "ba":
+      return <BAMedia block={block} />;
+    case "demo": {
+      const shot = project.mockups?.[0];
+      return (
+        <div className="cs-split-demo">
+          {shot && (
+            <button type="button" className="cs-split-demo-shot" onClick={onDemo}>
+              <img
+                src={shot.image}
+                alt={project.thumbAlt}
+                style={{ aspectRatio: `${shot.ratio[0]} / ${shot.ratio[1]}` }}
+                loading="lazy"
+              />
+            </button>
+          )}
+          <Block block={block} onDemo={onDemo} demoHref={demoHref} />
+        </div>
+      );
+    }
+    default:
+      return null;
+  }
+}
+
 /** One shared case-study layout for every project: title + table of contents
  *  on the left, the content (headline, intro, meta, image, sections) on the
- *  right, built from each section's block list. */
+ *  right, built from each section's block list. A project flagged
+ *  `layout: "split"` is set the other way: see splitRows above and
+ *  .cs-split in casestudy.css. */
 export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   const { id } = useParams();
   /* re-set the copy when the viewport crosses the phone breakpoint — the
@@ -423,6 +526,11 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   /* one screen, or a page: see lib/screen-column.js. A phone is a page
      whatever the project says. */
   const screen = !!project?.screen && !isPhone;
+  /* a project flagged `layout: "split"` is set with its chapters across
+     the top and the column as two — what is looked at on the left, what
+     is read on the right. Only as one screen: a phone keeps the stacked
+     page whatever the project says. */
+  const split = project?.layout === "split" && screen;
   /* the box the column scrolls in when the page is one screen, and what
      Lenis scrolls inside it */
   const regionRef = useRef(null);
@@ -432,15 +540,30 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      the window; on a screen, the chapter list's own top edge, so a chapter
      brought up stands level with the list that named it, the way a
      project on the Work stage stands level with its title. */
-  const readingLine = () =>
-    screen ? (leftRef.current?.getBoundingClientRect().top ?? READING_LINE) : READING_LINE;
+  const readingLine = () => {
+    if (!screen) return READING_LINE;
+    if (split) {
+      /* the column begins where the box's top padding ends, and that is
+         the line — the bar's reserved room is in the padding */
+      const box = regionRef.current;
+      return box
+        ? box.getBoundingClientRect().top + parseFloat(getComputedStyle(box).paddingTop)
+        : READING_LINE;
+    }
+    return leftRef.current?.getBoundingClientRect().top ?? READING_LINE;
+  };
   /* Where the list is taking the reader, while it is: the chapter and
      subheading it will light once the scroll arrives. Set at the click and
      cleared on arrival, or the moment the reader takes the wheel. Without
      it a jump of three chapters lit each one in passing, opening and
      closing its subheadings on the way. */
   const travel = useRef(null);
-  useScrollFade(contentRef, screen ? NO_FADE : SCROLL_FADE, [id, lang, screen], screen ? regionRef : null);
+  useScrollFade(
+    contentRef,
+    screen ? NO_FADE : SCROLL_FADE,
+    [id, lang, screen],
+    screen ? regionRef : null,
+  );
   /* the scroll, through whichever box has it, and the keys — unless a
      modal is up, whose own keys they are */
   const { lenis, scrollY, scrollMax, goTo } = useScreenScroll(
@@ -569,6 +692,18 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
 
   const HeroScene = project.heroScene ? HERO_SCENES[project.heroScene] : null;
 
+  /* the split bar keeps room under itself for as many subheadings as the
+     longest chapter has, so the reading line holds still as chapters
+     open and close beneath it (see --cs-bar-subs in casestudy.css) */
+  const barSubs = split
+    ? Math.max(0, ...project.sections.map((s) => s.blocks.filter((b) => b.type === "h").length))
+    : 0;
+  /* in the split column one box is the scroll's content and the stage */
+  const bodyRef = (el) => {
+    gridRef.current = el;
+    contentRef.current = el;
+  };
+
   // where a cta with demo:true points until its real URL lands
   const demoHref = project.demo?.src ? `${import.meta.env.BASE_URL}${project.demo.src}` : null;
 
@@ -625,7 +760,9 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
 
     /* what the list will show from here to arrival: the target's chapter
        and, if the target is a subheading, that */
-    const chapter = targetId ? project.sections.find((s) => targetId.startsWith(`cs-${s.id}`)) : null;
+    const chapter = targetId
+      ? project.sections.find((s) => targetId.startsWith(`cs-${s.id}`))
+      : null;
     travel.current = {
       chapter: chapter?.id ?? null,
       sub: targetId && targetId !== `cs-${chapter?.id}` ? targetId : null,
@@ -644,150 +781,265 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     });
   };
 
+  /* the opening's words: the headline, the sentences under it and the
+     meta table — the same in both settings of the column */
+  const opening = (
+    <>
+      {project.headline && <p className="cs-headline">{project.headline}</p>}
+
+      <div className="cs-intro">
+        {project.intro.map((para, i) => (
+          <p key={i} className="cs-paragraph">
+            {typeof para === "string"
+              ? noOrphan(para)
+              : noOrphanSegments(para).map((seg, j) =>
+                  typeof seg === "string" ? (
+                    seg
+                  ) : (
+                    <a
+                      key={j}
+                      className="cs-inline-link"
+                      href={seg.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {seg.text}
+                    </a>
+                  ),
+                )}
+          </p>
+        ))}
+      </div>
+
+      <div className="cs-meta">
+        <MetaGroup rows={project.metaLeft} />
+        <MetaGroup rows={project.metaRight} />
+      </div>
+    </>
+  );
+
   return (
-    <div className={"ab-root" + (screen ? " page-screen" : "")}>
+    <div
+      className={"ab-root" + (screen ? " page-screen" : "") + (split ? " cs-split" : "")}
+      style={split ? { "--cs-bar-subs": barSubs } : undefined}
+    >
       <SiteHeader current="work" />
+
+      {/* the split bar: the wordmark, then the chapters by number, the one
+          being read opened to its name with its subheadings under it.
+          Outside the box, over the veil, the way the header is. */}
+      {split && (
+        <nav className="cs-split-bar" aria-label="Chapters">
+          <h1 className="cs-split-brand">
+            <button type="button" onClick={() => scrollTo(null)}>
+              <img src={project.logo.color} alt={project.title} />
+            </button>
+          </h1>
+          <ol className="cs-split-chapters">
+            {project.sections.map((s) => {
+              /* "02 Three Products, No Phone": the number, and the name */
+              const [no, ...name] = s.label.split(" ");
+              const subs = s.blocks
+                .map((b, i) => (b.type === "h" ? { id: `cs-${s.id}-h${i}`, text: b.text } : null))
+                .filter(Boolean);
+              const current = activeId === s.id;
+              return (
+                <li key={s.id} className={"cs-split-chapter" + (current ? " is-current" : "")}>
+                  <button
+                    type="button"
+                    className="cs-split-item"
+                    aria-label={s.label}
+                    aria-current={current ? "true" : undefined}
+                    onClick={() => scrollTo(`cs-${s.id}`)}
+                  >
+                    <span className="cs-split-no">{no}</span>
+                    <span className="cs-split-name">
+                      <span>{name.join(" ")}</span>
+                    </span>
+                  </button>
+                  {subs.length > 0 && (
+                    <div className="cs-split-subs">
+                      {subs.map((h) => (
+                        <button
+                          key={h.id}
+                          type="button"
+                          className={"cs-toc-subitem" + (activeSub === h.id ? " is-current" : "")}
+                          onClick={() => scrollTo(h.id)}
+                        >
+                          {h.text}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
+      )}
 
       {/* cross-fades on language switches, matching the other pages. When
           the page is one screen this is the box the column scrolls in. */}
       <main className={"cs-main " + fadeClass} ref={regionRef}>
-        <div className="ab-grid cs-grid" ref={gridRef}>
-          {/* title + chapters stick together; the title doubles as the
-              "back to intro" control */}
-          <div className="cs-left" ref={leftRef}>
-            <h1 className="cs-title" onClick={() => scrollTo(null)}>
-              {project.title}
-            </h1>
-            {/* on mobile the phone mockup rides beside the chapter list
-                instead of inside the hero (hidden on desktop via CSS) */}
-            <div className="cs-toc-row">
-              <nav className={"cs-toc" + (project.screen ? " cs-toc--nested" : "")}>
-                {project.sections.map((s) => {
-                  /* the chapter's subheadings, by the same ids the blocks
-                     below carry */
-                  const subs = project.screen
-                    ? s.blocks
-                        .map((b, i) => (b.type === "h" ? { id: `cs-${s.id}-h${i}`, text: b.text } : null))
-                        .filter(Boolean)
-                    : [];
-                  return (
-                    <div
-                      key={s.id}
-                      className={"cs-toc-chapter" + (activeId === s.id ? " is-current" : "")}
-                    >
-                      <button
-                        type="button"
-                        className={"cs-toc-item" + (activeId === s.id ? " is-current" : "")}
-                        onClick={() => scrollTo(`cs-${s.id}`)}
-                      >
-                        {s.label}
-                      </button>
-                      {subs.length > 0 && (
-                        /* opened under the chapter being read, closed under
-                           the rest — a grid row that grows from nothing */
-                        <div className="cs-toc-sub">
-                          <div className="cs-toc-sub-inner">
-                            {subs.map((h) => (
-                              <button
-                                key={h.id}
-                                type="button"
-                                className={"cs-toc-subitem" + (activeSub === h.id ? " is-current" : "")}
-                                onClick={() => scrollTo(h.id)}
-                              >
-                                {h.text}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </nav>
-              {HeroScene && project.id === "prolog" && (
-                <img
-                  className="cs-toc-mockup"
-                  src={prologMockupUrl}
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                />
-              )}
+        {split ? (
+          /* the split column: the opening as one row — the hero scene on
+             the left, the words on the right — then each chapter's rows */
+          <div className="cs-split-body" ref={bodyRef}>
+            <div className="cs-split-row cs-split-opening">
+              <div className="cs-split-media">{HeroScene && <HeroScene />}</div>
+              <div className="cs-split-text">{opening}</div>
             </div>
-          </div>
-
-          <div className="cs-content" ref={contentRef}>
-            {/* a project's hero scene (logo + live animation + mockup) leads
-                the page, above the headline */}
-            {HeroScene && <HeroScene />}
-
-            {project.headline && <p className="cs-headline">{project.headline}</p>}
-
-            <div className="cs-intro">
-              {project.intro.map((para, i) => (
-                <p key={i} className="cs-paragraph">
-                  {typeof para === "string"
-                    ? noOrphan(para)
-                    : noOrphanSegments(para).map((seg, j) =>
-                        typeof seg === "string" ? (
-                          seg
-                        ) : (
-                          <a
-                            key={j}
-                            className="cs-inline-link"
-                            href={seg.href}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            {seg.text}
-                          </a>
-                        ),
-                      )}
-                </p>
-              ))}
-            </div>
-
-            <div className="cs-meta">
-              <MetaGroup rows={project.metaLeft} />
-              <MetaGroup rows={project.metaRight} />
-            </div>
-
-            {HeroScene ? null : project.heroVideo ? (
-              /* hero media: silent autoplay loop, like a GIF. heroVideoRatio
-                 (e.g. "1000 / 976") shows the file uncropped at its own
-                 shape; without it the video cover-fills the 5:2 band.
-                 Projects with no hero media render nothing here. */
-              <video
-                className="cs-video"
-                src={`${import.meta.env.BASE_URL}${project.heroVideo}`}
-                style={project.heroVideoRatio ? { aspectRatio: project.heroVideoRatio } : undefined}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-hidden="true"
-              />
-            ) : null}
 
             <div className="cs-sections" onClick={openFigure}>
               {project.sections.map((s) => (
-                <section key={s.id} id={`cs-${s.id}`} className="cs-section">
+                <section key={s.id} id={`cs-${s.id}`} className="cs-section cs-split-section">
+                  {/* the bar's to show; kept for the outline */}
                   <h2 className="cs-section-no">{s.label}</h2>
-                  {s.blocks.map((b, i) => (
-                    <Block
-                      key={i}
-                      block={b}
-                      id={b.type === "h" ? `cs-${s.id}-h${i}` : undefined}
-                      onDemo={() => setDemoOpen(true)}
-                      demoHref={demoHref}
-                    />
+                  {splitRows(s.blocks).map((row, r) => (
+                    <div key={r} className="cs-split-row">
+                      <div className="cs-split-media">
+                        {row.media && (
+                          <SplitMedia
+                            item={row.media}
+                            project={project}
+                            onDemo={() => setDemoOpen(true)}
+                            demoHref={demoHref}
+                          />
+                        )}
+                      </div>
+                      <div className="cs-split-text">
+                        {row.text.map((item) => (
+                          <SplitText
+                            key={item.index}
+                            item={item}
+                            sectionId={s.id}
+                            onDemo={() => setDemoOpen(true)}
+                            demoHref={demoHref}
+                          />
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </section>
               ))}
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="ab-grid cs-grid" ref={gridRef}>
+            {/* title + chapters stick together; the title doubles as the
+              "back to intro" control */}
+            <div className="cs-left" ref={leftRef}>
+              <h1 className="cs-title" onClick={() => scrollTo(null)}>
+                {project.title}
+              </h1>
+              {/* on mobile the phone mockup rides beside the chapter list
+                instead of inside the hero (hidden on desktop via CSS) */}
+              <div className="cs-toc-row">
+                <nav className={"cs-toc" + (project.screen ? " cs-toc--nested" : "")}>
+                  {project.sections.map((s) => {
+                    /* the chapter's subheadings, by the same ids the blocks
+                     below carry */
+                    const subs = project.screen
+                      ? s.blocks
+                          .map((b, i) =>
+                            b.type === "h" ? { id: `cs-${s.id}-h${i}`, text: b.text } : null,
+                          )
+                          .filter(Boolean)
+                      : [];
+                    return (
+                      <div
+                        key={s.id}
+                        className={"cs-toc-chapter" + (activeId === s.id ? " is-current" : "")}
+                      >
+                        <button
+                          type="button"
+                          className={"cs-toc-item" + (activeId === s.id ? " is-current" : "")}
+                          onClick={() => scrollTo(`cs-${s.id}`)}
+                        >
+                          {s.label}
+                        </button>
+                        {subs.length > 0 && (
+                          /* opened under the chapter being read, closed under
+                           the rest — a grid row that grows from nothing */
+                          <div className="cs-toc-sub">
+                            <div className="cs-toc-sub-inner">
+                              {subs.map((h) => (
+                                <button
+                                  key={h.id}
+                                  type="button"
+                                  className={
+                                    "cs-toc-subitem" + (activeSub === h.id ? " is-current" : "")
+                                  }
+                                  onClick={() => scrollTo(h.id)}
+                                >
+                                  {h.text}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </nav>
+                {HeroScene && project.id === "prolog" && (
+                  <img
+                    className="cs-toc-mockup"
+                    src={prologMockupUrl}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                  />
+                )}
+              </div>
+            </div>
+
+            <div className="cs-content" ref={contentRef}>
+              {/* a project's hero scene (logo + live animation + mockup) leads
+                the page, above the headline */}
+              {HeroScene && <HeroScene />}
+
+              {opening}
+
+              {HeroScene ? null : project.heroVideo ? (
+                /* hero media: silent autoplay loop, like a GIF. heroVideoRatio
+                 (e.g. "1000 / 976") shows the file uncropped at its own
+                 shape; without it the video cover-fills the 5:2 band.
+                 Projects with no hero media render nothing here. */
+                <video
+                  className="cs-video"
+                  src={`${import.meta.env.BASE_URL}${project.heroVideo}`}
+                  style={
+                    project.heroVideoRatio ? { aspectRatio: project.heroVideoRatio } : undefined
+                  }
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-hidden="true"
+                />
+              ) : null}
+
+              <div className="cs-sections" onClick={openFigure}>
+                {project.sections.map((s) => (
+                  <section key={s.id} id={`cs-${s.id}`} className="cs-section">
+                    <h2 className="cs-section-no">{s.label}</h2>
+                    {s.blocks.map((b, i) => (
+                      <Block
+                        key={i}
+                        block={b}
+                        id={b.type === "h" ? `cs-${s.id}-h${i}` : undefined}
+                        onDemo={() => setDemoOpen(true)}
+                        demoHref={demoHref}
+                      />
+                    ))}
+                  </section>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       <SiteFooter lang={lang} setLang={setLang} />
@@ -800,9 +1052,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
         <TryAppModal
           open={demoOpen}
           onClose={() => setDemoOpen(false)}
-          src={
-            project.demo.src ? `${import.meta.env.BASE_URL}${project.demo.src}` : PROLOG_SRC
-          }
+          src={project.demo.src ? `${import.meta.env.BASE_URL}${project.demo.src}` : PROLOG_SRC}
           variant={project.demo.variant ?? "phone"}
           frame={project.demo.frame ?? "orange"}
           title={project.title}
