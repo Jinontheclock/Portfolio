@@ -882,6 +882,51 @@
   display: block;
   font-weight: 700;
   color: var(--text-primary);
+  /* one line each — "Watch: quick charge" runs a whisker past a narrow
+     cell into the gap rather than turning */
+  white-space: nowrap;
+}
+/* ── the note, on hover ──
+   Where there is a pointer, a frame's note leaves the caption and comes up
+   over the frame while the pointer is on it: one line of text on a blur of
+   what is behind it, and no box — the blur's edges feathered by a mask so
+   nothing draws a rectangle. Low in the frame, where a phone shows its tab
+   bar and the watch's box shows the page, rather than over the black of
+   the watch. It takes no pointer, so a click still opens the frame. */
+.cmp-lofi-shot {
+  position: relative;
+}
+.cmp-lofi-note {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
+  z-index: 1;
+  padding: 6px 14px;
+  white-space: nowrap;
+  font: 400 12px / 1.4 var(--font-ui);
+  color: var(--text-primary);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 14px,
+    #000 calc(100% - 14px),
+    transparent
+  );
+  mask-image: linear-gradient(to right, transparent, #000 14px, #000 calc(100% - 14px), transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms var(--easing);
+}
+@media (hover: hover) {
+  .cmp-lofi-cell:hover .cmp-lofi-note {
+    opacity: 1;
+  }
+  .cmp-lofi-cell figcaption > span {
+    display: none;
+  }
 }
 /* A phone screen fits three frames across, not seven: each row scrolls,
    running off the right of the screen the way the solution rows' screens

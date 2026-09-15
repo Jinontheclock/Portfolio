@@ -118,6 +118,12 @@ function Frame({ src, label, note, alt, watch, layer }) {
             scrolled to would leave the right of the strip blank on the way
             in, which reads as the row having run out rather than loading */}
         <img src={src} alt={alt} decoding="async" />
+        {/* the note, over the frame while the pointer is on it — a line of
+            text on a blur, no box. The caption below carries the same words
+            for a reader with no pointer to hover, and for the outline. */}
+        <span className="cmp-lofi-note" aria-hidden="true">
+          {note}
+        </span>
       </span>
       <figcaption>
         <b>{label}</b>
