@@ -811,28 +811,36 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
 
   /* ── The line under the bar ──
      In the project's own colour, from the bar's left edge: under the
-     wordmark at the opening, and out to the far end of the chapter being
-     read as the reader goes on, drawn on by GSAP as the chapter changes.
-     The row moves under it — a name opening or closing shifts what
-     follows — so the line is re-aimed whenever a chapter's box changes
-     size, and eases to wherever the end now is. */
+     wordmark at the opening, and out along the chapter being read as the
+     reader goes on — as far along its name as the reader is through its
+     rows, the second of four rows taking the line halfway, the last to
+     the end — drawn on by GSAP as the row changes. The bar moves under it
+     (a name opening or closing shifts what follows), so the line is
+     re-aimed whenever a chapter's box changes size, and eases to wherever
+     the end now is. */
   const barRef = useRef(null);
   const lineRef = useRef(null);
   const lineTo = useRef(null);
-  const lineAt = useRef(-1);
-  lineAt.current = barChapter ? project.sections.findIndex((s) => s.id === barChapter) : -1;
+  const lineAt = useRef({ k: -1, through: 1 });
+  {
+    const k = barChapter ? project.sections.findIndex((s) => s.id === barChapter) : -1;
+    const rows = k >= 0 ? steps.filter((st) => st.section?.id === barChapter) : [];
+    lineAt.current = { k, through: rows.length ? (rows.indexOf(onStage) + 1) / rows.length : 1 };
+  }
   useEffect(() => {
     if (!split) return undefined;
     const bar = barRef.current;
     const line = lineRef.current;
     if (!bar || !line) return undefined;
     const end = () => {
-      const k = lineAt.current;
+      const { k, through } = lineAt.current;
       const el =
         k >= 0
           ? bar.querySelectorAll(".cs-split-chapter")[k]
           : bar.querySelector(".cs-split-brand");
-      return el ? el.getBoundingClientRect().right - bar.getBoundingClientRect().left : 0;
+      if (!el) return 0;
+      const r = el.getBoundingClientRect();
+      return r.left - bar.getBoundingClientRect().left + r.width * through;
     };
     const draw = gsap.quickTo(line, "width", {
       duration: reducedMotion() ? 0 : 0.6,
@@ -853,7 +861,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   }, [split, project]);
   useEffect(() => {
     lineTo.current?.();
-  }, [barChapter]);
+  }, [onStage]);
   const barSub = split ? onStage?.sub : null;
   const firstStepOf = (sectionId) =>
     Math.max(
