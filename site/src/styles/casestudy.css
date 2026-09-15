@@ -2216,9 +2216,23 @@
   width: auto;
   max-width: 100%;
 }
-/* WeLAB's audit captures stand three rows deep, so each row's captures
-   take a third of the room less the rows' gaps and the figure's caption */
-.cs-split .wl-audit img {
+/* WeLAB's audit captures were budgeted against one height shared by
+   every row of the stacked column, which left a two-up small in a cell
+   this wide. In a cell a row shares its width out by the captures' shapes
+   instead — the phone layout's recipe (see .cs-ba-set-media .wl-audit-cell)
+   — so a row fills the cell, and the caps on height below hold the
+   pictures where the room is the shorter side. */
+.cs-split .wl-audit-cell {
+  flex-grow: calc(var(--ar, 1) * 10);
+  flex-shrink: 1;
+  flex-basis: 0;
+  width: auto !important;
+  min-width: 0;
+}
+/* an audit board of several rows: each row's captures take a third of
+   the room less the rows' gaps and the figure's caption (a board of one
+   row keeps the cap every picture has) */
+.cs-split .wl-audit:has(.wl-audit-row + .wl-audit-row) img {
   max-height: calc((var(--cs-stage-room) - 150px) / 3);
 }
 /* a solution's screens: at a third of the cell each — the border inside
