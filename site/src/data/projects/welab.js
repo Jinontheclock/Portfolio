@@ -330,10 +330,23 @@ export default {
         {
           type: "figure",
           graphic: "welab-fig-layout-system",
+          /* the board is two figures, a screen each on the stage: the Tax
+             Credits row here, the other three next. The Japanese and
+             Korean captions stay whole on this one; the English is
+             split across the two */
           caption: {
-            en: "The rebuilt Tax Credits section, and the Who We Are, home footer, and Clients & Awards sections before and after the rebuild.",
+            en: "The rebuilt Tax Credits section, before and after.",
             ja: "作り直したTax Creditsセクションと、Who We Are・ホームフッター・Clients & Awardsセクションの再構築前後。",
             ko: "다시 만든 Tax Credits 섹션, 그리고 Who We Are · 홈 푸터 · Clients & Awards 섹션의 재구축 전후.",
+          },
+        },
+        {
+          type: "figure",
+          graphic: "welab-fig-layout-system-rest",
+          caption: {
+            en: "The Who We Are, home footer, and Clients & Awards sections before and after the rebuild.",
+            ja: "",
+            ko: "",
           },
         },
         {
