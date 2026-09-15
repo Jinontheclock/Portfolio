@@ -860,27 +860,31 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       {project.headline && <p className="cs-headline">{project.headline}</p>}
 
       <div className="cs-intro">
-        {project.intro.map((para, i) => (
-          <p key={i} className="cs-paragraph">
-            {typeof para === "string"
-              ? noOrphan(para)
-              : noOrphanSegments(para).map((seg, j) =>
-                  typeof seg === "string" ? (
-                    seg
-                  ) : (
-                    <a
-                      key={j}
-                      className="cs-inline-link"
-                      href={seg.href}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {seg.text}
-                    </a>
-                  ),
-                )}
-          </p>
-        ))}
+        {/* a paragraph one language leaves empty — Compass says its opening
+            in one where the others take two — is not a paragraph */}
+        {project.intro
+          .filter((para) => (typeof para === "string" ? para.trim() : para.length))
+          .map((para, i) => (
+            <p key={i} className="cs-paragraph">
+              {typeof para === "string"
+                ? noOrphan(para)
+                : noOrphanSegments(para).map((seg, j) =>
+                    typeof seg === "string" ? (
+                      seg
+                    ) : (
+                      <a
+                        key={j}
+                        className="cs-inline-link"
+                        href={seg.href}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {seg.text}
+                      </a>
+                    ),
+                  )}
+            </p>
+          ))}
       </div>
 
       <div className="cs-meta">

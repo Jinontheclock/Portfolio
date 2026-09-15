@@ -972,12 +972,15 @@ export default {
   },
   intro: [
     {
-      en: "Compass is the fare card for Metro Vancouver. Every bus, SkyTrain, SeaBus and West Coast Express journey in the region runs through it. You can already tap a phone at a TransLink gate, but what you tap is a bank card, not your Compass Card. The card itself is still a piece of plastic, and everything about that card (balance, reload, passes, U-Pass) lives on a website and in station vending machines.",
+      /* one paragraph in English; the Japanese and Korean keep their two,
+         so the second node carries an empty English string that the page
+         leaves out (see the intro in CaseStudyPage.jsx) */
+      en: "Compass is Metro Vancouver's fare card: every bus, SkyTrain, SeaBus and West Coast Express journey runs through it. You can already tap a phone at a TransLink gate, but what you tap is a bank card, not your Compass Card, which is still plastic, with its balance, reloads, passes and U-Pass living on a website and in station vending machines. This self-initiated concept brings the card to the phone, as an iOS app, a watchOS app and an Apple Wallet pass, on the account-based system TransLink has already put out to tender, with the case built from what the agency publishes about itself rather than from interviews.",
       ja: "Compassはメトロバンクーバーの交通運賃カードです。この地域のバス、SkyTrain、SeaBus、West Coast Expressの乗車は、すべてこのカードを通じて行われます。TransLinkの改札でスマートフォンをかざすこと自体は、すでにできます。ただし、そこで読み取られるのはクレジットカードのタッチ決済であって、本人のCompassカードではありません。カード自体はいまも一枚のプラスチックで、残高・チャージ・定期券・U-Passといったカードにまつわるすべては、ウェブサイトと駅の券売機の中にあります。",
       ko: "Compass는 메트로밴쿠버의 교통 요금 카드입니다. 이 지역의 버스, SkyTrain, SeaBus, West Coast Express 이용은 모두 이 카드를 거칩니다. TransLink 개찰구에서 폰을 대는 것은 이미 됩니다. 다만 그때 태그되는 것은 비접촉 신용·체크카드이지, 본인의 Compass 카드가 아닙니다. 카드 자체는 여전히 플라스틱 한 장이고, 잔액·충전·정기권·U-Pass처럼 그 카드에 관한 모든 것은 웹사이트와 역 안의 무인 발매기에 들어 있습니다.",
     },
     {
-      en: "This is a self-initiated concept project: an iOS app, a watchOS app and a Compass pass in Apple Wallet, designed on top of the account-based system TransLink has already put out to tender. I had no users to interview, so I built the case on what the agency publishes about itself: ridership reports, fare tables, the modernization RFP, and its own customer experience plan.",
+      en: "",
       ja: "個人で立ち上げたコンセプトプロジェクトです。iOSアプリ、watchOSアプリ、そしてApple Wallet内のCompassパスを、TransLinkがすでに入札にかけたアカウントベースのシステムの上に設計しました。インタビューできる利用者がいなかったため、根拠は交通事業者が自ら公開している資料に求めました。輸送実績レポート、運賃表、システム刷新のRFP、そして事業者自身の顧客体験計画です。",
       ko: "개인적으로 시작한 콘셉트 프로젝트입니다. iOS 앱, watchOS 앱, 그리고 Apple Wallet 안의 Compass 패스를, TransLink가 이미 입찰에 부친 계정 기반 시스템 위에 설계했습니다. 인터뷰할 사용자가 없었기 때문에, 근거는 운영 기관이 스스로 공개한 자료에서 가져왔습니다. 수송 실적 보고서, 요금표, 시스템 현대화 RFP, 그리고 기관이 발표한 고객 경험 계획입니다.",
     },
