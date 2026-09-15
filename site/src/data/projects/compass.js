@@ -13,7 +13,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "TransLink runs the transit system for Metro Vancouver: buses, SkyTrain, SeaBus and the West Coast Express. In 2025 it carried 237.6 million passenger journeys across 396.3 million boardings. That was 1.4% down on the year before: the first annual decline since the post-pandemic recovery began.",
+          en: "TransLink runs the transit system for Metro Vancouver: buses, SkyTrain, SeaBus and the West Coast Express. In 2025 it carried 237.6 million passenger journeys, 1.4% down on the year before and the first annual decline since the post-pandemic recovery began.",
           ja: "TransLinkはメトロバンクーバーの公共交通を運営しています。バス、SkyTrain、SeaBus、West Coast Expressです。2025年の輸送人員は2億3,760万人、乗車回数は3億9,630万回でした。前年から1.4%の減少で、パンデミック後の回復が始まって以降では初めての年間減少です。",
           ko: "TransLink는 메트로밴쿠버의 대중교통을 운영합니다. 버스, SkyTrain, SeaBus, West Coast Express입니다. 2025년 수송 인원은 2억 3,760만 명, 승차 건수는 3억 9,630만 건이었습니다. 전년보다 1.4% 줄어든 수치이고, 팬데믹 이후 회복이 시작된 뒤로는 첫 연간 감소입니다.",
         },
@@ -30,7 +30,8 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "Contactless payment is not new here. TransLink switched it on across the whole system on 22 May 2018, the first agency in Canada to take contactless credit cards; Interac Debit followed systemwide in January 2023, another Canadian first. Tap-to-pay has grown every year since, from over 10 million taps in 2019 to more than 25 million in 2025.",
+          /* the dates are the timeline's to show; this says what it cannot */
+          en: "Contactless payment is not new here: TransLink was the first agency in Canada to take contactless credit cards, and tap-to-pay has grown every year since, from over 10 million taps in 2019 to more than 25 million in 2025. And the system underneath is being replaced: Compass Modernization went to tender with a preliminary budget of $507 million, and the RFP asks for an account-based system handling both closed-loop and open-loop fares.",
           ja: "タッチ決済そのものは、ここでは新しいものではありません。TransLinkは2018年5月22日に全システムでこれを開始し、タッチ決済のクレジットカードを受け入れたカナダ初の交通事業者になりました。Interac Debitの全線対応は2023年1月で、これもカナダで初めてでした。以来タッチ決済は毎年伸び、2019年に1,000万回を超えていたタッチは、2025年には2,500万回を超えました。",
           ko: "비접촉 결제 자체는 여기서 새로운 것이 아닙니다. TransLink는 2018년 5월 22일 전 시스템에 이 결제를 열었고, 비접촉 신용카드를 받은 캐나다 최초의 운영 기관이었습니다. Interac Debit의 전 구간 도입은 2023년 1월로, 이것도 캐나다 최초였습니다. 이후 비접촉 결제는 매년 늘어, 2019년 1,000만 건이 넘던 태그가 2025년에는 2,500만 건을 넘었습니다.",
         },
@@ -38,7 +39,9 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "And the system underneath is being replaced. Compass Modernization went to tender with a preliminary budget of $507 million, bids closed on 20 March 2026, and delivery is scheduled for late 2030 into early 2031. The RFP asks for something specific: an account-based system handling both closed-loop and open-loop fares.",
+          /* folded into the paragraph above in English; the Japanese and
+             Korean keep it, and the page leaves an empty paragraph out */
+          en: "",
           ja: "そして、その下にあるシステムは置き換えの最中です。Compass Modernizationは予備予算5億700万カナダドルで入札にかけられ、入札は2026年3月20日に締め切られ、納入は2030年末から2031年初めに予定されています。RFPが求めているものは具体的です。クローズドループとオープンループの運賃を両方さばく、アカウントベースのシステムです。",
           ko: "그리고 그 아래에 있는 시스템은 교체되는 중입니다. Compass Modernization은 예비 예산 5억 700만 캐나다달러로 입찰에 부쳐졌고, 입찰은 2026년 3월 20일에 마감됐으며, 납품은 2030년 말에서 2031년 초로 잡혀 있습니다. RFP가 요구하는 것은 구체적입니다. 폐쇄형 요금과 개방형 요금을 모두 처리하는 계정 기반 시스템입니다.",
         },
@@ -55,7 +58,7 @@ const COMPASS_SECTIONS = [
       {
         type: "p",
         text: {
-          en: "So Apple Pay already works, and the system it runs on has already been put out to tender. Which leaves the question this project is about: what is actually missing, and why is now the moment to design it?",
+          en: "So Apple Pay already works, and the system it runs on is already out to tender. What is actually missing, then, and why is now the moment to design it?",
           ja: "つまりApple Payはすでに動いていて、その土台となるシステムもすでに入札にかけられています。残るのは、このプロジェクトが扱う問いだけです。実際に欠けているものは何か、そしてなぜ、いまがそれを設計する時なのか。",
           ko: "그러니까 Apple Pay는 이미 되고, 그것이 올라탈 시스템도 이미 입찰에 부쳐졌습니다. 그렇다면 이 프로젝트가 다루는 질문만 남습니다. 실제로 빠져 있는 것은 무엇이고, 왜 지금이 그것을 설계할 시점인가.",
         },

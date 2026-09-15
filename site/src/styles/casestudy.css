@@ -2080,6 +2080,12 @@
 .cs-split .cs-shots:not(.cs-shots--wide) img {
   width: calc((100% - 24px) / 3);
 }
+/* a pull-quote in a row of words that has to fit a screen: closer to
+   its paragraphs than the stacked column's 44px, which is a pause the
+   stage's own gap already gives it */
+.cs-split .cs-quote {
+  margin: 20px 0;
+}
 /* the lo-fi rail stays inside its cell rather than running to the
    window's edge, which is the words' side now */
 .cs-split .cmp-lofi-rail {

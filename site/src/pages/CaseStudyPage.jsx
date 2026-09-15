@@ -265,6 +265,10 @@ function Block({ block, onDemo, demoHref, id }) {
         </h3>
       );
     case "p":
+      /* a paragraph one language leaves empty — Compass folds two of its
+         English paragraphs into one where the others keep both — is not
+         a paragraph */
+      if (!block.text?.trim()) return null;
       return <p className="cs-paragraph">{noOrphan(block.text)}</p>;
     case "stats":
       /* research stats strip: big figure + one-line finding per cell */
