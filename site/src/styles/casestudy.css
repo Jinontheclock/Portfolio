@@ -1907,6 +1907,10 @@
   --edge-fade-bottom: 0px;
   /* the air a row keeps from the footer */
   --cs-stage-foot: 24px;
+  /* what a row can be read in: the stage from the line to the foot's air */
+  --cs-stage-room: calc(
+    100dvh - var(--cs-subs-bottom) - var(--footer-h) - var(--cs-stage-air) - var(--cs-stage-foot)
+  );
 }
 .ab-root.page-screen.cs-split > main {
   padding-top: var(--cs-subs-bottom);
@@ -2129,10 +2133,7 @@
    frame's proportion), whichever is less. So the row never overflows,
    and the stage never gives it a step to scroll */
 .cs-split .cmp-lofi {
-  --cmp-room: calc(
-    100dvh - var(--cs-subs-bottom) - var(--footer-h) - var(--cs-stage-air) - var(--cs-stage-foot)
-  );
-  --cmp-pw: min(calc((100% - 72px) / 7), calc((var(--cmp-room) - 150px) / 2 * 402 / 874));
+  --cmp-pw: min(calc((100% - 72px) / 7), calc((var(--cs-stage-room) - 150px) / 2 * 402 / 874));
 }
 /* a pull-quote in a row of words that has to fit a screen: closer to
    its paragraphs than the stacked column's 44px, which is a pause the
@@ -2140,9 +2141,16 @@
 .cs-split .cs-quote {
   margin: 20px 0;
 }
-/* the tap clip in its cell: the phone's own width, on the cell's left */
+/* the tap clip in its cell: on the cell's left, at the phone's own width
+   where the stage's room allows it, and no taller than the room less its
+   caption where it does not — the height is what is set, and the width
+   follows from the clip's proportion, so the row never overflows and the
+   stage never gives it a step to scroll */
 .cs-split .cs-ba-set-media .cs-compass-motion {
-  max-width: 350px;
+  width: auto;
+  height: min(calc(var(--cs-stage-room) - 32px), calc(350px * 1748 / 804));
+  max-width: none;
+  aspect-ratio: 804 / 1748;
   margin-inline: 0;
 }
 /* the demo: the modal's phone in the page, its note under it (its size is
