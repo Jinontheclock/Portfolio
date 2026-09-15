@@ -47,7 +47,8 @@ function computeScale() {
 const WEB_W = 1280;
 
 function computeWebLayout() {
-  if (typeof window === "undefined") return { mobile: false, w: WEB_W, h: 800, scale: 1, logicalH: 800 };
+  if (typeof window === "undefined")
+    return { mobile: false, w: WEB_W, h: 800, scale: 1, logicalH: 800 };
   const vv = window.visualViewport;
   const vw = vv ? vv.width : window.innerWidth;
   const vh = vv ? vv.height : window.innerHeight;
@@ -61,12 +62,67 @@ function computeWebLayout() {
   return { mobile: false, w, h, scale, logicalH: Math.round(h / scale) };
 }
 
+/** The phone at a scale: the mockup with the app in its glass. The modal
+ *  below shows it fitted to the window; a case study can seat it in the
+ *  page instead (see TryAppInline in CaseStudyPage.jsx). With no `src` the
+ *  glass stands empty — the page hands the app over when the phone is
+ *  looked at.
+ *
+ *  The phone box sits at its final display size and nothing above the
+ *  iframe carries a transform. The window is a transparent clipping box
+ *  laid exactly over the mockup's glass — it draws nothing of its own, so
+ *  the only frame on screen is the mockup's. Whatever iOS Safari does with
+ *  the scaled iframe inside, the app can never paint outside the glass,
+ *  and the overscan keeps the app covering the window to its very rim. */
+export function TryAppPhone({ src, title = "ProLog", frame = "orange", scale }) {
+  return (
+    <div className="tryapp-phone" style={{ width: FRAME_W * scale, height: FRAME_H * scale }}>
+      <div
+        className="tryapp-window"
+        style={{
+          left: SCREEN_X * scale,
+          top: SCREEN_Y * scale,
+          width: SCREEN_W * scale,
+          height: SCREEN_H * scale,
+          borderRadius: 26 * scale,
+        }}
+      >
+        {src && (
+          <iframe
+            className="tryapp-frame"
+            src={src}
+            title={`${title} interactive demo`}
+            style={{
+              left: -OVER_X * scale,
+              top: -OVER_Y * scale,
+              transform: `scale(${scale * OVERSCAN})`,
+              transformOrigin: "top left",
+            }}
+          />
+        )}
+      </div>
+      {/* the device overlays its own screen, so the bezel, corners and
+          island sit above the app the way glass sits above pixels */}
+      <img className="tryapp-phone-img" src={FRAMES[frame] ?? frameOrange} alt="" />
+    </div>
+  );
+}
+/* the phone's size at scale 1, for a page sizing one to its room */
+export { FRAME_W, FRAME_H };
+
 /** Full-screen modal that shows a hosted app via iframe — a phone frame by
  *  default, or a browser-like window for responsive sites (variant="web",
  *  where the site simply adapts to the frame instead of being scaled).
  *  Closes on backdrop click, the × button, or Escape; locks page scroll while
  *  open. The iframe is only mounted while open, so each open is a fresh load. */
-export default function TryAppModal({ open, onClose, src, title = "ProLog", variant = "phone", frame = "orange" }) {
+export default function TryAppModal({
+  open,
+  onClose,
+  src,
+  title = "ProLog",
+  variant = "phone",
+  frame = "orange",
+}) {
   const [scale, setScale] = useState(1);
   const [webLayout, setWebLayout] = useState(computeWebLayout);
 
@@ -122,7 +178,12 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
         >
           <div className="tryapp-head">
             <span className="tryapp-caption" aria-hidden="true"></span>
-            <button type="button" className="tryapp-close" onClick={onClose} aria-label="Close demo">
+            <button
+              type="button"
+              className="tryapp-close"
+              onClick={onClose}
+              aria-label="Close demo"
+            >
               ×
             </button>
           </div>
@@ -167,43 +228,7 @@ export default function TryAppModal({ open, onClose, src, title = "ProLog", vari
             ×
           </button>
         </div>
-        {/* The phone box sits at its final display size and nothing above the
-            iframe carries a transform. The window is a transparent clipping
-            box laid exactly over the mockup's glass — it draws nothing of
-            its own, so the only frame on screen is the mockup's. Whatever
-            iOS Safari does with the scaled iframe inside, the app can never
-            paint outside the glass, and the overscan keeps the app covering
-            the window to its very rim. */}
-        <div
-          className="tryapp-phone"
-          style={{ width: FRAME_W * scale, height: FRAME_H * scale }}
-        >
-          <div
-            className="tryapp-window"
-            style={{
-              left: SCREEN_X * scale,
-              top: SCREEN_Y * scale,
-              width: SCREEN_W * scale,
-              height: SCREEN_H * scale,
-              borderRadius: 26 * scale,
-            }}
-          >
-            <iframe
-              className="tryapp-frame"
-              src={src}
-              title={`${title} interactive demo`}
-              style={{
-                left: -OVER_X * scale,
-                top: -OVER_Y * scale,
-                transform: `scale(${scale * OVERSCAN})`,
-                transformOrigin: "top left",
-              }}
-            />
-          </div>
-          {/* the device overlays its own screen, so the bezel, corners and
-              island sit above the app the way glass sits above pixels */}
-          <img className="tryapp-phone-img" src={FRAMES[frame] ?? frameOrange} alt="" />
-        </div>
+        <TryAppPhone src={src} title={title} frame={frame} scale={scale} />
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
-import TryAppModal from "../components/TryAppModal.jsx";
+import TryAppModal, { FRAME_H, FRAME_W, TryAppPhone } from "../components/TryAppModal.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
 import ImageLightbox from "../components/ImageLightbox.jsx";
 import useScrollFade from "../lib/scroll-fade.js";
@@ -255,6 +255,9 @@ function BAMedia({ block }) {
   );
 }
 
+/* what a demo says of itself when its block does not */
+const DEMO_NOTE = "Runs the real app right here — no install needed.";
+
 function Block({ block, onDemo, demoHref, id }) {
   switch (block.type) {
     case "h":
@@ -295,9 +298,7 @@ function Block({ block, onDemo, demoHref, id }) {
           <button type="button" className="cs-tryapp-btn" onClick={onDemo}>
             {block.label ?? "Try app"}
           </button>
-          <span className="cs-tryapp-note">
-            {block.note ?? "Runs the real app right here — no install needed."}
-          </span>
+          <span className="cs-tryapp-note">{block.note ?? DEMO_NOTE}</span>
         </div>
       );
     case "cta": {
@@ -501,11 +502,49 @@ function SplitText({ item, sectionId, onDemo, demoHref }) {
   }
 }
 
-/* an anchor's picture, for the left cell. The demo is seated as the
-   Work card's render of the app with the button under it, and the render
-   opens the demo as the button does — so the chapters' figure listener
-   leaves it be (it skips anything inside a button) */
-function SplitMedia({ item, project, onDemo, demoHref }) {
+/* The demo in the page: the modal's phone seated in its cell, the app
+   running in it with nothing to open — as wide as the cell allows and no
+   taller than the stage can show, its note under it. The app is loaded
+   the first time its row takes the stage and kept from then on, so a
+   reader who steps away and back finds it where they left it, and a
+   reader who never reaches it never loads it. */
+function TryAppInline({ src, title, frame, note, live }) {
+  const ref = useRef(null);
+  const [scale, setScale] = useState(0.5);
+  const [seen, setSeen] = useState(live);
+  useEffect(() => {
+    if (live) setSeen(true);
+  }, [live]);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    const cell = el?.parentElement;
+    const stage = el?.closest(".cs-split-stage");
+    if (!el || !cell || !stage) return undefined;
+    const fit = () => {
+      const cs = getComputedStyle(stage);
+      const room =
+        stage.clientHeight - (parseFloat(cs.paddingTop) || 0) - (parseFloat(cs.paddingBottom) || 0);
+      const under = el.querySelector(".cs-tryapp-note")?.offsetHeight ?? 0;
+      setScale(Math.min(cell.clientWidth / FRAME_W, (room - under - 12) / FRAME_H, 1));
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(stage);
+    ro.observe(cell);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div className="cs-split-demo" ref={ref}>
+      <TryAppPhone src={seen ? src : null} title={title} frame={frame} scale={scale} />
+      {note && <span className="cs-tryapp-note">{note}</span>}
+    </div>
+  );
+}
+
+/* an anchor's picture, for the left cell. The demo is the app itself,
+   running in the phone (TryAppInline) — the chapters' figure listener
+   leaves the phone be. A demo set as a web page keeps its button. */
+function SplitMedia({ item, project, onDemo, demoHref, live }) {
   const { block } = item;
   switch (block.type) {
     case "figure":
@@ -514,24 +553,19 @@ function SplitMedia({ item, project, onDemo, demoHref }) {
       return <SolutionMedia block={block} />;
     case "ba":
       return <BAMedia block={block} />;
-    case "demo": {
-      const shot = project.mockups?.[0];
+    case "demo":
+      if ((project.demo?.variant ?? "phone") !== "phone") {
+        return <Block block={block} onDemo={onDemo} demoHref={demoHref} />;
+      }
       return (
-        <div className="cs-split-demo">
-          {shot && (
-            <button type="button" className="cs-split-demo-shot" onClick={onDemo}>
-              <img
-                src={shot.image}
-                alt={project.thumbAlt}
-                style={{ aspectRatio: `${shot.ratio[0]} / ${shot.ratio[1]}` }}
-                loading="lazy"
-              />
-            </button>
-          )}
-          <Block block={block} onDemo={onDemo} demoHref={demoHref} />
-        </div>
+        <TryAppInline
+          src={demoHref ?? PROLOG_SRC}
+          title={project.title}
+          frame={project.demo?.frame ?? "orange"}
+          note={block.note ?? DEMO_NOTE}
+          live={live}
+        />
       );
-    }
     default:
       return null;
   }
@@ -647,7 +681,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     if (isPhone) return;
     const img = e.target.closest?.("img");
     if (!img) return;
-    if (img.closest("img-comparison-slider, a, button, .cs-split-opening")) return;
+    if (img.closest("img-comparison-slider, a, button, .cs-split-opening, .cs-split-demo")) return;
     const src = img.currentSrc || img.src;
     if (!src) return;
     setZoomed({ src, alt: img.alt });
@@ -968,6 +1002,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
                           project={project}
                           onDemo={() => setDemoOpen(true)}
                           demoHref={demoHref}
+                          live={stage.current === i}
                         />
                       )
                     : HeroScene && <HeroScene />}
