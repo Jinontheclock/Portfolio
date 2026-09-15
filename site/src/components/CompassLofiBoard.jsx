@@ -109,9 +109,9 @@ const FRAMES_2 = [
 function Frame({ src, label, note, alt, watch, layer }) {
   return (
     <figure className={"cmp-lofi-cell" + (watch ? " cmp-lofi-cell--watch" : "")}>
-      {/* the layer names ride with their group rather than sitting above the
-          strip, so they still say which frames they cover once the row has
-          been scrolled */}
+      {/* the layer names ride with their group's first frame, so the wrist
+          keeps its own name inside the tap layer's row — and on a phone,
+          where a row scrolls, the name still says which frames it covers */}
       {layer && <span className="cmp-lofi-group">{layer}</span>}
       <span className="cmp-lofi-shot">
         {/* twelve frames at eight kilobytes each: waiting for them to be
@@ -128,13 +128,16 @@ function Frame({ src, label, note, alt, watch, layer }) {
 }
 
 export default function CompassLofiBoard() {
-  /* one strip, in layer order — the first frame of each group carries the
-     group's name. The wrist comes last: two frames of another device, read
-     after the phone is understood rather than in the middle of it. */
-  const frames = [
-    ...FRAMES_1.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_1 : null })),
-    ...FRAMES_2.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_2 : null })),
-    ...FRAMES_WRIST.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_1_WRIST : null })),
+  /* two rows, one a layer: what you tap — the three phones, then the two
+     watches, another device but the same layer, read after the phones —
+     over what you manage, check and ask. The first frame of each group
+     carries the group's name. */
+  const rows = [
+    [
+      ...FRAMES_1.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_1 : null })),
+      ...FRAMES_WRIST.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_1_WRIST : null })),
+    ],
+    FRAMES_2.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_2 : null })),
   ];
 
   return (
@@ -145,12 +148,14 @@ export default function CompassLofiBoard() {
         in chapters 05 to 07.
       </p>
 
-      <div className="cmp-lofi-rail">
-        <div className="cmp-lofi-track">
-          {frames.map((f) => (
-            <Frame key={f.label} {...f} />
-          ))}
-        </div>
+      <div className="cmp-lofi-layers">
+        {rows.map((row, r) => (
+          <div key={r} className="cmp-lofi-row">
+            {row.map((f) => (
+              <Frame key={f.label} {...f} />
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

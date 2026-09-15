@@ -666,21 +666,21 @@
    apart because Chrome ignores the -webkit path once the standard
    properties are set */
 .cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar,
-.cmp-lofi-rail::-webkit-scrollbar {
+.cmp-lofi-row::-webkit-scrollbar {
   height: 2px;
 }
 .cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar-track,
-.cmp-lofi-rail::-webkit-scrollbar-track {
+.cmp-lofi-row::-webkit-scrollbar-track {
   background: transparent;
 }
 .cs-shots:not(.cs-shots--wide):has(img:nth-child(3))::-webkit-scrollbar-thumb,
-.cmp-lofi-rail::-webkit-scrollbar-thumb {
+.cmp-lofi-row::-webkit-scrollbar-thumb {
   background: var(--text);
   border-radius: 0;
 }
 @supports not selector(::-webkit-scrollbar) {
   .cs-shots:not(.cs-shots--wide):has(img:nth-child(3)),
-  .cmp-lofi-rail {
+  .cmp-lofi-row {
     scrollbar-width: thin;
     scrollbar-color: var(--text) transparent;
   }
@@ -771,21 +771,17 @@
   height: auto;
 }
 /* ── Compass ch04: the lo-fi board ──
-   Twelve frames in two labelled rows, composed here rather than exported
-   flat so the labels stay real text. One phone width for the whole board,
-   taken from the four-up row, and the watch frames take their own share of
-   it (187:402, their real proportion) so a watch never reads as phone-sized.
-   The watch shot keeps the phone box's height, which centres the shorter
-   frame in it and lands every label on one line across the row. ── */
+   Twelve frames in two rows, a layer each — the tap layer's three phones
+   and two watches over the manage layer's seven phones — composed here
+   rather than exported flat so the labels stay real text. One frame width
+   for the whole board, set by the seven-up row: every frame takes it, the
+   watch in a phone-shaped box, so the rows read as one board and every
+   label along a row lands on one line. ── */
 .cmp-lofi {
-  /* the phone width. The budget leaves both rows a little slack: the four-up
-     row spends 4 widths + 3 gaps, the first row 3 widths + 2 watch widths +
-     4 gaps, and neither may round into an extra wrap */
-  --cmp-pw: calc((100% - 44px) / 4);
-  /* and the board is what a frame's width is a share of. The rail can't be
-     asked — its track is sized by its own contents, so a percentage inside
-     it has nothing to resolve against (which is why the frames are a fixed
-     width there). A query unit reads this box instead, one level up. */
+  /* the frame width: seven of them and six 12px gaps fill the board */
+  --cmp-pw: calc((100% - 72px) / 7);
+  /* on a phone the rows scroll, and a frame's width is a share of the
+     board rather than of the scrolling row: a query unit reads this box */
   container-type: inline-size;
 }
 .cmp-lofi-title {
@@ -803,56 +799,32 @@
 .cmp-lofi-layer {
   margin: 28px 0 10px;
 }
-/* Twelve frames do not fit a text column, and they are read by moving along
-   the row rather than down a grid — so the board leaves the column it sits
-   in and runs the width of the screen. The negative margin is half the gap
-   between the element's own centre and the viewport's, which lands it edge
-   to edge wherever in the grid it happens to be. */
-.cmp-lofi-rail {
-  /* The strip begins where every other block on the page begins — the left
-     edge of this column — and only the far end leaves it, running off the
-     right of the screen so what is out of sight is reached by scrolling
-     rather than hidden. The bleed is the page's own side margin negated,
-     the same token the page sets, on every tier. */
-  margin-right: calc(-1 * var(--page-margin));
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  /* No snapping. Snapping to a frame's leading edge means the row can only
-     come to rest with a whole frame against the left, which leaves whatever
-     does not divide evenly as a gap on the right — and the last frame can
-     never sit flush against the margin. Free scrolling ends exactly where
-     the track does, which is where the margin is. */
+/* the two rows, the tap layer over the manage layer, each its frames in a
+   line and top-aligned, so a caption that runs to a third line under one
+   frame moves nothing beside it */
+.cmp-lofi-layers {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-.cmp-lofi-track {
+.cmp-lofi-row {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  width: max-content;
-  /* flush with the column on the near side; the page's own margin on the
-     far one, so the last frame has somewhere to rest */
-  padding: 0 var(--page-margin) 0 0;
 }
 /* The width is stated twice on purpose. `flex-basis` is what lays the frame
-   out, and `width` is what the track's `max-content` is allowed to read:
-   WebKit sizes a max-content flex container by asking each child how wide it
-   would like to be, and a child whose only stated size is a flex-basis
-   answers with its contents — here a 402px frame inside a 160px box. Twelve
-   of those made the track 4550px wide against the 1905px it holds, and the
-   whole difference showed up as white space past the last frame. Chromium
-   reads the flex-basis and never had it; the second declaration changes
-   nothing there. */
+   out, and `width` is what a max-content row (the phone's, which scrolls)
+   is allowed to read: WebKit sizes a max-content flex container by asking
+   each child how wide it would like to be, and a child whose only stated
+   size is a flex-basis answers with its contents — here a 402px frame inside
+   a 160px box, which once made the row 4550px wide against the 1905px it
+   held. Chromium reads the flex-basis and never had it. */
 .cmp-lofi-cell {
   margin: 0;
   flex: 0 0 var(--cmp-pw);
   width: var(--cmp-pw);
   min-width: 0;
-}
-/* in the rail a frame is a fixed width rather than a share of the column —
-   a percentage cannot resolve against a track sized by its contents */
-.cmp-lofi-rail {
-  --cmp-pw: 160px;
-  /* daylight between the frames and the scrollbar's ink line */
-  padding-bottom: 10px;
 }
 /* the layer name, carried by the first frame of its group */
 .cmp-lofi-group {
@@ -902,15 +874,20 @@
   font-weight: 700;
   color: var(--text-primary);
 }
-/* a phone screen fits three frames across, not four. Stated on the rail
-   rather than on the board: the rail sets its own `--cmp-pw` above, and a
-   value inherited from an ancestor never reaches past that. Three widths
-   and the two gaps between them fill the column exactly, which leaves the
-   fourth frame showing in the bleed — the rail says it scrolls by having
-   something already over the edge. */
+/* A phone screen fits three frames across, not seven: each row scrolls,
+   running off the right of the screen the way the solution rows' screens
+   do, so what is out of sight is reached by scrolling rather than hidden.
+   Three widths and the two gaps between them fill the column exactly, which
+   leaves the fourth frame showing in the bleed — the row says it scrolls by
+   having something already over the edge. Stated on the row, whose width
+   is its contents': the frame's share is of the board, by the query unit. */
 @media (max-width: 600px) {
-  .cmp-lofi-rail {
+  .cmp-lofi-row {
     --cmp-pw: calc((100cqi - 24px) / 3);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    margin-right: calc(-1 * var(--page-margin));
+    padding: 0 var(--page-margin) 10px 0;
   }
 }
 
@@ -2085,14 +2062,6 @@
    stage's own gap already gives it */
 .cs-split .cs-quote {
   margin: 20px 0;
-}
-/* the lo-fi rail stays inside its cell rather than running to the
-   window's edge, which is the words' side now */
-.cs-split .cmp-lofi-rail {
-  margin-right: 0;
-}
-.cs-split .cmp-lofi-track {
-  padding-right: 0;
 }
 /* the tap clip in its cell: the phone's own width, on the cell's left */
 .cs-split .cs-ba-set-media .cs-compass-motion {
