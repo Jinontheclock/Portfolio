@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import walletPass from "../assets/compass/lofi/compass-lofi-wallet-pass.webp";
 import tapConfirmed from "../assets/compass/lofi/compass-lofi-tap-confirmed.webp";
 import ferryTap from "../assets/compass/lofi/compass-lofi-ferry-tap.webp";
@@ -107,21 +108,36 @@ const FRAMES_2 = [
 ];
 
 function Frame({ src, label, note, alt, watch, layer }) {
+  /* the note rides with the pointer: written straight to the element on
+     every move, which is nothing for React to render */
+  const shotRef = useRef(null);
+  const noteRef = useRef(null);
+  const follow = (e) => {
+    const shot = shotRef.current;
+    const el = noteRef.current;
+    if (!shot || !el) return;
+    const r = shot.getBoundingClientRect();
+    el.style.left = `${e.clientX - r.left}px`;
+    el.style.top = `${e.clientY - r.top}px`;
+  };
   return (
-    <figure className={"cmp-lofi-cell" + (watch ? " cmp-lofi-cell--watch" : "")}>
+    <figure
+      className={"cmp-lofi-cell" + (watch ? " cmp-lofi-cell--watch" : "")}
+      onMouseMove={follow}
+    >
       {/* the layer names ride with their group's first frame, so the wrist
           keeps its own name inside the tap layer's row — and on a phone,
           where a row scrolls, the name still says which frames it covers */}
       {layer && <span className="cmp-lofi-group">{layer}</span>}
-      <span className="cmp-lofi-shot">
+      <span className="cmp-lofi-shot" ref={shotRef}>
         {/* twelve frames at eight kilobytes each: waiting for them to be
             scrolled to would leave the right of the strip blank on the way
             in, which reads as the row having run out rather than loading */}
         <img src={src} alt={alt} decoding="async" />
-        {/* the note, over the frame while the pointer is on it — a line of
+        {/* the note, under the pointer while it is on the frame — a line of
             text on a blur, no box. The caption below carries the same words
             for a reader with no pointer to hover, and for the outline. */}
-        <span className="cmp-lofi-note" aria-hidden="true">
+        <span className="cmp-lofi-note" aria-hidden="true" ref={noteRef}>
           {note}
         </span>
       </span>

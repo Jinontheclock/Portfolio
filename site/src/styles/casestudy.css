@@ -886,21 +886,22 @@
      cell into the gap rather than turning */
   white-space: nowrap;
 }
-/* ── the note, on hover ──
-   Where there is a pointer, a frame's note leaves the caption and comes up
-   over the frame while the pointer is on it: one line of text on a blur of
+/* ── the note, under the pointer ──
+   Where there is a pointer, a frame's note leaves the caption and rides
+   with the pointer while it is on the frame: one line of text on a blur of
    what is behind it, and no box — the blur's edges feathered by a mask so
-   nothing draws a rectangle. Low in the frame, where a phone shows its tab
-   bar and the watch's box shows the page, rather than over the black of
-   the watch. It takes no pointer, so a click still opens the frame. */
+   nothing draws a rectangle. Its seat is the pointer's own (left and top
+   are written by the board on every move, see CompassLofiBoard.jsx), the
+   text centred under it and a little below, clear of the cursor. It takes
+   no pointer, so a click still opens the frame. */
 .cmp-lofi-shot {
   position: relative;
 }
 .cmp-lofi-note {
   position: absolute;
-  left: 50%;
-  bottom: 12%;
-  transform: translateX(-50%);
+  left: 0;
+  top: 0;
+  transform: translate(-50%, 18px);
   z-index: 1;
   padding: 6px 14px;
   white-space: nowrap;
