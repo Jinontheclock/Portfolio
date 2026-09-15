@@ -789,13 +789,17 @@
   font: 700 var(--size-body) / 1.4 var(--font-ui);
   color: var(--text-primary);
 }
-/* one line, whatever the board's width: the sentence is 49.7 of its ems
-   wide, so under 51 ems of board the size gives way rather than the line */
+/* two lines — the sentence, and under it which row is which layer — each
+   one line whatever the board's width: the longer is 54.3 of its ems wide,
+   so under 56 ems of board the size gives way rather than a line */
 .cmp-lofi-sub {
   margin: 4px 0 0;
-  font: 400 min(12px, 100cqi / 51) / 1.5 var(--font-ui);
+  font: 400 min(12px, 100cqi / 56) / 1.5 var(--font-ui);
   white-space: nowrap;
   color: var(--text-muted);
+}
+.cmp-lofi-sub > span {
+  display: block;
 }
 /* a phone's board is 31 ems: there the sentence wraps at its size */
 @media (max-width: 600px) {
@@ -803,10 +807,6 @@
     font-size: 12px;
     white-space: normal;
   }
-}
-/* .cs-paragraph carries the body style; this only sets the board's rhythm */
-.cmp-lofi-layer {
-  margin: 28px 0 10px;
 }
 /* the two rows, the tap layer over the manage layer, each its frames in a
    line and top-aligned, so a caption that runs to a third line under one
@@ -834,18 +834,6 @@
   flex: 0 0 var(--cmp-pw);
   width: var(--cmp-pw);
   min-width: 0;
-}
-/* the layer name, carried by the first frame of its group */
-.cmp-lofi-group {
-  display: block;
-  margin-bottom: 8px;
-  font: 400 11px / 1.35 var(--font-ui);
-  color: var(--text-muted);
-  white-space: nowrap;
-}
-/* the frames without one keep their tops level with those that have it */
-.cmp-lofi-cell:not(:has(.cmp-lofi-group)) {
-  padding-top: 23px;
 }
 .cmp-lofi-shot {
   display: flex;

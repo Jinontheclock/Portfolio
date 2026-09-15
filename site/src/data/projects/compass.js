@@ -366,7 +366,8 @@ const COMPASS_SECTIONS = [
         type: "figure",
         graphic: "compass-fig-wireframes",
         caption: {
-          en: "The first pass, before any of it looked like anything.",
+          /* no caption in English: the board says what it is itself */
+          en: "",
           ja: "最初の試案。まだ何ひとつ、何かのように見えていなかった段階。",
           ko: "첫 시안. 아직 아무것도 무엇처럼 보이지 않던 단계.",
         },

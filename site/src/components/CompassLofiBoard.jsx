@@ -18,11 +18,10 @@ import assistant from "../assets/compass/lofi/compass-lofi-assistant.webp";
    stay real text (readable, selectable, translatable) and the frames can be
    swapped one at a time as they become hi-fi in chapters 05 to 07. */
 
-const LAYER_1 = "Layer 1: what you tap";
-const LAYER_2 = "Layer 2: what you manage · check · ask";
-/* the wrist is the tap layer too, but the two frames are a different device
-   and close the board rather than interrupting the phones */
-const LAYER_1_WRIST = "Layer 1: on the wrist";
+/* the two rows, named once under the title rather than over each row:
+   the wrist is the tap layer too, another device closing its row */
+const LEGEND =
+  "Top row, Layer 1: what you tap, on the phone and on the wrist. Bottom row, Layer 2: what you manage, check and ask.";
 
 const FRAMES_1 = [
   {
@@ -107,7 +106,7 @@ const FRAMES_2 = [
   },
 ];
 
-function Frame({ src, label, note, alt, watch, layer }) {
+function Frame({ src, label, note, alt, watch }) {
   /* the note rides with the pointer: written straight to the element on
      every move, which is nothing for React to render */
   const shotRef = useRef(null);
@@ -125,10 +124,6 @@ function Frame({ src, label, note, alt, watch, layer }) {
       className={"cmp-lofi-cell" + (watch ? " cmp-lofi-cell--watch" : "")}
       onMouseMove={follow}
     >
-      {/* the layer names ride with their group's first frame, so the wrist
-          keeps its own name inside the tap layer's row — and on a phone,
-          where a row scrolls, the name still says which frames it covers */}
-      {layer && <span className="cmp-lofi-group">{layer}</span>}
       <span className="cmp-lofi-shot" ref={shotRef}>
         {/* twelve frames at eight kilobytes each: waiting for them to be
             scrolled to would leave the right of the strip blank on the way
@@ -152,22 +147,18 @@ function Frame({ src, label, note, alt, watch, layer }) {
 export default function CompassLofiBoard() {
   /* two rows, one a layer: what you tap — the three phones, then the two
      watches, another device but the same layer, read after the phones —
-     over what you manage, check and ask. The first frame of each group
-     carries the group's name. */
-  const rows = [
-    [
-      ...FRAMES_1.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_1 : null })),
-      ...FRAMES_WRIST.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_1_WRIST : null })),
-    ],
-    FRAMES_2.map((f, i) => ({ ...f, layer: i === 0 ? LAYER_2 : null })),
-  ];
+     over what you manage, check and ask */
+  const rows = [[...FRAMES_1, ...FRAMES_WRIST], FRAMES_2];
 
   return (
     <div className="cmp-lofi">
       <p className="cmp-lofi-title">Lo-fi: the first pass</p>
       <p className="cmp-lofi-sub">
-        Twelve frames, one board. These decide structure, not style. Most become hi-fi screens
-        in chapters 05 to 07.
+        <span>
+          Twelve frames, one board. These decide structure, not style. Most become hi-fi screens
+          in chapters 05 to 07.
+        </span>
+        <span>{LEGEND}</span>
       </p>
 
       <div className="cmp-lofi-layers">
