@@ -415,8 +415,10 @@ function Block({ block, onDemo, demoHref, id }) {
    solution's title and paragraphs, a pair's explanation) follow them
    there. Words after a group's last anchor stay with it. A subheading
    with no picture is a row of words alone; the chapter's opening words,
-   if they have no picture of their own, wait for the first row that has
-   one. Each item keeps its index in the chapter, which is what the
+   if they have no picture of their own, join the first subheading's row
+   when that one has a picture, and stand as a row of their own when it
+   has none — so a chapter's opening and its first bet are two screens,
+   not one. Each item keeps its index in the chapter, which is what the
    subheadings' ids are built from. */
 const ANCHORS = new Set(["figure", "solution", "ba", "demo"]);
 function splitRows(blocks) {
@@ -428,8 +430,12 @@ function splitRows(blocks) {
   const rows = [];
   let lead = [];
   groups.forEach((group, g) => {
-    let pending = lead;
-    lead = [];
+    let pending = [];
+    if (lead.length) {
+      if (group.some((item) => ANCHORS.has(item.block.type))) pending = lead;
+      else rows.push({ media: null, text: lead });
+      lead = [];
+    }
     let anchored = false;
     group.forEach((item) => {
       if (ANCHORS.has(item.block.type)) {
