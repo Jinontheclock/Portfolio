@@ -456,6 +456,14 @@ function splitRows(blocks) {
   return rows;
 }
 
+/* a row of a title and a figure alone, with no words to read beside it:
+   the figure takes the whole row and the title stands over it (see
+   .cs-split-row--titled in casestudy.css) */
+const titledRow = (row) =>
+  row.media?.block.type === "figure" &&
+  row.text.some((item) => item.block.type === "h") &&
+  row.text.every((item) => item === row.media || item.block.type === "h");
+
 /* The stage's steps: the opening, then every chapter's rows, each knowing
    its chapter and the subheading it is read under — the last one in the
    chapter at or before it — and whether it opens the chapter. */
@@ -999,7 +1007,14 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
              in one cell, the one on the stage shown (see useStage) */
           <div className="cs-split-stage" ref={stageBodyRef} onClick={openFigure}>
             {steps.map((st, i) => (
-              <div key={i} className={"cs-split-row" + (st.row ? "" : " cs-split-opening")}>
+              <div
+                key={i}
+                className={
+                  "cs-split-row" +
+                  (st.row ? "" : " cs-split-opening") +
+                  (st.row && titledRow(st.row) ? " cs-split-row--titled" : "")
+                }
+              >
                 <div className="cs-split-media">
                   {st.row
                     ? st.row.media && (
