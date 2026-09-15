@@ -2198,11 +2198,9 @@
 .cs-split-demo {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  /* the phone in the middle of its cell, its note centred under it */
+  align-items: center;
   gap: 12px;
-}
-.cs-split-demo > .tryapp-phone {
-  align-self: flex-start;
 }
 
 /* ── the split column on a tablet ──
