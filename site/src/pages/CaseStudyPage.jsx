@@ -2,7 +2,12 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
-import TryAppModal, { FRAME_H, FRAME_W, TryAppPhone } from "../components/TryAppModal.jsx";
+import TryAppModal, {
+  FRAME_H,
+  FRAME_W,
+  TryAppPhone,
+  TryAppWeb,
+} from "../components/TryAppModal.jsx";
 import CaseGateModal, { isUnlocked } from "../components/CaseGateModal.jsx";
 import ImageLightbox from "../components/ImageLightbox.jsx";
 import useScrollFade from "../lib/scroll-fade.js";
@@ -518,15 +523,17 @@ function SplitText({ item, sectionId, onDemo, demoHref }) {
   }
 }
 
-/* The demo in the page: the modal's phone seated in its cell, the app
-   running in it with nothing to open — as wide as the cell allows and no
-   taller than the stage can show, its note under it. The app is loaded
-   the first time its row takes the stage and kept from then on, so a
-   reader who steps away and back finds it where they left it, and a
-   reader who never reaches it never loads it. */
-function TryAppInline({ src, title, frame, note, live }) {
+/* The demo in the page: the modal's phone — or, for a site, its window —
+   seated in its cell, the app running in it with nothing to open. The
+   phone is as wide as the cell allows and no taller than the stage can
+   show; the window is the cell's width, and as tall as the stage can
+   show up to two thirds of that width. The note sits under either. The
+   app is loaded the first time its row takes the stage and kept from
+   then on, so a reader who steps away and back finds it where they left
+   it, and a reader who never reaches it never loads it. */
+function TryAppInline({ src, title, variant = "phone", frame, note, live }) {
   const ref = useRef(null);
-  const [scale, setScale] = useState(0.5);
+  const [fit, setFit] = useState({ scale: 0.5, w: 640, h: 420 });
   const [seen, setSeen] = useState(live);
   useEffect(() => {
     if (live) setSeen(true);
@@ -536,30 +543,39 @@ function TryAppInline({ src, title, frame, note, live }) {
     const cell = el?.parentElement;
     const stage = el?.closest(".cs-split-stage");
     if (!el || !cell || !stage) return undefined;
-    const fit = () => {
+    const measure = () => {
       const cs = getComputedStyle(stage);
       const room =
         stage.clientHeight - (parseFloat(cs.paddingTop) || 0) - (parseFloat(cs.paddingBottom) || 0);
-      const under = el.querySelector(".cs-tryapp-note")?.offsetHeight ?? 0;
-      setScale(Math.min(cell.clientWidth / FRAME_W, (room - under - 12) / FRAME_H, 1));
+      const under = (el.querySelector(".cs-tryapp-note")?.offsetHeight ?? 0) + 12;
+      const w = cell.clientWidth;
+      setFit({
+        scale: Math.min(w / FRAME_W, (room - under) / FRAME_H, 1),
+        w,
+        h: Math.round(Math.min(room - under, w * 0.66)),
+      });
     };
-    fit();
-    const ro = new ResizeObserver(fit);
+    measure();
+    const ro = new ResizeObserver(measure);
     ro.observe(stage);
     ro.observe(cell);
     return () => ro.disconnect();
   }, []);
   return (
     <div className="cs-split-demo" ref={ref}>
-      <TryAppPhone src={seen ? src : null} title={title} frame={frame} scale={scale} />
+      {variant === "web" ? (
+        <TryAppWeb src={seen ? src : null} title={title} w={fit.w} h={fit.h} />
+      ) : (
+        <TryAppPhone src={seen ? src : null} title={title} frame={frame} scale={fit.scale} />
+      )}
       {note && <span className="cs-tryapp-note">{note}</span>}
     </div>
   );
 }
 
 /* an anchor's picture, for the left cell. The demo is the app itself,
-   running in the phone (TryAppInline) — the chapters' figure listener
-   leaves the phone be. A demo set as a web page keeps its button. */
+   running in its phone or its window (TryAppInline) — the chapters'
+   figure listener leaves it be. */
 function SplitMedia({ item, project, onDemo, demoHref, live }) {
   const { block } = item;
   switch (block.type) {
@@ -570,13 +586,11 @@ function SplitMedia({ item, project, onDemo, demoHref, live }) {
     case "ba":
       return <BAMedia block={block} />;
     case "demo":
-      if ((project.demo?.variant ?? "phone") !== "phone") {
-        return <Block block={block} onDemo={onDemo} demoHref={demoHref} />;
-      }
       return (
         <TryAppInline
           src={demoHref ?? PROLOG_SRC}
           title={project.title}
+          variant={project.demo?.variant ?? "phone"}
           frame={project.demo?.frame ?? "orange"}
           note={block.note ?? DEMO_NOTE}
           live={live}
@@ -781,6 +795,9 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      on the stage. On the stacked column there are no rows, and none of
      this runs. */
   const steps = useMemo(() => (split ? splitSteps(project) : []), [project, split]);
+  /* a locked study's gate stands where its column would: the stage is
+     built once the gate has come down (see gateActive below) */
+  const gateActive = !!project?.locked && !unlocked;
   const stageRef = useRef(null);
   const scrollRef = useRef(null);
   const trackRef = useRef(null);
@@ -803,7 +820,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       return over <= 20 ? 0 : over;
     },
     blocked: () => !!document.querySelector(".cs-zoom, .tryapp-backdrop"),
-    deps: [project],
+    deps: [project, gateActive],
   });
   /* the step on the stage, and the chapter and subheading it is read under */
   const onStage = split ? steps[Math.min(stage.current ?? 0, steps.length - 1)] : null;
@@ -887,8 +904,6 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   // where a cta with demo:true points until its real URL lands
   const demoHref = project.demo?.src ? `${import.meta.env.BASE_URL}${project.demo.src}` : null;
 
-  const gateActive = !!project.locked && !unlocked;
-
   /* A locked case study is not rendered and then covered — it is not
      rendered. Layering the gate over a finished page leaves the whole study
      in the DOM, one deleted node away from anyone who opens devtools, which
@@ -960,6 +975,24 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       },
     });
   };
+
+  /* hero media for a project with no hero scene: a silent autoplay loop,
+     like a GIF. heroVideoRatio (e.g. "1000 / 976") shows the file
+     uncropped at its own shape; without it the video cover-fills the 5:2
+     band. A project with neither renders nothing here. */
+  const heroVideo = project.heroVideo ? (
+    <video
+      className="cs-video"
+      src={`${import.meta.env.BASE_URL}${project.heroVideo}`}
+      style={project.heroVideoRatio ? { aspectRatio: project.heroVideoRatio } : undefined}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-hidden="true"
+    />
+  ) : null;
 
   /* the opening's words: the headline, the sentences under it and the
      meta table — the same in both settings of the column */
@@ -1078,17 +1111,21 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
                 }
               >
                 <div className="cs-split-media">
-                  {st.row
-                    ? st.row.media && (
-                        <SplitMedia
-                          item={st.row.media}
-                          project={project}
-                          onDemo={() => setDemoOpen(true)}
-                          demoHref={demoHref}
-                          live={stage.current === i}
-                        />
-                      )
-                    : HeroScene && <HeroScene />}
+                  {st.row ? (
+                    st.row.media && (
+                      <SplitMedia
+                        item={st.row.media}
+                        project={project}
+                        onDemo={() => setDemoOpen(true)}
+                        demoHref={demoHref}
+                        live={stage.current === i}
+                      />
+                    )
+                  ) : HeroScene ? (
+                    <HeroScene />
+                  ) : (
+                    heroVideo
+                  )}
                 </div>
                 <div className="cs-split-text">
                   {st.row ? (
@@ -1190,25 +1227,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
 
               {opening}
 
-              {HeroScene ? null : project.heroVideo ? (
-                /* hero media: silent autoplay loop, like a GIF. heroVideoRatio
-                 (e.g. "1000 / 976") shows the file uncropped at its own
-                 shape; without it the video cover-fills the 5:2 band.
-                 Projects with no hero media render nothing here. */
-                <video
-                  className="cs-video"
-                  src={`${import.meta.env.BASE_URL}${project.heroVideo}`}
-                  style={
-                    project.heroVideoRatio ? { aspectRatio: project.heroVideoRatio } : undefined
-                  }
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  aria-hidden="true"
-                />
-              ) : null}
+              {HeroScene ? null : heroVideo}
 
               <div className="cs-sections" onClick={openFigure}>
                 {project.sections.map((s) => (

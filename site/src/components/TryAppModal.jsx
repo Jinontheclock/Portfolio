@@ -110,6 +110,32 @@ export function TryAppPhone({ src, title = "ProLog", frame = "orange", scale }) 
 /* the phone's size at scale 1, for a page sizing one to its room */
 export { FRAME_W, FRAME_H };
 
+/** A site in a window, at a size: the app rendered at its desktop width
+ *  and scaled to the box, so a narrow box never demotes it to its tablet
+ *  or phone layout. The modal below fits one to the window; a case study
+ *  seats one in the page (TryAppInline in CaseStudyPage.jsx). With no
+ *  `src` the window stands empty. */
+export function TryAppWeb({ src, title = "ProLog", w, h }) {
+  const scale = w / WEB_W;
+  return (
+    <div className="tryapp-web-frame" style={{ width: w, height: h }}>
+      {src && (
+        <iframe
+          className="tryapp-frame"
+          src={src}
+          title={`${title} interactive demo`}
+          style={{
+            width: WEB_W,
+            height: Math.round(h / scale),
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
 /** Full-screen modal that shows a hosted app via iframe — a phone frame by
  *  default, or a browser-like window for responsive sites (variant="web",
  *  where the site simply adapts to the frame instead of being scaled).
@@ -194,19 +220,7 @@ export default function TryAppModal({
             </div>
           ) : (
             /* desktop/laptop: fixed desktop width, scaled to fit the window */
-            <div className="tryapp-web-frame" style={{ width: wl.w, height: wl.h }}>
-              <iframe
-                className="tryapp-frame"
-                src={src}
-                title={`${title} interactive demo`}
-                style={{
-                  width: WEB_W,
-                  height: wl.logicalH,
-                  transform: `scale(${wl.scale})`,
-                  transformOrigin: "top left",
-                }}
-              />
-            </div>
+            <TryAppWeb src={src} title={title} w={wl.w} h={wl.h} />
           )}
         </div>
       </div>

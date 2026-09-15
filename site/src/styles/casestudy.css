@@ -2163,9 +2163,7 @@
   padding-right: 0;
   padding-bottom: 0;
 }
-.cs-split .cs-shots:not(.cs-shots--wide) img {
-  width: calc((100% - 24px) / 3);
-}
+
 /* on the stage the lo-fi board fits the screen: a frame is as wide as
    seven across allow, or as wide as two rows in the stage's room allow
    (the room less the board's own chrome — title, two lines, the gap and
@@ -2193,8 +2191,49 @@
   aspect-ratio: 804 / 1748;
   margin-inline: 0;
 }
-/* the demo: the modal's phone in the page, its note under it (its size is
-   TryAppInline's, in CaseStudyPage.jsx) */
+/* the ProLog hero hugs the window's right edge on the stacked page; in a
+   cell it keeps to the cell */
+.cs-split .cs-hero {
+  margin-right: 0;
+}
+/* ── pictures no taller than the room ──
+   A picture beside words stands no taller than the stage's room less a
+   title and a caption: narrower, if it must, rather than taller, so the
+   row fits the screen wherever a picture alone decided its height. Where
+   a picture is sized by its own width — one alone in its figure, a phone
+   screen in a solution row, a before/after cell, an audit capture — both
+   its dimensions are left to its proportion under the cap. Where a row
+   of pictures shares a width out by flex, the cap holds the height and
+   the picture is drawn whole inside its box instead. */
+.cs-split-media img {
+  max-height: calc(var(--cs-stage-room) - 100px);
+  object-fit: contain;
+  object-position: left top;
+}
+.cs-split-media > .cs-figure > div:not(.cs-figure-row) > img:only-child,
+.cs-split .cs-ba-cell img,
+.cs-split .wl-audit-cell img {
+  width: auto;
+  max-width: 100%;
+}
+/* WeLAB's audit captures stand three rows deep, so each row's captures
+   take a third of the room less the rows' gaps and the figure's caption */
+.cs-split .wl-audit img {
+  max-height: calc((var(--cs-stage-room) - 150px) / 3);
+}
+/* a solution's screens: at a third of the cell each — the border inside
+   that third, so three stand in one line — and no taller than the room */
+.cs-split .cs-shots:not(.cs-shots--wide) img {
+  box-sizing: border-box;
+  width: auto;
+  max-width: calc((100% - 24px) / 3);
+}
+/* the demo: the modal's phone in the page — or a site's window, on a
+   hairline rather than the modal's shadow, which is for its dark ground —
+   its note under it (its size is TryAppInline's, in CaseStudyPage.jsx) */
+.cs-split-demo .tryapp-web-frame {
+  box-shadow: inset 0 0 0 1px var(--grey-100, #e5e5e5);
+}
 .cs-split-demo {
   display: flex;
   flex-direction: column;

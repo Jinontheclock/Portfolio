@@ -16,6 +16,10 @@ export default {
      from originals/public/media/tinypaws_color.png and _gray.png. */
   logo: { color: logoColor, gray: logoGray, ratio: [532, 240], scale: 1.15 },
   screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
+  /* the chapters across the top and the column as two, the pictures on
+     the left and the words on the right: see splitRows in
+     CaseStudyPage.jsx and .cs-split in casestudy.css */
+  layout: "split",
   /* The Work card's device: the render of the rescue's site on an iMac,
      with its keyboard and mouse, the screen in it already; `ratio` is the
      picture's. Cut from originals/tinypawsthum.png to 1000 tall. */
