@@ -1857,9 +1857,14 @@
   --cs-stage-air: 48px;
   /* the veil is solid down to the subheading's foot and fades over the
      air: a row standing on the line is whole, and a tall row's words
-     scrolling up past it fade out under the list rather than being cut */
+     scrolling up past it fade out under the list rather than being cut.
+     At the foot there is no fade: a row that fits stands whole to its
+     last line, and the footer's own band is all the veil keeps */
   --edge-clear-top: var(--cs-subs-bottom);
   --edge-fade-top: var(--cs-stage-air);
+  --edge-fade-bottom: 0px;
+  /* the air a row keeps from the footer */
+  --cs-stage-foot: 24px;
 }
 .ab-root.page-screen.cs-split > main {
   padding-top: var(--cs-subs-bottom);
@@ -1983,9 +1988,10 @@
   position: relative;
   box-sizing: border-box;
   height: calc(100dvh - var(--cs-subs-bottom) - var(--footer-h));
-  /* the foot's padding is the footer's fade: it is what lets a tall row
-     be scrolled up until its last line stands clear of the fade */
-  padding: var(--cs-stage-air) var(--page-margin) calc(var(--footer-h) * 2);
+  /* the padding is what a row cannot be read in: a tall row is scrolled
+     up until its last line stands clear of the foot's (see overflowOf in
+     CaseStudyPage.jsx) */
+  padding: var(--cs-stage-air) var(--page-margin) var(--cs-stage-foot);
   overflow: hidden;
   display: grid;
   align-items: start;

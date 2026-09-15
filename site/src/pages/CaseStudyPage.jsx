@@ -735,17 +735,17 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     boxRef: scrollRef,
     trackRef,
     blocks: () => [...(stageRef.current?.querySelectorAll(".cs-split-row") ?? [])],
-    /* how far a row stands past what can be read: the stage's foot less
-       the footer's fade, which the last line has to clear — with a few
-       pixels' grace, so a row whose foot only just dips into the fade
-       does not get a step that moves it by that much and no more */
+    /* how far a row stands past what can be read: the stage's content
+       box, its padding being the air a row keeps from the list and the
+       footer — with a few pixels' grace, so a row whose foot only just
+       dips into that air does not get a step that moves it by that much
+       and no more */
     overflowOf: (row) => {
       const box = stageRef.current;
       if (!box) return 0;
-      const top = parseFloat(getComputedStyle(box).paddingTop) || 0;
-      const footer =
-        parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--footer-h")) || 0;
-      const over = row.offsetHeight - (box.clientHeight - top - footer * 2);
+      const cs = getComputedStyle(box);
+      const pad = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
+      const over = row.offsetHeight - (box.clientHeight - pad);
       return over <= 20 ? 0 : over;
     },
     blocked: () => !!document.querySelector(".cs-zoom, .tryapp-backdrop"),
