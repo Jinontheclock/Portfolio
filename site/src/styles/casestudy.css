@@ -2043,10 +2043,24 @@
 .cs-split-text > .cs-block-h:first-child {
   margin-top: 0;
 }
-/* the two meta groups stack: side by side needs more than five columns */
+/* the two meta groups share the words' cell, side by side, each on a
+   narrower label column than the stacked column's 92px so the longest
+   values ("Self-initiated concept") keep to one line at a laptop width */
 .cs-split .cs-meta {
-  flex-direction: column;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+}
+.cs-split .cs-meta-row {
+  grid-template-columns: 76px minmax(0, 1fr);
+  column-gap: 12px;
+}
+/* under 1400 the words' cell is too narrow for two groups without the
+   dates and the longer values breaking mid-line: they stack */
+@media (max-width: 1399px) {
+  .cs-split .cs-meta {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 /* a solution's screens: at a third of the cell each, the size a phone
    screen reads at, in one row with no carousel */

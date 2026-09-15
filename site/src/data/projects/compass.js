@@ -1019,6 +1019,8 @@ export default {
         { en: "Solo project", ja: "個人プロジェクト", ko: "1인 프로젝트" },
       ],
     },
+  ],
+  metaRight: [
     {
       label: { en: "scope", ja: "範囲", ko: "범위" },
       values: [
@@ -1031,8 +1033,6 @@ export default {
         },
       ],
     },
-  ],
-  metaRight: [
     {
       label: { en: "tool", ja: "ツール", ko: "도구" },
       values: ["Figma", "React", "Vite", "Playwright", "Adobe Creative Suite"],
