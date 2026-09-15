@@ -909,6 +909,28 @@
   pointer-events: none;
   transition: opacity 200ms var(--easing);
 }
+/* on a watch the note would be ink on black: there it is the inverse of
+   what is behind it — white on the black face, and ink again over the
+   page the box shows around the watch. The inverse is a blend with what
+   is behind, and a backdrop blur stands between an element and what is
+   behind it (it isolates), so on the watch the note goes without the
+   blur: the face is black and flat, and needs none. */
+.cmp-lofi-cell--watch .cmp-lofi-note {
+  color: #fff;
+  mix-blend-mode: difference;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+/* What the blend sees is what is painted inside the stage row's own
+   stacking context (the row is transformed by the stage), and the page's
+   ground is outside it — so over the page around the watch the inverse
+   of nothing was white on white. The board paints the ground itself, in
+   the page's own colour, so the note has it to invert against. */
+.cmp-lofi {
+  background: var(--bg);
+}
 @media (hover: hover) {
   .cmp-lofi-cell:hover .cmp-lofi-note {
     opacity: 1;
@@ -2099,6 +2121,18 @@
 }
 .cs-split .cs-shots:not(.cs-shots--wide) img {
   width: calc((100% - 24px) / 3);
+}
+/* on the stage the lo-fi board fits the screen: a frame is as wide as
+   seven across allow, or as wide as two rows in the stage's room allow
+   (the room less the board's own chrome — title, two lines, the gap and
+   two captions, some 150px — halved and turned into a width by the phone
+   frame's proportion), whichever is less. So the row never overflows,
+   and the stage never gives it a step to scroll */
+.cs-split .cmp-lofi {
+  --cmp-room: calc(
+    100dvh - var(--cs-subs-bottom) - var(--footer-h) - var(--cs-stage-air) - var(--cs-stage-foot)
+  );
+  --cmp-pw: min(calc((100% - 72px) / 7), calc((var(--cmp-room) - 150px) / 2 * 402 / 874));
 }
 /* a pull-quote in a row of words that has to fit a screen: closer to
    its paragraphs than the stacked column's 44px, which is a pause the
