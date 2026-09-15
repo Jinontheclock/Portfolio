@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import logoUrl from "../assets/prolog/prolog-logo.svg";
 import mockupUrl from "../assets/prolog/prolog-mockup.webp";
 import usePlayThroughOnce from "../hooks/usePlayThroughOnce.js";
 
@@ -23,7 +22,6 @@ export default function ProLogJourney() {
   return (
     <div className="cs-hero">
       {/* the logo floats over the animation's top-left corner */}
-      <img className="cs-hero-logo" src={logoUrl} alt="ProLog" />
       <div className="cs-journey" aria-hidden="true">
         <video
           ref={videoRef}

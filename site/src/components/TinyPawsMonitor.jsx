@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import logoUrl from "../assets/tinypaws/tinypaws-logo.webp";
 import usePlayThroughOnce from "../hooks/usePlayThroughOnce.js";
 
 /* TinyPaws case-study hero: the live-site screen recording playing inside
@@ -22,10 +21,7 @@ export default function TinyPawsMonitor() {
   usePlayThroughOnce(hostRef);
 
   return (
-    <div ref={hostRef} className="cs-monitor cs-monitor--offset">
-      {/* the logo floats over the video's blank top-left corner, matching
-          the ProLog hero */}
-      <img className="cs-hero-logo" src={logoUrl} alt="TinyPaws" />
+    <div ref={hostRef} className="cs-monitor">
       <div
         className="cs-monitor-video"
         dangerouslySetInnerHTML={{ __html: VIDEO_HTML }}

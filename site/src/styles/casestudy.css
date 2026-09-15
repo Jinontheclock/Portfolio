@@ -282,8 +282,7 @@
 }
 
 /* ── Hero scene (ProLog): the live journey animation and the phone mockup
-   side by side above the headline, the logo overlapping the animation's
-   top-left corner ── */
+   side by side above the headline ── */
 .cs-hero {
   position: relative;
   margin-bottom: 24px;
@@ -293,16 +292,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-}
-.cs-hero-logo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  /* the first stage card's left edge sits at ~19% of the hero at every
-     width (the SVG scales with it), so 17% can never collide with it */
-  width: min(17%, 140px);
-  height: auto;
 }
 .cs-hero .cs-journey {
   flex: 2;
@@ -320,8 +309,7 @@
 }
 
 /* ── Hero scene (TinyPaws): the live-site recording inside a desktop
-   monitor, frame baked into the video; the wordmark floats over the
-   video's blank top-left corner like the ProLog hero logo ── */
+   monitor, frame baked into the video ── */
 .cs-monitor {
   position: relative;
   margin-bottom: 24px;
@@ -332,29 +320,6 @@
   display: block;
   width: 100%;
   height: 100%;
-}
-
-/* ── The clip moved off the logo ──
-   The mockup starts 17.1% into the frame and the logo is min(17%, 140px)
-   wide, so below about 1750px — where the 17% branch wins — the two meet
-   exactly: 1px apart at 1512, touching at 1024. Moving the clip right
-   opens that gap without resizing either, since the frame carries 19%
-   of blank on its right to give back: 4% is 29px of daylight in the
-   content column and 50 on a wide screen, and the mockup's right edge
-   still lands at 85% of the frame.
-
-   What hangs over the right edge is the clip's own blank margin, the page
-   colour, so it cannot be seen — but it would reach past the page margin
-   and give the page a scrollbar, hence the clip.
-
-   On the modifier rather than .cs-monitor itself: the WeLAB hero is the
-   same component shape with the same 17.1% frame, so it has the same
-   collision, but moving it was not asked for. */
-.cs-monitor--offset {
-  overflow: hidden;
-}
-.cs-monitor--offset .cs-monitor-video {
-  transform: translateX(4%);
 }
 
 /* the journey animation: the video keeps its own near-square shape and
@@ -1372,15 +1337,6 @@
   }
   .cs-hero-mockup {
     display: none;
-  }
-  .cs-hero-logo {
-    /* the journey fills the hero on mobile; its card edge sits at ~26% */
-    width: 22%;
-  }
-  /* the monitor hero's frame starts at ~17% from the left, so its logo
-     stays inside the blank corner instead of covering the mockup */
-  .cs-monitor .cs-hero-logo {
-    width: 15%;
   }
   /* chapter list on the left, a small mockup on the right, bottoms flush */
   .cs-toc-row {
