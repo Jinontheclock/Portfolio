@@ -1893,7 +1893,7 @@
      come and go */
   --cs-sub-line: calc(14px * 1.7);
   --cs-subs-bottom: calc(
-    var(--cs-bar-top) + var(--cs-bar-line) + 6px + var(--cs-bar-subs, 0) * var(--cs-sub-line)
+    var(--cs-bar-top) + var(--cs-bar-line) + 14px + var(--cs-bar-subs, 0) * var(--cs-sub-line)
   );
   /* the air under the subheading, before the stage's line */
   --cs-stage-air: 48px;
@@ -1999,9 +1999,22 @@
    stage leaves it; the next one takes its place through a fade */
 .cs-split-subs {
   position: absolute;
-  top: calc(100% + 6px);
+  /* under the line, which is under the row */
+  top: calc(100% + 14px);
   left: 0;
   white-space: nowrap;
+}
+/* the line under the bar: the project's colour, from the bar's left edge
+   under the wordmark out to the chapter being read — how far is GSAP's
+   to draw, see the bar in CaseStudyPage.jsx */
+.cs-split-line {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  width: 0;
+  height: 2px;
+  background: var(--cs-card, var(--text-primary));
+  pointer-events: none;
 }
 .cs-split-sub {
   display: block;

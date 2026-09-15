@@ -9,6 +9,8 @@ import useScrollFade from "../lib/scroll-fade.js";
 import { settleAt, useColumnStage, useScreenScroll, viewTopOf } from "../lib/screen-column.js";
 import useIsPhone from "../hooks/useIsPhone.js";
 import useStage from "../lib/stage.js";
+import gsap from "gsap";
+import { reducedMotion } from "../lib/media.js";
 import ProLogJourney from "../components/ProLogJourney.jsx";
 import TinyPawsMonitor from "../components/TinyPawsMonitor.jsx";
 import WeLabHero from "../components/WeLabHero.jsx";
@@ -806,6 +808,52 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   /* the step on the stage, and the chapter and subheading it is read under */
   const onStage = split ? steps[Math.min(stage.current ?? 0, steps.length - 1)] : null;
   const barChapter = split ? (onStage?.section?.id ?? null) : activeId;
+
+  /* ── The line under the bar ──
+     In the project's own colour, from the bar's left edge: under the
+     wordmark at the opening, and out to the far end of the chapter being
+     read as the reader goes on, drawn on by GSAP as the chapter changes.
+     The row moves under it — a name opening or closing shifts what
+     follows — so the line is re-aimed whenever a chapter's box changes
+     size, and eases to wherever the end now is. */
+  const barRef = useRef(null);
+  const lineRef = useRef(null);
+  const lineTo = useRef(null);
+  const lineAt = useRef(-1);
+  lineAt.current = barChapter ? project.sections.findIndex((s) => s.id === barChapter) : -1;
+  useEffect(() => {
+    if (!split) return undefined;
+    const bar = barRef.current;
+    const line = lineRef.current;
+    if (!bar || !line) return undefined;
+    const end = () => {
+      const k = lineAt.current;
+      const el =
+        k >= 0
+          ? bar.querySelectorAll(".cs-split-chapter")[k]
+          : bar.querySelector(".cs-split-brand");
+      return el ? el.getBoundingClientRect().right - bar.getBoundingClientRect().left : 0;
+    };
+    const draw = gsap.quickTo(line, "width", {
+      duration: reducedMotion() ? 0 : 0.6,
+      ease: "power2.out",
+    });
+    lineTo.current = () => draw(end());
+    /* drawn on from nothing on arrival */
+    gsap.set(line, { width: 0 });
+    lineTo.current();
+    const ro = new ResizeObserver(() => lineTo.current?.());
+    bar.querySelectorAll(".cs-split-chapter, .cs-split-brand").forEach((el) => ro.observe(el));
+    ro.observe(bar);
+    return () => {
+      ro.disconnect();
+      lineTo.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [split, project]);
+  useEffect(() => {
+    lineTo.current?.();
+  }, [barChapter]);
   const barSub = split ? onStage?.sub : null;
   const firstStepOf = (sectionId) =>
     Math.max(
@@ -957,7 +1005,13 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
           being read opened to its name with the subheading being read
           under it. Outside the box, over the veil, the way the header is. */}
       {split && (
-        <nav className="cs-split-bar" aria-label="Chapters">
+        <nav
+          className="cs-split-bar"
+          aria-label="Chapters"
+          ref={barRef}
+          style={{ "--cs-card": project.card }}
+        >
+          <span className="cs-split-line" aria-hidden="true" ref={lineRef} />
           <h1 className="cs-split-brand">
             <button type="button" onClick={() => stage.jumpTo(0)}>
               <img src={project.logo.color} alt={project.title} />
