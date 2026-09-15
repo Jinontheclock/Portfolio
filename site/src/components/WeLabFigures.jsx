@@ -201,13 +201,14 @@ const LAYOUT_ROWS = [
   ],
 ];
 
-/* the board is two figures on the page — the Tax Credits row, then the
-   other three — so that on the stage each is a screen of its own */
+/* the board is two figures on the page — the Tax Credits and Who We Are
+   rows, then the footer and Clients & Awards rows — so that on the stage
+   each is a screen of its own */
 export function WLLayoutSystemFigure() {
-  return <AuditRows rows={[LAYOUT_ROWS[0]]} />;
+  return <AuditRows rows={LAYOUT_ROWS.slice(0, 2)} />;
 }
 export function WLLayoutSystemRestFigure() {
-  return <AuditRows rows={LAYOUT_ROWS.slice(1)} />;
+  return <AuditRows rows={LAYOUT_ROWS.slice(2)} />;
 }
 
 /* O01: the featured case-studies section explored in Figma — five layout

@@ -2183,9 +2183,13 @@
 .cs-split .wl-audit-row {
   --wl-cap: calc(var(--cs-stage-room) - 100px);
 }
-/* an audit board of several rows: each row's captures take a third of
-   the room less the rows' gaps and the figure's caption */
+/* an audit board of several rows: each row's captures take a half of the
+   room for a board of two rows, a third for one of three or more, less
+   the rows' gaps and the figure's caption */
 .cs-split .wl-audit:has(.wl-audit-row + .wl-audit-row) .wl-audit-row {
+  --wl-cap: calc((var(--cs-stage-room) - 130px) / 2);
+}
+.cs-split .wl-audit:has(.wl-audit-row + .wl-audit-row + .wl-audit-row) .wl-audit-row {
   --wl-cap: calc((var(--cs-stage-room) - 150px) / 3);
 }
 .cs-split .wl-audit-cell {
