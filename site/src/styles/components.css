@@ -18,12 +18,17 @@
     opacity: 1;
   }
 }
-/* durations stay in sync with FADE_MS in App.jsx */
+/* durations stay in sync with FADE_MS in App.jsx. The fade-in fills
+   backwards only: it ends where the page's own opacity is, and a fill
+   held forwards would keep the page a stacking context of its own for
+   good, which pinned everything in it under the veil (z 5, see
+   .ab-root.page-screen::after) whatever its z-index — the About list on
+   a tablet stood in the veil's fade and thinned with it. */
 .lang-fade-out {
   animation: lang-fadeOut 350ms var(--easing) both;
 }
 .lang-fade-in {
-  animation: lang-fadeIn 350ms var(--easing) both;
+  animation: lang-fadeIn 350ms var(--easing) backwards;
 }
 
 /* ── PillButton ── */
