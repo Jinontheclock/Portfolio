@@ -405,7 +405,7 @@ function Block({ block, onDemo, demoHref, id }) {
     case "quote":
       return (
         <blockquote className="cs-quote">
-          <p>{noOrphan(block.text)}</p>
+          <p>{marked(noOrphan(block.text))}</p>
           {block.cite && <cite className="cs-quote-cite">{block.cite}</cite>}
         </blockquote>
       );
