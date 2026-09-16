@@ -427,13 +427,16 @@ function Block({ block, onDemo, demoHref, id }) {
    if they have no picture of their own, join the first subheading's row
    when that one has a picture, and stand as a row of their own when it
    has none — so a chapter's opening and its first bet are two screens,
-   not one. Each item keeps its index in the chapter, which is what the
-   subheadings' ids are built from. */
+   not one. A subheading flagged `join` in the data opens no screen of
+   its own: it and its words stay in the group before them, on the same
+   screen as its last words (or as the next picture's lead-in), so three
+   short closing notes can share one. Each item keeps its index in the
+   chapter, which is what the subheadings' ids are built from. */
 const ANCHORS = new Set(["figure", "solution", "ba", "demo"]);
 function splitRows(blocks) {
   const groups = [];
   blocks.forEach((block, index) => {
-    if (block.type === "h" || !groups.length) groups.push([]);
+    if ((block.type === "h" && !block.join) || !groups.length) groups.push([]);
     groups[groups.length - 1].push({ block, index });
   });
   const rows = [];
@@ -488,8 +491,9 @@ const titledRow = (row) =>
 const bareRow = (row) => figuresOnly(row) && row.text.every((item) => row.media.includes(item));
 
 /* The stage's steps: the opening, then every chapter's rows, each knowing
-   its chapter and the subheading it is read under — the last one in the
-   chapter at or before it — and whether it opens the chapter. */
+   its chapter and the subheading it is read under — the first one on the
+   row, or else the last one in the chapter before it — and whether it
+   opens the chapter. */
 function splitSteps(project) {
   const steps = [{ section: null, sub: null, row: null, first: false }];
   project.sections.forEach((section) => {
@@ -499,8 +503,11 @@ function splitSteps(project) {
       )
       .filter(Boolean);
     splitRows(section.blocks).forEach((row, r) => {
+      const own = row.text.filter((t) => t.block.type === "h").map((t) => t.index);
       const last = Math.max(-1, ...row.media.map((m) => m.index), ...row.text.map((t) => t.index));
-      const sub = heads.filter((h) => h.index <= last).pop() ?? null;
+      const sub = own.length
+        ? heads.find((h) => h.index === Math.min(...own))
+        : (heads.filter((h) => h.index <= last).pop() ?? null);
       steps.push({ section, sub, row, first: r === 0 });
     });
   });

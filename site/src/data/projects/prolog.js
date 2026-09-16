@@ -767,6 +767,9 @@ export default {
         },
         {
           type: "h",
+          /* the three closing notes share one screen on the stage (see
+             splitRows in CaseStudyPage.jsx) */
+          join: true,
           text: {
             en: "Building the design made me a better designer",
             ja: "デザインを自分で実装して、デザイナーとして伸びた。",
@@ -783,6 +786,7 @@ export default {
         },
         {
           type: "h",
+          join: true,
           text: {
             en: "With more time",
             ja: "もっと時間があれば",
