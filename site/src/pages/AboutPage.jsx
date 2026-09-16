@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import SiteHeader from "../components/SiteHeader.jsx";
 import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
 import SiteFooter from "../components/SiteFooter.jsx";
@@ -460,6 +460,46 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
   const isPhone = useIsPhone();
   const screen = !isPhone;
   useScrollFade(contentRef, screen ? NO_FADE : SCROLL_FADE, [lang, screen]);
+  /* ── The line ──
+     The list and the sections stand on the top of Skills, which is set
+     on the middle of the screen rather than on a line (see
+     .ab-skills-section in about.css). Where that top falls is read off
+     the laid-out page and written to the root as --index-line, so the
+     list, the second About block, Experience and Education all open
+     where Skills opens. Skills' own place does not depend on the line,
+     so nothing moves under the measure; the opening block rises to the
+     header's fade as before. Read again whenever Skills or the window
+     changes size, and never under the header's own three heights. Set
+     before the stage measures its rows, so they are measured against
+     the line they stand on. Only where the list stands on the line: on
+     a tablet it stands under the header instead (see about.css), and
+     the line is left as it is; a phone has no line at all. */
+  useLayoutEffect(() => {
+    const stage = contentRef.current;
+    const root = stage?.closest(".ab-root");
+    const skills = stage?.querySelector(".ab-skills-section");
+    if (!screen || !root || !skills) return undefined;
+    const wide = window.matchMedia("(min-width: 1081px)");
+    const set = () => {
+      if (!wide.matches) {
+        root.style.removeProperty("--index-line");
+        return;
+      }
+      const header = root.querySelector(".site-header")?.offsetHeight ?? 0;
+      const line = Math.max(header * 3, Math.round(skills.offsetTop));
+      root.style.setProperty("--index-line", `${line}px`);
+    };
+    set();
+    const ro = new ResizeObserver(set);
+    ro.observe(skills);
+    ro.observe(root);
+    wide.addEventListener("change", set);
+    return () => {
+      ro.disconnect();
+      wide.removeEventListener("change", set);
+      root.style.removeProperty("--index-line");
+    };
+  }, [screen, lang]);
   const { current, jumpTo, steps } = useStage({
     count: BLOCKS.length,
     boxRef: scrollRef,
@@ -478,7 +518,8 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
       if (!stage) return 0;
       const top = parseFloat(getComputedStyle(stage).paddingTop) || 0;
       const lift = -(parseFloat(getComputedStyle(section).marginTop) || 0);
-      const footer = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--footer-h")) || 0;
+      const footer =
+        parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--footer-h")) || 0;
       return section.offsetHeight - (stage.clientHeight - top + lift - footer * 3);
     },
     deps: [lang],
@@ -556,10 +597,7 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
               {/* the name, and beside it the sentence that answers it, in a
                   box of its own: the box is what sizes the sentence to the
                   photograph's edge (see about.css) */}
-              <h1
-                className="ab-title"
-                style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}
-              >
+              <h1 className="ab-title" style={{ textIndent: NAME_INDENT[lang] || NAME_INDENT.en }}>
                 {NAME[lang] || NAME.en}
               </h1>
               <div className="ab-lede">
@@ -596,14 +634,8 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
                             <a
                               key={j}
                               href={seg.href}
-                              target={
-                                seg.href.startsWith("http") ? "_blank" : undefined
-                              }
-                              rel={
-                                seg.href.startsWith("http")
-                                  ? "noreferrer"
-                                  : undefined
-                              }
+                              target={seg.href.startsWith("http") ? "_blank" : undefined}
+                              rel={seg.href.startsWith("http") ? "noreferrer" : undefined}
                             >
                               {seg.text}
                             </a>
