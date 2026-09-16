@@ -690,7 +690,9 @@ export default {
             ko: "로파이에서는 구조가 잘못된 지점이 무너졌고, 하이파이에서는 디테일이 거짓말하는 지점이 무너졌습니다. 어느 라운드도 다른 쪽의 문제는 잡아내지 못합니다. 테스트했다는 사실만큼이나 순서가 중요했습니다.",
           },
         },
-        { type: "h", text: {
+        /* the two closing notes share one screen on the stage (see
+           splitRows in CaseStudyPage.jsx) */
+        { type: "h", join: true, text: {
             en: "With more time",
             ja: "時間がもっとあれば",
             ko: "시간이 더 있었다면",
