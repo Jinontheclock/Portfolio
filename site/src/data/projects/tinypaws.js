@@ -364,8 +364,9 @@ export default {
             ko: "브랜드는 따뜻한 인상과 가독성·접근성을 동시에 만족해야 했습니다.",
           },
         },
-        /* the chapter's opening line shares the first screen with this note
-           on the stage (see splitRows in CaseStudyPage.jsx) */
+        /* the chapter's opening line, this note, the colour note and the
+           iconography note with its style tile are one screen on the stage
+           (see splitRows in CaseStudyPage.jsx) */
         { type: "h", join: true, text: {
             en: "Typography",
             ja: "タイポグラフィ",
@@ -386,7 +387,7 @@ export default {
             },
           ],
         },
-        { type: "h", text: {
+        { type: "h", join: true, text: {
             en: "Color & Contrast (WCAG 2.1 AA)",
             ja: "色とコントラスト（WCAG 2.1 AA）",
             ko: "색과 명도 대비 (WCAG 2.1 AA)",
@@ -406,7 +407,7 @@ export default {
             },
           ],
         },
-        { type: "h", text: {
+        { type: "h", join: true, text: {
             en: "Iconography",
             ja: "アイコン",
             ko: "아이코노그래피",
