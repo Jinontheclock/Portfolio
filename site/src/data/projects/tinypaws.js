@@ -364,7 +364,9 @@ export default {
             ko: "브랜드는 따뜻한 인상과 가독성·접근성을 동시에 만족해야 했습니다.",
           },
         },
-        { type: "h", text: {
+        /* the chapter's opening line shares the first screen with this note
+           on the stage (see splitRows in CaseStudyPage.jsx) */
+        { type: "h", join: true, text: {
             en: "Typography",
             ja: "タイポグラフィ",
             ko: "타이포그래피",
