@@ -2285,7 +2285,7 @@
    then the second, the way a pen would. */
 .cs-hl {
   --cs-hl: 1;
-  --cs-hl-tint: 45%;
+  --cs-hl-tint: 35%;
   --cs-hl-ink: color-mix(in srgb, var(--cs-card, var(--text-muted)) var(--cs-hl-tint), transparent);
   background: linear-gradient(var(--cs-hl-ink), var(--cs-hl-ink)) 0 0 / calc(var(--cs-hl) * 100%) 100%
     no-repeat;
