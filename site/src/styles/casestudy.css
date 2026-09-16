@@ -2193,6 +2193,12 @@
   object-fit: contain;
   object-position: left top;
 }
+/* not the demo's phone, though: the mockup is the size of its box, which
+   TryAppInline has already fitted to the room together with the app in
+   its glass — capped here it would shrink away from the app */
+.cs-split-media .tryapp-phone-img {
+  max-height: none;
+}
 .cs-split-media > .cs-figure > div:not(.cs-figure-row) > img:only-child,
 .cs-split .cs-ba-cell img {
   width: auto;
