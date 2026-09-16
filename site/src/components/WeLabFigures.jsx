@@ -90,9 +90,11 @@ const AUDIT_SECTIONS_ROW = [
    shared scale. Only rows that can't fit on that scale — the four-up, the
    Who We Are pair, the Figma five-across, the EN/ES pair — carry their own
    `w`, sized against their row's own total. */
-function AuditRows({ rows }) {
+function AuditRows({ rows, pairs }) {
   return (
-    <div className="wl-audit">
+    /* `pairs`: the rows are before/after pairs set side by side, which a
+       phone shows a pair to a line (see .wl-audit--pairs) */
+    <div className={"wl-audit" + (pairs ? " wl-audit--pairs" : "")}>
       {rows.map((row, i) => (
         /* --sum and --n let a cell in the split column take its share of
            the row by shape, or of a height cap, whichever is the smaller
@@ -164,7 +166,7 @@ export function WLWorkflowFigure() {
 /* ── 03 Designing and Building ── */
 
 /* P02: the audit finds the rebuild is proven on — Tax Credits, Who We Are,
-   the home footer, and Clients & Awards, each before/after in one row
+   the home footer, and Clients & Awards, each before/after side by side
    (widths ∝ aspect ratios).
    Labels lead with the state, then the screen or the section, so the eye
    picks up before/after first. A non-breaking space glues the dash to the
@@ -191,24 +193,26 @@ const LAYOUT_ROWS = [
     { src: auditWhoWeAre, ar: 1.537, w: "calc((100% - 20px) * 0.4617)", label: "Before", ba: "before", alt: "The Who We Are section of the old About Us page: the studio's collective statement beside oversized stat lines" },
     { src: afterWhoWeAre, ar: 1.792, w: "calc((100% - 20px) * 0.5383)", ba: "after", label: "After", alt: "The rebuilt Who We Are section: the statement, supporting copy, and stat lines aligned on one grid" },
   ],
+  /* the home footer and Clients & Awards pairs share one row, the fix
+     reading across twice: like the tax row it is scaled to its own total
+     (3.127), and on a phone it wraps into its two pairs (see
+     .wl-audit--pairs) */
   [
-    { src: footerBaBefore, ar: 0.59, ba: "before", label: "Before", alt: "The old home page footer on a phone: social icons spilling onto a second row under the Contact Us button" },
-    { src: footerBaAfter, ar: 0.59, ba: "after", label: "After", alt: "The rebuilt home footer on a phone: the same components aligned, the social icons on one row" },
-  ],
-  [
-    { src: clientsBaBefore, ar: 0.97, ba: "before", label: "Before", alt: "The Our Clients section of the old About Us page: a logo wall under the Amazing Battles, Amazed Clients headline" },
-    { src: clientsBaAfter, ar: 0.977, ba: "after", label: "After", alt: "The rebuilt Our Clients section: the logo wall realigned on the shared grid" },
+    { src: footerBaBefore, ar: 0.59, w: "calc((100% - 60px) * 0.1887)", ba: "before", label: "Before", alt: "The old home page footer on a phone: social icons spilling onto a second row under the Contact Us button" },
+    { src: footerBaAfter, ar: 0.59, w: "calc((100% - 60px) * 0.1887)", ba: "after", label: "After", alt: "The rebuilt home footer on a phone: the same components aligned, the social icons on one row" },
+    { src: clientsBaBefore, ar: 0.97, w: "calc((100% - 60px) * 0.3102)", ba: "before", label: "Before", alt: "The Our Clients section of the old About Us page: a logo wall under the Amazing Battles, Amazed Clients headline" },
+    { src: clientsBaAfter, ar: 0.977, w: "calc((100% - 60px) * 0.3124)", ba: "after", label: "After", alt: "The rebuilt Our Clients section: the logo wall realigned on the shared grid" },
   ],
 ];
 
 /* the board is two figures on the page — the Tax Credits and Who We Are
-   rows, then the footer and Clients & Awards rows — so that on the stage
+   rows, then the footer and Clients & Awards row — so that on the stage
    each is a screen of its own */
 export function WLLayoutSystemFigure() {
   return <AuditRows rows={LAYOUT_ROWS.slice(0, 2)} />;
 }
 export function WLLayoutSystemRestFigure() {
-  return <AuditRows rows={LAYOUT_ROWS.slice(2)} />;
+  return <AuditRows rows={[LAYOUT_ROWS[2]]} pairs />;
 }
 
 /* O01: the featured case-studies section explored in Figma — five layout

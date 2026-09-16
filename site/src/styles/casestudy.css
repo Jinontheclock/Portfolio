@@ -1753,6 +1753,17 @@
   .wl-label-short {
     display: inline;
   }
+  /* a row of before/after pairs — the footer's and Clients & Awards' — is
+     four captures, two of them phones, which four across would set too
+     narrow to read here: the row wraps into its pairs, a pair to a line,
+     the two of a pair at half the column each */
+  .wl-audit--pairs .wl-audit-row {
+    flex-wrap: wrap;
+    row-gap: 16px;
+  }
+  .wl-audit--pairs .wl-audit-cell {
+    flex: 0 0 calc(50% - 4px);
+  }
 }
 
 /* ── A figure opened out of the page ──────────────────────────────────────
@@ -2069,6 +2080,22 @@
   max-width: 100%;
   max-height: calc(var(--cs-stage-room) - 80px);
 }
+/* ── a picture alone ──
+   A row with nothing to read at all — a figure with neither a subheading
+   nor words beside it, the WeLAB footer and clients board — sets the
+   picture across the whole row, all twelve columns, the words' cell
+   included; its captures are capped as any figure's in the column. */
+.cs-split-row--bare > .cs-split-media {
+  grid-column: 1 / 13;
+  position: static;
+}
+/* two figures on one screen (the second flagged `join` in the data — the
+   campaign mockups and the Instagram strip): each picture is capped at
+   half the room less the two captions and the gap between the figures,
+   so the pair stands on the stage without a scroll */
+.cs-split-row--bare > .cs-split-media:has(> .cs-figure + .cs-figure) img {
+  max-height: calc((var(--cs-stage-room) - 154px) / 2);
+}
 
 /* a chapter's label is the bar's to show, and stays in the tree for the
    outline only */
@@ -2203,6 +2230,20 @@
 .cs-split .wl-audit-cell img {
   width: 100%;
   max-height: none;
+}
+/* a row of pictures — the campaign mockups, the showcase photos, the
+   personas — at an even share of the cell each, packing left at the
+   12px gaps when the room cuts them shorter than that share, rather than
+   each drawn small in a box the share wide */
+.cs-split-media .cs-figure-row > img {
+  flex: 0 1 auto;
+  align-self: flex-start;
+  box-sizing: border-box;
+  width: auto;
+  max-width: calc((100% - 24px) / 3);
+}
+.cs-split-media .cs-figure-row:not(:has(> :nth-child(3))) > img {
+  max-width: calc((100% - 12px) / 2);
 }
 /* a solution's screens: at a third of the cell each — the border inside
    that third, so three stand in one line — and no taller than the room */

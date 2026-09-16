@@ -651,6 +651,9 @@ export default {
         {
           type: "figure",
           graphic: "prolog-campaign-instagram",
+          /* on the stage the strip shares its screen with the brochure and
+             billboards above it (see splitRows in CaseStudyPage.jsx) */
+          join: true,
           caption: {
             en: "Instagram carousel: the frames connect into one continuous scene as you swipe.",
             ja: "Instagramのカルーセル。スワイプすると、フレームがつながって一つの場面になります。",

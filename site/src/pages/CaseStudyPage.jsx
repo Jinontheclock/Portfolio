@@ -442,13 +442,21 @@ function splitRows(blocks) {
     let pending = [];
     if (lead.length) {
       if (group.some((item) => ANCHORS.has(item.block.type))) pending = lead;
-      else rows.push({ media: null, text: lead });
+      else rows.push({ media: [], text: lead });
       lead = [];
     }
+    const start = rows.length;
     let anchored = false;
     group.forEach((item) => {
       if (ANCHORS.has(item.block.type)) {
-        rows.push({ media: item, text: [...pending, item] });
+        /* a picture flagged `join` in the data stands on the screen of
+           the picture before it, under it, with any words between the
+           two — unless it opens its group, where it has its own */
+        if (item.block.join && rows.length > start) {
+          const last = rows[rows.length - 1];
+          last.media.push(item);
+          last.text.push(...pending, item);
+        } else rows.push({ media: [item], text: [...pending, item] });
         pending = [];
         anchored = true;
       } else pending.push(item);
@@ -456,11 +464,11 @@ function splitRows(blocks) {
     if (!pending.length) return;
     if (anchored) rows[rows.length - 1].text.push(...pending);
     else if (g === 0) lead = pending;
-    else rows.push({ media: null, text: pending });
+    else rows.push({ media: [], text: pending });
   });
   if (lead.length) {
     if (rows.length) rows[rows.length - 1].text.push(...lead);
-    else rows.push({ media: null, text: lead });
+    else rows.push({ media: [], text: lead });
   }
   return rows;
 }
@@ -468,10 +476,16 @@ function splitRows(blocks) {
 /* a row of a title and a figure alone, with no words to read beside it:
    the figure takes the whole row and the title stands over it (see
    .cs-split-row--titled in casestudy.css) */
+const figuresOnly = (row) =>
+  row.media.length > 0 && row.media.every((item) => item.block.type === "figure");
 const titledRow = (row) =>
-  row.media?.block.type === "figure" &&
+  figuresOnly(row) &&
   row.text.some((item) => item.block.type === "h") &&
-  row.text.every((item) => item === row.media || item.block.type === "h");
+  row.text.every((item) => row.media.includes(item) || item.block.type === "h");
+
+/* a row of figures and nothing else, not even a title: they take the
+   whole row (see .cs-split-row--bare) */
+const bareRow = (row) => figuresOnly(row) && row.text.every((item) => row.media.includes(item));
 
 /* The stage's steps: the opening, then every chapter's rows, each knowing
    its chapter and the subheading it is read under — the last one in the
@@ -485,7 +499,7 @@ function splitSteps(project) {
       )
       .filter(Boolean);
     splitRows(section.blocks).forEach((row, r) => {
-      const last = Math.max(row.media?.index ?? -1, ...row.text.map((t) => t.index));
+      const last = Math.max(-1, ...row.media.map((m) => m.index), ...row.text.map((t) => t.index));
       const sub = heads.filter((h) => h.index <= last).pop() ?? null;
       steps.push({ section, sub, row, first: r === 0 });
     });
@@ -1109,20 +1123,22 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
                 className={
                   "cs-split-row" +
                   (st.row ? "" : " cs-split-opening") +
-                  (st.row && titledRow(st.row) ? " cs-split-row--titled" : "")
+                  (st.row && titledRow(st.row) ? " cs-split-row--titled" : "") +
+                  (st.row && bareRow(st.row) ? " cs-split-row--bare" : "")
                 }
               >
                 <div className="cs-split-media">
                   {st.row ? (
-                    st.row.media && (
+                    st.row.media.map((item) => (
                       <SplitMedia
-                        item={st.row.media}
+                        key={item.index}
+                        item={item}
                         project={project}
                         onDemo={() => setDemoOpen(true)}
                         demoHref={demoHref}
                         live={stage.current === i}
                       />
-                    )
+                    ))
                   ) : HeroScene ? (
                     <HeroScene />
                   ) : (
