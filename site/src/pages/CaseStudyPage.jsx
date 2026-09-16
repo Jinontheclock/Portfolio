@@ -13,7 +13,7 @@ import ImageLightbox from "../components/ImageLightbox.jsx";
 import useScrollFade from "../lib/scroll-fade.js";
 import { settleAt, useColumnStage, useScreenScroll, viewTopOf } from "../lib/screen-column.js";
 import useIsPhone from "../hooks/useIsPhone.js";
-import useStage from "../lib/stage.js";
+import useStage, { SWAP } from "../lib/stage.js";
 import gsap from "gsap";
 import { reducedMotion } from "../lib/media.js";
 import ProLogJourney from "../components/ProLogJourney.jsx";
@@ -181,6 +181,70 @@ const SHOTS = { ...PROLOG_SHOTS, ...TINYPAWS_SHOTS, ...COMPASS_SHOTS, ...COMPASS
 import { getProject } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
+
+/* ── Highlights ──
+   `==so==` in the copy marks the words the reader's eye should land on:
+   they come out as mark.cs-hl, a stroke of the project's colour under
+   the words (see .cs-hl in casestudy.css). The orphan glue runs on the
+   whole string first, so the marks never change where a line turns.
+   Only English carries marks for now; the other two read as they are. */
+function marked(text) {
+  if (typeof text !== "string" || !text.includes("==")) return text;
+  return text.split(/==(.+?)==/).map((part, i) =>
+    i % 2 ? (
+      <mark key={i} className="cs-hl">
+        {part}
+      </mark>
+    ) : (
+      part
+    ),
+  );
+}
+
+/* On the stage the strokes are drawn as a row arrives: left to right, one
+   mark after the next in reading order, once the row's fade has landed —
+   or, at the page's first load, once the boot loader has lifted. The
+   strokes of every other row are taken up again behind the fade, so a
+   row that comes back is drawn afresh. With motion reduced the strokes
+   simply stand. --cs-hl is the drawn share, 0 to 1 (see casestudy.css). */
+const HL = { duration: 0.7, stagger: 0.22, settle: 0.3, ease: "power2.inOut" };
+function drawHighlights(row, instant) {
+  const marks = row.querySelectorAll("mark.cs-hl");
+  const others = [...row.parentElement.querySelectorAll("mark.cs-hl")].filter(
+    (m) => !row.contains(m),
+  );
+  gsap.killTweensOf([...marks, ...others]);
+  if (others.length) gsap.set(others, { "--cs-hl": 0, delay: instant ? 0 : SWAP.duration });
+  if (!marks.length) return;
+  if (reducedMotion()) {
+    gsap.set(marks, { "--cs-hl": 1 });
+    return;
+  }
+  const draw = () =>
+    gsap.fromTo(
+      marks,
+      { "--cs-hl": 0 },
+      {
+        "--cs-hl": 1,
+        duration: HL.duration,
+        ease: HL.ease,
+        stagger: HL.stagger,
+        delay: (instant ? 0 : SWAP.duration) + HL.settle,
+        overwrite: true,
+      },
+    );
+  gsap.set(marks, { "--cs-hl": 0 });
+  if (!document.querySelector(".lp-loader")) {
+    draw();
+    return;
+  }
+  const mo = new MutationObserver(() => {
+    if (document.querySelector(".lp-loader")) return;
+    mo.disconnect();
+    draw();
+  });
+  mo.observe(document.body, { childList: true, subtree: true });
+}
 import useLangPath from "../hooks/useLangPath.js";
 import withPageTransition, { crossing, leaving } from "../lib/page-transition.js";
 
@@ -281,7 +345,7 @@ function Block({ block, onDemo, demoHref, id }) {
          English paragraphs into one where the others keep both — is not
          a paragraph */
       if (!block.text?.trim()) return null;
-      return <p className="cs-paragraph">{noOrphan(block.text)}</p>;
+      return <p className="cs-paragraph">{marked(noOrphan(block.text))}</p>;
     case "stats":
       /* research stats strip: big figure + one-line finding per cell */
       return (
@@ -297,7 +361,7 @@ function Block({ block, onDemo, demoHref, id }) {
       return (
         <ul className="cs-list">
           {block.items.map((item, i) => (
-            <li key={i}>{noOrphan(item)}</li>
+            <li key={i}>{marked(noOrphan(item))}</li>
           ))}
         </ul>
       );
@@ -355,7 +419,7 @@ function Block({ block, onDemo, demoHref, id }) {
             <div className="cs-solution-text">
               {block.paras.map((t, i) => (
                 <p key={i} className="cs-paragraph">
-                  {noOrphan(t)}
+                  {marked(noOrphan(t))}
                 </p>
               ))}
             </div>
@@ -371,7 +435,7 @@ function Block({ block, onDemo, demoHref, id }) {
       return (
         <div className="cs-ba-set">
           <div className="cs-ba-set-text">
-            <p className="cs-paragraph">{noOrphan(block.text)}</p>
+            <p className="cs-paragraph">{marked(noOrphan(block.text))}</p>
           </div>
           <BAMedia block={block} />
         </div>
@@ -524,13 +588,13 @@ function SplitText({ item, sectionId, onDemo, demoHref }) {
           <SolutionTitle block={block} />
           {block.paras.map((t, i) => (
             <p key={i} className="cs-paragraph">
-              {noOrphan(t)}
+              {marked(noOrphan(t))}
             </p>
           ))}
         </>
       );
     case "ba":
-      return <p className="cs-paragraph">{noOrphan(block.text)}</p>;
+      return <p className="cs-paragraph">{marked(noOrphan(block.text))}</p>;
     case "figure":
     case "demo":
       return null;
@@ -843,6 +907,8 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       return over <= 20 ? 0 : over;
     },
     blocked: () => !!document.querySelector(".cs-zoom, .tryapp-backdrop"),
+    /* the row's highlights are drawn as it takes the stage */
+    onSwap: drawHighlights,
     deps: [project, gateActive],
   });
   /* Several figures in one cell — a figure flagged `join` under another —
@@ -1075,10 +1141,10 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
           .map((para, i) => (
             <p key={i} className="cs-paragraph">
               {typeof para === "string"
-                ? noOrphan(para)
+                ? marked(noOrphan(para))
                 : noOrphanSegments(para).map((seg, j) =>
                     typeof seg === "string" ? (
-                      seg
+                      marked(seg)
                     ) : (
                       <a
                         key={j}
@@ -1105,7 +1171,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   return (
     <div
       className={"ab-root" + (screen ? " page-screen" : "") + (split ? " cs-split" : "")}
-      style={split ? { "--cs-bar-subs": barSubs } : undefined}
+      style={{ "--cs-card": project.card, ...(split ? { "--cs-bar-subs": barSubs } : {}) }}
     >
       <SiteHeader current="work" />
 
@@ -1113,12 +1179,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
           being read opened to its name with the subheading being read
           under it. Outside the box, over the veil, the way the header is. */}
       {split && (
-        <nav
-          className="cs-split-bar"
-          aria-label="Chapters"
-          ref={barRef}
-          style={{ "--cs-card": project.card }}
-        >
+        <nav className="cs-split-bar" aria-label="Chapters" ref={barRef}>
           <span className="cs-split-line" aria-hidden="true" ref={lineRef} />
           <h1 className="cs-split-brand">
             <button type="button" onClick={() => stage.jumpTo(0)}>

@@ -50,7 +50,7 @@ export default {
   intro: [
     {
       en: [
-        "TinyPaws is a concept website for a volunteer-run kitten rescue in Vancouver. It is the rescue's front door, where adopters decide whether to trust, apply, or leave. On a five-person team, I co-designed the UX, built the visual identity, and hand-coded the site itself. Created at ",
+        "TinyPaws is a concept website for a volunteer-run kitten rescue in Vancouver. It is the rescue's front door, where adopters decide whether to ==trust, apply, or leave==. On a five-person team, I co-designed the UX, built the visual identity, and hand-coded the site itself. Created at ",
         { text: "BCIT", href: "https://www.bcit.ca/outlines/20241079749/" },
         ".",
       ],
@@ -170,7 +170,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "A rescue's website does one job: turn goodwill into homes. TinyPaws needed a site that could explain adoption to first-timers, prove its cats' histories to careful adopters, and make giving (time, foster space, money) feel as easy as browsing.",
+            en: "A rescue's website does one job: ==turn goodwill into homes==. TinyPaws needed a site that could explain adoption to first-timers, prove its cats' histories to careful adopters, and make giving (time, foster space, money) feel as easy as browsing.",
             ja: "保護団体のサイトの仕事はひとつです。善意を、猫が暮らす家に変えること。TinyPawsに必要だったのは、初めての人に譲渡の流れを説明でき、慎重な里親希望者に猫のこれまでを示せて、時間や一時預かりの部屋や寄付を差し出すことが、ページを見て回るのと同じくらい気軽に感じられるサイトでした。",
             ko: "구조 단체 웹사이트가 하는 일은 하나입니다. 선의를 고양이가 지낼 집으로 바꾸는 것. TinyPaws에 필요했던 것은 처음인 사람에게 입양 절차를 설명하고, 신중한 입양 희망자에게 고양이가 지나온 기록을 보여 주며, 시간이나 임시보호 공간이나 후원을 내놓는 일이 페이지를 둘러보는 것만큼 가볍게 느껴지는 사이트였습니다.",
           },
@@ -217,7 +217,7 @@ export default {
               ko: "입양 절차가 불분명하고 길면, 의지가 강한 입양 희망자도 중간에 포기합니다.",
             },
             {
-              en: "Upfront access to medical, behavioral, and vaccination records is the single biggest trust factor.",
+              en: "Upfront access to medical, behavioral, and vaccination records is ==the single biggest trust factor==.",
               ja: "医療記録、性格の記録、ワクチン接種歴が最初から見られること。これが信頼を左右する最大の要因でした。",
               ko: "의료 기록과 성향 기록, 예방접종 이력을 처음부터 볼 수 있는지. 이것이 신뢰를 가르는 가장 큰 요인이었습니다.",
             },
@@ -258,7 +258,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "The sitemap was built around the three things visitors actually come to do: adopt, get involved, give. Every page had to earn its place under one of those goals; content that served none of them was cut or folded in.",
+            en: "The sitemap was built around the three things visitors actually come to do: ==adopt, get involved, give==. Every page had to earn its place under one of those goals; content that served none of them was cut or folded in.",
             ja: "サイトマップは、訪問者が実際にしに来る三つのこと、つまり迎える、関わる、贈るを軸に組みました。どのページもこの三つのどれかの下で存在理由を示す必要があり、どれにも当てはまらない内容は削るか、別のページにまとめました。",
             ko: "사이트맵은 방문자가 실제로 하러 오는 세 가지, 즉 입양하고, 참여하고, 후원하는 일을 축으로 짰습니다. 모든 페이지는 이 셋 중 하나 아래에서 존재 이유를 증명해야 했고, 어디에도 해당하지 않는 내용은 덜어내거나 다른 페이지로 합쳤습니다.",
           },
@@ -305,7 +305,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "Task-based sessions with 14 participants surfaced structural failures no amount of styling would have fixed. All three fixes shipped into the next fidelity.",
+            en: "Task-based sessions with 14 participants surfaced ==structural failures no amount of styling would have fixed==. All three fixes shipped into the next fidelity.",
             ja: "14人と行ったタスクベースのセッションで、どれだけ見た目を整えても直らない構造上の失敗が三つ見つかりました。三つとも次のフィデリティに反映しています。",
             ko: "14명과 진행한 과업 기반 세션에서, 아무리 스타일을 다듬어도 해결되지 않을 구조적 실패 세 가지가 드러났습니다. 세 건 모두 다음 단계에 반영했습니다.",
           },
@@ -337,7 +337,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "Buttons behaved inconsistently: some looked clickable but weren't, others hid where visitors couldn't find them. Every action became one clear, consistent orange control.",
+            en: "Buttons behaved inconsistently: some looked clickable but weren't, others hid where visitors couldn't find them. Every action became ==one clear, consistent orange control==.",
             ja: "ボタンの挙動もそろっていませんでした。押せそうに見えて押せないものがあり、見つからない場所に隠れているものもありました。すべての操作を、はっきりした同じオレンジのコントロールに統一しました。",
             ko: "버튼 동작도 제각각이었습니다. 눌릴 것처럼 보이지만 눌리지 않는 것이 있었고, 찾을 수 없는 자리에 숨어 있는 것도 있었습니다. 모든 동작을 분명한 하나의 오렌지 컨트롤로 통일했습니다.",
           },
@@ -359,7 +359,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "The brand had to balance emotional warmth with legibility and accessibility.",
+            en: "The brand had to ==balance emotional warmth with legibility and accessibility==.",
             ja: "ブランドには、あたたかさと、読みやすさやアクセシビリティの両立が求められました。",
             ko: "브랜드는 따뜻한 인상과 가독성·접근성을 동시에 만족해야 했습니다.",
           },
@@ -432,7 +432,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "A promotional video introduces the rescue in the same voice as the site: bright, warm, and honest about what adoption takes.",
+            en: "A promotional video introduces the rescue in the same voice as the site: ==bright, warm, and honest about what adoption takes==.",
             ja: "プロモーション映像も、サイトと同じ声で団体を紹介します。明るく、あたたかく、そして猫を迎えるのに何が要るかについては正直に。",
             ko: "홍보 영상도 사이트와 같은 목소리로 단체를 소개합니다. 밝고 따뜻하게, 그리고 입양에 무엇이 필요한지에 대해서는 정직하게.",
           },
@@ -466,7 +466,7 @@ export default {
           },
           paras: [
             {
-              en: "A step-by-step process page shows exactly what happens between applying and bringing a cat home. A short match quiz narrows the gallery to cats that fit an adopter's home and habits. Browsing becomes matching, and the application form already knows which cat it's for.",
+              en: "A step-by-step process page shows exactly what happens between applying and bringing a cat home. A short match quiz narrows the gallery to cats that fit an adopter's home and habits. ==Browsing becomes matching==, and the application form already knows which cat it's for.",
               ja: "手順を追ったプロセスページが、申し込みから猫を家に迎えるまでに何が起きるのかをそのまま示します。短いマッチングクイズは、その人の住まいや暮らし方に合う猫だけに一覧を絞り込みます。眺めるだけだった行為がマッチングになり、申込フォームはどの猫のためのものかを最初から知っています。",
               ko: "단계별 프로세스 페이지가 신청부터 고양이를 집에 데려오기까지 무슨 일이 일어나는지 그대로 보여 줍니다. 짧은 매칭 퀴즈는 그 사람의 집과 생활 방식에 맞는 고양이만 남기고 목록을 좁힙니다. 둘러보기만 하던 행위가 매칭이 되고, 신청서는 어떤 고양이를 위한 것인지 처음부터 알고 있습니다.",
             },
@@ -492,7 +492,7 @@ export default {
           },
           paras: [
             {
-              en: "Every profile leads with the facts adopters asked for: vaccination and spay-neuter status, medical notes, temperament, and the cat's own story. Adopters trust what they can check, so the records come first.",
+              en: "Every profile leads with the facts adopters asked for: vaccination and spay-neuter status, medical notes, temperament, and the cat's own story. ==Adopters trust what they can check==, so the records come first.",
               ja: "どのプロフィールも、里親希望者が知りたいと答えた事実から始まります。ワクチンと避妊去勢の状況、医療上の記録、性格、そしてその猫がたどってきた話です。人は自分で確かめられるものを信じるので、記録を先に置きました。",
               ko: "모든 프로필은 입양 희망자가 알고 싶다고 답한 사실부터 시작합니다. 예방접종과 중성화 여부, 의료 기록, 성향, 그리고 그 고양이가 지나온 이야기입니다. 사람은 스스로 확인할 수 있는 것을 믿기에 기록을 앞에 두었습니다.",
             },
@@ -518,7 +518,7 @@ export default {
           },
           paras: [
             {
-              en: "Foster, volunteer, donate, and events live under one Get Involved roof, and adopters leave with resources: cost guides, behavior help, and what to expect in the first weeks. Support does not stop on adoption day.",
+              en: "Foster, volunteer, donate, and events live under one Get Involved roof, and adopters leave with resources: cost guides, behavior help, and what to expect in the first weeks. ==Support does not stop on adoption day==.",
               ja: "一時預かり、ボランティア、寄付、イベントは、Get Involvedというひとつの屋根の下にまとめました。猫を迎えた人は、費用の目安、行動の相談先、最初の数週間に起きることをまとめた資料を持って帰ります。支えは譲渡の日で止まりません。",
               ko: "임시보호와 자원봉사, 후원, 행사를 Get Involved라는 하나의 지붕 아래 모았습니다. 고양이를 데려간 사람은 비용 안내와 행동 문제 도움말, 첫 몇 주에 겪을 일을 정리한 자료를 함께 가져갑니다. 지원은 입양하는 날에 멈추지 않습니다.",
             },
@@ -542,7 +542,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "With the visual system in place, a second round of testing, again with 14 participants, caught the failures of detail: uneven image sizes and hard-to-read text on pages like Events and Resources. Images were scaled to one consistent size, copy was cleaned up for readability, and a few confusing page labels were reworded.",
+            en: "With the visual system in place, a second round of testing, again with 14 participants, ==caught the failures of detail==: uneven image sizes and hard-to-read text on pages like Events and Resources. Images were scaled to one consistent size, copy was cleaned up for readability, and a few confusing page labels were reworded.",
             ja: "ビジュアルの仕組みが入った状態で、もう一度14人とテストを行いました。今度出てきたのは細部の失敗です。EventsやResourcesのようなページで画像のサイズがそろっておらず、文字も読みにくいままでした。画像は同じサイズにそろえ、文章は読みやすさを見て整え、分かりにくかったページ名をいくつか付け直しました。",
             ko: "비주얼 시스템이 들어간 상태에서 14명과 다시 테스트했습니다. 이번에 드러난 것은 디테일의 실패였습니다. Events나 Resources 같은 페이지에서 이미지 크기가 제각각이었고 글자도 읽기 어려웠습니다. 이미지는 같은 크기로 맞추고, 문장은 가독성을 기준으로 다듬고, 헷갈리던 페이지 이름 몇 개를 다시 붙였습니다.",
           },
@@ -573,7 +573,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "Every color, type size, and radius from the style tile lives in one tokens file the whole site reads from, so the styling comes out of the brand definition instead of being layered on afterwards. That's also where the design got tested: orange on cream measured 2.85:1, under the AA line, so body-size orange became a darkened #A65300 (4.6:1) and orange buttons carry dark-brown labels instead of white. The palette only proved itself once it was measured in code.",
+            en: "Every color, type size, and radius from the style tile lives in one tokens file the whole site reads from, so the styling comes out of the brand definition instead of being layered on afterwards. That's also where the design got tested: orange on cream measured 2.85:1, under the AA line, so body-size orange became a darkened #A65300 (4.6:1) and orange buttons carry dark-brown labels instead of white. The palette only ==proved itself once it was measured in code==.",
             ja: "スタイルタイルにあった色、文字サイズ、角丸は、サイト全体が参照する一つのトークンファイルに入っています。見た目はブランドの定義から出てくるので、あとから重ねる作業になりません。設計が検証されたのもここでした。クリーム地のオレンジは2.85:1で、AAの線を下回っていました。そこで本文サイズのオレンジは暗くした#A65300（4.6:1）に変え、オレンジのボタンの文字は白ではなく濃い茶色にしています。パレットが確かだと分かったのは、コードの上で測ってからでした。",
             ko: "스타일 타일에 있던 색과 글자 크기, 라운드 값은 사이트 전체가 참조하는 하나의 토큰 파일에 들어 있습니다. 스타일이 브랜드 정의에서 나오기 때문에, 나중에 덧입히는 작업이 되지 않습니다. 설계가 검증된 것도 여기였습니다. 크림 배경 위의 오렌지는 2.85:1로 AA 기준에 못 미쳤습니다. 그래서 본문 크기의 오렌지는 어둡게 조정한 #A65300(4.6:1)으로 바꿨고, 오렌지 버튼의 글자는 흰색 대신 짙은 갈색을 씁니다. 팔레트가 괜찮다는 것은 코드 위에서 재 보고 나서야 확인됐습니다.",
           },
@@ -595,7 +595,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "Each cat is a content entry (story, temperament, medical record, adoption status) rendered into cards, profiles, and the match quiz from a single source. Add a cat, and the whole site already knows.",
+            en: "Each cat is a content entry (story, temperament, medical record, adoption status) rendered into cards, profiles, and the match quiz from a single source. ==Add a cat, and the whole site already knows==.",
             ja: "猫一匹ぶんが、一つのコンテンツのまとまりです（話、性格、医療記録、譲渡の状況）。同じ一つの元データから、カードにも、プロフィールにも、マッチングクイズにも展開されます。猫を一匹足せば、サイト全体がもう知っています。",
             ko: "고양이 한 마리가 하나의 콘텐츠 항목입니다(이야기, 성향, 의료 기록, 입양 상태). 같은 원본 하나에서 카드로도, 프로필로도, 매칭 퀴즈로도 펼쳐집니다. 고양이를 한 마리 추가하면 사이트 전체가 이미 알고 있습니다.",
           },
@@ -617,7 +617,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "Nothing on the site pretends to do more than it does. Forms validate and confirm success without sending anything, and say so. The match quiz is plain additive scoring over the cats' own records, and it is labeled a quiz rather than \"AI\". Donations and the gift shop run their full flows but stay labeled a demo, so no card details are asked for and nothing is charged. The pieces left out of scope, a forum and member logins, simply do not exist, so there are no dead ends.",
+            en: "==Nothing on the site pretends to do more than it does==. Forms validate and confirm success without sending anything, and say so. The match quiz is plain additive scoring over the cats' own records, and it is labeled a quiz rather than \"AI\". Donations and the gift shop run their full flows but stay labeled a demo, so no card details are asked for and nothing is charged. The pieces left out of scope, a forum and member logins, simply do not exist, so there are no dead ends.",
             ja: "このサイトには、実際にできること以上に見せかけている部分がありません。フォームは入力チェックと完了表示までしますが、送信は行わず、その旨も画面に書いてあります。マッチングクイズは猫自身の記録に点数を足していくだけの仕組みで、「AI」ではなくクイズとして表示しています。寄付とギフトショップは最後まで流れを通せますが、デモと明記してあるのでカード情報は聞かず、請求も発生しません。スコープから外したフォーラムと会員ログインは、そもそも置いていません。だから行き止まりもありません。",
             ko: "이 사이트에는 실제로 할 수 있는 것 이상으로 보이려는 부분이 없습니다. 폼은 입력 검증과 완료 표시까지 하지만 실제로 전송하지 않고, 그 사실을 화면에 적어 두었습니다. 매칭 퀴즈는 고양이 자신의 기록에 점수를 더해 가는 방식일 뿐이고, 'AI'가 아니라 퀴즈라고 표시했습니다. 후원과 기프트숍은 흐름을 끝까지 통과할 수 있지만 데모라고 명시했기 때문에 카드 정보를 묻지 않고 결제도 일어나지 않습니다. 범위에서 뺀 포럼과 회원 로그인은 아예 두지 않았습니다. 그래서 막다른 길도 없습니다.",
           },
@@ -691,7 +691,7 @@ export default {
         {
           type: "p",
           text: {
-            en: "Low fidelity broke where the structure was wrong; high fidelity broke where the details lied. Neither round would have caught the other's problems, so the order mattered as much as the testing.",
+            en: "Low fidelity broke where the structure was wrong; high fidelity broke where the details lied. Neither round would have caught the other's problems, so ==the order mattered as much as the testing==.",
             ja: "ローファイでは構造が間違っているところが壊れ、ハイファイでは細部が嘘をついているところが壊れました。どちらのラウンドも、もう片方の問題は見つけられません。テストしたこと自体と同じくらい、順番が効いていました。",
             ko: "로파이에서는 구조가 잘못된 지점이 무너졌고, 하이파이에서는 디테일이 거짓말하는 지점이 무너졌습니다. 어느 라운드도 다른 쪽의 문제는 잡아내지 못합니다. 테스트했다는 사실만큼이나 순서가 중요했습니다.",
           },

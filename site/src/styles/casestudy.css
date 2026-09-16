@@ -2273,6 +2273,31 @@
   gap: 12px;
 }
 
+/* ── Highlights ──
+   `==so==` in the copy marks the words the reader's eye should land on
+   (marked() in CaseStudyPage.jsx): a stroke of the project's colour, at
+   --cs-hl-tint of it, under the words. In the stacked column it stands
+   drawn; on the stage it is drawn as the row arrives, --cs-hl running 0
+   to 1 (drawHighlights in CaseStudyPage.jsx), so a row's marks wait
+   undrawn until then. The box is left unbroken (slice) on purpose: the
+   stroke's width is then the mark's whole run across its lines, so a
+   mark that turns a line is drawn as one stroke, the first line and
+   then the second, the way a pen would. */
+.cs-hl {
+  --cs-hl: 1;
+  --cs-hl-tint: 45%;
+  --cs-hl-ink: color-mix(in srgb, var(--cs-card, var(--text-muted)) var(--cs-hl-tint), transparent);
+  background: linear-gradient(var(--cs-hl-ink), var(--cs-hl-ink)) 0 0 / calc(var(--cs-hl) * 100%) 100%
+    no-repeat;
+  color: inherit;
+  padding: 0.06em 0.16em;
+  margin: 0 -0.16em;
+  border-radius: 3px;
+}
+.cs-split .cs-hl {
+  --cs-hl: 0;
+}
+
 /* ── the split column on a tablet ──
    A smaller wordmark and a tighter row, so the bar stays one line. The
    cells keep their seven and five. */
