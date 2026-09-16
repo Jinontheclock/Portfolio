@@ -330,6 +330,9 @@ export default {
         {
           type: "figure",
           graphic: "tinypaws-ba-structure",
+          /* on the stage this pair shares its screen with the navigation
+             pair above it (see splitRows in CaseStudyPage.jsx) */
+          join: true,
         },
         {
           type: "p",

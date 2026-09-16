@@ -2089,12 +2089,13 @@
   grid-column: 1 / 13;
   position: static;
 }
-/* two figures on one screen (the second flagged `join` in the data — the
-   campaign mockups and the Instagram strip): each picture is capped at
-   half the room less the two captions and the gap between the figures,
-   so the pair stands on the stage without a scroll */
-.cs-split-row--bare > .cs-split-media:has(> .cs-figure + .cs-figure) img {
-  max-height: calc((var(--cs-stage-room) - 154px) / 2);
+/* several figures on one screen (a figure flagged `join` in the data —
+   the campaign mockups with the Instagram strip, a pair of before/after
+   pairs): the pictures are capped at the height at which the cell still
+   fits the stage, which the page finds and sets on the cell as
+   --cs-fig-cap (see the fit in CaseStudyPage.jsx) */
+.cs-split-media:has(> .cs-figure + .cs-figure) img {
+  max-height: min(var(--cs-fig-cap, 100vh), calc(var(--cs-stage-room) - 100px));
 }
 
 /* a chapter's label is the bar's to show, and stays in the tree for the

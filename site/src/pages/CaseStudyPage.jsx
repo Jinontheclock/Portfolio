@@ -845,6 +845,50 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     blocked: () => !!document.querySelector(".cs-zoom, .tryapp-backdrop"),
     deps: [project, gateActive],
   });
+  /* Several figures in one cell — a figure flagged `join` under another —
+     share the room: the cell's pictures are capped at the tallest height
+     at which the cell still fits the stage, found by halving, and set on
+     the cell as --cs-fig-cap (read by the .cs-split-media rule in
+     casestudy.css). Found again as the pictures load and the window
+     changes; the stage re-measures the row on its own. */
+  useLayoutEffect(() => {
+    const box = stageRef.current;
+    if (!split || !box) return undefined;
+    const cells = [...box.querySelectorAll(".cs-split-media")].filter(
+      (cell) => cell.querySelectorAll(":scope > .cs-figure").length > 1,
+    );
+    if (!cells.length) return undefined;
+    const fit = () => {
+      const cs = getComputedStyle(box);
+      const room =
+        box.clientHeight - (parseFloat(cs.paddingTop) || 0) - (parseFloat(cs.paddingBottom) || 0);
+      cells.forEach((cell) => {
+        let lo = 0;
+        let hi = room;
+        cell.style.setProperty("--cs-fig-cap", `${hi}px`);
+        if (cell.offsetHeight <= room) return;
+        for (let k = 0; k < 8; k += 1) {
+          const mid = (lo + hi) / 2;
+          cell.style.setProperty("--cs-fig-cap", `${mid}px`);
+          if (cell.offsetHeight <= room) lo = mid;
+          else hi = mid;
+        }
+        cell.style.setProperty("--cs-fig-cap", `${Math.floor(lo)}px`);
+      });
+    };
+    fit();
+    let queued = 0;
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(queued);
+      queued = requestAnimationFrame(fit);
+    });
+    ro.observe(box);
+    cells.forEach((cell) => ro.observe(cell));
+    return () => {
+      cancelAnimationFrame(queued);
+      ro.disconnect();
+    };
+  }, [split, steps, gateActive]);
   /* the step on the stage, and the chapter and subheading it is read under */
   const onStage = split ? steps[Math.min(stage.current ?? 0, steps.length - 1)] : null;
   const barChapter = split ? (onStage?.section?.id ?? null) : activeId;
