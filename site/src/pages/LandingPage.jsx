@@ -63,11 +63,53 @@ export default function LandingPage({ lang, setLang }) {
   useEffect(() => {
     const root = document.documentElement;
     root.classList.add("lp-landing");
+    const slot = document.querySelector(".lp-footer-slot");
+    let smooth = null;
+    let down = false;
+    /* The keys go the whole way too: one press of ArrowDown (PageDown,
+       Space, End) opens the band and one of ArrowUp (PageUp, Home,
+       Shift+Space) closes it, the way one turn of the wheel does. The
+       browser's own key scroll moved the page a line at a time, three
+       presses to open, the snap drawing the band back after each. On
+       Lenis's curve where Lenis runs, and by the browser's own scroll
+       where it does not. */
+    const openAt = () =>
+      slot
+        ? slot.offsetTop + slot.offsetHeight - window.innerHeight
+        : root.scrollHeight - window.innerHeight;
+    const onKey = (e) => {
+      if (down || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
+      const t = e.target;
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+      let to;
+      if (
+        e.key === "ArrowDown" ||
+        e.key === "PageDown" ||
+        e.key === "End" ||
+        (e.key === " " && !e.shiftKey)
+      )
+        to = openAt();
+      else if (
+        e.key === "ArrowUp" ||
+        e.key === "PageUp" ||
+        e.key === "Home" ||
+        (e.key === " " && e.shiftKey)
+      )
+        to = 0;
+      else return;
+      e.preventDefault();
+      if (smooth) smooth.scrollTo(to, { duration: 1 });
+      else window.scrollTo({ top: to, behavior: reducedMotion() ? "auto" : "smooth" });
+    };
+    window.addEventListener("keydown", onKey);
     if (isPhone || reducedMotion()) {
       root.classList.add("lp-snap");
-      return () => root.classList.remove("lp-landing", "lp-snap");
+      return () => {
+        window.removeEventListener("keydown", onKey);
+        root.classList.remove("lp-landing", "lp-snap");
+      };
     }
-    const smooth = new Lenis({
+    smooth = new Lenis({
       lerp: 0.1,
       smoothWheel: true,
       syncTouch: false,
@@ -77,16 +119,15 @@ export default function LandingPage({ lang, setLang }) {
     gsap.ticker.add(tick);
     const snap = new Snap(smooth, { type: "mandatory", duration: 1, debounce: 120 });
     snap.add(0);
-    const slot = document.querySelector(".lp-footer-slot");
     if (slot) snap.addElement(slot, { align: "end" });
     const crossing = new MutationObserver(() => {
       if ("crossing" in root.dataset) teardown();
     });
     crossing.observe(root, { attributes: true, attributeFilter: ["data-crossing"] });
-    let down = false;
     const teardown = () => {
       if (down) return;
       down = true;
+      window.removeEventListener("keydown", onKey);
       crossing.disconnect();
       snap.destroy();
       gsap.ticker.remove(tick);
@@ -104,16 +145,16 @@ export default function LandingPage({ lang, setLang }) {
        container, it lifted the hero and left the band behind, which then
        sat at the top of the box and painted its black over everything. */
     <div className="lp-page">
-    <div className="lp-root">
-      {/* Work and About come from the inner pages' own header rather than
+      <div className="lp-root">
+        {/* Work and About come from the inner pages' own header rather than
           from a nav of this page's own, so crossing between here and there
           leaves them exactly where they were — same position, same size,
           same two words. Neither is marked current: on this page neither is
           where the reader is. The copyright is on the footer band below,
           not up here. */}
-      <SiteHeader />
+        <SiteHeader />
 
-      {/* The heading is artwork now, and its box runs the full width of the
+        {/* The heading is artwork now, and its box runs the full width of the
           screen — past the page margins on both sides and down onto the
           bottom edge. The space the artwork holds inside its own viewBox is
           the drawing's, and is left alone.
@@ -121,25 +162,25 @@ export default function LandingPage({ lang, setLang }) {
           The h1 keeps the heading's meaning: the label is what a screen
           reader and an outline tool read, and the drawing itself is marked
           decorative so neither announces it twice. */}
-      <div className="lp-hero">
-        <h1 className="lp-heading" aria-label={LANDING.en.hero}>
-          <span
-            className="lp-heading-mark"
-            aria-hidden="true"
-            dangerouslySetInnerHTML={{ __html: heroMark }}
-          />
-        </h1>
-      </div>
+        <div className="lp-hero">
+          <h1 className="lp-heading" aria-label={LANDING.en.hero}>
+            <span
+              className="lp-heading-mark"
+              aria-hidden="true"
+              dangerouslySetInnerHTML={{ __html: heroMark }}
+            />
+          </h1>
+        </div>
 
-      {/* Empty while the site is English only — LangSwitcher renders nothing
+        {/* Empty while the site is English only — LangSwitcher renders nothing
           with one language offered. When the other two come back this corner
           is the heading's, so it will need somewhere else to sit. */}
-      <div className="lp-foot">
-        <LangSwitcher value={lang} onChange={setLang} />
+        <div className="lp-foot">
+          <LangSwitcher value={lang} onChange={setLang} />
+        </div>
       </div>
-    </div>
 
-    {/* The footer, revealed.
+      {/* The footer, revealed.
 
         It is not below the page so much as behind it: a band pinned to
         the bottom of the screen, which the hero covers until the reader
@@ -153,69 +194,69 @@ export default function LandingPage({ lang, setLang }) {
         band inside it can hold at the bottom of the viewport while the slot
         scrolls up over it. No fixed positioning anywhere, so nothing here
         has to be reconciled with iOS's toolbar. */}
-    <div className="lp-footer-slot">
-      <div className="lp-footer-track">
-        <footer className="lp-footer">
-          {/* The band as the Figma frame "Landing page_footer opened" sets
+      <div className="lp-footer-slot">
+        <div className="lp-footer-track">
+          <footer className="lp-footer">
+            {/* The band as the Figma frame "Landing page_footer opened" sets
               it: where the author is and the time there, then the ways to
               reach them, and along the foot the languages and the
               copyright. */}
-          <div className="lp-footer-top">
-            <div className="lp-footer-where">
-              <span>Based in Vancouver, BC, Canada</span>
-              <LocalTime />
-            </div>
-            <nav className="lp-footer-links" aria-label="Contact">
-              {/* the address in full, and two of About's links by name —
+            <div className="lp-footer-top">
+              <div className="lp-footer-where">
+                <span>Based in Vancouver, BC, Canada</span>
+                <LocalTime />
+              </div>
+              <nav className="lp-footer-links" aria-label="Contact">
+                {/* the address in full, and two of About's links by name —
                   the same addresses, from the same list */}
-              <a className="lp-footer-link" href={MAILTO}>
-                hajinlee.ca@gmail.com
-              </a>
-              {LINKS.filter((l) => l.label === "LinkedIn" || l.label === "Resume").map((l) => (
-                <a
-                  key={l.label}
-                  className="lp-footer-link"
-                  href={l.href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {l.label.toLowerCase()}
+                <a className="lp-footer-link" href={MAILTO}>
+                  hajinlee.ca@gmail.com
                 </a>
-              ))}
-            </nav>
-          </div>
-          <div className="lp-footer-bottom">
-            {/* the three languages the site has copy for, the one being
+                {LINKS.filter((l) => l.label === "LinkedIn" || l.label === "Resume").map((l) => (
+                  <a
+                    key={l.label}
+                    className="lp-footer-link"
+                    href={l.href}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {l.label.toLowerCase()}
+                  </a>
+                ))}
+              </nav>
+            </div>
+            <div className="lp-footer-bottom">
+              {/* the three languages the site has copy for, the one being
                 read in bold. Only the ones offered are buttons: Japanese
                 and Korean are held back for now (see lib/lang-routes.js),
                 so they stand as labels until they are opened again. */}
-            <div className="lp-footer-langs">
-              {ALL_LANGS.map((code) =>
-                LANGS.includes(code) ? (
-                  <button
-                    key={code}
-                    type="button"
-                    lang={code}
-                    className={"lp-footer-lang" + (lang === code ? " is-current" : "")}
-                    aria-pressed={lang === code}
-                    onClick={() => setLang?.(code)}
-                  >
-                    {LANG_LABELS[code]}
-                  </button>
-                ) : (
-                  <span key={code} lang={code} className="lp-footer-lang" aria-disabled="true">
-                    {LANG_LABELS[code]}
-                  </span>
-                ),
-              )}
+              <div className="lp-footer-langs">
+                {ALL_LANGS.map((code) =>
+                  LANGS.includes(code) ? (
+                    <button
+                      key={code}
+                      type="button"
+                      lang={code}
+                      className={"lp-footer-lang" + (lang === code ? " is-current" : "")}
+                      aria-pressed={lang === code}
+                      onClick={() => setLang?.(code)}
+                    >
+                      {LANG_LABELS[code]}
+                    </button>
+                  ) : (
+                    <span key={code} lang={code} className="lp-footer-lang" aria-disabled="true">
+                      {LANG_LABELS[code]}
+                    </span>
+                  ),
+                )}
+              </div>
+              <span className="lp-footer-copy">
+                © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
+              </span>
             </div>
-            <span className="lp-footer-copy">
-              © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
-            </span>
-          </div>
-        </footer>
+          </footer>
+        </div>
       </div>
-    </div>
     </div>
   );
 }
