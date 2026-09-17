@@ -145,7 +145,16 @@ export default function useStage({
   const hooks = useRef({ blocks, overflowOf, blocked, onSwap });
   hooks.current = { blocks, overflowOf, blocked, onSwap };
 
-  const step = () => window.innerHeight * STEP;
+  /* One step, the same one the track is cut into. --stage-step is half
+     the box (components.css), and it is read off the box rather than
+     worked out from window.innerHeight, because the track is sized in
+     dvh and the two part company wherever a browser's own bars shrink
+     the visual viewport: an innerHeight step against a dvh track leaves
+     the last block short of the foot, or past it, and the head recorded
+     for a step the box cannot reach sends the next turn from the wrong
+     place. The window is the fallback for the frame before the box is
+     there. */
+  const step = () => (boxRef?.current?.clientHeight || window.innerHeight) * STEP;
   /* the block whose steps the box is in, from the box's offset */
   const blockAt = (y) => {
     const { starts } = layout.current;

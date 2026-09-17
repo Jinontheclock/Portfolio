@@ -181,6 +181,7 @@ const SHOTS = { ...PROLOG_SHOTS, ...TINYPAWS_SHOTS, ...COMPASS_SHOTS, ...COMPASS
 import { getProject } from "../data/projects/index.js";
 import { resolve } from "../data/projects/resolve.js";
 import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
+import { isCovered, onReveal } from "../lib/preloaderBus.js";
 
 /* ── Highlights ──
    `==so==` in the copy marks the words the reader's eye should land on:
@@ -236,16 +237,33 @@ function drawHighlights(row, dir, instant) {
       },
     );
   gsap.set(marks, { "--cs-hl": 0 });
-  if (!document.querySelector(".lp-loader")) {
+  if (!isCovered()) {
     draw();
     return;
   }
-  const mo = new MutationObserver(() => {
-    if (document.querySelector(".lp-loader")) return;
-    mo.disconnect();
-    draw();
-  });
-  mo.observe(document.body, { childList: true, subtree: true });
+  /* The boot cover is up, so the page is not on screen yet and a stroke
+     drawn now would be spent behind it — the same reason the hero videos
+     hold (see lib/preloaderBus.js). The wait is the page's, not the
+     row's: only the row standing on the stage when the cover lifts has
+     anything to draw, so a later row replaces an earlier one's wait
+     rather than adding to it. */
+  pendingDraw = draw;
+  if (!stopWaiting) {
+    stopWaiting = onReveal(() => {
+      const go = pendingDraw;
+      cancelPendingDraw();
+      go?.();
+    });
+  }
+}
+/* and a reader who leaves while the cover is still up takes the waiting
+   stroke with them (see the case study's unmount below) */
+let pendingDraw = null;
+let stopWaiting = null;
+function cancelPendingDraw() {
+  pendingDraw = null;
+  stopWaiting?.();
+  stopWaiting = null;
 }
 import useLangPath from "../hooks/useLangPath.js";
 import withPageTransition, { crossing, leaving } from "../lib/page-transition.js";
@@ -728,6 +746,16 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      scroll (see useStage below). Only as one screen: a phone keeps the
      stacked page whatever the project says. */
   const split = project?.layout === "split" && screen;
+  // password gate: an unlock lasts for the browsing session
+  const [unlocked, setUnlocked] = useState(() => isUnlocked(id));
+  /* A locked study is not rendered behind its gate, it is not rendered at
+     all (see the gate branch below), so while this stands there is no
+     column for any of the hooks under it to hold: no box, no grid, no
+     content. They each watch it, so the moment it comes down they run
+     again against the column that has just mounted — without that a study
+     opened behind a gate came back scrollless, its chapters unlit and its
+     blocks unfaded. */
+  const gateActive = !!project?.locked && !unlocked;
   /* the box the column scrolls in when the page is one screen, and what
      Lenis scrolls inside it */
   const regionRef = useRef(null);
@@ -748,7 +776,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   useScrollFade(
     contentRef,
     screen ? NO_FADE : SCROLL_FADE,
-    [id, lang, screen],
+    [id, lang, screen, gateActive],
     screen ? regionRef : null,
   );
   /* the scroll, through whichever box has it, and the keys — unless a
@@ -763,7 +791,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
         travel.current = null;
       },
     },
-    [project],
+    [project, gateActive],
   );
   /* A figure held open while the window narrows past the phone breakpoint
      has nowhere to be: the modal is not rendered at that width. Left in
@@ -778,8 +806,6 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   const [activeId, setActiveId] = useState(null);
   // and the subheading within it that the reader has reached, if any
   const [activeSub, setActiveSub] = useState(null);
-  // password gate: an unlock lasts for the browsing session
-  const [unlocked, setUnlocked] = useState(() => isUnlocked(id));
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -855,7 +881,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       window.removeEventListener("resize", onScroll);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [project, screen]);
+  }, [project, screen, gateActive]);
 
   /* a figure held open, or the demo: the box holds still under it */
   useEffect(() => {
@@ -872,7 +898,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     contentRef,
     ".cs-section",
     project && activeId ? project.sections.findIndex((s) => s.id === activeId) : -1,
-    [project],
+    [project, gateActive],
   );
 
   /* ── The split column is a stage ──
@@ -884,9 +910,6 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
      on the stage. On the stacked column there are no rows, and none of
      this runs. */
   const steps = useMemo(() => (split ? splitSteps(project) : []), [project, split]);
-  /* a locked study's gate stands where its column would: the stage is
-     built once the gate has come down (see gateActive below) */
-  const gateActive = !!project?.locked && !unlocked;
   const stageRef = useRef(null);
   const scrollRef = useRef(null);
   const trackRef = useRef(null);
@@ -957,6 +980,9 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       ro.disconnect();
     };
   }, [split, steps, gateActive]);
+  /* a stroke still waiting on the boot cover when the reader leaves is
+     not this page's to draw any more (see drawHighlights above) */
+  useEffect(() => cancelPendingDraw, []);
   /* the step on the stage, and the chapter and subheading it is read under */
   const onStage = split ? steps[Math.min(stage.current ?? 0, steps.length - 1)] : null;
   const barChapter = split ? (onStage?.section?.id ?? null) : activeId;
