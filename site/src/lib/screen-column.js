@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { reducedMotion } from "./media.js";
+import { ownsKey } from "./keys.js";
 import "lenis/dist/lenis.css";
 
 /* ── One screen ──
@@ -136,8 +137,9 @@ export function useScreenScroll(on, boxRef, contentRef, { blocked, onTake } = {}
 
     const onKey = (e) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      const tag = e.target?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || e.target?.isContentEditable) return;
+      /* a key the control under it answers is not the column's (see
+         lib/keys.js) */
+      if (e.defaultPrevented || ownsKey(e.target, e.key)) return;
       /* a modal is up: its own keys, not the page's */
       if (hooks.current.blocked?.()) return;
       let by = KEYS[e.key];

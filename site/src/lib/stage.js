@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { reducedMotion } from "./media.js";
+import { ownsKey } from "./keys.js";
 
 /* re-exported: the landing reads it from here, where it used to live */
 export { reducedMotion };
@@ -335,8 +336,9 @@ export default function useStage({
 
     const onKey = (e) => {
       if (hooks.current.blocked() || e.metaKey || e.ctrlKey || e.altKey) return;
-      const tag = e.target?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || e.target?.isContentEditable) return;
+      /* a key the control under it answers, or one already answered
+         elsewhere, is not the stage's (see lib/keys.js) */
+      if (e.defaultPrevented || ownsKey(e.target, e.key)) return;
       let by = KEYS[e.key];
       if (e.key === " ") by = e.shiftKey ? -1 : 1;
       if (by === undefined) return;

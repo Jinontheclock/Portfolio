@@ -206,9 +206,11 @@ function marked(text) {
    or, at the page's first load, once the boot loader has lifted. The
    strokes of every other row are taken up again behind the fade, so a
    row that comes back is drawn afresh. With motion reduced the strokes
-   simply stand. --cs-hl is the drawn share, 0 to 1 (see casestudy.css). */
+   simply stand. --cs-hl is the drawn share, 0 to 1 (see casestudy.css).
+   The arguments are useStage's onSwap: the row, the way the stage turned,
+   and whether it arrived without a fade to wait for. */
 const HL = { duration: 0.7, stagger: 0.22, settle: 0.3, ease: "power2.inOut" };
-function drawHighlights(row, instant) {
+function drawHighlights(row, dir, instant) {
   const marks = row.querySelectorAll("mark.cs-hl");
   const others = [...row.parentElement.querySelectorAll("mark.cs-hl")].filter(
     (m) => !row.contains(m),

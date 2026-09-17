@@ -198,6 +198,14 @@ function Site() {
         {RETIRED.map((l) => (
           <Route key={"retired-" + l} path={`/${l}/*`} element={<RetiredLangRedirect />} />
         ))}
+        {/* anything no page answers to — a typo, a link from before a page
+            was renamed, a path that never existed: the landing rather than
+            the blank document a matchless <Routes> renders. Replaced, not
+            pushed, so the back button goes where the reader came from
+            rather than to the address that did not work. Last by rank
+            whatever its place here: <Routes> ranks * below every other
+            pattern, so no real page is caught by it. */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </PageStage>
       {booting && <Preloader onDone={() => setBooting(false)} />}
     </>

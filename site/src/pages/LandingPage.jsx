@@ -11,6 +11,7 @@ import { LANG_LABELS } from "../i18n.js";
 import { ALL_LANGS, LANGS } from "../lib/lang-routes.js";
 import useIsPhone from "../hooks/useIsPhone.js";
 import { reducedMotion } from "../lib/stage.js";
+import { ownsKey } from "../lib/keys.js";
 import { LANDING } from "../i18n.js";
 /* The heading as drawn artwork rather than set type, exactly as exported.
    Inlined rather than linked so its paths can inherit the page's colour —
@@ -79,8 +80,9 @@ export default function LandingPage({ lang, setLang }) {
         : root.scrollHeight - window.innerHeight;
     const onKey = (e) => {
       if (down || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
-      const t = e.target;
-      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+      /* a key the control under it answers is not the band's (see
+         lib/keys.js) */
+      if (ownsKey(e.target, e.key)) return;
       let to;
       if (
         e.key === "ArrowDown" ||
