@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { Suspense, useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { Routes, useLocation, useNavigationType } from "react-router-dom";
 import { beginCrossing, crossing, landPage, raiseTitle, reduced } from "../lib/page-transition.js";
@@ -154,11 +154,15 @@ export default function PageStage({ booting, children }) {
   return (
     <>
       <div className="page" key={shown.id} ref={shownEl}>
-        <Routes location={shown.location}>{children}</Routes>
+        <Suspense fallback={null}>
+          <Routes location={shown.location}>{children}</Routes>
+        </Suspense>
       </div>
       {staged && (
         <div className="page" key={staged.id} ref={stagedEl}>
-          <Routes location={staged.location}>{children}</Routes>
+          <Suspense fallback={null}>
+            <Routes location={staged.location}>{children}</Routes>
+          </Suspense>
         </div>
       )}
     </>

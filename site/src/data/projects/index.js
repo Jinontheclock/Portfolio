@@ -20,6 +20,10 @@ import prolog from "./prolog.js";
 import tinypaws from "./tinypaws.js";
 import muji from "./muji.js";
 
+/* The cards, and everything a case study needs before its body. The
+   chapters themselves live one file further out and are put back on by
+   ./full.js, which only the case-study chunk imports — so the Work page
+   and the landing carry the five cards and not the five studies. */
 export const PROJECTS = [compass, welab, prolog, tinypaws, muji];
 
 export const getProject = (id) => PROJECTS.find((p) => p.id === id);

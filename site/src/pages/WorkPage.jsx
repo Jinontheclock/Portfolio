@@ -10,6 +10,7 @@ import { PAGE_TITLE } from "../i18n.js";
 import useLangPath from "../hooks/useLangPath.js";
 import withPageTransition, { crossing } from "../lib/page-transition.js";
 import useStage from "../lib/stage.js";
+import { loadCaseStudy } from "./case-study-chunk.js";
 
 /* Everything a card renders — the colour, the copy, and the mockups
    where a project has them — plus what the gate needs to challenge one.
@@ -151,6 +152,11 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 to={langPath(`/work/${p.id}`)}
                 className={"wk-section" + (current === i ? " is-current" : "")}
                 style={{ "--wk-card": p.card, ...mockupVars(p.mockups) }}
+                /* the case studies are their own chunk, so the download
+                   starts the moment a card is pointed at or tabbed to and
+                   is over before the click — see pages/case-study-chunk.js */
+                onPointerEnter={loadCaseStudy}
+                onFocus={loadCaseStudy}
                 onClick={(e) => {
                   if (p.locked && !isUnlocked(p.id)) {
                     e.preventDefault();
@@ -162,7 +168,9 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                   if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
                   if (!crossing(pathname, `/work/${p.id}`)) return;
                   e.preventDefault();
-                  withPageTransition(() => navigate(langPath(`/work/${p.id}`)));
+                  loadCaseStudy().then(() =>
+                    withPageTransition(() => navigate(langPath(`/work/${p.id}`))),
+                  );
                 }}
               >
                 {/* the copy, in the card's corner: the title, the summary
@@ -204,8 +212,10 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
             /* the password opens the same door the block does, so it
                opens it the same way */
             const go = () => navigate(langPath(`/work/${id}`));
-            if (crossing(pathname, `/work/${id}`)) withPageTransition(go);
-            else go();
+            loadCaseStudy().then(() => {
+              if (crossing(pathname, `/work/${id}`)) withPageTransition(go);
+              else go();
+            });
           }}
         />
       )}

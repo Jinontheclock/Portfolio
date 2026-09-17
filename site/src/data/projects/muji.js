@@ -1,39 +1,6 @@
 import logoColor from "../../assets/muji/muji-logo-color.webp";
 import logoGray from "../../assets/muji/muji-logo-gray.webp";
 
-const PLACEHOLDER_SECTIONS = [
-  {
-    id: "s1",
-    label: "01 Placeholder section",
-    blocks: [
-      {
-        type: "p",
-        text: "Placeholder copy — a short paragraph describing this part of the project: the problem, the decision made, and what it changed.",
-      },
-    ],
-  },
-  {
-    id: "s2",
-    label: "02 Placeholder section",
-    blocks: [
-      {
-        type: "p",
-        text: "Placeholder copy — a short paragraph describing this part of the project: the problem, the decision made, and what it changed.",
-      },
-    ],
-  },
-  {
-    id: "s3",
-    label: "03 Placeholder section",
-    blocks: [
-      {
-        type: "p",
-        text: "Placeholder copy — a short paragraph describing this part of the project: the problem, the decision made, and what it changed.",
-      },
-    ],
-  },
-];
-
 export default {
   id: "muji",
   screen: true, // one screen, the column on the wheel: see CaseStudyPage.jsx
@@ -77,5 +44,4 @@ export default {
     { label: "role", values: ["Visual Merchandiser"] },
   ],
   metaRight: [{ label: "tool", values: ["Adobe Creative Suite"] }],
-  sections: PLACEHOLDER_SECTIONS,
 };

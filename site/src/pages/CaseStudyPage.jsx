@@ -178,7 +178,7 @@ const FIGURES = {
 /* the real captures win over the placeholder of the same name, the way
    the finished figures do above */
 const SHOTS = { ...PROLOG_SHOTS, ...TINYPAWS_SHOTS, ...COMPASS_SHOTS, ...COMPASS_CAPTURES };
-import { getProject } from "../data/projects/index.js";
+import { getProject } from "../data/projects/full.js";
 import { resolve } from "../data/projects/resolve.js";
 import { noOrphan, noOrphanSegments, useOrphanControl } from "../lib/no-orphan.js";
 import { isCovered, onReveal } from "../lib/preloaderBus.js";

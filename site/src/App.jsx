@@ -9,7 +9,7 @@ import useScrollMemory from "./lib/scroll-memory.js";
 import LandingPage from "./pages/LandingPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import WorkPage from "./pages/WorkPage.jsx";
-import CaseStudyPage from "./pages/CaseStudyPage.jsx";
+import { CaseStudyPage, loadCaseStudy } from "./pages/case-study-chunk.js";
 
 const FADE_MS = 350; // keep in sync with .lang-fade-* in components.css
 
@@ -60,6 +60,15 @@ function RetiredLangRedirect() {
 // no page is ever seen mid-assembly (font refits, hero SVG/image pop-in);
 // in-app navigation never re-triggers it
 let booted = false;
+
+/* A case study opened by its own URL: the chunk is asked for here, as the
+   main bundle runs, rather than waiting for React to reach the route — so
+   it downloads beside the fonts and the images, behind the boot cover,
+   instead of after them. Anywhere else this costs nothing: the Work page
+   asks for it on a card's first hover. */
+if (typeof window !== "undefined" && /\/work\/[^/]+/.test(window.location.pathname)) {
+  loadCaseStudy();
+}
 
 /* The four pages, rendered once per language. */
 const PAGES = [
