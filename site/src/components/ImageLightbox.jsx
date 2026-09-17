@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { freezePage } from "../lib/freeze-page.js";
+import useFocusTrap from "../lib/focus-trap.js";
 
 /* A figure taken out of the page: the same file, centred on a dimmed
    backdrop, at one size every figure shares.
@@ -20,6 +21,11 @@ export default function ImageLightbox({ src, alt, onClose }) {
      ref lets the effect hold still while the callback moves. */
   const closeCb = useRef(onClose);
   closeCb.current = onClose;
+  /* the figure keeps the keyboard while it is open (see lib/focus-trap.js):
+     it holds no control of its own, so the box itself takes focus and Tab
+     stays on it rather than walking the page behind */
+  const boxRef = useRef(null);
+  useFocusTrap(boxRef);
 
   useEffect(() => {
     const thaw = freezePage();
@@ -34,7 +40,14 @@ export default function ImageLightbox({ src, alt, onClose }) {
   }, []);
 
   return (
-    <div className="cs-zoom" onClick={onClose} role="dialog" aria-modal="true" aria-label={alt || "Figure"}>
+    <div
+      className="cs-zoom"
+      ref={boxRef}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={alt || "Figure"}
+    >
       <img
         className="cs-zoom-img"
         src={src}

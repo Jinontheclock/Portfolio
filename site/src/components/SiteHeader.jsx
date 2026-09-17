@@ -41,7 +41,13 @@ export default function SiteHeader({ current, children }) {
           key={p.key}
           label={p.label}
           active={p.key === current}
-          onClick={() => {
+          href={langPath(p.path)}
+          onClick={(e) => {
+            /* a modified or middle click is "open this somewhere else",
+               not a crossing — the browser keeps those, which is the
+               point of it being a link (see the wordmark below) */
+            if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            e.preventDefault();
             // compare routes, not the highlighted section — a case-study page
             // highlights Work but still needs the button to reach /work
             if (here === p.path) return;

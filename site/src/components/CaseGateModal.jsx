@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { freezePage } from "../lib/freeze-page.js";
+import useFocusTrap from "../lib/focus-trap.js";
 
 /* Password gate for confidential case studies (projects with `locked` +
    `passwordHash`): a modal over the dimmed, blurred page. Checked
@@ -63,6 +64,13 @@ export default function CaseGateModal({ project, lang, onUnlocked, onDismiss }) 
      serves plain http until its certificate is issued. */
   const [error, setError] = useState(false);
   const [shake, setShake] = useState(false);
+  /* the card keeps the keyboard while it is up (see lib/focus-trap.js) */
+  const cardRef = useRef(null);
+  useFocusTrap(cardRef);
+  /* the shake runs itself out; a gate dismissed inside its 450ms would
+     otherwise set state on a card that is gone */
+  const shakeTimer = useRef(0);
+  useEffect(() => () => clearTimeout(shakeTimer.current), []);
   const copy = GATE_COPY[lang] || GATE_COPY.en;
 
   /* onDismiss arrives as a fresh closure on every render of the page behind
@@ -98,7 +106,8 @@ export default function CaseGateModal({ project, lang, onUnlocked, onDismiss }) 
     } else {
       setError(hex === null ? "insecure" : "wrong");
       setShake(true);
-      setTimeout(() => setShake(false), 450);
+      clearTimeout(shakeTimer.current);
+      shakeTimer.current = setTimeout(() => setShake(false), 450);
     }
   };
 
@@ -106,6 +115,10 @@ export default function CaseGateModal({ project, lang, onUnlocked, onDismiss }) 
     <div className="cs-gate-overlay" onClick={() => onDismiss?.()}>
       <form
         className={"cs-gate-card" + (shake ? " is-shake" : "")}
+        ref={cardRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={copy.title}
         onSubmit={tryUnlock}
         onClick={(e) => e.stopPropagation()}
       >

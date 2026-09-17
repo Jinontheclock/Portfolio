@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import frameOrange from "../assets/iphone-17-pro-orange.webp";
 import frameBlue from "../assets/iphone-17-pro-blue.webp";
 import { freezePage } from "../lib/freeze-page.js";
+import useFocusTrap from "../lib/focus-trap.js";
 
 // The phone is a real iPhone 17 mockup: a 1720×3516 render whose screen
 // window — measured from its alpha channel — is 1534×3336 at (93, 90), which
@@ -151,6 +152,11 @@ export default function TryAppModal({
 }) {
   const [scale, setScale] = useState(1);
   const [webLayout, setWebLayout] = useState(computeWebLayout);
+  /* the dialog keeps the keyboard while it is up (see lib/focus-trap.js).
+     This one is mounted whether it is open or not, so the trap is told
+     which. */
+  const dialogRef = useRef(null);
+  useFocusTrap(dialogRef, open);
 
   /* onClose arrives as a fresh closure on every render of the page behind
      this, and freezing and thawing are things to do once on the way in and
@@ -167,11 +173,39 @@ export default function TryAppModal({
       if (e.key === "Escape") closeCb.current();
     };
     document.addEventListener("keydown", onKey);
+    /* The demo is part of the dialog, so a reader can tab into it — and a
+       key pressed in there is the frame's, not this document's, so Escape
+       would stop closing the modal the moment they did. The app is served
+       from this site, so the same listener goes in the frame as it loads.
+       Wrapped, because a frame that ever points somewhere else would throw
+       on the reach rather than silently doing nothing. */
+    const frames = [...document.querySelectorAll("iframe.tryapp-frame")];
+    const reached = [];
+    const reach = (frame) => {
+      try {
+        const doc = frame.contentDocument;
+        if (!doc || reached.some((r) => r.doc === doc)) return;
+        doc.addEventListener("keydown", onKey);
+        reached.push({ doc });
+      } catch {
+        /* another origin: it keeps its own keys, and Escape works again
+           as soon as focus comes back out */
+      }
+    };
+    const onLoad = [];
+    frames.forEach((frame) => {
+      reach(frame);
+      const again = () => reach(frame);
+      frame.addEventListener("load", again);
+      onLoad.push({ frame, again });
+    });
     // pinned: this one has to hold on a phone, where a scrolling page would
     // drag the backdrop out of place. See freezePage.
     const thaw = freezePage({ pin: true });
     return () => {
       document.removeEventListener("keydown", onKey);
+      onLoad.forEach(({ frame, again }) => frame.removeEventListener("load", again));
+      reached.forEach(({ doc }) => doc.removeEventListener("keydown", onKey));
       thaw();
     };
   }, [open]);
@@ -199,6 +233,10 @@ export default function TryAppModal({
       <div className="tryapp-backdrop" onClick={onClose}>
         <div
           className="tryapp-dialog tryapp-dialog--web"
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${title} demo`}
           style={wl.mobile ? undefined : { width: wl.w }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -233,6 +271,10 @@ export default function TryAppModal({
     <div className="tryapp-backdrop" onClick={onClose}>
       <div
         className="tryapp-dialog"
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${title} demo`}
         style={{ width: dialogWidth }}
         onClick={(e) => e.stopPropagation()}
       >

@@ -256,6 +256,10 @@ export default function SiteCursor() {
      * stands aside and the frame's own pointer does the work, which is the
      * only honest answer available. */
     const seen = new WeakSet();
+    /* what this effect has put inside a demo frame, and on the frame
+       element itself, so the cleanup can take all of it off again */
+    const inFrame = [];
+    const onFrameLoad = [];
 
     const reach = (frame) => {
       let doc = null;
@@ -272,23 +276,24 @@ export default function SiteCursor() {
       rule.textContent = "html, html * { cursor: none !important; }";
       (doc.head || doc.documentElement).appendChild(rule);
 
-      doc.addEventListener(
-        "mousemove",
-        (e) => {
-          /* the frame is drawn scaled to fit its phone mockup, so a point
-             inside it is that many times further along outside */
-          const r = frame.getBoundingClientRect();
-          const k = frame.clientWidth ? r.width / frame.clientWidth : 1;
-          root.dispatchEvent(
-            new MouseEvent("mousemove", {
-              clientX: r.left + e.clientX * k,
-              clientY: r.top + e.clientY * k,
-              bubbles: true,
-            }),
-          );
-        },
-        { passive: true },
-      );
+      const relay = (e) => {
+        /* the frame is drawn scaled to fit its phone mockup, so a point
+           inside it is that many times further along outside */
+        const r = frame.getBoundingClientRect();
+        const k = frame.clientWidth ? r.width / frame.clientWidth : 1;
+        root.dispatchEvent(
+          new MouseEvent("mousemove", {
+            clientX: r.left + e.clientX * k,
+            clientY: r.top + e.clientY * k,
+            bubbles: true,
+          }),
+        );
+      };
+      doc.addEventListener("mousemove", relay, { passive: true });
+      /* kept, so it comes off with the cursor: a relay left running in a
+         demo that is still on the page would go on dispatching moves at a
+         follower that has been destroyed */
+      inFrame.push({ doc, relay });
       return true;
     };
 
@@ -301,7 +306,9 @@ export default function SiteCursor() {
         const frame = e.target;
         if (!seen.has(frame)) {
           seen.add(frame);
-          frame.addEventListener("load", () => reach(frame));
+          const again = () => reach(frame);
+          frame.addEventListener("load", again);
+          onFrameLoad.push({ frame, again });
         }
         const reached = reach(frame);
         el.classList.toggle("-blind", !reached);
@@ -361,6 +368,9 @@ export default function SiteCursor() {
       root.removeEventListener("mousemove", onMove);
       root.removeEventListener("mouseover", onOver);
       window.removeEventListener("scroll", onScroll);
+      /* everything this reached into a demo frame comes back out with it */
+      onFrameLoad.forEach(({ frame, again }) => frame.removeEventListener("load", again));
+      inFrame.forEach(({ doc, relay }) => doc.removeEventListener("mousemove", relay));
       cursor.destroy();
     };
   }, [canHover]);
