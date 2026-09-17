@@ -266,7 +266,7 @@ function cancelPendingDraw() {
   stopWaiting = null;
 }
 import useLangPath from "../hooks/useLangPath.js";
-import withPageTransition, { crossing, leaving } from "../lib/page-transition.js";
+import withPageTransition, { crossing } from "../lib/page-transition.js";
 
 // ProLog is exported to the Portfolio under /prolog/ (see site/public/prolog)
 const PROLOG_SRC = `${import.meta.env.BASE_URL}prolog/`;
@@ -694,7 +694,7 @@ function TryAppInline({ src, title, variant = "phone", frame, note, live }) {
 /* an anchor's picture, for the left cell. The demo is the app itself,
    running in its phone or its window (TryAppInline) — the chapters'
    figure listener leaves it be. */
-function SplitMedia({ item, project, onDemo, demoHref, live }) {
+function SplitMedia({ item, project, demoHref, live }) {
   const { block } = item;
   switch (block.type) {
     case "figure":
@@ -894,14 +894,6 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project, screen, gateActive]);
 
-  /* a figure held open, or the demo: the box holds still under it */
-  useEffect(() => {
-    const smooth = split ? stage.lenis.current : lenis.current;
-    if (!smooth) return;
-    if (zoomed || demoOpen) smooth.stop();
-    else smooth.start();
-  }, [zoomed, demoOpen]);
-
   /* the column is a stage: only the chapter being read is on it, and the
      opening until the first chapter is reached — see lib/screen-column.js */
   useColumnStage(
@@ -994,6 +986,22 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   /* a stroke still waiting on the boot cover when the reader leaves is
      not this page's to draw any more (see drawHighlights above) */
   useEffect(() => cancelPendingDraw, []);
+  /* a figure held open, or the demo: the box holds still under it. Below
+     the stage rather than above it, because the dependency list reads
+     `stage` as the component renders. */
+  /* a figure held open, or the demo: the box holds still under it */
+  useEffect(() => {
+    const smooth = split ? stage.lenis.current : lenis.current;
+    if (!smooth) return undefined;
+    if (zoomed || demoOpen) smooth.stop();
+    else smooth.start();
+    /* whatever this stopped, it starts again. A window narrowing past the
+       phone breakpoint with a figure open swaps which box holds the
+       scroll, and the instance left on the other side of that swap used
+       to stay stopped for the life of the page. */
+    return () => smooth.start();
+  }, [zoomed, demoOpen, split, lenis, stage.lenis]);
+
   /* the step on the stage, and the chapter and subheading it is read under */
   const onStage = split ? steps[Math.min(stage.current ?? 0, steps.length - 1)] : null;
   const barChapter = split ? (onStage?.section?.id ?? null) : activeId;
@@ -1047,7 +1055,6 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       ro.disconnect();
       lineTo.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [split, project]);
   useEffect(() => {
     if (!project) return;
@@ -1290,7 +1297,6 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
                         key={item.index}
                         item={item}
                         project={project}
-                        onDemo={() => setDemoOpen(true)}
                         demoHref={demoHref}
                         live={stage.current === i}
                       />

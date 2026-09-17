@@ -17,7 +17,7 @@
  * The clock is pinned to 9:41 like the case-study stills.
  */
 import { chromium } from 'playwright';
-import { mkdirSync, writeFileSync, renameSync } from 'fs';
+import { mkdirSync, writeFileSync } from 'fs';
 
 const BASE = process.env.BASE || 'http://localhost:8199/Portfolio/prolog';
 const OUT = 'public/media/prolog/raw';

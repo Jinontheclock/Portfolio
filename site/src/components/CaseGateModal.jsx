@@ -101,7 +101,11 @@ export default function CaseGateModal({ project, lang, onUnlocked, onDismiss }) 
     if (hex && hex === project.passwordHash) {
       try {
         sessionStorage.setItem(`cs-unlocked-${project.id}`, "1");
-      } catch {}
+      } catch {
+        /* a private window, or storage turned off: the unlock holds for
+           this page rather than for the session, which is the whole of
+           what is lost */
+      }
       onUnlocked();
     } else {
       setError(hex === null ? "insecure" : "wrong");

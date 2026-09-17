@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { ROUTES, PROJECT_IDS, DEFAULT_TITLE, DEFAULT_DESCRIPTION } from "./seo-routes.js";
+import { ROUTES, PROJECT_IDS, DEFAULT_TITLE } from "./seo-routes.js";
 import { LANGS, DEFAULT_LANG, HTML_LANG, OG_LOCALE, withLang } from "./src/lib/lang-routes.js";
 
 /* Where this site lives, and therefore what every asset URL has to start
@@ -265,7 +265,6 @@ const prerenderRoutes = () => ({
 
 export default defineConfig(({ command }) => {
   if (command === "build") {
-    // eslint-disable-next-line no-console
     console.log(`[site] base ${BUILD_BASE}   canonical ${SITE_URL}`);
   }
   return {
