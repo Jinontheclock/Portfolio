@@ -200,22 +200,26 @@ function authorized(request: Request, secret: string) {
 
 export default {
   fetch(request: Request, env: Env, ctx: ExecutionContext) {
-    /* Missing configuration is answered plainly rather than as a 500 from
-       somewhere inside a GraphQL call. All three have to be set with
-       `wrangler secret put` (CF_ACCOUNT_ID can be a plain var); a server
-       missing any of them cannot do its job and should say which. */
-    const missing = (["CF_API_TOKEN", "CF_ACCOUNT_ID", "MCP_SHARED_SECRET"] as const).filter(
-      (k) => !env[k],
-    );
-    if (missing.length) {
-      return new Response(`Not configured: ${missing.join(", ")} unset\n`, { status: 500 });
-    }
-
-    if (!authorized(request, env.MCP_SHARED_SECRET)) {
+    /* The gate comes first. What is unset below is worth saying to
+       whoever runs this server and to nobody else: answered before the
+       gate, a bare curl with no Authorization header was told which of
+       the secrets a deploy is missing. A server with no shared secret can
+       authorize no one, so it answers the same 401 rather than reaching
+       into an undefined string for a comparison. */
+    if (!env.MCP_SHARED_SECRET || !authorized(request, env.MCP_SHARED_SECRET)) {
       return new Response("Unauthorized\n", {
         status: 401,
         headers: { "WWW-Authenticate": "Bearer" },
       });
+    }
+
+    /* Missing configuration is answered plainly rather than as a 500 from
+       somewhere inside a GraphQL call: a server that cannot do its job
+       should say which part is missing, now that it is only saying it to
+       a caller who got through the gate. */
+    const missing = (["CF_API_TOKEN", "CF_ACCOUNT_ID"] as const).filter((k) => !env[k]);
+    if (missing.length) {
+      return new Response(`Not configured: ${missing.join(", ")} unset\n`, { status: 500 });
     }
 
     /* The factory, not a built server: the handler makes one per request, so

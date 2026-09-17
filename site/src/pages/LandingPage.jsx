@@ -7,12 +7,13 @@ import SiteHeader from "../components/SiteHeader.jsx";
 import LangSwitcher from "../components/LangSwitcher.jsx";
 import { LINKS, MAILTO } from "../components/SiteLinks.jsx";
 import LocalTime from "../components/LocalTime.jsx";
-import { LANG_LABELS } from "../i18n.js";
+import { COPYRIGHT, LANDING, LANG_LABELS, PAGE_TITLE } from "../i18n.js";
 import { ALL_LANGS, LANGS } from "../lib/lang-routes.js";
 import useIsPhone from "../hooks/useIsPhone.js";
-import { reducedMotion } from "../lib/stage.js";
+/* from where it lives, rather than through the stage's re-export: this
+   page has nothing to do with the stage */
+import { reducedMotion } from "../lib/media.js";
 import { ownsKey } from "../lib/keys.js";
-import { LANDING } from "../i18n.js";
 /* The heading as drawn artwork rather than set type, exactly as exported.
    Inlined rather than linked so its paths can inherit the page's colour —
    the ink is #0F0F0F and flips to #FAFAFA under the dark theme, and an
@@ -21,8 +22,8 @@ import heroMark from "../assets/site/hero-wordmark.svg?raw";
 
 export default function LandingPage({ lang, setLang }) {
   useEffect(() => {
-    document.title = "HAJIN, Product Designer";
-  }, []);
+    document.title = PAGE_TITLE.home[lang] || PAGE_TITLE.home.en;
+  }, [lang]);
 
   /* The page has two places to be, closed and open, and nothing in between
      is a place. Off the phone the move between them is Lenis's: the wheel
@@ -165,7 +166,9 @@ export default function LandingPage({ lang, setLang }) {
           reader and an outline tool read, and the drawing itself is marked
           decorative so neither announces it twice. */}
         <div className="lp-hero">
-          <h1 className="lp-heading" aria-label={LANDING.en.hero}>
+          {/* the drawing is the heading, so this name is the only thing a
+              screen reader gets for it — in the language being read */}
+          <h1 className="lp-heading" aria-label={(LANDING[lang] ?? LANDING.en).hero}>
             <span
               className="lp-heading-mark"
               aria-hidden="true"
@@ -252,9 +255,7 @@ export default function LandingPage({ lang, setLang }) {
                   ),
                 )}
               </div>
-              <span className="lp-footer-copy">
-                © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
-              </span>
+              <span className="lp-footer-copy">{COPYRIGHT}</span>
             </div>
           </footer>
         </div>

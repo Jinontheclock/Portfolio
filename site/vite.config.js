@@ -177,8 +177,14 @@ const prerenderRoutes = () => ({
           /<meta\s+name="description"\s+content="[^"]*"\s*\/>/s,
           `<meta name="description" content="${description}" />`,
         )
-        .split(`content="${DEFAULT_DESCRIPTION}"`)
-        .join(`content="${description}"`)
+        /* og:title carries the default title, so this one does the work
+           for every route. There is no og:description or
+           twitter:description to match — index.html leaves both out on
+           purpose — so the description is rewritten by its tag above and
+           nowhere else. Note that this means the shell's own description
+           never ships: every page gets its route's, and the root's is
+           seo-routes.js's DEFAULT_DESCRIPTION rather than the longer
+           sentence written into index.html. */
         .split(`content="${DEFAULT_TITLE}"`)
         .join(`content="${route.title}"`)
         .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`)

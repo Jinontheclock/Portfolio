@@ -516,6 +516,17 @@ function Block({ block, onDemo, demoHref, id }) {
    screen as its last words (or as the next picture's lead-in), so three
    short closing notes can share one. Each item keeps its index in the
    chapter, which is what the subheadings' ids are built from. */
+/* ── A section's id in the document ──
+   The project's own id leads it, because the section ids are not unique
+   across projects: `context` belongs to Compass and ProLog, `brief` to
+   WeLAB and TinyPaws, `reflection` to three of them. Both pages are in
+   the document at once for the length of a crossing, the one leaving
+   first — so getElementById, asked for a bare section id, answered with
+   the page on its way out, at whatever offset its fixed box had, and the
+   list lit the wrong chapter. */
+const secId = (projectId, sectionId) => `cs-${projectId}-${sectionId}`;
+const subId = (projectId, sectionId, i) => `${secId(projectId, sectionId)}-h${i}`;
+
 const ANCHORS = new Set(["figure", "solution", "ba", "demo"]);
 function splitRows(blocks) {
   const groups = [];
@@ -583,7 +594,7 @@ function splitSteps(project) {
   project.sections.forEach((section) => {
     const heads = section.blocks
       .map((b, i) =>
-        b.type === "h" ? { id: `cs-${section.id}-h${i}`, text: b.text, index: i } : null,
+        b.type === "h" ? { id: subId(project.id, section.id, i), text: b.text, index: i } : null,
       )
       .filter(Boolean);
     splitRows(section.blocks).forEach((row, r) => {
@@ -599,7 +610,7 @@ function splitSteps(project) {
 }
 
 /* an item's words, for the right cell */
-function SplitText({ item, sectionId, onDemo, demoHref }) {
+function SplitText({ item, idBase, onDemo, demoHref }) {
   const { block, index } = item;
   switch (block.type) {
     case "solution":
@@ -622,7 +633,7 @@ function SplitText({ item, sectionId, onDemo, demoHref }) {
       return (
         <Block
           block={block}
-          id={block.type === "h" ? `cs-${sectionId}-h${index}` : undefined}
+          id={block.type === "h" ? `${idBase}-h${index}` : undefined}
           onDemo={onDemo}
           demoHref={demoHref}
         />
@@ -848,7 +859,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
       const line = readingLine() + READING_SLACK;
       let current = null;
       for (const s of project.sections) {
-        const el = document.getElementById(`cs-${s.id}`);
+        const el = document.getElementById(secId(project.id, s.id));
         if (el && viewTopOf(el) <= line) current = s.id;
         else break;
       }
@@ -864,7 +875,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
         const section = project.sections.find((s) => s.id === current);
         section.blocks.forEach((b, i) => {
           if (b.type !== "h") return;
-          const el = document.getElementById(`cs-${current}-h${i}`);
+          const el = document.getElementById(subId(project.id, current, i));
           if (el && viewTopOf(el) <= line) sub = el.id;
         });
       }
@@ -999,12 +1010,13 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
   const barRef = useRef(null);
   const lineRef = useRef(null);
   const lineTo = useRef(null);
+  /* Where the line ends: which chapter, and how far through its rows the
+     reader is. Written in the effect below rather than during the render —
+     React may render and throw the result away (a development double
+     render, an interrupted one), and a ref written then would keep a
+     chapter from a render that was never shown, for the ResizeObserver to
+     draw to later. */
   const lineAt = useRef({ k: -1, through: 1 });
-  {
-    const k = barChapter ? project.sections.findIndex((s) => s.id === barChapter) : -1;
-    const rows = k >= 0 ? steps.filter((st) => st.section?.id === barChapter) : [];
-    lineAt.current = { k, through: rows.length ? (rows.indexOf(onStage) + 1) / rows.length : 1 };
-  }
   useEffect(() => {
     if (!split) return undefined;
     const bar = barRef.current;
@@ -1038,8 +1050,12 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [split, project]);
   useEffect(() => {
+    if (!project) return;
+    const k = barChapter ? project.sections.findIndex((x) => x.id === barChapter) : -1;
+    const rows = k >= 0 ? steps.filter((st) => st.section?.id === barChapter) : [];
+    lineAt.current = { k, through: rows.length ? (rows.indexOf(onStage) + 1) / rows.length : 1 };
     lineTo.current?.();
-  }, [onStage]);
+  }, [onStage, barChapter, project, steps]);
   const barSub = split ? onStage?.sub : null;
   const firstStepOf = (sectionId) =>
     Math.max(
@@ -1117,11 +1133,11 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
     /* what the list will show from here to arrival: the target's chapter
        and, if the target is a subheading, that */
     const chapter = targetId
-      ? project.sections.find((s) => targetId.startsWith(`cs-${s.id}`))
+      ? project.sections.find((s) => targetId.startsWith(secId(project.id, s.id)))
       : null;
     travel.current = {
       chapter: chapter?.id ?? null,
-      sub: targetId && targetId !== `cs-${chapter?.id}` ? targetId : null,
+      sub: targetId && chapter && targetId !== secId(project.id, chapter.id) ? targetId : null,
     };
     setActiveId(travel.current.chapter);
     setActiveSub(travel.current.sub);
@@ -1295,7 +1311,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
                         <SplitText
                           key={item.index}
                           item={item}
-                          sectionId={st.section.id}
+                          idBase={secId(project.id, st.section.id)}
                           onDemo={() => setDemoOpen(true)}
                           demoHref={demoHref}
                         />
@@ -1326,7 +1342,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
                     const subs = project.screen
                       ? s.blocks
                           .map((b, i) =>
-                            b.type === "h" ? { id: `cs-${s.id}-h${i}`, text: b.text } : null,
+                            b.type === "h" ? { id: subId(project.id, s.id, i), text: b.text } : null,
                           )
                           .filter(Boolean)
                       : [];
@@ -1338,7 +1354,7 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
                         <button
                           type="button"
                           className={"cs-toc-item" + (activeId === s.id ? " is-current" : "")}
-                          onClick={() => scrollTo(`cs-${s.id}`)}
+                          onClick={() => scrollTo(secId(project.id, s.id))}
                         >
                           {s.label}
                         </button>
@@ -1389,13 +1405,13 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
 
               <div className="cs-sections" onClick={openFigure}>
                 {project.sections.map((s) => (
-                  <section key={s.id} id={`cs-${s.id}`} className="cs-section">
+                  <section key={s.id} id={secId(project.id, s.id)} className="cs-section">
                     <h2 className="cs-section-no">{s.label}</h2>
                     {s.blocks.map((b, i) => (
                       <Block
                         key={i}
                         block={b}
-                        id={b.type === "h" ? `cs-${s.id}-h${i}` : undefined}
+                        id={b.type === "h" ? subId(project.id, s.id, i) : undefined}
                         onDemo={() => setDemoOpen(true)}
                         demoHref={demoHref}
                       />

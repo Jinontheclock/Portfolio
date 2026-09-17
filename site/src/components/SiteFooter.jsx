@@ -1,5 +1,5 @@
 import Dropdown from "./Dropdown.jsx";
-import { LANG_LABELS } from "../i18n.js";
+import { LANG_LABELS, COPYRIGHT } from "../i18n.js";
 import { LANGS } from "../lib/lang-routes.js";
 import useFitToWidth from "../hooks/useFitToWidth.js";
 
@@ -47,7 +47,7 @@ export default function SiteFooter({ lang, setLang }) {
         )}
       </div>
       <span className="site-footer-copy" ref={copyRef}>
-        © HAJIN LEE 2026 All rights reserved | Designed &amp; built by Hajin Lee
+        {COPYRIGHT}
       </span>
     </footer>
   );

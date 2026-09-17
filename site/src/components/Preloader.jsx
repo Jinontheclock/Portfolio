@@ -22,6 +22,9 @@ export default function Preloader({ onDone }) {
   const [count, setCount] = useState(0);
   const [showCount, setShowCount] = useState(false);
   const [leaving, setLeaving] = useState(false);
+  /* the cover's own element, so it is not made inert along with the page
+     it covers */
+  const box = useRef(null);
   const doneRef = useRef(onDone);
   doneRef.current = onDone;
 
@@ -35,9 +38,23 @@ export default function Preloader({ onDone }) {
 
     // the hero videos hold their play-through while this cover is up
     beginCover();
+    /* The cover is opaque, so nothing under it can be read — but without
+       this, everything under it can still be reached: a screen reader is
+       handed the half-assembled page, and Tab walks the header and the
+       chapter list with the focus ring behind the cover. `inert` takes
+       the page out of the tree and out of the tab order for as long as
+       the cover holds. Its own element is skipped, and so is anything a
+       browser without inert would lose — the attribute is simply ignored
+       there, which is the old behaviour. */
+    const covering = [...(document.getElementById("root")?.children ?? [])].filter(
+      (el) => el !== box.current,
+    );
+    covering.forEach((el) => el.setAttribute("inert", ""));
+    const uncover = () => covering.forEach((el) => el.removeAttribute("inert"));
     const lift = () => {
       if (covered) {
         covered = false;
+        uncover();
         endCover();
       }
     };
@@ -108,6 +125,7 @@ export default function Preloader({ onDone }) {
 
     return () => {
       cancelled = true;
+      uncover();
       cancelAnimationFrame(raf);
       timers.forEach(clearTimeout);
       lift();
@@ -115,7 +133,11 @@ export default function Preloader({ onDone }) {
   }, []);
 
   return (
-    <div className={"lp-loader" + (leaving ? " is-leaving" : "")} aria-hidden="true">
+    <div
+      className={"lp-loader" + (leaving ? " is-leaving" : "")}
+      ref={box}
+      aria-hidden="true"
+    >
       {/* the count rides out to the stylesheet as well as into the text: the
           number darkens as it climbs, and which two colours it runs between
           is the stylesheet's business, not this component's */}

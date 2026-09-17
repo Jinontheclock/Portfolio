@@ -13,13 +13,14 @@
   // createMcpHandler and there is no class to bind or migrate.
 
   // CF_ACCOUNT_ID is not secret — it identifies an account, it does not open
-  // one — so it can live here in the open. The other two are secrets and are
-  // set with `wrangler secret put`, never written to this file:
+  // one — but it is not written here either, because a value in this file
+  // wins over one set anywhere else, and the empty string it used to hold
+  // won every deploy: every request answered 500 before it reached the
+  // gate. Pass it at deploy time, or set it once in the dashboard:
+  //   wrangler deploy --var CF_ACCOUNT_ID:<account id>
+  // The other two are secrets and are set with `wrangler secret put`:
   //   wrangler secret put CF_API_TOKEN
   //   wrangler secret put MCP_SHARED_SECRET
-  "vars": {
-    "CF_ACCOUNT_ID": ""
-  },
 
   "observability": {
     "enabled": true

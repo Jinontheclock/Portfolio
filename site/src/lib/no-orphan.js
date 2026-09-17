@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from "react";
+import { PHONE_QUERY } from "./media.js";
 
 /* Keeps a paragraph's last line from being one or two lonely words: the
    final two breaking spaces become non-breaking, so at least three words
@@ -18,8 +19,7 @@ import { useSyncExternalStore } from "react";
    greedily below it: each line fills, then breaks. The query is watched
    rather than read once, or a rotation would leave the paragraphs set for
    the width they no longer have. */
-const PHONE = "(max-width: 600px)";
-const mq = typeof window !== "undefined" ? window.matchMedia?.(PHONE) : null;
+const mq = typeof window !== "undefined" ? window.matchMedia?.(PHONE_QUERY) : null;
 
 const subscribe = (fn) => {
   mq?.addEventListener("change", fn);

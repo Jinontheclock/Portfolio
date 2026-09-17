@@ -5,6 +5,11 @@
    standard practice, so each visitor can find their own. */
 export const LANG_LABELS = { en: "English", ja: "日本語", ko: "한국어" };
 
+/* The footer's line, said the same way on the landing as on every inner
+   page — it was written out in both, so a year or a wording changed in
+   one of them disagreed with the other. */
+export const COPYRIGHT = "© HAJIN LEE 2026 All rights reserved | Designed & built by Hajin Lee";
+
 /* Landing page. `indent` hangs the first glyph's left side bearing so its
    ink starts exactly at the margin — all values measured from the bundled
    fonts (BoundsPen ink-left): EN/KO from Spoqa Neo, JA from the Spoqa JP
@@ -44,6 +49,10 @@ export const LANDING = {
    English, and a tab that alone switched script would read as a different
    site. */
 export const PAGE_TITLE = {
+  /* the landing's, which seo-routes.js also gives the prerendered shell as
+     DEFAULT_TITLE — the two are read side by side in a tab and a search
+     result, so they say the same thing */
+  home: { en: "HAJIN, Product Designer", ja: "HAJIN, Product Designer", ko: "HAJIN, Product Designer" },
   work: { en: "Work — HAJIN", ja: "Work — HAJIN", ko: "Work — HAJIN" },
   about: { en: "About — HAJIN", ja: "About — HAJIN", ko: "About — HAJIN" },
 };
