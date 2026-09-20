@@ -123,12 +123,36 @@
    painted flat, and the label underneath inverts instead of disappearing.
    The dark theme stops needing a rule of its own at the same time.
 
-   The flat fill is kept for anything that cannot blend. */
-@supports (mix-blend-mode: difference) {
-  .hl-cursor {
+   ── Why it is greyscale as well as inverted ──
+
+   Difference works a channel at a time, so over anything coloured the
+   inversion comes back coloured: over a Work card the dot turned the
+   card's complement, over a highlighted phrase the complement of the
+   project's ink. The cursor is not part of that colour and should not
+   join it.
+
+   So instead of painting a source to be differenced, the dot filters what
+   is behind it: grayscale first, which leaves the backdrop's luminance,
+   then invert, which turns that luminance inside out. The result is
+   always a grey, and always the opposite weight of whatever it is over —
+   dark on the page, light on ink, mid-grey on a mid-grey card, and never
+   a hue. The 0.96 is what lands the page ground on exactly the darkest
+   ink: 250 inverted whole is 5, and at 0.96 it is 15, which is #0F0F0F.
+
+   The flat fill is kept for anything that cannot blend, and the
+   difference blend for anything that can blend but cannot filter a
+   backdrop. */
+@supports (backdrop-filter: grayscale(1)) {
+  .hl-cursor:not(.-morph)::before {
+    background: transparent;
+    backdrop-filter: grayscale(1) invert(0.96);
+  }
+}
+@supports (mix-blend-mode: difference) and (not (backdrop-filter: grayscale(1))) {
+  .hl-cursor:not(.-morph) {
     mix-blend-mode: difference;
   }
-  .hl-cursor::before {
+  .hl-cursor:not(.-morph)::before {
     background: var(--cursor-fill-blend);
   }
 }
