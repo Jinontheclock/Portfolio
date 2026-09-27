@@ -182,7 +182,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The friction we heard most (overwhelm from fragmented, text-heavy information) is exactly what neurodivergent apprentices feel most sharply. ==Designing for that edge made ProLog clearer for every apprentice==.",
+          en: "The friction we heard most, overwhelm from fragmented information, is exactly what neurodivergent apprentices feel most sharply. ==Designing for that edge made ProLog clearer for every apprentice==.",
           ja: "最も多く聞いた不便は、散らばっていて文字ばかりの情報に圧倒される感覚でした。そしてそれは、ニューロダイバージェントな見習いが最も鋭く感じている、まさにその地点です。その端を基準に設計した結果、ProLogはすべての見習いにとってより明快なアプリになりました。",
           ko: "가장 많이 들은 불편은 흩어져 있고 글자만 많은 정보에 짓눌리는 느낌이었습니다. 그리고 이것은 신경다양인 견습생이 가장 날카롭게 느끼는 바로 그 지점입니다. 그 끝단을 기준으로 설계한 결과, ProLog는 모든 견습생에게 더 또렷한 앱이 되었습니다.",
         },
@@ -357,7 +357,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Task-based sessions with five apprentices surfaced three failures in the first build. ==All three fixes shipped before the showcase==, each one visible below, before and after.",
+          en: "Task-based sessions surfaced three failures in the first build. ==All three fixes shipped before the showcase==, each one visible below, before and after.",
           ja: "見習い5人と行ったタスクベースのセッションで、最初のビルドの失敗が三つ見つかりました。三件とも、ショーケースの前に修正を反映しています。下でそれぞれの修正前と修正後を見ることができます。",
           ko: "견습생 5명과 진행한 과업 기반 세션에서 첫 빌드의 실패 지점 세 곳이 드러났습니다. 세 건 모두 쇼케이스 전에 고쳐서 반영했고, 아래에서 수정 전과 후를 하나씩 볼 수 있습니다.",
         },
@@ -402,7 +402,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The identity and system were built across the eight-person team. My part was co-designing the components and implementing the full system in React Native.",
+          en: "The identity and system were built across the team. My part was co-designing the components and implementing the full system in React Native.",
           ja: "アイデンティティとシステムは8名のチーム全体で作りました。私が担当したのは、コンポーネントを共同でデザインすることと、システム全体をReact Nativeで実装することです。",
           ko: "아이덴티티와 시스템은 8명 팀이 함께 만들었습니다. 제가 맡은 부분은 컴포넌트를 함께 디자인한 것과, 시스템 전체를 React Native로 구현한 것입니다.",
         },

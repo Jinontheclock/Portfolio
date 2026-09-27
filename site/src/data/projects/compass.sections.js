@@ -85,7 +85,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Who is this for? Everyone the three surfaces already serve: commuters on stored value, the students who renew a U-Pass by hand each month, the concession riders who cannot buy their card from a machine, and visitors who arrive with a phone and no card. No interviews sit behind this project, and I found no published breakdown of riders by segment, so there is no segment chart here. Where a number exists this case study uses it; where it does not, nothing is invented.",
+          en: "Who is this for? Everyone the three surfaces already serve: commuters on stored value, the students who renew a U-Pass by hand each month, the concession riders on a reduced fare, and visitors who arrive with a phone and no card. I found no published breakdown of riders by segment, so there is no segment chart here: where a number exists this case study uses it, and where it does not, nothing is invented.",
           ja: "誰のためのものか。三つの接点がすでに相手にしているすべての人です。チャージ残高で通う通勤者、毎月手作業でU-Passを更新する学生、券売機で自分のカードを買えない割引資格の利用者、そしてカードを持たずスマートフォンだけで到着する訪問者。このプロジェクトの背後にインタビューはなく、利用者をセグメント別に分けた公開資料も見つかりませんでした。だからここにセグメントのチャートはありません。数字があるところではその数字を使い、ないところでは何も作っていません。",
           ko: "누구를 위한 것인가. 이미 세 접점이 상대하고 있는 모든 사람입니다. 충전 잔액으로 다니는 통근자, 매달 손으로 U-Pass를 갱신하는 학생, 무인 발매기에서 자기 카드를 살 수 없는 할인 대상 승객, 그리고 카드 없이 폰만 들고 도착한 방문객. 이 프로젝트 뒤에 인터뷰는 없고, 승객을 세그먼트로 나눈 공개 자료도 찾지 못했습니다. 그래서 여기에 세그먼트 차트는 없습니다. 숫자가 있는 곳에서는 그 숫자를 쓰고, 없는 곳에서는 아무것도 지어내지 않았습니다.",
         },
@@ -272,7 +272,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "A walk-on trip from Vancouver to Victoria crosses three fare systems, and BC Ferries says so itself: fares for each transit provider must be purchased separately. An adult foot passenger fare is $19.10 against $2.85 for a one-zone tap. ==The amounts are nothing alike, but the gesture is the same==. The two organizations already share retail touchpoints (the roadmap lists them).",
+          en: "A walk-on trip from Vancouver to Victoria crosses three fare systems, and BC Ferries says so itself: ==fares for each transit provider must be purchased separately==. The two organizations already share retail touchpoints (the roadmap lists them).",
           ja: "バンクーバーからビクトリアまで徒歩で向かう移動は、三つの運賃体系をまたぎます。BC Ferries自身がこう書いています。各交通事業者の運賃は別々に購入する必要がある、と。大人の徒歩乗船運賃は19.10ドル、1ゾーンのタッチは2.85ドルです。金額としては似ても似つきませんが、動作は同じです。二つの組織はすでに販売の窓口を共有しています。TsawwassenとHorseshoe Bayの両方にTransLinkの券売機が置かれ、チャージ済みのCompassカードが船内の売店で売られ、BC Ferriesは620番と257番を自社のTransLink接続路線として案内しています。",
           ko: "밴쿠버에서 빅토리아까지 걸어서 가는 여정은 세 개의 요금 체계를 지납니다. BC Ferries 스스로도 그렇게 적어 두었습니다. 각 교통사업자의 요금은 따로 구매해야 한다고. 성인 도보 승객 요금은 19.10달러, 1존 태그는 2.85달러입니다. 금액으로는 닮은 구석이 없지만, 동작은 같습니다. 두 조직은 이미 판매 창구를 공유하고 있습니다. Tsawwassen과 Horseshoe Bay 양쪽에 TransLink 무인 발매기가 서 있고, 충전된 Compass 카드가 선내 매점에서 팔리며, BC Ferries는 620번과 257번을 자사의 TransLink 연계 노선으로 안내합니다.",
         },
@@ -458,7 +458,7 @@ export default [
             ko: "확인 화면은 걸음을 멈추지 않는 동안에 읽혀야 합니다. 존, 차감된 요금, 남은 잔액 순서입니다. 승객이 궁금해하는 순서가 그렇기 때문입니다.",
           },
           {
-            en: "==Card clash disappears==. Today the guidance is to tap only your Compass Card, because a reader may pick a bank card out of the same wallet. When the Compass pass is the express transit card, the reader has already been told which one to take.",
+            en: "==Card clash disappears==: when the Compass pass is the express transit card, the reader has already been told which one to take.",
             ja: "カードのバッティングがなくなります。いまの案内は、Compassカードだけをタッチすること。リーダーが同じ財布の中のクレジットカードを読んでしまうことがあるからです。Compassのパスがエクスプレスカードに設定されていれば、リーダーはどれを読むかをすでに知らされています。",
             ko: "카드 충돌이 사라집니다. 지금의 안내는 Compass 카드만 태그하라는 것입니다. 리더기가 같은 지갑 속 신용카드를 집어 갈 수 있기 때문입니다. Compass 패스가 익스프레스 카드로 지정되어 있으면, 리더기는 어느 것을 집을지 이미 들은 상태입니다.",
           },
@@ -498,7 +498,7 @@ export default [
         type: "ba",
         graphic: "compass-fig-tap-motion",
         text: {
-          en: "The pass presents the same MIFARE DESFire EV1 profile the plastic card presents today, so from the reader's side nothing has to change. That is the point: the rider is not being asked to adopt a new payment method, and the agency is not being asked to replace a reader.",
+          en: "The pass presents the same MIFARE DESFire EV1 profile the plastic card presents today, so from the reader's side nothing has to change: no new payment method for the rider, no new reader for the agency.",
           ja: "パスは、いまプラスチックのカードが提示しているのと同じMIFARE DESFire EV1のプロファイルを提示します。リーダー側で変えるものは何もありません。そこが要点です。利用者に新しい決済手段を受け入れてくれと求めておらず、交通事業者にリーダーを取り替えてくれとも求めていません。",
           ko: "패스는 오늘 플라스틱 카드가 내보이는 것과 같은 MIFARE DESFire EV1 프로파일을 내보입니다. 리더기 쪽에서는 바뀔 것이 없습니다. 그게 핵심입니다. 승객에게 새 결제 수단을 받아들이라고 요구하지 않고, 운영 기관에 리더기를 교체하라고 요구하지도 않습니다.",
         },
@@ -649,7 +649,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Two more things live in this layer without a screen of their own in this case study. A sailing's status is checkable in the app, read-only in v1; the vehicle booking flow it will one day sit beside is sequenced for a later phase. And the simple questions that today mean a phone queue go to an in-app assistant first; anything it cannot answer is handed to a person. The service line and the counter both stay: ==this design adds front doors, it does not close the old ones==.",
+          en: "Two more things live in this layer without a screen of their own in this case study: a sailing's status, read-only in v1, and the simple questions that today mean a phone queue, which go to an in-app assistant first and to a person when it cannot answer. ==The service line and the counter both stay==.",
           ja: "このレイヤーには、このケーススタディで独立した画面を持たないものが、あと二つあります。一つは運航状況の確認です。v1では参照専用で、いつかその隣に並ぶ車両予約フローは後のフェーズに送っています。もう一つは、いまなら電話の待ち行列を意味する簡単な質問です。こうした質問はまずアプリ内のアシスタントへ渡り、答えられないものは人に引き継がれます。電話回線もカウンターも、どちらも残ります。この設計は入口を増やすものであって、もとからある入口を閉じるものではありません。",
           ko: "이 레이어에는 이 케이스스터디에 별도의 화면 없이 들어 있는 것이 두 가지 더 있습니다. 하나는 운항 상태 확인입니다. v1에서는 읽기 전용이고, 언젠가 그 옆에 놓일 차량 예약 흐름은 뒤 단계로 미뤄 두었습니다. 다른 하나는 오늘이라면 전화 대기열을 뜻하는 간단한 질문들입니다. 이런 질문은 먼저 앱 안의 어시스턴트로 가고, 답하지 못하는 것은 사람에게 넘어갑니다. 고객센터 전화선과 창구는 둘 다 남습니다. 이 설계는 들어오는 문을 늘리는 것이지, 원래 있던 문을 닫는 것이 아닙니다.",
         },

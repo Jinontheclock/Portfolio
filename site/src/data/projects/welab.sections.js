@@ -14,7 +14,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "A VFX studio's website is its showreel's front door: producers land on it deciding whether the studio is worth a call. WeLAB's site had ==fallen behind the work it was meant to sell==. The brief: refine the UX/UI, update the content, improve the architecture, and make the site fast, responsive, and findable, all of it up to the studio's own standard.",
+          en: "A VFX studio's website is its showreel's front door: producers land on it deciding whether the studio is worth a call. WeLAB's site had ==fallen behind the work it was meant to sell==. The brief: refine the UX/UI, update the content, improve the architecture, and make the site fast, responsive, and findable.",
           ja: "VFXスタジオのウェブサイトは、ショーリールへの玄関です。プロデューサーはここに降り立ち、このスタジオに連絡する価値があるかを判断します。WeLABのサイトは、そのサイトが売るべき作品に追いつけていませんでした。与件はこうです。UX/UIを磨き、コンテンツを更新し、構造を改善し、速く、レスポンシブで、検索から見つかるサイトにすること。スタジオ自身の基準に届くまで。",
           ko: "VFX 스튜디오의 웹사이트는 쇼릴로 들어가는 현관입니다. 프로듀서는 여기에 도착해 이 스튜디오에 연락할 가치가 있는지를 판단합니다. WeLAB의 사이트는 정작 그 사이트가 팔아야 할 작업물보다 뒤처져 있었습니다. 브리프는 이렇습니다. UX/UI를 다듬고, 콘텐츠를 갱신하고, 구조를 개선하고, 빠르고 반응형이며 검색에서 찾을 수 있는 사이트로 만들 것. 스튜디오 자신의 기준에 닿을 때까지.",
         },
@@ -306,7 +306,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The language work turned out custom, like the slider. Thirteen of the studio's project case studies (including every recent VFX feature) now carry their copy in both English and Spanish, switched by an EN/ES toggle in the header: each brief lives on the page in two languages, and the toggle decides which one a producer reads. The rest of the site holds English for now, but ==the pages that actually sell the work already speak the market's language==.",
+          en: "The language work turned out custom, like the slider. The studio's project case studies, every recent VFX feature among them, now carry their copy in both English and Spanish, switched by an EN/ES toggle in the header. The rest of the site holds English for now, but ==the pages that actually sell the work already speak the market's language==.",
           ja: "言語対応も、スライダーと同じく自前で作ることになりました。スタジオのプロジェクトケーススタディ13件が、いまは英語とスペイン語の二言語で本文を持っています。最近のVFX長編はすべて含まれます。切り替えはヘッダーのEN/ESトグルで行います。各プロジェクトの紹介文がページ上に二言語で同居し、プロデューサーがどちらを読むかはトグルが決めます。サイトの残りは当面は英語のままです。ただ、実際に作品を売っているページは、すでに市場の言語で話しています。",
           ko: "언어 작업도 슬라이더와 마찬가지로 직접 만드는 쪽이 됐습니다. 스튜디오의 프로젝트 케이스 스터디 13건이 이제 영어와 스페인어 두 언어로 본문을 갖고 있습니다. 최근 VFX 장편은 전부 포함됩니다. 전환은 헤더의 EN/ES 토글로 이뤄집니다. 각 프로젝트 소개글이 페이지 위에 두 언어로 함께 살아 있고, 프로듀서가 어느 쪽을 읽을지는 토글이 정합니다. 사이트의 나머지는 당분간 영어로 둡니다. 다만 실제로 작업을 파는 페이지는 이미 시장의 언어로 말하고 있습니다.",
         },
@@ -418,7 +418,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "WeLAB handed an intern full access to a production site, and ==that trust changed how carefully I shipped==. If I set up the next project, the asset pipeline comes first: knowing exactly which media exists, at what quality, before design starts. I'd also instrument the site from day one. The redesign shipped, but with no analytics baseline I can point to what I built, not yet to what it moved; next time I'd measure the before so the after has a number.",
+          en: "Being handed a production site ==changed how carefully I shipped==. If I set up the next project, the asset pipeline comes first: knowing exactly which media exists, at what quality, before design starts. I'd also instrument the site from day one. The redesign shipped, but with no analytics baseline I can point to what I built, not yet to what it moved; next time I'd measure the before so the after has a number.",
           ja: "WeLABはインターンに本番サイトのフルアクセスを渡しました。その信頼が、私がどれだけ慎重にリリースするかを変えました。次のプロジェクトを自分で立ち上げるなら、まずアセットパイプラインです。デザインを始める前に、どのメディアがどの品質で存在するのかを正確に把握しておくこと。そして、サイトへの計測を初日から入れます。リデザインはリリースされましたが、アナリティクスのベースラインがないため、私は自分が何を作ったかは示せても、それが何を動かしたかはまだ示せません。次は「前」を測って、「後」に数字がつくようにします。",
           ko: "WeLAB은 인턴에게 운영 사이트의 전체 권한을 넘겼습니다. 그 신뢰가 제가 얼마나 조심스럽게 배포하는지를 바꿔 놓았습니다. 다음 프로젝트를 제가 세팅한다면 에셋 파이프라인이 먼저입니다. 디자인을 시작하기 전에 어떤 미디어가 어떤 품질로 존재하는지를 정확히 아는 일입니다. 그리고 사이트에 계측을 첫날부터 붙이겠습니다. 리디자인은 배포됐지만, 애널리틱스 기준선이 없기 때문에 저는 제가 무엇을 만들었는지는 가리킬 수 있어도 그것이 무엇을 움직였는지는 아직 가리킬 수 없습니다. 다음에는 '전'을 측정해서 '후'에 숫자가 붙게 하겠습니다.",
         },

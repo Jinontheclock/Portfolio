@@ -417,7 +417,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "I built the site in code myself with Astro: semantic HTML, design-token CSS, and just enough JavaScript, with no CMS behind it. A rescue site is mostly content: cats, events and care guides. That made a static build the honest choice, fast and cheap to run, with a design system as the site's single source of truth.",
+          en: "I built the site in code with Astro: semantic HTML, design-token CSS, and just enough JavaScript, with no CMS behind it. A rescue site is mostly content: cats, events and care guides. That made a static build the honest choice, fast and cheap to run, with a design system as the site's single source of truth.",
           ja: "サイトはAstroを使って自分でコードを書きました。セマンティックなHTML、デザイントークンで組んだCSS、必要なぶんだけのJavaScript。CMSは置いていません。保護団体のサイトの中身は、ほとんどがコンテンツです。猫、イベント、ケアガイド。だとすれば静的なビルドが正直な選び方でした。速く、運用費が安く、そしてサイトの単一の情報源となるデザインシステムから組み上がります。",
           ko: "사이트는 Astro로 직접 코드를 썼습니다. 시맨틱 HTML, 디자인 토큰으로 짠 CSS, 딱 필요한 만큼의 JavaScript. CMS는 두지 않았습니다. 구조 단체 사이트의 내용은 대부분 콘텐츠입니다. 고양이, 행사, 케어 가이드. 그렇다면 정적 빌드가 정직한 선택이었습니다. 빠르고, 운영비가 적게 들고, 사이트의 단일 기준이 되는 디자인 시스템에서 만들어집니다.",
         },
