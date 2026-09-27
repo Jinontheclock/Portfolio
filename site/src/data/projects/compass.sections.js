@@ -256,7 +256,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "This app is one place to ride both systems: pay, manage, check, ask. v1 covers every TransLink mode (bus, SkyTrain, SeaBus, West Coast Express) plus BC Ferries foot passenger fares, read-only sailing status, and in-app support. Vehicle booking is in the product but last in the roadmap, because it needs the deepest partnership. BC Transit's Umo network waits for a phase of its own. And the plastic card stays. Four decisions shape the rest of this project, and ==each one is a bet==.",
+          en: "This app is one place to ride both systems: pay, manage, check, ask. v1 covers every TransLink mode plus BC Ferries foot passenger fares, read-only sailing status and in-app support; vehicle booking comes last in the roadmap because it needs the deepest partnership, and BC Transit's Umo network waits for a phase of its own. The plastic card stays. Four decisions shape the rest of this project, and ==each one is a bet==.",
           ja: "このアプリは、二つのシステムを一つの場所で乗るためのものです。支払い、管理、確認、問い合わせ。v1ではTransLinkのすべてのモード（バス、SkyTrain、SeaBus、West Coast Express）に加えて、BC Ferriesの徒歩乗船運賃、参照専用の運航状況、アプリ内サポートを設計します。車両予約はプロダクトの中にはありますが、ロードマップでは最後です。最も深い連携が必要だからです。BC TransitのUmoネットワークは、独立したフェーズを待ちます。そしてプラスチックのカードは残ります。四つの決定がこのプロジェクトの残りを形づくり、そのどれもが賭けです。",
           ko: "이 앱은 두 시스템을 한 자리에서 타기 위한 것입니다. 결제하고, 관리하고, 확인하고, 물어봅니다. v1은 TransLink의 모든 수단(버스, SkyTrain, SeaBus, West Coast Express)에 더해 BC Ferries의 도보 승객 요금, 읽기 전용 운항 정보, 앱 안의 문의 창구를 설계합니다. 차량 예약은 제품 안에 있지만 로드맵에서는 가장 뒤입니다. 가장 깊은 협력이 필요하기 때문입니다. BC Transit의 Umo 네트워크는 별도의 단계를 기다립니다. 그리고 플라스틱 카드는 남습니다. 네 개의 결정이 이 프로젝트의 나머지를 만들고, 각각은 승부수입니다.",
         },
@@ -816,7 +816,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "I started this project believing BC Ferries required foot passengers to reserve in advance, which would have made a single tap impossible without a booking system behind it. That was wrong: BC Ferries' own release says customers can arrive at the terminal and buy a foot passenger fare without booking ahead. ==Losing the premise made the case stronger==, because the friction sat in the sentence next to it: fares for each transit provider must be purchased separately. Three fare systems on one journey is a better problem than a booking requirement, and it is the one that actually exists.",
+          en: "I started this project believing BC Ferries required foot passengers to reserve in advance. That was wrong: BC Ferries' own release says a walk-on fare can be bought at the terminal, no booking needed. ==Losing the premise made the case stronger==, because the friction sat in the sentence next to it: fares for each transit provider must be purchased separately. Three fare systems on one journey is a better problem than a booking requirement, and it is the real one.",
           ja: "このプロジェクトを始めた時点で、私はBC Ferriesが徒歩乗船の利用者に事前予約を求めていると思い込んでいました。もしそうなら、背後に予約システムを用意しない限り、ワンタッチでの乗船は成り立ちません。しかし、それは誤りでした。BC Ferries自身のリリースによれば、利用者は予約なしでターミナルに着いてから徒歩乗船の運賃を購入できます。前提が崩れたことで、むしろケースは強くなりました。摩擦は、その隣の一文のほうにあったからです。各交通事業者の運賃は、それぞれ別に購入しなければならない。一つの移動に運賃体系が三つあるという問題は、予約義務よりも良い問題であり、何より実際に存在している問題です。",
           ko: "저는 이 프로젝트를 시작할 때 BC Ferries가 도보 승객에게 사전 예약을 요구한다고 알고 있었습니다. 그렇다면 뒤에 예약 시스템을 붙이지 않고서는 한 번의 태그가 불가능했을 겁니다. 그런데 그것이 틀렸습니다. BC Ferries가 직접 낸 보도자료에 따르면, 승객은 예약 없이 터미널에 도착해 도보 승객 요금을 구매할 수 있습니다. 전제가 무너지면서 오히려 케이스는 단단해졌습니다. 마찰은 그 옆 문장에 있었기 때문입니다. 각 교통 사업자의 요금은 따로 구매해야 한다는 것. 한 번의 여정에 요금 체계가 셋이라는 문제는 예약 의무보다 더 나은 문제이고, 무엇보다 실제로 존재하는 문제입니다.",
         },
@@ -862,7 +862,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The strongest evidence in this project came from things that were already published and things I could go and touch: a fare table, an RFP, a vending machine that will not sell a concession card. The weakest part is the part I could not do. I do not know how someone who has never used a transit wallet behaves on the first tap, and ==no amount of heuristic review substitutes for watching one person do it once==. If this went further, that is the first thing I would buy.",
+          en: "The strongest evidence here came from things already published and things I could go and touch: a fare table, an RFP, a vending machine. The weakest is what I could not do: I do not know how someone who has never used a transit wallet behaves on the first tap, and ==no amount of heuristic review substitutes for watching one person do it once==. If this went further, that is the first thing I would buy.",
           ja: "このプロジェクトで最も強い根拠は、すでに公開されていたものと、実際に足を運んで触れられたものから得られました。運賃表、入札公告、そして割引資格のカードを売ってくれない券売機。最も弱いのは、私にはできなかった部分です。交通ウォレットを一度も使ったことのない人が、最初のタッチでどう振る舞うのか、私は知りません。そしてヒューリスティック評価をどれだけ重ねても、一人が一度やるところを見ることの代わりにはなりません。この先へ進めるなら、まず買うのはそれです。",
           ko: "이 프로젝트에서 가장 강한 근거는 이미 공개돼 있던 것들과 제가 직접 가서 만져볼 수 있었던 것들에서 나왔습니다. 요금표, 입찰 공고, 그리고 할인 대상 카드는 팔지 않는 무인 발매기. 가장 약한 부분은 제가 하지 못한 부분입니다. 교통 지갑을 한 번도 써본 적 없는 사람이 첫 태그에서 어떻게 행동하는지 저는 모릅니다. 그리고 휴리스틱 리뷰를 아무리 돌려도, 한 사람이 한 번 하는 것을 지켜보는 일을 대신하지는 못합니다. 이 프로젝트를 더 끌고 간다면, 가장 먼저 사들일 것이 그것입니다.",
         },

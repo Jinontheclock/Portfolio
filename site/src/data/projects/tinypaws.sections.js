@@ -473,7 +473,7 @@ export default [
       {
         type: "p",
         text: {
-          en: '==Nothing on the site pretends to do more than it does==. Forms validate and confirm success without sending anything, and say so. The match quiz is plain additive scoring over the cats\' own records, and it is labeled a quiz rather than "AI". Donations and the gift shop run their full flows but stay labeled a demo, so no card details are asked for and nothing is charged. The pieces left out of scope, a forum and member logins, simply do not exist, so there are no dead ends.',
+          en: '==Nothing on the site pretends to do more than it does==. Forms validate and confirm without sending anything, and say so. The match quiz is additive scoring over the cats\' own records, labeled a quiz rather than "AI". Donations and the gift shop run their full flows but stay labeled a demo: no card details, nothing charged. A forum and member logins were out of scope, so they simply do not exist, and there are no dead ends.',
           ja: "このサイトには、実際にできること以上に見せかけている部分がありません。フォームは入力チェックと完了表示までしますが、送信は行わず、その旨も画面に書いてあります。マッチングクイズは猫自身の記録に点数を足していくだけの仕組みで、「AI」ではなくクイズとして表示しています。寄付とギフトショップは最後まで流れを通せますが、デモと明記してあるのでカード情報は聞かず、請求も発生しません。スコープから外したフォーラムと会員ログインは、そもそも置いていません。だから行き止まりもありません。",
           ko: "이 사이트에는 실제로 할 수 있는 것 이상으로 보이려는 부분이 없습니다. 폼은 입력 검증과 완료 표시까지 하지만 실제로 전송하지 않고, 그 사실을 화면에 적어 두었습니다. 매칭 퀴즈는 고양이 자신의 기록에 점수를 더해 가는 방식일 뿐이고, 'AI'가 아니라 퀴즈라고 표시했습니다. 후원과 기프트숍은 흐름을 끝까지 통과할 수 있지만 데모라고 명시했기 때문에 카드 정보를 묻지 않고 결제도 일어나지 않습니다. 범위에서 뺀 포럼과 회원 로그인은 아예 두지 않았습니다. 그래서 막다른 길도 없습니다.",
         },

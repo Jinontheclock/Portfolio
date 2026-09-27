@@ -146,7 +146,7 @@ export default [
         type: "ba",
         graphic: "welab-fig-old-studios",
         text: {
-          en: "Through the first half of 2025, WeLAB's slate ran through its Canadian studios, and the site matched: English only, built for the US and Canadian clients it already had. Then the studio's map changed. Starting with Shadow of God, a feature backed by Jalisco's film incentive program, the push into Mexico stopped being a plan and became a slate. The site's own services page was already selling those incentives, in English. ==Growth wasn't waiting on marketing; it was waiting on the website==.",
+          en: "Through the first half of 2025 WeLAB's slate ran through its Canadian studios, and the site matched: English only. Then the map changed. Starting with Shadow of God, a feature backed by Jalisco's film incentive program, Mexico stopped being a plan and became a slate, while the site's own services page was selling those incentives in English. ==Growth wasn't waiting on marketing; it was waiting on the website==.",
           ja: "2025年前半まで、WeLABのラインナップはカナダのスタジオを通して回っていて、サイトもそれに合っていました。英語のみ、すでに抱えている米国とカナダのクライアントに向けたサイトです。そこでスタジオの地図が変わりました。ハリスコ州の映像インセンティブ制度の支援を受けた長編『Shadow of God』を皮切りに、メキシコ進出は計画ではなく実際のラインナップになりました。当のサイトのServicesページは、そのインセンティブをすでに売っていました。しかも英語で。成長が待っていたのはマーケティングではなく、ウェブサイトでした。",
           ko: "2025년 상반기까지 WeLAB의 라인업은 캐나다 스튜디오들을 통해 돌아갔고, 사이트도 거기에 맞춰져 있었습니다. 영어 단일 언어, 이미 확보한 미국과 캐나다 클라이언트를 위한 사이트였습니다. 그러다 스튜디오의 지도가 바뀌었습니다. 할리스코주 영상 인센티브 제도의 지원을 받은 장편 〈Shadow of God〉을 시작으로, 멕시코 진출은 계획이 아니라 실제 라인업이 됐습니다. 정작 사이트의 Services 페이지는 그 인센티브를 이미 팔고 있었습니다. 그것도 영어로. 성장이 기다리고 있던 것은 마케팅이 아니라 웹사이트였습니다.",
         },
@@ -190,7 +190,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The before/after showcase asked for something Bricks doesn't have: no native component supports an interactive overlay driven by the cursor. Rather than reinvent the interaction, I picked a proven web component (img-comparison-slider), wired it into a custom HTML block, then wrote the chrome around it by hand, down to how it scales on mobile. The judgment was in ==knowing what to build and what to borrow==. The audit's first finding closed where it opened: the before now sits in the same frame as its after, one drag apart.",
+          en: "The before/after showcase asked for something Bricks doesn't have: no native component supports an overlay driven by the cursor. I picked a proven web component (img-comparison-slider), wired it into a custom HTML block and wrote the chrome around it by hand, down to how it scales on mobile. The judgment was in ==knowing what to build and what to borrow==. The before now sits in the same frame as its after, one drag apart.",
           ja: "ビフォー・アフターのショーケースは、Bricksにないものを求めました。カーソルで動くインタラクティブなオーバーレイをサポートするネイティブコンポーネントがありません。インタラクションを一から作り直すのではなく、実績のあるWebコンポーネントであるimg-comparison-sliderを選び、カスタムHTMLブロックに組み込み、その周辺のUIを自分で書きました。仕切り線、ハンドル、ラベル、そしてそれぞれがモバイルでどう縮むかまで。ホバーするかドラッグすると、元のフッテージが最終ショットへとほどけていきます。何を作り、何を借りるかを見極めることが、本当の判断でした。監査の最初の発見は、それが開いた場所で閉じました。ビフォーはいま、アフターと同じフレームの中、ドラッグ一回の距離にあります。",
           ko: "비포·애프터 쇼케이스는 Bricks에 없는 것을 요구했습니다. 커서로 움직이는 인터랙티브 오버레이를 지원하는 기본 컴포넌트가 없습니다. 인터랙션을 처음부터 다시 만드는 대신, 검증된 웹 컴포넌트인 img-comparison-slider를 골라 커스텀 HTML 블록에 짜 넣고, 그 주변 UI를 직접 작성했습니다. 구분선, 핸들, 라벨, 그리고 각각이 모바일에서 어떻게 줄어드는지까지. 호버하거나 드래그하면 원본 푸티지가 최종 샷으로 풀립니다. 무엇을 만들고 무엇을 빌려올지 판단하는 것이 진짜 결정이었습니다. 감사의 첫 번째 발견은 그것이 열린 자리에서 닫혔습니다. 비포는 이제 애프터와 같은 프레임 안에, 드래그 한 번 거리에 있습니다.",
         },
@@ -224,7 +224,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Rather than impose a top-down system, I reworked the flawed sections one at a time, directly in Bricks, realigning each to a consistent grid and tightening its spacing and hierarchy so the page read as ==one considered layout instead of a stack of one-offs==. Every section the audit flagged went back onto that grid. Rebuilding was also the moment to right-size the media: logos and UI graphics as SVG, photography and film stills as JPGs tuned to the resolution they actually render at, so no asset is heavier than the layout needs.",
+          en: "Rather than impose a top-down system, I reworked the flawed sections one at a time, directly in Bricks, realigning each to a consistent grid and tightening its spacing and hierarchy so the page read as ==one considered layout instead of a stack of one-offs==. Rebuilding was also the moment to right-size the media: logos and UI graphics as SVG, photography and film stills as JPGs at the resolution they actually render at.",
           ja: "上からシステムを押しつけるのではなく、問題のあるセクションを一つずつ作り直しました。Bricksで直接作業しながら、それぞれのセクションを一貫したグリッドに合わせ直し、余白と階層を締めています。ページが単発の寄せ集めではなく、一つの考え抜かれたレイアウトとして読まれるようにするためです。監査で指摘したセクションは、すべてそのグリッドの上に戻りました。作り直すタイミングは、メディアのサイズを正すタイミングでもありました。ロゴとUIグラフィックはSVGで、写真と映画スチルは実際にレンダリングされる解像度に合わせたJPGで。レイアウトが必要とする以上に重いアセットは、一つも残していません。",
           ko: "위에서부터 시스템을 내리누르는 대신, 문제가 있는 섹션을 하나씩 다시 만들었습니다. Bricks에서 바로 작업하면서, 각 섹션을 일관된 그리드에 다시 맞추고 여백과 위계를 조였습니다. 페이지가 일회성 결과물의 더미가 아니라 하나의 고민된 레이아웃으로 읽히게 하기 위해서였습니다. 감사에서 지적한 섹션은 전부 그 그리드 위로 돌아왔습니다. 다시 만드는 시점은 미디어의 크기를 바로잡을 시점이기도 했습니다. 로고와 UI 그래픽은 SVG로, 사진과 영화 스틸은 실제로 렌더링되는 해상도에 맞춘 JPG로. 레이아웃이 필요로 하는 것보다 무거운 에셋은 하나도 남기지 않았습니다.",
         },
@@ -263,7 +263,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The one mission that started in Figma. I designed the featured case-studies section as an argument for the studio's newest work, and for what a card owes a producer: the project, the scale, a reason to click. Five layouts went through the weekly loop. The direction from my supervisor was to keep ==three case studies in view at once==, with no scroll and no click, and three columns delivered it: room for each card to make its case, tight enough to compare at a glance, where the carousel hid two-thirds of the work and the rows dropped the third study below the fold. That was the layout built in Bricks.",
+          en: "I designed the featured case-studies section as an argument for the studio's newest work, and for what a card owes a producer: the project, the scale, a reason to click. Five layouts went through the weekly loop; the direction was to keep ==three case studies in view at once==, no scroll, no click. Three columns delivered it, where the carousel hid two-thirds of the work and the rows dropped the third below the fold.",
           ja: "Figmaで始めた唯一のミッションです。注目ケーススタディのセクションを、スタジオの最新作のための一つの主張として設計しました。カード一枚がプロデューサーに対して負っているもの、つまりプロジェクト、規模、そしてクリックする理由です。五つのレイアウトが週次のループを通りました。2カラム、3カラム、カルーセル、ホバーフォーカスの変種、全幅の横並び。指導担当からの方針は、ケーススタディ三つがスクロールもクリックもなしに一画面に収まること。それを実現したのが3カラムでした。カードごとに主張を展開する余白がありながら、一目で比べられるだけの密度がある。カルーセルは作品の三分の二を隠し、横並びは三つ目のケーススタディをファーストビューの外へ押し出しました。Bricksで作ったのは、このレイアウトです。",
           ko: "Figma에서 시작한 유일한 미션입니다. 대표 케이스 스터디 섹션을 스튜디오의 최신 작업을 위한 하나의 주장으로 설계했습니다. 카드 한 장이 프로듀서에게 빚지고 있는 것, 즉 프로젝트, 규모, 그리고 눌러야 할 이유입니다. 다섯 가지 레이아웃이 주간 루프를 거쳤습니다. 2컬럼, 3컬럼, 캐러셀, 호버 포커스 변형, 전체 폭 가로 행. 지도 담당자의 방향은 케이스 스터디 세 개가 스크롤도 클릭도 없이 한 화면에 들어와야 한다는 것이었고, 3컬럼이 그것을 해냈습니다. 카드마다 제 주장을 펼 여백이 있으면서, 한눈에 비교할 만큼 조밀했습니다. 캐러셀은 작업의 3분의 2를 감췄고, 가로 행은 세 번째 케이스 스터디를 첫 화면 밖으로 밀어냈습니다. Bricks에서 만든 것은 이 레이아웃입니다.",
         },
