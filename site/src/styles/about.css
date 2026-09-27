@@ -284,6 +284,27 @@
      section, and a section stretched to that would measure as overflowing
      the stage when it does not, and be pushed up for nothing */
   align-self: start;
+  position: relative;
+}
+/* Room under a tall section for the push to use. The stage pushes a
+   section that overflows the room up by how far it stands past the foot
+   (the fade above the copyright: see overflowOf in AboutPage.jsx), by
+   scrolling the content box — and the box can only scroll as far as its
+   scrollable overflow reaches, which ended at the section's own foot, so
+   the push stopped as much short as the fade is tall and the last lines
+   stayed under it. This hangs a blank, out-of-flow box the fade's height
+   below every section: it is in the content box's scrollable overflow,
+   so the push can go the whole way, and it is in nothing else — not the
+   section's height, which is what the stage measures, and not the row,
+   so Skills stays centred on it. */
+.page-screen .ab-section::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 1px;
+  height: calc(var(--footer-h) * 3);
+  pointer-events: none;
 }
 .page-screen .ab-section:not(:first-child) {
   visibility: hidden;

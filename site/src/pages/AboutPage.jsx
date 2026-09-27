@@ -77,6 +77,9 @@ const ABOUT = {
    line of its own — .xp-desc is `white-space: pre-line`, so the newlines
    below are the break. Keep one when adding a sentence. */
 const DESCRIPTIONS = {
+  hmart: {
+    en: "Design and produce the in-store graphics for about ten H Mart stores across BC: POP, posters for new products and promotions, event and notice signage, and the weekly flyer.\nManage H Mart's social media accounts and website, and post the weekly promotion designs to both.",
+  },
   welab: {
     en: "Redesigned and rebuilt the studio's public site in WordPress with Bricks Builder, writing custom code where the builder ran out.\nAdded multi-language support and new CTA components, and worked on the site's SEO.",
     ko: "스튜디오 공식 사이트를 WordPress와 Bricks Builder로 다시 설계하고 다시 만들었습니다. 빌더로 해결되지 않는 부분은 직접 코드를 썼습니다.\n다국어 지원과 새 CTA 컴포넌트를 추가했고, 사이트 SEO 작업에도 참여했습니다.",
@@ -100,6 +103,17 @@ const DESCRIPTIONS = {
 };
 
 const EXPERIENCES = [
+  {
+    id: "hmart",
+    title: "Graphic Designer Full-time",
+    org: "H Mart (BC HQ)",
+    period: {
+      en: "Sep 2026 – Present",
+      ko: "2026.09 – 현재",
+      ja: "2026.09 – 現在",
+    },
+    location: "Port Coquitlam, Canada",
+  },
   {
     id: "welab",
     title: "UI/UX Designer Intern",
