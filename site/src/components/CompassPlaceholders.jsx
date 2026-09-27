@@ -68,7 +68,6 @@ export const COMPASS_FIGURES = {
   "compass-fig-type": fig("05 · Type scale board", "foundations", 16 / 8),
   "compass-fig-colour": fig("05 · Colour + contrast board", "WCAG figures live here", 16 / 8),
   "compass-fig-component": fig("05 · Tap card component, every state", "foundations", 16 / 8),
-  "compass-fig-tap-motion": fig("05 · Tap confirmation — motion", "mp4, inline figure", 16 / 9),
   /* 07 On the Wrist */
   "compass-fig-watch": fig("07 · Watch screens", "3–5 screens", 16 / 7),
   /* 08 What Held Up, What Didn't */

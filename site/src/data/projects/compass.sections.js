@@ -143,7 +143,8 @@ export default [
         type: "figure",
         graphic: "compass-fig-cvm",
         caption: {
-          en: "A Compass Vending Machine.",
+          /* no caption in English: the sub-heading names the machine, the photographs' own notes say the rest */
+          en: "",
           ja: "Compassの券売機。即時反映のチャージと、売られていない割引カード。",
           ko: "Compass 무인 발매기. 즉시 반영되는 충전, 그리고 팔지 않는 할인 카드.",
         },
@@ -332,16 +333,6 @@ export default [
           ko: "모두가 스마트폰을 들고 다니지는 않습니다. 할인 대상 승객은 오늘 무인 발매기에서 카드를 살 수 없고, 그래서 그들이 이미 찾아가야 하는 창구는 이 설계가 대체할 수 없는 유일한 자리입니다. 그리고 카드에는 6달러 보증금이 들어 있고 유효기간이 없습니다. 이 설계는 폰을 더하는 것이지, 카드를 빼앗는 것이 아닙니다.",
         },
       },
-      {
-        type: "figure",
-        graphic: "compass-fig-wireframes",
-        caption: {
-          /* no caption in English: the board says what it is itself */
-          en: "",
-          ja: "最初の試案。まだ何ひとつ、何かのように見えていなかった段階。",
-          ko: "첫 시안. 아직 아무것도 무엇처럼 보이지 않던 단계.",
-        },
-      },
     ],
   },
   {
@@ -495,17 +486,11 @@ export default [
         },
       },
       {
-        type: "ba",
-        graphic: "compass-fig-tap-motion",
+        type: "p",
         text: {
           en: "The pass presents the same MIFARE DESFire EV1 profile the plastic card presents today, so from the reader's side nothing has to change: no new payment method for the rider, no new reader for the agency.",
           ja: "パスは、いまプラスチックのカードが提示しているのと同じMIFARE DESFire EV1のプロファイルを提示します。リーダー側で変えるものは何もありません。そこが要点です。利用者に新しい決済手段を受け入れてくれと求めておらず、交通事業者にリーダーを取り替えてくれとも求めていません。",
           ko: "패스는 오늘 플라스틱 카드가 내보이는 것과 같은 MIFARE DESFire EV1 프로파일을 내보입니다. 리더기 쪽에서는 바뀔 것이 없습니다. 그게 핵심입니다. 승객에게 새 결제 수단을 받아들이라고 요구하지 않고, 운영 기관에 리더기를 교체하라고 요구하지도 않습니다.",
-        },
-        caption: {
-          en: "The confirmation, in the time it actually takes.",
-          ja: "実際にかかる時間の中での、確認画面。",
-          ko: "실제로 걸리는 시간 안에서의 확인 화면.",
         },
       },
       {
@@ -532,6 +517,16 @@ export default [
           en: "This is the layer that can take as long as it needs. Every task in it is one that compasscard.ca, a vending machine or a phone call holds today. The lo-fi board's first pass spread it across four tabs; working the structure against a card-first model folded it into two (Compass Card and Tickets), with the account behind a single button.",
           ja: "ここが、必要なだけ時間をかけていいレイヤーです。この中のすべての作業は、いまcompasscard.caや券売機、あるいは電話が抱えているものです。ローファイのボードの最初の試案では、これを四つのタブに広げていました。カードを起点にしたモデルで構造を組み直すと、二つに畳まれました。Compass CardとTickets、そしてアカウントはボタン一つの奥へ。",
           ko: "여기가 필요한 만큼 시간을 써도 되는 레이어입니다. 이 안의 모든 작업은 오늘 compasscard.ca나 무인 발매기, 또는 전화가 쥐고 있는 것들입니다. 로파이 보드의 첫 시안은 이것을 네 개의 탭으로 펼쳐 놓았습니다. 카드를 기준으로 구조를 다시 밀어 보니 두 개로 접혔습니다. Compass Card와 Tickets, 그리고 계정은 버튼 하나 뒤로 들어갔습니다.",
+        },
+      },
+      {
+        type: "figure",
+        graphic: "compass-fig-wireframes",
+        caption: {
+          /* no caption in English: the board says what it is itself */
+          en: "",
+          ja: "最初の試案。まだ何ひとつ、何かのように見えていなかった段階。",
+          ko: "첫 시안. 아직 아무것도 무엇처럼 보이지 않던 단계.",
         },
       },
       {

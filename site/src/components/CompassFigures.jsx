@@ -12,7 +12,6 @@ import componentImg from "../assets/compass/compass-fig-component.webp";
 import auditImg from "../assets/compass/compass-fig-audit.webp";
 import taskTableImg from "../assets/compass/compass-fig-task-table.webp";
 import tapMomentImg from "../assets/compass/compass-fig-tap-moment.webp";
-import { useEffect, useRef } from "react";
 import CompassLofiBoard from "./CompassLofiBoard.jsx";
 import CompassWatchRow from "./CompassWatchRow.jsx";
 
@@ -27,56 +26,12 @@ const art = (src, alt) => {
   return C;
 };
 
-/* The tap confirmation, moving. The clip is the phone's whole screen, so it
-   is shown at the phone's proportions and capped narrow rather than run to
-   the column width — a 2.82s loop whose first and last frames are the same
-   pixels, so the seam cannot be seen.
-   It plays only while it is on screen, and a reader who has asked for less
-   motion gets the still the poster already holds: the confirmation, which
-   is the part the figure is about. */
-const TAP_MOTION = `${import.meta.env.BASE_URL}media/compass-card/compass-tap-motion.mp4`;
-const TAP_MOTION_POSTER = `${import.meta.env.BASE_URL}media/compass-card/compass-tap-motion-poster.jpg`;
-
-function TapMotionFigure() {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const video = ref.current;
-    if (!video) return undefined;
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return undefined;
-
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        video.muted = true;
-        video.play().catch(() => {});
-      } else video.pause();
-    });
-    io.observe(video);
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <video
-      ref={ref}
-      className="cs-compass-motion"
-      src={TAP_MOTION}
-      poster={TAP_MOTION_POSTER}
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      aria-label="The tap confirmation opening and closing: the history row unfolds to show the two taps, what the card was left holding, and the way back to the gate screen, then folds away again"
-    />
-  );
-}
-
 export const COMPASS_ARTWORK = {
   /* 05 One Tap, Every Ride */
   "compass-fig-tap-moment": art(
     tapMomentImg,
     "The tap, photographed at the gate. An iPhone held one-handed against the round Compass reader on a SkyTrain fare gate, its screen showing the Wallet pass in Express Mode — the blue Compass card at the top of the stack, Balance CAD$15.00, Hold Near Reader — with the rest of the wallet, a bank card, behind it. The reader wears the Compass wordmark, the contactless waves and the network marks; the gate beside it carries another reader, and the row of gates runs on behind. Nothing was opened, unlocked or read: the phone was already in hand",
   ),
-  "compass-fig-tap-motion": TapMotionFigure,
 
   /* 01 Context */
   "compass-fig-timeline": art(

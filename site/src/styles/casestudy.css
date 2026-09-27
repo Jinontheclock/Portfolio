@@ -1463,22 +1463,6 @@
   height: auto;
   background: #0f0f0f;
 }
-/* a clip that is a whole phone screen rather than a film: shown at the
-   phone's own width so the type in it stays the size the app draws it */
-.cs-compass-motion {
-  display: block;
-  width: 100%;
-  max-width: 350px;
-  height: auto;
-  margin-inline: auto;
-  border-radius: 16px;
-  border: 1px solid var(--grey-100, #e5e5e5);
-}
-/* in its side-by-side seat the clip sits at the lo-fi frames' height —
-   348px tall at the phone's own proportions is a 160px width */
-.cs-ba-set-media .cs-compass-motion {
-  max-width: 160px;
-}
 .cs-insta-stack {
   display: flex;
   flex-direction: column;
@@ -2162,18 +2146,6 @@
    stage's own gap already gives it */
 .cs-split .cs-quote {
   margin: 20px 0;
-}
-/* the tap clip in its cell: on the cell's left, at the phone's own width
-   where the stage's room allows it, and no taller than the room less its
-   caption where it does not — the height is what is set, and the width
-   follows from the clip's proportion, so the row never overflows and the
-   stage never gives it a step to scroll */
-.cs-split .cs-ba-set-media .cs-compass-motion {
-  width: auto;
-  height: min(calc(var(--cs-stage-room) - 32px), calc(350px * 1748 / 804));
-  max-width: none;
-  aspect-ratio: 804 / 1748;
-  margin-inline: 0;
 }
 /* the ProLog hero hugs the window's right edge on the stacked page; in a
    cell it keeps to the cell */
