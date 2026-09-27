@@ -14,7 +14,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Becoming a certified tradesperson in British Columbia takes about four years: roughly ==6,000 logged work hours==, four levels of technical training, and around a hundred competencies per level, all verified against SkilledTradesBC records.",
+          en: "Becoming a certified tradesperson in British Columbia takes about four years and roughly ==6,000 logged work hours==.",
           ja: "ブリティッシュコロンビア州で資格を取得した技能者になるまでには、約4年かかります。記録された就業時間およそ6,000時間、技術訓練4レベル、レベルごとに約100の技能項目。そのすべてがSkilledTradesBCの記録と照合して検証されます。",
           ko: "브리티시컬럼비아주에서 자격을 취득한 기능인이 되기까지는 약 4년이 걸립니다. 기록된 근무 시간 약 6,000시간, 기술 교육 4개 레벨, 레벨마다 약 100개의 역량 항목. 이 전부를 SkilledTradesBC 기록과 대조해 검증받아야 합니다.",
         },
@@ -31,7 +31,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "That information lives in scattered places: official portals unfit for mobile, PDF competency documents, separate finance resources, and union forums.",
+          en: "Everything an apprentice needs to track it is scattered across four systems, none of them built for a phone.",
           ja: "その情報はあちこちに散らばっています。モバイルに向いていない公式ポータル、PDFの技能項目の資料、別々に置かれた資金関連の情報、そして労組のフォーラム。",
           ko: "그 정보는 여기저기 흩어져 있습니다. 모바일에 맞지 않는 공식 포털, PDF로 된 역량 항목 문서, 따로 떨어져 있는 재정 관련 자료, 그리고 노조 포럼.",
         },
@@ -71,7 +71,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Apprentices can see their past hours, but nothing shows where they stand or what comes next. Across Canada, only 16% of apprentices earn certification within their program's expected duration, and even given twice that time, roughly four in ten never certify at all. ==The requirements are clear on paper; the journey is not==.",
+          en: "Apprentices can see their past hours, but nothing shows where they stand or what comes next. ==The requirements are clear on paper; the journey is not==.",
           ja: "見習いは過ぎた時間は見られますが、いま自分がどこにいるのかも、次に何が来るのかも、どこにも出てきません。カナダ全体で、課程が想定する期間内に資格を取得する見習いは16%だけです。その倍の時間をかけても、10人に4人ほどは最後まで資格を取得できません。要件は書類の上でははっきりしています。はっきりしないのは道のりのほうです。",
           ko: "견습생은 지나간 시간은 볼 수 있지만, 지금 어디에 서 있는지도 다음에 무엇이 오는지도 어디에도 나오지 않습니다. 캐나다 전체에서 과정이 예정한 기간 안에 자격을 취득하는 견습생은 16%뿐입니다. 그 두 배의 시간을 줘도 10명 중 4명 정도는 끝내 자격을 취득하지 못합니다. 요건은 문서상으로는 분명합니다. 분명하지 않은 것은 여정입니다.",
         },
@@ -88,7 +88,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The sharpest concern in our interviews: discrepancies between the hours apprentices actually worked and the hours officially recorded, with no clear way to fix them. What proof counts? Who do you escalate to? ==Hard-earned progress quietly goes missing==, which delays the next level and drains motivation.",
+          en: "The sharpest concern in our interviews: discrepancies between the hours apprentices actually worked and the hours officially recorded. ==Hard-earned progress quietly goes missing==, which delays the next level and drains motivation.",
           ja: "インタビューで最も鋭く出てきた不安はこれでした。実際に働いた時間と公式に記録された時間が食い違うのに、それを直す道筋がはっきりしないこと。どの証拠が認められるのか。誰に申し立てればいいのか。苦労して積み上げた進捗が音もなく消え、次の段階が遅れ、意欲が削られます。",
           ko: "인터뷰에서 가장 날카롭게 나온 걱정은 이것이었습니다. 실제로 일한 시간과 공식적으로 기록된 시간이 어긋나는데, 그것을 바로잡을 방법이 분명하지 않다는 것. 어떤 증빙이 인정될까? 누구에게 이의를 제기해야 할까? 힘들게 쌓은 진행 상황이 소리 없이 사라지고, 다음 단계가 늦어지고, 의욕이 깎입니다.",
         },
@@ -119,7 +119,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "We surveyed and interviewed twelve apprentices across BC (electrical, plumbing, HVAC, welding, power engineering, ironworking, and landscaping), from first-year apprentices to journeypersons, union and non-union alike. Alongside, we reviewed the ecosystem they navigate: SkilledTradesBC portals and success-story profiles, competency documents, and the forum threads where apprentices ask each other what the official channels don't answer.",
+          en: "We surveyed and interviewed twelve apprentices across BC, seven trades from first-year to journeyperson. Alongside, we reviewed the ecosystem they navigate: SkilledTradesBC portals and success-story profiles, competency documents, and the forum threads where apprentices ask each other what the official channels don't answer.",
           ja: "私たちはBC州全域の見習い12人に調査とインタビューを行いました。電気、配管、空調、溶接、動力設備、鉄骨、造園。1年目の見習いから資格を取得した熟練工まで、労組加入・非加入を問わず話を聞きました。あわせて、彼らがたどるエコシステムも調べました。SkilledTradesBCのポータルと資格取得者の紹介記事、技能項目の資料、そして公式の窓口が答えてくれないことを見習い同士が尋ね合うフォーラムのスレッドまで。",
           ko: "저희는 BC주 전역의 견습생 12명을 설문하고 인터뷰했습니다. 전기, 배관, 냉난방공조, 용접, 동력 설비, 철골, 조경. 1년 차 견습생부터 자격을 취득한 숙련공까지, 노조 소속과 비소속을 가리지 않았습니다. 이와 함께 이들이 헤쳐 나가는 생태계도 살펴봤습니다. SkilledTradesBC 포털과 자격 취득 사례 소개, 역량 항목 문서, 그리고 공식 창구가 답해 주지 않는 것을 견습생끼리 서로 묻는 포럼 스레드까지.",
         },
@@ -129,27 +129,11 @@ export default [
         type: "stats",
         items: [
           {
-            value: "11/12",
-            label: {
-              en: "knew their next-level requirements: the information just lived in four different places",
-              ja: "次のレベルの要件を知っていた。情報が4か所に分かれていただけ",
-              ko: "다음 레벨의 요건을 알고 있었다. 정보가 4곳에 나뉘어 있었을 뿐",
-            },
-          },
-          {
             value: "10/12",
             label: {
               en: "had been asked to work above or below their level",
               ja: "自分のレベルより上または下の仕事を求められたことがある",
               ko: "자기 레벨보다 높거나 낮은 일을 요구받은 적이 있다",
-            },
-          },
-          {
-            value: "9/12",
-            label: {
-              en: "named the phone as their primary device",
-              ja: "スマートフォンを主な端末に挙げた",
-              ko: "스마트폰을 주 사용 기기로 꼽았다",
             },
           },
           {
@@ -206,7 +190,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "We distilled these into two contrasting personas: Izzy, a Level 2 apprentice finding her footing with sticky notes and handmade study guides, and Jordan, a Level 4 veteran closing out his ticket, overwhelmed by wordy PDFs and long resource lists. They kept every feature decision anchored to a real person's week.",
+          en: "We distilled these into two contrasting personas, Izzy and Jordan, who kept every feature decision anchored to a real person's week.",
           ja: "これらを、対照的な二つのペルソナに絞り込みました。ふせんと自作の学習資料でどうにか進捗をつなぎとめている、ようやく足場を固めつつあるレベル2のIzzy。そして、言葉の多いPDFと長い資料リストに圧倒されながら資格取得を終えようとしている、レベル4のベテランJordanです。この二人が、すべての機能の判断を実在する一人の一週間につなぎとめました。",
           ko: "이것들을 서로 대비되는 페르소나 둘로 압축했습니다. 포스트잇과 직접 만든 학습 자료로 겨우 진행 상황을 붙들고 있는, 이제 막 자리를 잡아 가는 레벨 2의 Izzy. 그리고 말 많은 PDF와 긴 자료 목록에 짓눌린 채 자격 취득을 마무리하는, 레벨 4 베테랑 Jordan입니다. 이 둘이 모든 기능 결정을 실제 한 사람의 한 주에 붙들어 두었습니다.",
         },
@@ -296,14 +280,14 @@ export default [
             ko: "모든 수치는 탭할 수 있습니다. 시간은 역량 항목별로 쪼개져 나오고, 견습생은 막다른 화면에 부딪히는 대신 자기 진행 상황을 직접 파고들 수 있습니다.",
           },
           {
-            en: "For Izzy, who holds her progress together across sticky notes and a paper journal, one tappable total replaces the pile she used to reconstruct by hand.",
+            en: "For Izzy, one tappable total replaces the pile of sticky notes she used to reconstruct by hand.",
             ja: "ふせんと紙の手帳にまたがって進捗をどうにかつなぎとめていたIzzyにとっては、タップできる合計が一つあるだけで、手で組み直していたあの山の代わりになります。",
             ko: "포스트잇과 종이 수첩에 걸쳐 진행 상황을 겨우 붙들고 있던 Izzy에게는, 탭할 수 있는 합계 하나가 손으로 일일이 맞춰 보던 그 더미를 대신합니다.",
           },
         ],
         media: ["journey-dashboard-1", "journey-dashboard-2", "journey-dashboard-3"],
         caption: {
-          en: "The dashboard: journey path, hours, competencies, and what's next, all on one screen.",
+          en: "The dashboard, as Level 3 unlocks.",
           ja: "道のりの経路、時間、技能項目、次にやること。ダッシュボードの一画面です。",
           ko: "여정 경로, 시간, 역량 항목, 다음에 할 일. 대시보드 한 화면입니다.",
         },
@@ -325,7 +309,7 @@ export default [
         ],
         media: ["manual-scanning", "work-paystub-records", "work-hours"],
         caption: {
-          en: "Scan a paystub, keep the record, catch the gap: the discrepancy flag does the chasing.",
+          en: "Paystub scan, paystub records, and the discrepancy flag.",
           ja: "給与明細をスキャンし、記録を残し、抜けを捕まえます。追いかける仕事は不一致の検知が肩代わりします。",
           ko: "급여명세서를 스캔하고, 기록을 남기고, 빈틈을 잡아냅니다. 쫓아다니는 일은 불일치 감지가 대신합니다.",
         },
@@ -350,14 +334,14 @@ export default [
             ko: "알림은 사용자 자신의 기록에서 자동으로 만들어집니다. 일요일이 수업료 납부일, 31일까지 고용보험(EI) 신청, 다음 주 금요일에 만료되는 자격증.",
           },
           {
-            en: "For Jordan, a Level 4 who dreads the wordy PDFs and buried deadlines, the grant he qualifies for and his ticket-renewal date surface before he has to go hunting for them.",
+            en: "For Jordan, the grant he qualifies for and his ticket-renewal date surface before he has to go hunting for them.",
             ja: "言葉の多いPDFと、どこかに埋もれた期限にうんざりしているレベル4のJordanにとっては、受け取る資格のある助成金と資格の更新日が、自分で探しに行く前に先に出てきます。",
             ko: "말 많은 PDF와 어딘가에 묻혀 있는 기한을 질색하는 레벨 4 Jordan에게는, 받을 자격이 되는 보조금과 자격증 갱신일이 찾아 나서기 전에 먼저 올라옵니다.",
           },
         ],
         media: ["work-finance", "competency-exam-prep", "dashboard-reminder"],
         caption: {
-          en: "Finance, study, and reminders: the support apprentices used to hunt for.",
+          en: "Finance, study, and reminders.",
           ja: "お金、学習、リマインダー。見習いが自分で探し回るしかなかった支援です。",
           ko: "재정, 학습, 알림. 견습생이 직접 찾아다녀야 했던 지원입니다.",
         },
@@ -451,7 +435,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Industrial-inspired neutrals ground the interface, with ==a single bold orange reserved for progress and key actions==. That rule carries through every interactive state: orange for actions you can take now, gray for information that waits, dimmed for steps not yet unlocked.",
+          en: "Industrial-inspired neutrals ground the interface, with ==a single bold orange reserved for progress and key actions==: gray is information that waits, dimmed is a step not yet unlocked.",
           ja: "工業現場から取ったニュートラルカラーがインターフェースの土台をつくり、濃いオレンジ一色だけを進捗と主要な操作に残します。このルールはすべてのインタラクション状態にそのまま通ります。いま実行できる操作はオレンジ、待っている情報はグレー、まだ解放されていない段階は暗く。",
           ko: "산업 현장에서 가져온 뉴트럴 색이 인터페이스의 바닥을 잡아 주고, 진한 주황 하나만 진행 상황과 핵심 동작에 남겨 둡니다. 이 규칙은 모든 인터랙션 상태에 그대로 이어집니다. 지금 할 수 있는 동작은 주황, 기다리는 정보는 회색, 아직 열리지 않은 단계는 흐리게.",
         },
@@ -468,7 +452,7 @@ export default [
       {
         type: "p",
         text: {
-          en: 'The type system prioritizes glanceability, with clear weight contrast, generous sizing, and ==numerals treated as first-class content==: "You\'ve completed 1,240 hours, keep going."',
+          en: "The type system prioritizes glanceability: clear weight contrast, generous sizing, and ==numerals treated as first-class content==.",
           ja: "タイプシステムが最優先するのは、ひと目で読み取れることです。ウェイトのコントラストをはっきりさせ、サイズを大きめに取り、数字を本文と対等なコンテンツとして扱います。たとえば「You've completed 1,240 hours, keep going.」のように。",
           ko: '타입 시스템은 한눈에 읽히는 것을 가장 앞에 둡니다. 굵기 대비를 분명히 하고, 크기를 넉넉하게 잡고, 숫자를 본문과 동등한 콘텐츠로 다룹니다. 예를 들면 "You\'ve completed 1,240 hours, keep going."처럼.',
         },
@@ -485,7 +469,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The identity extends to a promotional campaign (video, brochure, billboard, stickers, and social media) built on the same visual system.",
+          en: "The identity extends to a promotional campaign built on the same visual system.",
           ja: "アイデンティティは、プロモーションのキャンペーンにも広がります。映像、パンフレット、屋外広告、ステッカー、ソーシャルメディア。どれも同じビジュアルシステムの上で作りました。",
           ko: "아이덴티티는 홍보 캠페인까지 이어집니다. 영상, 브로슈어, 옥외 광고, 스티커, 소셜 미디어. 전부 같은 비주얼 시스템 위에서 만들었습니다.",
         },
@@ -577,7 +561,7 @@ export default [
         graphics: ["prolog-showcase-stage", "prolog-showcase-crowd", "prolog-showcase-booth"],
         caption: {
           en: [
-            "The 6,000-hour story told live, a full house, and the Mayor of Burnaby at the ProLog booth. ",
+            "On stage, the full house, and the ProLog booth. ",
             {
               text: "Photos: Carlos M Bonmatí / BCIT",
               href: "https://www.flickr.com/photos/bcitbusiness/albums/72177720330795756/with/54972788549",

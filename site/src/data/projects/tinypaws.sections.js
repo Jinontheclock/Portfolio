@@ -82,7 +82,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "We distilled these findings into two personas: Emily (an experienced multi-cat owner) and Alex (a first-time adopter who needs guidance).",
+          en: "We distilled these findings into two personas, Emily and Alex.",
           ja: "この結果を二つのペルソナにまとめました。多頭飼いの経験があるEmilyと、初めてで案内を必要とするAlexです。",
           ko: "이 결과를 두 개의 페르소나로 정리했습니다. 여러 마리를 키워 본 Emily, 그리고 처음이라 안내가 필요한 Alex입니다.",
         },
@@ -118,7 +118,7 @@ export default [
         type: "figure",
         graphic: "tinypaws-fig-sitemap",
         caption: {
-          en: "One map, three goals: the structure the whole site hangs on.",
+          en: "The structure the whole site hangs on.",
           ja: "一枚の地図に、三つの目的。サイト全体がここに掛かっています。",
           ko: "지도 한 장에 목적 셋. 사이트 전체가 여기에 걸려 있습니다.",
         },
@@ -126,7 +126,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Low-fidelity wireframes tested that structure before any visual identity existed: hierarchy, navigation, and flows in gray boxes.",
+          en: "Low-fidelity wireframes tested that structure before any visual identity existed.",
           ja: "ビジュアルアイデンティティができる前に、ローファイのワイヤーフレームでこの構造を検証しました。階層、ナビゲーション、導線を、グレーの箱だけで確かめています。",
           ko: "비주얼 아이덴티티가 나오기 전에 로파이 와이어프레임으로 이 구조를 검증했습니다. 위계와 내비게이션, 흐름을 회색 상자만으로 확인했습니다.",
         },
@@ -165,7 +165,7 @@ export default [
         type: "figure",
         graphic: "tinypaws-ba-nav",
         caption: {
-          en: "Menu labels read as interchangeable, so visitors landed on the wrong pages. Navigation was relabeled around the three goals.",
+          en: "Menu labels read as interchangeable, so visitors landed on the wrong pages.",
           ja: "メニューのラベルがどれも同じ意味に読めてしまい、訪問者は違うページにたどり着いていました。ナビゲーションを三つの目的に沿って付け直しました。",
           ko: "메뉴 라벨이 서로 구분되지 않아 방문자가 엉뚱한 페이지에 도착했습니다. 내비게이션을 세 가지 목적에 맞춰 다시 이름 붙였습니다.",
         },
@@ -260,7 +260,7 @@ export default [
             ko: "삼색 고양이에서 가져온 팔레트는 친근한 인상을 유지하면서도 위계를 뭉개지 않습니다.",
           },
           {
-            en: "Body text (#301800 on cream) reads at 15.7:1, well past AA. Primary CTAs use the brand orange (#DC6E00) for immediate recognition.",
+            en: "Body text on cream reads at 15.7:1, well past AA; primary CTAs take the brand orange for immediate recognition.",
             ja: "本文はクリーム地に#301800で、コントラスト比15.7:1。AAの基準を大きく上回ります。主要なCTAにはブランドカラーのオレンジ（#DC6E00）を使いました。",
             ko: "본문은 크림 배경에 #301800으로 대비 15.7:1이며, AA 기준을 크게 넘습니다. 주요 CTA에는 브랜드 오렌지(#DC6E00)를 썼습니다.",
           },
@@ -339,7 +339,7 @@ export default [
         ],
         media: ["tinypaws-shot-process", "tinypaws-shot-quiz", "tinypaws-shot-form"],
         caption: {
-          en: "Process, match quiz, application: one guided path.",
+          en: "Process, match quiz, application.",
           ja: "プロセス、マッチングクイズ、申し込み。案内のある一本の道です。",
           ko: "프로세스, 매칭 퀴즈, 신청. 안내가 이어지는 하나의 길입니다.",
         },
@@ -361,7 +361,7 @@ export default [
         ],
         media: ["tinypaws-shot-adopt", "tinypaws-shot-profile", "tinypaws-shot-profile-medical"],
         caption: {
-          en: "The gallery and profile, with the records above the photos.",
+          en: "The gallery and a profile.",
           ja: "一覧とプロフィール。写真より上に記録があります。",
           ko: "목록과 프로필. 사진보다 위에 기록이 옵니다.",
         },
@@ -383,7 +383,7 @@ export default [
         ],
         media: ["tinypaws-shot-involve", "tinypaws-shot-events", "tinypaws-shot-home"],
         caption: {
-          en: "Get involved, events, and the home page that ties the journey together.",
+          en: "Get involved, events, and the home page.",
           ja: "Get Involved、イベント、そして全体をつなぐホーム。",
           ko: "Get Involved, 행사, 그리고 전체를 잇는 홈 화면.",
         },
@@ -433,7 +433,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Every color, type size, and radius from the style tile lives in one tokens file the whole site reads from, so the styling comes out of the brand definition instead of being layered on afterwards. That's also where the design got tested: orange on cream measured 2.85:1, under the AA line, so body-size orange became a darkened #A65300 (4.6:1) and orange buttons carry dark-brown labels instead of white. The palette only ==proved itself once it was measured in code==.",
+          en: "Every color, type size, and radius from the style tile lives in one tokens file the whole site reads from, so the styling comes out of the brand definition instead of being layered on afterwards. That's also where the design got tested: orange on cream measured 2.85:1, under the AA line, so body-size orange was darkened and orange buttons carry dark-brown labels instead of white. The palette only ==proved itself once it was measured in code==.",
           ja: "スタイルタイルにあった色、文字サイズ、角丸は、サイト全体が参照する一つのトークンファイルに入っています。見た目はブランドの定義から出てくるので、あとから重ねる作業になりません。設計が検証されたのもここでした。クリーム地のオレンジは2.85:1で、AAの線を下回っていました。そこで本文サイズのオレンジは暗くした#A65300（4.6:1）に変え、オレンジのボタンの文字は白ではなく濃い茶色にしています。パレットが確かだと分かったのは、コードの上で測ってからでした。",
           ko: "스타일 타일에 있던 색과 글자 크기, 라운드 값은 사이트 전체가 참조하는 하나의 토큰 파일에 들어 있습니다. 스타일이 브랜드 정의에서 나오기 때문에, 나중에 덧입히는 작업이 되지 않습니다. 설계가 검증된 것도 여기였습니다. 크림 배경 위의 오렌지는 2.85:1로 AA 기준에 못 미쳤습니다. 그래서 본문 크기의 오렌지는 어둡게 조정한 #A65300(4.6:1)으로 바꿨고, 오렌지 버튼의 글자는 흰색 대신 짙은 갈색을 씁니다. 팔레트가 괜찮다는 것은 코드 위에서 재 보고 나서야 확인됐습니다.",
         },
@@ -441,11 +441,6 @@ export default [
       {
         type: "figure",
         graphic: "tinypaws-fig-tokens",
-        caption: {
-          en: "One sheet, one file: the style tile and the tokens.css it became.",
-          ja: "一枚のシートと、一つのファイル。スタイルタイルと、そこから生まれたtokens.cssです。",
-          ko: "시트 한 장과 파일 하나. 스타일 타일과 거기서 나온 tokens.css입니다.",
-        },
       },
       {
         type: "h",
@@ -458,7 +453,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Each cat is a content entry (story, temperament, medical record, adoption status) rendered into cards, profiles, and the match quiz from a single source. ==Add a cat, and the whole site already knows==.",
+          en: "Each cat is one content entry, rendered everywhere it appears. ==Add a cat, and the whole site already knows==.",
           ja: "猫一匹ぶんが、一つのコンテンツのまとまりです（話、性格、医療記録、譲渡の状況）。同じ一つの元データから、カードにも、プロフィールにも、マッチングクイズにも展開されます。猫を一匹足せば、サイト全体がもう知っています。",
           ko: "고양이 한 마리가 하나의 콘텐츠 항목입니다(이야기, 성향, 의료 기록, 입양 상태). 같은 원본 하나에서 카드로도, 프로필로도, 매칭 퀴즈로도 펼쳐집니다. 고양이를 한 마리 추가하면 사이트 전체가 이미 알고 있습니다.",
         },
@@ -466,11 +461,6 @@ export default [
       {
         type: "figure",
         graphic: "tinypaws-fig-content-model",
-        caption: {
-          en: "One cat entry, three surfaces: the same record becomes a card, a full profile, and a quiz match.",
-          ja: "一匹ぶんの記録が、三つの面になります。カード、詳しいプロフィール、そしてクイズの結果です。",
-          ko: "한 마리의 기록이 세 개의 면이 됩니다. 카드, 상세 프로필, 그리고 퀴즈 결과입니다.",
-        },
       },
       {
         type: "h",

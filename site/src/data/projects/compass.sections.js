@@ -23,7 +23,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-timeline",
         caption: {
-          en: "Eight years of contactless payment, and a system replacement that lands in 2031.",
+          en: "Contactless so far, and the replacement to come.",
           ja: "タッチ決済の8年と、2031年に到達するシステム刷新。",
           ko: "비접촉 결제 8년, 그리고 2031년에 도착하는 시스템 교체.",
         },
@@ -98,7 +98,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The card costs a $6 refundable deposit and never expires. It is also the only way to pay a discounted fare: from 1 July 2026 a one-zone trip is $2.85 on stored value against $3.50 in cash or on a contactless bank card: a gap of $0.65, rising to $0.90 across two zones and $1.30 across three. TransLink's own fare page puts it plainly: ==for a discounted fare, use a Compass Card==. And if you tap a wallet that also holds a bank card, the reader may take the wrong one, so the standing guidance is to tap only your Compass Card.",
+          en: "The card costs a $6 refundable deposit and never expires. It is also the only way to pay a discounted fare, and TransLink's own fare page puts it plainly: ==for a discounted fare, use a Compass Card==. And if you tap a wallet that also holds a bank card, the reader may take the wrong one, so the standing guidance is to tap only your Compass Card.",
           ja: "カードには返金される6ドルのデポジットがかかり、有効期限はありません。割引運賃で乗れる唯一の手段でもあります。2026年7月1日から、1ゾーンの乗車はチャージ残高なら2.85ドル、現金またはクレジットカードのタッチ決済なら3.50ドルです。差は0.65ドル、2ゾーンで0.90ドル、3ゾーンでは1.30ドルまで広がります。TransLinkの運賃ページ自体がはっきり書いています。割引運賃で乗りたいならCompassカードを使うこと、と。そして、クレジットカードも一緒に入った財布ごとかざすと、リーダーが違うカードを読んでしまうことがあるため、案内は常にCompassカードだけをタッチすること、となっています。",
           ko: "카드는 환급되는 6달러 보증금이 들고, 유효기간이 없습니다. 할인 요금을 내는 유일한 방법이기도 합니다. 2026년 7월 1일부터 1존 구간은 충전 잔액으로 2.85달러, 현금이나 비접촉 신용·체크카드로는 3.50달러입니다. 0.65달러 차이이고, 2존에서는 0.90달러, 3존에서는 1.30달러까지 벌어집니다. TransLink의 요금 안내 페이지 자체가 분명하게 적어 두었습니다. 할인 요금을 원하면 Compass 카드를 쓰라고. 그리고 신용카드가 같이 든 지갑째로 태그하면 리더기가 엉뚱한 카드를 집을 수 있어서, 안내는 늘 Compass 카드만 태그하라는 쪽입니다.",
         },
@@ -107,7 +107,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-card",
         caption: {
-          en: "The card, front and back: the fare gap that keeps it in every pocket, and the two numbers that link it to your account.",
+          en: "The card, front and back.",
           ja: "カードの表と裏。このカードをすべてのポケットに残している運賃差と、カードをアカウントに結びつける二つの番号。",
           ko: "카드의 앞뒷면. 이 카드를 모두의 주머니에 남겨 두는 요금 차이, 그리고 카드를 계정에 연결하는 두 개의 번호.",
         },
@@ -120,7 +120,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Everything you might want to know or change about that card lives at compasscard.ca, and ==none of it happens where the card is==. Every change means a browser and a sign-in, and a reload made online or over the phone still takes up to two hours to reach the card. Replacing a Program pass card costs $25.",
+          en: "Everything you might want to know or change about that card lives at compasscard.ca, from a reload to the $25 replacement of a Program pass card, and ==none of it happens where the card is==.",
           ja: "そのカードについて知りたいこと、変えたいことは、すべてcompasscard.caにあります。そしてそのどれも、カードがある場所では起きません。何かを変えるたびにブラウザとサインインが必要で、オンラインや電話でのチャージがカードに届くまでには、いまも最大2時間かかります。Programの定期券カードを再発行すると25ドルかかります。",
           ko: "그 카드에 대해 알고 싶거나 바꾸고 싶은 것은 전부 compasscard.ca에 있고, 그중 어느 것도 카드가 있는 자리에서 일어나지 않습니다. 무언가를 바꾸려면 매번 브라우저와 로그인이 필요하고, 온라인이나 전화로 한 충전이 카드에 닿는 데는 여전히 최대 두 시간이 걸립니다. Program 정기권 카드를 재발급하면 25달러가 듭니다.",
         },
@@ -129,7 +129,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-website",
         caption: {
-          en: "compasscard.ca, annotated. Every task the card cannot do by itself sits behind this sign-in.",
+          en: "compasscard.ca, annotated.",
           ja: "注釈をつけたcompasscard.ca。カード単体ではできないすべての作業が、このサインインの先にある。",
           ko: "주석을 단 compasscard.ca. 카드 혼자서는 못 하는 모든 작업이 이 로그인 뒤에 있다.",
         },
@@ -140,18 +140,10 @@ export default [
         tag: { en: "Surface 03", ja: "接点 03", ko: "접점 03" },
       },
       {
-        type: "p",
-        text: {
-          en: "The machines in stations sell cards and take reloads instantly, but only adult cards. The riders who most need the lower fare are the ones who ==cannot buy the card where everyone else buys it==.",
-          ja: "駅にある機械はカードを売り、チャージを即座に反映します。ただし売れるのは大人用のカードだけです。低い運賃を最も必要としている利用者が、ほかの誰もが買う場所ではカードを買えない人たちなのです。",
-          ko: "역에 있는 기계는 카드를 팔고, 충전을 즉시 반영합니다. 다만 파는 것은 성인용 카드뿐입니다. 낮은 요금이 가장 필요한 승객이, 다른 사람들이 다 사는 그 자리에서는 카드를 살 수 없는 사람들입니다.",
-        },
-      },
-      {
         type: "figure",
         graphic: "compass-fig-cvm",
         caption: {
-          en: "A Compass Vending Machine. Instant reloads, and no concession card.",
+          en: "A Compass Vending Machine.",
           ja: "Compassの券売機。即時反映のチャージと、売られていない割引カード。",
           ko: "Compass 무인 발매기. 즉시 반영되는 충전, 그리고 팔지 않는 할인 카드.",
         },
@@ -167,7 +159,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "There are five ways to find out how much is on a Compass Card: tap it on a reader, sign in to compasscard.ca, use a vending machine, call the service line, or visit a service center. ==There is no sixth==. And for the roughly 140,000 students a month on a U-Pass BC, the routine is heavier still: request the pass by hand from the 16th of each month, type a 20-digit card number and a 3-digit verification number, then wait up to 24 hours for it to activate. There is no autoload, and no refund if you forget.",
+          en: "Five ways to find out how much is on a Compass Card, and ==there is no sixth==. For the roughly 140,000 students a month on a U-Pass BC, the routine is heavier still: request the pass by hand from the 16th of each month, type a 20-digit card number and a 3-digit verification number, then wait up to 24 hours for it to activate. There is no autoload, and no refund if you forget.",
           ja: "Compassカードにいくら残っているかを確かめる方法は五つあります。リーダーにタッチする、compasscard.caにサインインする、券売機を使う、サービスラインに電話する、サービスセンターの窓口に行く。六つ目はありません。そして、毎月U-Pass BCを使うおよそ14万人の学生には、手順がさらに重くなります。毎月16日から自分で定期券を申請し、20桁のカード番号と3桁の確認番号を入力し、有効になるまで最大24時間待ちます。オートチャージはなく、忘れた場合の払い戻しもありません。",
           ko: "Compass 카드에 얼마가 남았는지 확인하는 방법은 다섯 가지입니다. 리더기에 태그하기, compasscard.ca에 로그인하기, 무인 발매기 이용하기, 고객센터에 전화하기, 고객센터 창구를 찾아가기. 여섯 번째는 없습니다. 그리고 매달 U-Pass BC를 쓰는 약 14만 명의 학생에게는 절차가 더 무겁습니다. 매달 16일부터 직접 정기권을 신청하고, 20자리 카드 번호와 3자리 확인 번호를 입력한 뒤, 활성화까지 최대 24시간을 기다립니다. 자동 충전은 없고, 잊어버렸을 때의 환불도 없습니다.",
         },
@@ -175,11 +167,6 @@ export default [
       {
         type: "figure",
         graphic: "compass-fig-balance-paths",
-        caption: {
-          en: "Five paths to one number, and the one that doesn't exist.",
-          ja: "一つの数字に至る五つの経路と、存在しないもう一つ。",
-          ko: "숫자 하나에 이르는 다섯 갈래 길, 그리고 존재하지 않는 하나.",
-        },
       },
     ],
   },
@@ -203,7 +190,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-system",
         caption: {
-          en: "Where the money sits. On a card-based system the balance lives in the chip; on an account-based one it lives on a server.",
+          en: "Where the money sits.",
           ja: "お金が置かれる場所。カードベースのシステムでは残高はチップの中にあり、アカウントベースではサーバーにある。",
           ko: "돈이 놓이는 자리. 카드 기반 시스템에서는 잔액이 칩 안에 있고, 계정 기반에서는 서버에 있다.",
         },
@@ -211,7 +198,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "On a card-based system the balance lives in the chip in your hand. The card is the record. That makes the tap fast and tolerant of a dead network (a reader on a bus does not need to reach a server to charge you), but it also means nothing can change the balance until the card physically meets a reader. It is why a reload takes two hours to land. It is also why there is no app: ==an app could only ever show a copy of a number it cannot reach==.",
+          en: "On a card-based system the balance lives in the chip in your hand, and nothing can change it until the card meets a reader: ==an app could only ever show a copy of a number it cannot reach==.",
           ja: "カードベースのシステムでは、残高は手の中のチップにあります。カードそのものが記録です。おかげでタッチは速く、ネットワークが落ちても耐えます。バスのリーダーは、運賃を引くためにサーバーまで届く必要がありません。その代わり、カードが物理的にリーダーと出会うまでは、何も残高を変えられないということでもあります。チャージが反映されるのに2時間かかる理由が、これです。アプリがない理由も、これです。アプリは、届かない数字の写しを見せること以上のことができません。",
           ko: "카드 기반 시스템에서 잔액은 손에 든 칩 안에 있습니다. 카드가 곧 기록입니다. 덕분에 태그는 빠르고 네트워크가 끊겨도 견딥니다. 버스 안의 리더기는 요금을 물리려고 서버까지 갈 필요가 없습니다. 대신 카드가 물리적으로 리더기를 만나기 전까지는 무엇도 잔액을 바꿀 수 없다는 뜻이기도 합니다. 충전이 반영되는 데 두 시간이 걸리는 이유가 이것입니다. 앱이 없는 이유도 이것입니다. 앱은 닿을 수 없는 숫자의 사본을 보여주는 것 이상을 할 수 없습니다.",
         },
@@ -240,7 +227,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "That was 2019. The Compass Modernization RFP that closed in March 2026 asks for exactly the architecture this chapter has been describing: account-based, closed-loop and open-loop alike. Read plainly, that is the agency writing down that the current architecture is the constraint, and ==buying its way out of it==.",
+          en: "That was 2019. The Compass Modernization RFP that closed in March 2026 asks for exactly the architecture on the other side of that diagram: account-based, closed-loop and open-loop alike. Read plainly, that is the agency writing down that the current architecture is the constraint, and ==buying its way out of it==.",
           ja: "2019年の話です。2026年3月に締め切られたCompass ModernizationのRFPは、この章が説明してきたまさにそのアーキテクチャを求めています。アカウントベースで、クローズドループもオープンループも。素直に読めば、これは交通事業者が、いまのアーキテクチャこそが制約だと文書に書き、その外へ出るために予算を投じている、ということです。",
           ko: "2019년의 이야기입니다. 2026년 3월에 마감된 Compass Modernization RFP는 이 장이 설명해 온 바로 그 아키텍처를 요구합니다. 계정 기반, 폐쇄형과 개방형 모두. 그대로 읽으면, 운영 기관이 지금의 아키텍처가 제약이라는 것을 문서로 적어 두고, 돈을 들여 거기서 빠져나오는 중이라는 뜻입니다.",
         },
@@ -285,17 +272,9 @@ export default [
       {
         type: "p",
         text: {
-          en: "A walk-on trip from Vancouver to Victoria crosses three fare systems, and BC Ferries says so itself: fares for each transit provider must be purchased separately. An adult foot passenger fare is $19.10 against $2.85 for a one-zone tap. ==The amounts are nothing alike, but the gesture is the same==. The two organizations already share retail: TransLink vending machines stand at both Tsawwassen and Horseshoe Bay, pre-loaded Compass Cards are sold in the shops onboard, and BC Ferries names the 620 and the 257 as its TransLink connections.",
+          en: "A walk-on trip from Vancouver to Victoria crosses three fare systems, and BC Ferries says so itself: fares for each transit provider must be purchased separately. An adult foot passenger fare is $19.10 against $2.85 for a one-zone tap. ==The amounts are nothing alike, but the gesture is the same==. The two organizations already share retail touchpoints (the roadmap lists them).",
           ja: "バンクーバーからビクトリアまで徒歩で向かう移動は、三つの運賃体系をまたぎます。BC Ferries自身がこう書いています。各交通事業者の運賃は別々に購入する必要がある、と。大人の徒歩乗船運賃は19.10ドル、1ゾーンのタッチは2.85ドルです。金額としては似ても似つきませんが、動作は同じです。二つの組織はすでに販売の窓口を共有しています。TsawwassenとHorseshoe Bayの両方にTransLinkの券売機が置かれ、チャージ済みのCompassカードが船内の売店で売られ、BC Ferriesは620番と257番を自社のTransLink接続路線として案内しています。",
           ko: "밴쿠버에서 빅토리아까지 걸어서 가는 여정은 세 개의 요금 체계를 지납니다. BC Ferries 스스로도 그렇게 적어 두었습니다. 각 교통사업자의 요금은 따로 구매해야 한다고. 성인 도보 승객 요금은 19.10달러, 1존 태그는 2.85달러입니다. 금액으로는 닮은 구석이 없지만, 동작은 같습니다. 두 조직은 이미 판매 창구를 공유하고 있습니다. Tsawwassen과 Horseshoe Bay 양쪽에 TransLink 무인 발매기가 서 있고, 충전된 Compass 카드가 선내 매점에서 팔리며, BC Ferries는 620번과 257번을 자사의 TransLink 연계 노선으로 안내합니다.",
-        },
-      },
-      {
-        type: "p",
-        text: {
-          en: "Vehicle fares are a different gesture: a reservation, a vehicle class, deck capacity. That is a booking, not a tap, so it enters the app as a booking flow, and it enters last: selling another operator's vehicle fares is the deepest integration on this roadmap. In v1 the app shows a sailing's status, read-only. The booking flow is sequenced, not cut.",
-          ja: "車両運賃は動作そのものが違います。予約があり、車両クラスがあり、デッキの容量がある。それはタッチではなく予約なので、アプリには予約フローとして入り、順番としては最後に入ります。他社の車両運賃を売ることが、このロードマップで最も深い連携だからです。v1では、アプリは運航状況を参照専用で表示します。予約フローは削ったのではなく、順番を後ろに置いたのです。",
-          ko: "차량 요금은 동작 자체가 다릅니다. 예약, 차량 등급, 갑판 용량이 걸립니다. 그건 태그가 아니라 예약이라서, 앱에는 예약 흐름으로 들어오고, 순서로는 가장 마지막에 들어옵니다. 다른 사업자의 차량 요금을 파는 일이 이 로드맵에서 가장 깊은 연동이기 때문입니다. v1에서 앱은 운항 상태를 읽기 전용으로 보여줍니다. 예약 흐름은 잘라낸 것이 아니라, 순서를 뒤로 미룬 것입니다.",
         },
       },
       {
@@ -310,7 +289,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The three surfaces collapse into two layers, not three. One layer is the thing you tap at a gate: it has to work in three seconds, in the rain, with a bag in the other hand. The other is everything that can take as long as it needs: what the website was holding, plus what today means a phone call, like checking a sailing or asking a question. An in-app assistant answers the simple ones first and hands the rest to a person; the phone line and the counter both stay. Splitting the product this way is ==the single structural decision the rest of the design rests on==.",
+          en: "The three surfaces collapse into two layers, not three: the thing you tap at a gate, which has to work in three seconds with a bag in the other hand, and everything that can take as long as it needs. Splitting the product this way is ==the single structural decision the rest of the design rests on==.",
           ja: "三つの接点は、三つではなく二つのレイヤーに畳まれます。一つは、改札でタッチするものです。3秒で、雨の中で、もう片方の手に荷物を持ったまま動かなければなりません。もう一つは、必要なだけ時間をかけていいものすべてです。ウェブサイトが抱えていたものに、いまは電話をかけなければならないこと、つまり運航の確認や問い合わせが加わります。アプリ内のアシスタントが簡単なものから答え、残りは人に渡します。電話回線もカウンターも、どちらも残ります。プロダクトをこう分けたことが、以降の設計すべてが乗っている唯一の構造的な決定です。",
           ko: "세 개의 접점은 세 개가 아니라 두 개의 레이어로 접힙니다. 하나는 개찰구에서 태그하는 것입니다. 3초 안에, 빗속에서, 다른 손에는 짐을 든 채로 동작해야 합니다. 다른 하나는 필요한 만큼 시간을 써도 되는 전부입니다. 웹사이트가 쥐고 있던 것들에, 오늘은 전화를 걸어야 하는 일, 그러니까 운항 확인이나 문의가 더해집니다. 앱 안의 어시스턴트가 간단한 것부터 답하고 나머지는 사람에게 넘깁니다. 전화선과 창구는 둘 다 남습니다. 제품을 이렇게 가른 것이, 나머지 설계 전체가 올라앉은 단 하나의 구조적 결정입니다.",
         },
@@ -318,11 +297,6 @@ export default [
       {
         type: "figure",
         graphic: "compass-fig-ia",
-        caption: {
-          en: "Two layers: what you tap, and everything else. Manage, check, ask.",
-          ja: "二つのレイヤー。タッチするもの、そしてそれ以外のすべて。管理、確認、問い合わせです。",
-          ko: "두 개의 레이어. 태그하는 것, 그리고 나머지 전부. 관리, 확인, 문의입니다.",
-        },
       },
       {
         type: "h",
@@ -336,7 +310,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The order follows ==how much permission each phase needs== rather than how hard it is to build. TransLink sets its own fares, so nothing has to be negotiated. BC Ferries is a separate fare authority that already shares retail touchpoints. BC Transit is both a separate system and a separate fare authority.",
+          en: "The order follows ==how much permission each phase needs== rather than how hard it is to build.",
           ja: "順番を決めているのは、それぞれのフェーズにどれだけの許可が要るかであって、作るのがどれだけ難しいかではありません。TransLinkは自社の運賃を自社で決めているので、交渉するものが何もありません。BC Ferriesは別の運賃事業者ですが、すでに販売の接点を共有しています。BC Transitは別のシステムであり、別の運賃事業者でもあります。",
           ko: "순서를 정하는 것은 각 단계에 필요한 허락의 크기이지, 만들기가 얼마나 어려운지가 아닙니다. TransLink는 자기 요금을 자기가 정하므로 협상할 것이 없습니다. BC Ferries는 별개의 요금 기관이지만 이미 판매 접점을 공유하고 있습니다. BC Transit은 별개의 시스템이자 별개의 요금 기관입니다.",
         },
@@ -344,11 +318,6 @@ export default [
       {
         type: "figure",
         graphic: "compass-fig-coverage-roadmap",
-        caption: {
-          en: "What v1 covers, what comes later, and the phases, ordered by how much permission each one needs.",
-          ja: "v1がカバーする範囲、後から来るもの、そしてフェーズ。必要な許可の大きさ順に並べています。",
-          ko: "v1이 덮는 범위, 나중에 오는 것, 그리고 각 단계. 필요한 허락의 크기 순으로 놓았습니다.",
-        },
       },
       {
         type: "h",
@@ -429,7 +398,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-colour",
         caption: {
-          en: "Every pairing checked against WCAG contrast minimums, so a color never carries a meaning on its own.",
+          en: "Every pairing checked against WCAG contrast minimums.",
           ja: "すべての組み合わせをWCAGのコントラスト最小基準で確認。色だけが意味を背負うことがないように。",
           ko: "모든 조합을 WCAG 명도 대비 최소 기준으로 확인. 색 혼자서는 어떤 의미도 지지 않게.",
         },
@@ -445,11 +414,6 @@ export default [
       {
         type: "figure",
         graphic: "compass-fig-component",
-        caption: {
-          en: "One component, the five states it owns: default, low balance, pass expiring, pass expired, reported lost. Ready, reading and paid at the reader are Apple's Express Mode UI, not redesigned here.",
-          ja: "一つのコンポーネントが持つ五つの状態。デフォルト、残高不足、定期券の期限間近、定期券の期限切れ、紛失届済み。リーダー前の待機・読み取り中・決済完了はAppleのエクスプレスモードのUIであり、ここでは再設計していない。",
-          ko: "하나의 컴포넌트가 가진 다섯 가지 상태. 기본, 잔액 부족, 정기권 만료 임박, 정기권 만료, 분실 신고. 리더기 앞의 준비·인식 중·결제 완료는 Apple의 익스프레스 모드 UI이며, 여기서 다시 디자인하지 않았다.",
-        },
       },
       {
         type: "p",
@@ -641,12 +605,12 @@ export default [
         tag: { en: "↔ Surface 02", ja: "↔ 接点 02", ko: "↔ 접점 02" },
         paras: [
           {
-            en: "Today's routine is the one chapter 02 counted: requested by hand every month, 20 digits plus 3, up to 24 hours to activate, no refund for a missed window.",
+            en: "Today's routine is the one chapter 02 counted.",
             ja: "いまの手順は、02章で数えたとおりです。毎月自分で申請し、20桁と3桁を入力し、有効化まで最大24時間、期限を逃せば払い戻しはありません。",
             ko: "지금의 절차는 02장에서 센 그대로입니다. 매달 직접 신청하고, 20자리와 3자리를 입력하고, 활성화까지 최대 24시간, 기간을 놓치면 환불은 없습니다.",
           },
           {
-            en: "The app holds the institution link and renews on the date, ==as a notice rather than a task==. The 20-digit number is typed once at setup, or not at all if the card is already on the account.",
+            en: "The app holds the institution link and renews on the date, ==as a notice rather than a task==.",
             ja: "アプリが学校との連携を保持し、日付に合わせて更新します。タスクではなく、お知らせとして通り過ぎます。20桁の番号は初期設定で一度だけ入力し、カードがすでにアカウントにあるなら入力そのものが不要です。",
             ko: "앱이 학교 연동을 쥐고 있다가 날짜에 맞춰 갱신합니다. 할 일이 아니라 알림으로 지나갑니다. 20자리 번호는 처음 설정할 때 한 번만 입력하고, 카드가 이미 계정에 있으면 아예 입력하지 않습니다.",
           },
@@ -662,12 +626,12 @@ export default [
         },
         paras: [
           {
-            en: "A lost card is reported in the app and the balance moves to the new one. Replacing a Program pass card costs $25 today, and this design does not change that fee: ==it changes how long a rider spends finding out about it==.",
+            en: "A lost card is frozen from the app and its balance moves to the new one. This design does not change the replacement fee: ==it changes how long a rider spends finding out about it==.",
             ja: "紛失したカードはアプリで届け出て、残高は新しいカードへ移ります。Programの定期券カードの再発行は現在25ドルで、この設計がその料金を変えるわけではありません。変えるのは、利用者がその事実を知るまでにかける時間です。",
             ko: "분실 카드는 앱에서 신고하고, 잔액은 새 카드로 옮겨집니다. Program 정기권 카드의 재발급 비용은 오늘 25달러이고, 이 설계가 그 비용을 바꾸지는 않습니다. 바꾸는 것은 승객이 그 사실을 알아내는 데 쓰는 시간입니다.",
           },
           {
-            en: "The plastic card and the pass share one balance, because they are one card. Tapping either draws from the same account.",
+            en: "The plastic card and the pass share one balance, because they are one card.",
             ja: "プラスチックのカードとパスは、残高を一つとして共有します。二つで一枚のカードだからです。どちらをタッチしても、同じアカウントから引かれます。",
             ko: "플라스틱 카드와 패스는 잔액을 하나로 씁니다. 둘이 한 장의 카드이기 때문입니다. 어느 쪽을 태그해도 같은 계정에서 빠져나갑니다.",
           },
@@ -732,7 +696,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The watch tests whether the foundations are a system or a style. The same type scale, the same color set and the same card component have to survive at a third of the width, on a screen that is glanced at rather than read. ==If they had to be redrawn to fit, they were never a system==.",
+          en: "The watch tests whether the foundations are a system or a style, on a screen that is glanced at rather than read. ==If they had to be redrawn to fit, they were never a system==.",
           ja: "ウォッチは、基盤がシステムなのかスタイルなのかを見分けるテストです。同じタイプスケール、同じカラーセット、同じカードコンポーネントが、3分の1の幅で、しかも「読む」画面ではなく「ちらりと見る」画面で、そのまま通用しなければなりません。収めるために描き直す必要があったなら、それは最初からシステムではなかったということです。",
           ko: "워치는 기반이 시스템인지 스타일인지 가려내는 시험입니다. 같은 타입 스케일, 같은 컬러 세트, 같은 카드 컴포넌트가 1/3 폭에서, 그것도 읽는 화면이 아니라 흘긋 보는 화면에서 그대로 버텨야 합니다. 맞추기 위해 다시 그려야 했다면, 그것은 애초에 시스템이 아니었습니다.",
         },
@@ -807,7 +771,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "I timed the current tasks against the designed ones by hand, counting steps rather than seconds so the comparison does not depend on how fast I type. The result that mattered was not inside the app at all: the quickest way to pay for a trip today is to tap a contactless bank card, and that is also the way that costs $0.65 to $1.30 more every trip. ==The convenient option and the affordable option are different options==, and a rider has to already know that to choose correctly.",
+          en: "I counted steps rather than seconds, so the comparison does not depend on how fast I type. The result that mattered was not inside the app at all: the quickest way to pay for a trip today is to tap a contactless bank card, and it is also the most expensive. ==The convenient option and the affordable option are different options==, and a rider has to already know that to choose correctly.",
           ja: "現行のタスクと設計したタスクを、手作業で計測しました。秒数ではなくステップ数で数えているため、比較結果が私の入力速度に左右されることはありません。しかし本当に重要だった結果は、アプリの中にはありませんでした。いま運賃を払う最も速い方法は非接触の銀行カードをタッチすることであり、それは同時に、1回の乗車ごとに0.65〜1.30ドル多く払う方法でもあります。便利な選択肢と安い選択肢が別々の選択肢になっていて、利用者はそれをあらかじめ知っていなければ正しく選べません。",
           ko: "현재 태스크와 설계한 태스크를 직접 손으로 재봤습니다. 초 단위가 아니라 스텝 수로 셌기 때문에, 비교 결과가 제 입력 속도에 좌우되지 않습니다. 정작 중요한 결과는 앱 안에 있지 않았습니다. 오늘 요금을 내는 가장 빠른 방법은 비접촉 은행 카드를 태그하는 것이고, 그 방법이 동시에 매 이용마다 0.65~1.30달러를 더 내는 방법입니다. 편한 선택지와 저렴한 선택지가 서로 다른 선택지이고, 승객은 그 사실을 미리 알고 있어야만 제대로 고를 수 있습니다.",
         },
@@ -816,7 +780,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-task-table",
         caption: {
-          en: "Steps to complete each task today, and in the design. Counted by hand; no user testing was carried out.",
+          en: "Steps to complete each task today, and in the design.",
           ja: "各タスクの完了に必要なステップ数。現行と設計案の比較です。手作業でカウントし、ユーザーテストは実施していません。",
           ko: "각 태스크를 끝내는 데 필요한 스텝 수. 현재와 설계안을 비교했습니다. 직접 손으로 셌고, 사용자 테스트는 진행하지 않았습니다.",
         },
@@ -832,7 +796,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "I ran the screens against Nielsen's heuristics and against a contrast and target-size audit. That is one person reviewing their own work, which catches the obvious failures and ==misses the ones you are blind to==. The findings are listed with what changed and what I decided to leave.",
+          en: "I ran the screens against Nielsen's heuristics and against a contrast and target-size audit: one person reviewing their own work, which ==misses the failures you are blind to==.",
           ja: "画面をニールセンのヒューリスティックと照らし合わせ、コントラストとタップ領域のサイズを点検しました。一人が自分の成果物を自分で見直す方法なので、目につく問題は拾えても、自分では気づけないものは見落とします。見つかった項目は、何を直し、何をそのまま残すことにしたのかと合わせてまとめています。",
           ko: "화면들을 닐슨의 휴리스틱과 대조하고, 명도 대비와 터치 영역 크기를 점검했습니다. 한 사람이 자기 작업물을 스스로 검토하는 방식이라, 눈에 띄는 실패는 잡히지만 스스로 보지 못하는 것은 놓칩니다. 발견한 항목은 무엇을 고쳤고 무엇을 그대로 두기로 했는지와 함께 정리했습니다.",
         },
@@ -841,7 +805,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-audit",
         caption: {
-          en: "Heuristic findings and the accessibility audit, with what changed and what I left.",
+          en: "Heuristic findings and the accessibility audit.",
           ja: "ヒューリスティック評価の結果とアクセシビリティ監査。直したものと、そのまま残したものを併記しています。",
           ko: "휴리스틱 점검 결과와 접근성 감사. 고친 것과 그대로 둔 것을 함께 적었습니다.",
         },

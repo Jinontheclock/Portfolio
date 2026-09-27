@@ -56,7 +56,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "WeLAB sells transformation: the same frame before the studio touched it, and after. The old project pages had the evidence (original plates and finished shots) but ran them as a one-way scroll of separate full-width stills. VFX frames have to be shown big, so each pair cost a screen of scrolling, and a before never sat beside its after. A producer skimming for what WeLAB could deliver had to hold the comparison in their head: the work was all there, but ==the magic never happened in front of them==.",
+          en: "WeLAB sells transformation: the same frame before the studio touched it, and after. The old project pages had the evidence but ran it as a one-way scroll of full-width stills, so a before never sat beside its after. A producer skimming for what WeLAB could deliver had to hold the comparison in their head: the work was all there, but ==the magic never happened in front of them==.",
           ja: "WeLABが売っているのは変化です。スタジオが手を入れる前のフレームと、入れたあとの同じフレーム。旧プロジェクトページにも、その証拠はありました。元のプレートと仕上がったショットが、どちらも載っていました。ただ、それぞれを全幅のスチルとして並べ、一方向にスクロールさせるだけでした。VFXのフレームは大きく見せる必要があるため、一組ごとに画面一つ分のスクロールがかかり、ビフォーがアフターの隣に並ぶことはありませんでした。WeLABに何ができるのかを流し読みしに来たプロデューサーは、その比較を頭の中でやらなければなりません。作品はすべてそこにありましたが、魔法がプロデューサーの目の前で起きることは一度もありませんでした。",
           ko: "WeLAB이 파는 것은 변화입니다. 스튜디오가 손대기 전의 프레임과, 손댄 뒤의 같은 프레임. 기존 프로젝트 페이지에도 그 증거는 있었습니다. 원본 플레이트와 완성된 샷이 모두 올라가 있었습니다. 다만 그것을 각각 전체 폭 스틸로 늘어놓고 한 방향으로 스크롤하게 만들어 두었습니다. VFX 프레임은 크게 보여줘야 하니 한 쌍마다 화면 하나만큼의 스크롤이 들었고, 비포가 애프터 옆에 놓이는 일은 없었습니다. WeLAB이 무엇을 만들 수 있는지 훑어보러 온 프로듀서는 그 비교를 머릿속에서 해야 했습니다. 작업물은 전부 거기 있었지만, 마법은 프로듀서 눈앞에서 일어나지 않았습니다.",
         },
@@ -81,7 +81,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The site was responsive from desktop down to mobile, and that much worked. What it lacked was ==a shared set of rules==: type scale, grid, alignment, and components shifted from page to page, and the audit caught the cost in the open. At in-between widths, the services page's incentive cards fell out of their grid: three uneven columns at 1280px, a two-plus-one arrangement with a stray hole at 1200px.",
+          en: "The site was responsive from desktop down to mobile, and that much worked. What it lacked was ==a shared set of rules==: type scale, grid, alignment, and components shifted from page to page, and the audit caught the cost in the open, with the services page's incentive cards falling out of their grid at in-between widths.",
           ja: "サイトはデスクトップからモバイルまでレスポンシブに動いていました。そこまでは問題ありませんでした。欠けていたのは共通のルールです。タイプスケール、グリッド、揃え、コンポーネントがページごとに変わり、監査の過程でその代償がそのまま表に出ました。中間の幅では、サービスページのインセンティブカードがグリッドから外れました。1280pxでは幅の揃わない3カラム、1200pxでは2+1の配置に空きが一つ残りました。",
           ko: "사이트는 데스크톱부터 모바일까지 반응형으로 동작했습니다. 거기까지는 문제가 없었습니다. 없는 것은 공통 규칙이었습니다. 타입 스케일, 그리드, 정렬, 컴포넌트가 페이지마다 달라졌고, 감사 과정에서 그 대가가 그대로 드러났습니다. 중간 너비에서는 서비스 페이지의 인센티브 카드가 그리드 밖으로 튀어나왔습니다. 1280px에서는 폭이 제각각인 3컬럼, 1200px에서는 2+1 배치에 빈자리 하나가 남았습니다.",
         },
@@ -107,7 +107,7 @@ export default [
         type: "figure",
         graphic: "welab-fig-audit-sections",
         caption: {
-          en: "The Who We Are and Our Clients sections of the old About Us page, and the old home footer on mobile.",
+          en: "The old About Us page, and the home footer on mobile.",
           ja: "旧About UsページのWho We Are・Our Clientsセクションと、モバイルで見た旧ホームフッター。",
           ko: "기존 About Us 페이지의 Who We Are · Our Clients 섹션, 그리고 모바일에서 본 기존 홈 푸터.",
         },
@@ -124,7 +124,7 @@ export default [
         type: "ba",
         graphic: "welab-fig-old-landing",
         text: {
-          en: "The landing page still led with the same two project cards while the studio's slate moved on. Its newest headline work wasn't on the front page at all. And even as calls to action, the cards underdelivered: each one swallowed a full screen, the pair followed different layouts, and the Explore link sank somewhere in all that surface. The studios WeLAB competes with ==lead with their strongest, freshest work==. Out of that research I proposed a featured case-studies section, and the studio said yes.",
+          en: "The landing page still led with the same two project cards while the studio's slate moved on; its newest headline work wasn't on the front page at all, and even as calls to action the cards underdelivered. The studios WeLAB competes with ==lead with their strongest, freshest work==. Out of that research I proposed a featured case-studies section, and the studio said yes.",
           ja: "スタジオのラインナップは動き続けているのに、ランディングページは相変わらず同じプロジェクトカード二枚で始まっていました。最新の代表作はトップページに一つもありませんでした。そしてCTAとしても、このカードは役目を果たしていませんでした。一枚が画面全体を飲み込み、二枚のレイアウトは互いに違い、Exploreリンクはその広い面積のどこかに沈んでいました。WeLABが競合するスタジオは、いちばん強く、いちばん新しい作品でサイトを開きます。この調査を根拠に注目ケーススタディのセクションを提案し、スタジオはこれを受け入れました。",
           ko: "스튜디오의 라인업은 계속 움직이는데, 랜딩 페이지는 여전히 같은 프로젝트 카드 두 장으로 시작하고 있었습니다. 가장 최근의 대표작은 첫 화면에 아예 없었습니다. 그리고 CTA로서도 이 카드들은 제 몫을 하지 못했습니다. 한 장이 화면 전체를 삼켰고, 두 장의 레이아웃이 서로 달랐으며, Explore 링크는 그 넓은 면적 어딘가에 가라앉아 있었습니다. WeLAB이 경쟁하는 스튜디오들은 가장 강하고 가장 최근인 작업으로 사이트를 엽니다. 이 조사를 근거로 대표 케이스 스터디 섹션을 제안했고, 스튜디오가 받아들였습니다.",
         },
@@ -169,7 +169,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Every mission ran the same loop: ==mission, ideation, draft, feedback, implementation, feedback, completion==. Weekly meetings set the missions; Discord carried the feedback between them, specific enough that each iteration knew exactly what had landed and what hadn't. Where a mission needed design exploration, the draft started in Figma; where the builder was the faster canvas, it was designed directly in Bricks.",
+          en: "Every mission ran the same loop, with feedback ==specific enough that each iteration knew exactly what had landed and what hadn't==. Where a mission needed design exploration, the draft started in Figma; where the builder was the faster canvas, it was designed directly in Bricks.",
           ja: "すべてのミッションが同じループを回りました。ミッション、アイデア出し、ドラフト、フィードバック、実装、フィードバック、完了。ミッションは週次ミーティングで決まり、その間のフィードバックはDiscordが運びました。毎回、何が通って何が通らなかったのかが正確にわかる程度に具体的なフィードバックです。デザインの探索が必要なミッションはFigmaでドラフトを始め、ビルダーのほうが速いキャンバスになる場合はBricksで直接設計しました。",
           ko: "모든 미션은 같은 루프를 돌았습니다. 미션, 아이데이션, 시안, 피드백, 구현, 피드백, 완료. 미션은 주간 미팅에서 정해졌고, 그 사이의 피드백은 Discord가 실어 날랐습니다. 매 회차가 무엇이 통했고 무엇이 통하지 않았는지 정확히 알 수 있을 만큼 구체적인 피드백이었습니다. 디자인 탐색이 필요한 미션은 Figma에서 시안을 시작했고, 빌더가 더 빠른 캔버스인 경우에는 Bricks에서 바로 설계했습니다.",
         },
@@ -177,11 +177,6 @@ export default [
       {
         type: "figure",
         graphic: "welab-fig-workflow",
-        caption: {
-          en: "The iteration loop used for every mission.",
-          ja: "すべてのミッションに適用したイテレーションのループ。",
-          ko: "모든 미션에 적용한 반복 루프.",
-        },
       },
       {
         type: "h",
@@ -195,7 +190,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The before/after showcase asked for something Bricks doesn't have: no native component supports an interactive overlay driven by the cursor. Rather than reinvent the interaction, I picked a proven web component (img-comparison-slider), wired it into a custom HTML block, then wrote the chrome around it by hand: the divider, the handle, the labels, and how each scales down on mobile. Hover or drag, and the original footage resolves into the final shot. The judgment was in ==knowing what to build and what to borrow==. The audit's first finding closed where it opened: the before now sits in the same frame as its after, one drag apart.",
+          en: "The before/after showcase asked for something Bricks doesn't have: no native component supports an interactive overlay driven by the cursor. Rather than reinvent the interaction, I picked a proven web component (img-comparison-slider), wired it into a custom HTML block, then wrote the chrome around it by hand, down to how it scales on mobile. The judgment was in ==knowing what to build and what to borrow==. The audit's first finding closed where it opened: the before now sits in the same frame as its after, one drag apart.",
           ja: "ビフォー・アフターのショーケースは、Bricksにないものを求めました。カーソルで動くインタラクティブなオーバーレイをサポートするネイティブコンポーネントがありません。インタラクションを一から作り直すのではなく、実績のあるWebコンポーネントであるimg-comparison-sliderを選び、カスタムHTMLブロックに組み込み、その周辺のUIを自分で書きました。仕切り線、ハンドル、ラベル、そしてそれぞれがモバイルでどう縮むかまで。ホバーするかドラッグすると、元のフッテージが最終ショットへとほどけていきます。何を作り、何を借りるかを見極めることが、本当の判断でした。監査の最初の発見は、それが開いた場所で閉じました。ビフォーはいま、アフターと同じフレームの中、ドラッグ一回の距離にあります。",
           ko: "비포·애프터 쇼케이스는 Bricks에 없는 것을 요구했습니다. 커서로 움직이는 인터랙티브 오버레이를 지원하는 기본 컴포넌트가 없습니다. 인터랙션을 처음부터 다시 만드는 대신, 검증된 웹 컴포넌트인 img-comparison-slider를 골라 커스텀 HTML 블록에 짜 넣고, 그 주변 UI를 직접 작성했습니다. 구분선, 핸들, 라벨, 그리고 각각이 모바일에서 어떻게 줄어드는지까지. 호버하거나 드래그하면 원본 푸티지가 최종 샷으로 풀립니다. 무엇을 만들고 무엇을 빌려올지 판단하는 것이 진짜 결정이었습니다. 감사의 첫 번째 발견은 그것이 열린 자리에서 닫혔습니다. 비포는 이제 애프터와 같은 프레임 안에, 드래그 한 번 거리에 있습니다.",
         },
@@ -204,7 +199,7 @@ export default [
         type: "figure",
         graphic: "welab-ba-vfx",
         caption: {
-          en: "Frames from A Winning Team's stadium crowd extension, in the same slider interaction that runs on the live site.",
+          en: "The slider, as it runs on the live site.",
           ja: "『A Winning Team』のスタジアム観客の群衆エクステンションのフレームを、本番サイトで実際に動いているものと同じスライダーインタラクションで。",
           ko: "〈A Winning Team〉의 스타디움 관중 확장 프레임을, 운영 사이트에서 실제로 돌아가는 것과 같은 슬라이더 인터랙션으로.",
         },
@@ -242,7 +237,7 @@ export default [
            Japanese and Korean captions stay whole on this one; the
            English is split across the two */
         caption: {
-          en: "The rebuilt Tax Credits and Who We Are sections, before and after.",
+          en: "The rebuilt Tax Credits and Who We Are sections.",
           ja: "作り直したTax Creditsセクションと、Who We Are・ホームフッター・Clients & Awardsセクションの再構築前後。",
           ko: "다시 만든 Tax Credits 섹션, 그리고 Who We Are · 홈 푸터 · Clients & Awards 섹션의 재구축 전후.",
         },
@@ -251,7 +246,7 @@ export default [
         type: "figure",
         graphic: "welab-fig-layout-system-rest",
         caption: {
-          en: "The home footer and Clients & Awards sections before and after the rebuild.",
+          en: "The home footer and Clients & Awards sections.",
           ja: "",
           ko: "",
         },
@@ -268,7 +263,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "The one mission that started in Figma. I designed the featured case-studies section as an argument for the studio's newest work, and for what a card owes a producer: the project, the scale, a reason to click. Five layouts went through the weekly loop: two columns, three, a carousel, a hover-focus variant, full-width rows. The direction from my supervisor was to keep ==three case studies in view at once==, with no scroll and no click, and three columns delivered it: room for each card to make its case, tight enough to compare at a glance, where the carousel hid two-thirds of the work and the rows dropped the third study below the fold. That was the layout built in Bricks.",
+          en: "The one mission that started in Figma. I designed the featured case-studies section as an argument for the studio's newest work, and for what a card owes a producer: the project, the scale, a reason to click. Five layouts went through the weekly loop. The direction from my supervisor was to keep ==three case studies in view at once==, with no scroll and no click, and three columns delivered it: room for each card to make its case, tight enough to compare at a glance, where the carousel hid two-thirds of the work and the rows dropped the third study below the fold. That was the layout built in Bricks.",
           ja: "Figmaで始めた唯一のミッションです。注目ケーススタディのセクションを、スタジオの最新作のための一つの主張として設計しました。カード一枚がプロデューサーに対して負っているもの、つまりプロジェクト、規模、そしてクリックする理由です。五つのレイアウトが週次のループを通りました。2カラム、3カラム、カルーセル、ホバーフォーカスの変種、全幅の横並び。指導担当からの方針は、ケーススタディ三つがスクロールもクリックもなしに一画面に収まること。それを実現したのが3カラムでした。カードごとに主張を展開する余白がありながら、一目で比べられるだけの密度がある。カルーセルは作品の三分の二を隠し、横並びは三つ目のケーススタディをファーストビューの外へ押し出しました。Bricksで作ったのは、このレイアウトです。",
           ko: "Figma에서 시작한 유일한 미션입니다. 대표 케이스 스터디 섹션을 스튜디오의 최신 작업을 위한 하나의 주장으로 설계했습니다. 카드 한 장이 프로듀서에게 빚지고 있는 것, 즉 프로젝트, 규모, 그리고 눌러야 할 이유입니다. 다섯 가지 레이아웃이 주간 루프를 거쳤습니다. 2컬럼, 3컬럼, 캐러셀, 호버 포커스 변형, 전체 폭 가로 행. 지도 담당자의 방향은 케이스 스터디 세 개가 스크롤도 클릭도 없이 한 화면에 들어와야 한다는 것이었고, 3컬럼이 그것을 해냈습니다. 카드마다 제 주장을 펼 여백이 있으면서, 한눈에 비교할 만큼 조밀했습니다. 캐러셀은 작업의 3분의 2를 감췄고, 가로 행은 세 번째 케이스 스터디를 첫 화면 밖으로 밀어냈습니다. Bricks에서 만든 것은 이 레이아웃입니다.",
         },
@@ -276,7 +271,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Where the old cards each swallowed a screen and buried their link, the new section puts the studio's three newest case studies in front of a producer at a glance, on one grid, each with a clear way in. The landing page now ==leads with its freshest work instead of last year's two cards==.",
+          en: "The landing page now ==leads with its freshest work instead of last year's two cards==.",
           ja: "旧カードが一枚ずつ画面を飲み込みリンクを埋めていたのに対し、新しいセクションはスタジオの最新ケーススタディ三件を一つのグリッドの上に一目で並べ、それぞれに入口をはっきり用意しています。ランディングページはいま、去年のカード二枚ではなく、いちばん新しい作品で始まります。",
           ko: "기존 카드가 한 장씩 화면을 삼키고 링크를 묻어버렸다면, 새 섹션은 스튜디오의 최신 케이스 스터디 세 건을 하나의 그리드 위에 한눈에 올려놓고, 각각에 들어갈 길을 분명하게 둡니다. 랜딩 페이지는 이제 작년의 카드 두 장이 아니라 가장 최근 작업으로 시작합니다.",
         },
@@ -320,7 +315,7 @@ export default [
         type: "figure",
         graphic: "welab-fig-lang-toggle",
         caption: {
-          en: "The same project page on the live site, in English and in Spanish.",
+          en: "The same project page on the live site.",
           ja: "本番サイトの同じプロジェクトページを、英語とスペイン語で見たところ。",
           ko: "운영 사이트의 같은 프로젝트 페이지를 영어와 스페인어로 본 모습.",
         },
@@ -357,7 +352,7 @@ export default [
               ko: "케이스 스터디 13건",
             },
             label: {
-              en: "now read in English and Spanish: the pages that sell the work to the Mexican market",
+              en: "now read in English and Spanish",
               ja: "いま英語とスペイン語で読める、メキシコ市場に作品を売るページ",
               ko: "이제 영어와 스페인어로 읽히는, 멕시코 시장에 작업을 파는 페이지들",
             },
@@ -369,7 +364,7 @@ export default [
               ko: "운영 배포",
             },
             label: {
-              en: "to production, inside the studio's existing brand and stack",
+              en: "inside the studio's existing brand and stack",
               ja: "スタジオの既存のブランドとスタックの内側で",
               ko: "스튜디오의 기존 브랜드와 스택 안에서",
             },
