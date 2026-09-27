@@ -40,7 +40,7 @@ export default [
         type: "figure",
         graphic: "prolog-fragments",
         caption: {
-          en: "Four disconnected systems, one journey to manage.",
+          en: "Where an apprentice's information lives today.",
           ja: "つながっていないシステム4つ、管理する道のりは一つ。",
           ko: "서로 연결되지 않은 시스템 4개, 관리해야 할 여정은 하나.",
         },
@@ -105,7 +105,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Apprentices work from their phones (nine of the twelve we surveyed named the phone as their primary device), but the study guides and funding pages they need are built for a desktop: dense, multi-column, unusable one-handed on a job site. ==The support exists, but not in the place the work happens==.",
+          en: "Apprentices work from their phones (nine of the 12 we surveyed named the phone as their primary device), but the study guides and funding pages they need are built for a desktop: dense, multi-column, unusable one-handed on a job site. ==The support exists, but not in the place the work happens==.",
           ja: "見習いはスマートフォンで働いています。私たちが調査した12人のうち9人が、スマートフォンを主な端末に挙げました。ところが、必要な学習資料や支援制度のページはデスクトップを前提に作られています。文字が詰まっていて、段組みが多く、現場で片手では使えません。支援はあります。ただ、仕事が起きる場所に合わせて作られていないだけです。",
           ko: "견습생은 스마트폰으로 일합니다. 저희가 설문한 12명 중 9명이 스마트폰을 주 사용 기기로 꼽았습니다. 그런데 정작 필요한 학습 자료와 지원 제도 안내 페이지는 데스크톱을 기준으로 만들어져 있습니다. 빽빽하고, 여러 단으로 나뉘어 있고, 현장에서 한 손으로는 쓸 수 없습니다. 지원은 있습니다. 다만 일이 벌어지는 자리에 맞게 만들어져 있지 않을 뿐입니다.",
         },
@@ -119,7 +119,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "We surveyed and interviewed twelve apprentices across BC, seven trades from first-year to journeyperson. Alongside, we reviewed the ecosystem they navigate: SkilledTradesBC portals and success-story profiles, competency documents, and the forum threads where apprentices ask each other what the official channels don't answer.",
+          en: "We surveyed and interviewed 12 apprentices across BC, seven trades from first-year to journeyperson. Alongside, we reviewed the ecosystem they navigate: SkilledTradesBC portals and success-story profiles, competency documents, and the forum threads where apprentices ask each other what the official channels don't answer.",
           ja: "私たちはBC州全域の見習い12人に調査とインタビューを行いました。電気、配管、空調、溶接、動力設備、鉄骨、造園。1年目の見習いから資格を取得した熟練工まで、労組加入・非加入を問わず話を聞きました。あわせて、彼らがたどるエコシステムも調べました。SkilledTradesBCのポータルと資格取得者の紹介記事、技能項目の資料、そして公式の窓口が答えてくれないことを見習い同士が尋ね合うフォーラムのスレッドまで。",
           ko: "저희는 BC주 전역의 견습생 12명을 설문하고 인터뷰했습니다. 전기, 배관, 냉난방공조, 용접, 동력 설비, 철골, 조경. 1년 차 견습생부터 자격을 취득한 숙련공까지, 노조 소속과 비소속을 가리지 않았습니다. 이와 함께 이들이 헤쳐 나가는 생태계도 살펴봤습니다. SkilledTradesBC 포털과 자격 취득 사례 소개, 역량 항목 문서, 그리고 공식 창구가 답해 주지 않는 것을 견습생끼리 서로 묻는 포럼 스레드까지.",
         },
@@ -199,7 +199,7 @@ export default [
         type: "figure",
         graphics: ["prolog-persona-izzy", "prolog-persona-jordan"],
         caption: {
-          en: "Izzy (Level 2, entry) and Jordan (Level 4, veteran): the two ends of the journey ProLog serves.",
+          en: "Izzy (Level 2, entry) and Jordan (Level 4, veteran).",
           ja: "Izzy（レベル2、入り口）とJordan（レベル4、ベテラン）。ProLogが向き合う道のりの両端です。",
           ko: "Izzy(레벨 2, 초입)와 Jordan(레벨 4, 베테랑). ProLog가 상대하는 여정의 양 끝입니다.",
         },
@@ -255,7 +255,7 @@ export default [
         type: "figure",
         graphic: "prolog-fig-midfi-grid",
         caption: {
-          en: "Sixty mid-fi screens mapped every state (quiz right and wrong, filters, drawers) before a single hi-fi pixel.",
+          en: "The mid-fi set: 60 screens, every state (quiz right and wrong, filters, drawers) mapped before a single hi-fi pixel.",
           ja: "ハイファイのピクセルを一つも描く前に、ミドルファイの画面60枚であらゆる状態を洗い出した。クイズの正解と不正解、フィルター、ドロワーまで。",
           ko: "하이파이 픽셀을 단 하나도 그리기 전에, 미드파이 화면 60개로 모든 상태를 그렸다. 퀴즈 정답과 오답, 필터, 드로어까지.",
         },

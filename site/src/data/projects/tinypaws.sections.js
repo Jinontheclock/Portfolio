@@ -91,7 +91,7 @@ export default [
         type: "figure",
         graphics: ["tinypaws-persona-emily", "tinypaws-persona-alex"],
         caption: {
-          en: "Emily (experienced, multi-cat) and Alex (first-time): the two depths of need the site serves.",
+          en: "Emily (experienced, multi-cat) and Alex (first-time).",
           ja: "経験者で多頭飼いのEmilyと、初めてのAlex。このサイトが応える必要の、二つの深さです。",
           ko: "경험자이자 다묘 가정인 Emily, 그리고 처음인 Alex. 이 사이트가 감당해야 할 필요의 두 층위입니다.",
         },
@@ -118,7 +118,7 @@ export default [
         type: "figure",
         graphic: "tinypaws-fig-sitemap",
         caption: {
-          en: "The structure the whole site hangs on.",
+          en: "The sitemap.",
           ja: "一枚の地図に、三つの目的。サイト全体がここに掛かっています。",
           ko: "지도 한 장에 목적 셋. 사이트 전체가 여기에 걸려 있습니다.",
         },
@@ -140,7 +140,8 @@ export default [
           ko: "로파이 와이어프레임",
         },
         caption: {
-          en: "Structure first, personality later.",
+          /* no caption in English: the title names the set */
+          en: "",
           ja: "まず構造、性格はそのあとで。",
           ko: "구조가 먼저, 성격은 그다음.",
         },
@@ -499,7 +500,7 @@ export default [
           },
           {
             value: {
-              en: "Two rounds",
+              en: "2 rounds",
               ja: "2ラウンド",
               ko: "2회",
             },

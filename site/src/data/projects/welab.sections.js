@@ -169,7 +169,7 @@ export default [
       {
         type: "p",
         text: {
-          en: "Every mission ran the same loop, with feedback ==specific enough that each iteration knew exactly what had landed and what hadn't==. Where a mission needed design exploration, the draft started in Figma; where the builder was the faster canvas, it was designed directly in Bricks.",
+          en: "==Every mission ran the same loop==, with feedback specific enough that each iteration knew exactly what had landed and what hadn't. Where a mission needed design exploration, the draft started in Figma; where the builder was the faster canvas, it was designed directly in Bricks.",
           ja: "すべてのミッションが同じループを回りました。ミッション、アイデア出し、ドラフト、フィードバック、実装、フィードバック、完了。ミッションは週次ミーティングで決まり、その間のフィードバックはDiscordが運びました。毎回、何が通って何が通らなかったのかが正確にわかる程度に具体的なフィードバックです。デザインの探索が必要なミッションはFigmaでドラフトを始め、ビルダーのほうが速いキャンバスになる場合はBricksで直接設計しました。",
           ko: "모든 미션은 같은 루프를 돌았습니다. 미션, 아이데이션, 시안, 피드백, 구현, 피드백, 완료. 미션은 주간 미팅에서 정해졌고, 그 사이의 피드백은 Discord가 실어 날랐습니다. 매 회차가 무엇이 통했고 무엇이 통하지 않았는지 정확히 알 수 있을 만큼 구체적인 피드백이었습니다. 디자인 탐색이 필요한 미션은 Figma에서 시안을 시작했고, 빌더가 더 빠른 캔버스인 경우에는 Bricks에서 바로 설계했습니다.",
         },

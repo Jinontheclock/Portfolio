@@ -23,7 +23,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-timeline",
         caption: {
-          en: "Contactless so far, and the replacement to come.",
+          en: "TransLink's contactless timeline, 2018 to the replacement due in 2031.",
           ja: "タッチ決済の8年と、2031年に到達するシステム刷新。",
           ko: "비접촉 결제 8년, 그리고 2031년에 도착하는 시스템 교체.",
         },
@@ -191,7 +191,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-system",
         caption: {
-          en: "Where the money sits.",
+          en: "Card-based today, account-based in the RFP.",
           ja: "お金が置かれる場所。カードベースのシステムでは残高はチップの中にあり、アカウントベースではサーバーにある。",
           ko: "돈이 놓이는 자리. 카드 기반 시스템에서는 잔액이 칩 안에 있고, 계정 기반에서는 서버에 있다.",
         },
@@ -355,7 +355,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-tap-moment",
         caption: {
-          en: "The card, on the phone that was already in your hand.",
+          en: "The tap, at a SkyTrain fare gate.",
           ja: "すでに手の中にあったスマートフォンの上の、そのカード。",
           ko: "이미 손에 들려 있던 폰 위의, 그 카드.",
         },
@@ -372,7 +372,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-type",
         caption: {
-          en: "One type scale, sized for a moving bus rather than a desk.",
+          en: "The type scale: FF Meta in three weights, seven steps.",
           ja: "一つのタイプスケール。机ではなく、揺れるバスに合わせたサイズ。",
           ko: "하나의 타입 스케일. 책상이 아니라 흔들리는 버스에 맞춘 크기.",
         },
@@ -389,7 +389,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-colour",
         caption: {
-          en: "Every pairing checked against WCAG contrast minimums.",
+          en: "The nine blues, the three status colors, and the contrast table.",
           ja: "すべての組み合わせをWCAGのコントラスト最小基準で確認。色だけが意味を背負うことがないように。",
           ko: "모든 조합을 WCAG 명도 대비 최소 기준으로 확인. 색 혼자서는 어떤 의미도 지지 않게.",
         },
@@ -675,7 +675,7 @@ export default [
         type: "figure",
         graphic: "compass-fig-watch",
         caption: {
-          en: "The same type, color and card component at a third of the width, and nothing that asks the rider to stop walking.",
+          en: "The five watch screens, from the wallet to the top-up.",
           ja: "同じタイポグラフィ、同じ配色、同じカードコンポーネントを3分の1の幅で。しかも、利用者の足を止めさせるものは一つもない。",
           ko: "같은 타이포, 같은 색, 같은 카드 컴포넌트를 1/3 폭에서. 그리고 승객을 멈춰 세우는 요소는 하나도 없이.",
         },
