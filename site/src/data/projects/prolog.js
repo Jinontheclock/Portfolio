@@ -32,7 +32,7 @@ export default {
   },
   /* the \\n is where the line turns on a laptop or wider — see .wk-desc in work.css */
   description: {
-    en: "A 0-to-1 mobile app that turns a fragmented 6,000-hour apprenticeship\ninto one clear, accessible roadmap for neurodivergent apprentices.",
+    en: "A 0-to-1 app for BC trades apprentices, designed for neurodivergent users first:\nco-designing the UX/UI and shipping the React Native build with a team of eight.",
     ja: "バラバラだった6,000時間の見習い課程を、一つの明快で見通しのきくロードマップに変えるモバイルアプリ。ニューロダイバージェントな見習いのために設計しました。",
     ko: "흩어져 있던 6,000시간의 견습 과정을 하나의 분명하고 접근하기 쉬운 로드맵으로 바꾸는 모바일 앱. 신경다양인 견습생을 위해 설계했습니다.",
   },

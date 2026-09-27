@@ -32,7 +32,7 @@ export default {
   },
   /* the \\n is where the line turns on a laptop or wider — see .wk-desc in work.css */
   description:
-    "Driving in-store visual communication strategies and spatial layout optimization to\nenhance journeys and duty-free shopping experiences for travelers.",
+    "Visual merchandising at MUJI's Tokyo head office: the graphics and floor layouts\nthat set how customers moved, and the duty-free experience for travelers.",
   roles: "Visual Merchandising, Spatial UX, Brand Strategy",
   intro: [
     "MUJI — placeholder introduction. A couple of sentences describing what the project is, who it serves, and the context it was built in.",

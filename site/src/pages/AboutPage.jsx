@@ -81,12 +81,12 @@ const DESCRIPTIONS = {
     en: "Design and produce the in-store graphics for about ten H Mart stores across BC: POP, posters for new products and promotions, event and notice signage, and the weekly flyer.\nManage H Mart's social media accounts and website, and post the weekly promotion designs to both.",
   },
   welab: {
-    en: "Redesigned and rebuilt the studio's public site in WordPress with Bricks Builder, writing custom code where the builder ran out.\nAdded multi-language support and new CTA components, and worked on the site's SEO.",
+    en: "Redesigned and rebuilt the studio's public site in WordPress with Bricks Builder, writing custom code where the builder ran out.\nDelivered 13 case-study pages, a before-and-after shot slider and a Spanish version for the Mexican market; Lighthouse on the live site: SEO 100, accessibility 90.",
     ko: "스튜디오 공식 사이트를 WordPress와 Bricks Builder로 다시 설계하고 다시 만들었습니다. 빌더로 해결되지 않는 부분은 직접 코드를 썼습니다.\n다국어 지원과 새 CTA 컴포넌트를 추가했고, 사이트 SEO 작업에도 참여했습니다.",
     ja: "スタジオの公式サイトをWordPressとBricks Builderで設計し直し、作り直しました。ビルダーだけでは手が届かないところは自分でコードを書きました。\n多言語対応と新しいCTAコンポーネントを追加し、サイトのSEOにも取り組みました。",
   },
   muji: {
-    en: "Planned in-store visual communication and floor layouts, which set how customers moved through the space.\nTook on improving the duty-free shopping experience for inbound international travelers.",
+    en: "Planned in-store visual communication and floor layouts, which set how customers moved through the space.\nTook on the duty-free shopping experience for inbound travelers, from the offer to the in-store signage; sales to that segment rose an average of 14% quarter on quarter.",
     ko: "매장 내 비주얼 커뮤니케이션과 매장 레이아웃을 기획했습니다. 고객이 공간을 어떻게 지나는지가 여기서 정해졌습니다.\n인바운드 외국인 고객을 위한 면세 쇼핑 경험 개선을 맡았습니다.",
     ja: "店内のビジュアルコミュニケーションと売場レイアウトを企画しました。お客様が空間をどう歩くかは、ここで決まります。\nインバウンドのお客様に向けた免税ショッピング体験の改善に取り組みました。",
   },
@@ -161,10 +161,10 @@ const EDUCATION = [
    in every language.
 
    English leads with the label and trails the detail throughout, so every
-   row there is `main: sub`; Korean and Japanese still carry the earlier
-   copy, where the two technical groups put the sublabel in `lead`. The row
-   counts no longer match 1:1 across the three — English's technical group
-   is three rows against the other two languages' four. */
+   row there is `main: sub`, and its rows follow the September 2026 resume,
+   group for group; Korean and Japanese still carry the earlier copy, where
+   the two technical groups put the sublabel in `lead`, and their rows no
+   longer match the English 1:1. */
 const SKILLS = {
   en: [
     {
@@ -201,13 +201,10 @@ const SKILLS = {
           sub: "moderated & unmoderated UT, feedback analysis",
         },
         {
-          main: "Journey Mapping",
-          sub: "user touchpoints, pain points, opportunity mapping",
-        },
-        {
           main: "Information Architecture",
           sub: "sitemaps, content hierarchy, user flows",
         },
+        { main: "Product Analytics", sub: "Google Analytics (GA4)" },
       ],
     },
     {
@@ -223,8 +220,9 @@ const SKILLS = {
         },
         {
           main: "Development Workflow",
-          sub: "Git/GitHub, Vercel, WordPress (CMS)",
+          sub: "Git/GitHub, WordPress (CMS)",
         },
+        { main: "Performance & SEO", sub: "technical SEO, Lighthouse" },
       ],
     },
     {
@@ -235,10 +233,10 @@ const SKILLS = {
           main: "Creative Suite",
           sub: "Adobe Illustrator, Photoshop, After Effects, InDesign",
         },
-        { main: "Analytics", sub: "Google Analytics (GA4)" },
+        { main: "Delivery", sub: "Jira, Agile delivery" },
         {
           main: "AI-Assisted Workflow",
-          sub: "Figma AI, Cursor, ChatGPT, Claude",
+          sub: "Cursor, Claude Code, Codex",
         },
       ],
     },
