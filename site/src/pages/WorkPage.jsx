@@ -151,7 +151,7 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 id={`wk-${p.id}`}
                 to={langPath(`/work/${p.id}`)}
                 className={"wk-section" + (current === i ? " is-current" : "")}
-                style={{ "--wk-card": p.card, ...mockupVars(p.mockups) }}
+                style={{ "--wk-card": p.card }}
                 /* the case studies are their own chunk, so the download
                    starts the moment a card is pointed at or tabbed to and
                    is over before the click — see pages/case-study-chunk.js */
@@ -221,19 +221,6 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
       )}
     </div>
   );
-}
-
-/* What the stylesheet needs to size a card's copy around its devices: how
-   wide the row of them is per unit of height (the frames' ratios summed)
-   and how many gaps it has — work.css turns those into the row's width. */
-function mockupVars(mockups) {
-  if (!mockups) return {};
-  return {
-    "--wk-mock-ratio": mockups
-      .reduce((sum, m) => sum + m.ratio[0] / m.ratio[1], 0)
-      .toFixed(4),
-    "--wk-mock-gaps": mockups.length - 1,
-  };
 }
 
 /* The mark a protected project carries. In the index its button is

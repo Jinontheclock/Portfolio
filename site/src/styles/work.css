@@ -204,54 +204,48 @@
 }
 
 /* ── The devices ──
-   The cell is the whole padded area, and a size container, and the row
-   of pictures inside is sized from it: as tall as the cell — top padding
-   to bottom padding — unless that would make the row wider than the
-   cell, and then the cell's width sets it, through the pictures' ratios
-   summed (WorkPage.jsx writes the sum, and the number of gaps, on the
-   card). The row keeps to the cell's lower right: on the copy's bottom
-   line, against the card's right edge.
+   The cell is the whole padded area, set on the card's padding edges,
+   and the picture stands on the cell's lower right: on the copy's bottom
+   line, against the card's right edge, as tall as the cell — top padding
+   to bottom padding — or, where that would make it wider than the cell,
+   as wide as the cell. The picture keeps its own proportions either way.
 
-   The cell is placed, not laid: it is set on the card's padding edges
-   rather than spanning the grid, and the row is set on the cell's lower
-   right rather than aligned there. It was a grid item stretched across
-   every track, and a flex container aligning its row to the end, and
-   that is the same box in Chromium — but not in every engine: a size
-   container that is also a stretched grid item came out at the card's
-   left in one, with the devices over the copy. Placing both by their
-   edges asks nothing of stretch or alignment, and every engine agrees
-   on where an edge is. Below the tablet breakpoint the cell goes back
-   into the grid, in its own row above the copy (see below). */
+   Placed by edges, and fitted like a background. The cell was a size
+   container stretched across every track of the card's grid, the row a
+   flex item aligned to its end and sized in container units, and Safari
+   put the row at the card's left, over the copy, where Chromium put it
+   at the right; setting the row's edges did not move it there either.
+   So nothing here asks for size containment, container units, stretch,
+   alignment or a percentage of a height: the cell is absolutely placed
+   by its four edges, the row fills it by its four edges, and the picture
+   fits its box the way a contained background does, on the lower right.
+   Below the tablet breakpoint the cell goes back into the grid, in its
+   own row above the copy, and holds the row the same way (see below). */
 .wk-mockups {
   position: absolute;
   inset: 40px 48px 40px 40px;
-  container-type: size;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
 }
 .wk-mockup-row {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  height: min(
-    100cqh,
-    (100cqw - var(--wk-mock-gap) * var(--wk-mock-gaps, 0)) / var(--wk-mock-ratio, 1)
-  );
+  inset: 0;
   display: flex;
   gap: var(--wk-mock-gap);
 }
 
-/* a picture: its box takes the picture's proportions (set inline from
-   the data) and the row's height, and the picture fills it */
+/* a picture: its box is the row's height and its share of the width,
+   and the picture keeps its proportions inside it, on the lower right.
+   (A second picture would take an equal share; every card has one.) */
 .wk-mockup {
-  flex: none;
+  flex: 1 1 0;
+  min-width: 0;
   height: 100%;
 }
 .wk-mockup > img {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -315,15 +309,12 @@
   .wk-desc {
     white-space: normal;
   }
-  /* back into the grid: the first row, above the copy, the row of
-     pictures aligned to its lower right by the flex rules above */
+  /* back into the grid: the first row, above the copy, the cell holding
+     the row by its edges as above */
   .wk-mockups {
-    position: static;
+    position: relative;
     inset: auto;
     grid-area: 1 / 1;
-  }
-  .wk-mockup-row {
-    position: static;
   }
 }
 
@@ -372,8 +363,8 @@
     visibility: visible;
     opacity: 1;
   }
-  .wk-mockups {
-    justify-content: center;
+  .wk-mockup > img {
+    object-position: center bottom;
   }
   /* the phone frame's sizes: the title at 24, the two lines under it at
      12, the roles line 16 below the summary */
