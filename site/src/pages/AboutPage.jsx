@@ -512,6 +512,77 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
       root.style.removeProperty("--index-line");
     };
   }, [screen, lang]);
+
+  /* ── The fit ──
+     Experience and Skills stand still: a section that would run past
+     the room's foot is set smaller until it does not, rather than pushed
+     up through the stage a step at a time. Each section's --ab-fit
+     scales its type and its gaps together (see about.css), found by
+     halving between the floor and 1 until the section's height is
+     within the room the stage measures for it (the same room
+     overflowOf below reads: the stage less the line, plus a margin the
+     section lifts by, less the foot). At 1 the variable is removed and
+     nothing is scaled, which is every section on a screen tall enough.
+
+     The floor keeps the type readable: under it, on a window shorter
+     than the sections at three quarters, the stage's step comes back
+     for what is left. Measured again whenever the stage's room changes —
+     the window, or the line, which moves with Skills' own height, so a
+     fit that moves Skills moves the line and the room and is measured
+     once more, and settles, the values being kept to hundredths and
+     left alone when they come out the same. */
+  useLayoutEffect(() => {
+    const stage = contentRef.current;
+    if (!screen || !stage) return undefined;
+    const sections = [...stage.querySelectorAll(".ab-section")].filter(
+      (s) => !s.classList.contains("ab-about") && !s.classList.contains("ab-about-more"),
+    );
+    const FLOOR = 0.75;
+    const roomOf = (section) => {
+      const top = parseFloat(getComputedStyle(stage).paddingTop) || 0;
+      const lift = -(parseFloat(getComputedStyle(section).marginTop) || 0);
+      const footer =
+        parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--footer-h")) || 0;
+      return stage.clientHeight - top + lift - footer * 3;
+    };
+    const fits = (section) => section.offsetHeight <= roomOf(section);
+    const settle = () => {
+      sections.forEach((section) => {
+        const was = section.style.getPropertyValue("--ab-fit");
+        section.style.removeProperty("--ab-fit");
+        if (fits(section)) return;
+        let lo = FLOOR;
+        let hi = 1;
+        section.style.setProperty("--ab-fit", String(lo));
+        if (!fits(section)) hi = lo;
+        for (let i = 0; i < 7 && hi > lo; i += 1) {
+          const mid = (lo + hi) / 2;
+          section.style.setProperty("--ab-fit", mid.toFixed(3));
+          if (fits(section)) lo = mid;
+          else hi = mid;
+        }
+        const next = (Math.floor(lo * 100) / 100).toFixed(2);
+        section.style.setProperty(
+          "--ab-fit",
+          was && Math.abs(Number(was) - Number(next)) < 0.011 ? was : next,
+        );
+      });
+    };
+    settle();
+    let queued = 0;
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(queued);
+      queued = requestAnimationFrame(settle);
+    });
+    ro.observe(stage);
+    window.addEventListener("resize", settle);
+    return () => {
+      cancelAnimationFrame(queued);
+      ro.disconnect();
+      window.removeEventListener("resize", settle);
+      sections.forEach((section) => section.style.removeProperty("--ab-fit"));
+    };
+  }, [screen, lang]);
   const { current, jumpTo, steps } = useStage({
     count: BLOCKS.length,
     boxRef: scrollRef,

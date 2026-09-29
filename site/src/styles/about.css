@@ -456,8 +456,8 @@
     justify-content: start;
     align-items: start;
     column-gap: clamp(24px, 100cqi - 45.4em, 80px);
-    row-gap: clamp(24px, (100cqi - 45.4em) / 2, 56px);
-    font-size: clamp(12px, (100cqi - 24px) / 46, var(--size-body));
+    row-gap: calc(clamp(24px, (100cqi - 45.4em) / 2, 56px) * var(--ab-fit, 1));
+    font-size: calc(clamp(12px, (100cqi - 24px) / 46, var(--size-body)) * var(--ab-fit, 1));
   }
   /* the groups are dissolved into the one grid, a label and its rows
      each a cell of it, so every group shares the two columns — a
@@ -474,7 +474,7 @@
   .page-screen .ab-skills-section .ab-skill-rows {
     justify-self: start;
     font-size: inherit;
-    gap: 6px;
+    gap: calc(6px * var(--ab-fit, 1));
     line-height: 1.4;
     white-space: nowrap;
   }
@@ -558,6 +558,25 @@
 }
 .page-screen .ab-skills {
   margin-top: 0;
+}
+
+/* ── The fit ──
+   On the stage a section that would run past the room's foot is set
+   smaller until it does not (the page finds each section's --ab-fit,
+   see AboutPage.jsx): its type and the gaps between its parts scale
+   together, so the section keeps its proportions and only its size
+   gives. Experience and Education here; Skills has the same, above.
+   Where nothing has to give, the variable is not set and these are the
+   sizes they always were. */
+.page-screen .xp-list {
+  gap: calc(64px * var(--ab-fit, 1));
+}
+.page-screen .xp-head,
+.page-screen .xp-desc {
+  font-size: calc(var(--size-body) * var(--ab-fit, 1));
+}
+.page-screen .xp-desc {
+  margin-top: calc(20px * var(--ab-fit, 1));
 }
 
 /* An entry is two blocks with a 20px break of its own between the lines
