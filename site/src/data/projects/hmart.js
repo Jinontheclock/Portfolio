@@ -1,5 +1,4 @@
-import logoColor from "../../assets/hmart/hmart-logo-color.svg";
-import logoGray from "../../assets/hmart/hmart-logo-gray.svg";
+import logo from "../../assets/hmart/hmart-logo.png";
 
 export default {
   id: "hmart",
@@ -7,8 +6,13 @@ export default {
   layout: "split",
   title: "H Mart",
   card: "#c92026",
-  // Text wordmark until project artwork is available.
-  logo: { color: logoColor, gray: logoGray, ratio: [228, 64], scale: 0.85 },
+  logo: {
+    color: logo,
+    gray: logo,
+    grayFilter: "grayscale(1) opacity(0.45)",
+    ratio: [792, 205],
+    scale: 1,
+  },
   // Match MUJI's portfolio password; each project unlocks independently.
   locked: true,
   passwordHash:

@@ -136,7 +136,7 @@ export default function WorkPage({ lang, setLang, fadeClass = "" }) {
                 {/* the wordmark twice, grey under colour, so the change of
                     colour is a cross-fade in place */}
                 <span className="wk-logo">
-                  <img src={p.logo.gray} alt="" />
+                  <img src={p.logo.gray} alt="" style={{ filter: p.logo.grayFilter }} />
                   <img className="is-color" src={p.logo.color} alt="" />
                 </span>
                 {p.locked && <LockMark />}
