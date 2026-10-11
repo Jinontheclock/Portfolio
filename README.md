@@ -1,7 +1,7 @@
 # HAJIN — portfolio
 
 The personal portfolio of Hajin Lee, a product designer in Vancouver, BC.
-Five case studies in English, 日本語 and 한국어, with three of the projects
+Six case studies, with three of the projects
 running as live demos inside the site.
 
 Live: <https://hajin-lee.com>
@@ -42,7 +42,7 @@ whatever host the site is being deployed to.
 ## Building and deploying
 
 Every route exists as a real HTML file: the build writes one page per route
-and language — twenty-four in all — each with its own title, description,
+and enabled language — nine in English — each with its own title, description,
 canonical and hreflang set, because link unfurlers do not run JavaScript.
 The app takes over from there.
 

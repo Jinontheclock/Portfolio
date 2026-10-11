@@ -4,6 +4,7 @@ import welabSections from "./welab.sections.js";
 import prologSections from "./prolog.sections.js";
 import tinypawsSections from "./tinypaws.sections.js";
 import mujiSections from "./muji.sections.js";
+import hmartSections from "./hmart.sections.js";
 
 /* ── A project with its chapters ──
    index.js is the card: what the Work page needs, and what a case study
@@ -23,6 +24,7 @@ const SECTIONS = {
   prolog: prologSections,
   tinypaws: tinypawsSections,
   muji: mujiSections,
+  hmart: hmartSections,
 };
 
 export const PROJECTS_FULL = PROJECTS.map((p) => ({ ...p, sections: SECTIONS[p.id] ?? [] }));

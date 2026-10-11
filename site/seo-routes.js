@@ -44,9 +44,9 @@ export const ROUTES = [
     path: "work",
     title: "Work — HAJIN",
     description: {
-      en: "Five projects: a transit fare card concept for iOS and watchOS, a VFX studio's live site, an apprenticeship tracker, a rescue site, and retail work at MUJI.",
-      ja: "5つのプロジェクト。iOSとwatchOSの交通運賃カードのコンセプト、VFXスタジオの本番サイト、見習い課程の進捗管理、保護団体のサイト、そして無印良品でのリテール業務。",
-      ko: "다섯 개의 프로젝트. iOS·watchOS 교통 요금 카드 콘셉트, VFX 스튜디오 운영 사이트, 견습 과정 추적 앱, 구조 단체 사이트, 그리고 무인양품 리테일 업무.",
+      en: "Six projects: a transit fare card concept for iOS and watchOS, a VFX studio's live site, an apprenticeship tracker, a rescue site, and retail work at H Mart and MUJI.",
+      ja: "6つのプロジェクト。iOSとwatchOSの交通運賃カードのコンセプト、VFXスタジオの本番サイト、見習い課程の進捗管理、保護団体のサイト、そしてH Martと無印良品でのリテール業務。",
+      ko: "여섯 개의 프로젝트. iOS·watchOS 교통 요금 카드 콘셉트, VFX 스튜디오 운영 사이트, 견습 과정 추적 앱, 구조 단체 사이트, 그리고 H Mart와 무인양품 리테일 업무.",
     },
   },
   {
@@ -86,6 +86,14 @@ export const ROUTES = [
     },
   },
   {
+    path: "work/hmart",
+    title: "H Mart — HAJIN",
+    description: {
+      en: "Graphic design for H Mart across BC: in-store graphics, weekly flyers, and promotion designs for the website and social media.",
+    },
+    noindex: true,
+  },
+  {
     /* Locked behind a password, so it stays out of the sitemap — but a
        shared link should still say which project it is. Its card copy is
        English in every language, so the description is too. */
@@ -99,4 +107,4 @@ export const ROUTES = [
 ];
 
 /* Every project needs a route entry; this is the list to check against. */
-export const PROJECT_IDS = ["compass-card", "welab", "prolog", "tinypaws", "muji"];
+export const PROJECT_IDS = ["compass-card", "welab", "prolog", "tinypaws", "hmart", "muji"];

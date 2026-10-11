@@ -12,7 +12,7 @@
  * file exists — the landing page scrolled sideways at every tablet width
  * for as long as the footer had been written, and nothing said so.
  *
- * It also turns the Work stage through all five projects and opens the
+ * It also turns the Work stage through all projects and opens the
  * locked one's gate, because the two bugs found by hand this week were
  * both there: an overlay's stop un-scrolling the stage, and a veil drawn
  * inside a scrolling box riding up the screen with it.
@@ -26,7 +26,7 @@ import { chromium } from "playwright";
 const PORT = Number(process.env.PORT || 4430);
 const BASE = `http://127.0.0.1:${PORT}`;
 
-const ROUTES = ["/", "/work/", "/about/", "/work/compass-card/", "/work/welab/", "/work/prolog/", "/work/tinypaws/"];
+const ROUTES = ["/", "/work/", "/about/", "/work/compass-card/", "/work/welab/", "/work/prolog/", "/work/tinypaws/", "/work/hmart/", "/work/muji/"];
 /* a monitor, the 14", an iPad upright, a phone, and the narrow end of the
    phone tier that breakpoints.css names as its floor */
 const SIZES = [[1920, 1080], [1512, 982], [834, 1194], [390, 844], [320, 720]];
@@ -35,7 +35,7 @@ const failures = [];
 const fail = (where, what) => failures.push(`${where}: ${what}`);
 
 async function serve() {
-  const server = spawn("npx", ["vite", "preview", "--port", String(PORT), "--strictPort", "--base=/"], {
+  const server = spawn(process.execPath, ["node_modules/vite/bin/vite.js", "preview", "--host", "127.0.0.1", "--port", String(PORT), "--strictPort", "--base=/"], {
     stdio: "ignore",
     detached: false,
   });
@@ -85,6 +85,17 @@ try {
       try {
         await page.goto(BASE + route, { waitUntil: "load", timeout: 30000 });
         await settle(page);
+        if (route === "/work/hmart/") {
+          if (await page.locator(".cs-gate-overlay").count() !== 1) fail(where, "H Mart direct link is not gated");
+          if (await page.locator(".cs-intro").count()) fail(where, "H Mart content renders before unlock");
+          // Exercise the unlocked layout without putting a portfolio password in tests.
+          await page.evaluate(() => sessionStorage.setItem("cs-unlocked-hmart", "1"));
+          await page.reload({ waitUntil: "load" });
+          await settle(page);
+          if (await page.locator(".cs-gate-overlay").count()) fail(where, "H Mart session unlock was not restored");
+          if (await page.locator(".cs-split-chapters > li").count() !== 3) fail(where, "H Mart chapters missing");
+          if (!await page.locator(".cs-intro").innerText()) fail(where, "H Mart introduction missing");
+        }
         const probe = await page.evaluate(() => ({
           over: document.documentElement.scrollWidth - document.documentElement.clientWidth,
           broken: [...document.images]
@@ -101,7 +112,7 @@ try {
            gate goes up without the stage losing its place */
         if (route === "/work/" && w > 390) {
           const marks = await page.locator(".wk-index-item").count();
-          if (marks !== 5) fail(where, `index has ${marks} entries, expected 5`);
+          if (marks !== 6) fail(where, `index has ${marks} entries, expected 6`);
           for (let i = 0; i < marks; i++) {
             await page.locator(".wk-index-item").nth(i).click();
             await page.waitForTimeout(700);
@@ -109,6 +120,15 @@ try {
               () => [...document.querySelectorAll(".wk-section")].findIndex((el) => getComputedStyle(el).visibility === "visible"),
             );
             if (on !== i) fail(where, `turned to ${i}, stage shows ${on}`);
+            if (await page.locator("#wk-hmart").evaluate((el) => getComputedStyle(el).visibility === "visible")) {
+              await page.locator("#wk-hmart").click();
+              await page.waitForSelector(".cs-gate-overlay");
+              await page.locator('.cs-gate-field input').fill("incorrect-test-password");
+              await page.locator('.cs-gate-field button').click();
+              await page.waitForFunction(() => document.querySelector('.cs-gate-error')?.textContent.includes('Incorrect password'));
+              await page.keyboard.press("Escape");
+              await page.waitForSelector(".cs-gate-overlay", { state: "detached" });
+            }
           }
           /* MUJI is the locked one and is last. The stage is still
              easing to it when the last click returns, so the box is let
