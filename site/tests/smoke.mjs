@@ -93,7 +93,7 @@ try {
           await page.reload({ waitUntil: "load" });
           await settle(page);
           if (await page.locator(".cs-gate-overlay").count()) fail(where, "H Mart session unlock was not restored");
-          if (await page.locator(".cs-split-chapters > li").count() !== 3) fail(where, "H Mart chapters missing");
+          if (await page.locator(".cs-split-chapters > li, .cs-toc-chapter").count() !== 3) fail(where, "H Mart chapters missing");
           if (!await page.locator(".cs-intro").innerText()) fail(where, "H Mart introduction missing");
         }
         const probe = await page.evaluate(() => ({
