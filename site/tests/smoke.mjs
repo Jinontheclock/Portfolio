@@ -113,6 +113,7 @@ try {
         if (route === "/work/" && w > 390) {
           const marks = await page.locator(".wk-index-item").count();
           if (marks !== 6) fail(where, `index has ${marks} entries, expected 6`);
+          const initialStage = await page.locator(".wk-stage").boundingBox();
           for (let i = 0; i < marks; i++) {
             await page.locator(".wk-index-item").nth(i).click();
             await page.waitForTimeout(700);
@@ -120,6 +121,12 @@ try {
               () => [...document.querySelectorAll(".wk-section")].findIndex((el) => getComputedStyle(el).visibility === "visible"),
             );
             if (on !== i) fail(where, `turned to ${i}, stage shows ${on}`);
+            const stage = await page.locator(".wk-stage").boundingBox();
+            for (const dimension of ["x", "y", "width", "height"]) {
+              if (Math.abs(stage[dimension] - initialStage[dimension]) > 1) {
+                fail(where, `project ${i} changed card ${dimension} (${initialStage[dimension]} → ${stage[dimension]})`);
+              }
+            }
             if (await page.locator("#wk-hmart").evaluate((el) => getComputedStyle(el).visibility === "visible")) {
               await page.locator("#wk-hmart").click();
               await page.waitForSelector(".cs-gate-overlay");

@@ -24,6 +24,8 @@
   --wk-card-h: calc(100dvh * 600 / 982);
   --wk-card-title: clamp(28px, 2.646vw, 44px);
   --wk-card-text: clamp(14px, 1.19vw, 20px);
+  --wk-lock-size: 15px;
+  --wk-lock-gap: 10px;
   position: relative;
   height: 100dvh;
   display: grid;
@@ -77,14 +79,17 @@
    size and colour on the same clock, so the column reads as one mark
    growing rather than two swapping. A pointer over a waiting mark lends
    it its colour. The button is as wide as its mark will be when current,
-   so the column is set by the widest mark at its widest and holds still
-   while the marks change size. */
+   including the lock and its gap for protected projects, so the column
+   holds still while the marks change size. */
 .wk-index-item {
   all: unset;
   cursor: pointer;
   display: flex;
   align-items: center;
-  min-width: calc(var(--wk-logo-cur) * var(--wk-logo-scale, 1) * var(--wk-logo-ratio, 3));
+  min-width: calc(var(--wk-logo-cur) * var(--wk-logo-scale, 1) * var(--wk-logo-ratio, 3) + var(--wk-index-lock-space, 0px));
+}
+.wk-index-item:has(> .wk-lock) {
+  --wk-index-lock-space: calc(var(--wk-lock-size) + var(--wk-lock-gap));
 }
 .wk-logo {
   position: relative;
@@ -387,9 +392,10 @@
 
 /* ── Protected-project lock mark, in the index and in the card's title ── */
 .wk-lock {
-  width: 15px;
-  height: 15px;
-  margin-left: 10px;
+  width: var(--wk-lock-size);
+  height: var(--wk-lock-size);
+  margin-left: var(--wk-lock-gap);
+  flex-shrink: 0;
   vertical-align: baseline;
   color: currentColor;
   opacity: 0.5;
