@@ -1,5 +1,10 @@
 import logo from "../../assets/hmart/hmart-logo.png";
 
+// Crop only the transparent sides in the layout, keeping the source intact.
+const sourceWidth = 792;
+const leftInset = 51;
+const croppedWidth = sourceWidth - leftInset - 46;
+
 export default {
   id: "hmart",
   screen: true,
@@ -10,7 +15,12 @@ export default {
     color: logo,
     gray: logo,
     grayFilter: "grayscale(1) opacity(0.45)",
-    ratio: [792, 205],
+    ratio: [croppedWidth, 205],
+    imageStyle: {
+      maxWidth: "none",
+      width: `${(sourceWidth / croppedWidth) * 100}%`,
+      left: `${(-leftInset / croppedWidth) * 100}%`,
+    },
     scale: 1,
   },
   // Match MUJI's portfolio password; each project unlocks independently.

@@ -1234,7 +1234,16 @@ export default function CaseStudyPage({ lang, setLang, fadeClass = "" }) {
           <span className="cs-split-line" aria-hidden="true" ref={lineRef} />
           <h1 className="cs-split-brand">
             <button type="button" onClick={() => stage.jumpTo(0)}>
-              <img src={project.logo.color} alt={project.title} />
+              {project.logo.imageStyle ? (
+                <span
+                  className="cs-split-brand-crop"
+                  style={{ aspectRatio: project.logo.ratio[0] / project.logo.ratio[1] }}
+                >
+                  <img src={project.logo.color} alt={project.title} style={project.logo.imageStyle} />
+                </span>
+              ) : (
+                <img src={project.logo.color} alt={project.title} />
+              )}
             </button>
           </h1>
           <ol className="cs-split-chapters">

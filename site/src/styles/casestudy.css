@@ -1896,6 +1896,16 @@
   height: var(--cs-logo-h);
   width: auto;
 }
+.cs-split-brand-crop {
+  position: relative;
+  display: block;
+  height: var(--cs-logo-h);
+  overflow: hidden;
+}
+.cs-split-brand-crop > img {
+  position: absolute;
+  top: 0;
+}
 /* the chapters take the bar's full height, so a chapter's foot is the
    bar's foot and its subheadings hang from there */
 .cs-split-chapters {
