@@ -413,38 +413,15 @@
   .page-screen .ab-about .ab-hero {
     font-size: clamp(12px, 100cqi / 46.5, var(--size-body));
   }
-  /* Skills stands still: one step, not pushed up through the stage row
-     by row, so it is set to fit the stage — every row on one line, the
-     rows and the groups closer together than the column's own rhythm
-     — and set a little under the middle of the screen: centred in the
-     room, and moved up by half of what the room's top is further from
-     the screen's than its foot is, less 40px, which is what the margin
-     is. The page reads the margin back as room above the line. A
-     window too short for it even so has it pushed up through the stage
-     as before, so its foot can be read.
-
-     It is the text's track, closing on the margin, so its labels start
-     on the line the text of Experience and Education starts on, each
-     on one line, and its rows close on the margin, the longest of them
-     on it and the rest hanging from the same left edge. The labels and
-     the longest row together are some 45.4 times the size of the type
-     wide; where the track is narrower than that at the body's size —
-     a laptop — the block's type is set smaller to fit, from the track's
-     width, the 46 leaving it a little inside, and never under 12px: on
-     a screen too narrow for the block even at that, the block is as
-     wide as it needs at 12px instead, still on the margin, and its
-     labels start left of the text's line. Two columns, each as wide as
-     the widest thing in it: the labels' from the line, the rows' after
-     it by what the track has left over — which puts the longest row on
-     the margin where the type has been set to fit — up to 80px, past
-     which the rows stay by the labels and the margin goes unmet. The
-     groups stand further apart on a wider screen, by half the same
-     leftover, from 24px to 56. Every group's rows hang from the one
-     left edge. */
+  /* Skills shares the body size of Experience and Education. Keep its
+     labels on the same text track and wrap long descriptions within the
+     second column instead of shrinking the type to fit a single line.
+     The fit pass reduces spacing; the stage handles any remaining
+     vertical overflow on short windows. */
   .page-screen .ab-skills-section {
-    align-self: center;
+    align-self: safe center;
     margin-top: calc(var(--footer-h) * 3 - var(--index-line) + 80px);
-    width: max(var(--ab-text), 12px * 46 + 24px);
+    width: var(--ab-text);
     justify-self: end;
     grid-template-columns: minmax(0, 1fr);
     container-type: inline-size;
@@ -452,12 +429,12 @@
   .page-screen .ab-skills-section > .ab-skills {
     grid-column: 1;
     display: grid;
-    grid-template-columns: max-content max-content;
+    grid-template-columns: max-content minmax(0, 1fr);
     justify-content: start;
     align-items: start;
     column-gap: clamp(24px, 100cqi - 45.4em, 80px);
     row-gap: calc(clamp(24px, (100cqi - 45.4em) / 2, 56px) * var(--ab-fit, 1));
-    font-size: calc(clamp(12px, (100cqi - 24px) / 46, var(--size-body)) * var(--ab-fit, 1));
+    font-size: var(--size-body);
   }
   /* the groups are dissolved into the one grid, a label and its rows
      each a cell of it, so every group shares the two columns — a
@@ -476,7 +453,7 @@
     font-size: inherit;
     gap: calc(6px * var(--ab-fit, 1));
     line-height: 1.4;
-    white-space: nowrap;
+    white-space: normal;
   }
 }
 
@@ -561,19 +538,15 @@
 }
 
 /* ── The fit ──
-   On the stage a section that would run past the room's foot is set
-   smaller until it does not (the page finds each section's --ab-fit,
-   see AboutPage.jsx): its type and the gaps between its parts scale
-   together, so the section keeps its proportions and only its size
-   gives. Experience and Education here; Skills has the same, above.
-   Where nothing has to give, the variable is not set and these are the
-   sizes they always were. */
+   Compress spacing when a section is taller than the stage, while keeping
+   all three sections at the same body size. Remaining overflow is handled
+   by the stage's extra scroll steps (see AboutPage.jsx). */
 .page-screen .xp-list {
   gap: calc(64px * var(--ab-fit, 1));
 }
 .page-screen .xp-head,
 .page-screen .xp-desc {
-  font-size: calc(var(--size-body) * var(--ab-fit, 1));
+  font-size: var(--size-body);
 }
 .page-screen .xp-desc {
   margin-top: calc(20px * var(--ab-fit, 1));
@@ -739,7 +712,7 @@
      even so has it pushed up through the stage, so its foot can be
      read. */
   .page-screen .ab-skills-section {
-    align-self: center;
+    align-self: safe center;
     margin-top: calc(var(--header-h) - var(--index-line) + var(--footer-h) * 3);
   }
   /* one grid for all the groups, so every group's rows hang from the

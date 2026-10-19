@@ -514,23 +514,10 @@ export default function AboutPage({ lang, setLang, fadeClass = "" }) {
   }, [screen, lang]);
 
   /* ── The fit ──
-     Experience and Skills stand still: a section that would run past
-     the room's foot is set smaller until it does not, rather than pushed
-     up through the stage a step at a time. Each section's --ab-fit
-     scales its type and its gaps together (see about.css), found by
-     halving between the floor and 1 until the section's height is
-     within the room the stage measures for it (the same room
-     overflowOf below reads: the stage less the line, plus a margin the
-     section lifts by, less the foot). At 1 the variable is removed and
-     nothing is scaled, which is every section on a screen tall enough.
-
-     The floor keeps the type readable: under it, on a window shorter
-     than the sections at three quarters, the stage's step comes back
-     for what is left. Measured again whenever the stage's room changes —
-     the window, or the line, which moves with Skills' own height, so a
-     fit that moves Skills moves the line and the room and is measured
-     once more, and settles, the values being kept to hundredths and
-     left alone when they come out the same. */
+     Reduce each section's spacing until it fits the stage, keeping its
+     text at the shared body size. The floor preserves breathing room;
+     sections still taller than the available space use the stage's extra
+     scroll steps. Remeasure when the window or stage changes. */
   useLayoutEffect(() => {
     const stage = contentRef.current;
     if (!screen || !stage) return undefined;
